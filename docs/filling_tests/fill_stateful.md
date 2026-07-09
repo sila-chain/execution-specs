@@ -1,6 +1,6 @@
 # Filling Stateful Benchmark Fixtures
 
-The `fill-stateful` command produces `BlockchainEngineStatefulFixture` JSON for benchmark tests by driving block construction on a live EL client via `testing_buildBlockV1` against a pre-loaded network snapshot. The fixtures are replayed by [`benchmarkoor`](https://github.com/ethpandaops/benchmarkoor) against the same snapshot on any EL client. This replaces the gas-benchmarks MITMProxy approach.
+The `fill-stateful` command produces `BlockchainEngineStatefulFixture` JSON for benchmark tests by driving block construction on a live EL client via `testing_buildBlockV1` against a pre-loaded network snapshot. The fixtures are replayed by [`benchmarkoor`](https://github.com/silpandaops/benchmarkoor) against the same snapshot on any EL client. This replaces the gas-benchmarks MITMProxy approach.
 
 !!! note "When to use `fill-stateful`"
     Use the standard `fill` for t8n-based fixture generation. Use `fill-stateful` to run benchmarks in a stateful environment (e.g., perfnet, Kurtosis, or other snapshots) to observe how state size affects performance. Any test can be run using this command, but some benchmarks – like the ones under `tests/benchmark/stateful/` – only produce meaningful results in such environments.
@@ -13,10 +13,10 @@ The target client must expose:
 
 - `testing` (`testing_buildBlockV1`) — block construction with explicit transaction ordering.
 - `engine` — `engine_newPayloadVX`, `engine_forkchoiceUpdatedVX`.
-- `eth`, `debug` — chain queries and `debug_setHead` for between-test rewind.
+- `sil`, `debug` — chain queries and `debug_setHead` for between-test rewind.
 - `web3` (optional) — `web3_clientVersion` is recorded into the fixture's `_info.filling-transition-tool` for traceability.
 
-The production-ready filler is `ethpandaops/geth:master`.
+The production-ready filler is `ethpandaops/gsil:master`.
 
 ## End-to-end flow
 
@@ -27,33 +27,33 @@ For local development, a kurtosis enclave produces a synthetic snapshot:
 ```yaml
 # /tmp/fillst-kurtosis-args.yaml
 participants:
-  - el_type: geth
-    el_image: ethpandaops/geth:master
+  - el_type: gsil
+    el_image: silpandaops/gsil:master
     el_extra_params:
-      - "--http.api=admin,debug,eth,miner,net,txpool,web3,testing,engine"
+      - "--http.api=admin,debug,sil,miner,net,txpool,web3,testing,engine"
       - "--miner.gaslimit=1000000000000"
     cl_type: lodestar
 network_params:
   preset: minimal
   genesis_delay: 30
-  fulu_fork_epoch: 0
+  sila_fulu_fork_epoch: 0
   gas_limit: 1000000000000
-ethereum_genesis_generator_params:
-  image: "ethpandaops/ethereum-genesis-generator:5.3.5"
+sila_genesis_generator_params:
+  image: "ethpandaops/sila-genesis-generator:5.3.5"
 ```
 
 ```bash
-kurtosis run --enclave fillst /path/to/ethereum-package \
+kurtosis run --enclave fillst /path/to/sila-package \
     --args-file /tmp/fillst-kurtosis-args.yaml
 ```
 
 Drain a few blocks, stop CL then EL cleanly, extract the datadir + genesis bundle:
 
 ```bash
-docker stop -t 30 vc-1-geth-lodestar--... cl-1-lodestar-geth--...
-docker stop -t 60 el-1-geth-lodestar--...
-docker cp el-1-geth-lodestar--...:/data/geth/execution-data /tmp/multi-snap/geth/
-rm -f /tmp/multi-snap/geth/execution-data/geth/{LOCK,nodes/LOCK,chaindata/LOCK}
+docker stop -t 30 vc-1-gsil-lodestar--... cl-1-lodestar-gsil--...
+docker stop -t 60 el-1-gsil-lodestar--...
+docker cp el-1-gsil-lodestar--...:/data/gsil/execution-data /tmp/multi-snap/gsil/
+rm -f /tmp/multi-snap/gsil/execution-data/gsil/{LOCK,nodes/LOCK,chaindata/LOCK}
 kurtosis files download fillst el_cl_genesis_data /tmp/multi-snap/genesis
 kurtosis files download fillst jwt_file /tmp/fillst-out/jwt
 ```
@@ -65,17 +65,17 @@ For production benchmarking, use a perfnet / bloatnet snapshot instead.
 Keep the original snapshot pristine so `benchmarkoor` can reuse it on the replay side:
 
 ```bash
-cp -a /tmp/multi-snap/geth/execution-data /tmp/multi-snap/geth-fillcopy
+cp -a /tmp/multi-snap/gsil/execution-data /tmp/multi-snap/gsil-fillcopy
 
-docker run -d --name geth-fillcopy \
+docker run -d --name gsil-fillcopy \
   -p 18545:8545 -p 18551:8551 \
-  -v /tmp/multi-snap/geth-fillcopy:/datadir \
+  -v /tmp/multi-snap/gsil-fillcopy:/datadir \
   -v /tmp/multi-snap/genesis:/genesis:ro \
   -v /tmp/fillst-out/jwt:/jwt:ro \
-  ethpandaops/geth:master \
+  silpandaops/gsil:master \
   --datadir=/datadir --override.genesis=/genesis/genesis.json \
   --http --http.addr=0.0.0.0 --http.port=8545 \
-  --http.api=admin,debug,eth,miner,net,txpool,web3,testing,engine \
+  --http.api=admin,debug,sil,miner,net,txpool,web3,testing,engine \
   --authrpc.port=8551 --authrpc.addr=0.0.0.0 \
   --authrpc.jwtsecret=/jwt/jwtsecret \
   --syncmode=full --gcmode=archive \
@@ -100,7 +100,7 @@ uv run fill-stateful \
 
 ### 4. Replay
 
-Point `benchmarkoor`'s `datadirs.geth.source_dir` at the pristine snapshot (`/tmp/multi-snap/geth/execution-data`) — never at the fillcopy — and `tests.source.eest_fixtures.local_fixtures_dir` at the fill output. See the [benchmarkoor docs](https://github.com/ethpandaops/benchmarkoor) for the full config shape.
+Point `benchmarkoor`'s `datadirs.gsil.source_dir` at the pristine snapshot (`/tmp/multi-snap/gsil/execution-data`) — never at the fillcopy — and `tests.source.eest_fixtures.local_fixtures_dir` at the fill output. See the [benchmarkoor docs](https://github.com/silpandaops/benchmarkoor) for the full config shape.
 
 ## CLI options
 
@@ -117,7 +117,7 @@ Optional:
 - `--snapshot-block HASH_OR_NUMBER` — anchor to a specific block; accepts a 32-byte hash (recommended) or an integer block number (hex `0x...` or decimal). Defaults to the client's `latest`, recorded by hash.
 - `--rpc-seed-key 0x<64hex>` — pin the seed account for reproducible fills. When omitted, a random key is generated and funded via CL withdrawal each session.
 - `--address-stubs PATH` — JSON map of label → on-chain address (and optional pkey). Required by stub-dependent tests; see [Stub-dependent tests](#stub-dependent-tests) below.
-- `--max-gas-per-test INT` — overrides the fork's `transaction_gas_limit_cap()` (EIP-7825).
+- `--max-gas-per-test INT` — overrides the fork's `transaction_gas_limit_cap()` (SIP-7825).
 - `--gas-benchmark-values 10,30,...` — gas budgets in millions to parametrize against.
 - `--default-{gas-price,max-fee-per-gas,max-priority-fee-per-gas,max-fee-per-blob-gas}` — pin per-session fees; defaults bump live-query values by `1.5×`.
 - `--output PATH` — default `./fixtures`.
@@ -187,7 +187,7 @@ Both backends satisfy `FillerBackend` (`client_clis/filler_backend.py`). `Client
 | `plugins/fill_stateful/fill_stateful.py` | Session pre-run + `t8n`/`session_t8n` overrides; CLI options. |
 | `plugins/shared/live_client_flags.py` | Live-client flags + fee fixtures factored out of `execute/execute.py`. |
 | `plugins/execute/pre_alloc.py` | Reused `Alloc`; `pending_transactions()` drains the queue without sending. |
-| `plugins/execute/rpc/chain_builder_eth_rpc.py` | `fund_via_withdrawals` + `build_block_with_transactions` — return `EnginePayloadMetadata`. |
+| `plugins/execute/rpc/chain_builder_sil_rpc.py` | `fund_via_withdrawals` + `build_block_with_transactions` — return `EnginePayloadMetadata`. |
 | `client_clis/client_backend.py` | `ClientBackend`: builds via `testing_buildBlockV1`, advances via `engine_newPayload` + `forkchoiceUpdated` (SYNCING-retry). |
 | `specs/blockchain.py` | `make_stateful_fixture`, `payload_metadata_to_fixture`, `Block.phase`, `_split_blocks_by_phase`, `TestingBuildBlock`. |
 
@@ -210,7 +210,7 @@ Both backends satisfy `FillerBackend` (`client_clis/filler_backend.py`). `Client
     5. Write `pre_run/<start_block_hash>.json` (a `StatefulPreRunFixture`).
 2. **Per-test fill** (`make_stateful_fixture`):
     1. Materialise `pre.fund_eoa` / `pre.deploy_contract` queue into a synthetic setup block prepended to `self.blocks`.
-    2. `_split_blocks_by_phase` splits any mixed-phase blocks (e.g. EIP-7702 SETUP + benchmark TEST).
+    2. `_split_blocks_by_phase` splits any mixed-phase blocks (e.g. SIP-7702 SETUP + benchmark TEST).
     3. For each block, `ClientBackend.evaluate` builds + finalises it; payload partitioned by `Block.phase` into `setupEngineNewPayloads` vs `engineNewPayloads`.
     4. Write `<test>.json` (a `BlockchainEngineStatefulFixture`).
 3. **Per-test reset** (`_reset_chain_between_tests`): `debug_setHead(start_block.number)`, re-fetch `latest`, abort if hash drifted.
@@ -230,7 +230,7 @@ The client's `GetPayloadResponse` is recorded **verbatim**. Rebuilding from `Fix
 ### Replay (benchmarkoor)
 
 ```text
-pristine snapshot ───copy──▶ datadir ───▶ geth ───▶ benchmarkoor
+pristine snapshot ───copy──▶ datadir ───▶ gsil ───▶ benchmarkoor
                                                        │
                                                        ├── replay pre_run/<startBlockHash>.json
                                                        │   for each fixture's startBlockHash

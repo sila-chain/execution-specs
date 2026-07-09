@@ -926,7 +926,7 @@ def test_revert_precompiled_touch_exact_oog_paris(
         + Hash(addr_12, left_padding=True),
     ]
     # The original ported test uses gas_limit tuned for an exact-OOG
-    # boundary on the CALLCODE-to-precompile path. EIP-7976 bumps the
+    # boundary on the CALLCODE-to-precompile path. SIP-7976 bumps the
     # calldata floor cost per token from 10 to 16 (Amsterdam, with
     # 8037), which would push the floor above the tightest budget.
     # Shift gas_limit by the intrinsic delta so the same execution

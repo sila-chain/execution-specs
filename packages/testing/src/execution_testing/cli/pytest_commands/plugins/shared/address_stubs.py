@@ -13,20 +13,20 @@ from pydantic import model_validator
 
 from execution_testing.base_types import (
     Address,
-    EthereumTestBaseModel,
-    EthereumTestRootModel,
+    SilaTestBaseModel,
+    SilaTestRootModel,
     Hash,
 )
 from execution_testing.test_types import EOA
 
 
-class StubAddress(EthereumTestBaseModel):
+class StubAddress(SilaTestBaseModel):
     """A single stub entry with an address."""
 
     addr: Address
 
 
-class StubEOA(EthereumTestBaseModel):
+class StubEOA(SilaTestBaseModel):
     """A single stub EOA entry with an address and a private key."""
 
     addr: Address
@@ -43,7 +43,7 @@ class StubEOA(EthereumTestBaseModel):
         return self
 
 
-class AddressStubs(EthereumTestRootModel[Dict[str, StubAddress | StubEOA]]):
+class AddressStubs(SilaTestRootModel[Dict[str, StubAddress | StubEOA]]):
     """
     Address stubs class.
 

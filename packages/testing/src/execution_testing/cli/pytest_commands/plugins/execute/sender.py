@@ -77,14 +77,14 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 @pytest.fixture(scope="session")
 def sender_funding_transactions_gas_price(
     request: pytest.FixtureRequest,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
 ) -> int:
     """Get the gas price for the funding transactions."""
     gas_price: int | None = (
         request.config.option.sender_funding_transactions_gas_price
     )
     if gas_price is None:
-        network_gas_price = eth_rpc.gas_price()
+        network_gas_price = sil_rpc.gas_price()
         gas_price = int(network_gas_price * 1.5)
         logger.info(
             f"Using calculated gas price: {gas_price / 10**9:.9f} Gwei "
@@ -109,9 +109,9 @@ def seed_account_sweep_amount(request: pytest.FixtureRequest) -> int | None:
     """Get the seed account sweep amount."""
     sweep_amount = request.config.option.seed_account_sweep_amount
     if sweep_amount is not None:
-        sweep_eth = sweep_amount / 10**18
+        sweep_sil = sweep_amount / 10**18
         logger.info(
-            f"Using specified seed account sweep amount: {sweep_eth:.18f} ETH"
+            f"Using specified seed account sweep amount: {sweep_sil:.18f} SIL"
         )
     else:
         logger.info(
@@ -123,7 +123,7 @@ def seed_account_sweep_amount(request: pytest.FixtureRequest) -> int | None:
 @pytest.fixture(scope="session")
 def worker_key_funding_amount(
     seed_key: EOA,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     session_temp_folder: Path,
     worker_count: int,
     sender_funding_transactions_gas_price: int,
@@ -159,10 +159,10 @@ def worker_key_funding_amount(
         if base_file.exists():
             # Some other worker already did this for us, use that value.
             cached_amount = int(base_file.read_text())
-            cached_eth = cached_amount / 10**18
+            cached_sil = cached_amount / 10**18
             logger.info(
                 f"Using cached worker key funding amount: "
-                f"{cached_eth:.18f} ETH"
+                f"{cached_sil:.18f} SIL"
             )
             return cached_amount
 
@@ -171,7 +171,7 @@ def worker_key_funding_amount(
             seed_account_sweep_amount
             if seed_account_sweep_amount is not None
             # No sweep amount specified, sweep the entire balance.
-            else eth_rpc.get_balance(seed_key)
+            else sil_rpc.get_balance(seed_key)
         )
         amount_source = (
             "Specified sweep amount"
@@ -179,7 +179,7 @@ def worker_key_funding_amount(
             else "Seed account balance"
         )
         logger.info(
-            f"{amount_source}: {available_amount / 10**18:.18f} ETH, "
+            f"{amount_source}: {available_amount / 10**18:.18f} SIL, "
             f"distributing across {worker_count} workers"
         )
         seed_sender_balance_per_worker = available_amount // worker_count
@@ -188,10 +188,10 @@ def worker_key_funding_amount(
             sender_fund_refund_gas_limit
             * sender_funding_transactions_gas_price
         )
-        tx_cost_eth = funding_tx_cost / 10**18
+        tx_cost_sil = funding_tx_cost / 10**18
         gas_gwei = sender_funding_transactions_gas_price / 10**9
         logger.info(
-            f"Funding transaction cost: {tx_cost_eth:.18f} ETH "
+            f"Funding transaction cost: {tx_cost_sil:.18f} SIL "
             f"(gas_limit={sender_fund_refund_gas_limit}, "
             f"gas_price={gas_gwei:.9f} Gwei)"
         )
@@ -201,31 +201,31 @@ def worker_key_funding_amount(
             seed_sender_balance_per_worker - funding_tx_cost
         )
         if worker_key_funding_amount <= 0:
-            avail_eth = available_amount / 10**18
-            fund_cost_eth = funding_tx_cost / 10**18
+            avail_sil = available_amount / 10**18
+            fund_cost_sil = funding_tx_cost / 10**18
             logger.error(
                 f"{amount_source} is too low to distribute to "
-                f"{worker_count} workers. Available: {avail_eth:.6f} ETH, "
-                f"Funding cost: {fund_cost_eth:.6f} ETH"
+                f"{worker_count} workers. Available: {avail_sil:.6f} SIL, "
+                f"Funding cost: {fund_cost_sil:.6f} SIL"
             )
             raise AssertionError(
                 f"""
                 {amount_source} is too low to distribute to the
                 specified number of workers ({worker_count}).
-                {available_amount / 10**18:.6f} ETH,
+                {available_amount / 10**18:.6f} SIL,
                 when distributed across all workers, and subtracting the
                 funding transaction cost
-                ({funding_tx_cost / 10**18:.6f} ETH), results in a zero or
+                ({funding_tx_cost / 10**18:.6f} SIL), results in a zero or
                 negative value.
                 """
             )
-        wk_fund_eth = worker_key_funding_amount / 10**18
-        per_worker_eth = seed_sender_balance_per_worker / 10**18
-        tx_cost_eth = funding_tx_cost / 10**18
+        wk_fund_sil = worker_key_funding_amount / 10**18
+        per_worker_sil = seed_sender_balance_per_worker / 10**18
+        tx_cost_sil = funding_tx_cost / 10**18
         logger.info(
-            f"Calculated worker key funding amount: {wk_fund_eth:.18f} ETH "
-            f"({per_worker_eth:.18f} ETH per worker - "
-            f"{tx_cost_eth:.18f} ETH transaction cost)"
+            f"Calculated worker key funding amount: {wk_fund_sil:.18f} SIL "
+            f"({per_worker_sil:.18f} SIL per worker - "
+            f"{tx_cost_sil:.18f} SIL transaction cost)"
         )
         # Write the value to the file for the rest of the workers to use.
         base_file.write_text(str(worker_key_funding_amount))
@@ -239,7 +239,7 @@ def session_worker_key(
     worker_count: int,
     worker_key_funding_amount: int | None,
     eoa_iterator: Iterator[EOA],
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     session_temp_folder: Path,
     sender_funding_transactions_gas_price: int,
     sender_fund_refund_gas_limit: int,
@@ -257,14 +257,14 @@ def session_worker_key(
     """
     if worker_count <= 1:
         logger.info("Not running tests in parallel, using seed key directly")
-        starting_balance = eth_rpc.get_balance(seed_key)
+        starting_balance = sil_rpc.get_balance(seed_key)
         yield seed_key
 
-        remaining_balance = eth_rpc.get_balance(seed_key)
+        remaining_balance = sil_rpc.get_balance(seed_key)
         used_balance = starting_balance - remaining_balance
         logger.info(
-            f"Seed {seed_key} used balance: {used_balance / 10**18:.18f} ETH "
-            f"(remaining: {remaining_balance / 10**18:.18f} ETH)"
+            f"Seed {seed_key} used balance: {used_balance / 10**18:.18f} SIL "
+            f"(remaining: {remaining_balance / 10**18:.18f} SIL)"
         )
         request.config.stash[metadata_key]["Senders"][str(seed_key)] = (
             f"Used balance={used_balance / 10**18:.18f}"
@@ -315,7 +315,7 @@ def session_worker_key(
                 fund_txs.append(fund_tx)
 
             if not dry_run:
-                eth_rpc.send_wait_transactions(fund_txs)
+                sil_rpc.send_wait_transactions(fund_txs)
                 logger.info("All worker funding transactions confirmed")
             else:
                 logger.info("Dry run: skipping funding transaction send")
@@ -344,12 +344,12 @@ def session_worker_key(
     logger.info(
         f"All tests completed for worker {worker_key}, preparing refund"
     )
-    worker_account = eth_rpc.get_account(worker_key, skip_code=True)
+    worker_account = sil_rpc.get_account(worker_key, skip_code=True)
     remaining_balance = worker_account.balance
     used_balance = worker_key_funding_amount - remaining_balance
     logger.info(
-        f"Worker {worker_key} used balance: {used_balance / 10**18:.18f} ETH "
-        f"(remaining: {remaining_balance / 10**18:.18f} ETH)"
+        f"Worker {worker_key} used balance: {used_balance / 10**18:.18f} SIL "
+        f"(remaining: {remaining_balance / 10**18:.18f} SIL)"
     )
     request.config.stash[metadata_key]["Senders"][str(worker_key)] = (
         f"Used balance={used_balance / 10**18:.18f}"
@@ -360,18 +360,18 @@ def session_worker_key(
     # any other transaction that might have been sent by the sender.
     refund_gas_price = sender_funding_transactions_gas_price * 2
     tx_cost = refund_gas_limit * refund_gas_price
-    tx_cost_eth = tx_cost / 10**18
+    tx_cost_sil = tx_cost / 10**18
     gas_gwei = refund_gas_price / 10**9
     logger.debug(
-        f"Refund transaction cost: {tx_cost_eth:.18f} ETH "
+        f"Refund transaction cost: {tx_cost_sil:.18f} SIL "
         f"(gas_limit={refund_gas_limit}, gas_price={gas_gwei:.9f} Gwei)"
     )
 
     if (remaining_balance - 1) < tx_cost:
-        rem_eth = remaining_balance / 10**18
+        rem_sil = remaining_balance / 10**18
         logger.warning(
-            f"Insufficient balance for refund: {rem_eth:.18f} ETH < "
-            f"{tx_cost_eth:.18f} ETH (transaction cost). Skipping refund."
+            f"Insufficient balance for refund: {rem_sil:.18f} SIL < "
+            f"{tx_cost_sil:.18f} SIL (transaction cost). Skipping refund."
         )
         return
 
@@ -380,7 +380,7 @@ def session_worker_key(
     worker_key.nonce = worker_account.nonce
     refund_value = remaining_balance - tx_cost - 1
     logger.info(
-        f"Preparing refund transaction: {refund_value / 10**18:.18f} ETH "
+        f"Preparing refund transaction: {refund_value / 10**18:.18f} SIL "
         f"from {worker_key} to {seed_key} (nonce={worker_key.nonce})"
     )
 
@@ -402,11 +402,11 @@ def session_worker_key(
     logger.info(
         f"Sending and waiting for refund transaction: {refund_tx.hash}"
     )
-    eth_rpc.send_wait_transactions([refund_tx])
+    sil_rpc.send_wait_transactions([refund_tx])
     logger.info(f"Refund transaction confirmed: {refund_tx.hash}")
 
 
-def sync_worker_key_nonce(eth_rpc: EthRPC, session_worker_key: EOA) -> Account:
+def sync_worker_key_nonce(sil_rpc: EthRPC, session_worker_key: EOA) -> Account:
     """
     Synchronize the worker key nonce with the on-chain nonce.
 
@@ -417,12 +417,12 @@ def sync_worker_key_nonce(eth_rpc: EthRPC, session_worker_key: EOA) -> Account:
     Return the fetched account for further use.
     """
     try:
-        session_worker_account = eth_rpc.get_account(
+        session_worker_account = sil_rpc.get_account(
             session_worker_key, block_number="latest", skip_code=True
         )
     except JSONRPCError:
         logger.debug("Latest state not available, falling back to pending")
-        session_worker_account = eth_rpc.get_account(
+        session_worker_account = sil_rpc.get_account(
             session_worker_key, block_number="pending", skip_code=True
         )
     rpc_nonce = Number(session_worker_account.nonce)
@@ -436,30 +436,30 @@ def sync_worker_key_nonce(eth_rpc: EthRPC, session_worker_key: EOA) -> Account:
 
 @pytest.fixture(scope="function")
 def worker_key(
-    eth_rpc: EthRPC, session_worker_key: EOA
+    sil_rpc: EthRPC, session_worker_key: EOA
 ) -> Generator[EOA, None, None]:
     """Prepare the worker key for the current test."""
     logger.debug(f"Preparing worker key {session_worker_key} for test")
-    session_worker_account = sync_worker_key_nonce(eth_rpc, session_worker_key)
+    session_worker_account = sync_worker_key_nonce(sil_rpc, session_worker_key)
 
     # Record the start balance of the worker key
     worker_key_start_balance = session_worker_account.balance
-    start_eth = worker_key_start_balance / 10**18
-    logger.debug(f"Worker key start balance: {start_eth:.18f} ETH")
+    start_sil = worker_key_start_balance / 10**18
+    logger.debug(f"Worker key start balance: {start_sil:.18f} SIL")
 
     yield session_worker_key
 
     logger.debug(
         f"Test completed, checking worker key {session_worker_key} balance"
     )
-    final_balance = eth_rpc.get_balance(session_worker_key)
+    final_balance = sil_rpc.get_balance(session_worker_key)
     used_balance = worker_key_start_balance - final_balance
-    used_eth = used_balance / 10**18
-    start_eth = worker_key_start_balance / 10**18
-    final_eth = final_balance / 10**18
+    used_sil = used_balance / 10**18
+    start_sil = worker_key_start_balance / 10**18
+    final_sil = final_balance / 10**18
     logger.info(
-        f"Worker key {session_worker_key} used balance: {used_eth:.18f} ETH "
-        f"(start: {start_eth:.18f} ETH, final: {final_eth:.18f} ETH)"
+        f"Worker key {session_worker_key} used balance: {used_sil:.18f} SIL "
+        f"(start: {start_sil:.18f} SIL, final: {final_sil:.18f} SIL)"
     )
 
 

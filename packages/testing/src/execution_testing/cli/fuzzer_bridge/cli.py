@@ -17,7 +17,7 @@ from rich.progress import (
 )
 
 from execution_testing.client_clis import (
-    GethTransitionTool,
+    GsilTransitionTool,
     TransitionTool,
 )
 
@@ -117,7 +117,7 @@ def process_single_file_worker(
 
     # Create transition tool and builder for this worker
     t8n = (
-        GethTransitionTool(binary=evm_bin) if evm_bin else GethTransitionTool()
+        GsilTransitionTool(binary=evm_bin) if evm_bin else GsilTransitionTool()
     )
     builder = BlocktestBuilder(t8n)
 
@@ -177,7 +177,7 @@ def process_file_batch(
     """Process a batch of files in a worker process."""
     # Create transition tool per worker
     t8n = (
-        GethTransitionTool(binary=evm_bin) if evm_bin else GethTransitionTool()
+        GsilTransitionTool(binary=evm_bin) if evm_bin else GsilTransitionTool()
     )
     builder = BlocktestBuilder(t8n)
 
@@ -516,9 +516,9 @@ def batch_mode(
     # Pre-initialize transition tool and builder once for performance
     t8n: TransitionTool
     if evm_bin:
-        t8n = GethTransitionTool(binary=evm_bin)
+        t8n = GsilTransitionTool(binary=evm_bin)
     else:
-        t8n = GethTransitionTool()
+        t8n = GsilTransitionTool()
 
     builder = BlocktestBuilder(t8n)
 
@@ -752,9 +752,9 @@ def main(
     # Create transition tool
     t8n: TransitionTool
     if evm_bin:
-        t8n = GethTransitionTool(binary=evm_bin)
+        t8n = GsilTransitionTool(binary=evm_bin)
     else:
-        t8n = GethTransitionTool()
+        t8n = GsilTransitionTool()
 
     # Create builder
     builder = BlocktestBuilder(t8n)

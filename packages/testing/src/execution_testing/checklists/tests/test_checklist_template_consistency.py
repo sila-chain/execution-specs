@@ -1,4 +1,4 @@
-"""Test consistency between checklist template and EIPChecklist class."""
+"""Test consistency between checklist template and SIPChecklist class."""
 
 import re
 from pathlib import Path
@@ -6,14 +6,14 @@ from typing import Any, Set
 
 import pytest
 
-from execution_testing.checklists.eip_checklist import EIPChecklist
+from execution_testing.checklists.sip_checklist import SIPChecklist
 
 TEMPLATE_PATH = (
     Path(__file__).parents[6]
     / "docs"
     / "writing_tests"
     / "checklist_templates"
-    / "eip_testing_checklist_template.md"
+    / "sip_testing_checklist_template.md"
 )
 
 
@@ -34,7 +34,7 @@ def extract_markdown_ids(markdown_content: str) -> Set[str]:
 
 def get_all_checklist_ids(obj: Any) -> Set[str]:
     """
-    Recursively extract all checklist IDs from EIPChecklist and its children.
+    Recursively extract all checklist IDs from SIPChecklist and its children.
     """
     ids = set()
 
@@ -62,7 +62,7 @@ def get_all_checklist_ids(obj: Any) -> Set[str]:
 
 def test_checklist_template_consistency() -> None:
     """
-    Test that all IDs in markdown template match EIPChecklist class exactly.
+    Test that all IDs in markdown template match SIPChecklist class exactly.
     """
     # Read the markdown template
     with open(TEMPLATE_PATH, "r", encoding="utf-8") as f:
@@ -70,7 +70,7 @@ def test_checklist_template_consistency() -> None:
 
     # Extract IDs from both sources
     markdown_ids = extract_markdown_ids(markdown_content)
-    checklist_ids = get_all_checklist_ids(EIPChecklist)
+    checklist_ids = get_all_checklist_ids(SIPChecklist)
 
     # Find differences
     missing_in_checklist = markdown_ids - checklist_ids
@@ -81,7 +81,7 @@ def test_checklist_template_consistency() -> None:
 
     if missing_in_checklist:
         errors.append(
-            f"IDs found in markdown template but missing in EIPChecklist "
+            f"IDs found in markdown template but missing in SIPChecklist "
             f"class ({len(missing_in_checklist)} items):\n"
             + "\n".join(f"  - `{id_}`" for id_ in sorted(missing_in_checklist))
         )
@@ -107,25 +107,25 @@ def test_checklist_template_exists() -> None:
     )
 
 
-def test_eip_checklist_class_structure() -> None:
-    """Test that the EIPChecklist class has expected structure."""
-    assert hasattr(EIPChecklist, "General"), (
-        "EIPChecklist should have General class"
+def test_sip_checklist_class_structure() -> None:
+    """Test that the SIPChecklist class has expected structure."""
+    assert hasattr(SIPChecklist, "General"), (
+        "SIPChecklist should have General class"
     )
-    assert hasattr(EIPChecklist, "Opcode"), (
-        "EIPChecklist should have Opcode class"
+    assert hasattr(SIPChecklist, "Opcode"), (
+        "SIPChecklist should have Opcode class"
     )
-    assert hasattr(EIPChecklist, "Precompile"), (
-        "EIPChecklist should have Precompile class"
+    assert hasattr(SIPChecklist, "Precompile"), (
+        "SIPChecklist should have Precompile class"
     )
 
     # Test that the metaclass is working correctly
     assert (
-        str(EIPChecklist.General.CodeCoverage.Eels)
+        str(SIPChecklist.General.CodeCoverage.Eels)
         == "general/code_coverage/eels"
     )
     assert (
-        str(EIPChecklist.Opcode.Test.MemExp.ZeroBytesZeroOffset)
+        str(SIPChecklist.Opcode.Test.MemExp.ZeroBytesZeroOffset)
         == "opcode/test/mem_exp/zero_bytes_zero_offset"
     )
 
@@ -144,48 +144,48 @@ def test_id_extraction_functions() -> None:
     assert "another/test/path" in ids
 
     # Test checklist extraction
-    checklist_ids = get_all_checklist_ids(EIPChecklist)
+    checklist_ids = get_all_checklist_ids(SIPChecklist)
     assert len(checklist_ids) > 0
     assert "general/code_coverage/eels" in checklist_ids
 
 
-def test_eip_checklist_decorator_usage() -> None:
+def test_sip_checklist_decorator_usage() -> None:
     """
-    Test EIPChecklist items work correctly as decorators both with and without
+    Test SIPChecklist items work correctly as decorators both with and without
     parentheses.
     """
 
     # Test decorator with parentheses
-    @EIPChecklist.Opcode.Test.StackComplexOperations()
+    @SIPChecklist.Opcode.Test.StackComplexOperations()
     def test_function_with_parens() -> None:
         pass
 
     # Verify the marker was applied
     markers = list(test_function_with_parens.pytestmark)  # type: ignore[attr-defined]
     assert len(markers) >= 1
-    eip_markers = [m for m in markers if m.name == "eip_checklist"]
-    assert len(eip_markers) == 1
-    assert eip_markers[0].args == ("opcode/test/stack_complex_operations",)
+    sip_markers = [m for m in markers if m.name == "sip_checklist"]
+    assert len(sip_markers) == 1
+    assert sip_markers[0].args == ("opcode/test/stack_complex_operations",)
 
     # Test decorator without parentheses (direct usage - this is the key fix
     # for issue #1)
-    @EIPChecklist.Opcode.Test.StackOverflow
+    @SIPChecklist.Opcode.Test.StackOverflow
     def test_function_no_parens() -> None:
         pass
 
     # Verify the marker was applied
     markers = list(test_function_no_parens.pytestmark)  # type: ignore[attr-defined]
-    eip_markers = [m for m in markers if m.name == "eip_checklist"]
-    assert len(eip_markers) == 1
-    assert eip_markers[0].args == ("opcode/test/stack_overflow",)
+    sip_markers = [m for m in markers if m.name == "sip_checklist"]
+    assert len(sip_markers) == 1
+    assert sip_markers[0].args == ("opcode/test/stack_overflow",)
 
 
-def test_eip_checklist_pytest_param_usage() -> None:
-    """Test that EIPChecklist works correctly in pytest.param marks."""
+def test_sip_checklist_pytest_param_usage() -> None:
+    """Test that SIPChecklist works correctly in pytest.param marks."""
     # Test that parentheses form works in pytest.param
     param_with_parens = pytest.param(
         "test_value",
-        marks=EIPChecklist.Opcode.Test.GasUsage.Normal(),
+        marks=SIPChecklist.Opcode.Test.GasUsage.Normal(),
         id="gas_test",
     )
 
@@ -193,14 +193,14 @@ def test_eip_checklist_pytest_param_usage() -> None:
     assert param_with_parens.values == ("test_value",)
     assert param_with_parens.id == "gas_test"
     assert len(param_with_parens.marks) == 1
-    assert param_with_parens.marks[0].name == "eip_checklist"  # type: ignore[index]
+    assert param_with_parens.marks[0].name == "sip_checklist"  # type: ignore[index]
     assert param_with_parens.marks[0].args == ("opcode/test/gas_usage/normal",)  # type: ignore[index]
 
     # Test that multiple marks work
     param_multiple_marks = pytest.param(
         "test_value",
         marks=[
-            EIPChecklist.Opcode.Test.StackComplexOperations(),  # type: ignore[list-item]
+            SIPChecklist.Opcode.Test.StackComplexOperations(),  # type: ignore[list-item]
             pytest.mark.slow,
         ],
         id="complex_test",
@@ -208,10 +208,10 @@ def test_eip_checklist_pytest_param_usage() -> None:
 
     # Verify multiple marks
     assert len(param_multiple_marks.marks) == 2
-    eip_mark = next(
-        m for m in param_multiple_marks.marks if m.name == "eip_checklist"
+    sip_mark = next(
+        m for m in param_multiple_marks.marks if m.name == "sip_checklist"
     )
-    assert eip_mark.args == ("opcode/test/stack_complex_operations",)
+    assert sip_mark.args == ("opcode/test/stack_complex_operations",)
 
     # Test that non-parentheses form fails gracefully with pytest.param
     # (This documents the expected behavior - parentheses are required)
@@ -219,6 +219,6 @@ def test_eip_checklist_pytest_param_usage() -> None:
         pytest.param(
             "test_value",
             # Without () should fail
-            marks=EIPChecklist.Opcode.Test.StackOverflow,  # type: ignore[arg-type]
+            marks=SIPChecklist.Opcode.Test.StackOverflow,  # type: ignore[arg-type]
             id="should_fail",
         )

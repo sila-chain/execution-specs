@@ -7,20 +7,20 @@ from execution_testing.client_clis.clis.besu import BesuExceptionMapper
 from execution_testing.client_clis.clis.erigon import (
     ErigonExceptionMapper,
 )
-from execution_testing.client_clis.clis.ethereumjs import (
-    EthereumJSExceptionMapper,
+from execution_testing.client_clis.clis.silajs import (
+    SilaJSExceptionMapper,
 )
-from execution_testing.client_clis.clis.ethrex import (
-    EthrexExceptionMapper,
+from execution_testing.client_clis.clis.silrex import (
+    SilrexExceptionMapper,
 )
-from execution_testing.client_clis.clis.geth import GethExceptionMapper
+from execution_testing.client_clis.clis.gsil import GsilExceptionMapper
 from execution_testing.client_clis.clis.nethermind import (
     NethermindExceptionMapper,
 )
 from execution_testing.client_clis.clis.nimbus import (
     NimbusExceptionMapper,
 )
-from execution_testing.client_clis.clis.reth import RethExceptionMapper
+from execution_testing.client_clis.clis.rsil import RsilExceptionMapper
 from execution_testing.exceptions import ExceptionMapper
 from execution_testing.fixtures.blockchain import FixtureHeader
 from execution_testing.logging import get_logger
@@ -106,12 +106,12 @@ class GenesisBlockMismatchExceptionError(Exception):
 
 
 EXCEPTION_MAPPERS: Dict[str, ExceptionMapper] = {
-    "go-ethereum": GethExceptionMapper(),
+    "go-sila": GsilExceptionMapper(),
     "nethermind": NethermindExceptionMapper(),
     "erigon": ErigonExceptionMapper(),
     "besu": BesuExceptionMapper(),
-    "reth": RethExceptionMapper(),
+    "rsil": RsilExceptionMapper(),
     "nimbus": NimbusExceptionMapper(),
-    "ethereumjs": EthereumJSExceptionMapper(),
-    "ethrex": EthrexExceptionMapper(),
+    "silajs": SilaJSExceptionMapper(),
+    "silrex": SilrexExceptionMapper(),
 }

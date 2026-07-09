@@ -15,7 +15,7 @@ from .file import Fixtures
 
 
 class FixtureConsumer(ABC):
-    """Abstract class for verifying Ethereum test fixtures."""
+    """Abstract class for verifying Sila test fixtures."""
 
     fixture_formats: List[FixtureFormat]
 

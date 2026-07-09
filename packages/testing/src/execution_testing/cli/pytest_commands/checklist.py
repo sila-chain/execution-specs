@@ -47,11 +47,11 @@ def _last_development_fork() -> str | None:
     help="Directory to output checklists (default: ./checklists)",
 )
 @click.option(
-    "--eip",
+    "--sip",
     "-e",
     type=int,
     multiple=True,
-    help="Generate checklist only for specific EIP(s)",
+    help="Generate checklist only for specific SIP(s)",
 )
 @click.option(
     "--until",
@@ -63,31 +63,31 @@ def _last_development_fork() -> str | None:
 def checklist(
     paths: tuple[str, ...],
     output: str,
-    eip: tuple[int, ...],
+    sip: tuple[int, ...],
     until: str | None,
     **kwargs: Any,
 ) -> None:
     """
-    Generate EIP test checklists based on pytest.mark.eip_checklist markers.
+    Generate SIP test checklists based on pytest.mark.sip_checklist markers.
 
-    This command scans test files for eip_checklist markers and generates
+    This command scans test files for sip_checklist markers and generates
     filled checklists showing which checklist items have been implemented.
 
     By default it scans `tests` plus `tests/benchmark`; pass one or more
     paths to limit collection to a subset.
 
     By default, includes all development forks so that checklists for
-    upcoming EIPs are generated without needing --until.
+    upcoming SIPs are generated without needing --until.
 
     Examples:
-        # Generate checklists for all EIPs (default: tests + tests/benchmark)
+        # Generate checklists for all SIPs (default: tests + tests/benchmark)
         uv run checklist
 
-        # Generate checklist for specific EIP
-        uv run checklist --eip 7702
+        # Generate checklist for specific SIP
+        uv run checklist --sip 7702
 
         # Generate checklists for a specific test path
-        uv run checklist tests/prague/eip7702_set_code_tx
+        uv run checklist tests/prague/sip7702_set_code_tx
 
         # Generate until a specific fork
         uv run checklist --until Prague
@@ -101,12 +101,12 @@ def checklist(
     # Add output directory to pytest args
     args = ["--checklist-output", output]
 
-    # Add EIP filter if specified
-    for eip_num in eip:
-        args.extend(["--checklist-eip", str(eip_num)])
+    # Add SIP filter if specified
+    for sip_num in sip:
+        args.extend(["--checklist-sip", str(sip_num)])
 
     # Default --until to the last development fork so checklists for
-    # upcoming EIPs are generated without requiring the flag explicitly.
+    # upcoming SIPs are generated without requiring the flag explicitly.
     if until is None:
         until = _last_development_fork()
     if until:
@@ -124,7 +124,7 @@ def checklist(
 
     command = ChecklistCommand(
         plugins=[
-            "execution_testing.cli.pytest_commands.plugins.filler.eip_checklist"
+            "execution_testing.cli.pytest_commands.plugins.filler.sip_checklist"
         ],
     )
     command.execute(args)

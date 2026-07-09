@@ -23,7 +23,7 @@ assignees: ''
     Link to documentation describing the correct behavior. Good sources include (but aren't limited to):
         * Yellow Paper
         * Client Source Code (preferably examples from multiple clients)
-        * Ethereum Improvement Proposals
+        * Sila Improvement Proposals
 -->
 
 ### Additional Context

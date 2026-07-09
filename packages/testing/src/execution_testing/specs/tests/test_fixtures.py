@@ -147,7 +147,7 @@ def test_fill_state_test(
     tx_type: TransactionType,
     default_t8n: TransitionTool,
 ) -> None:
-    """Test `ethereum_test.filler.fill_fixtures` with `StateTest`."""
+    """Test `sila_test.filler.fill_fixtures` with `StateTest`."""
     env = Environment(
         fee_recipient="0x2adc25665018aa1fe0e6bc666dac8fc2697ff9ba",
         difficulty=0x20000,
@@ -593,7 +593,7 @@ class TestFillBlockchainValidTxs:
         new_difficulty = block.header.difficulty - 1  # type: ignore
 
         new_state_root = Hash(12345)
-        # See description of https://github.com/ethereum/execution-spec-tests/pull/398
+        # See description of https://github.com/sila/execution-spec-tests/pull/398
         new_transactions_root = 0x100
         header_new_fields = Header(
             difficulty=new_difficulty,
@@ -624,7 +624,7 @@ def test_fill_blockchain_invalid_txs(
     expected_json_file: str,
     default_t8n: TransitionTool,
 ) -> None:
-    """Test `ethereum_test.filler.fill_fixtures` with `BlockchainTest`."""
+    """Test `sila_test.filler.fill_fixtures` with `BlockchainTest`."""
     pre = {
         "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b": Account(
             balance=0x1000000000000000000

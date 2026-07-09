@@ -1,8 +1,8 @@
 """
-A request manager for Ethereum RPC calls.
+A request manager for Sila RPC calls.
 
 The RequestManager handles transactions and block data retrieval from a remote
-Ethereum node, utilizing Pydantic models to define the structure of
+Sila node, utilizing Pydantic models to define the structure of
 transactions and blocks.
 
 Classes:
@@ -37,7 +37,7 @@ class RPCRequest:
         self.rpc = EthRPC(node_config.node_url, extra_headers=headers)
         self.debug_rpc = DebugRPC(node_config.node_url, extra_headers=headers)
 
-    def eth_get_transaction_by_hash(
+    def sil_get_transaction_by_hash(
         self, transaction_hash: Hash
     ) -> TransactionByHashResponse:
         """Get transaction data."""
@@ -50,7 +50,7 @@ class RPCRequest:
 
         return res
 
-    def eth_get_block_by_number(
+    def sil_get_block_by_number(
         self, block_number: BlockNumberType
     ) -> Environment:
         """Get block by number."""

@@ -43,7 +43,7 @@ def generate_github_url(
 ) -> str:
     """Generate a permalink to a source file in Github."""
     base_url = "https://github.com"
-    username = "ethereum"
+    username = "sila"
     repository = "execution-specs"
     if line_number:
         line_number = f"#L{line_number}"

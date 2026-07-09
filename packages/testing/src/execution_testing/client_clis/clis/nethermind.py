@@ -20,12 +20,12 @@ from execution_testing.fixtures import (
     StateFixture,
 )
 
-from ..ethereum_cli import EthereumCLI
+from ..sila_cli import SilaCLI
 from ..file_utils import dump_files_to_directory
 from ..fixture_consumer_tool import FixtureConsumerTool
 
 
-class Nethtest(EthereumCLI):
+class Nethtest(SilaCLI):
     """Nethermind `nethtest` binary base class."""
 
     default_binary = Path("nethtest")
@@ -202,14 +202,14 @@ class NethtestFixtureConsumer(
         )
 
         if fixture_name:
-            # TODO: this check is too fragile; extend for ethereum/tests?
+            # TODO: this check is too fragile; extend for sila/tests?
             nethtest_suffix = "_d0g0v0_"
             assert all(
                 test_result["name"].endswith(nethtest_suffix)
                 for test_result in file_results
             ), (
                 "consume direct with nethtest doesn't support the "
-                "multi-data statetest format used in ethereum/tests (yet)"
+                "multi-data statetest format used in sila/tests (yet)"
             )
             test_result = [
                 test_result
@@ -270,7 +270,7 @@ class NethtestFixtureConsumer(
         debug_output_path: Optional[Path] = None,
     ) -> None:
         """
-        Execute the appropriate geth fixture consumer for the fixture at
+        Execute the appropriate gsil fixture consumer for the fixture at
         `fixture_path`.
         """
         command = self._build_command_with_options(
@@ -347,10 +347,10 @@ class NethermindExceptionMapper(ExceptionMapper):
             "blob transaction of type create"
         ),
         TransactionException.TYPE_4_EMPTY_AUTHORIZATION_LIST: (
-            "EIP-7702 transaction with empty auth list"
+            "SIP-7702 transaction with empty auth list"
         ),
         TransactionException.TYPE_4_TX_CONTRACT_CREATION: (
-            "EIP-7702 transaction cannot be used to create contract"
+            "SIP-7702 transaction cannot be used to create contract"
         ),
         TransactionException.TYPE_4_TX_PRE_FORK: (
             "InvalidTxType: Transaction type in Custom is not supported"

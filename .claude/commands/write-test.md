@@ -59,9 +59,9 @@ Conventions and patterns for writing consensus tests. Run this skill before writ
 
 ## Test Organization
 
-- Place tests in `tests/<fork>/eip<number>/` where `<fork>` is the fork that introduced the functionality
-- Each EIP directory has `spec.py` with `ReferenceSpec(git_path=..., version=...)` and test files declaring `REFERENCE_SPEC_GIT_PATH` / `REFERENCE_SPEC_VERSION`
-- Use `conftest.py` for shared fixtures within an EIP directory
+- Place tests in `tests/<fork>/sip<number>/` where `<fork>` is the fork that introduced the functionality
+- Each SIP directory has `spec.py` with `ReferenceSpec(git_path=..., version=...)` and test files declaring `REFERENCE_SPEC_GIT_PATH` / `REFERENCE_SPEC_VERSION`
+- Use `conftest.py` for shared fixtures within an SIP directory
 
 ## Parametrization
 

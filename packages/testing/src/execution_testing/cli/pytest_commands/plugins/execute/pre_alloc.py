@@ -144,7 +144,7 @@ def eoa_iterator(request: pytest.FixtureRequest) -> Iterator[EOA]:
 def execute_required_contracts(
     session_fork: Fork | TransitionFork,
     session_worker_key: EOA,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     sender_funding_transactions_gas_price: int,
     session_temp_folder: Path,
 ) -> None:
@@ -164,13 +164,13 @@ def execute_required_contracts(
         )
         if (
             check_deterministic_factory_deployment(
-                eth_rpc=eth_rpc, fork=session_fork
+                sil_rpc=sil_rpc, fork=session_fork
             )
             is None
         ):
             try:
                 deploy_deterministic_factory_contract(
-                    eth_rpc=eth_rpc,
+                    sil_rpc=sil_rpc,
                     seed_key=session_worker_key,
                     gas_price=sender_funding_transactions_gas_price,
                 )
@@ -234,8 +234,8 @@ def _compute_deploy_gas_limit(
 ) -> Tuple[int, int]:
     """
     Compute the deploy transaction gas limit, returning both the regular
-    gas portion bound by the EIP 7825 cap and the total regular plus
-    state gas used as the transaction gas field. Under EIP 8037 the cap
+    gas portion bound by the SIP 7825 cap and the total regular plus
+    state gas used as the transaction gas field. Under SIP 8037 the cap
     binds only the regular portion while state gas comes from the block
     reservoir and may push the total above the cap, and before Amsterdam
     the state gas is zero so the total equals the regular gas. The regular
@@ -281,7 +281,7 @@ class Alloc(SharedAlloc):
     """A custom class that inherits from the original Alloc class."""
 
     _sender: EOA = PrivateAttr()
-    _eth_rpc: EthRPC = PrivateAttr()
+    _sil_rpc: EthRPC = PrivateAttr()
     _pending_txs: List[PendingTransaction] = PrivateAttr(default_factory=list)
     _deployed_contracts: List[Tuple[Address, Bytes | Bytecode]] = PrivateAttr(
         default_factory=list
@@ -306,7 +306,7 @@ class Alloc(SharedAlloc):
         self,
         *args: Any,
         sender: EOA,
-        eth_rpc: EthRPC,
+        sil_rpc: EthRPC,
         eoa_iterator: Iterator[EOA],
         chain_id: int,
         node_id: str = "",
@@ -319,7 +319,7 @@ class Alloc(SharedAlloc):
         """Initialize the pre-alloc with the given parameters."""
         super().__init__(*args, **kwargs)
         self._sender = sender
-        self._eth_rpc = eth_rpc
+        self._sil_rpc = sil_rpc
         self._eoa_iterator = eoa_iterator
         self._chain_id = chain_id
         self._node_id = node_id
@@ -411,7 +411,7 @@ class Alloc(SharedAlloc):
             deploy_code_size=len(deploy_code),
             initcode=initcode,
         )
-        # Per EIP-8037, the per-tx 2^24 cap (EIP-7825) binds only the
+        # Per SIP-8037, the per-tx 2^24 cap (SIP-7825) binds only the
         # regular-gas portion; state gas is drawn from the block reservoir.
         tx_gas_limit_cap = fork.transaction_gas_limit_cap()
         if tx_gas_limit_cap and regular_gas > tx_gas_limit_cap:
@@ -527,7 +527,7 @@ class Alloc(SharedAlloc):
             initcode=prepared_initcode,
             storage_slots=len(storage.root),
         )
-        # Per EIP-8037, the per-tx 2^24 cap (EIP-7825) binds only the
+        # Per SIP-8037, the per-tx 2^24 cap (SIP-7825) binds only the
         # regular-gas portion; state gas is drawn from the block reservoir.
         tx_gas_limit_cap = fork.transaction_gas_limit_cap()
         if tx_gas_limit_cap and regular_gas > tx_gas_limit_cap:
@@ -546,13 +546,13 @@ class Alloc(SharedAlloc):
         )
         code_sz = len(code)
         init_sz = len(prepared_initcode)
-        bal_eth = Number(balance) / 10**18
+        bal_sil = Number(balance) / 10**18
         slots = len(storage.root)
         logger.info(
             f"Contract deployment tx created (label={label}): "
             f"tx_nonce={deploy_tx.nonce}, gas_limit={deploy_gas_limit}, "
             f"code_size={code_sz} bytes, initcode_size={init_sz} bytes, "
-            f"balance={bal_eth:.18f} ETH, storage_slots={slots}"
+            f"balance={bal_sil:.18f} SIL, storage_slots={slots}"
         )
 
         contract_address = deploy_tx.created_contract
@@ -596,7 +596,7 @@ class Alloc(SharedAlloc):
         eoa = next(self._eoa_iterator)
         eoa.label = label
         amount_str = (
-            f"{Number(amount) / 10**18:.18f} ETH"
+            f"{Number(amount) / 10**18:.18f} SIL"
             if amount is not None
             else "Deferred"
         )
@@ -732,7 +732,7 @@ class Alloc(SharedAlloc):
         self.__internal_setitem__(eoa, account)
         self._funded_eoa.append(eoa)
         balance_str = (
-            f"{Number(amount) / 10**18:.18f} ETH"
+            f"{Number(amount) / 10**18:.18f} SIL"
             if amount is not None
             else "Deferred"
         )
@@ -800,7 +800,7 @@ class Alloc(SharedAlloc):
         self._deferred_deterministic_deploys = []
 
         addresses = [d.contract_address for d in deferred]
-        chain_codes = self._eth_rpc.get_codes(addresses)
+        chain_codes = self._sil_rpc.get_codes(addresses)
 
         factory_checked = False
 
@@ -820,7 +820,7 @@ class Alloc(SharedAlloc):
                 if not factory_checked:
                     if (
                         check_deterministic_factory_deployment(
-                            eth_rpc=self._eth_rpc, fork=fork
+                            sil_rpc=self._sil_rpc, fork=fork
                         )
                         is None
                     ):
@@ -865,7 +865,7 @@ class Alloc(SharedAlloc):
         # Batch-fetch the current account state for all addresses and
         # update the alloc.
         alloc_query = BaseAlloc(root={addr: Account() for addr in addresses})
-        actual_alloc = self._eth_rpc.get_alloc(alloc_query)
+        actual_alloc = self._sil_rpc.get_alloc(alloc_query)
         for addr in addresses:
             account = actual_alloc.root.get(addr)
             if account is not None:
@@ -881,7 +881,7 @@ class Alloc(SharedAlloc):
         alloc_query = BaseAlloc(
             root={d.contract_address: Account() for d in deferred}
         )
-        actual_alloc = self._eth_rpc.get_alloc(alloc_query)
+        actual_alloc = self._sil_rpc.get_alloc(alloc_query)
 
         for d in deferred:
             account = actual_alloc.root.get(d.contract_address)
@@ -893,10 +893,10 @@ class Alloc(SharedAlloc):
                 raise ValueError(
                     f"Stub {d.stub} at {d.contract_address} has no code"
                 )
-            bal_eth = account.balance / 10**18
+            bal_sil = account.balance / 10**18
             logger.debug(
                 f"Stub contract {d.contract_address}: "
-                f"balance={bal_eth:.18f} ETH, "
+                f"balance={bal_sil:.18f} SIL, "
                 f"nonce={account.nonce}, "
                 f"code_size={len(account.code)} bytes"
             )
@@ -910,27 +910,27 @@ class Alloc(SharedAlloc):
         self._deferred_fund_addresses = []
 
         addresses = [d.address for d in deferred]
-        current_balances = self._eth_rpc.get_balances(addresses)
+        current_balances = self._sil_rpc.get_balances(addresses)
 
         for d, current_balance in zip(deferred, current_balances, strict=True):
             if d.minimum_balance:
                 if current_balance >= d.amount:
-                    cur_eth = current_balance / 10**18
-                    min_eth = d.amount / 10**18
+                    cur_sil = current_balance / 10**18
+                    min_sil = d.amount / 10**18
                     logger.info(
                         f"Skipping funding for address {d.address} "
                         f"(label={d.address.label}): current balance "
-                        f"{cur_eth:.18f} ETH >= minimum "
-                        f"{min_eth:.18f} ETH"
+                        f"{cur_sil:.18f} SIL >= minimum "
+                        f"{min_sil:.18f} SIL"
                     )
                     self.__internal_setitem__(
                         d.address, Account(balance=current_balance)
                     )
                     continue
-                fund_eth = d.amount / 10**18
+                fund_sil = d.amount / 10**18
                 logger.debug(
                     f"Funding address to minimum balance {d.address} "
-                    f"(label={d.address.label}): {fund_eth:.18f} ETH"
+                    f"(label={d.address.label}): {fund_sil:.18f} SIL"
                 )
                 self._add_pending_tx(
                     action="fund_address",
@@ -941,11 +941,11 @@ class Alloc(SharedAlloc):
                 )
                 new_balance = d.amount
             else:
-                fund_eth = d.amount / 10**18
+                fund_sil = d.amount / 10**18
                 logger.debug(
                     f"Funding address {d.address} "
                     f"(label={d.address.label}): "
-                    f"{fund_eth:.18f} ETH"
+                    f"{fund_sil:.18f} SIL"
                 )
                 self._add_pending_tx(
                     action="fund_address",
@@ -960,7 +960,7 @@ class Alloc(SharedAlloc):
             logger.info(
                 f"Address {d.address} funding tx created "
                 f"(label={d.address.label}): "
-                f"{Number(d.amount) / 10**18:.18f} ETH"
+                f"{Number(d.amount) / 10**18:.18f} SIL"
             )
 
     def minimum_balance_for_pending_transactions(
@@ -995,10 +995,10 @@ class Alloc(SharedAlloc):
                     logger.error(error_message)
                     raise ValueError(error_message)
                 sender_balance = sender_balances[tx.to]
-                bal_eth = sender_balance / 10**18
+                bal_sil = sender_balance / 10**18
                 logger.info(
                     f"Deferred EOA balance for {tx.to} set to "
-                    f"{bal_eth:.18f} ETH"
+                    f"{bal_sil:.18f} SIL"
                 )
                 tx.value = HexNumber(sender_balance)
             tx.set_gas_price(
@@ -1025,7 +1025,7 @@ class Alloc(SharedAlloc):
             )
 
         txs = [tx.with_signature_and_sender() for tx in self._pending_txs]
-        responses = self._eth_rpc.send_wait_transactions(txs)
+        responses = self._sil_rpc.send_wait_transactions(txs)
 
         for response in responses:
             logger.debug(f"Transaction response: {response.model_dump_json()}")
@@ -1072,7 +1072,7 @@ def pre(
     alloc_flags: AllocFlags,
     worker_key: EOA,
     eoa_iterator: Iterator[EOA],
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     chain_config: ChainConfig,
     address_stubs: AddressStubs | None,
     stub_eoas: Dict[str, EOA],
@@ -1100,7 +1100,7 @@ def pre(
         flags=alloc_flags,
         stub_eoas=stub_eoas,
         sender=worker_key,
-        eth_rpc=eth_rpc,
+        sil_rpc=sil_rpc,
         eoa_iterator=eoa_iterator,
         chain_id=chain_config.chain_id,
         node_id=request.node.nodeid,
@@ -1134,29 +1134,29 @@ def pre(
     refund_gas_limit = sender_fund_refund_gas_limit
     tx_cost = refund_gas_limit * max_fee_per_gas
     for idx, eoa in enumerate(funded_eoas):
-        account = eth_rpc.get_account(eoa, skip_code=True)
+        account = sil_rpc.get_account(eoa, skip_code=True)
         remaining_balance = account.balance
         eoa.nonce = Number(account.nonce)
         if remaining_balance < tx_cost:
-            rem_eth = remaining_balance / 10**18
-            cost_eth = tx_cost / 10**18
+            rem_sil = remaining_balance / 10**18
+            cost_sil = tx_cost / 10**18
             logger.debug(
                 f"Skipping refund for EOA {eoa} "
                 f"(label={eoa.label}): "
-                f"insufficient balance {rem_eth:.18f} ETH < "
-                f"transaction cost {cost_eth:.18f} ETH"
+                f"insufficient balance {rem_sil:.18f} SIL < "
+                f"transaction cost {cost_sil:.18f} SIL"
             )
             skipped_refunds += 1
             continue
         refund_value = remaining_balance - tx_cost
-        ref_eth = refund_value / 10**18
-        rem_eth = remaining_balance / 10**18
-        cost_eth = tx_cost / 10**18
+        ref_sil = refund_value / 10**18
+        rem_sil = remaining_balance / 10**18
+        cost_sil = tx_cost / 10**18
         logger.debug(
             f"Preparing refund transaction for EOA {eoa} "
             f"(label={eoa.label}): "
-            f"{ref_eth:.18f} ETH (remaining: {rem_eth:.18f} ETH, "
-            f"cost: {cost_eth:.18f} ETH)"
+            f"{ref_sil:.18f} SIL (remaining: {rem_sil:.18f} SIL, "
+            f"cost: {cost_sil:.18f} SIL)"
         )
         refund_tx = Transaction(
             sender=eoa,
@@ -1180,7 +1180,7 @@ def pre(
             f"Sending {len(refund_txs)} refund transactions "
             f"({skipped_refunds} skipped due to insufficient balance)"
         )
-        eth_rpc.send_wait_transactions(refund_txs)
+        sil_rpc.send_wait_transactions(refund_txs)
         logger.info(f"All {len(refund_txs)} refund transactions confirmed")
     else:
         logger.info(

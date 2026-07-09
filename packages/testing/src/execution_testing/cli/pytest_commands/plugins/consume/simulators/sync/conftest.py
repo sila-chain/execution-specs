@@ -108,8 +108,8 @@ def pytest_collection_modifyitems(
 
 
 @pytest.fixture(scope="function")
-def eth_rpc(client: Client) -> Generator[EthRPC, None, None]:
-    """Initialize eth RPC client for the execution client under test."""
+def sil_rpc(client: Client) -> Generator[EthRPC, None, None]:
+    """Initialize sil RPC client for the execution client under test."""
     with EthRPC(f"http://{client.ip}:8545") as rpc:
         yield rpc
 
@@ -290,8 +290,8 @@ def sync_engine_rpc(
 
 
 @pytest.fixture(scope="function")
-def sync_eth_rpc(sync_client: Client) -> Generator[EthRPC, None, None]:
-    """Initialize eth RPC client for the sync client."""
+def sync_sil_rpc(sync_client: Client) -> Generator[EthRPC, None, None]:
+    """Initialize sil RPC client for the sync client."""
     with EthRPC(f"http://{sync_client.ip}:8545") as rpc:
         yield rpc
 

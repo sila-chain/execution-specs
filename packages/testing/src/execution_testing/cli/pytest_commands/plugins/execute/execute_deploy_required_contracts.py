@@ -23,7 +23,7 @@ logger = get_logger(__name__)
 def test_deploy_deterministic_deployment_contract(
     seed_key: EOA,
     gas_price: int,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     check_only: bool,
     session_fork: Fork | TransitionFork,
 ) -> None:
@@ -31,7 +31,7 @@ def test_deploy_deterministic_deployment_contract(
     # Check if contract already deployed
     current_deterministic_deployment_contract_address = (
         check_deterministic_factory_deployment(
-            eth_rpc=eth_rpc, fork=session_fork
+            sil_rpc=sil_rpc, fork=session_fork
         )
     )
     if current_deterministic_deployment_contract_address is not None:
@@ -58,13 +58,13 @@ def test_deploy_deterministic_deployment_contract(
 
     try:
         deploy_deterministic_factory_contract(
-            eth_rpc=eth_rpc, seed_key=seed_key, gas_price=gas_price
+            sil_rpc=sil_rpc, seed_key=seed_key, gas_price=gas_price
         )
     except Exception as e:
         pytest.fail(f"Failed to deploy contract: {e}")
 
     # Verify deployment
-    deployed_code = eth_rpc.get_code(DETERMINISTIC_FACTORY_ADDRESS)
+    deployed_code = sil_rpc.get_code(DETERMINISTIC_FACTORY_ADDRESS)
     if deployed_code != Bytes(DETERMINISTIC_FACTORY_BYTECODE):
         factory_addr = DETERMINISTIC_FACTORY_ADDRESS
         pytest.fail(

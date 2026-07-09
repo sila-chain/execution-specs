@@ -14,9 +14,9 @@ from execution_testing.vm import Opcodes as Op
 @pytest.mark.ported_from(
     # The oog==True case:
     [
-        "https://github.com/ethereum/execution-specs/blob/master/tests/static/state_tests/stPreCompiledContracts2/CallRipemd160_0Filler.json"
+        "https://github.com/sila/execution-specs/blob/master/tests/static/state_tests/stPreCompiledContracts2/CallRipemd160_0Filler.json"
     ],
-    pr=["https://github.com/ethereum/execution-specs/pull/1732"],
+    pr=["https://github.com/sila/execution-specs/pull/1732"],
 )
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.parametrize(

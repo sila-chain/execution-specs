@@ -1,9 +1,9 @@
-site_name: Ethereum Execution Specs
-site_description: The Ethereum Execution Layer Specifications and Tests
-site_url: !ENV [SITE_URL, "https://steel.ethereum.foundation/docs/execution-specs/"]
-repo_url: https://github.com/ethereum/execution-specs
+site_name: Sila Execution Specs
+site_description: The Sila Execution Layer Specifications and Tests
+site_url: !ENV [SITE_URL, "https://steel.sila.foundation/docs/execution-specs/"]
+repo_url: https://github.com/sila/execution-specs
 repo_name: execution-specs
-copyright: "Copyright: 2026, Ethereum Community"
+copyright: "Copyright: 2026, Sila Community"
 
 plugins:
   - git-authors:
@@ -42,8 +42,8 @@ watch:
 
 theme:
   name: material
-  logo: img/eth-diamond-white.png
-  favicon: img/eth-diamond-orange.svg
+  logo: img/sil-diamond-white.png
+  favicon: img/sil-diamond-orange.svg
   language: en
   features:
     - content.code.copy
@@ -99,7 +99,7 @@ markdown_extensions:
       repo_url_shorthand: true
       social_url_shorthand: true
       social_url_shortener: true
-      user: ethereum
+      user: sila
       repo: execution-specs
       normalize_issue_symbols: true
   - pymdownx.mark:

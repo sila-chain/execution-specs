@@ -10,8 +10,8 @@ gas remaining at that fixed execution point must stay constant across
 forks. The `gas_limit` is therefore derived from the fork as
 `600_000 + (fork.transaction_intrinsic_cost_calculator()() - 21_000)`:
 it re-adds the 600k post-intrinsic execution budget onto the fork
-intrinsic and subtracts the pre-EIP-2780 baseline intrinsic `21_000`,
-which EIP-2780 lowers for non-self non-value txs. Do not hardcode the
+intrinsic and subtracts the pre-SIP-2780 baseline intrinsic `21_000`,
+which SIP-2780 lowers for non-self non-value txs. Do not hardcode the
 gas limit.
 """
 
@@ -79,7 +79,7 @@ def test_zero_value_delegatecall_to_empty_paris(
     )
 
     # Preserve Cancun's post-intrinsic execution budget across
-    # forks; EIP-2780 lowers the intrinsic for non-self non-value
+    # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.
     intrinsic = fork.transaction_intrinsic_cost_calculator()()

@@ -340,7 +340,7 @@ def test_staticcall_to_precompile_from_transaction(
     )
 
     gas_limit = 1000000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         gas_limit += 21 * Op.SSTORE(new_value=1).state_cost(fork)
     tx = Transaction(
         sender=sender,

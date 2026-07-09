@@ -170,7 +170,7 @@ def test_static_call10(
         Hash(addr_3, left_padding=True),
     ]
     tx_gas = [200000]
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         tx_gas[0] += 4 * Op.SSTORE(new_value=1).state_cost(fork)
     tx_value = [10]
 

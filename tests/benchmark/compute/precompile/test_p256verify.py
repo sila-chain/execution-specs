@@ -15,8 +15,8 @@ from execution_testing import (
 )
 
 from tests.benchmark.compute.helpers import Precompile
-from tests.osaka.eip7951_p256verify_precompiles import spec as p256verify_spec
-from tests.osaka.eip7951_p256verify_precompiles.spec import H, R, S, X, Y
+from tests.osaka.sip7951_p256verify_precompiles import spec as p256verify_spec
+from tests.osaka.sip7951_p256verify_precompiles.spec import H, R, S, X, Y
 
 
 @pytest.mark.parametrize(
@@ -31,8 +31,8 @@ from tests.osaka.eip7951_p256verify_precompiles.spec import H, R, S, X, Y
             + p256verify_spec.Spec.Y0,
             id="p256verify",
             marks=[
-                pytest.mark.eip_checklist(
-                    "precompile/test/excessive_gas_usage", eip=[7951]
+                pytest.mark.sip_checklist(
+                    "precompile/test/excessive_gas_usage", sip=[7951]
                 ),
                 pytest.mark.repricing,
             ],

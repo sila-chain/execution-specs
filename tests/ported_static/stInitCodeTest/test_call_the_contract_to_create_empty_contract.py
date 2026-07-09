@@ -5,7 +5,7 @@ Ported from:
 state_tests/stInitCodeTest/CallTheContractToCreateEmptyContractFiller.json
 
 @manually-enhanced: Do not overwrite. tx gas budget bumped
-for EIP-8037 NEW_ACCOUNT state-gas headroom on Amsterdam (post-state
+for SIP-8037 NEW_ACCOUNT state-gas headroom on Amsterdam (post-state
 expectations are unchanged on all forks).
 """
 
@@ -60,10 +60,10 @@ def test_call_the_contract_to_create_empty_contract(
         nonce=0,
     )
 
-    # EIP-8037 NEW_ACCOUNT state-gas spill on Amsterdam; pre-EIP-8037
+    # SIP-8037 NEW_ACCOUNT state-gas spill on Amsterdam; pre-SIP-8037
     # keeps the original 100 000 budget.
     tx_gas_limit = 100_000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         tx_gas_limit = 500_000
     tx = Transaction(
         sender=sender,

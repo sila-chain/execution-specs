@@ -16,11 +16,11 @@ on:
         required: false
         type: string
       evm:
-        description: "Override the evm impl (e.g. geth, evmone). Defaults to the feature's evm-type."
+        description: "Override the evm impl (e.g. gsil, evmone). Defaults to the feature's evm-type."
         required: false
         type: string
       evm_repo:
-        description: "Override the t8n tool repo (e.g. ethereum/go-ethereum)"
+        description: "Override the t8n tool repo (e.g. sila/go-sila)"
         required: false
         type: string
       evm_ref:

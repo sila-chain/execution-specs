@@ -1,7 +1,7 @@
 """
 The first test case required here.
 
-https://github.com/ethereum/tests/issues/431#issue-306081539
+https://github.com/sila/tests/issues/431#issue-306081539
 
 Implements: SUC007.0, SUC007.1, SUC007.2, SUC007.3,
             SUC008.0, SUC008.1, SUC008.2, SUC008.3

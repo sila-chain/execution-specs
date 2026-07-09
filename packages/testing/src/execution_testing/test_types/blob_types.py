@@ -1,4 +1,4 @@
-"""Blob-related types for Ethereum tests."""
+"""Blob-related types for Sila tests."""
 
 import random
 from enum import Enum
@@ -19,7 +19,7 @@ from execution_testing.logging import (
 )
 
 CACHED_BLOBS_DIRECTORY: Path = (
-    Path(platformdirs.user_cache_dir("ethereum-execution-spec-tests"))
+    Path(platformdirs.user_cache_dir("sila-execution-spec-tests"))
     / "cached_blobs"
 )
 logger = get_logger(__name__)
@@ -171,8 +171,8 @@ class Blob(CamelModel):
             # cancun, prague
             if amount_cell_proofs == 0:
                 z = 2  # 2 is one of many possible valid field elements z
-                # https://github.com/ethereum/consensus-specs/blob/ad884507f
-                #  7a1d5962cd3dfb5f7b3e41aab728c55/tests/core/pyspec/eth2spec/
+                # https://github.com/sila/consensus-specs/blob/ad884507f
+                #  7a1d5962cd3dfb5f7b3e41aab728c55/tests/core/pyspec/sil2spec/
                 #  test/utils/kzg_tests.py#L58-L66)
                 z_valid_size: bytes = z.to_bytes(
                     fork.get_blob_constant("BYTES_PER_FIELD_ELEMENT"),

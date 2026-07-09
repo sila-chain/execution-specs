@@ -6,14 +6,14 @@ Tests can be executed on a local hive-controlled single-client network by runnin
 
 The `blob_transaction_test` execute test spec sends blob transactions to a running client. Blob transactions are fully supported in execute mode:
 
-- Blob transactions can be sent via `eth_sendRawTransaction`
+- Blob transactions can be sent via `sil_sendRawTransaction`
 - Blob validation via `engine_getBlobsVX` endpoints (when Engine RPC available)
 - Automatic gas pricing is used for the blob gas fees
 
 Tests can be run using:
 
 ```bash
-./hive --client besu --client-file ./configs/osaka.yaml --sim ethereum/eels/execute-blobs
+./hive --client besu --client-file ./configs/osaka.yaml --sim sila/eels/execute-blobs
 ```
 
 **Note**: If the Engine RPC is unavailable, blob transactions will be sent and `getBlobsV*` validation is skipped.
@@ -25,10 +25,10 @@ See [Hive](../hive/index.md) for help installing and configuring Hive.
 This command requires hive to be running in `--dev` mode:
 
 ```bash
-./hive --dev --client go-ethereum
+./hive --dev --client go-sila
 ```
 
-This will start hive in dev mode with the single go-ethereum client available for launching tests.
+This will start hive in dev mode with the single go-sila client available for launching tests.
 
 Then the tests can be executed by setting the `HIVE_SIMULATOR` environment variable
 
@@ -65,7 +65,7 @@ uv run execute hive --fork=Prague --use-testing-build-block
 Or in dev mode:
 
 ```bash
-./hive --dev --client go-ethereum
+./hive --dev --client go-sila
 uv run execute hive --fork=Prague --use-testing-build-block
 ```
 

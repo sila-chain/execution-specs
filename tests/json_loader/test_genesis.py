@@ -1,21 +1,21 @@
 """Tests for genesis block creation."""
 
 import pytest
-from ethereum_rlp import rlp
-from ethereum_types.numeric import U64
+from sila_rlp import rlp
+from sila_types.numeric import U64
 
-from ethereum.crypto.hash import keccak256
-from ethereum.forks.frontier.blocks import Block, Header
-from ethereum.forks.frontier.fork import BlockChain
-from ethereum.forks.frontier.fork_types import Account, Bloom
-from ethereum.forks.frontier.utils.hexadecimal import hex_to_address
-from ethereum.genesis import (
+from sila.crypto.hash import keccak256
+from sila.forks.frontier.blocks import Block, Header
+from sila.forks.frontier.fork import BlockChain
+from sila.forks.frontier.fork_types import Account, Bloom
+from sila.forks.frontier.utils.hexadecimal import hex_to_address
+from sila.genesis import (
     GenesisFork,
     add_genesis_block,
     get_genesis_configuration,
 )
-from ethereum.merkle_patricia_trie import Trie, root
-from ethereum.state import (
+from sila.merkle_patricia_trie import Trie, root
+from sila.state import (
     Address,
     State,
     set_account,
@@ -23,16 +23,16 @@ from ethereum.state import (
     state_root,
     store_code,
 )
-from ethereum.utils.hexadecimal import hex_to_hash
-from ethereum_spec_tools.forks import Hardfork
+from sila.utils.hexadecimal import hex_to_hash
+from sila_spec_tools.forks import Hardfork
 
-MAINNET_GENESIS_CONFIGURATION = get_genesis_configuration("mainnet.json")
+SILA_MAINNET_GENESIS_CONFIGURATION = get_genesis_configuration("sila-mainnet.json")
 
 
 def test_frontier_block_hash() -> None:
     """
     Tests that the frontier genesis block hash matches the expected
-    mainnet hash.
+    sila-mainnet hash.
     """
     description: GenesisFork[
         Address, Account, State, Trie, Bloom, Header, Block
@@ -52,7 +52,7 @@ def test_frontier_block_hash() -> None:
     )
 
     chain = BlockChain([], State(), U64(1))
-    add_genesis_block(description, chain, MAINNET_GENESIS_CONFIGURATION)
+    add_genesis_block(description, chain, SILA_MAINNET_GENESIS_CONFIGURATION)
 
     assert keccak256(rlp.encode(chain.blocks[0].header)) == hex_to_hash(
         "0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3"
@@ -68,8 +68,8 @@ def fork_name(fork: Hardfork) -> str:
 def test_genesis(fork: Hardfork) -> None:
     """Tests genesis block creation for all hardforks."""
     # TODO: remove once the changes have been back-ported
-    from ethereum.merkle_patricia_trie import Trie
-    from ethereum.state import (
+    from sila.merkle_patricia_trie import Trie
+    from sila.state import (
         Address,
         State,
         root,
@@ -112,6 +112,6 @@ def test_genesis(fork: Hardfork) -> None:
     )
 
     chain = fork.module("fork").BlockChain([], state, U64(1))
-    add_genesis_block(description, chain, MAINNET_GENESIS_CONFIGURATION)
+    add_genesis_block(description, chain, SILA_MAINNET_GENESIS_CONFIGURATION)
 
     assert len(chain.blocks) == 1

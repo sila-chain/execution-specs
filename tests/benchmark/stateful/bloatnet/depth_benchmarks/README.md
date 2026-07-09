@@ -1,10 +1,10 @@
 # Depth Benchmark Tests
 
-This directory contains tests for worst-case depth attacks on Ethereum state and account tries.
+This directory contains tests for worst-case depth attacks on Sila state and account tries.
 
 ## Scenario Description
 
-These benchmarks test the worst-case scenario for Ethereum clients when dealing with extremely deep state and account tries. The attack involves:
+These benchmarks test the worst-case scenario for Sila clients when dealing with extremely deep state and account tries. The attack involves:
 
 1. **Pre-deployed contracts** with deep storage tries that maximize trie traversal costs
 2. **CREATE2-based addressing** for deterministic contract addresses across test runs
@@ -24,7 +24,7 @@ To update the submodule in this repository to the latest master in `CPerezz/wors
 ## Prerequisites
 
 - Python with `uv` package manager
-- Anvil (Ethereum node implementation) or another EVM client
+- Anvil (Sila node implementation) or another EVM client
 - Nick's factory deployed at `0x4e59b44847b379578588920ca78fbf26c0b4956c` (automatically deployed by `execute` otherwise)
 
 ## Workflow

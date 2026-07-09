@@ -1,25 +1,25 @@
 # Writing Specs
 
-This page collects the style rules, cross-fork discipline, and CLI utilities you need when writing or modifying code under `src/ethereum/`.
+This page collects the style rules, cross-fork discipline, and CLI utilities you need when writing or modifying code under `src/sila/`.
 
-The overarching goal is readability: anyone reading a fork from top to bottom should be able to follow what Ethereum does for a given block, without jumping between files or untangling abstractions. EELS deliberately prefers repeated code (WET: "write everything twice") over clever reuse (DRY), because duplication is easier to read than a network of abstractions.
+The overarching goal is readability: anyone reading a fork from top to bottom should be able to follow what Sila does for a given block, without jumping between files or untangling abstractions. EELS deliberately prefers repeated code (WET: "write everything twice") over clever reuse (DRY), because duplication is easier to read than a network of abstractions.
 
 ## Style
 
 ### Spelling and naming
 
 - Prefer descriptive English words (or *very common* abbreviations) in documentation and identifiers.
-- Avoid EIP numbers in identifiers; prefer descriptive text (e.g. `FeeMarketTransaction` over `Eip1559Transaction`).
+- Avoid SIP numbers in identifiers; prefer descriptive text (e.g. `FeeMarketTransaction` over `Eip1559Transaction`).
 - Avoid uninformative prefixes in identifiers (like `get_` or `compute_`). They don't add useful meaning and take up valuable real estate.
 - If a term is specific to the domain, there is a custom spell-check dictionary at `whitelist.txt`.
 
 ### Comments
 
 - Don't repeat what is obvious from the code.
-- Don't attribute semantic blocks to a specific EIP in a leading comment, because future EIPs can land between your first and last lines and silently inherit the attribution. Instead, describe the change in the function's docstring.
+- Don't attribute semantic blocks to a specific SIP in a leading comment, because future SIPs can land between your first and last lines and silently inherit the attribution. Instead, describe the change in the function's docstring.
 
 <details>
-<summary><em>(expand)</em> Why EIP-attributed comments rot.</summary>
+<summary><em>(expand)</em> Why SIP-attributed comments rot.</summary>
 
 <br>Consider:
 <table valign="top">
@@ -36,7 +36,7 @@ The overarching goal is readability: anyone reading a fork from top to bottom sh
 <!-- Note that the trailing whitespace is necessary to move the copy button in the github UI over so it doesn't obscure the text. -->
 
 ```python
-# EIP-1234: The dingus is the rate of fleep      
+# SIP-1234: The dingus is the rate of fleep
 dingus = a + b
 dingus += c ^ d
 dingus /= fleep(e)
@@ -47,10 +47,10 @@ dingus /= fleep(e)
 <td>
 
 ```python
-# EIP-1234: The dingus is the rate of fleep      
+# SIP-1234: The dingus is the rate of fleep
 dingus = a + b
 
-# EIP-4567: Frobulate the dingus
+# SIP-4567: Frobulate the dingus
 dingus = frobulate(dingus)
 
 dingus += c ^ d        # <-
@@ -63,7 +63,7 @@ dingus /= fleep(e)     # <-
 
 </table>
 
-The marked lines (`<-`) are now incorrectly attributed to EIP-4567 in Fork+1. Instead, omit the EIP identifier in comments and describe changes introduced by the EIP in the function's docstring. The rendered diffs will make it pretty obvious what's changed.
+The marked lines (`<-`) are now incorrectly attributed to SIP-4567 in Fork+1. Instead, omit the SIP identifier in comments and describe changes introduced by the SIP in the function's docstring. The rendered diffs will make it pretty obvious what's changed.
 
 </details>
 
@@ -93,13 +93,13 @@ The marked lines (`<-`) are now incorrectly attributed to EIP-4567 in Fork+1. In
       ```
 
 - Format using markdown.
-- Links to relevant standards and EIPs may be specified using reference-style links.
+- Links to relevant standards and SIPs may be specified using reference-style links.
 
   ```python
   """
-  Minimum gas cost per byte of calldata as per [EIP-7976].
+  Minimum gas cost per byte of calldata as per [SIP-7976].
 
-  [EIP-7976]: https://eips.ethereum.org/EIPS/eip-7976
+  [SIP-7976]: https://sips.sila.org/SIPS/sip-7976
   """
   ```
 
@@ -119,7 +119,7 @@ The marked lines (`<-`) are now incorrectly attributed to EIP-4567 in Fork+1. In
 
 ## Changes across multiple forks
 
-Many contributions require changes across multiple forks, organized under `src/ethereum/forks/`. When making such changes, ensure that differences between the forks are minimal and consist only of necessary differences. This produces cleaner [diff outputs](https://steel.ethereum.foundation/docs/execution-specs/specs/reference/diffs/index.html).
+Many contributions require changes across multiple forks, organized under `src/sila/forks/`. When making such changes, ensure that differences between the forks are minimal and consist only of necessary differences. This produces cleaner [diff outputs](https://steel.sila.foundation/docs/execution-specs/specs/reference/diffs/index.html).
 
 When creating pull requests affecting multiple forks, we recommend submitting your PR in two steps:
 
@@ -128,7 +128,7 @@ When creating pull requests affecting multiple forks, we recommend submitting yo
 
 This saves you having to apply code review feedback repeatedly for each fork.
 
-## CLI utilities: `ethereum_spec_tools`
+## CLI utilities: `sila_spec_tools`
 
 The repository ships with CLI utilities that help during spec development.
 
@@ -140,33 +140,33 @@ The command takes 4 arguments (2 optional):
 
 - `from_fork`: The fork name from which the code is to be duplicated. Example: `"Tangerine Whistle"`.
 - `to_fork`: The fork name of the new fork. Example: `"Spurious Dragon"`.
-- `from_test` (optional): Name of the from-fork within the test fixtures in case it is different from fork name. Example: `"EIP150"`.
-- `to_test` (optional): Name of the to-fork within the test fixtures in case it is different from the fork name. Example: `"EIP158"`.
+- `from_test` (optional): Name of the from-fork within the test fixtures in case it is different from fork name. Example: `"SIP150"`.
+- `to_test` (optional): Name of the to-fork within the test fixtures in case it is different from the fork name. Example: `"SIP158"`.
 
 For example, to create baseline code for `Spurious Dragon` from `Tangerine Whistle`:
 
 ```bash
-uv run ethereum-spec-new-fork --from_fork="Tangerine Whistle" --to_fork="Spurious Dragon" --from_test=EIP150 --to_test=EIP158
+uv run sila-spec-new-fork --from_fork="Tangerine Whistle" --to_fork="Spurious Dragon" --from_test=SIP150 --to_test=SIP158
 ```
 
 The following must be updated manually afterwards:
 
-1. The fork number and `MAINNET_FORK_BLOCK` in `__init__.py`. If you are proposing a new EIP, set `MAINNET_FORK_BLOCK` to `None`.
+1. The fork number and `SILA_MAINNET_FORK_BLOCK` in `__init__.py`. If you are proposing a new SIP, set `SILA_MAINNET_FORK_BLOCK` to `None`.
 2. Any absolute package imports from other forks, e.g. in `trie.py`.
 3. Package names under `setup.cfg`.
-4. Add the new fork to the `monkey_patch()` function in `src/ethereum_optimized/__init__.py`.
+4. Add the new fork to the `monkey_patch()` function in `src/sila_optimized/__init__.py`.
 5. Adjust the underline in `fork/__init__.py`.
 
 ### Sync Tool
 
-The sync tool uses an RPC provider to fetch and validate blocks against EELS. The validated state can be stored in a local DB. Because syncing directly with the specs is very slow, the sync tool can also leverage the `ethereum_optimized` module, which contains alternative implementations of routines in EELS optimized for speed rather than clarity/readability.
+The sync tool uses an RPC provider to fetch and validate blocks against EELS. The validated state can be stored in a local DB. Because syncing directly with the specs is very slow, the sync tool can also leverage the `sila_optimized` module, which contains alternative implementations of routines in EELS optimized for speed rather than clarity/readability.
 
-Invoke the tool with `ethereum-spec-sync`. Arguments:
+Invoke the tool with `sila-spec-sync`. Arguments:
 
-- `rpc-url`: Endpoint providing the Ethereum RPC API. Defaults to `http://localhost:8545/`.
-- `unoptimized`: Don't use the optimized state/ethash (this can be extremely slow).
+- `rpc-url`: Endpoint providing the Sila RPC API. Defaults to `http://localhost:8545/`.
+- `unoptimized`: Don't use the optimized state/silash (this can be extremely slow).
 - `persist`: Store state in a database at this file path.
-- `geth`: Use geth-specific RPC endpoints while fetching blocks.
+- `gsil`: Use gsil-specific RPC endpoints while fetching blocks.
 - `reset`: Delete the database and start from scratch.
 - `gas-per-commit`: Commit to database each time this much gas has been consumed. Defaults to `1_000_000_000`.
 - `initial-state`: Start from the state in this database rather than genesis.
@@ -191,7 +191,7 @@ Positional and flag arguments:
 Example: apply changes made in `Frontier` to `Homestead` and `Tangerine Whistle`:
 
 ```bash
-uv run python src/ethereum_spec_tools/patch_tool.py frontier homestead tangerine_whistle
+uv run python src/sila_spec_tools/patch_tool.py frontier homestead tangerine_whistle
 ```
 
 ### Lint Tool
@@ -201,7 +201,7 @@ The spec lint tool checks for style and formatting issues specific to EELS and e
 - The order of identifiers between each hardfork is consistent.
 - Import statements follow the relevant import rules in modules.
 
-Run it with `just lint-spec` (or `uv run ethereum-spec-lint`).
+Run it with `just lint-spec` (or `uv run sila-spec-lint`).
 
 ## Debugging with `--evm-trace`
 

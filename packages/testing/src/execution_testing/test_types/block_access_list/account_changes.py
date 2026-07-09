@@ -2,7 +2,7 @@
 Account change classes for Block Access List.
 
 This module contains the core data structures representing changes to accounts
-in a block access list as defined in EIP-7928.
+in a block access list as defined in SIP-7928.
 """
 
 from typing import ClassVar, List, Self, Union

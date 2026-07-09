@@ -1,4 +1,4 @@
-"""Framework to generate cross-client Ethereum execution layer tests."""
+"""Framework to generate cross-client Sila execution layer tests."""
 
 from .base_types import (
     AccessList,
@@ -23,7 +23,7 @@ from .benchmark import (
     ExtCallGenerator,
     JumpLoopGenerator,
 )
-from .checklists import EIPChecklist
+from .checklists import SIPChecklist
 from .exceptions import (
     BlockException,
     EngineAPIError,
@@ -172,7 +172,7 @@ __all__ = (
     "ExtCallGenerator",
     "DeploymentTestType",
     "DepositRequest",
-    "EIPChecklist",
+    "SIPChecklist",
     "EngineAPIError",
     "Environment",
     "EOA",

@@ -1,0 +1,39 @@
+name: SIP Rebase Onto Fork Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      fork:
+        description: 'Fork name (e.g., amsterdam)'
+        required: true
+        type: string
+        default: 'amsterdam'
+      sip_numbers:
+        description: 'List of SIP numbers (e.g., 1234,2345+3456 for sip-1234 and combined sip-2345+3456)'
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.inputs.fork }}-${{ github.event.inputs.sip_numbers }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  rebase-sip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./.github/actions/setup-uv
+
+      - name: Rebase SIP branches onto fork
+        uses: ./.github/actions/rebase-sip-branch
+        with:
+          fork: ${{ github.event.inputs.fork }}
+          sip_numbers: ${{ github.event.inputs.sip_numbers }}

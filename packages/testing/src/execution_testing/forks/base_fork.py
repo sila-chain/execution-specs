@@ -1,4 +1,4 @@
-"""Abstract base class for Ethereum forks."""
+"""Abstract base class for Sila forks."""
 
 import re
 from abc import ABCMeta, abstractmethod
@@ -298,7 +298,7 @@ class BaseForkMeta(ABCMeta):
 
 class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     """
-    An abstract class representing an Ethereum fork.
+    An abstract class representing an Sila fork.
 
     Must contain all the methods used by every fork.
     """
@@ -314,7 +314,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     _fork_by_timestamp: ClassVar[bool] = False
     _blob_constants: ClassVar[Dict[str, int]] = {}
     _deployed: ClassVar[bool] = True
-    _enabled_eips: ClassVar[Set[int]] = set()
+    _enabled_sips: ClassVar[Set[int]] = set()
     _enabling_forks: ClassVar[Set[Type["BaseFork"]]] = set()
 
     # Method version bumps
@@ -358,32 +358,32 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
             cls._fork_by_timestamp = fork_by_timestamp
         base_fork_class = None
         for base_class in cls.__bases__:
-            if issubclass(base_class, BaseFork) and not base_class.is_eip():
+            if issubclass(base_class, BaseFork) and not base_class.is_sip():
                 base_fork_class = base_class
                 break
         assert base_fork_class is not None
-        cls._enabled_eips = set()
+        cls._enabled_sips = set()
         if base_fork_class != BaseFork:
             base_fork_class._children.add(cls)
-            cls._enabled_eips |= base_fork_class._enabled_eips
-        eip_bases = [
+            cls._enabled_sips |= base_fork_class._enabled_sips
+        sip_bases = [
             base_class
             for base_class in cls.__bases__
-            if issubclass(base_class, BaseFork) and base_class.is_eip()
+            if issubclass(base_class, BaseFork) and base_class.is_sip()
         ]
         cls._enabling_forks = set()
-        for eip_base in eip_bases:
-            cls._enabled_eips.add(eip_base.eip())
-            eip_base._enabling_forks.add(cls)
-        # Bump the versions if any of the EIPs bump the version
+        for sip_base in sip_bases:
+            cls._enabled_sips.add(sip_base.sip())
+            sip_base._enabling_forks.add(cls)
+        # Bump the versions if any of the SIPs bump the version
         if engine_new_payload_version_bump is not None:
             cls._engine_new_payload_version_bump = (
                 engine_new_payload_version_bump
             )
         else:
             cls._engine_new_payload_version_bump = any(
-                eip_base._engine_new_payload_version_bump
-                for eip_base in eip_bases
+                sip_base._engine_new_payload_version_bump
+                for sip_base in sip_bases
             )
 
         if engine_forkchoice_updated_version_bump is not None:
@@ -392,8 +392,8 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
             )
         else:
             cls._engine_forkchoice_updated_version_bump = any(
-                eip_base._engine_forkchoice_updated_version_bump
-                for eip_base in eip_bases
+                sip_base._engine_forkchoice_updated_version_bump
+                for sip_base in sip_bases
             )
 
         if engine_get_payload_version_bump is not None:
@@ -402,16 +402,16 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
             )
         else:
             cls._engine_get_payload_version_bump = any(
-                eip_base._engine_get_payload_version_bump
-                for eip_base in eip_bases
+                sip_base._engine_get_payload_version_bump
+                for sip_base in sip_bases
             )
 
         if engine_get_blobs_version_bump is not None:
             cls._engine_get_blobs_version_bump = engine_get_blobs_version_bump
         else:
             cls._engine_get_blobs_version_bump = any(
-                eip_base._engine_get_blobs_version_bump
-                for eip_base in eip_bases
+                sip_base._engine_get_blobs_version_bump
+                for sip_base in sip_bases
             )
 
         # Calculate blob constants
@@ -419,8 +419,8 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
         if update_blob_constants is not None:
             cls._blob_constants |= update_blob_constants
         else:
-            for eip_base in eip_bases:
-                cls._blob_constants |= eip_base._blob_constants
+            for sip_base in sip_bases:
+                cls._blob_constants |= sip_base._blob_constants
 
         # Determine fork deployment status
         if deployed is not None:
@@ -498,7 +498,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     @classmethod
     @abstractmethod
     def header_slot_number_required(cls) -> bool:
-        """Return true if the header must contain slot number (EIP-7843)."""
+        """Return true if the header must contain slot number (SIP-7843)."""
         pass
 
     # Gas related abstract methods
@@ -921,7 +921,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     @classmethod
     @abstractmethod
     def supports_protected_txs(cls) -> bool:
-        """Return whether the fork implements EIP-155 protection."""
+        """Return whether the fork implements SIP-155 protection."""
         pass
 
     @classmethod
@@ -977,9 +977,9 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     ) -> int:
         """
         Return the extra regular gas an out of gas budget needs to
-        stop at the same point on this fork: the state gas EIP-8037
+        stop at the same point on this fork: the state gas SIP-8037
         spills into regular gas for the given SSTOREs, CREATEs, and
-        deployed bytes. Zero before EIP-8037, so no fork guard needed.
+        deployed bytes. Zero before SIP-8037, so no fork guard needed.
         """
         return (
             sstores_before_oog * Opcodes.SSTORE(new_value=1).state_cost(cls)
@@ -1279,7 +1279,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     @classmethod
     def is_deployed(cls) -> bool:
         """
-        Return whether the fork has been deployed to mainnet, or not.
+        Return whether the fork has been deployed to sila-mainnet, or not.
         """
         return cls._deployed
 
@@ -1294,29 +1294,29 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
         return cls._bpo_fork
 
     @classmethod
-    def is_eip(cls) -> bool:
-        """Return whether this class is an EIP."""
-        return cls.__name__.startswith("EIP") and cls.__name__[-1].isdigit()
+    def is_sip(cls) -> bool:
+        """Return whether this class is an SIP."""
+        return cls.__name__.startswith("SIP") and cls.__name__[-1].isdigit()
 
     @classmethod
-    def eip(cls) -> int:
-        """Return the number of this EIP class."""
-        if not cls.is_eip():
-            raise Exception(f"Class {cls.__name__} is not an EIP.")
+    def sip(cls) -> int:
+        """Return the number of this SIP class."""
+        if not cls.is_sip():
+            raise Exception(f"Class {cls.__name__} is not an SIP.")
         return int(cls.__name__[3:])
 
     @classmethod
-    def is_eip_enabled(cls, *eip_numbers: int) -> bool:
-        """Return whether this class has all specified EIPs enabled."""
+    def is_sip_enabled(cls, *sip_numbers: int) -> bool:
+        """Return whether this class has all specified SIPs enabled."""
         return all(
-            eip_number in cls._enabled_eips for eip_number in eip_numbers
+            sip_number in cls._enabled_sips for sip_number in sip_numbers
         )
 
     @classmethod
     def enabling_forks(cls) -> Set[Type["BaseFork"]]:
-        """Return the forks that enable this EIP."""
-        if not cls.is_eip():
-            raise Exception(f"Class {cls.__name__} is not an EIP.")
+        """Return the forks that enable this SIP."""
+        if not cls.is_sip():
+            raise Exception(f"Class {cls.__name__} is not an SIP.")
         return cls._enabling_forks
 
     @classmethod
@@ -1324,7 +1324,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
         """Return the parent fork."""
         base_fork_class = None
         for base_class in cls.__bases__:
-            if issubclass(base_class, BaseFork) and not base_class.is_eip():
+            if issubclass(base_class, BaseFork) and not base_class.is_sip():
                 base_fork_class = base_class
                 break
         assert base_fork_class is not None

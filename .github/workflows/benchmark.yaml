@@ -3,7 +3,7 @@ name: Benchmarking
 on:
   push:
     branches:
-      - mainnet
+      - sila-mainnet
       - "forks/**"
     paths:
       - "tests/benchmark/**"

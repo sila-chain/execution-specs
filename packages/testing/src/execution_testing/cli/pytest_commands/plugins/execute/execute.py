@@ -1,5 +1,5 @@
 """
-Test execution plugin for pytest, to run Ethereum tests on live networks.
+Test execution plugin for pytest, to run Sila tests on live networks.
 """
 
 from dataclasses import dataclass, field
@@ -29,7 +29,7 @@ from ..shared.helpers import (
     labeled_format_parameter_set,
     option_was_explicitly_set,
 )
-from ..spec_version_checker.spec_version_checker import EIPSpecTestItem
+from ..spec_version_checker.spec_version_checker import SIPSpecTestItem
 from .pre_alloc import Alloc
 
 logger = get_logger(__name__)
@@ -204,7 +204,7 @@ class Collector:
     case.
     """
 
-    eth_rpc: EthRPC
+    sil_rpc: EthRPC
     collected_tests: Dict[str, BaseExecute] = field(default_factory=dict)
 
     def collect(self, test_name: str, execute_format: BaseExecute) -> None:
@@ -215,7 +215,7 @@ class Collector:
 @pytest.fixture(scope="session")
 def collector(
     request: pytest.FixtureRequest,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
 ) -> Generator[Collector, None, None]:
     """
     Return configured fixture collector instance used for all tests in one test
@@ -223,7 +223,7 @@ def collector(
     """
     del request
 
-    collector = Collector(eth_rpc=eth_rpc)
+    collector = Collector(sil_rpc=sil_rpc)
     yield collector
 
 
@@ -269,17 +269,17 @@ def gas_limit_accumulator() -> Generator[GasInfoAccumulator, None, None]:
     gas_limit_accumulator = GasInfoAccumulator()
     yield gas_limit_accumulator
     logger.info(f"Total gas limit: {gas_limit_accumulator.total_gas_limit()}")
-    total_min_eth = gas_limit_accumulator.total_minimum_balance() / 10**18
-    logger.info(f"Total minimum balance: {total_min_eth:.18f}")
+    total_min_sil = gas_limit_accumulator.total_minimum_balance() / 10**18
+    logger.info(f"Total minimum balance: {total_min_sil:.18f}")
 
 
 @pytest.fixture(scope="session")
-def env_gas_limit(eth_rpc: EthRPC) -> HexNumber:
+def env_gas_limit(sil_rpc: EthRPC) -> HexNumber:
     """
     Return the environment gas limit derived from the head block before
     tests start running.
     """
-    head_block = eth_rpc.get_block_by_number()
+    head_block = sil_rpc.get_block_by_number()
     assert head_block is not None, "Unable to obtain head block from RPC"
     return HexNumber(head_block["gasLimit"])
 
@@ -303,7 +303,7 @@ def base_test_parametrizer(cls: Type[BaseTest]) -> Any:
         request: Any,
         fork: Fork,
         pre: Alloc,
-        eth_rpc: EthRPC,
+        sil_rpc: EthRPC,
         engine_rpc: EngineRPC | None,
         dry_run: bool,
         collector: Collector,
@@ -406,8 +406,8 @@ def base_test_parametrizer(cls: Type[BaseTest]) -> Any:
                 )
 
                 if dry_run:
-                    min_eth = minimum_balance / 10**18
-                    logger.info(f"Minimum balance required: {min_eth:.18f}")
+                    min_sil = minimum_balance / 10**18
+                    logger.info(f"Minimum balance required: {min_sil:.18f}")
                     logger.info(f"Gas consumption: {gas_consumption}")
                     return
 
@@ -421,7 +421,7 @@ def base_test_parametrizer(cls: Type[BaseTest]) -> Any:
                             for addr, _ in pre._deployed_contracts
                         }
                     )
-                    actual_alloc = eth_rpc.get_alloc(contract_alloc)
+                    actual_alloc = sil_rpc.get_alloc(contract_alloc)
                     for (
                         deployed_contract,
                         expected_code,
@@ -446,7 +446,7 @@ def base_test_parametrizer(cls: Type[BaseTest]) -> Any:
 
                 execute_result = execute.execute(
                     fork=fork,
-                    eth_rpc=eth_rpc,
+                    sil_rpc=sil_rpc,
                     engine_rpc=engine_rpc,
                     request=request,
                 )
@@ -513,7 +513,7 @@ def pytest_collection_modifyitems(
     """
     items_for_removal = []
     for i, item in enumerate(items):
-        if isinstance(item, EIPSpecTestItem):
+        if isinstance(item, SIPSpecTestItem):
             continue
         params: Dict[str, Any] = item.callspec.params  # type: ignore
         if "fork" not in params or params["fork"] is None:

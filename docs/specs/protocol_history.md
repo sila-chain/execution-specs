@@ -1,67 +1,67 @@
 # Protocol History
 
-The table below lists every mainnet Ethereum hardfork, its activation point, the EIPs it introduced, a link to its fork manifest in EELS, and the Ethereum Foundation announcement blog post.
+The table below lists every sila-mainnet Sila hardfork, its activation point, the SIPs it introduced, a link to its fork manifest in EELS, and the Sila Foundation announcement blog post.
 
-## Mainnet hardforks
+## SilaMainnet hardforks
 
-| Version and Code Name | Block No. | Released | Incl EIPs | Fork Specifications | Blog |
+| Version and Code Name | Block No. | Released | Incl SIPs | Fork Specifications | Blog |
 |-----------------------|-----------|----------|-----------|-------|-------|
-| Osaka | 23935694 | 2025-12-03 | [EIP-7594] <br> [EIP-7642] <br> [EIP-7823] <br> [EIP-7825] <br> [EIP-7883] <br> [EIP-7892] <br> [EIP-7910] <br> [EIP-7917] <br> [EIP-7918] <br> [EIP-7934] <br> [EIP-7935] <br> [EIP-7939] <br> [EIP-7951] | [Hardfork Meta EIP-7607](https://eips.ethereum.org/EIPS/eip-7607) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/osaka/__init__.py) | [Blog](https://blog.ethereum.org/2025/11/06/fusaka-mainnet-announcement) |
-| Prague | 22431084 | 2025-05-07 | [EIP-2537] <br> [EIP-2935] <br> [EIP-6110] <br> [EIP-7002] <br> [EIP-7251] <br> [EIP-7549] <br> [EIP-7623] <br> [EIP-7685] <br> [EIP-7691] <br> [EIP-7702] | [Hardfork Meta EIP-7600](https://eips.ethereum.org/EIPS/eip-7600) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/prague/__init__.py) | [Blog](https://blog.ethereum.org/2025/04/23/pectra-mainnet) |
-| Cancun | 19426587 | 2024-03-13<br />(1710338135) | [EIP-1153](https://eips.ethereum.org/EIPS/eip-1153) </br> [EIP-4788](https://eips.ethereum.org/EIPS/eip-4788)</br> [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844)</br> [EIP-5656](https://eips.ethereum.org/EIPS/eip-5656)</br> [EIP-6780](https://eips.ethereum.org/EIPS/eip-6780) </br> [EIP-7044](https://eips.ethereum.org/EIPS/eip-7044) </br> [EIP-7045](https://eips.ethereum.org/EIPS/eip-7045) </br> [EIP-7514](https://eips.ethereum.org/EIPS/eip-7514) </br> [EIP-7516](https://eips.ethereum.org/EIPS/eip-7516)| [Hardfork Meta EIP-7569](https://eips.ethereum.org/EIPS/eip-7569) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/cancun/__init__.py) | [Blog](https://blog.ethereum.org/2024/02/27/dencun-mainnet-announcement) |
-| Shanghai | 17034870 | 2023-04-12<br/>(1681338455) | [EIP-3651](https://eips.ethereum.org/EIPS/eip-3651) <br/> [EIP-3855](https://eips.ethereum.org/EIPS/eip-3855) <br/> [EIP-3860](https://eips.ethereum.org/EIPS/eip-3860) <br/> [EIP-4895](https://eips.ethereum.org/EIPS/eip-4895) | [(Backfill) Meta EIP-7568](https://eips.ethereum.org/EIPS/eip-7568) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/shanghai/__init__.py) | [Blog](https://blog.ethereum.org/2023/03/28/shapella-mainnet-announcement) |
-| Paris | 15537394 | 2022-09-15 | [EIP-3675](https://eips.ethereum.org/EIPS/eip-3675) <br/> [EIP-4399](https://eips.ethereum.org/EIPS/eip-4399) | [(Backfill) Meta EIP-7568](https://eips.ethereum.org/EIPS/eip-7568) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/paris/__init__.py) | [Blog](https://blog.ethereum.org/2022/08/24/mainnet-merge-announcement) |
-| Gray Glacier | 15050000 | 2022-06-30 | [EIP-5133](https://eips.ethereum.org/EIPS/eip-5133) | [(Backfill) Meta EIP-7568](https://eips.ethereum.org/EIPS/eip-7568) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/gray_glacier/__init__.py) | [Blog](https://blog.ethereum.org/2022/06/16/gray-glacier-announcement/) |
-| Arrow Glacier | 13773000 | 2021-12-09 | [EIP-4345](https://eips.ethereum.org/EIPS/eip-4345) | [(Backfill) Meta EIP-7568](https://eips.ethereum.org/EIPS/eip-7568) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/arrow_glacier/__init__.py) | [Blog](https://blog.ethereum.org/2021/11/10/arrow-glacier-announcement/) |
-| London | 12965000 |  2021-08-05 | [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) <br> [EIP-3198](https://eips.ethereum.org/EIPS/eip-3198) <br/> [EIP-3529](https://eips.ethereum.org/EIPS/eip-3529) <br/> [EIP-3541](https://eips.ethereum.org/EIPS/eip-3541) <br> [EIP-3554](https://eips.ethereum.org/EIPS/eip-3554)| [(Backfill) Meta EIP-7568](https://eips.ethereum.org/EIPS/eip-7568) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/london/__init__.py) | [Blog](https://blog.ethereum.org/2021/07/15/london-mainnet-announcement/) |
-| Berlin | 12244000 | 2021-04-15 | [EIP-2565](https://eips.ethereum.org/EIPS/eip-2565) <br/> [EIP-2929](https://eips.ethereum.org/EIPS/eip-2929) <br/> [EIP-2718](https://eips.ethereum.org/EIPS/eip-2718) <br/> [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930) | ~[Hardfork Meta EIP-2070](https://eips.ethereum.org/EIPS/eip-2070)~ <br/> [(Backfill) Meta EIP-7568](https://eips.ethereum.org/EIPS/eip-7568) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/berlin/__init__.py) | [Blog](https://blog.ethereum.org/2021/03/08/ethereum-berlin-upgrade-announcement/) |
-| Muir Glacier | 9200000 | 2020-01-02 | [EIP-2384](https://eips.ethereum.org/EIPS/eip-2384) | [Hardfork Meta EIP-2387](https://eips.ethereum.org/EIPS/eip-2387) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/muir_glacier/__init__.py) | [Blog](https://blog.ethereum.org/2019/12/23/ethereum-muir-glacier-upgrade-announcement/) |
-| Istanbul | 9069000 | 2019-12-07 | [EIP-152](https://eips.ethereum.org/EIPS/eip-152) <br/> [EIP-1108](https://eips.ethereum.org/EIPS/eip-1108) <br/> [EIP-1344](https://eips.ethereum.org/EIPS/eip-1344) <br/> [EIP-1884](https://eips.ethereum.org/EIPS/eip-1884) <br/> [EIP-2028](https://eips.ethereum.org/EIPS/eip-2028) <br/> [EIP-2200](https://eips.ethereum.org/EIPS/eip-2200) | [Hardfork Meta EIP-1679](https://eips.ethereum.org/EIPS/eip-1679) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/istanbul/__init__.py) | [Blog](https://blog.ethereum.org/2019/11/20/ethereum-istanbul-upgrade-announcement/) |
-| Petersburg | 7280000 | 2019-02-28 | [EIP-145](https://eips.ethereum.org/EIPS/eip-145) <br/> [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014) <br/> [EIP-1052](https://eips.ethereum.org/EIPS/eip-1052) <br/> [EIP-1234](https://eips.ethereum.org/EIPS/eip-1234) | [Hardfork Meta EIP-1716](https://eips.ethereum.org/EIPS/eip-1716) | [Blog](https://blog.ethereum.org/2019/02/22/ethereum-constantinople-st-petersburg-upgrade-announcement/) |
-| Constantinople | 7280000 | 2019-02-28 | [EIP-145](https://eips.ethereum.org/EIPS/eip-145) <br/> [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014) <br/> [EIP-1052](https://eips.ethereum.org/EIPS/eip-1052) <br/> [EIP-1234](https://eips.ethereum.org/EIPS/eip-1234) <br/> [EIP-1283](https://eips.ethereum.org/EIPS/eip-1283) | [Hardfork Meta EIP-1013](https://eips.ethereum.org/EIPS/eip-1013) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/constantinople/__init__.py) | [Blog](https://blog.ethereum.org/2019/02/22/ethereum-constantinople-st-petersburg-upgrade-announcement/) |
-| Byzantium | 4370000 | 2017-10-16 | [EIP-100](https://eips.ethereum.org/EIPS/eip-100) <br/> [EIP-140](https://eips.ethereum.org/EIPS/eip-140) <br/> [EIP-196](https://eips.ethereum.org/EIPS/eip-196) <br/> [EIP-197](https://eips.ethereum.org/EIPS/eip-197) <br/> [EIP-198](https://eips.ethereum.org/EIPS/eip-198) <br/> [EIP-211](https://eips.ethereum.org/EIPS/eip-211) <br/> [EIP-214](https://eips.ethereum.org/EIPS/eip-214) <br/> [EIP-649](https://eips.ethereum.org/EIPS/eip-649) <br/> [EIP-658](https://eips.ethereum.org/EIPS/eip-658) | [Hardfork Meta EIP-609](https://eips.ethereum.org/EIPS/eip-609) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/byzantium/__init__.py) | [Blog](https://blog.ethereum.org/2017/10/12/byzantium-hf-announcement/) |
-| Spurious Dragon | 2675000 | 2016-11-22 | [EIP-155](https://eips.ethereum.org/EIPS/eip-155) <br/> [EIP-160](https://eips.ethereum.org/EIPS/eip-160) <br/> [EIP-161](https://eips.ethereum.org/EIPS/eip-161) <br/> [EIP-170](https://eips.ethereum.org/EIPS/eip-170) | [Hardfork Meta EIP-607](https://eips.ethereum.org/EIPS/eip-607) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/spurious_dragon/__init__.py) | [Blog](https://blog.ethereum.org/2016/11/18/hard-fork-no-4-spurious-dragon/) |
-| Tangerine Whistle | 2463000 | 2016-10-18 | [EIP-150](https://eips.ethereum.org/EIPS/eip-150) | [Hardfork Meta EIP-608](https://eips.ethereum.org/EIPS/eip-608) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/tangerine_whistle/__init__.py) | [Blog](https://blog.ethereum.org/2016/10/13/announcement-imminent-hard-fork-eip150-gas-cost-changes/) |
-| DAO Fork | 1920000 | 2016-07-20 |  | [Hardfork Meta EIP-779](https://eips.ethereum.org/EIPS/eip-779) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/dao_fork/__init__.py) | [Blog](https://blog.ethereum.org/2016/07/15/to-fork-or-not-to-fork/) |
-| DAO Wars | aborted | aborted |  |  | [Blog](https://blog.ethereum.org/2016/06/24/dao-wars-youre-voice-soft-fork-dilemma/) |
-| Homestead | 1150000 | 2016-03-14 | [EIP-2](https://eips.ethereum.org/EIPS/eip-2) <br/> [EIP-7](https://eips.ethereum.org/EIPS/eip-7) <br/> [EIP-8](https://eips.ethereum.org/EIPS/eip-8) | [Hardfork Meta EIP-606](https://eips.ethereum.org/EIPS/eip-606) <br/> [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/homestead/__init__.py) | [Blog](https://blog.ethereum.org/2016/02/29/homestead-release/) |
-| Frontier Thawing | 200000 | 2015-09-07 | | | [Blog](https://blog.ethereum.org/2015/08/04/the-thawing-frontier/) |
-| Frontier | 1 | 2015-07-30 | | [Fork Manifest](https://github.com/ethereum/execution-specs/blob/forks/amsterdam/src/ethereum/forks/frontier/__init__.py) | [Blog](https://blog.ethereum.org/2015/07/22/frontier-is-coming-what-to-expect-and-how-to-prepare/) |
+| Osaka | 23935694 | 2025-12-03 | [SIP-7594] <br> [SIP-7642] <br> [SIP-7823] <br> [SIP-7825] <br> [SIP-7883] <br> [SIP-7892] <br> [SIP-7910] <br> [SIP-7917] <br> [SIP-7918] <br> [SIP-7934] <br> [SIP-7935] <br> [SIP-7939] <br> [SIP-7951] | [Hardfork Meta SIP-7607](https://sips.sila.org/SIPS/sip-7607) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/osaka/__init__.py) | [Blog](https://blog.sila.org/2025/11/06/fusaka-sila-mainnet-announcement) |
+| Prague | 22431084 | 2025-05-07 | [SIP-2537] <br> [SIP-2935] <br> [SIP-6110] <br> [SIP-7002] <br> [SIP-7251] <br> [SIP-7549] <br> [SIP-7623] <br> [SIP-7685] <br> [SIP-7691] <br> [SIP-7702] | [Hardfork Meta SIP-7600](https://sips.sila.org/SIPS/sip-7600) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/prague/__init__.py) | [Blog](https://blog.sila.org/2025/04/23/pectra-sila-mainnet) |
+| Cancun | 19426587 | 2024-03-13<br />(1710338135) | [SIP-1153](https://sips.sila.org/SIPS/sip-1153) </br> [SIP-4788](https://sips.sila.org/SIPS/sip-4788)</br> [SIP-4844](https://sips.sila.org/SIPS/sip-4844)</br> [SIP-5656](https://sips.sila.org/SIPS/sip-5656)</br> [SIP-6780](https://sips.sila.org/SIPS/sip-6780) </br> [SIP-7044](https://sips.sila.org/SIPS/sip-7044) </br> [SIP-7045](https://sips.sila.org/SIPS/sip-7045) </br> [SIP-7514](https://sips.sila.org/SIPS/sip-7514) </br> [SIP-7516](https://sips.sila.org/SIPS/sip-7516)| [Hardfork Meta SIP-7569](https://sips.sila.org/SIPS/sip-7569) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/cancun/__init__.py) | [Blog](https://blog.sila.org/2024/02/27/dencun-sila-mainnet-announcement) |
+| Shanghai | 17034870 | 2023-04-12<br/>(1681338455) | [SIP-3651](https://sips.sila.org/SIPS/sip-3651) <br/> [SIP-3855](https://sips.sila.org/SIPS/sip-3855) <br/> [SIP-3860](https://sips.sila.org/SIPS/sip-3860) <br/> [SIP-4895](https://sips.sila.org/SIPS/sip-4895) | [(Backfill) Meta SIP-7568](https://sips.sila.org/SIPS/sip-7568) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/shanghai/__init__.py) | [Blog](https://blog.sila.org/2023/03/28/shapella-sila-mainnet-announcement) |
+| Paris | 15537394 | 2022-09-15 | [SIP-3675](https://sips.sila.org/SIPS/sip-3675) <br/> [SIP-4399](https://sips.sila.org/SIPS/sip-4399) | [(Backfill) Meta SIP-7568](https://sips.sila.org/SIPS/sip-7568) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/paris/__init__.py) | [Blog](https://blog.sila.org/2022/08/24/sila-mainnet-merge-announcement) |
+| Gray Glacier | 15050000 | 2022-06-30 | [SIP-5133](https://sips.sila.org/SIPS/sip-5133) | [(Backfill) Meta SIP-7568](https://sips.sila.org/SIPS/sip-7568) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/gray_glacier/__init__.py) | [Blog](https://blog.sila.org/2022/06/16/gray-glacier-announcement/) |
+| Arrow Glacier | 13773000 | 2021-12-09 | [SIP-4345](https://sips.sila.org/SIPS/sip-4345) | [(Backfill) Meta SIP-7568](https://sips.sila.org/SIPS/sip-7568) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/arrow_glacier/__init__.py) | [Blog](https://blog.sila.org/2021/11/10/arrow-glacier-announcement/) |
+| London | 12965000 |  2021-08-05 | [SIP-1559](https://sips.sila.org/SIPS/sip-1559) <br> [SIP-3198](https://sips.sila.org/SIPS/sip-3198) <br/> [SIP-3529](https://sips.sila.org/SIPS/sip-3529) <br/> [SIP-3541](https://sips.sila.org/SIPS/sip-3541) <br> [SIP-3554](https://sips.sila.org/SIPS/sip-3554)| [(Backfill) Meta SIP-7568](https://sips.sila.org/SIPS/sip-7568) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/london/__init__.py) | [Blog](https://blog.sila.org/2021/07/15/london-sila-mainnet-announcement/) |
+| Berlin | 12244000 | 2021-04-15 | [SIP-2565](https://sips.sila.org/SIPS/sip-2565) <br/> [SIP-2929](https://sips.sila.org/SIPS/sip-2929) <br/> [SIP-2718](https://sips.sila.org/SIPS/sip-2718) <br/> [SIP-2930](https://sips.sila.org/SIPS/sip-2930) | ~[Hardfork Meta SIP-2070](https://sips.sila.org/SIPS/sip-2070)~ <br/> [(Backfill) Meta SIP-7568](https://sips.sila.org/SIPS/sip-7568) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/berlin/__init__.py) | [Blog](https://blog.sila.org/2021/03/08/sila-berlin-upgrade-announcement/) |
+| Muir Glacier | 9200000 | 2020-01-02 | [SIP-2384](https://sips.sila.org/SIPS/sip-2384) | [Hardfork Meta SIP-2387](https://sips.sila.org/SIPS/sip-2387) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/muir_glacier/__init__.py) | [Blog](https://blog.sila.org/2019/12/23/sila-muir-glacier-upgrade-announcement/) |
+| Istanbul | 9069000 | 2019-12-07 | [SIP-152](https://sips.sila.org/SIPS/sip-152) <br/> [SIP-1108](https://sips.sila.org/SIPS/sip-1108) <br/> [SIP-1344](https://sips.sila.org/SIPS/sip-1344) <br/> [SIP-1884](https://sips.sila.org/SIPS/sip-1884) <br/> [SIP-2028](https://sips.sila.org/SIPS/sip-2028) <br/> [SIP-2200](https://sips.sila.org/SIPS/sip-2200) | [Hardfork Meta SIP-1679](https://sips.sila.org/SIPS/sip-1679) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/istanbul/__init__.py) | [Blog](https://blog.sila.org/2019/11/20/sila-istanbul-upgrade-announcement/) |
+| Petersburg | 7280000 | 2019-02-28 | [SIP-145](https://sips.sila.org/SIPS/sip-145) <br/> [SIP-1014](https://sips.sila.org/SIPS/sip-1014) <br/> [SIP-1052](https://sips.sila.org/SIPS/sip-1052) <br/> [SIP-1234](https://sips.sila.org/SIPS/sip-1234) | [Hardfork Meta SIP-1716](https://sips.sila.org/SIPS/sip-1716) | [Blog](https://blog.sila.org/2019/02/22/sila-constantinople-st-petersburg-upgrade-announcement/) |
+| Constantinople | 7280000 | 2019-02-28 | [SIP-145](https://sips.sila.org/SIPS/sip-145) <br/> [SIP-1014](https://sips.sila.org/SIPS/sip-1014) <br/> [SIP-1052](https://sips.sila.org/SIPS/sip-1052) <br/> [SIP-1234](https://sips.sila.org/SIPS/sip-1234) <br/> [SIP-1283](https://sips.sila.org/SIPS/sip-1283) | [Hardfork Meta SIP-1013](https://sips.sila.org/SIPS/sip-1013) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/constantinople/__init__.py) | [Blog](https://blog.sila.org/2019/02/22/sila-constantinople-st-petersburg-upgrade-announcement/) |
+| Byzantium | 4370000 | 2017-10-16 | [SIP-100](https://sips.sila.org/SIPS/sip-100) <br/> [SIP-140](https://sips.sila.org/SIPS/sip-140) <br/> [SIP-196](https://sips.sila.org/SIPS/sip-196) <br/> [SIP-197](https://sips.sila.org/SIPS/sip-197) <br/> [SIP-198](https://sips.sila.org/SIPS/sip-198) <br/> [SIP-211](https://sips.sila.org/SIPS/sip-211) <br/> [SIP-214](https://sips.sila.org/SIPS/sip-214) <br/> [SIP-649](https://sips.sila.org/SIPS/sip-649) <br/> [SIP-658](https://sips.sila.org/SIPS/sip-658) | [Hardfork Meta SIP-609](https://sips.sila.org/SIPS/sip-609) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/byzantium/__init__.py) | [Blog](https://blog.sila.org/2017/10/12/byzantium-hf-announcement/) |
+| Spurious Dragon | 2675000 | 2016-11-22 | [SIP-155](https://sips.sila.org/SIPS/sip-155) <br/> [SIP-160](https://sips.sila.org/SIPS/sip-160) <br/> [SIP-161](https://sips.sila.org/SIPS/sip-161) <br/> [SIP-170](https://sips.sila.org/SIPS/sip-170) | [Hardfork Meta SIP-607](https://sips.sila.org/SIPS/sip-607) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/spurious_dragon/__init__.py) | [Blog](https://blog.sila.org/2016/11/18/hard-fork-no-4-spurious-dragon/) |
+| Tangerine Whistle | 2463000 | 2016-10-18 | [SIP-150](https://sips.sila.org/SIPS/sip-150) | [Hardfork Meta SIP-608](https://sips.sila.org/SIPS/sip-608) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/tangerine_whistle/__init__.py) | [Blog](https://blog.sila.org/2016/10/13/announcement-imminent-hard-fork-sip150-gas-cost-changes/) |
+| DAO Fork | 1920000 | 2016-07-20 |  | [Hardfork Meta SIP-779](https://sips.sila.org/SIPS/sip-779) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/dao_fork/__init__.py) | [Blog](https://blog.sila.org/2016/07/15/to-fork-or-not-to-fork/) |
+| DAO Wars | aborted | aborted |  |  | [Blog](https://blog.sila.org/2016/06/24/dao-wars-youre-voice-soft-fork-dilemma/) |
+| Homestead | 1150000 | 2016-03-14 | [SIP-2](https://sips.sila.org/SIPS/sip-2) <br/> [SIP-7](https://sips.sila.org/SIPS/sip-7) <br/> [SIP-8](https://sips.sila.org/SIPS/sip-8) | [Hardfork Meta SIP-606](https://sips.sila.org/SIPS/sip-606) <br/> [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/homestead/__init__.py) | [Blog](https://blog.sila.org/2016/02/29/homestead-release/) |
+| Frontier Thawing | 200000 | 2015-09-07 | | | [Blog](https://blog.sila.org/2015/08/04/the-thawing-frontier/) |
+| Frontier | 1 | 2015-07-30 | | [Fork Manifest](https://github.com/sila/execution-specs/blob/forks/amsterdam/src/sila/forks/frontier/__init__.py) | [Blog](https://blog.sila.org/2015/07/22/frontier-is-coming-what-to-expect-and-how-to-prepare/) |
 
 !!! note "Activation mechanism"
     Starting with Paris, updates are no longer rolled out based on block numbers. Paris was enabled once proof-of-work Total Difficulty reached `58750000000000000000000`. As of Shanghai (at `1681338455`), upgrade activation is based on timestamps.
 
-[EIP-2537]: https://eips.ethereum.org/EIPS/eip-2537
-[EIP-2935]: https://eips.ethereum.org/EIPS/eip-2935
-[EIP-6110]: https://eips.ethereum.org/EIPS/eip-6110
-[EIP-7002]: https://eips.ethereum.org/EIPS/eip-7002
-[EIP-7251]: https://eips.ethereum.org/EIPS/eip-7251
-[EIP-7549]: https://eips.ethereum.org/EIPS/eip-7549
-[EIP-7623]: https://eips.ethereum.org/EIPS/eip-7623
-[EIP-7685]: https://eips.ethereum.org/EIPS/eip-7685
-[EIP-7691]: https://eips.ethereum.org/EIPS/eip-7691
-[EIP-7702]: https://eips.ethereum.org/EIPS/eip-7702
-[EIP-7594]: https://eips.ethereum.org/EIPS/eip-7594
-[EIP-7642]: https://eips.ethereum.org/EIPS/eip-7642
-[EIP-7823]: https://eips.ethereum.org/EIPS/eip-7823
-[EIP-7825]: https://eips.ethereum.org/EIPS/eip-7825
-[EIP-7883]: https://eips.ethereum.org/EIPS/eip-7883
-[EIP-7892]: https://eips.ethereum.org/EIPS/eip-7892
-[EIP-7910]: https://eips.ethereum.org/EIPS/eip-7910
-[EIP-7917]: https://eips.ethereum.org/EIPS/eip-7917
-[EIP-7918]: https://eips.ethereum.org/EIPS/eip-7918
-[EIP-7934]: https://eips.ethereum.org/EIPS/eip-7934
-[EIP-7935]: https://eips.ethereum.org/EIPS/eip-7935
-[EIP-7939]: https://eips.ethereum.org/EIPS/eip-7939
-[EIP-7951]: https://eips.ethereum.org/EIPS/eip-7951
+[SIP-2537]: https://sips.sila.org/SIPS/sip-2537
+[SIP-2935]: https://sips.sila.org/SIPS/sip-2935
+[SIP-6110]: https://sips.sila.org/SIPS/sip-6110
+[SIP-7002]: https://sips.sila.org/SIPS/sip-7002
+[SIP-7251]: https://sips.sila.org/SIPS/sip-7251
+[SIP-7549]: https://sips.sila.org/SIPS/sip-7549
+[SIP-7623]: https://sips.sila.org/SIPS/sip-7623
+[SIP-7685]: https://sips.sila.org/SIPS/sip-7685
+[SIP-7691]: https://sips.sila.org/SIPS/sip-7691
+[SIP-7702]: https://sips.sila.org/SIPS/sip-7702
+[SIP-7594]: https://sips.sila.org/SIPS/sip-7594
+[SIP-7642]: https://sips.sila.org/SIPS/sip-7642
+[SIP-7823]: https://sips.sila.org/SIPS/sip-7823
+[SIP-7825]: https://sips.sila.org/SIPS/sip-7825
+[SIP-7883]: https://sips.sila.org/SIPS/sip-7883
+[SIP-7892]: https://sips.sila.org/SIPS/sip-7892
+[SIP-7910]: https://sips.sila.org/SIPS/sip-7910
+[SIP-7917]: https://sips.sila.org/SIPS/sip-7917
+[SIP-7918]: https://sips.sila.org/SIPS/sip-7918
+[SIP-7934]: https://sips.sila.org/SIPS/sip-7934
+[SIP-7935]: https://sips.sila.org/SIPS/sip-7935
+[SIP-7939]: https://sips.sila.org/SIPS/sip-7939
+[SIP-7951]: https://sips.sila.org/SIPS/sip-7951
 
 ## Clarifications without a protocol release
 
 Some clarifications were enabled without protocol releases:
 
-| EIP | Block No. |
+| SIP | Block No. |
 |-----|-----------|
-| [EIP-2681](https://eips.ethereum.org/EIPS/eip-2681) | 0 |
-| [EIP-3607](https://eips.ethereum.org/EIPS/eip-3607) | 0 |
-| [EIP-7523](https://eips.ethereum.org/EIPS/eip-7523) | 15537394 |
-| [EIP-7610](https://eips.ethereum.org/EIPS/eip-7610) | 0 |
+| [SIP-2681](https://sips.sila.org/SIPS/sip-2681) | 0 |
+| [SIP-3607](https://sips.sila.org/SIPS/sip-3607) | 0 |
+| [SIP-7523](https://sips.sila.org/SIPS/sip-7523) | 15537394 |
+| [SIP-7610](https://sips.sila.org/SIPS/sip-7610) | 0 |

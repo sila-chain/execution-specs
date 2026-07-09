@@ -6,15 +6,15 @@ from unittest.mock import call, patch
 
 import pytest
 from _pytest.config import Config
-from ethereum_rlp import rlp
-from ethereum_rlp.exceptions import RLPException
-from ethereum_types.numeric import U64
+from sila_rlp import rlp
+from sila_rlp.exceptions import RLPException
+from sila_types.numeric import U64
 
-from ethereum.crypto.hash import keccak256
-from ethereum.exceptions import EthereumException, StateWithEmptyAccount
-from ethereum.state import close_state
-from ethereum.utils.hexadecimal import hex_to_bytes
-from ethereum_spec_tools.evm_tools.loaders.fixture_loader import Load
+from sila.crypto.hash import keccak256
+from sila.exceptions import SilaException, StateWithEmptyAccount
+from sila.state import close_state
+from sila.utils.hexadecimal import hex_to_bytes
+from sila_spec_tools.evm_tools.loaders.fixture_loader import Load
 
 from .. import FORKS
 from ..stash_keys import desired_forks_key
@@ -117,7 +117,7 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
                 f"{self.test_file}[{self.test_key}] doesn't have post state"
             )
 
-        # Currently, there are 5 tests in the ethereum/tests fixtures
+        # Currently, there are 5 tests in the sila/tests fixtures
         # where we have non block specific exceptions.
         # For example: All the blocks process correctly but the final
         # block hash provided in the test is not correct. Or all the
@@ -125,7 +125,7 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
         # right. Since these tests do not directly have anything to do
         # with the state transition itself, we skip these
         # See src/BlockchainTestsFiller/InvalidBlocks/bcExpectSection
-        # in ethereum/tests
+        # in sila/tests
         if "exceptions" in json_data:
             pytest.xfail(
                 f"{self.test_file}[{self.test_key}] has unrelated exceptions"
@@ -184,7 +184,7 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
                 # TODO: Once all the specific exception types are thrown,
                 #       only `pytest.raises` the correct exception type instead
                 #       of all of them.
-                with pytest.raises((EthereumException, RLPException)):
+                with pytest.raises((SilaException, RLPException)):
                     add_block_to_chain(chain, json_block, load, mock_pow)
                     close_state(chain.state)
                 return

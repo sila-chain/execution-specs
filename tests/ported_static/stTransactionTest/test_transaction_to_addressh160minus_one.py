@@ -5,11 +5,11 @@ Ported from:
 state_tests/stTransactionTest/TransactionToAddressh160minusOneFiller.json
 
 @manually-enhanced: Do not overwrite. Sending value to the empty 0xff..ff
-recipient triggers EIP-2780's NEW_ACCOUNT top-frame state-gas charge.
+recipient triggers SIP-2780's NEW_ACCOUNT top-frame state-gas charge.
 Both the tx and block ``gas_limit`` are lifted by
 ``fork.transaction_top_frame_state_gas(EMPTY_ACCOUNT, sends_value=True)``
 so the charge (which spills into regular gas via the zero reservoir)
-fits the budget; this derived value is 0 on pre-EIP-2780 forks, keeping
+fits the budget; this derived value is 0 on pre-SIP-2780 forks, keeping
 the original hardcoded 22000/100000 limits intact there.
 """
 
@@ -51,10 +51,10 @@ def test_transaction_to_addressh160minus_one(
 
     pre[sender] = Account(balance=0x3B9ACA00)
 
-    # EIP-2780 charges ``NEW_ACCOUNT`` state gas at the top frame when
+    # SIP-2780 charges ``NEW_ACCOUNT`` state gas at the top frame when
     # value is sent to an empty recipient; with the default zero
     # state-gas reservoir that charge spills into regular gas, so lift
-    # ``gas_limit`` by exactly that amount (0 on pre-EIP-2780 forks).
+    # ``gas_limit`` by exactly that amount (0 on pre-SIP-2780 forks).
     # The block ``gas_limit`` must also accommodate the lifted tx.
     top_frame_state_gas = fork.transaction_top_frame_state_gas(
         recipient_type=RecipientType.EMPTY_ACCOUNT,

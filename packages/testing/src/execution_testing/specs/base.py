@@ -1,5 +1,5 @@
 """
-Base test class and helper functions for Ethereum state and blockchain tests.
+Base test class and helper functions for Sila state and blockchain tests.
 """
 
 from abc import abstractmethod
@@ -101,7 +101,7 @@ class FillResult(BaseModel):
 
 class BaseTest(BaseModel):
     """
-    Represents a base Ethereum test which must return a single test fixture.
+    Represents a base Sila test which must return a single test fixture.
     """
 
     model_config = ConfigDict(extra="forbid")

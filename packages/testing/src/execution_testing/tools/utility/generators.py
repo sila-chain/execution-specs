@@ -131,7 +131,7 @@ def generate_system_contract_deploy_test(
       tx_json_path (Path): Path to the JSON file with the transaction to
                            deploy the system contract. Providing a JSON
                            file is useful to copy-paste the transaction
-                           from the EIP.
+                           from the SIP.
       expected_deploy_address (Address): The expected address of the deployed
                                          contract.
       fail_on_empty_code (bool): If True, the test is expected to fail

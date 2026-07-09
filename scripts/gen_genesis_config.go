@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/ethereum/go-ethereum/core"
+	"github.com/sila/go-sila/core"
 )
 
 func main() {

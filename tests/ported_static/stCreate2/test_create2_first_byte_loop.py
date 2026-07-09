@@ -4,7 +4,7 @@ Test_create2_first_byte_loop.
 Ported from:
 state_tests/stCreate2/CREATE2_FirstByte_loopFiller.yml
 @manually-enhanced: Do not overwrite. Gas bumped fork-conditionally
-to cover EIP-8037 state-gas spill into regular gas; pre-EIP-8037
+to cover SIP-8037 state-gas spill into regular gas; pre-SIP-8037
 behavior unchanged.
 
 """
@@ -68,9 +68,9 @@ def test_create2_first_byte_loop(
     v: int,
 ) -> None:
     """Test_create2_first_byte_loop."""
-    # EIP-8037 gas bumps: original values for pre-EIP-8037 forks.
+    # SIP-8037 gas bumps: original values for pre-SIP-8037 forks.
     outer_tx_gas = 16777216
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         outer_tx_gas = 83886080
 
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)

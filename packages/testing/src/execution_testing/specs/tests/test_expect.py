@@ -656,7 +656,7 @@ def test_verify_log(
         verify_log(0, 0, expected_log, actual_log)
 
 
-# Log mismatch integration tests using Amsterdam fork (EIP-7708)
+# Log mismatch integration tests using Amsterdam fork (SIP-7708)
 @pytest.mark.parametrize(
     "mismatch_type",
     [
@@ -674,7 +674,7 @@ def test_log_mismatch_during_generation(
     """
     from execution_testing.forks import Amsterdam
 
-    # EIP-7708 transfer log constants
+    # SIP-7708 transfer log constants
     system_address = Address(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE)
 
     # Create a simple transfer transaction

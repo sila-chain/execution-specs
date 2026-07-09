@@ -1,5 +1,5 @@
 """
-Tests for the ethereum-spec-new-fork CLI tool.
+Tests for the sila-spec-new-fork CLI tool.
 """
 
 from pathlib import Path
@@ -9,9 +9,9 @@ import libcst as cst
 import pytest
 from libcst.codemod import CodemodContext
 
-from ethereum_spec_tools.forks import Hardfork
-from ethereum_spec_tools.new_fork.cli import main as new_fork
-from ethereum_spec_tools.new_fork.codemod.remove_docstring import (
+from sila_spec_tools.forks import Hardfork
+from sila_spec_tools.new_fork.cli import main as new_fork
+from sila_spec_tools.new_fork.codemod.remove_docstring import (
     RemoveDocstringCommand,
 )
 
@@ -26,11 +26,11 @@ from ethereum_spec_tools.new_fork.codemod.remove_docstring import (
 )
 def test_end_to_end(template_fork: str) -> None:
     """
-    Test that the ethereum-spec-new-fork CLI tool creates a fork from a
+    Test that the sila-spec-new-fork CLI tool creates a fork from a
     template, correctly modifying names, blob parameters, and imports.
     """
     with TemporaryDirectory() as base_dir:
-        output_dir = Path(base_dir) / "ethereum"
+        output_dir = Path(base_dir) / "sila"
         fork_dir = output_dir / "e2e_fork"
 
         new_fork(
@@ -92,7 +92,7 @@ def test_end_to_end(template_fork: str) -> None:
         # TODO: Remove this condition once trie.py is removed from all
         # forks (i.e. fork-agnostic Trie is ported to pre-amsterdam forks).
         template_has_trie = (
-            Path("src/ethereum/forks") / template_fork / "trie.py"
+            Path("src/sila/forks") / template_fork / "trie.py"
         ).exists()
         if template_has_trie:
             assert (fork_dir / "trie.py").exists()

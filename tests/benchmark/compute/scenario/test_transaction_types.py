@@ -75,14 +75,14 @@ def get_single_receiver_list(
 
 @dataclass(frozen=True)
 class ReceiverAccountType:
-    """Receiver account type for ether transfer benchmarks."""
+    """Receiver account type for sil transfer benchmarks."""
 
     balance: int
     delegated: bool
 
 
 @pytest.fixture
-def ether_transfer_case(
+def siler_transfer_case(
     case_id: str,
     pre: Alloc,
     receiver_account_type: ReceiverAccountType,
@@ -155,7 +155,7 @@ def ether_transfer_case(
     ],
 )
 @pytest.mark.parametrize("warm_access", [False, True])
-def test_ether_transfers(
+def test_siler_transfers(
     benchmark_test: BenchmarkTestFiller,
     pre: Alloc,
     case_id: str,
@@ -164,12 +164,12 @@ def test_ether_transfers(
     fork: Fork,
     gas_benchmark_value: int,
     warm_access: bool,
-    ether_transfer_case: Tuple[
+    siler_transfer_case: Tuple[
         Generator[Address, None, None], Generator[Address, None, None]
     ],
 ) -> None:
     """
-    Single test for ether transfer scenarios.
+    Single test for sil transfer scenarios.
 
     Scenarios:
     - a_to_a: one sender → one sender
@@ -181,7 +181,7 @@ def test_ether_transfers(
     When warm_access is True, each transaction includes an access list
     entry for the receiver to warm the account before the transfer.
     """
-    senders, receivers = ether_transfer_case
+    senders, receivers = siler_transfer_case
 
     balance = receiver_account_type.balance
 
@@ -237,7 +237,7 @@ def test_ether_transfers(
 
 @pytest.mark.with_all_precompiles
 @pytest.mark.parametrize("transfer_amount", [0, 1])
-def test_ether_transfers_to_precompile(
+def test_siler_transfers_to_precompile(
     benchmark_test: BenchmarkTestFiller,
     pre: Alloc,
     precompile: int,
@@ -245,7 +245,7 @@ def test_ether_transfers_to_precompile(
     transfer_amount: int,
     intrinsic_cost: int,
 ) -> None:
-    """Test a block full of ether transfers to a precompile address."""
+    """Test a block full of sil transfers to a precompile address."""
     iteration_count = gas_benchmark_value // intrinsic_cost
     txs = []
     for _ in range(iteration_count):
@@ -267,13 +267,13 @@ def test_ether_transfers_to_precompile(
 
 @pytest.fixture
 def total_cost_floor_per_token(fork: Fork) -> int:
-    """Total cost floor per token (EIP-7623)."""
+    """Total cost floor per token (SIP-7623)."""
     return fork.gas_costs().TX_DATA_TOKEN_FLOOR
 
 
 @pytest.fixture
 def total_cost_standard_per_token(fork: Fork) -> int:
-    """Standard cost per token (EIP-7623)."""
+    """Standard cost per token (SIP-7623)."""
     return fork.gas_costs().TX_DATA_TOKEN_STANDARD
 
 
@@ -283,7 +283,7 @@ def calldata_generator(
     total_cost_floor_per_token: int,
 ) -> bytes:
     """Calculate the calldata based on the gas amount and zero byte."""
-    # Gas cost calculation based on EIP-7683: (https://eips.ethereum.org/EIPS/eip-7683)
+    # Gas cost calculation based on SIP-7683: (https://sips.sila.org/SIPS/sip-7683)
     #
     #   tx.gasUsed = 21000 + max(
     #       TX_DATA_TOKEN_STANDARD * tokens_in_calldata
@@ -331,7 +331,7 @@ def test_block_full_data(
     """Test a block full of calldata, respecting RLP size limits."""
     iteration_count = math.ceil(gas_benchmark_value / tx_gas_limit)
 
-    # check for EIP-7934 block RLP size limit and cap gas to stay under it
+    # check for SIP-7934 block RLP size limit and cap gas to stay under it
     block_rlp_limit = fork.block_rlp_size_limit()
     effective_gas = gas_benchmark_value
 
@@ -399,11 +399,11 @@ def test_block_full_access_list_and_data(
     Test a block with access lists (60% gas) and calldata (40% gas) using
     random mixed bytes.
     """
-    # Skip if EIP-7934 block RLP size limit would be exceeded
+    # Skip if SIP-7934 block RLP size limit would be exceeded
     block_rlp_limit = fork.block_rlp_size_limit()
     if block_rlp_limit:
         pytest.skip(
-            "Test skipped: EIP-7934 block RLP size limit might be exceeded"
+            "Test skipped: SIP-7934 block RLP size limit might be exceeded"
         )
 
     iteration_count = math.ceil(gas_benchmark_value / tx_gas_limit)
@@ -612,10 +612,10 @@ def test_auth_transaction(
             )
         )
 
-    # EIP-7778: refunds no longer reduce block-level gas accounting
+    # SIP-7778: refunds no longer reduce block-level gas accounting
     expected_gas_usage = (
         total_gas_used
-        if fork.is_eip_enabled(7778)
+        if fork.is_sip_enabled(7778)
         else total_gas_used - total_refund
     )
 
@@ -653,7 +653,7 @@ def test_contract_creation(
     )
     intrinsic_gas_calc = fork.transaction_intrinsic_cost_calculator()
 
-    # EIP-7623: actual gas used = max(standard + execution, floor)
+    # SIP-7623: actual gas used = max(standard + execution, floor)
     standard_intrinsic = intrinsic_gas_calc(
         calldata=bytes(initcode),
         contract_creation=True,

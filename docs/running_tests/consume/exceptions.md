@@ -19,13 +19,13 @@ Each client has unique error message formats. EEST maintains exception mappers t
 
 Exception mappers are defined in the EEST codebase:
 
-- `packages/testing/src/execution_testing/client_clis/clis/<client>.py` (e.g., `geth.py`, `besu.py`, `nethermind.py`)
+- `packages/testing/src/execution_testing/client_clis/clis/<client>.py` (e.g., `gsil.py`, `besu.py`, `nethermind.py`)
 
 ### Example Mapper Structure
 
 ```python
 # Simplified example
-GETH_EXCEPTIONS = {
+GSIL_EXCEPTIONS = {
     "invalid block: gas limit reached": ExceptionType.GAS_LIMIT_EXCEEDED,
     "block gas cost exceeds gas limit": ExceptionType.GAS_LIMIT_EXCEEDED,
     "insufficient balance for transfer": ExceptionType.INSUFFICIENT_BALANCE,
@@ -47,7 +47,7 @@ uv run consume engine -k "test_invalid_gas_limit" -v
 Look for output like:
 
 ```text
-Unmapped exception from client 'go-ethereum': "block gas cost exceeds limit: have 30000001, limit 30000000"
+Unmapped exception from client 'go-sila': "block gas cost exceeds limit: have 30000001, limit 30000000"
 ```
 
 ### 2. Update the Exception Mapper
@@ -55,8 +55,8 @@ Unmapped exception from client 'go-ethereum': "block gas cost exceeds limit: hav
 Edit the client's exception mapper in `packages/testing/src/execution_testing/client_clis/clis/<client>.py`:
 
 ```python
-# In packages/testing/src/execution_testing/client_clis/clis/geth.py
-class GethCLI(TransitionTool):
+# In packages/testing/src/execution_testing/client_clis/clis/gsil.py
+class GsilCLI(TransitionTool):
     exception_map = {
         # Existing mappings...
         "block gas cost exceeds limit": ExceptionType.GAS_LIMIT_EXCEEDED,  # New mapping
@@ -98,7 +98,7 @@ uv run consume engine --disable-strict-exception-matching=nimbus-el
 Enable verbose client output:
 
 ```bash
-./hive --sim ethereum/eels/consume-engine \
+./hive --sim sila/eels/consume-engine \
   --docker.output \
   --sim.loglevel 5
 ```

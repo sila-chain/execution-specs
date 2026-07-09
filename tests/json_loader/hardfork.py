@@ -4,7 +4,7 @@ Test-specific Hardfork subclass.
 Extends the base Hardfork class with test infrastructure properties.
 """
 
-from ethereum_spec_tools.forks import Hardfork
+from sila_spec_tools.forks import Hardfork
 
 
 class TestHardfork(Hardfork):
@@ -22,9 +22,9 @@ class TestHardfork(Hardfork):
         Name of the hard fork in the test json fixtures.
         """
         if self.title_case_name == "Tangerine Whistle":
-            return "EIP150"
+            return "SIP150"
         elif self.title_case_name == "Spurious Dragon":
-            return "EIP158"
+            return "SIP158"
         elif self.title_case_name == "Constantinople":
             return "ConstantinopleFix"
         else:

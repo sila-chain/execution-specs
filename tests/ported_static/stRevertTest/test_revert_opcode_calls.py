@@ -4,13 +4,13 @@ Test_revert_opcode_calls.
 Ported from:
 state_tests/stRevertTest/RevertOpcodeCallsFiller.json
 @manually-enhanced: Do not overwrite. Gas bumped fork-conditionally
-to cover EIP-8037 state-gas spill into regular gas; pre-EIP-8037
+to cover SIP-8037 state-gas spill into regular gas; pre-SIP-8037
 behavior unchanged. The d3 call chain ends in a fresh SSTORE-set in
 the outermost (transaction) frame; with an empty state-gas reservoir
 that set's state gas spills into regular gas, so the success path
 (g=0) runs out at the final `SSTORE` unless the outer budget absorbs
 the spill. Lift `tx_gas[0]` by one fresh-set SSTORE state cost via
-`fork.oog_budget_lift`, which is exactly 0 pre-EIP-8037 and tracks
+`fork.oog_budget_lift`, which is exactly 0 pre-SIP-8037 and tracks
 the parameter. g=1 (the OoG case) keeps the original budget.
 
 """
@@ -102,11 +102,11 @@ def test_revert_opcode_calls(
     v: int,
 ) -> None:
     """Test_revert_opcode_calls."""
-    # EIP-8037 gas bumps: original values for pre-EIP-8037 forks.
+    # SIP-8037 gas bumps: original values for pre-SIP-8037 forks.
     inner_call_gas = 50000
     inner_call_gas_2 = 100000
     inner_call_gas_3 = 260000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         inner_call_gas = 1000000
         inner_call_gas_2 = 1000000
         inner_call_gas_3 = 1300000
@@ -341,9 +341,9 @@ def test_revert_opcode_calls(
         Hash(addr_4, left_padding=True),
     ]
     # The g=0 success path bottoms out on a fresh SSTORE-set in the
-    # transaction frame whose EIP-8037 state gas spills (empty
+    # transaction frame whose SIP-8037 state gas spills (empty
     # reservoir). Lift the outer budget by that spilled state cost so
-    # the chain still completes on Amsterdam; 0 pre-EIP-8037.
+    # the chain still completes on Amsterdam; 0 pre-SIP-8037.
     g0_lift = fork.oog_budget_lift(sstores_before_oog=1)
     tx_gas = [460000 + g0_lift, 83622]
 

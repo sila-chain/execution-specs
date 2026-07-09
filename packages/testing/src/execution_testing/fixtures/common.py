@@ -14,7 +14,7 @@ from execution_testing.base_types import (
     Bloom,
     Bytes,
     CamelModel,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     Hash,
     RLPSerializable,
     SignableRLPSerializable,
@@ -40,7 +40,7 @@ class FixtureForkBlobSchedule(CamelModel):
 
 
 class FixtureBlobSchedule(
-    EthereumTestRootModel[Dict[str, FixtureForkBlobSchedule]]
+    SilaTestRootModel[Dict[str, FixtureForkBlobSchedule]]
 ):
     """Blob schedule configuration dictionary."""
 

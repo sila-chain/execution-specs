@@ -22,9 +22,9 @@ from execution_testing.forks import London
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_FirstByte_loopFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_FirstByte_loopFiller.yml",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1615"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1615"],
     coverage_missed_reason=(
         "coinbase is deleted in original test (tx.gas_price==env.base_fee), "
         "opcodes lt, iszero, jump are no longer used"

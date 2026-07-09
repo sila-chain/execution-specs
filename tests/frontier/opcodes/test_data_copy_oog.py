@@ -12,7 +12,7 @@ from execution_testing import (
     Transaction,
 )
 
-REFERENCE_SPEC_GIT_PATH = "EIPS/eip-211.md"
+REFERENCE_SPEC_GIT_PATH = "SIPS/sip-211.md"
 REFERENCE_SPEC_VERSION = "1.0.0"
 
 pytestmark = pytest.mark.valid_from("Byzantium")

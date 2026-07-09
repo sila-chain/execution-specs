@@ -2,8 +2,8 @@
 Tests nested CALL/CALLCODE/DELEGATECALL/STATICCALL gas usage with positive
 value transfer (where applicable).
 
-This test investigates an issue identified in EthereumJS, as reported in:
-https://github.com/ethereumjs/ethereumjs-monorepo/issues/3194.
+This test investigates an issue identified in SilaJS, as reported in:
+https://github.com/silajs/silajs-monorepo/issues/3194.
 
 The issue pertains to the incorrect gas calculation for
 CALL/CALLCODE/DELEGATECALL/STATICCALL operations with a positive value
@@ -25,7 +25,7 @@ Given two smart contract accounts, 0x0A (caller) and 0x0B (callee):
 4. If the gas X provided by contract 0x0A to 0x0B is sufficient, contract
 0x0B will push 0x01 onto the stack after returning to the call frame in
 0x0A. Otherwise, it should push 0x00, indicating the insufficiency of
-gas X (for the bug in EthereumJS, the CALL/CALLCODE operation would
+gas X (for the bug in SilaJS, the CALL/CALLCODE operation would
 return 0x01 due to the pre-addition of the gas stipend).
 5. The resulting stack value is saved into contract 0x0A's storage,
 allowing us to verify whether the provided gas was sufficient or
@@ -201,7 +201,7 @@ def caller_address(pre: Alloc, caller_code: Bytecode) -> Address:
 def caller_tx(sender: EOA, caller_address: Address, fork: Fork) -> Transaction:
     """Transaction that performs the call to the caller contract."""
     gas_limit = 500_000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         gas_limit = 1_000_000
 
     return Transaction(
@@ -234,7 +234,7 @@ def expected_block_access_list(
     gas_shortage: int,
 ) -> None | BlockAccessListExpectation:
     """The expected block access list for >=Amsterdam cases."""
-    if fork.is_eip_enabled(7928):
+    if fork.is_sip_enabled(7928):
         if callee_opcode == Op.CALL:
             if gas_shortage:
                 # call runs OOG after state access due to `is_account_alive` in

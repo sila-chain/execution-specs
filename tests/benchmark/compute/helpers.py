@@ -24,7 +24,7 @@ from execution_testing import (
 )
 from pydantic import Field
 
-from tests.osaka.eip7951_p256verify_precompiles.spec import (
+from tests.osaka.sip7951_p256verify_precompiles.spec import (
     FieldElement,
 )
 

@@ -1,14 +1,14 @@
-"""Block-related types for Ethereum tests."""
+"""Block-related types for Sila tests."""
 
 import hashlib
 from dataclasses import dataclass
 from functools import cached_property
 from typing import Any, Dict, Generic, List, Sequence
 
-import ethereum_rlp as eth_rlp
-from ethereum_types.numeric import Uint
+import sila_rlp as sil_rlp
+from sila_types.numeric import Uint
 from pydantic import Field, computed_field, model_validator
-from trie import HexaryTrie
+from sila_trie import HexarySilaTrie
 
 from execution_testing.base_types import (
     Address,
@@ -23,8 +23,8 @@ from execution_testing.base_types import (
 from execution_testing.forks import Fork
 
 DEFAULT_BASE_FEE = 7
-CURRENT_MAINNET_BLOCK_GAS_LIMIT = 60_000_000
-DEFAULT_BLOCK_GAS_LIMIT = CURRENT_MAINNET_BLOCK_GAS_LIMIT * 2
+CURRENT_SILA_MAINNET_BLOCK_GAS_LIMIT = 60_000_000
+DEFAULT_BLOCK_GAS_LIMIT = CURRENT_SILA_MAINNET_BLOCK_GAS_LIMIT * 2
 
 
 @dataclass
@@ -63,11 +63,11 @@ class WithdrawalGeneric(CamelModel, Generic[NumberBoundTypeVar]):
     @staticmethod
     def list_root(withdrawals: Sequence["WithdrawalGeneric"]) -> bytes:
         """Return withdrawals root of a list of withdrawals."""
-        t = HexaryTrie(db={})
+        t = HexarySilaTrie(db={})
         for i, w in enumerate(withdrawals):
             t.set(
-                eth_rlp.encode(Uint(i)),
-                eth_rlp.encode(w.to_serializable_list()),
+                sil_rlp.encode(Uint(i)),
+                sil_rlp.encode(w.to_serializable_list()),
             )
         return t.root_hash
 
@@ -142,7 +142,7 @@ class Environment(EnvironmentGeneric[ZeroPaddedHexNumber]):
     withdrawals: List[Withdrawal] | None = Field(None)
     extra_data: Bytes = Field(Bytes(b"\x00"), exclude=True)
 
-    # EIP-7928: Block-level access lists
+    # SIP-7928: Block-level access lists
     block_access_list_hash: Hash | None = Field(None)
     block_access_lists: Bytes | None = Field(None)
 

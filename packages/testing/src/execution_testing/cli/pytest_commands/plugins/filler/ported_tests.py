@@ -26,8 +26,8 @@ Marker Format:
     ["path/to/static_filler1.json",
     "path/to/static_filler2.json"],
     pr=[
-        "https://github.com/ethereum/execution-spec-tests/pull/1234",
-        "https://github.com/ethereum/execution-spec-tests/pull/5678",
+        "https://github.com/sila/execution-spec-tests/pull/1234",
+        "https://github.com/sila/execution-spec-tests/pull/5678",
     ],
     coverage_missed_reason="Optional reason for accepted coverage miss",
 )

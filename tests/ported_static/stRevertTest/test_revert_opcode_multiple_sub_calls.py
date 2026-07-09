@@ -585,9 +585,9 @@ def test_revert_opcode_multiple_sub_calls(
         Hash(addr_4, left_padding=True),
     ]
     tx_gas = [
-        None if fork.is_eip_enabled(8037) else 800000,
+        None if fork.is_sip_enabled(8037) else 800000,
         126200,
-        None if fork.is_eip_enabled(8037) else 160000,
+        None if fork.is_sip_enabled(8037) else 160000,
         50000,
     ]
     tx_value = [0, 10]

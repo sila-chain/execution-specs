@@ -15,12 +15,12 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         "help_options", "Help options for different commands"
     )
     help_group.addoption(
-        "--check-eip-versions-help",
+        "--check-sip-versions-help",
         action="store_true",
-        dest="show_check_eip_versions_help",
+        dest="show_check_sip_versions_help",
         default=False,
         help=(
-            "Show help options only for the check_eip_versions command "
+            "Show help options only for the check_sip_versions command "
             "and exit."
         ),
     )
@@ -77,12 +77,12 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         ),
     )
     help_group.addoption(
-        "--execute-eth-config-help",
+        "--execute-sil-config-help",
         action="store_true",
-        dest="show_execute_eth_config_help",
+        dest="show_execute_sil_config_help",
         default=False,
         help=(
-            "Show help options specific to the execute eth_config command "
+            "Show help options specific to the execute sil_config command "
             "and exit."
         ),
     )
@@ -93,13 +93,13 @@ def pytest_configure(config: pytest.Config) -> None:
     """
     Handle specific help flags by displaying the corresponding help message.
     """
-    if config.getoption("show_check_eip_versions_help"):
+    if config.getoption("show_check_sip_versions_help"):
         show_specific_help(
             config,
-            "pytest-check-eip-versions.ini",
+            "pytest-check-sip-versions.ini",
             [
                 "spec_version_checker",
-                "EIP spec version",
+                "SIP spec version",
             ],
         )
     elif config.getoption("show_fill_help"):
@@ -176,12 +176,12 @@ def pytest_configure(config: pytest.Config) -> None:
                 "chain configuration",
             ],
         )
-    elif config.getoption("show_execute_eth_config_help"):
+    elif config.getoption("show_execute_sil_config_help"):
         show_specific_help(
             config,
-            "pytest-execute-eth-config.ini",
+            "pytest-execute-sil-config.ini",
             [
-                "eth_config",
+                "sil_config",
                 "chain configuration",
             ],
         )

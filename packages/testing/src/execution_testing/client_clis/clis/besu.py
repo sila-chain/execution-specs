@@ -28,7 +28,7 @@ from execution_testing.fixtures import (
 from execution_testing.forks import Fork
 
 from ..cli_types import TransitionToolOutput
-from ..ethereum_cli import EthereumCLI
+from ..sila_cli import SilaCLI
 from ..fixture_consumer_tool import FixtureConsumerTool
 from ..transition_tool import (
     Profiler,
@@ -40,7 +40,7 @@ from ..transition_tool import (
 BESU_BIN_DETECT_PATTERN = re.compile(r"^Besu evm .*$")
 
 
-class BesuEvmTool(EthereumCLI):
+class BesuEvmTool(SilaCLI):
     """Besu `evmtool` base class."""
 
     default_binary = Path("evmtool")

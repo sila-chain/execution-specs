@@ -5,13 +5,13 @@ Ported from:
 state_tests/stBadOpcode/operationDiffGasFiller.yml
 
 @manually-enhanced: Do not overwrite. A search measures the gas an
-opcode needs to succeed. Two access classes shift under EIP-8038: the
+opcode needs to succeed. Two access classes shift under SIP-8038: the
 CALL-family probes (`CALL`/`CALLCODE`/`DELEGATECALL`/`STATICCALL`) make
 one cold account access to the callee, repricing by
 `COLD_ACCOUNT_ACCESS - 2600`; the EXTCODE probe runs a cold
 `EXTCODESIZE` plus a warm `EXTCODECOPY`, each carrying the extra
 extcode surcharge. Every delta is derived from the fork's own gas
-model, so it is exactly 0 before EIP-8038 and tracks future parameter
+model, so it is exactly 0 before SIP-8038 and tracks future parameter
 changes; do not hardcode the Amsterdam numbers.
 """
 
@@ -369,10 +369,10 @@ def test_operation_diff_gas(
     )
 
     # The CALL-family probes make one cold account access to the callee;
-    # EIP-8038 reprices it by `COLD_ACCOUNT_ACCESS - 2600`. The EXTCODE
+    # SIP-8038 reprices it by `COLD_ACCOUNT_ACCESS - 2600`. The EXTCODE
     # probe runs a cold `EXTCODESIZE` plus a warm `EXTCODECOPY`, each
     # carrying the extcode surcharge. Both deltas come from the fork gas
-    # model, so they are 0 before EIP-8038. The EXTCODECOPY metadata
+    # model, so they are 0 before SIP-8038. The EXTCODECOPY metadata
     # mirrors the measured access (a 0x20-byte copy into already-expanded
     # memory) so only the account-access component varies across forks.
     gas_costs = fork.gas_costs()

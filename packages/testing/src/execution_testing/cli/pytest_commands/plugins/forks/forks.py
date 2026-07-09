@@ -30,7 +30,7 @@ from execution_testing.forks import (
     ALL_FORKS,
     ALL_FORKS_WITH_TRANSITIONS,
     Fork,
-    ForkEIPSetAdapter,
+    ForkSIPSetAdapter,
     ForkSetAdapter,
     InvalidForkError,
     TransitionFork,
@@ -496,7 +496,7 @@ def pytest_configure(config: pytest.Config) -> None:
     config.addinivalue_line(
         "markers",
         (
-            "valid_before(fork_or_eip): specifies the fork or EIP "
+            "valid_before(fork_or_sip): specifies the fork or SIP "
             "before which a test case is valid (exclusive)"
         ),
     )
@@ -567,7 +567,7 @@ def pytest_configure(config: pytest.Config) -> None:
     dev_forks_help = textwrap.dedent(
         "To run tests for a fork under active development, it must be "
         "specified explicitly via --until=FORK.\n"
-        "Tests are only run for deployed mainnet forks by default, i.e., "
+        "Tests are only run for deployed sila-mainnet forks by default, i.e., "
         f"until {get_deployed_forks()[-1].name()}.\n"
     )
     if show_fork_help:
@@ -777,20 +777,20 @@ class ValidityMarker(ABC):
         self, *fork_args: str
     ) -> Set[Fork | TransitionFork]:
         """Process the fork arguments."""
-        fork_eips_set = ForkEIPSetAdapter.validate_python(fork_args)
-        if len(fork_eips_set) != len(fork_args):
+        fork_sips_set = ForkSIPSetAdapter.validate_python(fork_args)
+        if len(fork_sips_set) != len(fork_args):
             raise Exception(
                 f"Duplicate argument specified in '{self.marker_name}'"
             )
         forks_set: Set[Fork | TransitionFork] = set()
-        for fork_eip in fork_eips_set:
-            if fork_eip.is_transition_fork:
-                forks_set.add(fork_eip)
+        for fork_sip in fork_sips_set:
+            if fork_sip.is_transition_fork:
+                forks_set.add(fork_sip)
             else:
-                if not fork_eip.is_eip():
-                    forks_set.add(fork_eip)
+                if not fork_sip.is_sip():
+                    forks_set.add(fork_sip)
                 else:
-                    forks_set |= fork_eip.enabling_forks()
+                    forks_set |= fork_sip.enabling_forks()
         return forks_set
 
     @staticmethod
@@ -895,7 +895,7 @@ class ValidityMarker(ABC):
         if self.flag:
             return forks - fork_set
         if not fork_set:
-            # Test is marked for an EIP that is not yet enabled in any
+            # Test is marked for an SIP that is not yet enabled in any
             # fork.
             return fork_set
         resulting_set = forks & fork_set
@@ -1026,7 +1026,7 @@ class ValidUntil(ValidityMarker):
 
 class ValidBefore(ValidityMarker, mutually_exclusive=[ValidUntil]):
     """
-    Marker to specify the fork or EIP before which the test is valid.
+    Marker to specify the fork or SIP before which the test is valid.
 
     The test will be filled for all forks strictly before the specified
     fork — the fork itself is **excluded**.
@@ -1034,16 +1034,16 @@ class ValidBefore(ValidityMarker, mutually_exclusive=[ValidUntil]):
     ``valid_before`` vs ``valid_until``:
 
     - ``valid_until("Prague")`` — inclusive: runs *through* Prague.
-    - ``valid_before("EIP7825")`` — exclusive: runs up to but *not at*
-      the point where EIP-7825 activates.
+    - ``valid_before("SIP7825")`` — exclusive: runs up to but *not at*
+      the point where SIP-7825 activates.
 
     ```python
     import pytest
 
     from execution_testing import  Alloc, StateTestFiller
 
-    @pytest.mark.valid_before("EIP7825")
-    def test_something_only_valid_before_eip7825(
+    @pytest.mark.valid_before("SIP7825")
+    def test_something_only_valid_before_sip7825(
         state_test: StateTestFiller,
         pre: Alloc
     ):
@@ -1051,7 +1051,7 @@ class ValidBefore(ValidityMarker, mutually_exclusive=[ValidUntil]):
     ```
 
     In this example, the test will only be filled for forks where
-    EIP-7825 is not yet active.
+    SIP-7825 is not yet active.
     """
 
     def _process_with_marker_args(

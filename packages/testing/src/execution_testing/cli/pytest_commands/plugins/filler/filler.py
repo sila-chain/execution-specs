@@ -40,7 +40,7 @@ from execution_testing.cli.gen_index import (
     merge_partial_indexes,
 )
 from execution_testing.client_clis import TransitionTool
-from execution_testing.client_clis.clis.geth import FixtureConsumerTool
+from execution_testing.client_clis.clis.gsil import FixtureConsumerTool
 from execution_testing.fixtures import (
     BaseFixture,
     BlockchainEngineFixture,
@@ -434,7 +434,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         help=(
             "Path to an evm executable (or name of an executable in the "
             "PATH) that provides `t8n`. Defaults to the in-repo EELS "
-            "Python spec (`src/ethereum/`)."
+            "Python spec (`src/sila/`)."
         ),
     )
     evm_group.addoption(
@@ -472,11 +472,11 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         dest="verify_fixtures",
         default=False,
         help=(
-            "Verify generated fixture JSON files using geth's evm "
+            "Verify generated fixture JSON files using gsil's evm "
             "blocktest command. By default, the same evm binary as for "
-            "the t8n tool is used. A different (geth) evm binary may be "
+            "the t8n tool is used. A different (gsil) evm binary may be "
             "specified via --verify-fixtures-bin, this must be specified "
-            "if filling with a non-geth t8n tool that does not support "
+            "if filling with a non-gsil t8n tool that does not support "
             "blocktest."
         ),
     )
@@ -488,7 +488,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         default=None,
         help=(
             "Path to an evm executable that provides the `blocktest` command. "
-            "Default: The first (geth) 'evm' entry in PATH."
+            "Default: The first (gsil) 'evm' entry in PATH."
         ),
     )
 
@@ -1269,7 +1269,7 @@ def evm_fixture_verification(
             pytest.exit(
                 "Specified binary in --verify-fixtures-bin could not be "
                 "recognized as a known FixtureConsumerTool. Please see "
-                "`GethFixtureConsumer` for an example of how a new fixture "
+                "`GsilFixtureConsumer` for an example of how a new fixture "
                 "consumer can be defined.",
                 returncode=pytest.ExitCode.USAGE_ERROR,
             )
@@ -1364,7 +1364,7 @@ def dump_dir_parameter_level(
     level.
 
     Example with --evm-dump-dir=/tmp/evm: ->
-    /tmp/evm/shanghai__eip3855_push0__test_push0__test_push0_key_sstore/fork_shangh
+    /tmp/evm/shanghai__sip3855_push0__test_push0__test_push0_key_sstore/fork_shangh
     ai/
     """
     evm_dump_dir = node_to_test_info(request.node).get_dump_dir_path(

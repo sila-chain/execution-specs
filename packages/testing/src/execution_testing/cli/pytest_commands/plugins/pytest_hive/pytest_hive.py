@@ -60,7 +60,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
         pytest.exit(
             "The HIVE_SIMULATOR environment variable is not set.\n\n"
             "If running locally, start hive in --dev mode, for example:\n"
-            "./hive --dev --client go-ethereum\n\n"
+            "./hive --dev --client go-sila\n\n"
             "and set the HIVE_SIMULATOR to the reported URL. For example, "
             "in bash:\n"
             "export HIVE_SIMULATOR=http://127.0.0.1:3000\n"
@@ -79,7 +79,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
         message = (
             f"Error connecting to hive simulator at {hive_simulator_url}.\n\n"
             "Did you forget to start hive in --dev mode?\n"
-            "./hive --dev --client go-ethereum\n\n"
+            "./hive --dev --client go-sila\n\n"
         )
         if config.option.verbose > 0:
             message += f"Error details:\n{str(e)}"

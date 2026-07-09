@@ -53,7 +53,7 @@ class RemoteNode(BaseModel):
 
     """
 
-    name: str = "mainnet_archive"
+    name: str = "sila_mainnet_archive"
     node_url: HttpUrl = HttpUrl("http://example.com")
     rpc_headers: Dict[str, str] = {"client-secret": "<secret>"}
 

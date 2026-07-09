@@ -65,7 +65,7 @@ def fuzzer_authorization_to_eest(
         fuzzer_auth: Raw authorization data from fuzzer
 
     Returns:
-        EEST AuthorizationTuple for EIP-7702 transactions
+        EEST AuthorizationTuple for SIP-7702 transactions
 
     """
     return AuthorizationTuple(

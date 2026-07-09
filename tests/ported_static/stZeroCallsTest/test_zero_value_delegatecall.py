@@ -8,7 +8,7 @@ state_tests/stZeroCallsTest/ZeroValue_DELEGATECALLFiller.json
 the fork intrinsic calculator instead of a hardcoded literal, so the
 post-intrinsic execution budget stays fixed at 600_000 across forks:
 `gas_limit = 600_000 + (intrinsic - 21_000)`, where `21_000` is the
-pre-EIP-2780 baseline intrinsic. EIP-2780 lowers the intrinsic for
+pre-SIP-2780 baseline intrinsic. SIP-2780 lowers the intrinsic for
 non-self, non-value txs, and the `SSTORE(0, GAS)` post assertion
 (`0x8D5B6`) pins `Op.GAS` at a fixed execution point, so the remaining
 gas after the intrinsic deduction must not shift. Do not hardcode the
@@ -82,7 +82,7 @@ def test_zero_value_delegatecall(
     )
 
     # Preserve Cancun's post-intrinsic execution budget across
-    # forks; EIP-2780 lowers the intrinsic for non-self non-value
+    # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.
     intrinsic = fork.transaction_intrinsic_cost_calculator()()

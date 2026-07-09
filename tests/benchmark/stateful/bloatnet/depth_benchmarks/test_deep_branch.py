@@ -1,7 +1,7 @@
 """
 abstract: BloatNet worst-case depth benchmarks for deep SSTORE and SLOAD.
 
-This test implements a worst-case scenario for Ethereum block processing
+This test implements a worst-case scenario for Sila block processing
 that exploits the computational complexity of Patricia Merkle Trie
 operations. It uses CREATE2 to deploy contracts at pre-mined addresses
 with shared prefixes, maximizing trie traversal depth.

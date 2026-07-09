@@ -7,10 +7,10 @@ state_tests/stRefundTest/refund_changeNonZeroStorageFiller.json
 @manually-enhanced: Do not overwrite. The post-state asserts the sender
 balance, which equals its start minus `gas_used * gas_price`. The
 contract resets one warm-after-cold storage slot from a non-zero value
-to another non-zero value (1 -> 23); EIP-8038 raises this cold
+to another non-zero value (1 -> 23); SIP-8038 raises this cold
 SSTORE-reset charge from 5000 to 13000. There is no storage-clear
 refund, so `gas_used` rises by exactly the charge delta. Derive that
-delta from the fork gas model (0 pre-EIP-8037) and subtract
+delta from the fork gas model (0 pre-SIP-8037) and subtract
 `gas_price * delta` from the Cancun balance; do not hardcode the
 Amsterdam value.
 """
@@ -73,7 +73,7 @@ def test_refund_change_non_zero_storage(
         value=10,
     )
 
-    # EIP-8038 raises the cold SSTORE-reset charge (non-zero to non-zero);
+    # SIP-8038 raises the cold SSTORE-reset charge (non-zero to non-zero);
     # with no storage-clear refund, gas_used rises by the full delta.
     cold_reset_delta = (
         Op.SSTORE.with_metadata(

@@ -8,7 +8,7 @@ Before proceeding with this tutorial, it is assumed that you have prior knowledg
 
 - Repository set-up, see [installation](../../getting_started/installation.md).and run an execution specification test as outlined in the .
 - Able to run `fill`, see [Getting Started: Filling Tests](../../filling_tests/getting_started.md).
-- Understand how to read a [blockchain test](https://ethereum-tests.readthedocs.io/en/latest/test_filler/blockchain_filler.html).
+- Understand how to read a [blockchain test](https://sila-tests.readthedocs.io/en/latest/test_filler/blockchain_filler.html).
 - Familiarity with [Python](https://docs.python.org/3/tutorial/).
 - Understand how to write an execution spec [state transition test](./state_transition.md).
 
@@ -66,7 +66,7 @@ Each integer in the `tx_per_block` array is the number of transactions in a bloc
 tx_per_block = [2, 0, 4, 8, 0, 0, 20, 1, 50]
 ```
 
-The code section that creates the blocks is a bit complex in this test. For some simpler definitions of Block creation you can browse tests within [`test_withdrawals.py`](https://github.com/ethereum/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/tests/shanghai/eip4895_withdrawals/test_withdrawals.py).
+The code section that creates the blocks is a bit complex in this test. For some simpler definitions of Block creation you can browse tests within [`test_withdrawals.py`](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/tests/shanghai/sip4895_withdrawals/test_withdrawals.py).
 
 ```python
 blocks = map(

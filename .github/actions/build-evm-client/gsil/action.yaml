@@ -1,0 +1,75 @@
+name: 'Build Go-Sila EVM'
+description: 'Builds the Go-Sila EVM binary'
+inputs:
+  repo:
+    description: 'Source repository to use to build the EVM binary'
+    required: true
+    default: 'sila/go-sila'
+  ref:
+    description: 'Reference to branch, commit, or tag to use to build the EVM binary'
+    required: true
+    default: 'master'
+  golang:
+    description: 'Golang version to use to build Gsil'
+    required: false
+    default: '1.24.x'
+runs:
+  using: "composite"
+  steps:
+    - name: Get latest gsil commit
+      id: gsil-sha
+      shell: bash
+      run: |
+        SHA=$(git ls-remote https://github.com/${{ inputs.repo }}.git refs/heads/${{ inputs.ref }} | cut -f1)
+        echo "sha=$SHA" >> $GITHUB_OUTPUT
+        echo "Latest gsil commit: $SHA"
+    - name: Prepare cache target dir
+      shell: bash
+      run: mkdir -p "$GITHUB_WORKSPACE/go-sila/cmd/evm"
+    - name: Restore build cache
+      id: cache-restore
+      uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      with:
+        path: |
+          ${{ github.workspace }}/go-sila/cmd/evm/evm
+        key: gsil-evm-build-sha=${{ steps.gsil-sha.outputs.sha }}
+        restore-keys: |
+          gsil-evm-build-
+    - name: Checkout go-sila
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        repository: ${{ inputs.repo }}
+        ref: ${{ steps.gsil-sha.outputs.sha }}
+        path: go-sila
+    # See note in build-benchmark-genesis/action.yaml: redirect Go caches
+    # to a per-job temp dir so setup-go's cache restore doesn't collide
+    # with a persistent $GOMODCACHE on self-hosted runners.
+    - name: Use ephemeral Go cache dirs
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        echo "GOMODCACHE=${{ runner.temp }}/go/mod" >> "$GITHUB_ENV"
+        echo "GOCACHE=${{ runner.temp }}/go/build" >> "$GITHUB_ENV"
+    - name: Setup golang
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
+      with:
+        go-version: ${{ inputs.golang }}
+        cache-dependency-path: go-sila/go.sum
+    - name: Build evm cmd
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/go-sila/cmd/evm
+        go build .
+    - name: Add gsil evm to PATH
+      shell: bash
+      run: echo $GITHUB_WORKSPACE/go-sila/cmd/evm >> $GITHUB_PATH
+    - name: Save build cache
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      uses: actions/cache/save@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      with:
+        path: |
+          ${{ github.workspace }}/go-sila/cmd/evm/evm
+        key: gsil-evm-build-sha=${{ steps.gsil-sha.outputs.sha }}

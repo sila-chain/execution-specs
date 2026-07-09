@@ -4,7 +4,7 @@ Test suite for implicit transaction gas-limit resolution.
 Covers `Transaction.set_gas_limit` and
 `Transaction.calculate_max_gas_limit`: the even split of remaining
 environment gas, gas limit cap clamping, the state gas reservoir
-(EIP-8037) semantics, and the test correctness errors raised on
+(SIP-8037) semantics, and the test correctness errors raised on
 contradictory test definitions.
 """
 
@@ -130,7 +130,7 @@ class TestSetGasLimit:
 
 
 class TestSetGasLimitStateGasReservoir:
-    """Test the state gas reservoir (EIP-8037) gas-limit semantics."""
+    """Test the state gas reservoir (SIP-8037) gas-limit semantics."""
 
     def test_reservoir_unset_keeps_full_maximum(self) -> None:
         """With the reservoir unset, the cap does not clamp the limit."""

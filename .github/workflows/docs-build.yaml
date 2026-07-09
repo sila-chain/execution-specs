@@ -5,7 +5,7 @@
 #   - On push to allowlisted branches: Builds, uploads artifacts, and triggers
 #     the aggregator workflow in steel-website for deployment
 #
-# Site structure at steel.ethereum.foundation/docs/execution-specs/:
+# Site structure at steel.sila.foundation/docs/execution-specs/:
 #   /docs/execution-specs/                         - Default branch docs (deployed at root)
 #   /docs/execution-specs/specs/reference/         - Default branch spec reference
 #   /docs/execution-specs/<branch>/                - Non-default branch docs
@@ -23,12 +23,12 @@ on:
     # .github/configs/docs-branches.yaml publish only via workflow_dispatch
     # (use the `ref:` input to publish a tag/SHA).
     branches:
-      - mainnet
+      - sila-mainnet
       - forks/amsterdam
     paths: &docs_paths
-      - "src/ethereum/**"
-      - "src/ethereum_spec_tools/docc.py"
-      - "src/ethereum_spec_tools/forks.py"
+      - "src/sila/**"
+      - "src/sila_spec_tools/docc.py"
+      - "src/sila_spec_tools/forks.py"
       - "static/**"
       - "docs/**"
       - "packages/testing/**"
@@ -141,9 +141,9 @@ jobs:
           # canonical/OG/sitemap URLs omit the <branch>/ segment.
           if [ "$SHOULD_PUBLISH" = "true" ]; then
             if [ "$BRANCH_INPUT" = "$DEFAULT_BRANCH" ]; then
-              SITE_URL="https://steel.ethereum.foundation/docs/execution-specs/"
+              SITE_URL="https://steel.sila.foundation/docs/execution-specs/"
             else
-              SITE_URL="https://steel.ethereum.foundation/docs/execution-specs/${BRANCH_INPUT}/"
+              SITE_URL="https://steel.sila.foundation/docs/execution-specs/${BRANCH_INPUT}/"
             fi
           else
             SITE_URL="https://example.com/docs/${BRANCH_INPUT}/"
@@ -356,7 +356,7 @@ jobs:
           github-token: ${{ secrets.STEEL_WEBSITE_DISPATCH_TOKEN }}
           script: |
             await github.rest.repos.createDispatchEvent({
-              owner: 'ethereum',
+              owner: 'sila',
               repo: 'steel-website',
               event_type: 'docs-artifact-ready',
               client_payload: {
@@ -370,7 +370,7 @@ jobs:
         env:
           BRANCH: ${{ needs.check-should-publish.outputs.branch }}
         run: |
-          echo "Triggered aggregator workflow in ethereum/steel-website"
+          echo "Triggered aggregator workflow in sila/steel-website"
           echo "  Branch: $BRANCH"
           echo "  SHA: ${{ github.sha }}"
           echo "  Run ID: ${{ github.run_id }}"

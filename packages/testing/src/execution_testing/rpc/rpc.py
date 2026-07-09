@@ -47,7 +47,7 @@ from execution_testing.logging import (
 )
 
 from .rpc_types import (
-    EthConfigResponse,
+    SilConfigResponse,
     ForkchoiceState,
     ForkchoiceUpdateResponse,
     GetBlobsResponse,
@@ -428,7 +428,7 @@ class BaseJwtRPC(BaseRPC):
 
 class EthRPC(BaseRPC):
     """
-    Represents an `eth_X` RPC class for every default ethereum RPC method used
+    Represents an `sil_X` RPC class for every default sila RPC method used
     within EEST based hive simulators.
     """
 
@@ -500,20 +500,20 @@ class EthRPC(BaseRPC):
                 "This may cause RPC service instability or failures."
             )
 
-    def config(self, timeout: int | None = None) -> EthConfigResponse | None:
+    def config(self, timeout: int | None = None) -> SilConfigResponse | None:
         """
-        `eth_config`: Returns information about a fork configuration of the
+        `sil_config`: Returns information about a fork configuration of the
         client.
         """
         try:
-            logger.info("Requesting eth_config..")
+            logger.info("Requesting sil_config..")
             response = self.post_request(
                 request=RPCCall(method="config"), timeout=timeout
             ).result_or_raise()
             if response is None:
-                logger.warning("eth_config request: failed to get response")
+                logger.warning("sil_config request: failed to get response")
                 return None
-            return EthConfigResponse.model_validate(
+            return SilConfigResponse.model_validate(
                 response, context=self.response_validation_context
             )
         except ValidationError as e:
@@ -526,7 +526,7 @@ class EthRPC(BaseRPC):
             raise e
 
     def chain_id(self) -> int:
-        """`eth_chainId`: Returns the current chain id."""
+        """`sil_chainId`: Returns the current chain id."""
         logger.info("Requesting chainid of provided RPC endpoint..")
         response = self.post_request(
             request=RPCCall(method="chainId"), timeout=10
@@ -537,7 +537,7 @@ class EthRPC(BaseRPC):
         self, block_number: BlockNumberType = "latest", full_txs: bool = True
     ) -> Any | None:
         """
-        `eth_getBlockByNumber`: Returns information about a block by block
+        `sil_getBlockByNumber`: Returns information about a block by block
         number.
         """
         block = (
@@ -554,7 +554,7 @@ class EthRPC(BaseRPC):
     def get_block_by_hash(
         self, block_hash: Hash, full_txs: bool = True
     ) -> Any | None:
-        """`eth_getBlockByHash`: Returns information about a block by hash."""
+        """`sil_getBlockByHash`: Returns information about a block by hash."""
         logger.info(f"Requesting block info of {block_hash}..")
         params = [f"{block_hash}", full_txs]
         return self.post_request(
@@ -623,7 +623,7 @@ class EthRPC(BaseRPC):
         self, address: Address, block_number: BlockNumberType = "latest"
     ) -> int:
         """
-        `eth_getBalance`: Returns the balance of the account of given address.
+        `sil_getBalance`: Returns the balance of the account of given address.
         """
         block = (
             hex(block_number)
@@ -642,7 +642,7 @@ class EthRPC(BaseRPC):
         addresses: List[Address],
         block_number: BlockNumberType = "latest",
     ) -> List[int]:
-        """`eth_getBalance` batch: Return balance for multiple addresses."""
+        """`sil_getBalance` batch: Return balance for multiple addresses."""
         if not addresses:
             return []
         block = (
@@ -666,7 +666,7 @@ class EthRPC(BaseRPC):
         transaction: Dict[str, Any],
         block_number: BlockNumberType = "latest",
     ) -> int:
-        """`eth_estimateGas`: Return the gas required to execute a tx."""
+        """`sil_estimateGas`: Return the gas required to execute a tx."""
         block = (
             hex(block_number)
             if isinstance(block_number, int)
@@ -680,7 +680,7 @@ class EthRPC(BaseRPC):
     def get_code(
         self, address: Address, block_number: BlockNumberType = "latest"
     ) -> Bytes:
-        """`eth_getCode`: Returns code at a given address."""
+        """`sil_getCode`: Returns code at a given address."""
         block = (
             hex(block_number)
             if isinstance(block_number, int)
@@ -698,7 +698,7 @@ class EthRPC(BaseRPC):
         addresses: List[Address],
         block_number: BlockNumberType = "latest",
     ) -> List[Bytes]:
-        """`eth_getCode` batch: Return code for multiple addresses."""
+        """`sil_getCode` batch: Return code for multiple addresses."""
         if not addresses:
             return []
         block = (
@@ -721,7 +721,7 @@ class EthRPC(BaseRPC):
         self, address: Address, block_number: BlockNumberType = "latest"
     ) -> int:
         """
-        `eth_getTransactionCount`: Returns the number of transactions sent from
+        `sil_getTransactionCount`: Returns the number of transactions sent from
         an address.
         """
         block = (
@@ -739,7 +739,7 @@ class EthRPC(BaseRPC):
     def get_transaction_by_hash(
         self, transaction_hash: Hash
     ) -> TransactionByHashResponse | None:
-        """`eth_getTransactionByHash`: Returns transaction details."""
+        """`sil_getTransactionByHash`: Returns transaction details."""
         try:
             logger.info(f"Requesting tx details of {transaction_hash}")
             response = self.post_request(
@@ -761,7 +761,7 @@ class EthRPC(BaseRPC):
         self, transaction_hashes: Sequence[Hash]
     ) -> List[TransactionByHashResponse | None]:
         """
-        Batch `eth_getTransactionByHash` for multiple hashes.
+        Batch `sil_getTransactionByHash` for multiple hashes.
 
         Return a list of responses in the same order as the input
         hashes. Entries are `None` if the transaction was not found.
@@ -794,7 +794,7 @@ class EthRPC(BaseRPC):
         self, transaction_hash: Hash
     ) -> dict[str, Any] | None:
         """
-        `eth_getTransactionReceipt`: Returns transaction receipt.
+        `sil_getTransactionReceipt`: Returns transaction receipt.
 
         Used to get the actual gas used by a transaction for gas validation
         in benchmark tests.
@@ -814,7 +814,7 @@ class EthRPC(BaseRPC):
         block_number: BlockNumberType = "latest",
     ) -> Hash:
         """
-        `eth_getStorageAt`: Returns the value from a storage position at a
+        `sil_getStorageAt`: Returns the value from a storage position at a
         given address.
         """
         block = (
@@ -852,13 +852,13 @@ class EthRPC(BaseRPC):
 
     def gas_price(self) -> int:
         """
-        `eth_gasPrice`: Returns the gas price.
+        `sil_gasPrice`: Returns the gas price.
         """
         return self._get_gas_information(method="gasPrice")
 
     def max_priority_fee_per_gas(self) -> int:
         """
-        `eth_maxPriorityFeePerGas`: Return the current max priority fee per
+        `sil_maxPriorityFeePerGas`: Return the current max priority fee per
         gas of the network.
         """
         return self._get_gas_information(method="maxPriorityFeePerGas")
@@ -870,7 +870,7 @@ class EthRPC(BaseRPC):
     def send_raw_transaction(
         self, transaction_rlp: Bytes, request_id: int | str | None = None
     ) -> Hash:
-        """`eth_sendRawTransaction`: Send a transaction to the client."""
+        """`sil_sendRawTransaction`: Send a transaction to the client."""
         try:
             logger.info("Sending raw tx..")
             response = self.post_request(
@@ -892,7 +892,7 @@ class EthRPC(BaseRPC):
     def send_transaction(self, transaction: TransactionProtocol) -> Hash:
         """
         Convenience method to send a single transaction to the client via
-        `eth_sendRawTransaction`.
+        `sil_sendRawTransaction`.
         """
         try:
             logger.info("Sending tx..")
@@ -914,7 +914,7 @@ class EthRPC(BaseRPC):
         self, transactions: Sequence[TransactionProtocol]
     ) -> List[Hash]:
         """
-        Use `eth_sendRawTransaction` to send a batch of transactions to the
+        Use `sil_sendRawTransaction` to send a batch of transactions to the
         client.
         """
         if not transactions:
@@ -1111,7 +1111,7 @@ class EthRPC(BaseRPC):
         self, transaction: TransactionProtocol
     ) -> TransactionByHashResponse:
         """
-        Use `eth_getTransactionByHash` to wait until a transaction is included
+        Use `sil_getTransactionByHash` to wait until a transaction is included
         in a block.
         """
         tx_hash = transaction.hash
@@ -1135,7 +1135,7 @@ class EthRPC(BaseRPC):
         self, transactions: Sequence[TransactionProtocol]
     ) -> List[TransactionByHashResponse]:
         """
-        Use `eth_getTransactionByHash` batch requests to wait until all
+        Use `sil_getTransactionByHash` batch requests to wait until all
         transactions in list are included in a block.
         """
         if not transactions:
@@ -1222,7 +1222,7 @@ class EthRPC(BaseRPC):
 
 class DebugRPC(EthRPC):
     """
-    Represents an `debug_X` RPC class for every default ethereum RPC method
+    Represents an `debug_X` RPC class for every default sila RPC method
     used within EEST based hive simulators.
     """
 

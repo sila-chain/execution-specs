@@ -8,7 +8,7 @@ import pytest
 from execution_testing.client_clis import (
     BesuTransitionTool,
     ExecutionSpecsTransitionTool,
-    GethTransitionTool,
+    GsilTransitionTool,
     TransitionTool,
 )
 
@@ -19,7 +19,7 @@ INSTALLED_TRANSITION_TOOLS = [
     for transition_tool in TransitionTool.registered_tools
     if (
         transition_tool.is_installed()
-        # Currently, Besu has the same `default_binary` as Geth, so we can't
+        # Currently, Besu has the same `default_binary` as Gsil, so we can't
         # use `is_installed`.
         and transition_tool != BesuTransitionTool
     )
@@ -53,8 +53,8 @@ def installed_transition_tool_instances() -> Generator[
     params=[
         pytest.param(
             transition_tool,
-            marks=[pytest.mark.xfail(reason="Geth t8n needs update")]
-            if transition_tool == GethTransitionTool
+            marks=[pytest.mark.xfail(reason="Gsil t8n needs update")]
+            if transition_tool == GsilTransitionTool
             else [],
             id=transition_tool.__name__,
         )

@@ -1,4 +1,4 @@
-"""Ethereum transaction test spec definition and filler."""
+"""Sila transaction test spec definition and filler."""
 
 from typing import Callable, ClassVar, Generator, Sequence, Type
 

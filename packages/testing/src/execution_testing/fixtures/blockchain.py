@@ -20,9 +20,9 @@ from typing import (
     get_type_hints,
 )
 
-import ethereum_rlp as eth_rlp
+import sila_rlp as sil_rlp
 import pytest
-from ethereum_types.numeric import Uint
+from sila_types.numeric import Uint
 from pydantic import (
     AliasChoices,
     ConfigDict,
@@ -153,7 +153,7 @@ class HeaderForkRequirement(str):
 
 class FixtureHeader(CamelModel):
     """
-    Representation of an Ethereum header within a test Fixture.
+    Representation of an Sila header within a test Fixture.
 
     We combine the `Environment` and `Result` contents to create this model.
     """
@@ -279,7 +279,7 @@ class FixtureHeader(CamelModel):
     @cached_property
     def rlp(self) -> Bytes:
         """Compute the RLP of the header."""
-        return Bytes(eth_rlp.encode(self.rlp_encode_list))
+        return Bytes(sil_rlp.encode(self.rlp_encode_list))
 
     @computed_field(alias="hash")  # type: ignore[prop-decorator]
     @cached_property
@@ -388,7 +388,7 @@ class FixtureHeader(CamelModel):
 
 class FixtureExecutionPayload(CamelModel):
     """
-    Representation of an Ethereum execution payload within a test Fixture.
+    Representation of an Sila execution payload within a test Fixture.
     """
 
     # Allow extra fields: FixtureExecutionPayload is constructed from
@@ -419,7 +419,7 @@ class FixtureExecutionPayload(CamelModel):
     withdrawals: List[Withdrawal] | None = None
 
     block_access_list: Bytes | None = Field(
-        None, description="RLP-serialized EIP-7928 Block Access List"
+        None, description="RLP-serialized SIP-7928 Block Access List"
     )
     slot_number: HexNumber | None = Field(None)
 
@@ -684,7 +684,7 @@ class FixtureEngineNewPayload(CamelModel):
 class FixtureTransaction(
     TransactionFixtureConverter, TransactionGeneric[ZeroPaddedHexNumber]
 ):
-    """Representation of an Ethereum transaction within a test Fixture."""
+    """Representation of an Sila transaction within a test Fixture."""
 
     # Allow extra fields: FixtureTransaction is constructed from
     # Transaction via model_dump(), which includes fields not in this model.
@@ -713,7 +713,7 @@ class FixtureWithdrawal(WithdrawalGeneric[ZeroPaddedHexNumber]):
 
 class FixtureBlockBase(CamelModel):
     """
-    Representation of an Ethereum block within a test Fixture without RLP
+    Representation of an Sila block within a test Fixture without RLP
     bytes.
     """
 
@@ -740,7 +740,7 @@ class FixtureBlockBase(CamelModel):
     withdrawals: List[FixtureWithdrawal] | None = None
     receipts: List[FixtureTransactionReceipt] | None = None
     block_access_list: BlockAccessList | None = Field(
-        None, description="EIP-7928 Block Access List"
+        None, description="SIP-7928 Block Access List"
     )
     fork: Fork | None = Field(None, exclude=True)
 
@@ -765,12 +765,12 @@ class FixtureBlockBase(CamelModel):
 
         return FixtureBlock(
             **self.model_dump(),
-            rlp=eth_rlp.encode(block),
+            rlp=sil_rlp.encode(block),
         )
 
 
 class FixtureBlock(FixtureBlockBase):
-    """Representation of an Ethereum block within a test Fixture."""
+    """Representation of an Sila block within a test Fixture."""
 
     rlp: Bytes
 
@@ -792,7 +792,7 @@ class FixtureConfig(CamelModel):
 
 
 class InvalidFixtureBlock(CamelModel):
-    """Representation of an invalid Ethereum block within a test Fixture."""
+    """Representation of an invalid Sila block within a test Fixture."""
 
     rlp: Bytes
     expect_exception: ExceptionInstanceOrList

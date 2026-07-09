@@ -1,4 +1,4 @@
-"""Ethereum test execution package."""
+"""Sila test execution package."""
 
 from .base import BaseExecute, ExecuteFormat, LabeledExecuteFormat
 from .blob_transaction import BlobTransaction

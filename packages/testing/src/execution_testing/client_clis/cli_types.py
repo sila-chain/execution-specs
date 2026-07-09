@@ -25,7 +25,7 @@ from execution_testing.base_types import (
     Bloom,
     Bytes,
     CamelModel,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     Hash,
     HexNumber,
 )
@@ -290,7 +290,7 @@ class TransactionTraces(CamelModel):
             print()
 
 
-class Traces(EthereumTestRootModel):
+class Traces(SilaTestRootModel):
     """
     Traces returned from the transition tool for all transactions executed.
     """
@@ -354,7 +354,7 @@ def validate_opcode(obj: Any) -> Opcodes | Opcode | UndefinedOpcode:
     raise Exception(f"Unable to validate {obj} (type={type(obj)})")
 
 
-class OpcodeCount(EthereumTestRootModel):
+class OpcodeCount(SilaTestRootModel):
     """Opcode count returned from the evm tool."""
 
     root: Dict[
@@ -482,7 +482,7 @@ class LazyAllocFile(LazyAlloc[Path]):
     ``TemporaryDirectory`` so the on-disk alloc.json survives until this
     LazyAllocFile is dropped. That lets a chained next-block t8n call
     consume the alloc directly from disk (via ``--input.alloc=<path>`` for
-    geth, or ``shutil.copyfile`` for filesystem t8ns) without round-tripping
+    gsil, or ``shutil.copyfile`` for filesystem t8ns) without round-tripping
     through ``Alloc.get().model_dump_json()`` in Python.
     """
 

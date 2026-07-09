@@ -202,7 +202,7 @@ class BlobTransaction(BaseExecute):
     def execute(
         self,
         fork: Fork,
-        eth_rpc: EthRPC,
+        sil_rpc: EthRPC,
         engine_rpc: EngineRPC | None,
         request: FixtureRequest,
     ) -> ExecuteResult:
@@ -229,7 +229,7 @@ class BlobTransaction(BaseExecute):
                 target=label,
                 tx_index=tx_index,
             )
-            received_hash = eth_rpc.send_raw_transaction(
+            received_hash = sil_rpc.send_raw_transaction(
                 tx.rlp(), request_id=metadata.to_json()
             )
             assert expected_hash == received_hash, (
@@ -340,7 +340,7 @@ class BlobTransaction(BaseExecute):
                 "Supported versions: V1, V2, V3."
             )
 
-        eth_rpc.wait_for_transactions(sent_txs)
+        sil_rpc.wait_for_transactions(sent_txs)
         return ExecuteResult(
             benchmark_gas_used=None,
         )

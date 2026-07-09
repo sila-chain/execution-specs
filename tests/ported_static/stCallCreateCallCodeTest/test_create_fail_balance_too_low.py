@@ -4,7 +4,7 @@ Create fails because we try to send more wei to it that we have.
 Ported from:
 state_tests/stCallCreateCallCodeTest/createFailBalanceTooLowFiller.json
 @manually-enhanced: Do not overwrite. Gas bumped fork-conditionally
-to cover EIP-8037 state-gas spill into regular gas; pre-EIP-8037
+to cover SIP-8037 state-gas spill into regular gas; pre-SIP-8037
 behavior unchanged.
 
 """
@@ -64,9 +64,9 @@ def test_create_fail_balance_too_low(
     v: int,
 ) -> None:
     """Create fails because we try to send more wei to it that we have."""
-    # EIP-8037 gas bumps: original values for pre-EIP-8037 forks.
+    # SIP-8037 gas bumps: original values for pre-SIP-8037 forks.
     outer_tx_gas = 253021
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         outer_tx_gas = 1265105
 
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)

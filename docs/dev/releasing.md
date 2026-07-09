@@ -17,15 +17,15 @@ contributor-facing explanation of the versioning scheme, see
 
 ## Updating the version in source code
 
-The version number is set in `src/ethereum/__init__.py`. Change it
+The version number is set in `src/sila/__init__.py`. Change it
 there. For example:
 
 ```patch
-diff --git a/src/ethereum/__init__.py b/src/ethereum/__init__.py
+diff --git a/src/sila/__init__.py b/src/sila/__init__.py
 index 252f2f317..8cdd89a55 100644
---- a/src/ethereum/__init__.py
-+++ b/src/ethereum/__init__.py
-@@ -18,7 +18,7 @@ possible, to aid in defining the behavior of Ethereum clients.
+--- a/src/sila/__init__.py
++++ b/src/sila/__init__.py
+@@ -18,7 +18,7 @@ possible, to aid in defining the behavior of Sila clients.
  """
  import sys
  
@@ -73,7 +73,7 @@ git push origin v1.15.0 # Replace the tag name here too.
 Go to the [release page][release], choose the newly created tag, and
 generate release notes.
 
-[release]: https://github.com/ethereum/execution-specs/releases/new
+[release]: https://github.com/sila/execution-specs/releases/new
 
 ## Publishing to PyPI
 

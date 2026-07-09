@@ -1,6 +1,6 @@
 # Installation Troubleshooting
 
-This page provides guidance on how to troubleshoot common issues that may arise when installing [ethereum/execution-specs](https://github.com/ethereum/execution-specs).
+This page provides guidance on how to troubleshoot common issues that may arise when installing [sila/execution-specs](https://github.com/sila/execution-specs).
 
 ## Problem: `Failed building wheel for coincurve`
 
@@ -72,7 +72,7 @@ This page provides guidance on how to troubleshoot common issues that may arise 
 !!! success "Solution: Build solc from source"
     The following steps have been tested on Ubuntu 24.04.2 LTS ARM64:
     ```bash
-    git clone --branch v0.8.28 --depth 1 https://github.com/ethereum/solidity.git
+    git clone --branch v0.8.28 --depth 1 https://github.com/sila/solidity.git
     cd solidity && mkdir build && cd build
     sudo apt install build-essential libboost-all-dev z3
     cmake ..
@@ -115,7 +115,7 @@ This page provides guidance on how to troubleshoot common issues that may arise 
     activate = 1
     ```
 
-    This will enable the legacy cryptographic algorithms, including RIPEMD160. See [ethereum/execution-specs#506](https://github.com/ethereum/execution-specs/issues/506) for more information.
+    This will enable the legacy cryptographic algorithms, including RIPEMD160. See [sila/execution-specs#506](https://github.com/sila/execution-specs/issues/506) for more information.
 
 ## Problem: VS Code "Autoformat on Save" with Ruff Not Working
 
@@ -140,7 +140,7 @@ This page provides guidance on how to troubleshoot common issues that may arise 
 
 If you're facing an issue that's not listed here, you can easily report it on GitHub for resolution.
 
-[Click here to report a documentation issue related to installation](https://github.com/ethereum/execution-specs/issues/new?title=Setting%20up%20execution-specs%20failed%20with%20error%20...&labels=A-doc,C-bug&body=%3Ccopy-paste%20command%20that%20triggered%20the%20issue%20here%3E%0A%3Ccopy-paste%20output%20or%20attach%20screenshot%20here%3E)
+[Click here to report a documentation issue related to installation](https://github.com/sila/execution-specs/issues/new?title=Setting%20up%20execution-specs%20failed%20with%20error%20...&labels=A-doc,C-bug&body=%3Ccopy-paste%20command%20that%20triggered%20the%20issue%20here%3E%0A%3Ccopy-paste%20output%20or%20attach%20screenshot%20here%3E)
 
 Please include the following details in your report:
 

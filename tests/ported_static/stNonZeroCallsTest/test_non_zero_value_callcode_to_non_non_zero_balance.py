@@ -6,12 +6,12 @@ state_tests/stNonZeroCallsTest/NonZeroValue_CALLCODE_ToNonNonZeroBalanceFiller.j
 
 @manually-enhanced: Do not overwrite. The measured slot captures the
 regular gas of a value-1 CALLCODE to a cold, alive EOA plus the SSTORE
-storing the (success) result. EIP-8038 reprices the CALLCODE's cold
+storing the (success) result. SIP-8038 reprices the CALLCODE's cold
 account access and value transfer, and reprices the cold
 value-unchanged SSTORE. The delta is therefore
 `(COLD_ACCOUNT_ACCESS - 2600) + (CALL_VALUE - 9000)` plus the cold
 SSTORE reprice, each derived from the fork and exactly 0 before
-EIP-8038.
+SIP-8038.
 """
 
 import pytest
@@ -44,7 +44,7 @@ def test_non_zero_value_callcode_to_non_non_zero_balance(
     fork: Fork,
 ) -> None:
     """Test_non_zero_value_callcode_to_non_non_zero_balance."""
-    # EIP-8038 deltas, each 0 before EIP-8038. The CALLCODE pays the
+    # SIP-8038 deltas, each 0 before SIP-8038. The CALLCODE pays the
     # cold account reprice and the value-transfer reprice; the cold
     # value-unchanged SSTORE gains its own reprice.
     gas_costs = fork.gas_costs()

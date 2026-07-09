@@ -261,7 +261,7 @@ def test_storage_access_cold(
     tx_result: TransactionResult,
 ) -> None:
     """
-    Benchmark cold storage slot accesses using EIP-7702 delegation.
+    Benchmark cold storage slot accesses using SIP-7702 delegation.
 
     The authority EOA delegates to:
     - StorageInitializer: storage[i] = i for each slot (absent_slots=False)

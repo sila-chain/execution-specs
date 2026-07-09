@@ -12,7 +12,7 @@ import click
 import yaml
 
 from execution_testing.base_types import (
-    EthereumTestRootModel,
+    SilaTestRootModel,
     HexNumber,
     ZeroPaddedHexNumber,
 )
@@ -22,7 +22,7 @@ from execution_testing.cli.pytest_commands.plugins.filler.static_filler import (
 from execution_testing.specs import StateStaticTest
 
 
-class GasLimitDict(EthereumTestRootModel):
+class GasLimitDict(SilaTestRootModel):
     """Formatted JSON file with new gas limits in each test."""
 
     root: Dict[str, int | None]
@@ -45,7 +45,7 @@ class GasLimitDict(EthereumTestRootModel):
         return tests
 
 
-class StaticTestFile(EthereumTestRootModel):
+class StaticTestFile(SilaTestRootModel):
     """A static test file."""
 
     root: Dict[str, StateStaticTest]

@@ -114,13 +114,13 @@ def scenarios(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/Templates/DiffPlaces/templateGen.js",
-        "https://github.com/ethereum/tests/blob/v13.3/src/Templates/DiffPlaces/createDiffPlacesTests.sh",
-        "https://github.com/ethereum/tests/blob/v13.3/src/Templates/DiffPlaces/createBadOpcodeTest.sh",
-        "https://github.com/ethereum/tests/blob/v13.3/src/Templates/DiffPlaces/createAllBadOpcodeTests.sh",
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stSelfBalance/diffPlacesFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/templateGen.js",
+        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/createDiffPlacesTests.sh",
+        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/createBadOpcodeTest.sh",
+        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/createAllBadOpcodeTests.sh",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSelfBalance/diffPlacesFiller.yml",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/808"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/808"],
     coverage_missed_reason=(
         "Original test pre-sets storage of some of the deployed accounts."
     ),
@@ -223,10 +223,10 @@ def test_scenarios(
 
         tx_max_gas = 1_000_000
         if test_program.id == ProgramInvalidOpcode().id:
-            tx_max_gas = 10_000_000 if fork.is_eip_enabled(8037) else 7_000_000
+            tx_max_gas = 10_000_000 if fork.is_sip_enabled(8037) else 7_000_000
         if (
             test_program.id == ProgramAllFrontierOpcodes().id
-            and fork.is_eip_enabled(8037)
+            and fork.is_sip_enabled(8037)
         ):
             tx_max_gas = 10_000_000
         if scenario.category == "double_call_combinations":

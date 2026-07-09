@@ -1,6 +1,6 @@
 # The `consume direct` Command
 
-The `direct` method provides the fastest way to test EVM functionality by executing tests directly through a client's dedicated test interface (e.g. [`statetest`](https://github.com/ethereum/go-ethereum/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go) or [`blocktest`](https://github.com/ethereum/go-ethereum/blob/35dd84ce2999ecf5ca8ace50a4d1a6abc231c370/cmd/evm/blockrunner.go)).
+The `direct` method provides the fastest way to test EVM functionality by executing tests directly through a client's dedicated test interface (e.g. [`statetest`](https://github.com/sila/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go) or [`blocktest`](https://github.com/sila/go-sila/blob/35dd84ce2999ecf5ca8ace50a4d1a6abc231c370/cmd/evm/blockrunner.go)).
 
 ```bash
 uv run consume direct --bin=<evm-binary> [OPTIONS]
@@ -18,7 +18,7 @@ uv run consume direct --bin=<evm-binary> [OPTIONS]
 
 | Client | Binary | State Tests | Block Tests |
 |--------|--------|-------------|-------------|
-| go-ethereum | `evm` | `statetest` | `blocktest` |
+| go-sila | `evm` | `statetest` | `blocktest` |
 | Besu | `evmtool` | `state-test` | `block-test` |
 | Nethermind | `nethtest` | `nethtest` | `nethtest --blockTest` |
 | evmone | `evmone-statetest`, `evmone-blockchaintest` | `evmone-statetest` | `evmone-blockchaintest` |
@@ -37,7 +37,7 @@ uv run consume direct --bin=<evm-binary> [OPTIONS]
 
 ## Example Usage
 
-Only run state tests (by using a mark filter, `-m`) from a local `fixtures` folder with go-ethereum:
+Only run state tests (by using a mark filter, `-m`) from a local `fixtures` folder with go-sila:
 
 ```bash
 uv run consume direct --input ./fixtures -m state_test --bin=evm
@@ -76,11 +76,11 @@ uv run consume direct --input ./fixtures --sim.limit ".*push0.*"
 Test selection via [pytest keyword expression match](https://docs.pytest.org/en/8.3.x/how-to/usage.html):
 
 ```bash
-uv run consume direct --input ./fixtures -k "eip3855 or Prague"
+uv run consume direct --input ./fixtures -k "sip3855 or Prague"
 ```
 
 Use `--collect-only -q` to get a list of available test fixture IDs:
 
 ```bash
-uv run consume direct --input ./fixtures -k "eip3855 or Prague" --collect-only -q
+uv run consume direct --input ./fixtures -k "sip3855 or Prague" --collect-only -q
 ```

@@ -1,7 +1,7 @@
 """
 abstract: Transient storage benchmark cases for TSTORE/TLOAD saturation.
 
-   These tests stress transient storage (EIP-1153) by performing
+   These tests stress transient storage (SIP-1153) by performing
    massive numbers of TSTORE/TLOAD operations within a single block.
    Unlike persistent SSTORE (20K gas), TSTORE costs only 100 gas with
    no cold/warm distinction, enabling vastly more writes per block.

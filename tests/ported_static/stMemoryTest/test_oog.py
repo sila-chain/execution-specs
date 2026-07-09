@@ -7,10 +7,10 @@ state_tests/stMemoryTest/oogFiller.yml
 @manually-enhanced: Do not overwrite. Each parametrization forwards a
 fixed in-bytecode gas budget to an inner operation and asserts whether
 it succeeds. The `0x3E` (RETURNDATACOPY) success case routes through a
-nested value-0 CALL to a cold contract; EIP-8038's cold account access
+nested value-0 CALL to a cold contract; SIP-8038's cold account access
 reprice consumes the budget's slack and OOGs the copy. Bump only that
 budget by the fork-derived `COLD_ACCOUNT_ACCESS - 2600` so the success
-path stays funded; the value is exactly 0 before EIP-8038 and all
+path stays funded; the value is exactly 0 before SIP-8038 and all
 other budgets are untouched.
 """
 
@@ -306,7 +306,7 @@ def test_oog(
     v: int,
 ) -> None:
     """Ori Pomerantz qbzzt1@gmail."""
-    # EIP-8038 cold account access reprice; 0 before EIP-8038. The
+    # SIP-8038 cold account access reprice; 0 before SIP-8038. The
     # `0x3E` RETURNDATACOPY success case forwards just enough gas for a
     # nested CALL to a cold contract plus the copy; the reprice eats the
     # slack, so add it back to that one budget.

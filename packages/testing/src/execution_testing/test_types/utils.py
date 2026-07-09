@@ -1,4 +1,4 @@
-"""Utility functions and sentinel classes for Ethereum test types."""
+"""Utility functions and sentinel classes for Sila test types."""
 
 from typing import Any
 

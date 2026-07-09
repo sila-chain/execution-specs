@@ -19,11 +19,11 @@ from execution_testing import (
     While,
     WhileGas,
 )
-from py_ecc import optimized_bls12_381 as bls_curve
+from sila_ecc import optimized_bls12_381 as bls_curve
 
 from tests.benchmark.compute.helpers import Precompile
-from tests.prague.eip2537_bls_12_381_precompiles import spec as bls12381_spec
-from tests.prague.eip2537_bls_12_381_precompiles.spec import (
+from tests.prague.sip2537_bls_12_381_precompiles import spec as bls12381_spec
+from tests.prague.sip2537_bls_12_381_precompiles.spec import (
     build_gas_calculation_function_map,
 )
 
@@ -509,7 +509,7 @@ def test_bls12_pairing_uncachable(
     setup_cost = setup.gas_cost(fork)
 
     # Conservative per-variant estimate: one loop iteration
-    # + worst-case calldata floor intrinsic (all non-zero, EIP-7623)
+    # + worst-case calldata floor intrinsic (all non-zero, SIP-7623)
     # + CALLDATACOPY copy and linear memory expansion.
     words_per_variant = math.ceil(pair_size / 32)
     tokens_per_variant = pair_size * 4  # worst case: all non-zero

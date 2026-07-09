@@ -138,7 +138,7 @@ def test_static_callcodecallcodecall_110_suicide_end2(
         address=Address(0xB7770360E0B87603E3D9C87C866451760C95ABCA),  # noqa: E501
     )
 
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         target_storage = Storage.model_validate({0: 1})
         target_storage.set_expect_any(1)
         expect_entries_: list[dict] = [

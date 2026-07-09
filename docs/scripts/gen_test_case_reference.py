@@ -51,7 +51,7 @@ args = [
     "-p",
     "execution_testing.cli.pytest_commands.plugins.filler.gen_test_doc.gen_test_doc",
     "-p",
-    "execution_testing.cli.pytest_commands.plugins.filler.eip_checklist",
+    "execution_testing.cli.pytest_commands.plugins.filler.sip_checklist",
     "--gen-docs",
     f"--gen-docs-target-fork={TARGET_FORK}",
     f"--until={GENERATE_UNTIL_FORK}",

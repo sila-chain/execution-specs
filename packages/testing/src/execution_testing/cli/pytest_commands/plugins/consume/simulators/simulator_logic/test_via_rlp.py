@@ -45,7 +45,7 @@ def _validate_rpc_header_fields(
 
 def test_via_rlp(
     timing_data: TimingData,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     fixture: BlockchainFixture,
 ) -> None:
     """
@@ -55,7 +55,7 @@ def test_via_rlp(
     """
     with timing_data.time("Get genesis block"):
         logger.info("Calling getBlockByNumber to get genesis block...")
-        genesis_block = eth_rpc.get_block_by_number(0)
+        genesis_block = sil_rpc.get_block_by_number(0)
         assert genesis_block, "`getBlockByNumber` didn't return a block."
         if genesis_block["hash"] != str(fixture.genesis.block_hash):
             raise GenesisBlockMismatchExceptionError(
@@ -64,7 +64,7 @@ def test_via_rlp(
             )
     with timing_data.time("Get latest block"):
         logger.info("Calling getBlockByNumber to get latest block...")
-        block = eth_rpc.get_block_by_number("latest")
+        block = sil_rpc.get_block_by_number("latest")
         assert block, "`getBlockByNumber` didn't return a block."
         _validate_rpc_header_fields(block, fixture.fork)
         if block["hash"] != str(fixture.last_block_hash):

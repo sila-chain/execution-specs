@@ -36,8 +36,8 @@ which should generate an `env.yaml` in the project root.
 
 ```yaml
 remote_nodes:
-  - name: mainnet_archive
-    # Replace with your Ethereum RPC node URL
+  - name: sila_mainnet_archive
+    # Replace with your Sila RPC node URL
     node_url: http://example.com
     # Optional: Headers for RPC requests
     rpc_headers:
@@ -49,7 +49,7 @@ remote_nodes:
 ```console
 from config import EnvConfig
 EnvConfig().remote_nodes[0].name
-'mainnet_archive'
+'sila_mainnet_archive'
 ```
 
 ## Application configuration

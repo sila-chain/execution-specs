@@ -1,3 +1,3 @@
-# Ethereum Test VM package
+# Sila Test VM package
 
 ::: execution_testing.vm

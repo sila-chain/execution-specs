@@ -41,8 +41,8 @@ def test_checklist_explicit_paths_skip_include_benchmark(
     runner: CliRunner,
 ) -> None:
     """Explicit paths scope collection and drop `--include-benchmark`."""
-    args = _captured_execute_args(runner, "tests/prague/eip7702_set_code_tx")
+    args = _captured_execute_args(runner, "tests/prague/sip7702_set_code_tx")
 
     assert "--include-benchmark" not in args
-    assert "tests/prague/eip7702_set_code_tx" in args
+    assert "tests/prague/sip7702_set_code_tx" in args
     assert "tests" not in args

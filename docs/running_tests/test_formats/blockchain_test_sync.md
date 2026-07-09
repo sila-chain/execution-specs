@@ -49,7 +49,7 @@ For each [`HiveFixture`](#hivefixture) test object in the JSON fixture file, per
 
 4. Monitor and verify synchronization:
     - Wait for the sync client to return `VALID` for `engine_forkchoiceUpdatedVX` with the sync block payload
-    - If RPC is available after sync, retrieve the sync block via `eth_getBlockByHash` for [`lastblockhash`](#-lastblockhash-hash) and check the state root matches on this block for client under test and sync client
+    - If RPC is available after sync, retrieve the sync block via `sil_getBlockByHash` for [`lastblockhash`](#-lastblockhash-hash) and check the state root matches on this block for client under test and sync client
 
 ## Structures
 
@@ -111,7 +111,7 @@ Chain ID configuration for the test network.
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [EIP-7840](https://eips.ethereum.org/EIPS/eip-7840).
+Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
 
 ### `FixtureEngineNewPayload`
 

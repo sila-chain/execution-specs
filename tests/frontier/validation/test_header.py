@@ -68,7 +68,7 @@ def test_block_gas_limit_below_minimum(
                     BlockException.INVALID_GASLIMIT,
                     BlockException.BLOCK_ACCESS_LIST_GAS_LIMIT_EXCEEDED,
                 ]
-                if fork.is_eip_enabled(7928)
+                if fork.is_sip_enabled(7928)
                 else BlockException.INVALID_GASLIMIT
             )
         else:

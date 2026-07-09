@@ -68,16 +68,16 @@ remote = _create_execute_subcommand(
 
 EXECUTE_PATH = Path("cli/pytest_commands/plugins/execute")
 
-eth_config = _create_execute_subcommand(
-    "eth-config",
-    "pytest-execute-eth-config.ini",
-    "Test a client's configuration using the `eth_config` RPC endpoint.",
+sil_config = _create_execute_subcommand(
+    "sil-config",
+    "pytest-execute-sil-config.ini",
+    "Test a client's configuration using the `sil_config` RPC endpoint.",
     required_args=[
-        "--network=Mainnet",
+        "--network=SilaMainnet",
         "--rpc-endpoint=http://localhost:8545",
     ],
     command_logic_test_paths=[
-        EXECUTE_PATH / "eth_config" / "execute_eth_config.py"
+        EXECUTE_PATH / "sil_config" / "execute_sil_config.py"
     ],
 )
 

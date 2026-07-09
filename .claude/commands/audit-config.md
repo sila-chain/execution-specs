@@ -13,8 +13,8 @@ Check that every file path or directory referenced in `CLAUDE.md` and `.claude/c
 Run `--help` on referenced commands and confirm mentioned flags still exist:
 
 - `uv run fill --help`
-- `uv run ethereum-spec-new-fork --help`
-- `uv run ethereum-spec-lint --help`
+- `uv run sila-spec-new-fork --help`
+- `uv run sila-spec-lint --help`
 - `uv run checklist --help`
 
 ### 3. Verify Code Patterns
@@ -28,7 +28,7 @@ Spot-check code patterns mentioned in skills against actual code:
 
 ### 4. Verify Fork List
 
-Check that the fork order and default branch mentioned in `CLAUDE.md` match reality by inspecting `src/ethereum/forks/` and git branch configuration.
+Check that the fork order and default branch mentioned in `CLAUDE.md` match reality by inspecting `src/sila/forks/` and git branch configuration.
 
 ### 5. Verify Docs References
 

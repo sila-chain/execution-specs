@@ -158,7 +158,7 @@
   "test_sload_empty_erc20_balanceof_USDP": {
     "addr": "0x1456688345527bE1f37E9e627DA0837D6f08C925"
   },
-  "test_sload_empty_erc20_balanceof_ETHFI": {
+  "test_sload_empty_erc20_balanceof_SILFI": {
     "addr": "0xfe0c30065b384f05761f15d0cc899d4f9f9cc0eb"
   },
   "test_sload_empty_erc20_balanceof_POLY": {
@@ -455,7 +455,7 @@
   "test_sstore_erc20_approve_USDP": {
     "addr": "0x1456688345527bE1f37E9e627DA0837D6f08C925"
   },
-  "test_sstore_erc20_approve_ETHFI": {
+  "test_sstore_erc20_approve_SILFI": {
     "addr": "0xfe0c30065b384f05761f15d0cc899d4f9f9cc0eb"
   },
   "test_sstore_erc20_approve_POLY": {
@@ -752,7 +752,7 @@
   "test_mixed_sload_sstore_USDP": {
     "addr": "0x1456688345527bE1f37E9e627DA0837D6f08C925"
   },
-  "test_mixed_sload_sstore_ETHFI": {
+  "test_mixed_sload_sstore_SILFI": {
     "addr": "0xfe0c30065b384f05761f15d0cc899d4f9f9cc0eb"
   },
   "test_mixed_sload_sstore_POLY": {

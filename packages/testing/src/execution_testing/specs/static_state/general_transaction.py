@@ -1,4 +1,4 @@
-"""General transaction structure of ethereum/tests fillers."""
+"""General transaction structure of sila/tests fillers."""
 
 from typing import Any, Dict, Generator, List, Mapping
 
@@ -13,7 +13,7 @@ from pydantic import (
 from execution_testing.base_types import (
     Address,
     CamelModel,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     Hash,
 )
 from execution_testing.exceptions import (
@@ -89,7 +89,7 @@ class LabeledDataIndex(BaseModel):
         return f"{self.index}"
 
 
-class LabeledDataList(EthereumTestRootModel):
+class LabeledDataList(SilaTestRootModel):
     """Class that represents a list of labeled data."""
 
     root: List[DataWithAccessList]

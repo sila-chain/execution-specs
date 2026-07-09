@@ -1,4 +1,4 @@
-"""Ethereum General State Test filler static test spec parser."""
+"""Sila General State Test filler static test spec parser."""
 
 from typing import Any, Callable, ClassVar, List, Self, Set, Union
 
@@ -26,7 +26,7 @@ class Info(BaseModel):
 
 
 class StateStaticTest(BaseStaticTest):
-    """General State Test static filler from ethereum/tests."""
+    """General State Test static filler from sila/tests."""
 
     test_name: str = ""
     format_name: ClassVar[str] = "state_test"

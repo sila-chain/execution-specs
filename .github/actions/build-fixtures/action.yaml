@@ -17,7 +17,7 @@ inputs:
     description: "Override the evm impl. Defaults to the feature's evm-type."
     default: ""
   evm_repo:
-    description: "Override the t8n tool repo (e.g. ethereum/go-ethereum)"
+    description: "Override the t8n tool repo (e.g. sila/go-sila)"
     default: ""
   evm_ref:
     description: "Override the t8n tool branch / tag / commit"

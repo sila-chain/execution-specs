@@ -1,7 +1,7 @@
 """
 Conftest for ported static tests.
 
-Temporarily skip ported static tests that fail for Amsterdam due to EIP-8037's
+Temporarily skip ported static tests that fail for Amsterdam due to SIP-8037's
 two-dimensional gas model. The gas limits in these ported static test cases
 have not yet been updated to account for state gas.
 
@@ -44,7 +44,7 @@ def pytest_collection_modifyitems(
 ) -> None:
     """Skip ported static test cases listed in amsterdam_skip_list.txt."""
     skip_marker = pytest.mark.skip(
-        reason="Ported static test gas limits not yet updated for EIP-8037"
+        reason="Ported static test gas limits not yet updated for SIP-8037"
     )
     for item in items:
         if "ported_static" not in item.nodeid:

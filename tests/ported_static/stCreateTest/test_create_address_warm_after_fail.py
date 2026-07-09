@@ -2,8 +2,8 @@
 Invokes failing CREATE (because initcode fails) and checks.
 
 if the create address is considered warm in the follow up call as required by
-EIP-2929.
-Addresses taken from https://toolkit.abdk.consulting/ethereum#contract-address
+SIP-2929.
+Addresses taken from https://toolkit.abdk.consulting/sila#contract-address
 
 Written primarily by Paweł Bylica (@chfast). Somewhat modified by Ori (@qbzzt)
 
@@ -12,10 +12,10 @@ state_tests/stCreateTest/CreateAddressWarmAfterFailFiller.yml
 
 @manually-enhanced: Do not overwrite. The post-state records the
 measured cost of accessing the create address after a failed CREATE,
-which is a cold account access. EIP-8038 reprices a cold account
+which is a cold account access. SIP-8038 reprices a cold account
 access from 2 600 to 3 000, so each such measurement gains 400 at
 Amsterdam. Derive that delta from the fork's gas model so it is
-exactly 0 pre-EIP-8037 and tracks parameter changes; do not hardcode
+exactly 0 pre-SIP-8037 and tracks parameter changes; do not hardcode
 the Amsterdam value.
 """
 
@@ -78,28 +78,28 @@ REFERENCE_SPEC_VERSION = "N/A"
             0,
             0,
             id="create-code-too-big-v0",
-            marks=pytest.mark.valid_before("EIP7954"),
+            marks=pytest.mark.valid_before("SIP7954"),
         ),
         pytest.param(
             2,
             0,
             1,
             id="create-code-too-big-v1",
-            marks=pytest.mark.valid_before("EIP7954"),
+            marks=pytest.mark.valid_before("SIP7954"),
         ),
         pytest.param(
             3,
             0,
             0,
             id="create2-code-too-big-v0",
-            marks=pytest.mark.valid_before("EIP7954"),
+            marks=pytest.mark.valid_before("SIP7954"),
         ),
         pytest.param(
             3,
             0,
             1,
             id="create2-code-too-big-v1",
-            marks=pytest.mark.valid_before("EIP7954"),
+            marks=pytest.mark.valid_before("SIP7954"),
         ),
         pytest.param(
             4,
@@ -390,8 +390,8 @@ def test_create_address_warm_after_fail(
     )
 
     # The create address access after a failed CREATE is cold here;
-    # EIP-8038 reprices a cold account access from 2 600 to 3 000.
-    # Derive the delta from the fork so it is 0 pre-EIP-8037.
+    # SIP-8038 reprices a cold account access from 2 600 to 3 000.
+    # Derive the delta from the fork so it is 0 pre-SIP-8037.
     cold_account_delta = fork.gas_costs().COLD_ACCOUNT_ACCESS - 2600
 
     expect_entries_: list[dict] = [
@@ -875,10 +875,10 @@ def test_create_address_warm_after_fail(
         Bytes("52c3fd24") + Hash(0x7),
         Bytes("52c3fd24") + Hash(0x11),
     ]
-    # The dispatcher writes to ~14 fresh storage slots; under EIP-8037
+    # The dispatcher writes to ~14 fresh storage slots; under SIP-8037
     # each slot's 32-byte cost is settled at frame end out of the
     # reservoir/`gas_left` (~37_500 gas/slot on Amsterdam). Add that
-    # headroom — `sstore_state_gas` is 0 pre-EIP-8037, so the budget
+    # headroom — `sstore_state_gas` is 0 pre-SIP-8037, so the budget
     # is unchanged on older forks.
     tx_gas = [16777216 + 14 * Op.SSTORE(new_value=1).state_cost(fork)]
     tx_value = [0, 1]

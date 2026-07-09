@@ -42,8 +42,8 @@ def is_help_or_collectonly_mode(config: pytest.Config) -> bool:
         "show_execute_help",
         "show_execute_hive_help",
         "show_execute_recover_help",
-        "show_execute_eth_config_help",
-        "show_check_eip_versions_help",
+        "show_execute_sil_config_help",
+        "show_check_sip_versions_help",
     )
     return (
         config.getoption("markers", default=False)
@@ -55,7 +55,7 @@ def is_help_or_collectonly_mode(config: pytest.Config) -> bool:
             config.getoption(flag, default=False) for flag in show_help_flags
         )
         or config.pluginmanager.has_plugin(
-            "execution_testing.cli.pytest_commands.plugins.filler.eip_checklist"
+            "execution_testing.cli.pytest_commands.plugins.filler.sip_checklist"
         )
         or config.pluginmanager.has_plugin(
             "execution_testing.cli.pytest_commands.plugins.filler.gen_test_doc.gen_test_doc"

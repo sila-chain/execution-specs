@@ -87,13 +87,13 @@ class ClientBackend:
         *,
         testing_rpc: TestingRPC,
         engine_rpc: EngineRPC,
-        eth_rpc: EthRPC,
+        sil_rpc: EthRPC,
         fork: Fork | TransitionFork,
     ) -> None:
         """Initialize with the RPC clients and the session fork."""
         self.testing_rpc = testing_rpc
         self.engine_rpc = engine_rpc
-        self.eth_rpc = eth_rpc
+        self.sil_rpc = sil_rpc
         self.fork = fork
         self.exception_mapper = ClientBackendExceptionMapper()
         self.snapshot_block = None
@@ -106,7 +106,7 @@ class ClientBackend:
         # Captured for the fixture's ``_info.filling-transition-tool``.
         try:
             self._client_version: str | None = Web3RPC(
-                eth_rpc.url
+                sil_rpc.url
             ).client_version()
         except Exception:  # pragma: no cover — no web3 namespace
             self._client_version = None
@@ -240,7 +240,7 @@ class ClientBackend:
         """
         Advance the chain with engine_newPayload + forkchoiceUpdated.
 
-        Both calls retry past transient ``SYNCING`` (geth returns it
+        Both calls retry past transient ``SYNCING`` (gsil returns it
         under back-to-back chain-advance load); a stuck-SYNCING client
         surfaces as a ``*TimeoutError``.
         """
@@ -284,7 +284,7 @@ class ClientBackend:
         """Fetch receipts for each transaction. TODO: batch via JSON-RPC."""
         receipts: List[TransactionReceipt] = []
         for tx in txs:
-            receipt_data = self.eth_rpc.get_transaction_receipt(tx.hash)
+            receipt_data = self.sil_rpc.get_transaction_receipt(tx.hash)
             if receipt_data is None:
                 raise RuntimeError(
                     f"No receipt found for transaction {tx.hash}"

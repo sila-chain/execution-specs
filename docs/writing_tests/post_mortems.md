@@ -12,7 +12,7 @@ Each entry must include an explanation of why the test case was missed plus the 
 
 ### Description
 
-A bug was discovered in Nethermind's implementation of CALLDATACOPY and CODECOPY opcodes where the word copy cost (3 gas per 32-byte word) was not being correctly charged. The issue was identified during internal fuzz testing and fixed in [Nethermind PR #10116](https://github.com/NethermindEth/nethermind/pull/10116).
+A bug was discovered in Nethermind's implementation of CALLDATACOPY and CODECOPY opcodes where the word copy cost (3 gas per 32-byte word) was not being correctly charged. The issue was identified during internal fuzz testing and fixed in [Nethermind PR #10116](https://github.com/NethermindSil/nethermind/pull/10116).
 
 The EVM specification requires data copy operations to charge:
 
@@ -48,7 +48,7 @@ None required - the existing framework supported writing these tests.
 
 ### Description
 
-A stateless zkEVM client implementation was found to mishandle a single account that accumulates a large number of distinct storage changes in the block access list (EIP-7928). When preloading the transaction recipient's BAL storage keys, the client copied them into a fixed-size buffer sized for 16 slots with no bounds check. A transaction that wrote more than 16 distinct storage slots to one contract overflowed the buffer into adjacent state, corrupting the transaction's computed gas usage and therefore the block validity verdict.
+A stateless zkEVM client implementation was found to mishandle a single account that accumulates a large number of distinct storage changes in the block access list (SIP-7928). When preloading the transaction recipient's BAL storage keys, the client copied them into a fixed-size buffer sized for 16 slots with no bounds check. A transaction that wrote more than 16 distinct storage slots to one contract overflowed the buffer into adjacent state, corrupting the transaction's computed gas usage and therefore the block validity verdict.
 
 The bug was latent against the existing test suite: no fixture exercised more than eight distinct storage changes for a single account, and those eight were spread one-per-transaction (`test_bal_cross_tx_storage_chain`), so the per-account, per-transaction storage-change cardinality never approached the buffer boundary.
 
@@ -56,7 +56,7 @@ The bug was latent against the existing test suite: no fixture exercised more th
 
 - Existing BAL storage tests focused on the correctness of recording, ordering, and the uniqueness rules for small numbers of slots; the high-cardinality case (many distinct slots for one account in one transaction) was implicitly assumed covered or low-risk.
 - No fixture pushed a single account past a handful of storage changes, so fixed-size per-account buffers in client implementations were never stressed.
-- The block access list is a new structure in EIP-7928, so client-side handling of large per-account storage-change lists had little prior fuzzing or property-based coverage.
+- The block access list is a new structure in SIP-7928, so client-side handling of large per-account storage-change lists had little prior fuzzing or property-based coverage.
 
 ### Steps Taken To Avoid Recurrence
 
@@ -64,7 +64,7 @@ The bug was latent against the existing test suite: no fixture exercised more th
 
 ### Implemented Test Case
 
-- `tests/amsterdam/eip7928_block_level_access_lists/test_block_access_lists.py::test_bal_many_storage_writes_single_account`
+- `tests/amsterdam/sip7928_block_level_access_lists/test_block_access_lists.py::test_bal_many_storage_writes_single_account`
 
 ### Framework/Documentation Changes
 
@@ -77,21 +77,21 @@ None required - the existing framework supported writing these tests.
 ### Description
 
 A consensus divergence was found via goevmlab differential fuzzing in
-go-ethereum's Amsterdam (bal-devnet-7) EIP-8037 implementation: when a `CREATE2`
+go-sila's Amsterdam (bal-devnet-7) SIP-8037 implementation: when a `CREATE2`
 whose init code writes new storage slots fails its code deposit — either because
-the deposited code is rejected by EIP-3541, or because the EIP-8037 code-deposit
+the deposited code is rejected by SIP-3541, or because the SIP-8037 code-deposit
 state gas cannot be paid — the create frame reverts, but only the new-account
 state-creation gas is refunded; the init's storage-slot state-creation gas
 (`STATE_BYTES_PER_STORAGE_SET * COST_PER_STATE_BYTE` per slot) is not. The
 transaction over-reports gas used (by `num_slots * 97920`), so the sender and
 coinbase balances — and the post-state root — diverge from the reference spec
-and from revm/nethermind/besu/erigon/ethrex.
+and from revm/nethermind/besu/erigon/silrex.
 
 ### Root Cause Analysis
 
 - State-creation gas charged inside a `CREATE`/`CREATE2` init frame must be fully
   reverted when the create fails, for both the new account and any storage slots
-  the init wrote. The existing `eip8037` suite covered the create-init storage
+  the init wrote. The existing `sip8037` suite covered the create-init storage
   charge on the success path and same-tx slot-reset refunds, but never isolated
   the refund of storage-slot state gas on a create *failure*.
 - The new-account state-gas refund on failure was already correct, which masked
@@ -102,7 +102,7 @@ and from revm/nethermind/besu/erigon/ethrex.
 
 ### Steps Taken To Avoid Recurrence
 
-- Added a parametric regression test over the failure mechanism (EIP-3541 reject
+- Added a parametric regression test over the failure mechanism (SIP-3541 reject
   and code-deposit OOG) and the number of init storage slots (`0`, `1`, `3`). The
   `slots=0` case is a negative control (account-creation refund only) that must
   not diverge; the `slots>=1` cases isolate the storage-slot state-gas refund on
@@ -110,7 +110,7 @@ and from revm/nethermind/besu/erigon/ethrex.
 
 ### Implemented Test Case
 
-- `tests/amsterdam/eip8037_state_creation_gas_cost_increase/test_state_gas_create.py::test_create2_failed_deposit_refunds_storage_state_gas`
+- `tests/amsterdam/sip8037_state_creation_gas_cost_increase/test_state_gas_create.py::test_create2_failed_deposit_refunds_storage_state_gas`
 
 ### Framework/Documentation Changes
 
@@ -128,7 +128,7 @@ Provide a concise summary of the issue, how it was discovered, emphasizing the h
 
 *Example:*
 
-> A consensus-breaking issue was found during the bug-bounty phase of the Pectra fork specifically in the EIP-2537, which involved calling the BLS pairing precompile using two special points: the infinity point and a point that is outside of the BLS12-381 curve.
+> A consensus-breaking issue was found during the bug-bounty phase of the Pectra fork specifically in the SIP-2537, which involved calling the BLS pairing precompile using two special points: the infinity point and a point that is outside of the BLS12-381 curve.
 > The specification correctly specified the behavior of the precompile when one of these inputs was used, but it did not specify the behavior of the combined input.
 
 ### Root Cause Analysis
@@ -152,7 +152,7 @@ IDs of the tests added that now cover the missed scenario and link to the docume
 
 *Example:*
 
-- [`tests/prague/eip2537_bls_12_381_precompiles/test_bls12_g1msm.py::test_invalid\[fork_Prague-state_test---bls_g1_truncated_input-\]`](../tests/prague/eip2537_bls_12_381_precompiles/test_bls12_g1msm/test_invalid.md)
+- [`tests/prague/sip2537_bls_12_381_precompiles/test_bls12_g1msm.py::test_invalid\[fork_Prague-state_test---bls_g1_truncated_input-\]`](../tests/prague/sip2537_bls_12_381_precompiles/test_bls12_g1msm/test_invalid.md)
 
 ### Framework/Documentation Changes
 
@@ -160,4 +160,4 @@ Note any modifications that were introduced in the framework and/or documentatio
 
 *Example:*
 
-- Updated EIP checklist to include testing combinations of interesting points related to the elliptic-curve under test, and all combinations between them.
+- Updated SIP checklist to include testing combinations of interesting points related to the elliptic-curve under test, and all combinations between them.

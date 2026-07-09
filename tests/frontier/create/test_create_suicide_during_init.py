@@ -29,12 +29,12 @@ class Operation(Enum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInit_ThenStoreThenReturnFiller.json",
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInit_WithValueFiller.json",
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInit_WithValueToItselfFiller.json",
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInitFiller.json",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInit_ThenStoreThenReturnFiller.json",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInit_WithValueFiller.json",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInit_WithValueToItselfFiller.json",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_ContractSuicideDuringInitFiller.json",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1871"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1871"],
     coverage_missed_reason="Tip to coinbase, og test contains empty account.",
 )
 @pytest.mark.valid_from("Frontier")
@@ -98,9 +98,9 @@ def test_create_suicide_during_transaction_create(
         protected=fork.supports_protected_txs(),
     )
 
-    # per EIP-8246
+    # per SIP-8246
     selfdestruct_to_self_preserves_balance = (
-        fork.is_eip_enabled(8246) and operation == Operation.SUICIDE_TO_ITSELF
+        fork.is_sip_enabled(8246) and operation == Operation.SUICIDE_TO_ITSELF
     )
     post = {
         contract_success: Account(storage={1: 1}),

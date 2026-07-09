@@ -1,5 +1,5 @@
 """
-Tests for the Keccak backend dispatch in `ethereum.crypto.hash`.
+Tests for the Keccak backend dispatch in `sila.crypto.hash`.
 
 The module decides at import time whether to use hashlib (linked OpenSSL)
 or pycryptodome, depending on whether `hashlib.new("keccak-256", ...)`
@@ -59,14 +59,14 @@ def _hashlib_has_keccak() -> bool:
 
 
 def _clean_reimport_hash() -> Any:
-    """Drop and reimport `ethereum.crypto.hash` for a fresh dispatch run."""
-    mod = importlib.import_module("ethereum.crypto.hash")
+    """Drop and reimport `sila.crypto.hash` for a fresh dispatch run."""
+    mod = importlib.import_module("sila.crypto.hash")
     return importlib.reload(mod)
 
 
 @pytest.fixture
 def restore_hash_module() -> Iterator[None]:
-    """Restore the natural-state `ethereum.crypto.hash` after each test."""
+    """Restore the natural-state `sila.crypto.hash` after each test."""
     yield
     _clean_reimport_hash()
 
@@ -74,7 +74,7 @@ def restore_hash_module() -> Iterator[None]:
 @pytest.mark.parametrize("buffer, expected_hex", KECCAK256_VECTORS)
 def test_keccak256_known_vectors(buffer: bytes, expected_hex: str) -> None:
     """Active backend produces published Keccak-256 digests."""
-    from ethereum.crypto.hash import keccak256
+    from sila.crypto.hash import keccak256
 
     assert keccak256(buffer).hex() == expected_hex
 
@@ -82,7 +82,7 @@ def test_keccak256_known_vectors(buffer: bytes, expected_hex: str) -> None:
 @pytest.mark.parametrize("buffer, expected_hex", KECCAK512_VECTORS)
 def test_keccak512_known_vectors(buffer: bytes, expected_hex: str) -> None:
     """Active backend produces published Keccak-512 digests."""
-    from ethereum.crypto.hash import keccak512
+    from sila.crypto.hash import keccak512
 
     assert keccak512(buffer).hex() == expected_hex
 
@@ -154,7 +154,7 @@ def test_native_path_used_when_hashlib_has_keccak(
 
 def test_eest_bytes_keccak256_matches_eels() -> None:
     """`Bytes.keccak256()` returns the same digest as EELS `keccak256`."""
-    from ethereum.crypto.hash import keccak256
+    from sila.crypto.hash import keccak256
 
     from ..base_types import Bytes
 
@@ -166,7 +166,7 @@ def test_eest_bytes_keccak256_matches_eels() -> None:
 
 def test_eest_trie_keccak256_matches_eels() -> None:
     """`trie.keccak256` and EELS `keccak256` return identical digests."""
-    from ethereum.crypto.hash import keccak256 as eels
+    from sila.crypto.hash import keccak256 as eels
 
     from ...test_types.trie import keccak256 as trie
 

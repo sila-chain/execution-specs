@@ -19,7 +19,7 @@ class AppConfig(BaseModel):
 
     @property
     def version(self) -> str:
-        """Get the version of the latest mainnet `tests` release."""
+        """Get the version of the latest sila-mainnet `tests` release."""
         spec = f"{releases.TESTS_FEATURE_NAME}@latest"
         try:
             release = releases.find_release(

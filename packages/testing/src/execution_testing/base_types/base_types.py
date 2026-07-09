@@ -13,7 +13,7 @@ from typing import (
     TypeVar,
 )
 
-from ethereum.crypto.hash import keccak256 as _keccak256
+from sila.crypto.hash import keccak256 as _keccak256
 from pydantic import GetCoreSchemaHandler, StringConstraints
 from pydantic_core.core_schema import (
     PlainValidatorFunctionSchema,
@@ -102,17 +102,17 @@ class Wei(Number):
         match unit:
             case "wei":
                 return 1
-            case "kwei" | "babbage" | "femtoether":
+            case "kwei" | "babbage" | "femtosil":
                 return 10**3
-            case "mwei" | "lovelace" | "picoether":
+            case "mwei" | "lovelace" | "picosil":
                 return 10**6
-            case "gwei" | "shannon" | "nanoether" | "nano":
+            case "gwei" | "shannon" | "nanosil" | "nano":
                 return 10**9
-            case "szabo" | "microether" | "micro":
+            case "szabo" | "microsil" | "micro":
                 return 10**12
-            case "finney" | "milliether" | "milli":
+            case "finney" | "millisil" | "milli":
                 return 10**15
-            case "ether" | "eth":
+            case "sil" | "sil":
                 return 10**18
             case _:
                 raise ValueError(f"Invalid unit {unit}")
@@ -415,7 +415,7 @@ class ForkHash(FixedSizeBytes[4]):  # type: ignore
 
 
 class Address(FixedSizeBytes[20]):  # type: ignore
-    """Class that helps represent Ethereum addresses in tests."""
+    """Class that helps represent Sila addresses in tests."""
 
     label: str | None = None
 

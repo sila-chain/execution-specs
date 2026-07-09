@@ -24,8 +24,8 @@ All examples use fuzzer output format v2.0 with the following structure:
 - **Size**: Smallest example (56K)
 - **Transactions**: 17 transactions
 - **Accounts**: 25-26 accounts with private keys
-- **Transaction Types**: Legacy, EIP-1559, EIP-4844 (blobs), EIP-7702 (authorization lists)
-- **Features**: Parent beacon block root (EIP-4788)
+- **Transaction Types**: Legacy, SIP-1559, SIP-4844 (blobs), SIP-7702 (authorization lists)
+- **Features**: Parent beacon block root (SIP-4788)
 - **Use Case**: Minimal comprehensive example for quick testing
 
 ### comprehensive_medium_1.json (62K)
@@ -33,7 +33,7 @@ All examples use fuzzer output format v2.0 with the following structure:
 - **Transactions**: 17 transactions
 - **Accounts**: 25-26 accounts
 - **Transaction Types**: Full spectrum including blob transactions (6 blob hashes per tx)
-- **Authorization Lists**: 5 authorization tuples per EIP-7702 transaction
+- **Authorization Lists**: 5 authorization tuples per SIP-7702 transaction
 - **Use Case**: Balanced example with typical transaction data sizes
 
 ### comprehensive_medium_2.json (66K)
@@ -64,18 +64,18 @@ All examples use fuzzer output format v2.0 with the following structure:
 
 All examples include:
 
-1. **EIP-1559 Transactions**: Dynamic fee transactions with `maxFeePerGas` and `maxPriorityFeePerGas`
-2. **EIP-4844 Blob Transactions**: Transactions with `blobVersionedHashes` and `maxFeePerBlobGas`
-3. **EIP-7702 Set-Code Transactions**: Transactions with `authorizationList` containing signed authorization tuples
+1. **SIP-1559 Transactions**: Dynamic fee transactions with `maxFeePerGas` and `maxPriorityFeePerGas`
+2. **SIP-4844 Blob Transactions**: Transactions with `blobVersionedHashes` and `maxFeePerBlobGas`
+3. **SIP-7702 Set-Code Transactions**: Transactions with `authorizationList` containing signed authorization tuples
 4. **Legacy Transactions**: Traditional transactions with `gasPrice`
-5. **EIP-4788 Support**: `parentBeaconBlockRoot` set in environment
+5. **SIP-4788 Support**: `parentBeaconBlockRoot` set in environment
 6. **Private Keys**: All sender accounts include `privateKey` field for transaction signing
 7. **Storage**: Accounts with non-empty storage mappings
 8. **Code**: Accounts with deployed bytecode
 
 ## Field Mappings (Fuzzer JSON-RPC → EEST)
 
-The fuzzer uses standard Ethereum JSON-RPC transaction format:
+The fuzzer uses standard Sila JSON-RPC transaction format:
 
 | Fuzzer Field | EEST Field | Description |
 |-------------|-----------|-------------|
@@ -83,11 +83,11 @@ The fuzzer uses standard Ethereum JSON-RPC transaction format:
 | `data` | `data` | Transaction calldata |
 | `from` | `sender` | Transaction sender (mapped to EOA) |
 | `gasPrice` | `gas_price` | Gas price (legacy transactions) |
-| `maxFeePerGas` | `max_fee_per_gas` | Max fee per gas (EIP-1559) |
-| `maxPriorityFeePerGas` | `max_priority_fee_per_gas` | Max priority fee (EIP-1559) |
-| `blobVersionedHashes` | `blob_versioned_hashes` | Blob hashes (EIP-4844) |
-| `maxFeePerBlobGas` | `max_fee_per_blob_gas` | Max blob fee (EIP-4844) |
-| `authorizationList` | `authorization_list` | Authorization tuples (EIP-7702) |
+| `maxFeePerGas` | `max_fee_per_gas` | Max fee per gas (SIP-1559) |
+| `maxPriorityFeePerGas` | `max_priority_fee_per_gas` | Max priority fee (SIP-1559) |
+| `blobVersionedHashes` | `blob_versioned_hashes` | Blob hashes (SIP-4844) |
+| `maxFeePerBlobGas` | `max_fee_per_blob_gas` | Max blob fee (SIP-4844) |
+| `authorizationList` | `authorization_list` | Authorization tuples (SIP-7702) |
 
 ## Usage
 
@@ -137,7 +137,7 @@ Each example provides test coverage for:
 ## Notes
 
 - All examples use Osaka fork
-- All examples use chain ID 1 (mainnet)
+- All examples use chain ID 1 (sila-mainnet)
 - All transactions have sufficient gas (16,000,000 gas limit)
 - All sender accounts have private keys for signing
 - Environment includes realistic post-merge values (difficulty=0, prevRandao set)

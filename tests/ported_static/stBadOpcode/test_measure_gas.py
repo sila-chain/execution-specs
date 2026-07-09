@@ -7,10 +7,10 @@ state_tests/stBadOpcode/measureGasFiller.yml
 @manually-enhanced: Do not overwrite. A binary search measures the gas
 an opcode needs to succeed. Only the EXTCODE case shifts: it runs a
 warm `EXTCODESIZE` plus a warm `EXTCODECOPY` (the target is warmed by
-earlier search iterations), and EIP-8038 adds a flat +100 to each warm
+earlier search iterations), and SIP-8038 adds a flat +100 to each warm
 extcode access. The stored threshold therefore grows by the sum of the
 two opcodes' warm `(Amsterdam - Cancun)` cost deltas, derived from the
-fork's own gas model so it is exactly 0 before EIP-8038; do not
+fork's own gas model so it is exactly 0 before SIP-8038; do not
 hardcode the Amsterdam number.
 """
 
@@ -374,9 +374,9 @@ def test_measure_gas(
 
     # The EXTCODE search measures a warm `EXTCODESIZE` plus a warm
     # `EXTCODECOPY` (the target is warmed by earlier search iterations).
-    # EIP-8038 adds a flat surcharge to each warm extcode access, so the
+    # SIP-8038 adds a flat surcharge to each warm extcode access, so the
     # threshold grows by the two opcodes' combined warm cost delta versus
-    # Cancun. Derived from the fork gas model so it is 0 before EIP-8038.
+    # Cancun. Derived from the fork gas model so it is 0 before SIP-8038.
     # The EXTCODECOPY metadata mirrors the measured access: a 0x20-byte
     # copy into already-expanded memory, so only the account-access
     # component varies across forks.

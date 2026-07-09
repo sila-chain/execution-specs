@@ -102,7 +102,7 @@ class HashableItem:
                     f"Expected '_info' in {key}, json file: {file_path.name}"
                 )
 
-            # EEST uses 'hash'; ethereum/tests use 'generatedTestHash'
+            # EEST uses 'hash'; sila/tests use 'generatedTestHash'
             hash_value = item["_info"].get("hash") or item["_info"].get(
                 "generatedTestHash"
             )

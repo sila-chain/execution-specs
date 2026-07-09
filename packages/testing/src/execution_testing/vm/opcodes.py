@@ -1,5 +1,5 @@
 """
-Ethereum Virtual Machine opcode definitions.
+Sila Virtual Machine opcode definitions.
 
 Acknowledgments: The individual opcode documentation below is due to the work
 by [smlXL](https://github.com/smlxl) on [evm.codes](https://www.evm.codes/),
@@ -513,7 +513,7 @@ class Macro(Bytecode):
 
 def _exchange_encoder(*args: int | bytes) -> bytes:
     """
-    Encoder for EXCHANGE opcode following encode_pair logic from EIP-8024.
+    Encoder for EXCHANGE opcode following encode_pair logic from SIP-8024.
 
     Supports two modes:
     1. bytes input: Returns verbatim (for testing invalid immediate bytes)
@@ -538,7 +538,7 @@ def _exchange_encoder(*args: int | bytes) -> bytes:
     if len(args) == 1 and isinstance(args[0], int):
         return int.to_bytes(args[0], 1, "big")
 
-    # If two ints are provided, use encode_pair logic from EIP-8024
+    # If two ints are provided, use encode_pair logic from SIP-8024
     if len(args) == 2:
         n, m = args
         if not isinstance(n, int) or not isinstance(m, int):
@@ -546,7 +546,7 @@ def _exchange_encoder(*args: int | bytes) -> bytes:
                 "EXCHANGE requires int arguments when using two parameters"
             )
 
-        # encode_pair logic from EIP-8024
+        # encode_pair logic from SIP-8024
         # n is first stack index, m is second (n < m, n + m <= 30)
         if not (1 <= n < m and n + m <= 30):
             raise ValueError(
@@ -566,7 +566,7 @@ def _exchange_encoder(*args: int | bytes) -> bytes:
 
 def _dupn_swapn_encoder(*args: int | bytes) -> bytes:
     """
-    Encoder for DUPN/SWAPN opcodes following encode_single logic from EIP-8024.
+    Encoder for DUPN/SWAPN opcodes following encode_single logic from SIP-8024.
 
     Supports two modes:
     1. bytes input: Returns verbatim (for testing invalid immediate bytes)
@@ -594,7 +594,7 @@ def _dupn_swapn_encoder(*args: int | bytes) -> bytes:
     if isinstance(arg, bytes):
         return arg
 
-    # If int is provided, use encode_single logic from EIP-8024
+    # If int is provided, use encode_single logic from SIP-8024
     if isinstance(arg, int):
         # encode_single logic: n is stack index (17-235)
         if not (17 <= arg <= 235):
@@ -2344,7 +2344,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844)
+    Source: [SIP-4844](https://sips.sila.org/SIPS/sip-4844)
     """
 
     BLOBBASEFEE = Opcode(0x4A, popped_stack_items=0, pushed_stack_items=1)
@@ -2372,7 +2372,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [EIP-7516](https://eips.ethereum.org/EIPS/eip-7516)
+    Source: [SIP-7516](https://sips.sila.org/SIPS/sip-7516)
     """
 
     SLOTNUM = Opcode(0x4B, popped_stack_items=0, pushed_stack_items=1)
@@ -2402,7 +2402,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [EIP-7843](https://eips.ethereum.org/EIPS/eip-7843)
+    Source: [SIP-7843](https://sips.sila.org/SIPS/sip-7843)
     """
 
     POP = Opcode(0x50, popped_stack_items=1)
@@ -2882,7 +2882,7 @@ class Opcodes(Opcode, Enum):
     ----
     100
 
-    Source: [eips.ethereum.org/EIPS/eip-1153](https://eips.ethereum.org/EIPS/eip-1153)
+    Source: [sips.sila.org/SIPS/sip-1153](https://sips.sila.org/SIPS/sip-1153)
     """
 
     TSTORE = Opcode(0x5D, popped_stack_items=2, kwargs=["key", "value"])
@@ -2907,7 +2907,7 @@ class Opcodes(Opcode, Enum):
     ----
     100
 
-    Source: [EIP-1153](https://eips.ethereum.org/EIPS/eip-1153)
+    Source: [SIP-1153](https://sips.sila.org/SIPS/sip-1153)
     """
 
     MCOPY = Opcode(
@@ -2950,7 +2950,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [EIP-5656](https://eips.ethereum.org/EIPS/eip-5656)
+    Source: [SIP-5656](https://sips.sila.org/SIPS/sip-5656)
     """
 
     PUSH0 = Opcode(0x5F, pushed_stack_items=1)
@@ -6063,7 +6063,7 @@ class Macros(Macro, Enum):
     exception.
 
     Note:
-    If a value > `100000000000` is used as second argument, the resulting geth
+    If a value > `100000000000` is used as second argument, the resulting gsil
      trace reports gas `30` and an OOG exception.
     `SHA3(0, SUB(0, 1))` causes a gas > u64 exception and an OOG exception.
 

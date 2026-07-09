@@ -1,1 +1,1 @@
-"""Ethereum/tests structures."""
+"""Sila/tests structures."""

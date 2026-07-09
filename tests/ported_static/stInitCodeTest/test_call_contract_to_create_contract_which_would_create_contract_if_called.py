@@ -4,7 +4,7 @@ Test_call_contract_to_create_contract_which_would_create_contract_if_cal...
 Ported from:
 state_tests/stInitCodeTest/CallContractToCreateContractWhichWouldCreateContractIfCalledFiller.json
 @manually-enhanced: Do not overwrite. tx `gas_limit` and inner-CALL gas
-bumped on Amsterdam to cover EIP-8037 state-gas spill; pre-EIP-8037
+bumped on Amsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037
 unchanged.
 
 """
@@ -40,10 +40,10 @@ def test_call_contract_to_create_contract_which_would_create_contract_if_called(
     fork: Fork,
 ) -> None:
     """Test_call_contract_to_create_contract_which_would_create_contract_i..."""  # noqa: E501
-    # EIP-8037 state-gas spill OoGs the inner CREATE/CALL chain.
+    # SIP-8037 state-gas spill OoGs the inner CREATE/CALL chain.
     inner_call_gas = 50000
     tx_gas_limit = 200000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         inner_call_gas = 200000
         tx_gas_limit = 800_000
 

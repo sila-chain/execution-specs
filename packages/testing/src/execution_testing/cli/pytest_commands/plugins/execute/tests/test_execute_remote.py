@@ -58,7 +58,7 @@ from execution_testing.vm import Op
 
 from ...shared.address_stubs import StubAddress
 from ..pre_alloc import AddressStubs
-from ..rpc.chain_builder_eth_rpc import ChainBuilderEthRPC, TestingRPC
+from ..rpc.chain_builder_sil_rpc import ChainBuilderEthRPC, TestingRPC
 
 # Number of seed keys to pre-fund (one per test case)
 SEED_KEY_COUNT = 100
@@ -290,13 +290,13 @@ def engine_endpoint(hive_client_ip: str) -> str:
 
 
 @pytest.fixture(scope="function")
-def chain_builder_eth_rpc(
+def chain_builder_sil_rpc(
     rpc_endpoint: str,
     engine_endpoint: str,
     session_temp_folder: Path,
 ) -> EthRPC:
     """
-    Return the chain builder ETH RPC to use for some tests that send
+    Return the chain builder SIL RPC to use for some tests that send
     transactions before the actual execute test starts.
     """
     return ChainBuilderEthRPC(
@@ -372,11 +372,11 @@ def keys_pool(session_temp_folder: Path, seed_keys: List[EOA]) -> KeysPool:
 
 @pytest.fixture()
 def test_seed_key(
-    keys_pool: KeysPool, chain_builder_eth_rpc: EthRPC
+    keys_pool: KeysPool, chain_builder_sil_rpc: EthRPC
 ) -> Generator[EOA, None, None]:
     """Return the seed key for the current test."""
     with keys_pool.pop() as key:
-        current_nonce = chain_builder_eth_rpc.get_transaction_count(key)
+        current_nonce = chain_builder_sil_rpc.get_transaction_count(key)
         key.nonce = Number(current_nonce)
         yield key
 
@@ -491,7 +491,7 @@ def execute_runner(
 class ContractDeployer:
     """Formatted runner of a test."""
 
-    chain_builder_eth_rpc: ChainBuilderEthRPC
+    chain_builder_sil_rpc: ChainBuilderEthRPC
     test_seed_key: EOA
     salt: int
 
@@ -505,9 +505,9 @@ class ContractDeployer:
             gas_limit=1_000_000,
             data=initcode,
         )
-        self.chain_builder_eth_rpc.send_wait_transactions([tx])
+        self.chain_builder_sil_rpc.send_wait_transactions([tx])
         contract_address = tx.created_contract
-        chain_code = self.chain_builder_eth_rpc.get_code(contract_address)
+        chain_code = self.chain_builder_sil_rpc.get_code(contract_address)
         assert chain_code == bytecode
         return contract_address
 
@@ -518,7 +518,7 @@ class ContractDeployer:
         deploy_address = compute_deterministic_create2_address(
             salt=self.salt, initcode=initcode, fork=TEST_FORK
         )
-        chain_code = self.chain_builder_eth_rpc.get_code(deploy_address)
+        chain_code = self.chain_builder_sil_rpc.get_code(deploy_address)
         if chain_code != b"":
             raise Exception(f"Contract already deployed: {deploy_address}")
         tx = Transaction(
@@ -527,15 +527,15 @@ class ContractDeployer:
             gas_limit=1_000_000,
             data=Hash(self.salt) + bytes(initcode),
         )
-        self.chain_builder_eth_rpc.send_wait_transactions([tx])
-        chain_code = self.chain_builder_eth_rpc.get_code(deploy_address)
+        self.chain_builder_sil_rpc.send_wait_transactions([tx])
+        chain_code = self.chain_builder_sil_rpc.get_code(deploy_address)
         assert chain_code == bytecode
         return deploy_address
 
 
 @pytest.fixture(scope="function")
 def contract_deployer(
-    chain_builder_eth_rpc: ChainBuilderEthRPC,
+    chain_builder_sil_rpc: ChainBuilderEthRPC,
     test_seed_key: EOA,
 ) -> ContractDeployer:
     """
@@ -545,7 +545,7 @@ def contract_deployer(
     and returns the address.
     """
     return ContractDeployer(
-        chain_builder_eth_rpc=chain_builder_eth_rpc,
+        chain_builder_sil_rpc=chain_builder_sil_rpc,
         test_seed_key=test_seed_key,
         salt=random.randint(0, 2**256),
     )
@@ -608,7 +608,7 @@ def test_deterministic_deploy_contract(
     contract_deployer: ContractDeployer,
     test_seed_key: EOA,
     already_deployed: bool,
-    chain_builder_eth_rpc: ChainBuilderEthRPC,
+    chain_builder_sil_rpc: ChainBuilderEthRPC,
 ) -> None:
     """
     Execute a test that deploys a contract to a deterministic address
@@ -627,7 +627,7 @@ def test_deterministic_deploy_contract(
             to=deploy_address,
             gas_limit=100_000,
         )
-        chain_builder_eth_rpc.send_wait_transactions([tx])
+        chain_builder_sil_rpc.send_wait_transactions([tx])
         expected_value = 2
     test_method = """\
         def test_deploy(state_test, pre) -> None:

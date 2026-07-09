@@ -2,7 +2,7 @@
 Tests for BlockAccessList.validate_structure() method.
 
 These tests verify that the BAL structural validation correctly enforces
-EIP-7928 requirements for ordering and uniqueness.
+SIP-7928 requirements for ordering and uniqueness.
 """
 
 from typing import List, Union

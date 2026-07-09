@@ -42,14 +42,14 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
 
 @pytest.fixture(scope="session")
-def gas_price(request: pytest.FixtureRequest, eth_rpc: EthRPC) -> int:
+def gas_price(request: pytest.FixtureRequest, sil_rpc: EthRPC) -> int:
     """Get the gas price for deployment transactions."""
     gas_price_option = request.config.option.deploy_gas_price
     if gas_price_option is not None:
         return gas_price_option
 
     # Use network gas price
-    return int(eth_rpc.gas_price() * 1.5)
+    return int(sil_rpc.gas_price() * 1.5)
 
 
 @pytest.fixture(scope="session")

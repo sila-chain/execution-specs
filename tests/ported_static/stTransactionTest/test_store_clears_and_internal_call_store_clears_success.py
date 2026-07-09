@@ -7,14 +7,14 @@ state_tests/stTransactionTest/StoreClearsAndInternalCallStoreClearsSuccessFiller
 @manually-enhanced: Do not overwrite. The outer contract `target` clears 4
 cold storage slots then `CALL`s the inner contract `addr`, which clears 10
 cold storage slots; the value transfer and clears must all succeed.
-EIP-8037/8038 raise the cold SSTORE-clear charge from 5000 to 13000 at
+SIP-8037/8038 raise the cold SSTORE-clear charge from 5000 to 13000 at
 Amsterdam, so both gas budgets must rise by that charge delta or the inner
 frame runs out of gas (clearing only 4 of its 10 slots) and the value
 transfer rolls back. The inner `CALL` only forwards a fixed gas amount, so
 its budget is bumped by the 10 inner clears; the transaction gas limit is
 bumped by all 14 clears (10 inner plus 4 outer) so the outer frame can both
 pay its own clears and forward the larger amount. Both bumps are derived
-from the fork gas model and are exactly 0 pre-EIP-8037; do not hardcode the
+from the fork gas model and are exactly 0 pre-SIP-8037; do not hardcode the
 Amsterdam values.
 """
 
@@ -51,8 +51,8 @@ def test_store_clears_and_internal_call_store_clears_success(
     coinbase = Address(0xB94F5374FCE5EDBC8E2A8697C15331677E6EBF0B)
     sender = pre.fund_eoa(amount=0x1DCD6500)
 
-    # EIP-8037/8038 raise the cold SSTORE-clear charge; derive the per-clear
-    # delta (0 pre-EIP-8037) so both gas budgets keep every clear landing.
+    # SIP-8037/8038 raise the cold SSTORE-clear charge; derive the per-clear
+    # delta (0 pre-SIP-8037) so both gas budgets keep every clear landing.
     sstore_charge = Op.SSTORE.with_metadata(
         key_warm=False, original_value=1, current_value=1, new_value=0
     ).gas_cost(fork)
@@ -105,7 +105,7 @@ def test_store_clears_and_internal_call_store_clears_success(
         + Op.CALL(
             # The inner frame clears 10 cold slots; forward its extra
             # charge so all 10 clears land at Amsterdam (delta is 0
-            # pre-EIP-8037).
+            # pre-SIP-8037).
             gas=0xC350 + 10 * cold_clear_delta,
             address=addr,
             value=0x1,

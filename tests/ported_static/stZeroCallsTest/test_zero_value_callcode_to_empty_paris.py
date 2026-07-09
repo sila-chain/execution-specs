@@ -8,9 +8,9 @@ state_tests/stZeroCallsTest/ZeroValue_CALLCODE_ToEmpty_ParisFiller.json
 slot 0 and the post-state asserts it as a fixed value (0x8D5B6), so the
 remaining gas at that point must be fork-invariant. The `gas_limit` is
 derived as `600_000 + (intrinsic - 21_000)` from the fork intrinsic
-calculator instead of a hardcoded number: subtracting the pre-EIP-2780
+calculator instead of a hardcoded number: subtracting the pre-SIP-2780
 baseline intrinsic of 21_000 keeps a constant 600_000 post-intrinsic
-execution budget when EIP-2780 lowers the intrinsic for non-self
+execution budget when SIP-2780 lowers the intrinsic for non-self
 non-value txs. Do not hardcode the gas_limit.
 """
 
@@ -79,7 +79,7 @@ def test_zero_value_callcode_to_empty_paris(
     )
 
     # Preserve Cancun's post-intrinsic execution budget across
-    # forks; EIP-2780 lowers the intrinsic for non-self non-value
+    # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.
     intrinsic = fork.transaction_intrinsic_cost_calculator()()

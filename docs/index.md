@@ -1,10 +1,10 @@
-# Ethereum Execution Layer Specifications
+# Sila Execution Layer Specifications
 
-Welcome to the documentation for the Ethereum Execution Layer Specifications (EELS), the executable Python specification of Ethereum’s Execution Layer.
+Welcome to the documentation for the Sila Execution Layer Specifications (EELS), the executable Python specification of Sila’s Execution Layer.
 
-EELS is implemented as a readable executable reference in Python that serves as a source of truth for developers across the Ethereum ecosystem and underpins the generation of test vectors used to ensure Execution Layer client implementations are spec-compliant.
+EELS is implemented as a readable executable reference in Python that serves as a source of truth for developers across the Sila ecosystem and underpins the generation of test vectors used to ensure Execution Layer client implementations are spec-compliant.
 
-EELS is a collaborative effort between Ethereum Improvement Proposals (EIP) authors, protocol researchers, prototype implementers and client developers, maintained in @ethereum/execution-specs by the [STEEL Team](https://steel.ethereum.foundation/).
+EELS is a collaborative effort between Sila Improvement Proposals (SIP) authors, protocol researchers, prototype implementers and client developers, maintained in @sila/execution-specs by the [STEEL Team](https://steel.sila.foundation/).
 
 ## Where to Start
 
@@ -24,9 +24,9 @@ EELS is a collaborative effort between Ethereum Improvement Proposals (EIP) auth
 
     ---
 
-    Implement an EIP as an executable Python specification.
+    Implement an SIP as an executable Python specification.
 
-    *For EIP authors and researchers.*
+    *For SIP authors and researchers.*
 
     [:octicons-arrow-right-24: Get started](specs/writing_specs.md)
 
@@ -34,9 +34,9 @@ EELS is a collaborative effort between Ethereum Improvement Proposals (EIP) auth
 
     ---
 
-    Write test cases that verify EIP implementations across clients.
+    Write test cases that verify SIP implementations across clients.
 
-    *For EIP authors and test devs.*
+    *For SIP authors and test devs.*
 
     [:octicons-arrow-right-24: Get started](writing_tests/index.md)
 
@@ -54,7 +54,7 @@ EELS is a collaborative effort between Ethereum Improvement Proposals (EIP) auth
 
     ---
 
-    Browse the rendered Python specifications for the current fork and EIP.
+    Browse the rendered Python specifications for the current fork and SIP.
 
     [:octicons-arrow-right-24: Reference ↗](specs/reference/index.md){target=_blank rel=noopener}
 
@@ -62,7 +62,7 @@ EELS is a collaborative effort between Ethereum Improvement Proposals (EIP) auth
 
     ---
 
-    Browse all test cases organized by fork and EIP.
+    Browse all test cases organized by fork and SIP.
 
     [:octicons-arrow-right-24: Browse tests](tests/index.md)
 
@@ -72,7 +72,7 @@ EELS is a collaborative effort between Ethereum Improvement Proposals (EIP) auth
 
 !!! bug "Reporting a Vulnerability"
 
-    Care is required when adding PRs or issues for functionality that is live on Ethereum mainnet. Please report vulnerabilities and verify bounty eligibility via the [bug bounty program](https://bounty.ethereum.org).
+    Care is required when adding PRs or issues for functionality that is live on Sila sila-mainnet. Please report vulnerabilities and verify bounty eligibility via the [bug bounty program](https://bounty.sila.org).
 
     - **Please do not create a PR with a vulnerability visible.**
     - **Please do not file a public ticket mentioning the vulnerability.**

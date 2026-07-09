@@ -1,4 +1,4 @@
-"""Chain Configuration related types for Ethereum tests."""
+"""Chain Configuration related types for Sila tests."""
 
 from pydantic import Field
 

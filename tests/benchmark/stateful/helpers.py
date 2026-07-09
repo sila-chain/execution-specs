@@ -191,7 +191,7 @@ def build_delegated_storage_setup(
     """
     Build setup blocks for delegated storage benchmarks.
 
-    Use EIP-7702 authorization to delegate an authority EOA first to
+    Use SIP-7702 authorization to delegate an authority EOA first to
     a storage-initializer contract (if *needs_init*), then to the
     benchmark executor contract.  Return the list of setup blocks.
     """

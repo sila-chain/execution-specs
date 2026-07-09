@@ -44,7 +44,7 @@ def apply_name_filters(input_string: str) -> str:
         "bls12 map fp2 to g2": "BLS12_MAP_FP2_TO_G2",
         "bls12 map fp to g1": "BLS12_MAP_FP_TO_G1",
         "bls12 pairing": "BLS12_PAIRING_CHECK",
-        "eips": "EIPs",
+        "sips": "SIPs",
         "vm": "VM",
     }
     # adding these is the expensive part
@@ -58,7 +58,7 @@ def apply_name_filters(input_string: str) -> str:
         )
 
     regex_patterns = [
-        (r"eip-?([1-9]{1,5})", r"EIP-\1"),  # Matches "eip-123" or "eip123"
+        (r"sip-?([1-9]{1,5})", r"SIP-\1"),  # Matches "sip-123" or "sip123"
     ]
     for pattern, replacement in regex_patterns:
         input_string = re.sub(
@@ -149,16 +149,16 @@ class PagePropsBase:
 
 
 @dataclass
-class EipChecklistPageProps(PagePropsBase):
-    """Properties used to generate the EIP checklist page."""
+class SipChecklistPageProps(PagePropsBase):
+    """Properties used to generate the SIP checklist page."""
 
-    eip: int = 0
+    sip: int = 0
     lines: List[str] = field(default_factory=list)
 
     @property
     def template(self) -> str:
         """Get the jinja2 template used to render this page."""
-        raise Exception("EipChecklistPageProps does not have a template")
+        raise Exception("SipChecklistPageProps does not have a template")
 
     @property
     def target_output_file(self) -> Path:
@@ -261,7 +261,7 @@ class TestFunction:
 class ModulePageProps(PagePropsBase):
     """
     Definitions used for test modules, e.g.,
-    `tests/berlin/eip2930_access_list/test_acl.py`.
+    `tests/berlin/sip2930_access_list/test_acl.py`.
     """
 
     test_functions: List[TestFunction] = field(default_factory=list)
@@ -336,7 +336,7 @@ PageProps = (
     | ModulePageProps
     | FunctionPageProps
     | MarkdownPageProps
-    | EipChecklistPageProps
+    | SipChecklistPageProps
 )
 PagePropsLookup = Dict[str, PageProps]
 ModulePagePropsLookup = Dict[str, ModulePageProps]

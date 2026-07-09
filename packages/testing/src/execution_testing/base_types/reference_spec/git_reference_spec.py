@@ -25,8 +25,8 @@ class GitReferenceSpec(ReferenceSpec):
     """Git Reference Specification Description Class."""
 
     SpecPath: str
-    RepositoryOwner: str = "ethereum"
-    RepositoryName: str = "EIPs"
+    RepositoryOwner: str = "sila"
+    RepositoryName: str = "SIPs"
     BranchName: str = "master"
     SpecVersion: str = ""
     _latest_spec: Dict | None = None

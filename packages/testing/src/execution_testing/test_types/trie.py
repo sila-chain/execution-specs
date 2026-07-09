@@ -1,5 +1,5 @@
 """
-The state trie is the structure responsible for storing Ethereum state.
+The state trie is the structure responsible for storing Sila state.
 """
 
 import copy
@@ -18,11 +18,11 @@ from typing import (
     cast,
 )
 
-from ethereum.crypto.hash import keccak256
-from ethereum_rlp import Extended, rlp
-from ethereum_types.bytes import Bytes, Bytes20, Bytes32
-from ethereum_types.frozen import slotted_freezable
-from ethereum_types.numeric import U256, Uint
+from sila.crypto.hash import keccak256
+from sila_rlp import Extended, rlp
+from sila_types.bytes import Bytes, Bytes20, Bytes32
+from sila_types.frozen import slotted_freezable
+from sila_types.numeric import U256, Uint
 from typing_extensions import assert_type
 
 

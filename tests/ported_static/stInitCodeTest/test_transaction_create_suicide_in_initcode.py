@@ -59,12 +59,12 @@ def test_transaction_create_suicide_in_initcode(
         value=1,
     )
 
-    # per EIP-8246
+    # per SIP-8246
     created_address = compute_create_address(address=sender, nonce=0)
     post = {
         created_address: (
             Account(balance=tx_value, nonce=0, code=b"", storage={})
-            if fork.is_eip_enabled(8246)
+            if fork.is_sip_enabled(8246)
             else Account.NONEXISTENT
         ),
         sender: Account(nonce=1),

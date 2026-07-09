@@ -5,7 +5,7 @@ inputs:
     description: 'Type of EVM binary to build (key in .github/configs/evm.yaml)'
     required: true
   repo_override:
-    description: 'Override the repo from evm.yaml (e.g. ethereum/go-ethereum)'
+    description: 'Override the repo from evm.yaml (e.g. sila/go-sila)'
     required: false
     default: ''
   ref_override:
@@ -61,9 +61,9 @@ runs:
       if: steps.config-evm-reader.outputs.impl == 'eels'
       shell: bash
       run: echo "Skipping build for EELS"
-    - name: Build the EVM using Geth action
-      if: steps.config-evm-reader.outputs.impl == 'geth'
-      uses: ./.github/actions/build-evm-client/geth
+    - name: Build the EVM using Gsil action
+      if: steps.config-evm-reader.outputs.impl == 'gsil'
+      uses: ./.github/actions/build-evm-client/gsil
       with:
         repo: ${{ steps.resolved.outputs.repo }}
         ref: ${{ steps.resolved.outputs.ref }}

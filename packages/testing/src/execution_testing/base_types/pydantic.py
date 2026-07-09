@@ -1,4 +1,4 @@
-"""Base pydantic classes used to define the models for Ethereum tests."""
+"""Base pydantic classes used to define the models for Sila tests."""
 
 from typing import Any, TypeVar
 
@@ -11,21 +11,21 @@ from .mixins import ModelCustomizationsMixin
 RootModelRootType = TypeVar("RootModelRootType")
 
 
-class EthereumTestBaseModel(BaseModel, ModelCustomizationsMixin):
-    """Base model for all models for Ethereum tests."""
+class SilaTestBaseModel(BaseModel, ModelCustomizationsMixin):
+    """Base model for all models for Sila tests."""
 
     pass
 
 
-class EthereumTestRootModel(
+class SilaTestRootModel(
     RootModel[RootModelRootType], ModelCustomizationsMixin
 ):
-    """Base model for all models for Ethereum tests."""
+    """Base model for all models for Sila tests."""
 
     root: Any
 
 
-class CopyValidateModel(EthereumTestBaseModel):
+class CopyValidateModel(SilaTestBaseModel):
     """Model that supports copying with validation."""
 
     def copy(self, **kwargs: Any) -> Self:

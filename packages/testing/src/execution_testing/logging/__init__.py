@@ -1,5 +1,5 @@
 """
-Logging utilities for Ethereum Execution Specification Testing.
+Logging utilities for Sila Execution Specification Testing.
 
 This module provides custom logging configuration with UTC timestamps,
 custom log levels (VERBOSE, FAIL), and colored output support.

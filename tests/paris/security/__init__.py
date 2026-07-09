@@ -1,1 +1,1 @@
-"""Ethereum execution client tests related to security issues."""
+"""Sila execution client tests related to security issues."""

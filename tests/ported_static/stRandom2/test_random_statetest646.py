@@ -1,5 +1,5 @@
 """
-Geth Failed this test on all networks.
+Gsil Failed this test on all networks.
 
 Ported from:
 state_tests/stRandom2/randomStatetest646Filler.json
@@ -28,13 +28,13 @@ REFERENCE_SPEC_VERSION = "N/A"
     ["state_tests/stRandom2/randomStatetest646Filler.json"],
 )
 @pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_before("EIP7954")
+@pytest.mark.valid_before("SIP7954")
 @pytest.mark.pre_alloc_mutable
 def test_random_statetest646(
     state_test: StateTestFiller,
     pre: Alloc,
 ) -> None:
-    """Geth Failed this test on all networks."""
+    """Gsil Failed this test on all networks."""
     coinbase = Address(0xD94F5374FCE5EDBC8E2A8697C15331677E6EBF0B)
     contract_0 = Address(0xC94F5374FCE5EDBC8E2A8697C15331677E6EBF0B)
     contract_1 = Address(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF)
@@ -97,11 +97,11 @@ def test_random_statetest646(
         value=0x5684B90A,
     )
 
-    # Capped at EIP7954: the 0x13FFA-byte CREATE initcode exceeds
+    # Capped at SIP7954: the 0x13FFA-byte CREATE initcode exceeds
     # MAX_INITCODE_SIZE only before the limit is raised, so the inner CREATE
-    # reverts the frame and the created address never persists. EIP-7954's
+    # reverts the frame and the created address never persists. SIP-7954's
     # raised limit (where this initcode is valid) is covered by the dedicated
-    # tests in tests/amsterdam/eip7954_increase_max_contract_size.
+    # tests in tests/amsterdam/sip7954_increase_max_contract_size.
     post = {
         sender: Account(storage={}, code=b"", nonce=1),
         compute_create_address(

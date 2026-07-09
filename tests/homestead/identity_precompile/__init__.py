@@ -1,1 +1,1 @@
-"""abstract: EIP-2: Homestead Precompile Identity Test Cases."""
+"""abstract: SIP-2: Homestead Precompile Identity Test Cases."""

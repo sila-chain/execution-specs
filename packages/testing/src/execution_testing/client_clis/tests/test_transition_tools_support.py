@@ -48,7 +48,7 @@ fork_set = set(get_deployed_forks())
 fork_set.add(Prague)
 
 
-@pytest.mark.xfail(reason="Known issue: geth evm not built in CI, see #2557")
+@pytest.mark.xfail(reason="Known issue: gsil evm not built in CI, see #2557")
 def test_ci_multi_t8n_support(
     installed_transition_tool_instances: Dict[str, TransitionTool | Exception],
     running_in_ci: bool,
@@ -59,7 +59,7 @@ def test_ci_multi_t8n_support(
     names = set(installed_transition_tool_instances.keys())
     expected_names = {"ExecutionSpecsTransitionTool"}
     if running_in_ci:
-        expected_names.add("GethTransitionTool")
+        expected_names.add("GsilTransitionTool")
         expected_names.add("EvmOneTransitionTool")
     assert expected_names.issubset(names), (
         f"Missing expected transition tools: {expected_names - names}"

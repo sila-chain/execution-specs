@@ -1,6 +1,6 @@
 """
 Executes a JSON test fixture directly against a client using a dedicated client
-interface similar to geth's EVM 'blocktest' command.
+interface similar to gsil's EVM 'blocktest' command.
 """
 
 from pathlib import Path

@@ -1,6 +1,6 @@
 # Benchmark Tests
 
-The EELS benchmark serves as a centralized hub for benchmarking test cases, evaluating execution layer performance across a wide range of scenarios, including gas limit testing, zkEVM, Bloatnet, gas repricing and EIPs that introduce new opcodes, precompiles, transaction types, or more use cases.
+The EELS benchmark serves as a centralized hub for benchmarking test cases, evaluating execution layer performance across a wide range of scenarios, including gas limit testing, zkEVM, Bloatnet, gas repricing and SIPs that introduce new opcodes, precompiles, transaction types, or more use cases.
 
 All benchmark tests are maintained under the `./tests/benchmark` directory. The benchmark suite is further organized based on whether tests require a pre-configured, stateful environment.
 
@@ -28,7 +28,7 @@ execute remote -v tests/benchmark
 
 ### Stateful Benchmarks
 
-A subset of benchmark test cases run on top of stateful environments (such as bloatnet or mainnet-like setups), in order to analyze how state size, structure, and access patterns influence performance. These tests may (1) pre-deploy contracts (2) construct initial storage state (3) Interact with pre-deployed contracts via stub addresses.
+A subset of benchmark test cases run on top of stateful environments (such as bloatnet or sila-mainnet-like setups), in order to analyze how state size, structure, and access patterns influence performance. These tests may (1) pre-deploy contracts (2) construct initial storage state (3) Interact with pre-deployed contracts via stub addresses.
 
 These tests are located under `./tests/benchmark/stateful`.
 
@@ -144,7 +144,7 @@ def test_benchmark(
 
 #### Referencing Transaction Gas Limit
 
-Since the Osaka fork, EIP-7825 introduces a transaction gas limit cap (approximately 16M). Instead of hardcoding this value in the test, use `fork.transaction_gas_limit_cap()` for a cleaner, fork-aware approach.
+Since the Osaka fork, SIP-7825 introduces a transaction gas limit cap (approximately 16M). Instead of hardcoding this value in the test, use `fork.transaction_gas_limit_cap()` for a cleaner, fork-aware approach.
 
 This helper fixture could simplify the logic of determine the transaction gas limit cap, it returns the value if available, otherwise falls back to the block gas limit:
 

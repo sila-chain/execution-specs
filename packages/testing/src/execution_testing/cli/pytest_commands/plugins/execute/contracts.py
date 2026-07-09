@@ -15,7 +15,7 @@ from execution_testing.test_types import (
     TransactionTestMetadata,
 )
 
-from .rpc.chain_builder_eth_rpc import ChainBuilderEthRPC
+from .rpc.chain_builder_sil_rpc import ChainBuilderEthRPC
 
 logger = get_logger(__name__)
 
@@ -29,7 +29,7 @@ class DeterministicFactoryNotDeployableError(Exception):
 
 def check_deterministic_factory_deployment(
     *,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     fork: Fork | TransitionFork,
 ) -> Address | None:
     """Check if the deterministic deployment contract is deployed."""
@@ -39,7 +39,7 @@ def check_deterministic_factory_deployment(
     if fork_deterministic_factory_predeploy_address is not None:
         return fork_deterministic_factory_predeploy_address
     # Check the manually deployed contract.
-    deployment_contract_code = eth_rpc.get_code(DETERMINISTIC_FACTORY_ADDRESS)
+    deployment_contract_code = sil_rpc.get_code(DETERMINISTIC_FACTORY_ADDRESS)
     if deployment_contract_code == DETERMINISTIC_FACTORY_BYTECODE:
         return DETERMINISTIC_FACTORY_ADDRESS
 
@@ -47,7 +47,7 @@ def check_deterministic_factory_deployment(
 
 
 def _send_tx_capturing(
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     tx: Transaction,
 ) -> EnginePayloadMetadata | None:
     """
@@ -56,17 +56,17 @@ def _send_tx_capturing(
     ``None`` for the mempool path (execute).
     """
     if (
-        isinstance(eth_rpc, ChainBuilderEthRPC)
-        and eth_rpc.testing_rpc is not None
+        isinstance(sil_rpc, ChainBuilderEthRPC)
+        and sil_rpc.testing_rpc is not None
     ):
-        return eth_rpc.build_block_with_transactions([tx])
-    eth_rpc.send_wait_transactions([tx])
+        return sil_rpc.build_block_with_transactions([tx])
+    sil_rpc.send_wait_transactions([tx])
     return None
 
 
 def deploy_deterministic_factory_contract(
     *,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     seed_key: EOA,
     gas_price: int,
     tx_index: int = 0,
@@ -108,7 +108,7 @@ def deploy_deterministic_factory_contract(
     # Gas limit is fixed as changing it alters sender/factory address.
     # If network requires more gas, transaction can never be included.
     try:
-        required_gas = eth_rpc.estimate_gas(
+        required_gas = sil_rpc.estimate_gas(
             transaction={
                 "from": f"{deploy_tx_sender}",
                 "input": f"{deploy_tx.data}",
@@ -126,14 +126,14 @@ def deploy_deterministic_factory_contract(
         )
 
     required_deployer_balance = deploy_tx_gas_price * deploy_tx_gas_limit
-    current_balance = eth_rpc.get_balance(deploy_tx_sender)
+    current_balance = sil_rpc.get_balance(deploy_tx_sender)
     if current_balance < required_deployer_balance:
         # Add transaction to fund the deployer.
         fund_amount = required_deployer_balance - current_balance
         logger.info(
             "Funding deterministic factory deployer address "
             f"{deploy_tx_sender} with "
-            f"{fund_amount / 10**18:.18f} ETH"
+            f"{fund_amount / 10**18:.18f} SIL"
         )
         fund_tx = Transaction(
             to=deploy_tx_sender,
@@ -150,7 +150,7 @@ def deploy_deterministic_factory_contract(
             tx_index=tx_index,
         )
         tx_index += 1
-        fund_payload = _send_tx_capturing(eth_rpc, fund_tx)
+        fund_payload = _send_tx_capturing(sil_rpc, fund_tx)
         if fund_payload is not None:
             captured.append(fund_payload)
         logger.info(f"Funding transaction mined: {fund_tx.hash}")
@@ -165,11 +165,11 @@ def deploy_deterministic_factory_contract(
         tx_index=tx_index,
     )
     tx_index += 1
-    deploy_payload = _send_tx_capturing(eth_rpc, deploy_tx)
+    deploy_payload = _send_tx_capturing(sil_rpc, deploy_tx)
     if deploy_payload is not None:
         captured.append(deploy_payload)
     logger.info(f"Deployment transaction mined: {deploy_tx.hash}")
-    deployment_contract_code = eth_rpc.get_code(DETERMINISTIC_FACTORY_ADDRESS)
+    deployment_contract_code = sil_rpc.get_code(DETERMINISTIC_FACTORY_ADDRESS)
     logger.info(f"Deployment contract code: {deployment_contract_code}")
     assert deployment_contract_code == DETERMINISTIC_FACTORY_BYTECODE, (
         f"Deployment contract code is not the expected code: "

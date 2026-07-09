@@ -1,6 +1,6 @@
 # Spec Releases
 
-EELS is published as a versioned Python package. This page explains how the version number is structured and how it relates to Ethereum hardforks and devnets. For the maintainer runbook (tagging, publishing to PyPI), see [Releasing](../dev/releasing.md).
+EELS is published as a versioned Python package. This page explains how the version number is structured and how it relates to Sila hardforks and devnets. For the maintainer runbook (tagging, publishing to PyPI), see [Releasing](../dev/releasing.md).
 
 ## About versions
 
@@ -43,9 +43,9 @@ The following table is a hypothetical complete example of all of the releases be
 |        |                    |                   |
 | cancun | finalize devnet2   | `1.15.0rc2`       |
 |        |                    |                   |
-| cancun | finalize mainnet   | `1.15.0`          |
+| cancun | finalize sila-mainnet   | `1.15.0`          |
 |        |                    |                   |
-| cancun | mainnet bugfix     | `1.15.1`          |
+| cancun | sila-mainnet bugfix     | `1.15.1`          |
 |        |                    |                   |
 | cancun | breaking change    | `2.15.0`          |
 |        |                    |                   |
@@ -53,7 +53,7 @@ The following table is a hypothetical complete example of all of the releases be
 |        |                    |                   |
 | prague | finalize devnet1   | `2.16.0rc1`       |
 |        |                    |                   |
-| prague | finalize mainnet   | `2.16.0`          |
+| prague | finalize sila-mainnet   | `2.16.0`          |
 
 ## Choosing a version number
 
@@ -62,25 +62,25 @@ When proposing a new release, find the format matching the current version numbe
 | Current Version           | Action               | New Version            |
 | ------------------------- | -------------------- | ---------------------- |
 | **`1.3.5`**               |                      |                        |
-|                           | Mainnet Release      | `1.4.0`                |
+|                           | SilaMainnet Release      | `1.4.0`                |
 |                           | Devnet Release       | `1.4.0rc1`             |
 |                           | Bug Fix Release      | `1.3.6`                |
 |                           | Breaking Release     | `2.3.0`                |
 |                           |                      |                        |
 | **`1.3.0rc5`**            |                      |                        |
-|                           | Mainnet Release      | `1.3.0`                |
+|                           | SilaMainnet Release      | `1.3.0`                |
 |                           | Devnet Release       | `1.3.0rc6`             |
 |                           | Bug Fix Release      | `1.3.0rc5.post1`       |
 |                           | Breaking Release     | `2.3.0rc5`             |
 |                           |                      |                        |
 | **`1.3.0rc5.post7`**      |                      |                        |
-|                           | Mainnet Release      | `1.3.0`                |
+|                           | SilaMainnet Release      | `1.3.0`                |
 |                           | Devnet Release       | `1.3.0rc6`             |
 |                           | Bug Fix Release      | `1.3.0rc5.post8`       |
 |                           | Breaking Release     | `2.3.0rc5`             |
 |                           |                      |                        |
 | **`1.3.5.dev7`**          |                      |                        |
-|                           | Mainnet Release      | `1.3.5`                |
+|                           | SilaMainnet Release      | `1.3.5`                |
 |                           | Another Preview      | `1.3.5.dev8`           |
 |                           |                      |                        |
 | **`1.3.0rc5.dev7`**       |                      |                        |
@@ -94,4 +94,4 @@ When proposing a new release, find the format matching the current version numbe
 !!! note
     Append `.dev1` to any new version number to make it a pre-release, unless it already contained a `.devN` suffix. If it did, increment `N` to make another pre-release instead.
 
-The version number is stored in `src/ethereum/__init__.py`.
+The version number is stored in `src/sila/__init__.py`.

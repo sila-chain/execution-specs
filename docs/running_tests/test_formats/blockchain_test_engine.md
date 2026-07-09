@@ -6,7 +6,7 @@ These are produced by the `StateTest` and `BlockchainTest` test specs.
 
 ## Description
 
-The Blockchain Engine Test fixture format is used to test block validation and the consensus rules of the Ethereum blockchain, when a block is delivered through the Engine API as a `engine_newPayloadVX` directive.
+The Blockchain Engine Test fixture format is used to test block validation and the consensus rules of the Sila blockchain, when a block is delivered through the Engine API as a `engine_newPayloadVX` directive.
 
 It does so by defining a pre-execution state, a series of blocks as `engine_newPayloadVX` directives, and a post-execution state, verifying that, after all the blocks have been processed, appended if valid or rejected if invalid, the result is the expected post-execution state.
 
@@ -36,8 +36,8 @@ For each [`HiveFixture`](#hivefixture) test object in the JSON fixture file, per
     2. If [`errorCode`](#-errorcode-optionalnumber) is present:
         - Verify the directive returns an error, and the error code matches the one in [`errorCode`](#-errorcode-optionalnumber), otherwise fail the test.
         - Proceed to the next payload.
-    3. If `valid` is `false`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/ethereum/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `INVALID`, otherwise fail the test.
-    4. If `valid` is `true`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/ethereum/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `VALID`, otherwise fail the test.
+    3. If `valid` is `false`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `INVALID`, otherwise fail the test.
+    4. If `valid` is `true`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `VALID`, otherwise fail the test.
 
 ## Structures
 
@@ -87,7 +87,7 @@ Fork configuration for the test. It is guaranteed that this field contains the s
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [EIP-7840](https://eips.ethereum.org/EIPS/eip-7840).
+Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
 
 ### `FixtureEngineNewPayload`
 
@@ -110,10 +110,10 @@ Validation error expected when executing the payload.
 
 When the payload is valid, this field is not present, and a `VALID` status is
 expected in the `status` field of
-[PayloadStatusV1](https://github.com/ethereum/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1).
+[PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1).
 
 If this field is present, the `status` field of
-[PayloadStatusV1](https://github.com/ethereum/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1)
+[PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1)
 is expected to be `INVALID`.
 
 #### - `version`: [`Number`](./common_types.md#number)

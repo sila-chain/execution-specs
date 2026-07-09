@@ -1,6 +1,6 @@
 # Documentation
 
-The `execution-specs` documentation is generated via [`mkdocs`](https://www.mkdocs.org/) and hosted at [steel.ethereum.foundation/docs/execution-specs/](https://steel.ethereum.foundation/docs/execution-specs/).
+The `execution-specs` documentation is generated via [`mkdocs`](https://www.mkdocs.org/) and hosted at [steel.sila.foundation/docs/execution-specs/](https://steel.sila.foundation/docs/execution-specs/).
 
 ## Prerequisites
 

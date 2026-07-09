@@ -1,6 +1,6 @@
 benchmark:
-  impl: geth
-  repo: ethereum/go-ethereum
+  impl: gsil
+  repo: sila/go-sila
   ref: master
   evm-bin: evm
   xdist: auto
@@ -12,14 +12,14 @@ eels:
   xdist: auto
 evmone:
   impl: evmone
-  repo: ethereum/evmone
+  repo: sila/evmone
   ref: master
   evm-bin: evmone
   xdist: auto
   targets: ["evmone-cli"]
 benchmark:
-  impl: geth
-  repo: ethereum/go-ethereum
+  impl: gsil
+  repo: sila/go-sila
   ref: master
   evm-bin: evm
   xdist: auto

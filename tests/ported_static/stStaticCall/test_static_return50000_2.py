@@ -103,7 +103,7 @@ def test_static_return50000_2(
     )
 
     gas_limit = 15500000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         gas_limit += 4 * Op.SSTORE(new_value=1).state_cost(fork)
     tx = Transaction(
         sender=sender,

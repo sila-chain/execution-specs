@@ -93,14 +93,14 @@ def _validate_gas_limit(
     built: FixtureExecutionPayload,
     parent_gas_limit: int,
 ) -> None:
-    """Validate the built block's gas limit is within EIP-1559 range."""
+    """Validate the built block's gas limit is within SIP-1559 range."""
     built_gas_limit = int(built.gas_limit)
     max_delta = parent_gas_limit // 1024
 
     if abs(built_gas_limit - parent_gas_limit) >= max_delta:
         raise LoggedError(
             f"Gas limit for block {built.number} outside "
-            f"EIP-1559 range: parent={parent_gas_limit} "
+            f"SIP-1559 range: parent={parent_gas_limit} "
             f"(±{max_delta}), got {built.gas_limit}"
         )
 
@@ -114,7 +114,7 @@ def _validate_built_block(
     Validate the built block against the fixture's expected block.
 
     Check all execution-dependent fields for exact match and verify
-    the gas limit is within the valid EIP-1559 range.
+    the gas limit is within the valid SIP-1559 range.
     """
     _validate_gas_limit(built, parent_gas_limit)
 
@@ -122,7 +122,7 @@ def _validate_built_block(
 
     # All FixtureExecutionPayload fields are validated except:
     # - gas_limit: testing_buildBlockV1 doesn't accept it; the client
-    #   picks its own via EIP-1559 (validated separately by range check).
+    #   picks its own via SIP-1559 (validated separately by range check).
     # - block_hash: depends on gas_limit, so it will differ too.
     validated_fields = tuple(
         name
@@ -154,7 +154,7 @@ def _validate_built_block(
 
 def _bootstrap_engine_at_genesis(
     engine_rpc: EngineRPC,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     fixture: BlockchainEngineFixture,
     genesis_header: FixtureHeader,
     timing_data: TimingData,
@@ -183,7 +183,7 @@ def _bootstrap_engine_at_genesis(
 
     with timing_data.time("Get genesis block"):
         logger.info("Calling getBlockByNumber to get genesis block...")
-        genesis_block = eth_rpc.get_block_by_number(0)
+        genesis_block = sil_rpc.get_block_by_number(0)
         assert genesis_block is not None, "genesis_block is None"
         if genesis_block["hash"] != str(genesis_header.block_hash):
             raise GenesisBlockMismatchExceptionError(
@@ -287,7 +287,7 @@ def _build_validate_and_advance(
 
 def test_blockchain_via_build(
     timing_data: TimingData,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     engine_rpc: EngineRPC,
     testing_rpc: TestingRPC,
     fixture: BlockchainEngineFixture,
@@ -305,7 +305,7 @@ def test_blockchain_via_build(
     """
     _bootstrap_engine_at_genesis(
         engine_rpc=engine_rpc,
-        eth_rpc=eth_rpc,
+        sil_rpc=sil_rpc,
         fixture=fixture,
         genesis_header=genesis_header,
         timing_data=timing_data,

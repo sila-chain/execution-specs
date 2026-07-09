@@ -1,4 +1,4 @@
-"""Ethereum Virtual Machine bytecode primitives and utilities."""
+"""Sila Virtual Machine bytecode primitives and utilities."""
 
 from typing import Any, List, Self, SupportsBytes, Type
 
@@ -324,7 +324,7 @@ class Bytecode:
     def regular_cost(self, fork: Type[ForkOpcodeInterface]) -> int:
         """
         Use a fork object to calculate the regular gas used by this
-        bytecode (i.e. excluding the state-gas portion under EIP-8037).
+        bytecode (i.e. excluding the state-gas portion under SIP-8037).
 
         Useful for OOG-boundary tests that need to land at the regular
         gas charge of an opcode rather than its combined regular + state

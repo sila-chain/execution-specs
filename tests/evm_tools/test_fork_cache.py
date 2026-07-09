@@ -4,16 +4,16 @@ import importlib
 from typing import Any
 
 import pytest
-from ethereum_types.numeric import U64, Uint
+from sila_types.numeric import U64, Uint
 from typing_extensions import assert_never
 
-from ethereum.fork_criteria import (
+from sila.fork_criteria import (
     ByBlockNumber,
     ByTimestamp,
     Unscheduled,
 )
-from ethereum_spec_tools.evm_tools.t8n import ForkCache
-from ethereum_spec_tools.forks import ForkOverrides, Hardfork
+from sila_spec_tools.evm_tools.t8n import ForkCache
+from sila_spec_tools.forks import ForkOverrides, Hardfork
 
 pytestmark = pytest.mark.evm_tools
 
@@ -37,7 +37,7 @@ class DummyTemporaryFork:
 
 def _template() -> Hardfork:
     """Return the Amsterdam fork template."""
-    return Hardfork(importlib.import_module("ethereum.forks.amsterdam"))
+    return Hardfork(importlib.import_module("sila.forks.amsterdam"))
 
 
 def _seen_overrides(seen: dict[str, Any]) -> ForkOverrides:

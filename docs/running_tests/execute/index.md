@@ -1,12 +1,12 @@
 # Executing Tests on Local Networks or Hive
 
-@ethereum/execution-specs is capable of running tests on local networks or on Hive with a few considerations. The `execute` command runs test cases directly from the Python source (without the use of JSON fixtures).
+@sila/execution-specs is capable of running tests on local networks or on Hive with a few considerations. The `execute` command runs test cases directly from the Python source (without the use of JSON fixtures).
 
 See:
 
 - [Execute Hive](./hive.md) for help with the `execute` simulator in order to run tests on a single-client local network.
-- [Execute Remote](./remote.md) for help with executing tests on a remote network such as a devnet, or even mainnet.
-- [Execute Eth Config](./eth_config.md) for help verifying client configurations on a remote network such as a devnet, or even mainnet.
+- [Execute Remote](./remote.md) for help with executing tests on a remote network such as a devnet, or even sila-mainnet.
+- [Execute Sil Config](./sil_config.md) for help verifying client configurations on a remote network such as a devnet, or even sila-mainnet.
 - [Transaction Metadata](./transaction_metadata.md) for detailed information about transaction metadata tracking in execute mode.
 
 The rest of this page describes how `execute` works and explains its architecture.
@@ -83,9 +83,9 @@ A warning is logged when `max_transactions_per_batch` exceeds 1000, as this may 
 
 ### Block Building with `testing_buildBlockV1`
 
-By default, the `execute` plugin drives block production through the Engine API: transactions are sent to the client's mempool via `eth_sendRawTransaction`, and blocks are built using the `engine_forkchoiceUpdatedVX` / `engine_getPayloadVX` / `engine_newPayloadVX` sequence.
+By default, the `execute` plugin drives block production through the Engine API: transactions are sent to the client's mempool via `sil_sendRawTransaction`, and blocks are built using the `engine_forkchoiceUpdatedVX` / `engine_getPayloadVX` / `engine_newPayloadVX` sequence.
 
-Clients that implement the [`testing_buildBlockV1`](https://github.com/ethereum/execution-apis/blob/main/src/testing/testing_buildBlockV1.yaml) endpoint offer an alternative route that collapses transaction submission and block building into a single RPC call. When enabled, the plugin:
+Clients that implement the [`testing_buildBlockV1`](https://github.com/sila/execution-apis/blob/main/src/testing/testing_buildBlockV1.yaml) endpoint offer an alternative route that collapses transaction submission and block building into a single RPC call. When enabled, the plugin:
 
 1. Collects the raw RLP-encoded transactions for each batch.
 2. Calls `testing_buildBlockV1` with the parent block hash, payload attributes, and the transaction list.

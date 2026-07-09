@@ -1,1 +1,1 @@
-"""Ethereum execution spec tests command-line tools."""
+"""Sila execution spec tests command-line tools."""

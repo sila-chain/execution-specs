@@ -94,7 +94,7 @@ class TransitionBaseClass(metaclass=TransitionBaseMetaClass):
     @classmethod
     def is_deployed(cls) -> bool:
         """
-        Return whether the transitions-to fork has been deployed to mainnet,
+        Return whether the transitions-to fork has been deployed to sila-mainnet,
         or not.
         """
         return cls.transitions_to().is_deployed()

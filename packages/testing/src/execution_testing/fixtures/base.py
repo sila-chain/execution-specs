@@ -67,7 +67,7 @@ class FixtureFillingPhase(Enum):
 
 
 class BaseFixture(CamelModel):
-    """Represents a base Ethereum test fixture of any type."""
+    """Represents a base Sila test fixture of any type."""
 
     # Base Fixture class properties
     formats: ClassVar[Dict[str, Type["BaseFixture"]]] = {}

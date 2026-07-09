@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from execution_testing.client_clis import (
-    GethTransitionTool,
+    GsilTransitionTool,
     TransitionTool,
 )
 from execution_testing.fixtures import BlockchainFixture
@@ -40,7 +40,7 @@ class BlocktestBuilder:
 
     def __init__(self, transition_tool: Optional[TransitionTool] = None):
         """Initialize the builder with optional transition tool."""
-        self.t8n = transition_tool or GethTransitionTool()
+        self.t8n = transition_tool or GsilTransitionTool()
 
     def build_blocktest(
         self,

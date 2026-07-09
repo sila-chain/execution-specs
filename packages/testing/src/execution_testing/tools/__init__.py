@@ -1,5 +1,5 @@
 """
-Module containing tools for generating cross-client Ethereum execution layer
+Module containing tools for generating cross-client Sila execution layer
 tests.
 """
 

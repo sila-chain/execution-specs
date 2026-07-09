@@ -21,7 +21,7 @@ from execution_testing.fixtures import (
     StateFixture,
 )
 
-from ..ethereum_cli import EthereumCLI
+from ..sila_cli import SilaCLI
 from ..fixture_consumer_tool import FixtureConsumerTool
 
 
@@ -148,21 +148,21 @@ class ErigonExceptionMapper(ExceptionMapper):
     }
 
 
-class ErigonEvm(EthereumCLI):
+class ErigonEvm(SilaCLI):
     """
     Erigon `evm` base class.
 
-    Erigon's `evm` tool shares go-ethereum's command surface (`evm version`,
+    Erigon's `evm` tool shares go-sila's command surface (`evm version`,
     `evm statetest`, `evm blocktest`, `evm t8n`) and prints an
     indistinguishable ``evm version <semver>...`` banner, so the version string
     alone cannot tell the two apart. ``detect_binary`` instead probes the
     binary itself: Erigon's `evm` exposes an ``enginextest`` subcommand (its
-    engine-x test runner) that go-ethereum's `evm` does not, which is a stable,
+    engine-x test runner) that go-sila's `evm` does not, which is a stable,
     version-independent fingerprint.
     """
 
     default_binary = Path("evm")
-    # Cheap pre-filter shared with go-ethereum; the binary probe in
+    # Cheap pre-filter shared with go-sila; the binary probe in
     # `detect_binary` is what actually confirms Erigon.
     detect_binary_pattern = re.compile(r"^evm(\.exe)? version\b")
     # Erigon-only subcommand, used as the disambiguating fingerprint.
@@ -185,12 +185,12 @@ class ErigonEvm(EthereumCLI):
         cls, binary_output: str, binary: Optional[Path] = None
     ) -> bool:
         """
-        Confirm the binary is Erigon's `evm`, not go-ethereum's.
+        Confirm the binary is Erigon's `evm`, not go-sila's.
 
         Both print ``evm version ...``; after that cheap check passes we probe
         the binary's ``--help`` for Erigon's ``enginextest`` subcommand.
         Without a binary to probe (or if the probe fails) we cannot positively
-        identify Erigon, so we decline and let go-ethereum's consumer claim it.
+        identify Erigon, so we decline and let go-sila's consumer claim it.
         """
         if not super().detect_binary(binary_output, binary):
             return False
@@ -276,8 +276,8 @@ class ErigonFixtureConsumer(
     """
     Erigon's implementation of the fixture consumer.
 
-    Mirrors ``GethFixtureConsumer`` but passes ``--jsonout`` to ``statetest``
-    and ``blocktest``: unlike go-ethereum, Erigon defaults to human-readable
+    Mirrors ``GsilFixtureConsumer`` but passes ``--jsonout`` to ``statetest``
+    and ``blocktest``: unlike go-sila, Erigon defaults to human-readable
     output and only emits the JSON result array (``[{name, pass, error, ...}]``
     on stdout) when ``--jsonout`` is given. Without it the consumer's
     ``json.loads`` fails on the first non-JSON line.

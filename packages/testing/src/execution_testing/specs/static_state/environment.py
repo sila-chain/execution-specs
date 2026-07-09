@@ -1,4 +1,4 @@
-"""Environment structure of ethereum/tests fillers."""
+"""Environment structure of sila/tests fillers."""
 
 from typing import Any, Dict
 

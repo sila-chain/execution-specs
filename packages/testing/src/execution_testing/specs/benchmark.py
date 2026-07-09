@@ -1,4 +1,4 @@
-"""Ethereum benchmark test spec definition and filler."""
+"""Sila benchmark test spec definition and filler."""
 
 import math
 from abc import ABC, abstractmethod

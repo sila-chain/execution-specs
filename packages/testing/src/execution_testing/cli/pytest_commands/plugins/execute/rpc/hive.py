@@ -35,7 +35,7 @@ from execution_testing.test_types import (
 )
 
 from ...consume.simulators.helpers.ruleset import ruleset
-from .chain_builder_eth_rpc import ChainBuilderEthRPC, TestingRPC
+from .chain_builder_sil_rpc import ChainBuilderEthRPC, TestingRPC
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -110,7 +110,7 @@ def base_pre(
         {
             seed_key: Account(balance=seed_key_initial_balance),
             # Pre-deploy the deterministic factory to avoid needing unprotected
-            # transactions (geth rejects unprotected txs by default)
+            # transactions (gsil rejects unprotected txs by default)
             DETERMINISTIC_FACTORY_ADDRESS: Account(
                 nonce=1, code=DETERMINISTIC_FACTORY_BYTECODE
             ),
@@ -429,7 +429,7 @@ def engine_rpc(client: Client) -> EngineRPC | None:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def eth_rpc(
+def sil_rpc(
     request: pytest.FixtureRequest,
     client: Client,
     engine_rpc: EngineRPC,
@@ -438,7 +438,7 @@ def eth_rpc(
     max_transactions_per_batch: int | None,
     use_testing_build_block: bool,
 ) -> EthRPC:
-    """Initialize ethereum RPC client for the execution client under test."""
+    """Initialize sila RPC client for the execution client under test."""
     get_payload_wait_time = request.config.getoption("get_payload_wait_time")
     tx_wait_timeout = request.config.getoption("tx_wait_timeout")
     testing_rpc = None

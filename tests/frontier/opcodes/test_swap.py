@@ -1,6 +1,6 @@
 """
 A State test for the set of `SWAP*` opcodes.
-Ported from: https://github.com/ethereum/tests/
+Ported from: https://github.com/sila/tests/
 blob/develop/src/GeneralStateTestsFiller/VMTests/vmTests/swapFiller.yml.
 """
 
@@ -23,9 +23,9 @@ from execution_testing import (
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/swapFiller.yml"
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/swapFiller.yml"
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1163"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1163"],
     coverage_missed_reason=(
         "Test isolation (1 contract per execution) reduces evmone state "
         "comparisons vs old dispatcher pattern (16 contracts per execution)"

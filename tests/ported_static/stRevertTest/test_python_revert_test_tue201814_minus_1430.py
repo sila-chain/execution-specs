@@ -1,5 +1,5 @@
 """
-A random test that had failed in Python ethereum implementation.
+A random test that had failed in Python sila implementation.
 
 Ported from:
 state_tests/stRevertTest/PythonRevertTestTue201814-1430Filler.json
@@ -30,7 +30,7 @@ def test_python_revert_test_tue201814_minus_1430(
     state_test: StateTestFiller,
     pre: Alloc,
 ) -> None:
-    """A random test that had failed in Python ethereum implementation."""
+    """A random test that had failed in Python sila implementation."""
     coinbase = Address(0xF7B2E80637A148B5E46945E29388928DAFD5AA25)
     sender = pre.fund_eoa(amount=0xAB56295C9D120548)
 

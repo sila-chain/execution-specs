@@ -66,7 +66,7 @@ def _max_sloads_per_tx(tx_gas_limit: int, fork: Fork) -> int:
     """
     Conservative upper bound on cold SLOADs that fit in a max-gas tx.
 
-    Derived from the cold SLOAD cost (EIP-2929: 2100 gas) and used by
+    Derived from the cold SLOAD cost (SIP-2929: 2100 gas) and used by
     the bloated SLOAD benchmarks both as the inter-tx offset stride
     (to keep consecutive txs' SLOAD ranges disjoint) and as the
     per-target storage pre-load count.
@@ -452,7 +452,7 @@ def test_sload_bloated_multi_contract(
     is pre-loaded with the starting offset; the contract then runs a
     SLOAD loop over sequential slots until gas runs low. Unlike
     test_sload_bloated_prefetch_miss which hammers one account's
-    storage trie via an EIP-7702 delegated EOA, every transaction
+    storage trie via an SIP-7702 delegated EOA, every transaction
     here opens a different storage trie, stressing cross-account
     state access and state-trie breadth in a single block.
 
@@ -1138,7 +1138,7 @@ def test_sstore_variants(
     """
     Benchmark SSTORE instruction with various configurations.
 
-    Uses EIP-7702 delegation. The authority EOA delegates to:
+    Uses SIP-7702 delegation. The authority EOA delegates to:
     - StorageInitializer: storage[i] = initial_value (initial_value != 0)
     - BenchmarkExecutor: performs the benchmark operation (SSTORE)
 
@@ -1240,7 +1240,7 @@ def test_sstore_variants(
 #       │         SSTORE(slot, v1) → SSTORE(slot, v2) → ...
 #       │
 # WHY IT STRESSES CLIENTS:
-#   - Multiple writes per slot exercise EIP-2200/EIP-3529 refund
+#   - Multiple writes per slot exercise SIP-2200/SIP-3529 refund
 #     branching: clean (original==current) vs dirty (original!=current)
 #   - Oscillation causes refund counter to swing up/down each write
 #   - Refund cap (gas_used/5) saturates with enough iterations
@@ -1296,8 +1296,8 @@ def test_sstore_dirty_transitions(
     """
     Benchmark SSTORE dirty state transitions.
 
-    Exercise EIP-2200/EIP-3529 refund logic by writing the same slot
-    multiple times per iteration. Uses EIP-7702 delegation: authority
+    Exercise SIP-2200/SIP-3529 refund logic by writing the same slot
+    multiple times per iteration. Uses SIP-7702 delegation: authority
     EOA delegates to initializer then to dirty-write executor.
 
     Variants:
@@ -1436,7 +1436,7 @@ def test_storage_sload_benchmark(
     """
     Benchmark SLOAD instruction with various configurations.
 
-    Uses EIP-7702 delegation. The authority EOA delegates to:
+    Uses SIP-7702 delegation. The authority EOA delegates to:
     - StorageInitializer: storage[i] = 1 (if storage_keys_pre_set)
     - BenchmarkExecutor: performs the benchmark operation (SLOAD)
 

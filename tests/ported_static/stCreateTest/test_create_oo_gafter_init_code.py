@@ -7,10 +7,10 @@ state_tests/stCreateTest/CreateOOGafterInitCodeFiller.json
 deployed contract; g0 must run out before the deposit (account stays
 NONEXISTENT) and g1 must just clear it (account created). On Cancun
 the deploy gap is the 1000-gas regular code deposit and the test's
-two budgets straddle it. EIP-8037/8038 move account creation into a
+two budgets straddle it. SIP-8037/8038 move account creation into a
 spilling state-gas charge AND drop OPCODE_CREATE_BASE, so the budget
 that reaches the same RETURN point changes by a fork-derived amount.
-The lift restores the straddle: it is exactly 0 pre-EIP-8037 and
+The lift restores the straddle: it is exactly 0 pre-SIP-8037 and
 tracks the parameters. See `_oog_lift` below for the derivation.
 """
 
@@ -123,7 +123,7 @@ def test_create_oo_gafter_init_code(
     # (deploy succeeds). The 1000-gas gap between the budgets is exactly
     # this Cancun deploy threshold.
     #
-    # EIP-8037/8038 change the CREATE dispatch in two ways that the
+    # SIP-8037/8038 change the CREATE dispatch in two ways that the
     # budget must absorb before the init code RETURNs: the new
     # `create_state_gas()` spills into regular gas (empty reservoir),
     # and `OPCODE_CREATE_BASE` drops from its Cancun value of 32000.
@@ -135,12 +135,12 @@ def test_create_oo_gafter_init_code(
     # Cancun straddle by funding the net dispatch consumption plus the
     # deposit's state spill, minus the regular deposit the budgets
     # already carried in their 1000-gas gap. Every term is 0
-    # pre-EIP-8037, so the original Cancun behavior is preserved.
+    # pre-SIP-8037, so the original Cancun behavior is preserved.
     gas_costs = fork.gas_costs()
     _cancun_create_base = 32000
     _deploy_size = 5
     _oog_lift = 0
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         _oog_lift = (
             fork.oog_budget_lift(
                 creates_before_oog=1, deploy_code_size=_deploy_size
@@ -148,7 +148,7 @@ def test_create_oo_gafter_init_code(
             + (gas_costs.OPCODE_CREATE_BASE - _cancun_create_base)
             - gas_costs.CODE_DEPOSIT_PER_BYTE * _deploy_size
         )
-    # EIP-2780 reshapes the tx intrinsic for non-self non-value txs:
+    # SIP-2780 reshapes the tx intrinsic for non-self non-value txs:
     # ``TX_BASE`` drops to 12_000 and an explicit
     # ``COLD_ACCOUNT_ACCESS`` (3_000) recipient charge is added. The
     # original test was built against Cancun's flat ``TX_BASE`` of

@@ -1,4 +1,4 @@
-"""Transaction-related types for Ethereum tests."""
+"""Transaction-related types for Sila tests."""
 
 import numbers
 from dataclasses import dataclass
@@ -6,7 +6,7 @@ from enum import IntEnum
 from functools import cached_property
 from typing import Any, ClassVar, Dict, Generic, List, Literal, Self, Sequence
 
-import ethereum_rlp as eth_rlp
+import sila_rlp as sil_rlp
 from coincurve.keys import PrivateKey, PublicKey
 from pydantic import (
     AliasChoices,
@@ -297,7 +297,7 @@ class Transaction(
     TransactionTransitionToolConverter,
     SignableRLPSerializable,
 ):
-    """Generic object that can represent all Ethereum transaction types."""
+    """Generic object that can represent all Sila transaction types."""
 
     @model_validator(mode="before")
     @classmethod
@@ -346,7 +346,7 @@ class Transaction(
         exclude=True,
         description=(
             "Extra gas on top of the transaction gas limit cap, reserved "
-            "for state gas (EIP-8037). Only takes effect when `gas_limit` "
+            "for state gas (SIP-8037). Only takes effect when `gas_limit` "
             "is unset and the fork enables the state gas reservoir: "
             "leaving it unset keeps the full implicit gas limit, an "
             "explicit 0 pins the gas limit to exactly the cap (no "
@@ -608,7 +608,7 @@ class Transaction(
 
         The implicit gas limit defaults to `max_gas_limit`, clamped to
         the fork's transaction gas limit cap if there is one. On forks
-        with the state gas reservoir enabled (EIP-8037),
+        with the state gas reservoir enabled (SIP-8037),
         `state_gas_reservoir` refines this: unset keeps the full
         `max_gas_limit` (any excess above the cap acts as an implicit
         reservoir), an explicit 0 pins the gas limit to exactly the
@@ -622,7 +622,7 @@ class Transaction(
                     "state_gas_reservoir_enabled is True but "
                     "transaction_gas_limit_cap is None; the state "
                     "gas reservoir is defined as gas above the cap "
-                    "(EIP-8037 builds on EIP-7825), so a fork that "
+                    "(SIP-8037 builds on SIP-7825), so a fork that "
                     "enables it must also define a cap"
                 )
                 if self.state_gas_reservoir > 0:
@@ -763,7 +763,7 @@ class Transaction(
         """
         field_list: List[str]
         if self.ty == 6:
-            # EIP-7873: https://eips.ethereum.org/EIPS/eip-7873
+            # SIP-7873: https://sips.sila.org/SIPS/sip-7873
             field_list = [
                 "chain_id",
                 "nonce",
@@ -777,7 +777,7 @@ class Transaction(
                 "initcodes",
             ]
         elif self.ty == 4:
-            # EIP-7702: https://eips.ethereum.org/EIPS/eip-7702
+            # SIP-7702: https://sips.sila.org/SIPS/sip-7702
             field_list = [
                 "chain_id",
                 "nonce",
@@ -791,7 +791,7 @@ class Transaction(
                 "authorization_list",
             ]
         elif self.ty == 3:
-            # EIP-4844: https://eips.ethereum.org/EIPS/eip-4844
+            # SIP-4844: https://sips.sila.org/SIPS/sip-4844
             field_list = [
                 "chain_id",
                 "nonce",
@@ -806,7 +806,7 @@ class Transaction(
                 "blob_versioned_hashes",
             ]
         elif self.ty == 2:
-            # EIP-1559: https://eips.ethereum.org/EIPS/eip-1559
+            # SIP-1559: https://sips.sila.org/SIPS/sip-1559
             field_list = [
                 "chain_id",
                 "nonce",
@@ -819,7 +819,7 @@ class Transaction(
                 "access_list",
             ]
         elif self.ty == 1:
-            # EIP-2930: https://eips.ethereum.org/EIPS/eip-2930
+            # SIP-2930: https://sips.sila.org/SIPS/sip-2930
             field_list = [
                 "chain_id",
                 "nonce",
@@ -840,7 +840,7 @@ class Transaction(
                 "data",
             ]
             if self.protected:
-                # EIP-155: https://eips.ethereum.org/EIPS/eip-155
+                # SIP-155: https://sips.sila.org/SIPS/sip-155
                 field_list.extend(["chain_id", "zero", "zero"])
         else:
             raise NotImplementedError(
@@ -962,7 +962,7 @@ class Transaction(
         if self.sender is None:
             raise ValueError("sender address is None")
         hash_bytes = Bytes(
-            eth_rlp.encode([self.sender, int_to_bytes(self.nonce)])
+            sil_rlp.encode([self.sender, int_to_bytes(self.nonce)])
         ).keccak256()
         return Address(hash_bytes[-20:])
 
@@ -1082,7 +1082,7 @@ class Transaction(
 class NetworkWrappedTransaction(CamelModel, RLPSerializable):
     """
     Network wrapped transaction as defined in
-    [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844#networking).
+    [SIP-4844](https://sips.sila.org/SIPS/sip-4844#networking).
 
     < Osaka: rlp([tx_payload_body, blobs, commitments, proofs])
 
@@ -1161,7 +1161,7 @@ class NetworkWrappedTransaction(CamelModel, RLPSerializable):
             rlp_cell_proofs = ["cell_proofs"]
 
         rlp_fields: List[str] = [  # structure explained in
-            # https://eips.ethereum.org/EIPS/eip-7594#Networking
+            # https://sips.sila.org/SIPS/sip-7594#Networking
             "tx",  # tx_payload_body
             *wrapper,  # wrapper_version, which is always 1 for osaka (was non-
             # existing before)

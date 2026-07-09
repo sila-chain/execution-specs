@@ -46,7 +46,7 @@ def test_unchunkified_bytecode(
 ) -> None:
     """Benchmark scenario of accessing max-code size bytecode."""
     # The attack gas limit represents the transaction gas limit cap or
-    # the block gas limit. If eip-7825 is applied, the test will create
+    # the block gas limit. If sip-7825 is applied, the test will create
     # multiple transactions for contract deployment. It should account
     # for the 200 gas per byte cost and the quadratic memory-expansion
     # costs, which must be paid each time memory is initialized.

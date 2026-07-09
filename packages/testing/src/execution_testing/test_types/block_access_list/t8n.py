@@ -3,14 +3,14 @@
 from functools import cached_property
 from typing import Any, Callable, List, Sequence, Union
 
-import ethereum_rlp as eth_rlp
-from ethereum_rlp import Simple
+import sila_rlp as sil_rlp
+from sila_rlp import Simple
 from pydantic import Field
 
 from execution_testing.base_types import (
     Address,
     Bytes,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     ZeroPaddedHexNumber,
 )
 from execution_testing.base_types.serialization import (
@@ -77,11 +77,11 @@ def _decode_indexed_changes(
     return result
 
 
-class BlockAccessList(EthereumTestRootModel[List[BalAccountChange]]):
+class BlockAccessList(SilaTestRootModel[List[BalAccountChange]]):
     """
     Block Access List for t8n tool communication and fixtures.
 
-    This model represents the BAL exactly as defined in EIP-7928
+    This model represents the BAL exactly as defined in SIP-7928
     - it is itself a list of account changes (root model), not a container.
 
     Used for:
@@ -104,14 +104,14 @@ class BlockAccessList(EthereumTestRootModel[List[BalAccountChange]]):
         """
         Decode an RLP-encoded block access list into a BlockAccessList.
 
-        The RLP structure per EIP-7928 is:
+        The RLP structure per SIP-7928 is:
         [
           [address, storage_changes, storage_reads,
            balance_changes, nonce_changes, code_changes],
           ...
         ]
         """
-        decoded = _seq_from_rlp(eth_rlp.decode(data))
+        decoded = _seq_from_rlp(sil_rlp.decode(data))
         accounts = []
         for account_rlp in decoded:
             fields = _seq_from_rlp(account_rlp)
@@ -155,13 +155,13 @@ class BlockAccessList(EthereumTestRootModel[List[BalAccountChange]]):
         return cls(root=accounts)
 
     def to_list(self) -> List[Any]:
-        """Return the list for RLP encoding per EIP-7928."""
+        """Return the list for RLP encoding per SIP-7928."""
         return to_serializable_element(self.root)
 
     @cached_property
     def rlp(self) -> Bytes:
         """Return the RLP encoded block access list for hash verification."""
-        return Bytes(eth_rlp.encode(self.to_list()))
+        return Bytes(sil_rlp.encode(self.to_list()))
 
     @cached_property
     def rlp_hash(self) -> Bytes:
@@ -170,7 +170,7 @@ class BlockAccessList(EthereumTestRootModel[List[BalAccountChange]]):
 
     def validate_structure(self) -> None:
         """
-        Validate BAL structure follows EIP-7928 requirements.
+        Validate BAL structure follows SIP-7928 requirements.
 
         Checks:
         - Addresses are in lexicographic (ascending) order

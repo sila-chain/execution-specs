@@ -4,8 +4,8 @@ Test_transaction_create_auto_suicide_contract.
 Ported from:
 state_tests/stInitCodeTest/TransactionCreateAutoSuicideContractFiller.json
 @manually-enhanced: Do not overwrite. tx `gas_limit` and sender balance
-bumped on Amsterdam to cover EIP-8037 TX_CREATE intrinsic (new-account
-state-gas folded in); pre-EIP-8037 unchanged.
+bumped on Amsterdam to cover SIP-8037 TX_CREATE intrinsic (new-account
+state-gas folded in); pre-SIP-8037 unchanged.
 
 """
 
@@ -39,10 +39,10 @@ def test_transaction_create_auto_suicide_contract(
     fork: Fork,
 ) -> None:
     """Test_transaction_create_auto_suicide_contract."""
-    # EIP-8037 folds new-account state-gas into TX_CREATE intrinsic.
+    # SIP-8037 folds new-account state-gas into TX_CREATE intrinsic.
     tx_gas_limit = 55000
     sender_balance = 1000000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         tx_gas_limit = 300_000
         sender_balance = 10000000
 

@@ -1,0 +1,97 @@
+"""
+Sila Types.
+
+.. contents:: Table of Contents
+    :backlinks: none
+    :local:
+
+Introduction
+------------
+
+Types reused throughout the specification, which are specific to Sila.
+"""
+
+from dataclasses import dataclass
+from typing import NewType, final
+
+from sila_rlp import rlp
+from sila_types.bytes import Bytes, Bytes256
+from sila_types.frozen import slotted_freezable
+from sila_types.numeric import U8, U32, U64, U256, Uint
+
+from sila.crypto.hash import Hash32
+from sila.state import Account, Address
+
+BlockAccessIndex = U32
+"""
+Position within the set of all changes in a [`Block`].
+
+[`Block`]: ref:sila.forks.amsterdam.blocks.Block
+"""
+
+VersionedHash = Hash32
+
+Bloom = Bytes256
+
+
+RegularGas = NewType("RegularGas", Uint)
+
+StateGas = NewType("StateGas", Uint)
+
+
+@final
+@slotted_freezable
+@dataclass
+class StateGasPerByte:
+    """
+    State gas charged per byte of state growth, per [SIP-8037].
+
+    A rate, not an amount: deliberately not a `Uint`, since adding a rate to
+    a gas amount is meaningless. Multiplying it by a byte count, in either
+    operand order, yields a `StateGas`.
+
+    [SIP-8037]: https://sips.sila.org/SIPS/sip-8037
+    """
+
+    rate: Uint
+
+    def __mul__(self, num_bytes: Uint) -> StateGas:
+        """Return the state gas for `num_bytes` charged at this rate."""
+        return StateGas(self.rate * num_bytes)
+
+    def __rmul__(self, num_bytes: Uint) -> StateGas:
+        """Return the state gas for `num_bytes` charged at this rate."""
+        return StateGas(self.rate * num_bytes)
+
+
+def encode_account(raw_account_data: Account, storage_root: Bytes) -> Bytes:
+    """
+    Encode `Account` dataclass.
+
+    Storage is not stored in the `Account` dataclass, so `Accounts` cannot be
+    encoded without providing a storage root.
+    """
+    return rlp.encode(
+        (
+            raw_account_data.nonce,
+            raw_account_data.balance,
+            storage_root,
+            raw_account_data.code_hash,
+        )
+    )
+
+
+@final
+@slotted_freezable
+@dataclass
+class Authorization:
+    """
+    The authorization for a set code transaction.
+    """
+
+    chain_id: U256
+    address: Address
+    nonce: U64
+    y_parity: U8
+    r: U256
+    s: U256

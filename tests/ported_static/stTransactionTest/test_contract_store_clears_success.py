@@ -7,12 +7,12 @@ state_tests/stTransactionTest/ContractStoreClearsSuccessFiller.json
 @manually-enhanced: Do not overwrite. The contract clears 10 cold
 storage slots (each 12 -> 0) and the transaction sends value alongside,
 so the asserted post is the cleared storage plus the received value.
-EIP-8038 raises the cold SSTORE-clear charge from 5000 to 13000, so the
+SIP-8038 raises the cold SSTORE-clear charge from 5000 to 13000, so the
 10 clears no longer fit in the original gas limit and the contract runs
 out of gas before clearing the storage or keeping the transfer. Bump the
 gas limit by the per-clear charge delta times the 10 clears so every
 clear still lands at Amsterdam. The delta is derived from the fork gas
-model and is exactly 0 pre-EIP-8037; do not hardcode the Amsterdam
+model and is exactly 0 pre-SIP-8037; do not hardcode the Amsterdam
 value. The post asserts only the target account (cleared storage and the
 received value), which holds at every fork once the gas fits.
 """
@@ -86,7 +86,7 @@ def test_contract_store_clears_success(
         nonce=0,
     )
 
-    # EIP-8038 raises the cold SSTORE-clear charge; bump the gas limit by
+    # SIP-8038 raises the cold SSTORE-clear charge; bump the gas limit by
     # the per-clear charge delta times the 10 clears so all of them still
     # land instead of running out of gas before clearing the storage.
     cold_clear_delta = (

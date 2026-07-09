@@ -8,9 +8,9 @@ state_tests/stRefundTest/refund_CallA_notEnoughGasInCallFiller.json
 balance, which equals its start minus `gas_used * gas_price`. The inner
 CALL is starved of gas so its SSTORE clear always reverts (no refund
 survives); the only surviving repricing is in the outer frame, where
-EIP-8038 raises the cold account-access charged by the CALL (2600 ->
+SIP-8038 raises the cold account-access charged by the CALL (2600 ->
 3000) and the cold no-op SSTORE of slot 0 (2200 -> 3000). Derive both
-deltas from the fork gas model (0 pre-EIP-8037) and subtract
+deltas from the fork gas model (0 pre-SIP-8037) and subtract
 `gas_price * (call_access_delta + outer_sstore_delta)` from the Cancun
 balance; do not hardcode the Amsterdam value.
 """
@@ -94,7 +94,7 @@ def test_refund_call_a_not_enough_gas_in_call(
     )
 
     # The inner SSTORE clear always reverts (gas-starved), so its refund
-    # never survives. Only the outer frame reprices under EIP-8038: the
+    # never survives. Only the outer frame reprices under SIP-8038: the
     # cold account access charged by the CALL and the cold no-op SSTORE
     # of slot 0 (original == current == new == 0).
     gas_costs = fork.gas_costs()

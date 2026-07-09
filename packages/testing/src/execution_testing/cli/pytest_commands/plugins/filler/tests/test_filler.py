@@ -1185,7 +1185,7 @@ def _mock_execute_rpc(
     monkeypatch.setenv("RPC_ENDPOINT", "http://localhost:12345")
     with patch(
         "execution_testing.cli.pytest_commands.plugins.execute"
-        ".rpc.remote.EthRPC"
+        ".rpc.remote.SilRPC"
     ) as mock_cls:
         mock_cls.return_value.chain_id.return_value = 1
         yield

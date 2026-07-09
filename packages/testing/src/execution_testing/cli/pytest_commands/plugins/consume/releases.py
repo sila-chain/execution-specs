@@ -14,15 +14,15 @@ import requests
 from pydantic import BaseModel, Field, RootModel
 
 CACHED_RELEASE_INFORMATION_FILE = (
-    Path(platformdirs.user_cache_dir("ethereum-execution-spec-tests"))
+    Path(platformdirs.user_cache_dir("sila-execution-spec-tests"))
     / "release_information.json"
 )
 
 SUPPORTED_REPOS = [
-    "ethereum/execution-spec-tests",
-    "ethereum/execution-specs",
-    "ethereum/tests",
-    "ethereum/legacytests",
+    "sila/execution-spec-tests",
+    "sila/execution-specs",
+    "sila/tests",
+    "sila/legacytests",
 ]
 
 
@@ -47,7 +47,7 @@ TESTS_FEATURE_NAME = "tests"
 BARE_VERSION_RE = re.compile(r"^v\d+\.\d+\.\d+$")
 
 # TODO: Legacy EEST `stable`/`develop` releases (bare `vX.Y.Z` git tags on
-# the archived ethereum/execution-spec-tests repo) remain resolvable so
+# the archived sila/execution-spec-tests repo) remain resolvable so
 # existing consumers don't break; remove after 2026-08 (see #3085).
 LEGACY_FEATURE_NAMES = {"stable", "develop"}
 
@@ -65,7 +65,7 @@ class ReleaseTag:
         Create a release descriptor from a string.
 
         The release source can be in the format `tag_name@version` or just
-        `tag_name`. A bare `latest` or `vX.Y.Z` resolves to the mainnet
+        `tag_name`. A bare `latest` or `vX.Y.Z` resolves to the sila-mainnet
         `tests` release.
         """
         version: str | None
@@ -326,7 +326,7 @@ def get_release_page_url(release_string: str) -> str:
     - A release string (e.g., "tests@latest" or "bal-devnet@v7.0.0") from
       any repo in `SUPPORTED_REPOS`.
     - A direct asset download link (e.g.,
-      "https://github.com/ethereum/execution-specs/releases/
+      "https://github.com/sila/execution-specs/releases/
       download/tests%40v20.0.0/fixtures.tar.gz").
     """
     release_information = get_release_information()

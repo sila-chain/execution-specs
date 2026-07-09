@@ -1,4 +1,4 @@
-"""Types used in the RPC module for `eth` and `engine` namespaces' requests."""
+"""Types used in the RPC module for `sil` and `engine` namespaces' requests."""
 
 import json
 from binascii import crc32
@@ -12,7 +12,7 @@ from execution_testing.base_types import (
     Address,
     Bytes,
     CamelModel,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     ForkBlobSchedule,
     ForkHash,
     Hash,
@@ -314,7 +314,7 @@ class GetPayloadResponse(CamelModel):
 
 
 class GetBlobsResponse(
-    EthereumTestRootModel[List[BlobAndProofV1 | BlobAndProofV2 | None]]
+    SilaTestRootModel[List[BlobAndProofV1 | BlobAndProofV2 | None]]
 ):
     """Represents the response of a get blobs request."""
 
@@ -370,8 +370,8 @@ class ForkConfig(CamelModel):
         )
 
 
-class EthConfigResponse(CamelModel):
-    """Response of the `eth_config` RPC endpoint."""
+class SilConfigResponse(CamelModel):
+    """Response of the `sil_config` RPC endpoint."""
 
     current: ForkConfig
     next: ForkConfig | None = None

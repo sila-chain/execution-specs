@@ -41,7 +41,7 @@ def test_static_contract_creation_oo_gdont_leave_empty_contract_via_transaction(
     contract_1 = Address(0x1000000000000000000000000000000000000001)
     contract_2 = Address(0x2000000000000000000000000000000000000001)
     sender_amount = 0x10C8E0
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         sender_amount += fork.gas_costs().NEW_ACCOUNT * 10
     sender = pre.fund_eoa(amount=sender_amount)
 
@@ -103,7 +103,7 @@ def test_static_contract_creation_oo_gdont_leave_empty_contract_via_transaction(
         ),
         gas_limit=(
             96000 + fork.gas_costs().NEW_ACCOUNT
-            if fork.is_eip_enabled(8037)
+            if fork.is_sip_enabled(8037)
             else 96000
         ),
     )

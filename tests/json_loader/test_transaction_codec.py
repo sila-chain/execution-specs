@@ -1,14 +1,14 @@
 """Test that decode_transaction handles legacy transactions as bytes."""
 
-from ethereum_rlp import rlp
-from ethereum_types.bytes import Bytes
-from ethereum_types.numeric import U256, Uint
+from sila_rlp import rlp
+from sila_types.bytes import Bytes
+from sila_types.numeric import U256, Uint
 
-from ethereum.forks.amsterdam.transactions import (
+from sila.forks.amsterdam.transactions import (
     LegacyTransaction,
     decode_transaction,
 )
-from ethereum.state import Address
+from sila.state import Address
 
 
 def test_decode_legacy_from_bytes() -> None:

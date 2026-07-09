@@ -6,22 +6,22 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ethereum-execution-testing"
+name = "sila-execution-testing"
 version = "1.0.0"
-description = "Ethereum execution layer client test generation and runner framework"
+description = "Sila execution layer client test generation and runner framework"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
-keywords = ["ethereum", "testing", "blockchain"]
+keywords = ["sila", "testing", "blockchain"]
 classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
     "click>=8.1.0,<9",
-    "ethereum-hive>=0.1.0a5,<1.0.0",
-    "ethereum-execution",
+    "sila-hive @ git+https://github.com/sila-chain/sila-hive.git@v0.1.0a5+sila.1",
+    "sila-execution",
     "gitpython>=3.1.31,<4",
     "PyJWT>=2.3.0,<3",
     "requests>=2.31.0,<3",
@@ -34,21 +34,21 @@ dependencies = [
     "pytest-metadata>=3,<4",
     "pytest-xdist>=3.3.1,<4",
     "coincurve>=20.0.0,<21",
-    "trie>=3.1.0,<4",
+    "sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",
     "semver>=3.0.1,<4",
     "pydantic>=2.12.3,<3",
     "rich>=13.7.0,<15",
     "ruff==0.13.2",
     "filelock>=3.15.1,<4",
-    "ethereum-types>=0.4.1,<0.5",
+    "sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",
     "pyyaml>=6.0.2,<7",
     "types-pyyaml>=6.0.12.20240917,<7",
     "pytest-json-report>=1.5.0,<2",
     "typing-extensions>=4.12.2,<5",
     "questionary>=2.1.0,<3",
-    "ethereum-rlp>=0.1.6,<0.2",
+    "sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",
     "pytest-regex>=0.2.0,<0.3",
-    "eth-abi>=5.2.0",
+    "sil-abi @ git+https://github.com/sila-chain/sil-abi.git@v6.0.0-beta.1-sila.1",
     "joblib>=1.4.2",
     "ckzg>=2.1.3,<3",
     "tenacity>=9.0.0,<10",
@@ -57,10 +57,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ethereum/execution-specs"
-Documentation = "https://eest.ethereum.org"
-Repository = "https://github.com/ethereum/execution-specs"
-Issues = "https://github.com/ethereum/execution-specs/issues"
+Homepage = "https://github.com/sila/execution-specs"
+Documentation = "https://eest.sila.org"
+Repository = "https://github.com/sila/execution-specs"
+Issues = "https://github.com/sila/execution-specs/issues"
 
 [dependency-groups]
 test = [
@@ -82,7 +82,7 @@ phil = "execution_testing.cli.pytest_commands.fill:phil"
 execute = "execution_testing.cli.pytest_commands.execute:execute"
 attac = "execution_testing.cli.pytest_commands.execute:execute"
 checkfixtures = "execution_testing.cli.check_fixtures:check_fixtures"
-check_eip_versions = "execution_testing.cli.pytest_commands.check_eip_versions:check_eip_versions"
+check_sip_versions = "execution_testing.cli.pytest_commands.check_sip_versions:check_sip_versions"
 consume = "execution_testing.cli.pytest_commands.consume:consume"
 protec = "execution_testing.cli.pytest_commands.consume:consume"
 build-block = "execution_testing.cli.pytest_commands.build_block:build_block"
@@ -108,8 +108,8 @@ where = ["src"]
 exclude = ["*tests*"]
 
 [tool.setuptools.package-data]
-"execution_testing.forks" = ["forks/eips/**/*.bin"]
-"execution_testing.cli.pytest_commands.plugins.execute" = ["eth_config/networks.yml"]
+"execution_testing.forks" = ["forks/sips/**/*.bin"]
+"execution_testing.cli.pytest_commands.plugins.execute" = ["sil_config/networks.yml"]
 "execution_testing.cli.eest.make" = ["templates/*.j2"]
 "execution_testing.cli.pytest_commands" = ["pytest_ini_files/*.ini"]
 "execution_testing.test_types" = ["kzg_trusted_setup.txt"]
@@ -140,7 +140,7 @@ addopts = [
 markers = [
     "pre_alloc_group: Custom marker for pre-allocation grouping",
     "some_mark: Test marker for parametrizer tests",
-    "eip_checklist: Custom marker for EIP checklist tests",
+    "sip_checklist: Custom marker for SIP checklist tests",
     "slow: Marks tests as slow running",
 ]
 
@@ -148,4 +148,4 @@ markers = [
 required-version = ">=0.7.0"
 
 [tool.uv.sources]
-ethereum-execution = { workspace = true }
+sila-execution = { workspace = true }

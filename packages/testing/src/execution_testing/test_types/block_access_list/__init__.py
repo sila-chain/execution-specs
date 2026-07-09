@@ -1,5 +1,5 @@
 """
-Block Access List (BAL) models for EIP-7928.
+Block Access List (BAL) models for SIP-7928.
 
 Following the established pattern in the codebase (AccessList,
 AuthorizationTuple), these are simple data classes that can be composed

@@ -1,4 +1,4 @@
-"""Ethereum/tests structures."""
+"""Sila/tests structures."""
 
 from .common import (
     AccessListInFiller,

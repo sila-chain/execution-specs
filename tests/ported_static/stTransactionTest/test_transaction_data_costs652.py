@@ -66,7 +66,7 @@ def test_transaction_data_costs652(
     tx_data = [
         Bytes("00000000000000000000112233445566778f32"),
     ]
-    # EIP-7976 (enabled with EIP-8037 on Amsterdam) increases the
+    # SIP-7976 (enabled with SIP-8037 on Amsterdam) increases the
     # calldata floor cost per byte, pushing the g0 budget below the
     # new intrinsic. Shift gas_limits by the intrinsic delta versus
     # the pre-7976 baseline so the tight / loose budgets still hold.

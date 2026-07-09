@@ -18,7 +18,7 @@ from execution_testing.cli.pytest_commands.plugins.shared.fixture_output import 
     format_fork_subdir,
 )
 
-# EVM binary for fill tests; defaults to geth evm
+# EVM binary for fill tests; defaults to gsil evm
 BENCHMARK_EVM_T8N = os.environ.get("EVM_BIN", "evm")
 
 test_module_dummy = textwrap.dedent(

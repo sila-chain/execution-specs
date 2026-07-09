@@ -76,7 +76,7 @@ SLOW_CATEGORIES = {
 # with dynamic addresses because of patterns the analyzer's heuristics
 # cannot cover:
 #
-# - EIP-2929 warm/cold gas accounting that depends on which addresses
+# - SIP-2929 warm/cold gas accounting that depends on which addresses
 #   are warm at call time (baseline-specific layout).
 # - CREATE2 collision semantics that depend on specific pre-state
 #   addresses colliding with computed CREATE2 targets.
@@ -93,7 +93,7 @@ SLOW_CATEGORIES = {
 # here; don't try to make it dynamic". See trace-divergences.md for
 # the per-file rationale.
 FORCE_HARDCODED_TESTS: set[str] = {
-    # GAS_ONLY (29) — EIP-2929 warm/cold access cost differences
+    # GAS_ONLY (29) — SIP-2929 warm/cold access cost differences
     "stCallCodes/test_callcode_dynamic_code.py",
     "stCallCodes/test_callcode_dynamic_code2_self_call.py",
     "stCallCreateCallCodeTest/test_call1024_pre_calls.py",
@@ -103,11 +103,11 @@ FORCE_HARDCODED_TESTS: set[str] = {
     "stCreateTest/test_create_transaction_refund_ef.py",
     "stDelegatecallTestHomestead/test_call1024_pre_calls.py",
     "stDelegatecallTestHomestead/test_delegatecode_dynamic_code2_self_call.py",  # noqa: E501
-    "stEIP150singleCodeGasPrices/test_eip2929_oog.py",
-    "stEIP2930/test_manual_create.py",
-    "stEIP3651_warmcoinbase/test_coinbase_warm_account_call_gas_fail.py",
-    "stEIP3855_push0/test_push0.py",
-    "stEIP3855_push0/test_push0_gas2.py",
+    "stSIP150singleCodeGasPrices/test_sip2929_oog.py",
+    "stSIP2930/test_manual_create.py",
+    "stSIP3651_warmcoinbase/test_coinbase_warm_account_call_gas_fail.py",
+    "stSIP3855_push0/test_push0.py",
+    "stSIP3855_push0/test_push0_gas2.py",
     "stHomesteadSpecific/test_contract_creation_oo_gdont_leave_empty_contract_via_transaction.py",  # noqa: E501
     "stRandom/test_random_statetest282.py",
     "stRandom/test_random_statetest287.py",
@@ -139,22 +139,22 @@ FORCE_HARDCODED_TESTS: set[str] = {
     "stCreate2/test_create2collision_selfdestructed_revert.py",
     "stSStoreTest/test_sstore_gas_left.py",
     # OUTPUT_DIFFERS — remaining 2 (Categories F, H)
-    "stEIP3651_warmcoinbase/test_coinbase_warm_account_call_gas.py",
+    "stSIP3651_warmcoinbase/test_coinbase_warm_account_call_gas.py",
     "stWalletTest/test_multi_owned_is_owner_true.py",
     # Precompile-as-EOA — tests fund precompile addresses as EOAs,
     # then check nonce after calling the precompile. Dynamic EOAs
     # land at different addresses than the precompile targets.
-    # STRUCTURAL — CREATE collision / EIP-3607 rejection behaviour.
+    # STRUCTURAL — CREATE collision / SIP-3607 rejection behaviour.
     # With dynamic addresses the collision doesn't happen, so the tx
     # runs instead of being rejected → traces appear where baseline
     # had none.
     "stCreateTest/test_transaction_collision_to_empty_but_code.py",
     "stCreateTest/test_transaction_collision_to_empty_but_nonce.py",
-    "stEIP3607/test_init_colliding_with_non_empty_account.py",
-    "stEIP3607/test_transaction_colliding_with_non_empty_account_calls.py",
-    "stEIP3607/test_transaction_colliding_with_non_empty_account_calls_itself.py",
-    "stEIP3607/test_transaction_colliding_with_non_empty_account_init_paris.py",
-    "stEIP3607/test_transaction_colliding_with_non_empty_account_send_paris.py",
+    "stSIP3607/test_init_colliding_with_non_empty_account.py",
+    "stSIP3607/test_transaction_colliding_with_non_empty_account_calls.py",
+    "stSIP3607/test_transaction_colliding_with_non_empty_account_calls_itself.py",
+    "stSIP3607/test_transaction_colliding_with_non_empty_account_init_paris.py",
+    "stSIP3607/test_transaction_colliding_with_non_empty_account_send_paris.py",
     # Remaining CI assertion failures — gas measurements, keccak storage,
     # collision semantics, address-in-code, precompile interactions, etc.
     # that are fundamentally incompatible with dynamic addresses.
@@ -167,8 +167,8 @@ FORCE_HARDCODED_TESTS: set[str] = {
     "stCreateTest/test_create_empty_contract_with_storage.py",
     "stCreateTest/test_transaction_collision_to_empty2.py",
     "stDelegatecallTestHomestead/test_delegatecall_in_initcode_to_existing_contract.py",
-    "stEIP1153_transientStorage/test_trans_storage_ok.py",
-    "stEIP158Specific/test_call_one_v_call_suicide2.py",
+    "stSIP1153_transientStorage/test_trans_storage_ok.py",
+    "stSIP158Specific/test_call_one_v_call_suicide2.py",
     "stInitCodeTest/test_out_of_gas_prefunded_contract_creation.py",
     "stNonZeroCallsTest/test_non_zero_value_call_to_one_storage_key_paris.py",
     "stNonZeroCallsTest/test_non_zero_value_callcode_to_one_storage_key_paris.py",
@@ -1666,7 +1666,7 @@ def _build_transaction_ir(
     if has_any_al and is_multi_case:
         # Build per-data access list map.
         # Include entries where access_list is not None (even if empty [])
-        # because access_list=[] makes the tx type-2 (EIP-2930), while
+        # because access_list=[] makes the tx type-2 (SIP-2930), while
         # access_list=None keeps it legacy.
         per_data_al: dict[int, list[AccessListEntryIR]] = {}
         for d in model.transaction.data:

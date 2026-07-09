@@ -1,0 +1,12 @@
+system_contract = SIP does not introduce a new system contract
+opcode = SIP does not introduce a new opcode
+precompile = SIP does not introduce a new precompile
+removed_precompile = SIP does not remove a precompile
+transaction_type = SIP does not introduce a new transaction type
+block_header_field = SIP does not add any new block header fields
+block_body_field = SIP does not add any new block body fields
+gas_cost_changes = SIP does not modify existing gas costs, only introduces new opcode with fixed cost
+gas_refunds_changes = SIP does not introduce any gas refund changes
+blob_count_changes = SIP does not introduce any blob count changes
+execution_layer_request = SIP does not introduce an execution layer request
+new_transaction_validity_constraint = SIP does not introduce a new transaction validity constraint

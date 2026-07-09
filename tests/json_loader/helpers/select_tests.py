@@ -70,19 +70,19 @@ def extract_affected_forks(
             # Run all forks if something changes in the test
             # framework
             return all_forks
-        if file_path.is_relative_to("src/ethereum_spec_tools/evm_tools"):
+        if file_path.is_relative_to("src/sila_spec_tools/evm_tools"):
             # Run all forks if something changes in the evm
             # tools
             return all_forks
-        if optimized and file_path.is_relative_to("src/ethereum_optimized"):
+        if optimized and file_path.is_relative_to("src/sila_optimized"):
             # Run all forks if something changes in the optimized tools and
             # while running optimized environment.
             return all_forks
-        if file_path.is_relative_to("src/ethereum/"):
+        if file_path.is_relative_to("src/sila/"):
             parts = Path(file_path).parts
             if len(parts) < 4 or parts[2] != "forks":
                 # Run all tests if something changes in the
-                # non fork-specific part of src/ethereum
+                # non fork-specific part of src/sila
                 return all_forks
 
             # Run tests for specific forks

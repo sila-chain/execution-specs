@@ -16,7 +16,7 @@ from execution_testing.fixtures import PreAllocGroups
 def extract_test_module(test_id: str) -> str:
     """Extract test module path from test ID."""
     # Example:
-    # tests/cancun/eip4788_beacon_root/test_beacon_root_contract.py::
+    # tests/cancun/sip4788_beacon_root/test_beacon_root_contract.py::
     #     test_beacon_root_contract_calls[fork_Cancun]
     if "::" in test_id:
         return test_id.split("::")[0]
@@ -26,10 +26,10 @@ def extract_test_module(test_id: str) -> str:
 def extract_test_function(test_id: str) -> str:
     """Extract test function name from test ID (without parameters)."""
     # Example:
-    # tests/cancun/eip4788_beacon_root/test_beacon_root_contract.py::
+    # tests/cancun/sip4788_beacon_root/test_beacon_root_contract.py::
     #     test_beacon_root_contract_calls[fork_Cancun]
     #  Returns:
-    # tests/cancun/eip4788_beacon_root/test_beacon_root_contract.py::
+    # tests/cancun/sip4788_beacon_root/test_beacon_root_contract.py::
     #     test_beacon_root_contract_calls
     if "::" in test_id:
         parts = test_id.split("::")

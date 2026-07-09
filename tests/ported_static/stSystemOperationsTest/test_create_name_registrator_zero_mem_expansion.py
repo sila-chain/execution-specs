@@ -4,7 +4,7 @@ Test_create_name_registrator_zero_mem_expansion.
 Ported from:
 state_tests/stSystemOperationsTest/createNameRegistratorZeroMemExpansionFiller.json
 @manually-enhanced: Do not overwrite. tx `gas_limit` bumped on Amsterdam
-to cover EIP-8037 state-gas spill; pre-EIP-8037 unchanged.
+to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
 
 """
 
@@ -39,9 +39,9 @@ def test_create_name_registrator_zero_mem_expansion(
     fork: Fork,
 ) -> None:
     """Test_create_name_registrator_zero_mem_expansion."""
-    # EIP-8037 state-gas spill on Amsterdam exceeds 300k tx_gas.
+    # SIP-8037 state-gas spill on Amsterdam exceeds 300k tx_gas.
     tx_gas_limit = 300000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         tx_gas_limit = 1_000_000
 
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)

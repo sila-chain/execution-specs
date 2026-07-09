@@ -1,4 +1,4 @@
-"""Transaction receipt and log types for Ethereum tests."""
+"""Transaction receipt and log types for Sila tests."""
 
 from typing import Any, List
 
@@ -46,10 +46,10 @@ class TransactionReceipt(CamelModel):
         """Strip extra fields from t8n tool / RPC output not part of model."""
         if isinstance(data, dict):
             data = dict(data)
-            # geth (1.16+) returns extra fields in receipts
+            # gsil (1.16+) returns extra fields in receipts
             data.pop("type", None)
             data.pop("blockNumber", None)
-            # Fields eth_getTransactionReceipt returns that the fixture
+            # Fields sil_getTransactionReceipt returns that the fixture
             # schema does not model. Fill-stateful fetches receipts live,
             # so we tolerate these even though the t8n path never emits
             # them.
@@ -58,7 +58,7 @@ class TransactionReceipt(CamelModel):
             root = data.get("root")
             root_is_empty = root in (None, "", "0x", b"", bytearray())
             if not root_is_empty:
-                # geth's t8n JSON uses `root` for pre-Byzantium receipts while
+                # gsil's t8n JSON uses `root` for pre-Byzantium receipts while
                 # also populating `status`. For fixture re-encoding, a
                 # non-empty root must take precedence over status.
                 data.setdefault("post_state", root)

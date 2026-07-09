@@ -1,4 +1,4 @@
 """
-Test cases for EVM functionality introduced in Tangerine, [EIP-608: Hardfork
-Meta - Tangerine Whistle](https://eips.ethereum.org/EIPS/eip-608).
+Test cases for EVM functionality introduced in Tangerine, [SIP-608: Hardfork
+Meta - Tangerine Whistle](https://sips.sila.org/SIPS/sip-608).
 """

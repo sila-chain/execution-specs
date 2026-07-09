@@ -6,7 +6,7 @@ These are produced by the `StateTest` and `BlockchainTest` test specs.
 
 ## Description
 
-The blockchain test fixture format is used to test block validation and the consensus rules of the Ethereum blockchain.
+The blockchain test fixture format is used to test block validation and the consensus rules of the Sila blockchain.
 
 It does so by defining a pre-execution state, a series of blocks, and a post-execution state, verifying that, after all the blocks have been processed, appended if valid or rejected if invalid, the result is the expected post-execution state.
 
@@ -100,7 +100,7 @@ Fork configuration for the test. It is guaranteed that this field contains the s
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [EIP-7840](https://eips.ethereum.org/EIPS/eip-7840).
+Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
 
 ### `FixtureHeader`
 

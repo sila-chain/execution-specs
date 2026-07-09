@@ -65,11 +65,11 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_from='"EIP3675"',
+                valid_from='"SIP3675"',
             ),
             ["--until=Prague"],
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_from_eip",
+            id="valid_from_sip",
         ),
         pytest.param(
             generate_test(
@@ -82,30 +82,30 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_from='"EIP3675"',
-                valid_until='"EIP4844"',
+                valid_from='"SIP3675"',
+                valid_until='"SIP4844"',
             ),
             [],
             {"passed": 3, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_from_eip_until_eip",
+            id="valid_from_sip_until_sip",
         ),
         pytest.param(
             generate_test(
                 valid_from='"Paris"',
-                valid_until='"EIP4844"',
+                valid_until='"SIP4844"',
             ),
             [],
             {"passed": 3, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_from_fork_until_eip",
+            id="valid_from_fork_until_sip",
         ),
         pytest.param(
             generate_test(
-                valid_from='"EIP3675"',
+                valid_from='"SIP3675"',
                 valid_until='"Cancun"',
             ),
             [],
             {"passed": 3, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_from_eip_until_fork",
+            id="valid_from_sip_until_fork",
         ),
         pytest.param(
             generate_test(
@@ -194,20 +194,20 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_before='"EIP4844"',
+                valid_before='"SIP4844"',
             ),
             ["--from=Berlin", "--until=Prague"],
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_before_eip",
+            id="valid_before_sip",
         ),
         pytest.param(
             generate_test(
-                valid_from='"EIP3675"',
-                valid_before='"EIP4844"',
+                valid_from='"SIP3675"',
+                valid_before='"SIP4844"',
             ),
             ["--until=Prague"],
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_from_eip_before_eip",
+            id="valid_from_sip_before_sip",
         ),
         pytest.param(
             generate_test(

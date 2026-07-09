@@ -4,8 +4,8 @@ CreateMessageReverted for CREATE2.
 Ported from:
 state_tests/stCreate2/CreateMessageRevertedFiller.json
 @manually-enhanced: Do not overwrite. tx_gas[1] bumped on Amsterdam to
-cover EIP-8037 state-gas spill (CREATE2 new account + 2 fresh
-SSTOREs in init code); pre-EIP-8037 unchanged. g0 (OoG case) is
+cover SIP-8037 state-gas spill (CREATE2 new account + 2 fresh
+SSTOREs in init code); pre-SIP-8037 unchanged. g0 (OoG case) is
 intentionally left alone.
 
 """
@@ -78,7 +78,7 @@ def test_create_message_reverted(
     )
 
     sender_balance = 3000000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         sender_balance = 10000000
     pre[sender] = Account(balance=sender_balance)
     # Source: lll
@@ -120,7 +120,7 @@ def test_create_message_reverted(
         Bytes(""),
     ]
     tx_gas = [80000, 150000]
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         tx_gas = [80000, 500_000]
     tx_value = [100]
 

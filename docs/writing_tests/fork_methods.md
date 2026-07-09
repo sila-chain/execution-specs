@@ -1,12 +1,12 @@
 # Using and Extending Fork Methods
 
-This document describes the Fork class in the Ethereum execution spec tests framework, which provides a standardized way
-to define properties of Ethereum forks. Understanding how to use and extend these fork methods is essential for writing
+This document describes the Fork class in the Sila execution spec tests framework, which provides a standardized way
+to define properties of Sila forks. Understanding how to use and extend these fork methods is essential for writing
 flexible tests that can automatically adapt to different forks.
 
 ## Overview
 
-The `BaseFork` class is an abstract base class that defines the interface for all Ethereum forks. Each implemented
+The `BaseFork` class is an abstract base class that defines the interface for all Sila forks. Each implemented
 fork (like Frontier, Homestead, etc.) extends this class and implements its abstract methods to provide fork-specific
 behavior.
 
@@ -19,7 +19,7 @@ The fork system allows:
 
 ## Using Fork Methods in Tests
 
-Fork methods are powerful tools that allow your tests to adapt to different Ethereum forks automatically. Here are
+Fork methods are powerful tools that allow your tests to adapt to different Sila forks automatically. Here are
 common patterns for using them:
 
 ### 1. Check Fork Support for Features
@@ -156,7 +156,7 @@ Methods for fork identification and comparison:
 ```python
 fork.name()  # Returns the name of the fork
 fork.transition_tool_name()  # Returns name for transition tools
-fork.is_deployed()  # Returns whether the fork is deployed to mainnet
+fork.is_deployed()  # Returns whether the fork is deployed to sila-mainnet
 ```
 
 ## Fork Transitions
@@ -271,7 +271,7 @@ def supports_new_feature(cls) -> bool:
 
 Add a new fork method when:
 
-1. **A New EIP Introduces a Feature**: Add methods describing the new feature's behavior
+1. **A New SIP Introduces a Feature**: Add methods describing the new feature's behavior
 2. **Tests Need to Behave Differently**: When tests need to adapt to different fork behaviors
 3. **Common Fork Information is Needed**: When multiple tests need the same fork-specific information
 4. **Intrinsic Fork Properties Change**: When gas costs, opcodes, or other intrinsic properties change
@@ -309,14 +309,14 @@ def test_transaction_with_fork_adaptability(fork, state_test):
     # Add appropriate transaction type based on fork
     tx_types = fork.tx_types()
     if 3 in tx_types and fork.supports_blobs():
-        # EIP-4844 blob transaction (type 3)
+        # SIP-4844 blob transaction (type 3)
         tx_params["blob_versioned_hashes"] = [Hash.generate_zero_hashes(1)[0]]
     elif 2 in tx_types:
-        # EIP-1559 transaction (type 2)
+        # SIP-1559 transaction (type 2)
         tx_params["max_fee_per_gas"] = 10
         tx_params["max_priority_fee_per_gas"] = 1
     elif 1 in tx_types:
-        # EIP-2930 transaction (type 1)
+        # SIP-2930 transaction (type 1)
         tx_params["access_list"] = []
 
     # Create and run the test
@@ -334,7 +334,7 @@ def test_transaction_with_fork_adaptability(fork, state_test):
 
 ## Conclusion
 
-The Fork class is a powerful abstraction that allows tests to adapt to different Ethereum forks. By using fork methods
+The Fork class is a powerful abstraction that allows tests to adapt to different Sila forks. By using fork methods
 consistently, you can write tests that automatically handle fork-specific behavior, making your tests more maintainable
 and future-proof.
 

@@ -3,13 +3,13 @@ requires = ["setuptools>=77.0.3", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ethereum-execution"
-description = "Ethereum execution layer specification, provided as a Python package for tooling and testing"
+name = "sila-execution"
+description = "Sila execution layer specification, provided as a Python package for tooling and testing"
 readme = "README.md"
 requires-python = ">=3.11"
 dynamic = ["version"]
 license = "CC0-1.0"
-urls = { "Homepage" = "https://github.com/ethereum/execution-specs" }
+urls = { "Homepage" = "https://github.com/sila/execution-specs" }
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
@@ -23,9 +23,9 @@ dependencies = [
     "pycryptodome>=3.22,<4",
     "coincurve>=20,<21",
     "typing_extensions>=4.4",
-    "py-ecc>=8.0.0b2,<9",
-    "ethereum-types>=0.4.1,<0.5",
-    "ethereum-rlp>=0.1.6,<0.2",
+    "sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",
+    "sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",
+    "sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",
     "cryptography>=45.0.1,<46",
     "platformdirs>=4.2,<5",
     "libcst>=1.8,<2",
@@ -36,168 +36,168 @@ dependencies = [
 
 [tool.setuptools]
 packages = [
-    "ethereum_spec_tools",
-    "ethereum_spec_tools.evm_tools",
-    "ethereum_spec_tools.evm_tools.t8n",
-    "ethereum_spec_tools.evm_tools.t8n.evm_trace",
-    "ethereum_spec_tools.evm_tools.b11r",
-    "ethereum_spec_tools.evm_tools.statetest",
-    "ethereum_spec_tools.evm_tools.loaders",
-    "ethereum_spec_tools.lint",
-    "ethereum_spec_tools.lint.lints",
-    "ethereum_spec_tools.new_fork",
-    "ethereum_spec_tools.new_fork.codemod",
-    "ethereum",
-    "ethereum.forks.frontier",
-    "ethereum.forks.frontier.utils",
-    "ethereum.forks.frontier.vm",
-    "ethereum.forks.frontier.vm.instructions",
-    "ethereum.forks.frontier.vm.precompiled_contracts",
-    "ethereum.utils",
-    "ethereum.crypto",
-    "ethereum_optimized",
-    "ethereum.forks.homestead",
-    "ethereum.forks.homestead.utils",
-    "ethereum.forks.homestead.vm",
-    "ethereum.forks.homestead.vm.instructions",
-    "ethereum.forks.homestead.vm.precompiled_contracts",
-    "ethereum.forks.dao_fork",
-    "ethereum.forks.dao_fork.utils",
-    "ethereum.forks.dao_fork.vm",
-    "ethereum.forks.dao_fork.vm.instructions",
-    "ethereum.forks.dao_fork.vm.precompiled_contracts",
-    "ethereum.forks.tangerine_whistle",
-    "ethereum.forks.tangerine_whistle.utils",
-    "ethereum.forks.tangerine_whistle.vm",
-    "ethereum.forks.tangerine_whistle.vm.instructions",
-    "ethereum.forks.tangerine_whistle.vm.precompiled_contracts",
-    "ethereum.forks.spurious_dragon",
-    "ethereum.forks.spurious_dragon.utils",
-    "ethereum.forks.spurious_dragon.vm",
-    "ethereum.forks.spurious_dragon.vm.instructions",
-    "ethereum.forks.spurious_dragon.vm.precompiled_contracts",
-    "ethereum.forks.byzantium",
-    "ethereum.forks.byzantium.utils",
-    "ethereum.forks.byzantium.vm",
-    "ethereum.forks.byzantium.vm.instructions",
-    "ethereum.forks.byzantium.vm.precompiled_contracts",
-    "ethereum.forks.constantinople",
-    "ethereum.forks.constantinople.utils",
-    "ethereum.forks.constantinople.vm",
-    "ethereum.forks.constantinople.vm.instructions",
-    "ethereum.forks.constantinople.vm.precompiled_contracts",
-    "ethereum.forks.istanbul",
-    "ethereum.forks.istanbul.utils",
-    "ethereum.forks.istanbul.vm",
-    "ethereum.forks.istanbul.vm.instructions",
-    "ethereum.forks.istanbul.vm.precompiled_contracts",
-    "ethereum.forks.muir_glacier",
-    "ethereum.forks.muir_glacier.utils",
-    "ethereum.forks.muir_glacier.vm",
-    "ethereum.forks.muir_glacier.vm.instructions",
-    "ethereum.forks.muir_glacier.vm.precompiled_contracts",
-    "ethereum.forks.berlin",
-    "ethereum.forks.berlin.utils",
-    "ethereum.forks.berlin.vm",
-    "ethereum.forks.berlin.vm.instructions",
-    "ethereum.forks.berlin.vm.precompiled_contracts",
-    "ethereum.forks.london",
-    "ethereum.forks.london.utils",
-    "ethereum.forks.london.vm",
-    "ethereum.forks.london.vm.instructions",
-    "ethereum.forks.london.vm.precompiled_contracts",
-    "ethereum.forks.arrow_glacier",
-    "ethereum.forks.arrow_glacier.utils",
-    "ethereum.forks.arrow_glacier.vm",
-    "ethereum.forks.arrow_glacier.vm.instructions",
-    "ethereum.forks.arrow_glacier.vm.precompiled_contracts",
-    "ethereum.forks.gray_glacier",
-    "ethereum.forks.gray_glacier.utils",
-    "ethereum.forks.gray_glacier.vm",
-    "ethereum.forks.gray_glacier.vm.instructions",
-    "ethereum.forks.gray_glacier.vm.precompiled_contracts",
-    "ethereum.forks.paris",
-    "ethereum.forks.paris.utils",
-    "ethereum.forks.paris.vm",
-    "ethereum.forks.paris.vm.instructions",
-    "ethereum.forks.paris.vm.precompiled_contracts",
-    "ethereum.forks.shanghai",
-    "ethereum.forks.shanghai.utils",
-    "ethereum.forks.shanghai.vm",
-    "ethereum.forks.shanghai.vm.instructions",
-    "ethereum.forks.shanghai.vm.precompiled_contracts",
-    "ethereum.forks.cancun",
-    "ethereum.forks.cancun.utils",
-    "ethereum.forks.cancun.vm",
-    "ethereum.forks.cancun.vm.instructions",
-    "ethereum.forks.cancun.vm.precompiled_contracts",
-    "ethereum.forks.prague",
-    "ethereum.forks.prague.utils",
-    "ethereum.forks.prague.vm",
-    "ethereum.forks.prague.vm.instructions",
-    "ethereum.forks.prague.vm.precompiled_contracts",
-    "ethereum.forks.prague.vm.precompiled_contracts.bls12_381",
-    "ethereum.forks.osaka",
-    "ethereum.forks.osaka.utils",
-    "ethereum.forks.osaka.vm",
-    "ethereum.forks.osaka.vm.instructions",
-    "ethereum.forks.osaka.vm.precompiled_contracts",
-    "ethereum.forks.osaka.vm.precompiled_contracts.bls12_381",
-    "ethereum.forks.bpo1",
-    "ethereum.forks.bpo1.utils",
-    "ethereum.forks.bpo1.vm",
-    "ethereum.forks.bpo1.vm.instructions",
-    "ethereum.forks.bpo1.vm.precompiled_contracts",
-    "ethereum.forks.bpo1.vm.precompiled_contracts.bls12_381",
-    "ethereum.forks.bpo2",
-    "ethereum.forks.bpo2.utils",
-    "ethereum.forks.bpo2.vm",
-    "ethereum.forks.bpo2.vm.instructions",
-    "ethereum.forks.bpo2.vm.precompiled_contracts",
-    "ethereum.forks.bpo2.vm.precompiled_contracts.bls12_381",
-    "ethereum.forks.bpo3",
-    "ethereum.forks.bpo3.utils",
-    "ethereum.forks.bpo3.vm",
-    "ethereum.forks.bpo3.vm.instructions",
-    "ethereum.forks.bpo3.vm.precompiled_contracts",
-    "ethereum.forks.bpo3.vm.precompiled_contracts.bls12_381",
-    "ethereum.forks.bpo4",
-    "ethereum.forks.bpo4.utils",
-    "ethereum.forks.bpo4.vm",
-    "ethereum.forks.bpo4.vm.instructions",
-    "ethereum.forks.bpo4.vm.precompiled_contracts",
-    "ethereum.forks.bpo4.vm.precompiled_contracts.bls12_381",
-    "ethereum.forks.bpo5",
-    "ethereum.forks.bpo5.utils",
-    "ethereum.forks.bpo5.vm",
-    "ethereum.forks.bpo5.vm.instructions",
-    "ethereum.forks.bpo5.vm.precompiled_contracts",
-    "ethereum.forks.bpo5.vm.precompiled_contracts.bls12_381",
-    "ethereum.forks.amsterdam",
-    "ethereum.forks.amsterdam.utils",
-    "ethereum.forks.amsterdam.vm",
-    "ethereum.forks.amsterdam.vm.instructions",
-    "ethereum.forks.amsterdam.vm.precompiled_contracts",
-    "ethereum.forks.amsterdam.vm.precompiled_contracts.bls12_381",
+    "sila_spec_tools",
+    "sila_spec_tools.evm_tools",
+    "sila_spec_tools.evm_tools.t8n",
+    "sila_spec_tools.evm_tools.t8n.evm_trace",
+    "sila_spec_tools.evm_tools.b11r",
+    "sila_spec_tools.evm_tools.statetest",
+    "sila_spec_tools.evm_tools.loaders",
+    "sila_spec_tools.lint",
+    "sila_spec_tools.lint.lints",
+    "sila_spec_tools.new_fork",
+    "sila_spec_tools.new_fork.codemod",
+    "sila",
+    "sila.forks.frontier",
+    "sila.forks.frontier.utils",
+    "sila.forks.frontier.vm",
+    "sila.forks.frontier.vm.instructions",
+    "sila.forks.frontier.vm.precompiled_contracts",
+    "sila.utils",
+    "sila.crypto",
+    "sila_optimized",
+    "sila.forks.homestead",
+    "sila.forks.homestead.utils",
+    "sila.forks.homestead.vm",
+    "sila.forks.homestead.vm.instructions",
+    "sila.forks.homestead.vm.precompiled_contracts",
+    "sila.forks.dao_fork",
+    "sila.forks.dao_fork.utils",
+    "sila.forks.dao_fork.vm",
+    "sila.forks.dao_fork.vm.instructions",
+    "sila.forks.dao_fork.vm.precompiled_contracts",
+    "sila.forks.tangerine_whistle",
+    "sila.forks.tangerine_whistle.utils",
+    "sila.forks.tangerine_whistle.vm",
+    "sila.forks.tangerine_whistle.vm.instructions",
+    "sila.forks.tangerine_whistle.vm.precompiled_contracts",
+    "sila.forks.spurious_dragon",
+    "sila.forks.spurious_dragon.utils",
+    "sila.forks.spurious_dragon.vm",
+    "sila.forks.spurious_dragon.vm.instructions",
+    "sila.forks.spurious_dragon.vm.precompiled_contracts",
+    "sila.forks.byzantium",
+    "sila.forks.byzantium.utils",
+    "sila.forks.byzantium.vm",
+    "sila.forks.byzantium.vm.instructions",
+    "sila.forks.byzantium.vm.precompiled_contracts",
+    "sila.forks.constantinople",
+    "sila.forks.constantinople.utils",
+    "sila.forks.constantinople.vm",
+    "sila.forks.constantinople.vm.instructions",
+    "sila.forks.constantinople.vm.precompiled_contracts",
+    "sila.forks.istanbul",
+    "sila.forks.istanbul.utils",
+    "sila.forks.istanbul.vm",
+    "sila.forks.istanbul.vm.instructions",
+    "sila.forks.istanbul.vm.precompiled_contracts",
+    "sila.forks.muir_glacier",
+    "sila.forks.muir_glacier.utils",
+    "sila.forks.muir_glacier.vm",
+    "sila.forks.muir_glacier.vm.instructions",
+    "sila.forks.muir_glacier.vm.precompiled_contracts",
+    "sila.forks.berlin",
+    "sila.forks.berlin.utils",
+    "sila.forks.berlin.vm",
+    "sila.forks.berlin.vm.instructions",
+    "sila.forks.berlin.vm.precompiled_contracts",
+    "sila.forks.london",
+    "sila.forks.london.utils",
+    "sila.forks.london.vm",
+    "sila.forks.london.vm.instructions",
+    "sila.forks.london.vm.precompiled_contracts",
+    "sila.forks.arrow_glacier",
+    "sila.forks.arrow_glacier.utils",
+    "sila.forks.arrow_glacier.vm",
+    "sila.forks.arrow_glacier.vm.instructions",
+    "sila.forks.arrow_glacier.vm.precompiled_contracts",
+    "sila.forks.gray_glacier",
+    "sila.forks.gray_glacier.utils",
+    "sila.forks.gray_glacier.vm",
+    "sila.forks.gray_glacier.vm.instructions",
+    "sila.forks.gray_glacier.vm.precompiled_contracts",
+    "sila.forks.paris",
+    "sila.forks.paris.utils",
+    "sila.forks.paris.vm",
+    "sila.forks.paris.vm.instructions",
+    "sila.forks.paris.vm.precompiled_contracts",
+    "sila.forks.shanghai",
+    "sila.forks.shanghai.utils",
+    "sila.forks.shanghai.vm",
+    "sila.forks.shanghai.vm.instructions",
+    "sila.forks.shanghai.vm.precompiled_contracts",
+    "sila.forks.cancun",
+    "sila.forks.cancun.utils",
+    "sila.forks.cancun.vm",
+    "sila.forks.cancun.vm.instructions",
+    "sila.forks.cancun.vm.precompiled_contracts",
+    "sila.forks.prague",
+    "sila.forks.prague.utils",
+    "sila.forks.prague.vm",
+    "sila.forks.prague.vm.instructions",
+    "sila.forks.prague.vm.precompiled_contracts",
+    "sila.forks.prague.vm.precompiled_contracts.bls12_381",
+    "sila.forks.osaka",
+    "sila.forks.osaka.utils",
+    "sila.forks.osaka.vm",
+    "sila.forks.osaka.vm.instructions",
+    "sila.forks.osaka.vm.precompiled_contracts",
+    "sila.forks.osaka.vm.precompiled_contracts.bls12_381",
+    "sila.forks.bpo1",
+    "sila.forks.bpo1.utils",
+    "sila.forks.bpo1.vm",
+    "sila.forks.bpo1.vm.instructions",
+    "sila.forks.bpo1.vm.precompiled_contracts",
+    "sila.forks.bpo1.vm.precompiled_contracts.bls12_381",
+    "sila.forks.bpo2",
+    "sila.forks.bpo2.utils",
+    "sila.forks.bpo2.vm",
+    "sila.forks.bpo2.vm.instructions",
+    "sila.forks.bpo2.vm.precompiled_contracts",
+    "sila.forks.bpo2.vm.precompiled_contracts.bls12_381",
+    "sila.forks.bpo3",
+    "sila.forks.bpo3.utils",
+    "sila.forks.bpo3.vm",
+    "sila.forks.bpo3.vm.instructions",
+    "sila.forks.bpo3.vm.precompiled_contracts",
+    "sila.forks.bpo3.vm.precompiled_contracts.bls12_381",
+    "sila.forks.bpo4",
+    "sila.forks.bpo4.utils",
+    "sila.forks.bpo4.vm",
+    "sila.forks.bpo4.vm.instructions",
+    "sila.forks.bpo4.vm.precompiled_contracts",
+    "sila.forks.bpo4.vm.precompiled_contracts.bls12_381",
+    "sila.forks.bpo5",
+    "sila.forks.bpo5.utils",
+    "sila.forks.bpo5.vm",
+    "sila.forks.bpo5.vm.instructions",
+    "sila.forks.bpo5.vm.precompiled_contracts",
+    "sila.forks.bpo5.vm.precompiled_contracts.bls12_381",
+    "sila.forks.amsterdam",
+    "sila.forks.amsterdam.utils",
+    "sila.forks.amsterdam.vm",
+    "sila.forks.amsterdam.vm.instructions",
+    "sila.forks.amsterdam.vm.precompiled_contracts",
+    "sila.forks.amsterdam.vm.precompiled_contracts.bls12_381",
 ]
 
 [tool.setuptools.package-data]
-"ethereum" = [
+"sila" = [
     "py.typed",
-    "assets/mainnet.json",
-    "assets/mainnet_genesis_alloc_rlp.hex",
+    "assets/sila-mainnet.json",
+    "assets/sila_mainnet_genesis_alloc_rlp.hex",
     "assets/cache_sizes_2048_epochs.json",
     "assets/dataset_sizes_2048_epochs.json",
     "assets/blocks/block_1.json",
     "assets/blocks/block_1234567.json",
     "assets/blocks/block_12964999.json",
 ]
-"ethereum_spec_tools" = ["py.typed"]
+"sila_spec_tools" = ["py.typed"]
 
 [project.optional-dependencies]
 optimized = [
     "rust-pyspec-glue>=0.0.9,<0.1.0",
-    "ethash>=1.1.0,<2",
+    "sil-hash @ git+https://github.com/sila-chain/sil-hash.git@v0.8.0-sila.1",
 ]
 
 [dependency-groups]
@@ -210,7 +210,7 @@ test = [
     "requests",
     "requests-cache>=1.2.1,<2",
     "libcst>=1.8,<2",
-    "ethereum-execution-testing",
+    "sila-execution-testing",
 ]
 lint = [
     "codespell==2.4.1",
@@ -255,33 +255,33 @@ dev = [
     { include-group = "actionlint" },
     { include-group = "doc" },
     { include-group = "mkdocs" },
-    "ethereum-execution[optimized]",
+    "sila-execution[optimized]",
     "psutil>=7.2.2",
 ]
 
 [tool.setuptools.dynamic]
-version = { attr = "ethereum.__version__" }
+version = { attr = "sila.__version__" }
 
 [project.scripts]
-ethereum-spec-lint = "ethereum_spec_tools.lint:main"
-ethereum-spec-sync = "ethereum_spec_tools.sync:main"
-ethereum-spec-new-fork = "ethereum_spec_tools.new_fork.cli:main"
-ethereum-spec-patch = "ethereum_spec_tools.patch_tool:main"
-ethereum-spec-evm = "ethereum_spec_tools.evm_tools:main"
-whitelist = "ethereum_spec_tools.whitelist:main"
+sila-spec-lint = "sila_spec_tools.lint:main"
+sila-spec-sync = "sila_spec_tools.sync:main"
+sila-spec-new-fork = "sila_spec_tools.new_fork.cli:main"
+sila-spec-patch = "sila_spec_tools.patch_tool:main"
+sila-spec-evm = "sila_spec_tools.evm_tools:main"
+whitelist = "sila_spec_tools.whitelist:main"
 
 [project.entry-points."docc.plugins"]
-"ethereum_spec_tools.docc.listing" = "ethereum_spec_tools.docc:EthereumListingDiscover"
-"ethereum_spec_tools.docc.discover" = "ethereum_spec_tools.docc:EthereumDiscover"
-"ethereum_spec_tools.docc.python" = "ethereum_spec_tools.docc:EthereumPythonDiscover"
-"ethereum_spec_tools.docc.build" = "ethereum_spec_tools.docc:EthereumBuilder"
-"ethereum_spec_tools.docc.fix-indexes" = "ethereum_spec_tools.docc:FixIndexTransform"
-"ethereum_spec_tools.docc.minimize-diffs" = "ethereum_spec_tools.docc:MinimizeDiffsTransform"
+"sila_spec_tools.docc.listing" = "sila_spec_tools.docc:SilaListingDiscover"
+"sila_spec_tools.docc.discover" = "sila_spec_tools.docc:SilaDiscover"
+"sila_spec_tools.docc.python" = "sila_spec_tools.docc:SilaPythonDiscover"
+"sila_spec_tools.docc.build" = "sila_spec_tools.docc:SilaBuilder"
+"sila_spec_tools.docc.fix-indexes" = "sila_spec_tools.docc:FixIndexTransform"
+"sila_spec_tools.docc.minimize-diffs" = "sila_spec_tools.docc:MinimizeDiffsTransform"
 
 [project.entry-points."docc.plugins.html"]
-"ethereum_spec_tools.docc:DiffNode" = "ethereum_spec_tools.docc:render_diff"
-"ethereum_spec_tools.docc:BeforeNode" = "ethereum_spec_tools.docc:render_before_after"
-"ethereum_spec_tools.docc:AfterNode" = "ethereum_spec_tools.docc:render_before_after"
+"sila_spec_tools.docc:DiffNode" = "sila_spec_tools.docc:render_diff"
+"sila_spec_tools.docc:BeforeNode" = "sila_spec_tools.docc:render_before_after"
+"sila_spec_tools.docc:AfterNode" = "sila_spec_tools.docc:render_before_after"
 
 [tool.pytest.ini_options]
 markers = [
@@ -299,13 +299,13 @@ markers = [
 
 [tool.coverage.run]
 omit = [
-    "*/ethereum/forks/*_glacier/*",
-    "*/ethereum/forks/dao_fork/*",
-    "*/ethereum/forks/bpo*/*",
+    "*/sila/forks/*_glacier/*",
+    "*/sila/forks/dao_fork/*",
+    "*/sila/forks/bpo*/*",
 ]
 
 [tool.coverage.report]
-# `ethereum.forks` is a namespace package (no `__init__.py`); without this
+# `sila.forks` is a namespace package (no `__init__.py`); without this
 # option, coverage skips it when reporting never-imported files at 0%, so
 # forks absent from a run silently drop out of the coverage denominator.
 include_namespace_packages = true
@@ -320,14 +320,14 @@ context = [
 discovery = [
     "docc.search.discover",
     "docc.html.discover",
-    "ethereum_spec_tools.docc.python",
-    "ethereum_spec_tools.docc.discover",
-    "ethereum_spec_tools.docc.listing",
+    "sila_spec_tools.docc.python",
+    "sila_spec_tools.docc.discover",
+    "sila_spec_tools.docc.listing",
     "docc.files.discover",
 ]
 build = [
     "docc.search.build",
-    "ethereum_spec_tools.docc.build",
+    "sila_spec_tools.docc.build",
     "docc.files.build",
     "docc.listing.build",
     "docc.resources.build",
@@ -338,8 +338,8 @@ transform = [
     "docc.verbatim.transform",
     "docc.mistletoe.transform",
     "docc.mistletoe.reference",
-    "ethereum_spec_tools.docc.fix-indexes",
-    "ethereum_spec_tools.docc.minimize-diffs",
+    "sila_spec_tools.docc.fix-indexes",
+    "sila_spec_tools.docc.minimize-diffs",
     "docc.references.index",
     "docc.search.transform",
     "docc.html.transform",
@@ -347,16 +347,16 @@ transform = [
 
 [tool.docc.plugins."docc.python.transform"]
 excluded_references = [
-    "ethereum_spec_tools.lint.lints",   # This is a namespace package.
+    "sila_spec_tools.lint.lints",   # This is a namespace package.
 ]
 
-[tool.docc.plugins."ethereum_spec_tools.docc.python"]
+[tool.docc.plugins."sila_spec_tools.docc.python"]
 paths = [
     "src",
 ]
 excluded_paths = [
-    "src/ethereum_optimized",
-    "src/ethereum_spec_tools",
+    "src/sila_optimized",
+    "src/sila_spec_tools",
 ]
 
 [tool.docc.plugins."docc.html.context"]
@@ -415,20 +415,20 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"src/ethereum_spec_tools/evm_tools/loaders/fork_loader.py" = [
+"src/sila_spec_tools/evm_tools/loaders/fork_loader.py" = [
     "N802"          # Property names do not need to be lowercase
 ]
-"src/ethereum_spec_tools/lint/*" = [
+"src/sila_spec_tools/lint/*" = [
     "N802"          # Special linting code absolved of function naming reqs
 ]
-"src/ethereum/crypto/*" = [
+"src/sila/crypto/*" = [
     "N806",         # Special crypto code absolved of variable naming reqs
     "N802"          # Special crypto code absolved of function naming reqs
 ]
-"src/ethereum_spec_tools/evm_tools/t8n/evm_trace/eip3155.py" = [
+"src/sila_spec_tools/evm_tools/t8n/evm_trace/sip3155.py" = [
     "N815"          # The traces must use camel case in JSON property names
 ]
-"src/ethereum_spec_tools/evm_tools/t8n/evm_trace.py" = [
+"src/sila_spec_tools/evm_tools/t8n/evm_trace.py" = [
     "N815"          # The traces must use camel case in JSON property names
 ]
 "tests/*" = ["ARG001"]
@@ -529,10 +529,10 @@ plugins = ["pydantic.mypy"]
 
 [tool.uv]
 required-version = ">=0.7.0"
-extra-build-dependencies = { ethash = ["setuptools", "cmake>=4.2.1,<5"] }
+extra-build-dependencies = { sil-hash = ["setuptools", "cmake>=4.2.1,<5"] }
 
 [tool.uv.workspace]
 members = ["packages/*"]
 
 [tool.uv.sources]
-ethereum-execution-testing = { workspace = true }
+sila-execution-testing = { workspace = true }

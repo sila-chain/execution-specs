@@ -9,7 +9,7 @@ the executable spec prevails.
 [Opcodes](opcodes.md)
 ---------------------
 
-Lists current opcodes and links to EIPs for opcodes added since the
+Lists current opcodes and links to SIPs for opcodes added since the
 first release.
 
 [Opcode blocks](opcode-blocks.md)
@@ -29,7 +29,7 @@ non-viable proposals.
 [Proposed Opcodes](proposed-opcodes.md)
 ---------------------------------------
 
-List of proposed opcodes, including opcodes proposed as part of the EIP
+List of proposed opcodes, including opcodes proposed as part of the SIP
 process, that have not been included in a hard fork. Includes pending
 opcodes as well as historical proposals, non-viable proposals, and
 inactive proposals.

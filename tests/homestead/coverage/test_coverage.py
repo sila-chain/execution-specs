@@ -1,5 +1,5 @@
 """
-Tests that address coverage gaps that result from updating `ethereum/tests`
+Tests that address coverage gaps that result from updating `sila/tests`
 into EEST tests.
 """
 

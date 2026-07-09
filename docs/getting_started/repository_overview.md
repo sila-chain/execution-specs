@@ -6,12 +6,12 @@ The most relevant folders and files in the repo are:
 ```text
 📁 execution-specs/
 ├─╴📁 src/                       # EELS - the execution layer specs
-│   ├── 📁 ethereum/
+│   ├── 📁 sila/
 │   │    └── 📁 forks/
 │   │         ├── 📁 amsterdam/
 |   |         ├── 📁 berlin/
 │   │         └── 📁 ...
-│   └── 📁 ethereum/forks/...
+│   └── 📁 sila/forks/...
 ├─╴📁 tests/                     # Test cases for EELS organized by fork
 │   ├── 📁 amsterdam/
 │   ├── 📁 berlin/
@@ -31,11 +31,11 @@ The most relevant folders and files in the repo are:
 
 #### `src/`
 
-Contains the Ethereum Execution Layer Specs, each fork is a sub-package.
+Contains the Sila Execution Layer Specs, each fork is a sub-package.
 
 #### `tests/`
 
-Contains the implementation of the Ethereum consensus tests available in this repository, organized by the fork in which the functionality was introduced.
+Contains the implementation of the Sila consensus tests available in this repository, organized by the fork in which the functionality was introduced.
 
 #### `packages/execution_testing/`
 

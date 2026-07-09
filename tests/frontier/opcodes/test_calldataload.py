@@ -14,9 +14,9 @@ from execution_testing import Macros as Om
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/calldataloadFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/calldataloadFiller.yml",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1236"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1236"],
 )
 @pytest.mark.parametrize(
     "calldata,calldata_offset,expected_storage",
@@ -65,7 +65,7 @@ def test_calldataload(
                                transaction calldata
 
     Based on
-    https://github.com/ethereum/tests/blob/
+    https://github.com/sila/tests/blob/
     ae4791077e8fcf716136e70fe8392f1a1f1495fb/src/
     GeneralStateTestsFiller/VMTests/vmTests/calldatacopyFiller.yml
     """

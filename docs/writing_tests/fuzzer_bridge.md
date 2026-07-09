@@ -1,10 +1,10 @@
 # Fuzzer Bridge
 
-The fuzzer bridge provides a seamless integration between blocktest fuzzers and the Ethereum execution-specs framework, enabling automatic generation of valid blockchain test fixtures from fuzzer output.
+The fuzzer bridge provides a seamless integration between blocktest fuzzers and the Sila execution-specs framework, enabling automatic generation of valid blockchain test fixtures from fuzzer output.
 
 ## Overview
 
-Fuzzers are excellent at generating test inputs to discover edge cases and bugs in Ethereum client implementations. However, creating valid blockchain tests from fuzzer-generated data requires complex calculations including:
+Fuzzers are excellent at generating test inputs to discover edge cases and bugs in Sila client implementations. However, creating valid blockchain tests from fuzzer-generated data requires complex calculations including:
 
 - State root computations
 - RLP encoding of blocks and transactions
@@ -19,7 +19,7 @@ The fuzzer bridge handles all these complexities automatically by leveraging the
 ```mermaid
 graph LR
     A[Blocktest<br/>Fuzzer] -->|JSON<br/>v2 format| B[Fuzzer<br/>Bridge]
-    B -->|Blockchain Test<br/>Fixtures| C[Ethereum<br/>Clients]
+    B -->|Blockchain Test<br/>Fixtures| C[Sila<br/>Clients]
 ```
 
 ## Installation
@@ -120,7 +120,7 @@ blocktest = bridge.convert(fuzzer_data)
 bridge.save(blocktest, "output.json")
 
 # Verify with a client
-result = bridge.verify_with_geth(blocktest, geth_path="../go-ethereum/build/bin/evm")
+result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/evm")
 print(f"Test passed: {result['pass']}")
 ```
 
@@ -166,7 +166,7 @@ All transactions are automatically signed using the provided private keys. The f
 
 1. Validates that each sender has a corresponding private key
 2. Signs transactions with the appropriate signature type for the fork
-3. Handles EIP-1559 transactions when base fee is present
+3. Handles SIP-1559 transactions when base fee is present
 4. Properly encodes legacy and typed transactions
 
 ## Troubleshooting
@@ -190,23 +190,23 @@ All transactions are automatically signed using the provided private keys. The f
 
 #### "Transaction type not supported in fork"
 
-- **Cause**: Using EIP-1559 transactions in pre-London forks
+- **Cause**: Using SIP-1559 transactions in pre-London forks
 - **Solution**: Ensure transaction types match the specified fork
 
 ## Testing with Clients
 
-Once you've generated blockchain test fixtures, verify them with Ethereum clients:
+Once you've generated blockchain test fixtures, verify them with Sila clients:
 
-### Go-Ethereum (geth)
+### Go-Sila (gsil)
 
 ```bash
-../go-ethereum/build/bin/evm blocktest generated_test.json
+../go-sila/build/bin/evm blocktest generated_test.json
 ```
 
 ### Besu
 
 ```bash
-../besu/ethereum/evmtool/build/install/evmtool/bin/evmtool block-test generated_test.json
+../besu/sila/evmtool/build/install/evmtool/bin/evmtool block-test generated_test.json
 ```
 
 ### Nethermind

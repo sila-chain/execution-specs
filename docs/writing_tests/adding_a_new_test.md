@@ -8,16 +8,16 @@ All test cases are located underneath the `tests` directory, which are then orga
 |   ├── 📄 __init__.py
 │   ├── 📁 cancun/
 |   |    ├── 📄 __init__.py
-│   |    └── 📁 eip4844_blobs/
+│   |    └── 📁 sip4844_blobs/
 |   |        ├── 📄 __init__.py
 |   |        ├── 📄 test_blobhash_opcode.py
 |   |        ├── 📄 test_excess_blob_gas.py
 |   |        └── 📄 ...
 |   ├── 📁 shanghai
-|   |    ├── 📁 eip3651_warm_coinbase
+|   |    ├── 📁 sip3651_warm_coinbase
 |   |    |   ├── 📄 __init__.py
 |   |    |   └── 📄 test_warm_coinbase.py
-|   |    ├── 📁 eip3855_push0
+|   |    ├── 📁 sip3855_push0
 |   |    |   ├── 📄 __init__.py
 |   |    |   └── 📄 test_push0.py
 |   |    ├── 📁...

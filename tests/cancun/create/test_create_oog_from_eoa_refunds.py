@@ -237,9 +237,9 @@ def build_init_code(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CreateOOGFromEOARefundsFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CreateOOGFromEOARefundsFiller.yml",
     ],
-    pr=["https://github.com/ethereum/execution-specs/pull/1831"],
+    pr=["https://github.com/sila/execution-specs/pull/1831"],
 )
 def test_create_oog_from_eoa_refunds(
     pre: Alloc,
@@ -263,7 +263,7 @@ def test_create_oog_from_eoa_refunds(
     """
     helpers = deploy_helper_contracts(pre)
     extra_gas = (
-        fork.is_eip_enabled(8037) and oog_scenario == OogScenario.NO_OOG
+        fork.is_sip_enabled(8037) and oog_scenario == OogScenario.NO_OOG
     )
     sender = pre.fund_eoa(amount=500_000_000 if extra_gas else 4_000_000)
     init_code = build_init_code(refund_type, oog_scenario, helpers)
@@ -328,13 +328,13 @@ def test_create_oog_from_eoa_refunds(
     else:
         # OOG case: contract not created
         post[created_address] = Account.NONEXISTENT
-        if fork.is_eip_enabled(8037):
-            # EIP-8037: execution state gas is returned to the
+        if fork.is_sip_enabled(8037):
+            # SIP-8037: execution state gas is returned to the
             # reservoir on top-level failure, so the sender retains
             # some balance (the refunded state gas × gas_price).
             post[sender] = Account(nonce=1)
         else:
-            # Pre-EIP-8037: sender balance is fully consumed
+            # Pre-SIP-8037: sender balance is fully consumed
             post[sender] = Account(nonce=1, balance=0)
 
     if refund_type == RefundType.SELFDESTRUCT:
@@ -354,7 +354,7 @@ def test_create_oog_from_eoa_refunds(
             )
 
     bal_expectation = None
-    if fork.is_eip_enabled(7928):
+    if fork.is_sip_enabled(7928):
         if oog_scenario == OogScenario.NO_OOG:
             # Success: storage write to slot 0 persists
             expected_nonce = (

@@ -25,11 +25,11 @@ REFERENCE_SPEC_VERSION = "1.0"
 # code from a cold contract. A chain A→B→C→D→E means 4 cold code
 # loads (2,600 gas each) but all SSTOREs write to A's storage. This
 # is the real-world pattern used by diamond proxies and modular
-# contract architectures (e.g., EIP-2535 Diamonds).
+# contract architectures (e.g., SIP-2535 Diamonds).
 #
 #   [Caller EOA]
 #       │
-#       └──► [Entry Contract A] (via EIP-7702 delegation)
+#       └──► [Entry Contract A] (via SIP-7702 delegation)
 #               │ DELEGATECALL ──► [Library B] (cold code load)
 #               │                     │ DELEGATECALL ──► [Library C]
 #               │                     │                     │ ...
@@ -51,7 +51,7 @@ REFERENCE_SPEC_VERSION = "1.0"
 #    - Takes a chain depth parameter and the library address list
 #    - Initiates the DELEGATECALL chain
 #
-# 3. Alternatively, use EIP-7702 delegation on an EOA:
+# 3. Alternatively, use SIP-7702 delegation on an EOA:
 #    - Authority EOA delegates to a "chain executor" contract
 #    - Chain executor DELEGATECALLs through the library contracts
 #    - SSTOREs land on the authority's storage
@@ -92,7 +92,7 @@ REFERENCE_SPEC_VERSION = "1.0"
 #   - DELEGATECALL(gas=GAS, next_hop, 0, CALLDATASIZE, 0, 0)
 #   - Or at leaf: SSTORE(CALLDATALOAD(0), CALLDATALOAD(32))
 #
-# The entry contract / EIP-7702 executor:
+# The entry contract / SIP-7702 executor:
 #   - Receives: [chain_depth, library_addrs[], slot, value]
 #   - Loops: for i in 0..chain_depth, DELEGATECALL to library[i]
 #   - Each library forwards to the next, final one does SSTORE

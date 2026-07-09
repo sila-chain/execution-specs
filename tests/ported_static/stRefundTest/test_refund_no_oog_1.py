@@ -6,13 +6,13 @@ state_tests/stRefundTest/refund_NoOOG_1Filler.json
 
 @manually-enhanced: Do not overwrite. The transaction supplies exactly
 enough gas to clear one cold storage slot (1 -> 0) and no more (the "no
-out-of-gas" boundary). EIP-8038 raises the cold SSTORE-clear charge from
+out-of-gas" boundary). SIP-8038 raises the cold SSTORE-clear charge from
 5000 to 13000, so the gas limit must rise by that charge delta to keep
 the slot clearing instead of running out of gas. The asserted sender
 balance equals its start minus `gas_used * gas_price`, and `gas_used`
-is the gross gas minus the storage-clear refund (capped by EIP-3529 only
+is the gross gas minus the storage-clear refund (capped by SIP-3529 only
 at Amsterdam). Both the gas limit bump and the balance shift are derived
-from the fork gas model and are exactly 0 pre-EIP-8037; do not hardcode
+from the fork gas model and are exactly 0 pre-SIP-8037; do not hardcode
 the Amsterdam values.
 """
 
@@ -66,7 +66,7 @@ def test_refund_no_oog_1(
         nonce=0,
     )
 
-    # EIP-8038 raises the cold SSTORE-clear charge and EIP-2780 shifts
+    # SIP-8038 raises the cold SSTORE-clear charge and SIP-2780 shifts
     # the tx intrinsic; bump the gas limit by both deltas so the clear
     # still lands exactly at the limit (the "no out-of-gas" boundary)
     # instead of running out of gas.
@@ -76,7 +76,7 @@ def test_refund_no_oog_1(
     cold_clear_delta = sstore_charge - 5000
     # ``return_cost_deducted_prior_execution=True`` returns the
     # upfront-deducted intrinsic only (Prague's calc would otherwise
-    # return ``max(intrinsic, EIP-7623 floor)``).
+    # return ``max(intrinsic, SIP-7623 floor)``).
     intrinsic = fork.transaction_intrinsic_cost_calculator()(
         return_cost_deducted_prior_execution=True,
     )
@@ -91,7 +91,7 @@ def test_refund_no_oog_1(
 
     # Gas used = gross gas minus the capped storage-clear refund. The
     # non-SSTORE gross gas comes from the fork's intrinsic calculator
-    # (covers TX_BASE and any EIP-2780 recipient surcharge) plus the
+    # (covers TX_BASE and any SIP-2780 recipient surcharge) plus the
     # two PUSH1s that feed the single SSTORE (STOP is free).
     gas_costs = fork.gas_costs()
     base_gross = intrinsic + 2 * gas_costs.VERY_LOW
@@ -103,7 +103,7 @@ def test_refund_no_oog_1(
 
     # Cancun charges 5000 for the clear and refunds 4800; subtracting the
     # same model evaluated at those constants and the Cancun base makes
-    # this exactly 0 before the EIP-8037/8038 repricing.
+    # this exactly 0 before the SIP-8037/8038 repricing.
     gas_used_delta = clear_gas_used(
         sstore_charge, gas_costs.REFUND_STORAGE_CLEAR, base_gross
     ) - clear_gas_used(5000, 4800, cancun_base_gross)

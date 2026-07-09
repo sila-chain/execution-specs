@@ -8,7 +8,7 @@ Run the full static analysis suite and fix issues. This matches the CI check on 
 just static
 ```
 
-This runs ruff, mypy, codespell, ethereum-spec-lint, and actionlint in one pass. If everything passes, you're done.
+This runs ruff, mypy, codespell, sila-spec-lint, and actionlint in one pass. If everything passes, you're done.
 
 ## Step 2: Auto-Fix Formatting and Lint Issues
 
@@ -29,7 +29,7 @@ just static
 - **Remaining ruff issues**: fix manually (auto-fix can't handle all rules)
 - **mypy errors**: fix type annotations, add missing types, correct signatures
 - **codespell errors**: fix typos, or add intentional words via `just whitelist <word>`
-- **ethereum-spec-lint errors**: fix import isolation violations (see `/implement-eip` for import rules)
+- **sila-spec-lint errors**: fix import isolation violations (see `/implement-sip` for import rules)
 - **actionlint errors**: fix workflow YAML issues (see `/edit-workflow`)
 
 ## Step 4: Final Verification

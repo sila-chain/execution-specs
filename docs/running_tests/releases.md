@@ -1,7 +1,7 @@
 # EELS Fixture Releases
 
 Test fixtures are published as feature-scoped releases on the
-[`ethereum/execution-specs`](https://github.com/ethereum/execution-specs/releases)
+[`sila/execution-specs`](https://github.com/sila/execution-specs/releases)
 repository: `tests@vX.Y.Z`, `<feat>-devnet@vX.Y.Z`, and `benchmark@vX.Y.Z`. Each release is
 a self-contained `.tar.gz` of JSON fixtures that execution clients consume in CI.
 
@@ -10,8 +10,8 @@ and how to consume them. To cut a new release, see
 [Releasing Test Fixtures](../dev/releasing_tests.md).
 
 !!! note "Fixture releases vs. the spec-package `vX.Y.Z` tags"
-    `ethereum/execution-specs` also publishes Python spec package releases tagged
-    `vX.Y.Z` (e.g. [`v2.20.0`](https://github.com/ethereum/execution-specs/releases/tag/v2.20.0)).
+    `sila/execution-specs` also publishes Python spec package releases tagged
+    `vX.Y.Z` (e.g. [`v2.20.0`](https://github.com/sila/execution-specs/releases/tag/v2.20.0)).
     Those contain no test fixtures, only the executable specification package.
     Fixture releases are the feature-scoped tags described on this page, and are never
     attached to the `vX.Y.Z` package tags. Every fixture tag starts with `tests`
@@ -25,15 +25,15 @@ and cadence.
 
 | Type      | Release name           | Artifact                        | Scope                                                                          | Built from              |
 | --------- | ---------------------- | ------------------------------- | ------------------------------------------------------------------------------ | ----------------------- |
-| Tests     | `tests@vX.Y.Z`         | `fixtures.tar.gz`               | All forks, all tests (eventually including `ethereum/tests` state tests)        | latest `forks/*` branch |
+| Tests     | `tests@vX.Y.Z`         | `fixtures.tar.gz`               | All forks, all tests (eventually including `sila/tests` state tests)        | latest `forks/*` branch |
 | Devnet    | `<feat>-devnet@vX.Y.Z` | `fixtures_<feat>-devnet.tar.gz` | All forks, all tests, for an upcoming-fork feature under active devnet testing   | the devnet branch       |
 | Benchmark | `benchmark@vX.Y.Z`     | `fixtures_benchmark.tar.gz`     | EVM benchmarking tests                                                          | latest `forks/*` branch |
 
 - "Tests" releases track clients' production branches and are tagged frequently (roughly
-  once or twice a week). They are the "must pass" release for mainnet CI, and supersede the
+  once or twice a week). They are the "must pass" release for sila-mainnet CI, and supersede the
   old `fixtures_stable` / `fixtures_develop` artifacts.
 - "Devnet" releases target a specific feature under active development (e.g. `bal-devnet`).
-  They are advisory/non-blocking and may not yet cover every EIP; see the corresponding
+  They are advisory/non-blocking and may not yet cover every SIP; see the corresponding
   release notes for the coverage provided.
 - "Benchmark" (and, in future, zkEVM) releases are produced separately for their
   specialized consumers.
@@ -72,8 +72,8 @@ command.
 
 | Format                                                               | Consumed by the client                                                                                                                                                                                                                                                                    | Location in `.tar.gz` release                                       |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [State Tests](./test_formats/state_test.md)                         | - directly via a `statetest`-like command<br/> (e.g., [go-ethereum/cmd/evm/staterunner.go](https://github.com/ethereum/go-ethereum/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go))                                                                                 | `./fixtures/state_tests/`                                           |
-| [Blockchain Tests](./test_formats/blockchain_test.md)               | - directly via a `blocktest`-like command<br/> (e.g., [go-ethereum/cmd/evm/blockrunner.go](https://github.com/ethereum/go-ethereum/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/blockrunner.go))</br>- using the [eels/consume-rlp Simulator](./running.md#rlp) via block import | `./fixtures/blockchain_tests/`                                      |
+| [State Tests](./test_formats/state_test.md)                         | - directly via a `statetest`-like command<br/> (e.g., [go-sila/cmd/evm/staterunner.go](https://github.com/sila/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go))                                                                                 | `./fixtures/state_tests/`                                           |
+| [Blockchain Tests](./test_formats/blockchain_test.md)               | - directly via a `blocktest`-like command<br/> (e.g., [go-sila/cmd/evm/blockrunner.go](https://github.com/sila/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/blockrunner.go))</br>- using the [eels/consume-rlp Simulator](./running.md#rlp) via block import | `./fixtures/blockchain_tests/`                                      |
 | [Blockchain Engine Tests](./test_formats/blockchain_test_engine.md) | - using the [eels/consume-engine Simulator](./running.md#engine) and the Engine API                                                                                                                                                                                                          | `./fixtures/blockchain_tests_engine/`                               |
 | [Blockchain Engine X Tests](./test_formats/blockchain_test_engine_x.md) | - using the [eels/consume-enginex Simulator](./running.md#enginex) and the Engine API, reusing a client per pre-allocation group | `./fixtures/blockchain_tests_engine_x/` |
 | [Transaction Tests](./test_formats/transaction_test.md)             | - using a new simulator coming soon                                                                                                                                                                                                                                                       | None; executed directly from Python source,</br>using a release tag |
@@ -96,20 +96,20 @@ fixtures/
 └── blockchain_tests/
     ├── for_prague/                   # filled targeting Prague
     │   ├── istanbul/                 # tests introduced in Istanbul
-    │   │   └── eip1344_chainid/...
+    │   │   └── sip1344_chainid/...
     │   ├── cancun/                   # tests introduced in Cancun
-    │   │   └── eip4844_blobs/...
+    │   │   └── sip4844_blobs/...
     │   └── prague/                   # tests introduced in Prague
-    │       └── eip7702_set_code_tx/...
+    │       └── sip7702_set_code_tx/...
     └── for_osaka/                    # filled targeting Osaka
         ├── istanbul/
-        │   └── eip1344_chainid/...
+        │   └── sip1344_chainid/...
         ├── cancun/
-        │   └── eip4844_blobs/...
+        │   └── sip4844_blobs/...
         ├── prague/
-        │   └── eip7702_set_code_tx/...
+        │   └── sip7702_set_code_tx/...
         └── osaka/                    # tests introduced in Osaka
-            └── eip7692_eof_v1/...
+            └── sip7692_eof_v1/...
 ```
 
 Other format directories (`state_tests/`, `blockchain_tests_engine/`)
@@ -176,7 +176,7 @@ uv run consume cache --input=bal-devnet@v7.0.0
 Raw tarballs can also be fetched directly with the GitHub CLI:
 
 ```bash
-gh release download tests-bal-devnet@v7.0.0 --repo ethereum/execution-specs --pattern '*.tar.gz'
+gh release download tests-bal-devnet@v7.0.0 --repo sila/execution-specs --pattern '*.tar.gz'
 ```
 
 To create a release, see [Releasing Test Fixtures](../dev/releasing_tests.md).

@@ -172,7 +172,7 @@ Gas costs can vary between forks. Always specify the fork when calculating:
 ```python
 from execution_testing.forks import Shanghai, Osaka, Paris
 
-# CREATE gas costs differ between forks (EIP-3860 in Shanghai)
+# CREATE gas costs differ between forks (SIP-3860 in Shanghai)
 create_op = Op.CREATE(init_code_size=100, new_memory_size=100)
 
 shanghai_gas = create_op.gas_cost(Shanghai)

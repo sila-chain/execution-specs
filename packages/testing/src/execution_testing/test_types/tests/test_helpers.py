@@ -1,4 +1,4 @@
-"""Test suite for `ethereum_test.helpers` module."""
+"""Test suite for `sila_test.helpers` module."""
 
 import pytest
 
@@ -8,7 +8,7 @@ from ..helpers import compute_create2_address, compute_create_address
 
 
 def test_address() -> None:
-    """Test `ethereum_test.base_types.Address`."""
+    """Test `sila_test.base_types.Address`."""
     assert (
         Address("0x0000000000000000000000000000000000000000")
         == "0x0000000000000000000000000000000000000000"
@@ -70,11 +70,11 @@ def test_compute_create_address(
     address: str | int, nonce: int, expected_contract_address: str
 ) -> None:
     """
-    Test `ethereum_test.helpers.compute_create_address` with some famous
+    Test `sila_test.helpers.compute_create_address` with some famous
     contracts:
-    - https://etherscan.io/address/0x863df6bfa4469f3ead0be8f9f2aae51c91a907b4
-    - https://etherscan.io/address/0x7a250d5630b4cf539739df2c5dacb4c659f2488d
-    - https://etherscan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d.
+    - https://silascan.io/address/0x863df6bfa4469f3ead0be8f9f2aae51c91a907b4
+    - https://silascan.io/address/0x7a250d5630b4cf539739df2c5dacb4c659f2488d
+    - https://silascan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d.
 
     """
     assert (
@@ -140,9 +140,9 @@ def test_compute_create2_address(
     expected_contract_address: str,
 ) -> None:
     """
-    Test `ethereum_test.helpers.compute_create2_address` using the CREATE2 geth
+    Test `sila_test.helpers.compute_create2_address` using the CREATE2 gsil
     test cases from:
-    https://github.com/ethereum/go-ethereum/blob/2189773093b2fe6d161b6477589f964470ff5bce/core/vm/instructions_test.go.
+    https://github.com/sila/go-sila/blob/2189773093b2fe6d161b6477589f964470ff5bce/core/vm/instructions_test.go.
 
     Note: `compute_create2_address` does not generate checksum addresses.
     """  # noqa: E501

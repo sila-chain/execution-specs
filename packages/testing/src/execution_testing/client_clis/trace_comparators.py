@@ -6,7 +6,7 @@ from typing import Annotated, Literal, Union
 
 from pydantic import Field
 
-from execution_testing.base_types import EthereumTestBaseModel
+from execution_testing.base_types import SilaTestBaseModel
 from execution_testing.client_clis.cli_types import (
     TraceLine,
     Traces,
@@ -42,7 +42,7 @@ def _format_trace_line_diff(
     return f"{trace_line.op_name} ({fields_str})"
 
 
-class TraceDifference(EthereumTestBaseModel):
+class TraceDifference(SilaTestBaseModel):
     """A difference between baseline and current trace at a specific line."""
 
     # Tag used by the discriminated union in ``TraceComparisonResult`` so
@@ -74,7 +74,7 @@ AnyTraceDifference = Annotated[
 ]
 
 
-class TraceComparisonResult(EthereumTestBaseModel):
+class TraceComparisonResult(SilaTestBaseModel):
     """Result of comparing two Traces objects."""
 
     equivalent: bool
@@ -217,9 +217,9 @@ def _is_out_of_gas_error(error: str | None) -> bool:
     if error is None:
         return False
     s = error.lower()
-    # Two trace conventions coexist: geth-style natural-language messages
+    # Two trace conventions coexist: gsil-style natural-language messages
     # ("out of gas", "contract creation code storage out of gas") and the
-    # EELS EIP-3155 emitter, which writes the Python exception class name
+    # EELS SIP-3155 emitter, which writes the Python exception class name
     # ("OutOfGasError"). The class name has no spaces, so the substring
     # match alone misses it — match it explicitly.
     return "out of gas" in s or s == "outofgaserror"

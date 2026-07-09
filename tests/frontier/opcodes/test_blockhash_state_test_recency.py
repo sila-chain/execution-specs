@@ -3,11 +3,11 @@ State-test regression for the BLOCKHASH (0x40) opcode recency window.
 
 In a *state test*, nethermind returns a non-zero hash for
 ``BLOCKHASH(0)`` even when block 0 lies far outside the recency window (256
-blocks pre-Prague, 8191 via EIP-2935 from Prague). eels (the reference),
-go-ethereum, besu, erigon, evmone and reth all correctly return 0.
+blocks pre-Prague, 8191 via SIP-2935 from Prague). eels (the reference),
+go-sila, besu, erigon, evmone and rsil all correctly return 0.
 
 Root cause (nethermind, state-test only):
-``src/Nethermind/Ethereum.Test.Base/TestBlockhashProvider.cs`` implements::
+``src/Nethermind/Sila.Test.Base/TestBlockhashProvider.cs`` implements::
 
     number != 0 ? Keccak.Zero : Keccak.Compute(number.ToString())
 
@@ -16,7 +16,7 @@ It performs no recency-window check, and the opcode handler
 that check to the provider -- it only rejects ``number >= current``. So
 ``BLOCKHASH(0)`` returns ``keccak256("0")`` regardless of how ancient block
 0 is. Nethermind's *production* ``BlockhashProvider`` does enforce the
-window, so this is a state-test tooling bug, not a mainnet consensus bug --
+window, so this is a state-test tooling bug, not a sila-mainnet consensus bug --
 but it makes nethermind diverge under differential state-test fuzzing.
 """
 
@@ -33,7 +33,7 @@ from execution_testing import (
 )
 
 # keccak256(b"0") -- the state-test convention hash for block 0 used by both
-# go-ethereum (vmTestBlockHash) and nethermind (TestBlockhashProvider). The
+# go-sila (vmTestBlockHash) and nethermind (TestBlockhashProvider). The
 # fuzzer sets env.previousHash to exactly this value so the in-window
 # block-0 hash agrees across clients.
 KECCAK_OF_BLOCK_0 = Hash(
@@ -91,7 +91,7 @@ def test_blockhash_zero_out_of_window(
     tx = Transaction(
         sender=sender,
         to=contract,
-        protected=False,  # legacy tx so it fills on pre-EIP-155 forks too
+        protected=False,  # legacy tx so it fills on pre-SIP-155 forks too
     )
 
     state_test(
@@ -117,7 +117,7 @@ def test_blockhash_zero_in_window_control(
     to the state-test convention value ``keccak256("0")``, all clients --
     including nethermind -- agree on the result, pinning the window boundary.
 
-    Restricted to <= Cancun because EIP-2935 (Prague+) serves BLOCKHASH from
+    Restricted to <= Cancun because SIP-2935 (Prague+) serves BLOCKHASH from
     the history storage contract, which is not pre-populated in a bare state
     test.
     Marked ``state_test_only``: the asserted non-zero hash would not match the
@@ -135,7 +135,7 @@ def test_blockhash_zero_in_window_control(
     tx = Transaction(
         sender=sender,
         to=contract,
-        protected=False,  # legacy tx so it fills on pre-EIP-155 forks too
+        protected=False,  # legacy tx so it fills on pre-SIP-155 forks too
     )
 
     state_test(

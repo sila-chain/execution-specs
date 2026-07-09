@@ -1,3 +1,3 @@
-# Ethereum Test Exceptions package
+# Sila Test Exceptions package
 
 ::: execution_testing.exceptions

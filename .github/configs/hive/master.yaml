@@ -1,15 +1,15 @@
 # This is a Hive client configuration file that uses master/main client builds
-# from the ethquokkaops / ethpandaops container registry.
+# from the silquokkaops / silpandaops container registry.
 #
 # The latest available configurations are here:
-# https://github.com/ethpandaops/eth-client-docker-image-builder/blob/master/branches.yaml
+# https://github.com/silpandaops/sil-client-docker-image-builder/blob/master/branches.yaml
 
 # Besu
 # https://github.com/hyperledger/besu
 - client: besu
   nametag: default
   build_args:
-    baseimage: docker.ethquokkaops.io/dh/ethpandaops/besu
+    baseimage: docker.silquokkaops.io/dh/silpandaops/besu
     tag: main
 
 # Erigon
@@ -17,45 +17,45 @@
 - client: erigon
   nametag: default
   build_args:
-    baseimage: docker.ethquokkaops.io/dh/ethpandaops/erigon
+    baseimage: docker.silquokkaops.io/dh/silpandaops/erigon
     tag: main
 
-# Ethrex
-# https://github.com/lambdaclass/ethrex
-- client: ethrex
+# Silrex
+# https://github.com/lambdaclass/silrex
+- client: silrex
   nametag: default
   build_args:
-    baseimage: docker.ethquokkaops.io/dh/ethpandaops/ethrex
+    baseimage: docker.silquokkaops.io/dh/silpandaops/silrex
     tag: main
 
-# Geth (Go-Ethereum)
-# https://github.com/ethereum/go-ethereum
-- client: go-ethereum
+# Gsil (Go-Sila)
+# https://github.com/sila/go-sila
+- client: go-sila
   nametag: default
   build_args:
-    baseimage: docker.ethquokkaops.io/dh/ethpandaops/geth
+    baseimage: docker.silquokkaops.io/dh/silpandaops/gsil
     tag: master
 
 # Nethermind
-# https://github.com/NethermindEth/nethermind
+# https://github.com/NethermindSil/nethermind
 - client: nethermind
   nametag: default
   build_args:
-    baseimage: docker.ethquokkaops.io/dh/ethpandaops/nethermind
+    baseimage: docker.silquokkaops.io/dh/silpandaops/nethermind
     tag: master
 
 # Nimbus EL
-# https://github.com/status-im/nimbus-eth1
+# https://github.com/status-im/nimbus-sil1
 - client: nimbus-el
   nametag: default
   build_args:
-    baseimage: docker.ethquokkaops.io/dh/ethpandaops/nimbus-eth1
+    baseimage: docker.silquokkaops.io/dh/silpandaops/nimbus-sil1
     tag: master
 
-# Reth
-# https://github.com/paradigmxyz/reth
-- client: reth
+# Rsil
+# https://github.com/paradigmxyz/rsil
+- client: rsil
   nametag: default
   build_args:
-    baseimage: docker.ethquokkaops.io/dh/ethpandaops/reth
+    baseimage: docker.silquokkaops.io/dh/silpandaops/rsil
     tag: main

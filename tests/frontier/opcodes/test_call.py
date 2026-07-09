@@ -14,7 +14,7 @@ from execution_testing import (
 
 
 # TODO: There's an issue with gas definitions on forks previous to Berlin,
-# remove this when fixed. https://github.com/ethereum/execution-spec-
+# remove this when fixed. https://github.com/sila/execution-spec-
 # tests/pull/1952#discussion_r2237634275
 @pytest.mark.valid_from("Berlin")
 def test_call_large_offset_mstore(
@@ -78,7 +78,7 @@ def test_call_large_offset_mstore(
 
 
 # TODO: There's an issue with gas definitions on forks previous to Berlin,
-# remove this when fixed. https://github.com/ethereum/execution-spec-
+# remove this when fixed. https://github.com/sila/execution-spec-
 # tests/pull/1952#discussion_r2237634275
 @pytest.mark.valid_from("Berlin")
 def test_call_memory_expands_on_early_revert(
@@ -137,7 +137,7 @@ def test_call_memory_expands_on_early_revert(
         Op.CALL(
             address_warm=False,
             value_transfer=True,
-            account_new=not fork.is_eip_enabled(8037),  # TODO: Gas calc check
+            account_new=not fork.is_sip_enabled(8037),  # TODO: Gas calc check
             new_memory_size=ret_size,
         ).gas_cost(fork)
         - gsc.CALL_STIPEND
@@ -161,7 +161,7 @@ def test_call_memory_expands_on_early_revert(
 
 
 # TODO: There's an issue with gas definitions on forks previous to Berlin,
-# remove this when fixed. https://github.com/ethereum/execution-spec-
+# remove this when fixed. https://github.com/sila/execution-spec-
 # tests/pull/1952#discussion_r2237634275
 @pytest.mark.with_all_call_opcodes
 @pytest.mark.valid_from("Berlin")

@@ -5,7 +5,7 @@ their versioning, and consumption guidance, see
 [EELS Fixture Releases](../running_tests/releases.md).
 
 Fixture releases are produced by manually dispatching the
-[`release_fixtures.yaml`](https://github.com/ethereum/execution-specs/blob/master/.github/workflows/release_fixtures.yaml)
+[`release_fixtures.yaml`](https://github.com/sila/execution-specs/blob/master/.github/workflows/release_fixtures.yaml)
 workflow. There is no tag to push by hand. The workflow builds the fixtures and, only on
 success, creates the tag and the (draft) GitHub release.
 
@@ -20,17 +20,17 @@ gh workflow run release_fixtures.yaml -f feature=<feature> -f version=vX.Y.Z [-f
 | `feature`  | yes               | Feature name, e.g. `tests`, `benchmark`, or a `<feat>-devnet` name.                                   |
 | `version`  | yes               | Release version `vX.Y.Z` (validated against `^v[0-9]+\.[0-9]+\.[0-9]+$`). Tagged as `tests-<feature>@<version>` (the `tests` feature tags as `tests@<version>`). |
 | `branch`   | devnet only       | Branch to build and release from. Optional for non-devnet features; **required** for devnet releases. |
-| `evm`      | no                | Override the evm impl (e.g. `geth`, `evmone`). Defaults to the feature's `evm-type` in `feature.yaml`. |
-| `evm_repo` | no                | Override the t8n tool repo (e.g. `ethereum/go-ethereum`).                                              |
+| `evm`      | no                | Override the evm impl (e.g. `gsil`, `evmone`). Defaults to the feature's `evm-type` in `feature.yaml`. |
+| `evm_repo` | no                | Override the t8n tool repo (e.g. `sila/go-sila`).                                              |
 | `evm_ref`  | no                | Override the t8n tool branch / tag / commit.                                                          |
 
 `<feature>` must be a key in
-[`.github/configs/feature.yaml`](https://github.com/ethereum/execution-specs/blob/master/.github/configs/feature.yaml)
+[`.github/configs/feature.yaml`](https://github.com/sila/execution-specs/blob/master/.github/configs/feature.yaml)
 (e.g. `tests`, `benchmark`), or a `<feat>-devnet` name that resolves to the shared `devnet`
 feature.
 
 Input validation runs in
-[`generate_build_matrix.py`](https://github.com/ethereum/execution-specs/blob/master/.github/scripts/generate_build_matrix.py)
+[`generate_build_matrix.py`](https://github.com/sila/execution-specs/blob/master/.github/scripts/generate_build_matrix.py)
 (unit-tested) before any fixtures are built, and fails fast on:
 
 - an empty `feature` or a `version` that is not `vX.Y.Z`;
@@ -63,7 +63,7 @@ On success the workflow:
    no doubled prefix) on the released commit (the SHA resolved once from the `branch` HEAD when
    given, otherwise the dispatch commit).
 3. Publishes a **draft pre-release** to
-   [`ethereum/execution-specs`](https://github.com/ethereum/execution-specs/releases), titled
+   [`sila/execution-specs`](https://github.com/sila/execution-specs/releases), titled
    the same as the git tag, with the fixture tarball(s) attached.
 
 | Example dispatch | Git tag | Release title | Artifact |
@@ -80,7 +80,7 @@ The release is created as a draft; review and publish it from the GitHub release
    releasing (e.g. the next `tests` release after `tests@v24.1.0` is `tests@v24.1.1` for a
    non-breaking/new-tests bump, or `tests@v24.2.0` for a consensus-breaking spec change).
 2. **Dispatch the workflow** from the
-   [Actions tab](https://github.com/ethereum/execution-specs/actions/workflows/release_fixtures.yaml)
+   [Actions tab](https://github.com/sila/execution-specs/actions/workflows/release_fixtures.yaml)
    or via the CLI:
 
    ```bash
@@ -94,7 +94,7 @@ The release is created as a draft; review and publish it from the GitHub release
    fixture tarball attached. If any job fails, no tag or release is created — fix the cause
    and re-dispatch.
 4. **Review and publish the draft.** Open the draft on the
-   [releases page](https://github.com/ethereum/execution-specs/releases), check the
+   [releases page](https://github.com/sila/execution-specs/releases), check the
    auto-generated notes (anchored at the prior release on the same feature via
    `--notes-start-tag`), and click *Publish release* when ready.
 

@@ -1,4 +1,4 @@
-"""Expect section structure of ethereum/tests fillers."""
+"""Expect section structure of sila/tests fillers."""
 
 import re
 from enum import StrEnum
@@ -17,7 +17,7 @@ from execution_testing.base_types import (
     Account,
     Address,
     CamelModel,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     HexNumber,
     Storage,
 )
@@ -53,7 +53,7 @@ def validate_any_string_as_none(v: Any) -> Any:
     return v
 
 
-class StorageInExpectSection(EthereumTestRootModel, TagDependentData):
+class StorageInExpectSection(SilaTestRootModel, TagDependentData):
     """Class that represents a storage in expect section filler."""
 
     root: Dict[
@@ -165,7 +165,7 @@ class ForkConstraint(BaseModel):
     @classmethod
     def parse_fork_synonyms(cls, value: Any) -> Any:
         """Resolve fork synonyms."""
-        if value == "EIP158":
+        if value == "SIP158":
             value = "Byzantium"
         return value
 
@@ -204,7 +204,7 @@ class ForkConstraint(BaseModel):
                 raise ValueError(f"Invalid operand: {self.operand}")
 
 
-class ForkSet(EthereumTestRootModel):
+class ForkSet(SilaTestRootModel):
     """Set of forks."""
 
     root: Set[Fork]
@@ -260,7 +260,7 @@ class ForkSet(EthereumTestRootModel):
         return len(self.root)
 
 
-class ResultInFiller(EthereumTestRootModel, TagDependentData):
+class ResultInFiller(SilaTestRootModel, TagDependentData):
     """
     Post section in state test filler.
 
@@ -311,7 +311,7 @@ class ResultInFiller(EthereumTestRootModel, TagDependentData):
         return len(self.root)
 
 
-class ExpectException(EthereumTestRootModel):
+class ExpectException(SilaTestRootModel):
     """Expect exception model."""
 
     root: Dict[ForkSet, TransactionExceptionInstanceOrList]

@@ -168,7 +168,7 @@ def get_import_path(path: Path) -> str:
 
 def create_github_issue_url(title: str) -> str:
     """Create a GitHub issue URL for the given title."""
-    url_base = "https://github.com/ethereum/execution-spec-tests/issues/new?"
+    url_base = "https://github.com/sila/execution-spec-tests/issues/new?"
     title = title.replace(" ", "%20")
     labels = "scope:docs,type:bug"
     return f"{url_base}title={title}&labels={labels}"
@@ -361,12 +361,12 @@ class TestDocsGenerator:
         deploys a version of the site underneath a sub-directory named after
         the version, e.g.:
 
-        - https://eest.ethereum.org/main/
-        - https://eest.ethereum.org/v4.1.0/
+        - https://eest.sila.org/main/
+        - https://eest.sila.org/v4.1.0/
 
         We need to be able to include the javascript available at:
 
-        - https://eest.ethereum.org/main/javascripts/site.js
+        - https://eest.sila.org/main/javascripts/site.js
         """
         ci = os.getenv("CI", None)
         github_ref_name = os.getenv("GITHUB_REF_NAME", None)
@@ -697,8 +697,8 @@ class TestDocsGenerator:
 
             - ("Test Case Reference",) -> tests/index.md
             - ("Test Case Reference", "Berlin") -> tests/berlin/index.md
-            - ("Test Case Reference", "Shanghai", "EIP-3855 PUSH0", "Spec") ->
-            tests/shanghai/eip3855_push0/spec.py
+            - ("Test Case Reference", "Shanghai", "SIP-3855 PUSH0", "Spec") ->
+            tests/shanghai/sip3855_push0/spec.py
 
             This function provides and ordering to sort nav men entries as
             follows:

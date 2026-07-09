@@ -4,7 +4,7 @@
 #     "click",
 # ]
 # ///
-"""Build a devnet branch by merging EIP branches onto a fork base."""
+"""Build a devnet branch by merging SIP branches onto a fork base."""
 
 from __future__ import annotations
 
@@ -17,10 +17,10 @@ from collections.abc import Sequence
 
 import click
 
-EIP_PATTERN = re.compile(r"^[0-9]+(?:\+[0-9]+)*$")
+SIP_PATTERN = re.compile(r"^[0-9]+(?:\+[0-9]+)*$")
 CANONICAL_REMOTE_SUFFIXES = (
-    "ethereum/execution-specs",
-    "ethereum/execution-specs.git",
+    "sila/execution-specs",
+    "sila/execution-specs.git",
 )
 
 
@@ -57,7 +57,7 @@ def run_static_checks_suite() -> None:
         ["uv", "run", "ruff", "check"],
         ["uv", "run", "ruff", "format", "--check"],
         ["uv", "run", "mypy"],
-        ["uv", "run", "ethereum-spec-lint"],
+        ["uv", "run", "sila-spec-lint"],
         ["uv", "lock", "--check"],
     ]
     # Keep local and CI dry-runs deterministic: do not invoke actionlint,
@@ -67,22 +67,22 @@ def run_static_checks_suite() -> None:
         run_command(command)
 
 
-def parse_eip_numbers(raw_eip_numbers: str) -> list[str]:
-    """Parse a comma-separated list of EIP numbers."""
-    eip_numbers: list[str] = []
-    for raw_eip in raw_eip_numbers.split(","):
-        eip = raw_eip.strip()
-        if not eip:
+def parse_sip_numbers(raw_sip_numbers: str) -> list[str]:
+    """Parse a comma-separated list of SIP numbers."""
+    sip_numbers: list[str] = []
+    for raw_sip in raw_sip_numbers.split(","):
+        sip = raw_sip.strip()
+        if not sip:
             continue
-        if EIP_PATTERN.fullmatch(eip) is None:
+        if SIP_PATTERN.fullmatch(sip) is None:
             raise ValueError(
-                f"Invalid EIP number '{eip}'. "
+                f"Invalid SIP number '{sip}'. "
                 "Expected digits optionally joined by '+'."
             )
-        eip_numbers.append(eip)
-    if not eip_numbers:
-        raise ValueError("No EIP numbers were provided.")
-    return eip_numbers
+        sip_numbers.append(sip)
+    if not sip_numbers:
+        raise ValueError("No SIP numbers were provided.")
+    return sip_numbers
 
 
 def ensure_clean_tracked_worktree() -> None:
@@ -136,7 +136,7 @@ def merge_in_progress() -> bool:
 
 
 def detect_canonical_remote() -> str:
-    """Find the remote pointing to ethereum/execution-specs."""
+    """Find the remote pointing to sila/execution-specs."""
     remote_names = get_git_output(["remote"]).splitlines()
     matching_remotes: list[str] = []
 
@@ -148,14 +148,14 @@ def detect_canonical_remote() -> str:
 
     if not matching_remotes:
         raise RuntimeError(
-            "Could not find a git remote for ethereum/execution-specs. "
+            "Could not find a git remote for sila/execution-specs. "
             "Pass --remote explicitly."
         )
 
     if len(matching_remotes) > 1:
         matches = ", ".join(sorted(matching_remotes))
         raise RuntimeError(
-            "Found multiple git remotes for ethereum/execution-specs: "
+            "Found multiple git remotes for sila/execution-specs: "
             f"{matches}. Pass --remote explicitly."
         )
 
@@ -237,14 +237,14 @@ def abort_in_progress_merge() -> None:
     run_git(["merge", "--abort"])
 
 
-def merge_eip_branch(
+def merge_sip_branch(
     devnet_branch: str,
-    eip_branch: str,
-    eip_ref: str,
+    sip_branch: str,
+    sip_ref: str,
 ) -> None:
-    """Merge one EIP branch into the current devnet branch."""
-    message = f"Merge {eip_branch} into {devnet_branch}"
-    print(f"Merging {eip_ref} into {devnet_branch}")
+    """Merge one SIP branch into the current devnet branch."""
+    message = f"Merge {sip_branch} into {devnet_branch}"
+    print(f"Merging {sip_ref} into {devnet_branch}")
     try:
         run_git(
             [
@@ -253,7 +253,7 @@ def merge_eip_branch(
                 "--no-edit",
                 "-m",
                 message,
-                eip_ref,
+                sip_ref,
             ]
         )
     except subprocess.CalledProcessError as error:
@@ -282,17 +282,17 @@ def push_branch(remote: str, devnet_branch: str) -> None:
     help=("Devnet name suffix, for example 'bal/3' to build devnets/bal/3."),
 )
 @click.option(
-    "--eip-numbers",
+    "--sip-numbers",
     required=True,
-    help="Comma-separated EIP numbers, e.g. '8024,7843,7708,7778'.",
+    help="Comma-separated SIP numbers, e.g. '8024,7843,7708,7778'.",
 )
 @click.option(
     "--remote",
     default=None,
     help=(
-        "Git remote containing the fork, EIP, and devnet branches. "
+        "Git remote containing the fork, SIP, and devnet branches. "
         "Defaults to the remote whose URL points to "
-        "ethereum/execution-specs."
+        "sila/execution-specs."
     ),
 )
 @click.option(
@@ -315,20 +315,20 @@ def push_branch(remote: str, devnet_branch: str) -> None:
     is_flag=True,
     default=False,
     help=(
-        "Prefer existing local fork and EIP branches when present. "
+        "Prefer existing local fork and SIP branches when present. "
         "Otherwise fall back to the remote."
     ),
 )
 def main(
     fork: str,
     devnet_name: str,
-    eip_numbers: str,
+    sip_numbers: str,
     remote: str | None,
     push: bool,
     run_static_checks: bool,
     use_local_branches: bool,
 ) -> None:
-    """Build a devnet branch from a fork base and EIP branches."""
+    """Build a devnet branch from a fork base and SIP branches."""
     devnet_branch = f"devnets/{devnet_name}"
     original_branch: str | None = None
     restore_original_branch_at_exit = False
@@ -338,19 +338,19 @@ def main(
     try:
         original_branch = get_current_branch()
         resolved_remote = remote or detect_canonical_remote()
-        parsed_eip_numbers = parse_eip_numbers(eip_numbers)
+        parsed_sip_numbers = parse_sip_numbers(sip_numbers)
         fork_branch = f"forks/{fork}"
 
         ensure_clean_tracked_worktree()
         ensure_valid_branch_name(devnet_branch)
         ensure_valid_branch_name(fork_branch)
 
-        eip_branches = [
-            f"eips/{fork}/eip-{eip_number}"
-            for eip_number in parsed_eip_numbers
+        sip_branches = [
+            f"sips/{fork}/sip-{sip_number}"
+            for sip_number in parsed_sip_numbers
         ]
-        for eip_branch in eip_branches:
-            ensure_valid_branch_name(eip_branch)
+        for sip_branch in sip_branches:
+            ensure_valid_branch_name(sip_branch)
 
         run_git(["fetch", resolved_remote, "--prune"])
 
@@ -359,20 +359,20 @@ def main(
             remote=resolved_remote,
             use_local_branches=use_local_branches,
         )
-        eip_refs = {
-            eip_branch: resolve_branch_ref(
-                branch=eip_branch,
+        sip_refs = {
+            sip_branch: resolve_branch_ref(
+                branch=sip_branch,
                 remote=resolved_remote,
                 use_local_branches=use_local_branches,
             )
-            for eip_branch in eip_branches
+            for sip_branch in sip_branches
         }
 
         create_devnet_branch(devnet_branch, fork_ref)
         restore_original_branch_at_exit = True
 
-        for eip_branch in eip_branches:
-            merge_eip_branch(devnet_branch, eip_branch, eip_refs[eip_branch])
+        for sip_branch in sip_branches:
+            merge_sip_branch(devnet_branch, sip_branch, sip_refs[sip_branch])
 
         if run_static_checks:
             print("Running static checks on the assembled devnet branch")

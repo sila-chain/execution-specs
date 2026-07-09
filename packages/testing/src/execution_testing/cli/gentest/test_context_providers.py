@@ -48,20 +48,20 @@ class StateTestProvider(Provider):
         """Make RPC calls to fetch transaction and block data."""
         request = RPCRequest()
         print(
-            f"Perform tx request: eth_get_transaction_by_hash"
+            f"Perform tx request: sil_get_transaction_by_hash"
             f"({self.transaction_hash})",
             file=stderr,
         )
-        self.transaction_response = request.eth_get_transaction_by_hash(
+        self.transaction_response = request.sil_get_transaction_by_hash(
             self.transaction_hash
         )
 
         print("Perform debug_trace_call", file=stderr)
         self.state = request.debug_trace_call(self.transaction_response)
 
-        print("Perform eth_get_block_by_number", file=stderr)
+        print("Perform sil_get_block_by_number", file=stderr)
         assert self.transaction_response.block_number is not None
-        self.block = request.eth_get_block_by_number(
+        self.block = request.sil_get_block_by_number(
             int(self.transaction_response.block_number)
         )
 

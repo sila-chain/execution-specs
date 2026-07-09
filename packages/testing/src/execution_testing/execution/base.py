@@ -1,4 +1,4 @@
-"""Ethereum test execution base types."""
+"""Sila test execution base types."""
 
 from abc import abstractmethod
 from typing import Annotated, Any, ClassVar, Dict, Type
@@ -78,7 +78,7 @@ class BaseExecute(CamelModel):
     def execute(
         self,
         fork: Fork,
-        eth_rpc: EthRPC,
+        sil_rpc: EthRPC,
         engine_rpc: EngineRPC | None,
         request: FixtureRequest,
     ) -> ExecuteResult:

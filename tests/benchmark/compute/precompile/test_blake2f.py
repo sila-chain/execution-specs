@@ -16,8 +16,8 @@ from execution_testing import (
     WhileGas,
 )
 
-from tests.istanbul.eip152_blake2.common import Blake2bInput
-from tests.istanbul.eip152_blake2.spec import Spec as Blake2bSpec
+from tests.istanbul.sip152_blake2.common import Blake2bInput
+from tests.istanbul.sip152_blake2.spec import Spec as Blake2bSpec
 
 from ..helpers import Precompile
 

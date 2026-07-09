@@ -13,7 +13,7 @@ from execution_testing.client_clis import (
     CLINotFoundInPathError,
     EvmOneTransitionTool,
     ExecutionSpecsTransitionTool,
-    GethTransitionTool,
+    GsilTransitionTool,
     NimbusTransitionTool,
     TransitionTool,
 )
@@ -41,7 +41,7 @@ def test_default_tool() -> None:
             Path("evm"),
             "evm",
             "evm version 1.12.1-unstable-c7b099b2-20230627",
-            GethTransitionTool,
+            GsilTransitionTool,
         ),
         (
             Path("evmone"),
@@ -50,9 +50,9 @@ def test_default_tool() -> None:
             EvmOneTransitionTool,
         ),
         pytest.param(
-            Path("ethereum-spec-evm"),
-            "ethereum-spec-evm",
-            "ethereum-spec-evm",
+            Path("sila-spec-evm"),
+            "sila-spec-evm",
+            "sila-spec-evm",
             ExecutionSpecsTransitionTool,
             marks=pytest.mark.skip(
                 reason=(

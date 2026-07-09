@@ -632,7 +632,7 @@ def test_contract_creation_spam(
     )
 
     gas_limit = 10000000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         gas_limit += 100 * fork.gas_costs().NEW_ACCOUNT
     tx = Transaction(
         sender=sender,
@@ -642,7 +642,7 @@ def test_contract_creation_spam(
     )
 
     contract_0_storage = Storage.model_validate({0: 0x10C20})
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         contract_0_storage = Storage.model_validate({})
         contract_0_storage.set_expect_any(0)
     post = {

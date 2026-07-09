@@ -40,7 +40,7 @@ def release_information() -> List[ReleaseInformation]:
             "tests@latest",
             "tests%40v20.0.0/fixtures.tar.gz",
         ),
-        # A bare `latest` or `vX.Y.Z` resolves the mainnet `tests` release.
+        # A bare `latest` or `vX.Y.Z` resolves the sila-mainnet `tests` release.
         (
             "latest",
             "tests%40v20.0.0/fixtures.tar.gz",
@@ -97,7 +97,7 @@ def test_eels_release_parsing(
 ) -> None:
     """Test parsing of the `tests[-<feature>]@vX.Y.Z` tag scheme."""
     assert (
-        "https://github.com/ethereum/execution-specs/releases/download/"
+        "https://github.com/sila/execution-specs/releases/download/"
         + expected_release_download_url
     ) == get_release_url_from_release_information(
         release_name, release_information
@@ -126,7 +126,7 @@ def test_legacy_release_parsing(
 ) -> None:
     """Test legacy `stable`/`develop` releases still resolve."""
     assert (
-        "https://github.com/ethereum/execution-spec-tests/releases/download/"
+        "https://github.com/sila/execution-spec-tests/releases/download/"
         + expected_release_download_url
     ) == get_release_url_from_release_information(
         release_name, release_information
@@ -173,19 +173,19 @@ def test_non_fixture_releases_do_not_resolve(
         # the unversioned `cache_folder / "other" / archive_name` path, which
         # silently shadows newer releases with the same archive filename.
         (
-            "https://github.com/ethereum/execution-spec-tests/releases/download/v3.0.0/fixtures_stable.tar.gz",
+            "https://github.com/sila/execution-spec-tests/releases/download/v3.0.0/fixtures_stable.tar.gz",
             True,
         ),
         (
-            "https://github.com/ethereum/execution-specs/releases/download/tests-bal%40v7.1.0/fixtures_bal.tar.gz",
+            "https://github.com/sila/execution-specs/releases/download/tests-bal%40v7.1.0/fixtures_bal.tar.gz",
             True,
         ),
         (
-            "https://github.com/ethereum/tests/releases/download/v14.0/some.tar.gz",
+            "https://github.com/sila/tests/releases/download/v14.0/some.tar.gz",
             True,
         ),
         (
-            "https://github.com/ethereum/legacytests/releases/download/v1.0/some.tar.gz",
+            "https://github.com/sila/legacytests/releases/download/v1.0/some.tar.gz",
             True,
         ),
         (
@@ -217,7 +217,7 @@ def test_is_release_url_covers_supported_repos(
 
 def test_supported_repos_contains_execution_specs() -> None:
     """
-    `ethereum/execution-specs` hosts the BAL fixture releases (from
+    `sila/execution-specs` hosts the BAL fixture releases (from
     `tests-bal@v7.1.0` onward) and must be in `SUPPORTED_REPOS`.
     """
-    assert "ethereum/execution-specs" in SUPPORTED_REPOS
+    assert "sila/execution-specs" in SUPPORTED_REPOS

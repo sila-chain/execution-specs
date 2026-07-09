@@ -1,4 +1,4 @@
-"""Test suite for test spec submodules of the `ethereum_test` module."""
+"""Test suite for test spec submodules of the `sila_test` module."""
 
 from typing import Type
 

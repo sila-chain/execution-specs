@@ -4,7 +4,7 @@ There are two flags that can help debugging `t8n` tools or the execution-testing
 
 1. `--evm-dump-dir`: Write debug information from `t8n` tool calls to the specified directory.
 2. `--traces`: Collect traces of the execution from the transition tool.
-3. `--verify-fixtures`: Run go-ethereum's `evm blocktest` command to verify the generated test fixtures.
+3. `--verify-fixtures`: Run go-sila's `evm blocktest` command to verify the generated test fixtures.
 
 ## EVM Dump Directory
 
@@ -22,7 +22,7 @@ In particular, a script `t8n.sh` is generated for each call to the `t8n` command
 For example, running:
 
 ```console
-fill tests/berlin/eip2930_access_list/ --fork Berlin -m blockchain_test \
+fill tests/berlin/sip2930_access_list/ --fork Berlin -m blockchain_test \
     --evm-dump-dir=/tmp/evm-dump --traces
 ```
 
@@ -30,7 +30,7 @@ will produce the directory structure:
 
 ```text
 📂 /tmp/evm-dump
-└── 📂 berlin__eip2930_access_list__test_acl__test_access_list
+└── 📂 berlin__sip2930_access_list__test_acl__test_access_list
     └── 📂 fork_Berlin_blockchain_test
         └── 📂 0
             ├── 📄 args.py
@@ -95,15 +95,15 @@ The `t8n.sh` is written to the debug directory for all [supported t8n tools](./t
 
 ## Verifying Test Fixtures via `evm blocktest`
 
-The `--verify-fixtures` flag can be used to run go-ethereum's `evm blocktest` command in order to verify the generated JSON test fixtures.
+The `--verify-fixtures` flag can be used to run go-sila's `evm blocktest` command in order to verify the generated JSON test fixtures.
 
 For example, running:
 
 ```console
-fill tests/berlin/eip2930_access_list/ --fork Berlin -m blockchain_test \
+fill tests/berlin/sip2930_access_list/ --fork Berlin -m blockchain_test \
     --evm-dump-dir==/tmp/evm-dump \
     --evm-bin=../evmone/build/bin/evmone \
-    --verify-fixtures-bin=../go-ethereum/build/bin/evm \
+    --verify-fixtures-bin=../go-sila/build/bin/evm \
     --verify-fixtures
 ```
 
@@ -111,7 +111,7 @@ will additionally run the `evm blocktest` command on every JSON fixture file and
 
 ```text
 📂 /tmp/evm-dump
-└── 📂 berlin__eip2930_access_list__test_acl__test_access_list
+└── 📂 berlin__sip2930_access_list__test_acl__test_access_list
     ├── 📄 fixtures.json
     ├── 📂 fork_Berlin_blockchain_test
     │   ├── 📂 0
@@ -141,7 +141,7 @@ where the `verify_fixtures.sh` script can be used to reproduce the `evm blocktes
     fill
     ```
 
-2. Verify fixtures: Use the first `evm` binary in the `PATH` to execute both the `t8n` and `blocktest` commands (i.e., same binary used; this must be a geth binary):
+2. Verify fixtures: Use the first `evm` binary in the `PATH` to execute both the `t8n` and `blocktest` commands (i.e., same binary used; this must be a gsil binary):
 
     ```console
     fill --verify-fixtures
@@ -150,14 +150,14 @@ where the `verify_fixtures.sh` script can be used to reproduce the `evm blocktes
 3. Explicitly specify the evm binary to execute the `blocktest` command (the first evm binary in the `PATH` is used for `t8n` commands; `--verify-fixtures` is not necessary):
 
     ```console
-    fill --verify-fixtures-bin=../go-ethereum/build/bin/evm
+    fill --verify-fixtures-bin=../go-sila/build/bin/evm
     ```
 
 4. Explicitly set two different `evm` binaries to execute the `t8n` and `blocktest` commands; write debug data to the specified `--evm-dump-dir`:
 
     ```console
     fill --evm-bin=../evmone/build/bin/evmone \
-      --verify-fixtures-bin=../go-ethereum/build/bin/evm \
+      --verify-fixtures-bin=../go-sila/build/bin/evm \
       --evm-dump-dir=/tmp/evm-dump
     ```
 
@@ -165,7 +165,7 @@ where the `verify_fixtures.sh` script can be used to reproduce the `evm blocktes
 
     ```console
     fill --evm-bin=../evmone/build/bin/evmone \
-      --verify-fixtures-bin=../go-ethereum/build/bin/evm \
+      --verify-fixtures-bin=../go-sila/build/bin/evm \
       --evm-dump-dir=/tmp/evm-dump \
       --single-fixture-per-file
     ```

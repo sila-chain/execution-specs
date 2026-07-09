@@ -1,5 +1,5 @@
 """
-A pytest plugin that verifies the tested version of an EIP specification
+A pytest plugin that verifies the tested version of an SIP specification
 against the latest version from the
-[ethereum/EIPs](https://github.com/ethereum/EIPs) Github repository.
+[sila/SIPs](https://github.com/sila/SIPs) Github repository.
 """

@@ -9,7 +9,7 @@ slot 0 (asserted as 0x8D5B6), so the gas remaining at that fixed
 execution point must be fork-invariant. The `gas_limit` is derived from
 the fork: `600_000 + (intrinsic - 21_000)`, where `intrinsic` comes from
 `fork.transaction_intrinsic_cost_calculator()()` and 21_000 is the
-pre-EIP-2780 baseline intrinsic. EIP-2780's intrinsic decomposition
+pre-SIP-2780 baseline intrinsic. SIP-2780's intrinsic decomposition
 lowers the intrinsic for non-self non-value txs, so subtracting the old
 21_000 literal keeps the post-intrinsic execution budget (600_000)
 constant. Do not hardcode the gas_limit.
@@ -79,7 +79,7 @@ def test_zero_value_delegatecall_to_non_zero_balance(
     )
 
     # Preserve Cancun's post-intrinsic execution budget across
-    # forks; EIP-2780 lowers the intrinsic for non-self non-value
+    # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.
     intrinsic = fork.transaction_intrinsic_cost_calculator()()

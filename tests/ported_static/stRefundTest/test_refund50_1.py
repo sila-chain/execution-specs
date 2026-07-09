@@ -6,12 +6,12 @@ state_tests/stRefundTest/refund50_1Filler.json
 
 @manually-enhanced: Do not overwrite. The post-state asserts the sender
 balance, which equals its start minus `gas_used * gas_price`. The
-contract clears five cold storage slots; EIP-8038 raises each cold
-SSTORE-clear charge from 5000 to 13000. The EIP-3529 refund cap
+contract clears five cold storage slots; SIP-8038 raises each cold
+SSTORE-clear charge from 5000 to 13000. The SIP-3529 refund cap
 (`gas_used // 5`) binds at both forks (the clear refunds far exceed a
 fifth of gas used), so the extra charge raises `gas_used` by exactly
 four fifths of itself. Derive the per-clear charge delta from the fork
-gas model (0 pre-EIP-8037) and subtract `gas_price * 5 * delta * 4 // 5`
+gas model (0 pre-SIP-8037) and subtract `gas_price * 5 * delta * 4 // 5`
 from the Cancun balance; do not hardcode the Amsterdam value.
 """
 
@@ -77,8 +77,8 @@ def test_refund50_1(
         gas_limit=100000,
     )
 
-    # EIP-8038 raises each cold SSTORE-clear charge and EIP-2780
-    # shifts the tx intrinsic. With the EIP-3529 refund cap binding,
+    # SIP-8038 raises each cold SSTORE-clear charge and SIP-2780
+    # shifts the tx intrinsic. With the SIP-3529 refund cap binding,
     # gas_used rises by 4/5 of the gross-gas delta.
     cold_clear_delta = (
         Op.SSTORE.with_metadata(

@@ -21,7 +21,7 @@ from pydantic import Field, PrivateAttr
 
 from execution_testing.base_types import (
     CamelModel,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     Hash,
 )
 from execution_testing.forks import Fork, TransitionFork
@@ -180,7 +180,7 @@ def merge_partial_group_files(folder: Path) -> None:
             )
 
 
-class PreAllocGroupBuilders(EthereumTestRootModel):
+class PreAllocGroupBuilders(SilaTestRootModel):
     """
     Root model mapping pre-allocation group hashes to test groups.
 
@@ -363,7 +363,7 @@ class PreAllocGroup(PreAllocGroupBuilder):
         return cls.model_validate(built.model_dump())
 
 
-class PreAllocGroups(EthereumTestRootModel):
+class PreAllocGroups(SilaTestRootModel):
     """
     Root model mapping pre-allocation group hashes to test groups.
 

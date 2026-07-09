@@ -1,3 +1,3 @@
-# Ethereum CLIs Package
+# Sila CLIs Package
 
 ::: execution_testing.client_clis

@@ -15,10 +15,10 @@ from .common import Constants
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts/identity_to_biggerFiller.json",
-        "https://github.com/ethereum/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts/identity_to_smallerFiller.json",
+        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts/identity_to_biggerFiller.json",
+        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts/identity_to_smallerFiller.json",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1344"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1344"],
 )
 @pytest.mark.valid_from("Byzantium")
 @pytest.mark.parametrize(

@@ -1,4 +1,4 @@
-"""Test suite for `ethereum_test` module."""
+"""Test suite for `sila_test` module."""
 
 from typing import Any, Dict, List
 
@@ -29,7 +29,7 @@ from ..transaction_types import (
 
 
 def test_storage() -> None:
-    """Test `ethereum_test.types.storage` parsing."""
+    """Test `sila_test.types.storage` parsing."""
     s = Storage({"10": "0x10"})  # type: ignore[dict-item]
 
     assert 10 in s
@@ -95,7 +95,7 @@ def test_storage() -> None:
 
 
 def test_transaction_receipt_maps_non_empty_root_to_post_state() -> None:
-    """Non-empty `root` from geth should be treated as pre-Byzantium state."""
+    """Non-empty `root` from gsil should be treated as pre-Byzantium state."""
     receipt = TransactionReceipt.model_validate(
         {
             "root": "0x" + "11" * 32,
@@ -164,7 +164,7 @@ def test_transaction_receipt_keeps_status_when_root_is_empty() -> None:
     ],
 )
 def test_empty_accounts(account: Account) -> None:
-    """Test `ethereum_test.types.account` parsing."""
+    """Test `sila_test.types.account` parsing."""
     assert not bool(account)
 
 
@@ -391,7 +391,7 @@ def test_account_check_alloc(
 def test_alloc_append(
     alloc_1: Alloc, alloc_2: Alloc, expected_alloc: Alloc
 ) -> None:
-    """Test `ethereum_test.types.alloc` merging."""
+    """Test `sila_test.types.alloc` merging."""
     assert Alloc.merge(alloc_1, alloc_2) == expected_alloc
 
 
@@ -429,7 +429,7 @@ def test_account_merge(
     account_2: Account | None,
     expected_account: Account,
 ) -> None:
-    """Test `ethereum_test.types.account` merging."""
+    """Test `sila_test.types.account` merging."""
     assert Account.merge(account_1, account_2) == expected_account
 
 

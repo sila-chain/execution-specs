@@ -2,7 +2,7 @@
 A pytest plugin that configures the consume command to act as a test runner for
 "direct" client fixture consumer interfaces.
 
-For example, via go-ethereum's `evm blocktest` or `evm statetest` commands.
+For example, via go-sila's `evm blocktest` or `evm statetest` commands.
 """
 
 import json
@@ -17,7 +17,7 @@ from execution_testing.base_types import to_json
 from execution_testing.cli.pytest_commands.plugins.consume.consume import (
     FixturesSource,
 )
-from execution_testing.client_clis.ethereum_cli import EthereumCLI
+from execution_testing.client_clis.sila_cli import SilaCLI
 from execution_testing.client_clis.fixture_consumer_tool import (
     FixtureConsumerTool,
 )
@@ -33,7 +33,7 @@ from execution_testing.fixtures.consume import (
 from execution_testing.fixtures.file import Fixtures
 
 
-class CollectOnlyCLI(EthereumCLI):
+class CollectOnlyCLI(SilaCLI):
     """A dummy CLI for use with `--collect-only`."""
 
     def __init__(self) -> None:  # noqa: D107
@@ -64,7 +64,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
         type=Path,
         default=[],
         help=(
-            "Path to a geth evm executable that provides `blocktest` or "
+            "Path to a gsil evm executable that provides `blocktest` or "
             "`statetest`. Flag can be used multiple times to specify "
             "multiple fixture consumer binaries."
         ),

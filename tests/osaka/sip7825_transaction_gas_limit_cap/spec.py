@@ -1,0 +1,29 @@
+"""Defines SIP-7825 specification constants and functions."""
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class ReferenceSpec:
+    """Defines the reference spec version and git path."""
+
+    git_path: str
+    version: str
+
+
+# SIP-7825 reference specification
+ref_spec_7825 = ReferenceSpec(
+    "SIPS/sip-7825.md", "1ed95cbac750539c2aac67c8cbbcc2d77974231c"
+)
+
+
+class Spec:
+    """
+    Constants and helpers for the SIP-7825 Transaction Gas Limit Cap tests.
+    """
+
+    # Gas limit constants
+    tx_gas_limit_cap = 2**24  # 16,777,216
+
+    # Blob transaction constants
+    blob_commitment_version_kzg = 1

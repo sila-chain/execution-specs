@@ -5,7 +5,7 @@
 === "All platforms"
 
     ```console
-    git clone https://github.com/ethereum/execution-specs
+    git clone https://github.com/sila/execution-specs
     cd execution-specs
     curl -LsSf https://astral.sh/uv/install.sh | sh
     uv python install 3.12
@@ -18,7 +18,7 @@
 === "macOS"
 
     ```console
-    git clone https://github.com/ethereum/execution-specs
+    git clone https://github.com/sila/execution-specs
     cd execution-specs
     curl -LsSf https://astral.sh/uv/install.sh | sh
     uv python install 3.12
@@ -32,7 +32,7 @@ Further explanation, troubleshooting, and alternative installation paths are bel
 
 ## Prerequisites
 
-The tools provided by [execution-specs](https://github.com/ethereum/execution-specs) use `uv` ([docs.astral.sh/uv](https://docs.astral.sh/uv/)) to manage dependencies and the virtual environment.
+The tools provided by [execution-specs](https://github.com/sila/execution-specs) use `uv` ([docs.astral.sh/uv](https://docs.astral.sh/uv/)) to manage dependencies and the virtual environment.
 
 It's recommended to use the latest version of `uv`, which can be installed via `curl` (recommended; can self-update via `uv self update`) or pip (requires Python, can't self-update):
 
@@ -52,14 +52,14 @@ When installed via `curl`, `uv` can also download Python for your platform if a 
 
 ## Installing Python and Python Dependencies
 
-Clone @ethereum/execution-specs and install the project dependencies. Python 3.11–3.14 are supported; Python 3.12 tends to be the smoothest for local setup because pre-built wheels are available across the dependency set.
+Clone @sila/execution-specs and install the project dependencies. Python 3.11–3.14 are supported; Python 3.12 tends to be the smoothest for local setup because pre-built wheels are available across the dependency set.
 
 The following commands use `uv` to install Python 3.12 and pin it for all commands run within the execution-specs directory:
 
 === "All platforms"
 
     ```console
-    git clone https://github.com/ethereum/execution-specs
+    git clone https://github.com/sila/execution-specs
     cd execution-specs
     uv python install 3.12
     uv python pin 3.12
@@ -71,14 +71,14 @@ The following commands use `uv` to install Python 3.12 and pin it for all comman
 The following command can be used to verify that the environment is set up correctly. By targeting a single test subdirectory, it generates only a small subset of test vectors:
 
 ```console
-uv run fill tests/istanbul/eip1344_chainid/
+uv run fill tests/istanbul/sip1344_chainid/
 ```
 
 ## Installing the `just` Task Runner
 
-The @ethereum/execution-specs repository uses [`just`](https://just.systems/man/en/introduction.html) to run common tasks locally and in CI. Tasks range from static code checks to generating test vectors from the spec.
+The @sila/execution-specs repository uses [`just`](https://just.systems/man/en/introduction.html) to run common tasks locally and in CI. Tasks range from static code checks to generating test vectors from the spec.
 
-@ethereum/execution-specs requires `just` 1.43+. Note that the version currently distributed in Ubuntu 24.04 is too old; many other methods are available in the [installation docs](https://just.systems/man/en/packages.html).
+@sila/execution-specs requires `just` 1.43+. Note that the version currently distributed in Ubuntu 24.04 is too old; many other methods are available in the [installation docs](https://just.systems/man/en/packages.html).
 
 `just` can be installed directly with `uv` from the [`rust-just` package](https://pypi.org/project/rust-just/).
 

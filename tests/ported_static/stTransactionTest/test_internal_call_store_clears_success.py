@@ -6,14 +6,14 @@ state_tests/stTransactionTest/InternalCallStoreClearsSuccessFiller.json
 
 @manually-enhanced: Do not overwrite. The `target` contract forwards a
 fixed `CALL` gas budget (0x186A0) to `addr`, which clears 10 cold
-storage slots (12 -> 0). EIP-8038 raises the cold SSTORE-clear charge
+storage slots (12 -> 0). SIP-8038 raises the cold SSTORE-clear charge
 from 5000 to 13000, so the 10 clears jump from 50000 to 130000 gas and
 no longer fit in the forwarded budget or the transaction gas limit:
 `addr` runs out of gas, its slots stay set, and the inner value
 transfer rolls back, defeating the "store clears success" intent. Both
 the inner `CALL` gas argument and the transaction gas limit are raised
 by `10 * cold_clear_delta` so all 10 clears still succeed. The per-clear
-delta is derived from the fork gas model and is exactly 0 pre-EIP-8037;
+delta is derived from the fork gas model and is exactly 0 pre-SIP-8037;
 do not hardcode the Amsterdam values. The asserted balances are
 fork-invariant once the clears land, and the post does not assert the
 sender balance, so no balance adjustment is needed.
@@ -61,10 +61,10 @@ def test_internal_call_store_clears_success(
         gas_limit=1000000,
     )
 
-    # EIP-8038 raises the cold SSTORE-clear charge; bump the forwarded
+    # SIP-8038 raises the cold SSTORE-clear charge; bump the forwarded
     # CALL gas and the transaction gas limit by the per-clear delta times
     # the 10 clears so every clear still lands instead of running out of
-    # gas. The delta is 0 before the EIP-8037/8038 repricing.
+    # gas. The delta is 0 before the SIP-8037/8038 repricing.
     cold_clear_delta = (
         Op.SSTORE.with_metadata(
             key_warm=False, original_value=1, current_value=1, new_value=0

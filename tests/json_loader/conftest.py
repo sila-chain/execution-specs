@@ -7,7 +7,7 @@ from _pytest.config.argparsing import Parser
 from _pytest.nodes import Item
 from pytest import Collector, Config, Session, fixture
 
-from ethereum_spec_tools.evm_tools.t8n import ForkCache
+from sila_spec_tools.evm_tools.t8n import ForkCache
 
 from . import FORKS
 from .helpers import FixturesFile, FixtureTestItem
@@ -38,7 +38,7 @@ def pytest_addoption(parser: Parser) -> None:
         default=False,
         action="store_const",
         const=True,
-        help="Use optimized state and ethash",
+        help="Use optimized state and silash",
     )
 
     parser.addoption(
@@ -111,21 +111,21 @@ def pytest_addoption(parser: Parser) -> None:
 
 def pytest_configure(config: Config) -> None:
     """
-    Configure the ethereum module and log levels to output evm trace.
+    Configure the sila module and log levels to output evm trace.
     """
     if config.getoption("optimized"):
-        import ethereum_optimized
+        import sila_optimized
 
-        ethereum_optimized.monkey_patch(None)
+        sila_optimized.monkey_patch(None)
 
     if config.getoption("evm_trace"):
-        import ethereum.trace
-        from ethereum_spec_tools.evm_tools.t8n.evm_trace.eip3155 import (
+        import sila.trace
+        from sila_spec_tools.evm_tools.t8n.evm_trace.sip3155 import (
             Eip3155Tracer,
         )
 
         # Replace the function in the module
-        ethereum.trace.set_evm_trace(Eip3155Tracer())
+        sila.trace.set_evm_trace(Eip3155Tracer())
 
     # Process fork range options
     optimized = config.getoption("optimized")

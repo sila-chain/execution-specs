@@ -7,11 +7,11 @@ state_tests/stRefundTest/refundFFFiller.yml
 @manually-enhanced: Do not overwrite. The post-state asserts the sender
 balance, which equals its start minus `gas_used * gas_price`. The
 contract self-destructs and sends its (zero) balance to a cold, already
-existing beneficiary; EIP-8038 raises the cold account-access surcharge
+existing beneficiary; SIP-8038 raises the cold account-access surcharge
 from 2600 to 3000. No positive balance is moved, so no `ACCOUNT_WRITE`
 applies and there is no refund, so `gas_used` rises by exactly the
 SELFDESTRUCT charge delta. Derive that delta from the fork gas model
-(0 pre-EIP-8037) and subtract `gas_price * delta` from the Cancun
+(0 pre-SIP-8037) and subtract `gas_price * delta` from the Cancun
 balance; do not hardcode the Amsterdam value.
 """
 
@@ -76,7 +76,7 @@ def test_refund_ff(
         access_list=[],
     )
 
-    # EIP-8038 raises the cold account-access surcharge applied by
+    # SIP-8038 raises the cold account-access surcharge applied by
     # SELFDESTRUCT; with no balance transfer and no refund, gas_used
     # rises by exactly this charge delta.
     selfdestruct_delta = (
@@ -85,7 +85,7 @@ def test_refund_ff(
         ).gas_cost(fork)
         - 7600
     )
-    # EIP-2780 lowers the intrinsic for non-self non-value txs; the
+    # SIP-2780 lowers the intrinsic for non-self non-value txs; the
     # delta is negative on Amsterdam, so it reduces ``gas_used`` and
     # raises the sender balance correspondingly.
     intrinsic_delta = fork.transaction_intrinsic_cost_calculator()() - 21_000

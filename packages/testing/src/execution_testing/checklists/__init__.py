@@ -1,5 +1,5 @@
-"""Ethereum test checklists module for EIP testing coverage tracking."""
+"""Sila test checklists module for SIP testing coverage tracking."""
 
-from .eip_checklist import EIPChecklist
+from .sip_checklist import SIPChecklist
 
-__all__ = ["EIPChecklist"]
+__all__ = ["SIPChecklist"]

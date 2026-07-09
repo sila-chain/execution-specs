@@ -1,4 +1,4 @@
-"""Request types for Ethereum tests."""
+"""Request types for Sila tests."""
 
 from abc import abstractmethod
 from collections import defaultdict
@@ -114,7 +114,7 @@ class ConsolidationRequest(RequestBase, CamelModel):
 
 
 class BuilderDepositRequest(RequestBase, CamelModel):
-    """Builder Deposit Request type (EIP-8282)."""
+    """Builder Deposit Request type (SIP-8282)."""
 
     pubkey: BLSPublicKey
     """The public key of the beacon chain builder."""
@@ -129,7 +129,7 @@ class BuilderDepositRequest(RequestBase, CamelModel):
     """
 
     type: ClassVar[int] = 3
-    """Placeholder request-type byte pending the EIP-8282 final allocation."""
+    """Placeholder request-type byte pending the SIP-8282 final allocation."""
 
     def __bytes__(self) -> bytes:
         """Return builder deposit's attributes as bytes."""
@@ -142,7 +142,7 @@ class BuilderDepositRequest(RequestBase, CamelModel):
 
 
 class BuilderExitRequest(RequestBase, CamelModel):
-    """Builder Exit Request type (EIP-8282)."""
+    """Builder Exit Request type (SIP-8282)."""
 
     source_address: Address = Address(0)
     """
@@ -153,7 +153,7 @@ class BuilderExitRequest(RequestBase, CamelModel):
     """The public key of the builder to exit."""
 
     type: ClassVar[int] = 4
-    """Placeholder request-type byte pending the EIP-8282 final allocation."""
+    """Placeholder request-type byte pending the SIP-8282 final allocation."""
 
     def __bytes__(self) -> bytes:
         """Return builder exit's attributes as bytes."""

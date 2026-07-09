@@ -38,7 +38,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
 @pytest.fixture(scope="session")
 def seed_key(
-    request: pytest.FixtureRequest, eth_rpc: EthRPC
+    request: pytest.FixtureRequest, sil_rpc: EthRPC
 ) -> Generator[EOA, None, None]:
     """
     Get the seed key from the command flags and create the EOA account object
@@ -54,7 +54,7 @@ def seed_key(
         )
     # check the nonce through the rpc client
     seed_key = EOA(key=rpc_seed_key)
-    seed_account = eth_rpc.get_account(seed_key, skip_code=True)
+    seed_account = sil_rpc.get_account(seed_key, skip_code=True)
     seed_key.nonce = Number(seed_account.nonce)
 
     # Record the start balance of the worker key
@@ -62,6 +62,6 @@ def seed_key(
 
     yield seed_key
 
-    final_balance = eth_rpc.get_balance(seed_key)
+    final_balance = sil_rpc.get_balance(seed_key)
     used_balance = start_balance - final_balance
     logger.info(f"Seed used balance={used_balance / 10**18:.18f}")

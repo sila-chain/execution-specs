@@ -24,7 +24,7 @@ from pydantic import (
 )
 
 from .base_fork import BaseFork
-from .forks import eips, forks, transition
+from .forks import sips, forks, transition
 from .transition_base_fork import TransitionBaseClass
 
 
@@ -47,11 +47,11 @@ for fork_name in forks.__dict__:
     if (
         issubclass(fork, BaseFork)
         and fork is not BaseFork
-        and not fork.is_eip()
+        and not fork.is_sip()
     ):
         all_forks.append(fork)
 
-all_eips: List[Type[BaseFork]] = eips.ALL_EIPS
+all_sips: List[Type[BaseFork]] = sips.ALL_SIPS
 
 transition_forks: List[Type[TransitionBaseClass]] = []
 
@@ -84,7 +84,7 @@ def get_forks() -> List[Type[BaseFork]]:
 
 def get_deployed_forks() -> List[Type[BaseFork]]:
     """
-    Return all fork classes that have been deployed to mainnet.
+    Return all fork classes that have been deployed to sila-mainnet.
 
     Chronologically ordered by deployment. BPO (Blob Parameter Only) forks
     are excluded as they are handled separately.
@@ -390,7 +390,7 @@ def get_fork_by_name(fork_name: str) -> Type[BaseFork] | None:
 
 class ForkRangeDescriptor(BaseModel):
     """
-    Fork descriptor parsed from string normally contained in ethereum/tests
+    Fork descriptor parsed from string normally contained in sila/tests
     fillers.
     """
 
@@ -502,15 +502,15 @@ ForkEIP = Annotated[
     PlainSerializer(str),
     PlainValidator(
         fork_validator_generator(
-            BaseFork, all_forks + all_eips + transition_forks
+            BaseFork, all_forks + all_sips + transition_forks
         )
     ),
 ]
-ForkEIPSet = Annotated[
+ForkSIPSet = Annotated[
     Set[ForkEIP],
     BeforeValidator(set_before_validator),
 ]
-ForkEIPSetAdapter: TypeAdapter = TypeAdapter(ForkEIPSet)
+ForkSIPSetAdapter: TypeAdapter = TypeAdapter(ForkSIPSet)
 
 TransitionFork = Annotated[
     Type[TransitionBaseClass],

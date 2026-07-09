@@ -40,7 +40,7 @@ This guide describes how to get started with `fill` and commonly-used command-li
     a. Check the corresponding fixture file has been generated:
 
     ```console
-    head fixtures/state_tests/shanghai/eip3855_push0/push0/push0_contract_during_call_contexts.json
+    head fixtures/state_tests/shanghai/sip3855_push0/push0/push0_contract_during_call_contexts.json
     ```
 
     b. Open the generated HTML test using the link provided at the bottom of the console output. This is written to the output directory at:

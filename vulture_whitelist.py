@@ -6,58 +6,58 @@ The symbols are used indirectly through reflection, public APIs, or dynamic
 imports. Each bare expression tells Vulture to ignore that specific symbol.
 """
 
-from ethereum.cancun.blocks import Withdrawal
-from ethereum_spec_tools.evm_tools.t8n.transition_tool import EELST8N
+from sila.cancun.blocks import Withdrawal
+from sila_spec_tools.evm_tools.t8n.transition_tool import EELST8N
 
-from ethereum.ethash import *
-from ethereum.fork_criteria import Unscheduled
-from ethereum.trace import EvmTracer
-from ethereum.utils.hexadecimal import hex_to_bytes256
-from ethereum_optimized.state_db import State
-from ethereum_spec_tools.docc import *
-from ethereum_spec_tools.evm_tools.daemon import _EvmToolHandler
-from ethereum_spec_tools.evm_tools.loaders.transaction_loader import (
+from sila.silash import *
+from sila.fork_criteria import Unscheduled
+from sila.trace import EvmTracer
+from sila.utils.hexadecimal import hex_to_bytes256
+from sila_optimized.state_db import State
+from sila_spec_tools.docc import *
+from sila_spec_tools.evm_tools.daemon import _EvmToolHandler
+from sila_spec_tools.evm_tools.loaders.transaction_loader import (
     TransactionLoad,
 )
-from ethereum_spec_tools.evm_tools.t8n.env import Ommer
-from ethereum_spec_tools.evm_tools.t8n.evm_trace.eip3155 import (
+from sila_spec_tools.evm_tools.t8n.env import Ommer
+from sila_spec_tools.evm_tools.t8n.evm_trace.sip3155 import (
     FinalTrace,
     Trace,
 )
-from ethereum_spec_tools.lint.lints.final_decorator import (
+from sila_spec_tools.lint.lints.final_decorator import (
     FinalDecoratorHygiene,
 )
-from ethereum_spec_tools.lint.lints.glacier_forks_hygiene import (
+from sila_spec_tools.lint.lints.glacier_forks_hygiene import (
     GlacierForksHygiene,
 )
-from ethereum_spec_tools.lint.lints.import_hygiene import ImportHygiene
-from ethereum_spec_tools.lint.lints.uint_len import UintLenHygiene
-from ethereum_spec_tools.new_fork.codemod.comment import CommentReplaceCommand
-from ethereum_spec_tools.new_fork.codemod.constant import SetConstantCommand
-from ethereum_spec_tools.new_fork.codemod.string_replace import (
+from sila_spec_tools.lint.lints.import_hygiene import ImportHygiene
+from sila_spec_tools.lint.lints.uint_len import UintLenHygiene
+from sila_spec_tools.new_fork.codemod.comment import CommentReplaceCommand
+from sila_spec_tools.new_fork.codemod.constant import SetConstantCommand
+from sila_spec_tools.new_fork.codemod.string_replace import (
     StringReplaceCommand,
 )
 
-# src/ethereum/utils/hexadecimal.py
+# src/sila/utils/hexadecimal.py
 hex_to_bytes256
 
-# src/ethereum/cancun/blocks.py
+# src/sila/cancun/blocks.py
 Withdrawal.validator_index
 
-# src/ethereum/fork_criteria.py
+# src/sila/fork_criteria.py
 Unscheduled
 
-# src/ethereum/ethash.py
-ethash.generate_dataset
+# src/sila/silash.py
+silash.generate_dataset
 
-# src/ethereum/trace.py
+# src/sila/trace.py
 EvmTracer.__call__
 
-# src/ethereum/optimized/state_db.py
+# src/sila/optimized/state_db.py
 State.rollback_db_transaction
 
-# src/ethereum_optimized/state_db.py - registered as patches via @add_item
-from ethereum_optimized.state_db import (
+# src/sila_optimized/state_db.py - registered as patches via @add_item
+from sila_optimized.state_db import (
     begin_transaction,
     commit_transaction,
     rollback_transaction,
@@ -67,11 +67,11 @@ begin_transaction
 commit_transaction
 rollback_transaction
 
-# src/ethereum_spec_tools/docc.py
-docc.EthereumDiscover
-docc.EthereumBuilder
-docc.EthereumPythonDiscover
-docc.EthereumListingDiscover
+# src/sila_spec_tools/docc.py
+docc.SilaDiscover
+docc.SilaBuilder
+docc.SilaPythonDiscover
+docc.SilaListingDiscover
 docc.DiffSource.show_in_listing
 docc.FixIndexTransform
 docc.FixIndexTransform.transform
@@ -87,20 +87,20 @@ docc._HardenVisitor.enter
 docc._MinimizeDiffsVisitor.enter
 docc.render_diff
 docc.render_before_after
-docc._EthereumListingSource.listing_order_key
+docc._SilaListingSource.listing_order_key
 
-# src/ethereum_spec_tools/evm_tools/daemon.py
+# src/sila_spec_tools/evm_tools/daemon.py
 _EvmToolHandler.do_POST
 _EvmToolHandler.log_request
 
-# src/ethereum_spec_tools/evm_tools/transition_tool.py
+# src/sila_spec_tools/evm_tools/transition_tool.py
 EELST8N
 EELST8N._info_metadata
 EELST8N.version
 EELST8N.is_fork_supported
 EELST8N.evaluate
 
-# src/ethereum_spec_tools/loaders/transaction_loader.py
+# src/sila_spec_tools/loaders/transaction_loader.py
 TransactionLoad.json_to_authorizations
 TransactionLoad.json_to_chain_id
 TransactionLoad.json_to_nonce
@@ -119,10 +119,10 @@ TransactionLoad.json_to_y_parity
 TransactionLoad.json_to_r
 TransactionLoad.json_to_s
 
-# src/ethereum_spec_tools/evm_tools/t8n/env.py
+# src/sila_spec_tools/evm_tools/t8n/env.py
 Ommer.delta
 
-# src/ethereum_spec_tools/evm_tools/t8n/evm_trace/eip3155.py
+# src/sila_spec_tools/evm_tools/t8n/evm_trace/sip3155.py
 Trace.gasCost
 Trace.memSize
 Trace.returnData
@@ -132,22 +132,22 @@ Trace.stateGas
 Trace.stateGasCost
 FinalTrace.gasUsed
 
-# src/ethereum_spec_tools/lint/lints/final_decorator.py
+# src/sila_spec_tools/lint/lints/final_decorator.py
 FinalDecoratorHygiene
 
-# src/ethereum_spec_tools/lint/lints/uint_len.py
+# src/sila_spec_tools/lint/lints/uint_len.py
 UintLenHygiene
 
-# src/ethereum_spec_tools/lint/lints/glacier_forks_hygiene.py
+# src/sila_spec_tools/lint/lints/glacier_forks_hygiene.py
 GlacierForksHygiene
 GlacierForksHygiene.visit_AnnAssign
 GlacierForksHygiene.visit_Pass
 
-# src/ethereum_spec_tools/lint/lints/glacier_forks_hygiene.py
+# src/sila_spec_tools/lint/lints/glacier_forks_hygiene.py
 ImportHygiene
 ImportHygiene.visit_AnnAssign
 
-# src/ethereum_spec_tools/new_fork/codemod/constant.py
+# src/sila_spec_tools/new_fork/codemod/constant.py
 SetConstantCommand
 SetConstantCommand.METADATA_DEPENDENCIES
 SetConstantCommand.add_args
@@ -155,36 +155,36 @@ SetConstantCommand.visit_Assign_targets
 SetConstantCommand.leave_Assign_targets
 SetConstantCommand.leave_Assign
 
-# src/ethereum_spec_tools/new_fork/codemod/string.py
+# src/sila_spec_tools/new_fork/codemod/string.py
 StringReplaceCommand
 StringReplaceCommand.transform_module_impl
 
-# src/ethereum_spec_tools/new_fork/codemod/comment.py
+# src/sila_spec_tools/new_fork/codemod/comment.py
 CommentReplaceCommand
 CommentReplaceCommand.transform_module_impl
 
-_children  # unused attribute (src/ethereum_spec_tools/docc.py:751)
+_children  # unused attribute (src/sila_spec_tools/docc.py:751)
 
 # evm_tools/loaders/fixture_loader.py - abstract methods
-from ethereum_spec_tools.evm_tools.loaders.fixture_loader import BaseLoad
+from sila_spec_tools.evm_tools.loaders.fixture_loader import BaseLoad
 
 BaseLoad.json_to_header
 BaseLoad.json_to_state
 BaseLoad.json_to_block
 json_data  # abstract method parameter used by concrete implementations
 
-# src/ethereum_spec_tools/lint/lints/patch_hygiene.py - discovered dynamically
-from ethereum_spec_tools.lint.lints.patch_hygiene import PatchHygiene
+# src/sila_spec_tools/lint/lints/patch_hygiene.py - discovered dynamically
+from sila_spec_tools.lint.lints.patch_hygiene import PatchHygiene
 
 PatchHygiene
 
-# src/ethereum_spec_tools/new_fork/codemod/constant.py - libcst visitor hooks
+# src/sila_spec_tools/new_fork/codemod/constant.py - libcst visitor hooks
 SetConstantCommand.visit_AnnAssign_target
 SetConstantCommand.leave_AnnAssign_target
 SetConstantCommand.leave_AnnAssign
 
-# src/ethereum_spec_tools/new_fork/codemod/remove_docstring.py - codemod class
-from ethereum_spec_tools.new_fork.codemod.remove_docstring import (
+# src/sila_spec_tools/new_fork/codemod/remove_docstring.py - codemod class
+from sila_spec_tools.new_fork.codemod.remove_docstring import (
     RemoveDocstringCommand,
 )
 

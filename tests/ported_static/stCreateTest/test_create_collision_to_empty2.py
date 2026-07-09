@@ -254,12 +254,12 @@ def test_create_collision_to_empty2(
     ]
     # The `g1` budget is the gas-cliff variant: it must leave the
     # callee with too little gas to complete CREATE, so the inner
-    # frame OOGs and the d0 attempt rolls back. EIP-8037 cuts
+    # frame OOGs and the d0 attempt rolls back. SIP-8037 cuts
     # `OPCODE_CREATE_BASE` from 32_000 to 9_000, so reduce the
     # original 54_000 budget by the same delta to track the cliff.
     create_base_delta = 32000 - fork.gas_costs().OPCODE_CREATE_BASE
     tx_gas = [
-        None if fork.is_eip_enabled(8037) else 600000,
+        None if fork.is_sip_enabled(8037) else 600000,
         54000 - create_base_delta,
     ]
     tx_value = [0, 1]

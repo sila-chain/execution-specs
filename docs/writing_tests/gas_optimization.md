@@ -125,6 +125,6 @@ uv run fill
 
 ### Leave a Buffer for Future Forks
 
-When using the optimized gas limits in your tests, it's recommended to add a small buffer (typically 5-10%) above the exact value outputted by the gas optimization. This accounts for potential gas cost changes in future Ethereum forks that might increase the gas requirements for the same operations.
+When using the optimized gas limits in your tests, it's recommended to add a small buffer (typically 5-10%) above the exact value outputted by the gas optimization. This accounts for potential gas cost changes in future Sila forks that might increase the gas requirements for the same operations.
 
 For example, if the optimization outputs a gas limit of 100,000, consider using 105,000 or 110,000 in your test specification to ensure compatibility with future protocol changes.

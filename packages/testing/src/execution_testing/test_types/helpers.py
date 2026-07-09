@@ -1,8 +1,8 @@
-"""Helper functions/classes used to generate Ethereum tests."""
+"""Helper functions/classes used to generate Sila tests."""
 
 from typing import List, SupportsBytes
 
-import ethereum_rlp as eth_rlp
+import sila_rlp as sil_rlp
 from pydantic import BaseModel, ConfigDict
 
 from execution_testing.base_types.base_types import Address, Bytes, Hash
@@ -21,7 +21,7 @@ Helper functions
 """
 
 # Default deterministic factory address and bytecode for forks that do not
-# support EIP-7997.
+# support SIP-7997.
 # See https://github.com/Arachnid/deterministic-deployment-proxy for more
 # details.
 DETERMINISTIC_FACTORY_ADDRESS = Address(
@@ -77,7 +77,7 @@ def compute_create_address(
         if nonce is None:
             nonce = 0
         hash_bytes = Bytes(
-            eth_rlp.encode([address, int_to_bytes(nonce)])
+            sil_rlp.encode([address, int_to_bytes(nonce)])
         ).keccak256()
         return Address(hash_bytes[-20:])
     if opcode == Op.CREATE2:

@@ -27,7 +27,7 @@ def copy_markdown_file(source_path, destination_path, fix_links=True):
                     if fix_links:
                         # Fix absolute website links to relative docs links
                         line = re.sub(
-                            r"https://eest\.ethereum\.org/main/([^)\s]+)",
+                            r"https://eest\.sila\.org/main/([^)\s]+)",
                             r"../\1.md",
                             line,
                         )
@@ -39,10 +39,10 @@ def copy_markdown_file(source_path, destination_path, fix_links=True):
                             line,
                         )
 
-                        # Fix EIP checklist template link
+                        # Fix SIP checklist template link
                         line = re.sub(
-                            r"\[EIP checklist template\]\(./docs/writing_tests/checklist_templates/eip_testing_checklist_template.md\)",  # noqa: E501
-                            r"[EIP checklist template](../writing_tests/checklist_templates/eip_testing_checklist_template.md)",  # noqa: E501
+                            r"\[SIP checklist template\]\(./docs/writing_tests/checklist_templates/sip_testing_checklist_template.md\)",  # noqa: E501
+                            r"[SIP checklist template](../writing_tests/checklist_templates/sip_testing_checklist_template.md)",  # noqa: E501
                             line,
                         )
 

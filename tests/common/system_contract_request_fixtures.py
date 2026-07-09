@@ -1,6 +1,6 @@
 """
-Shared pytest fixtures for system-contract request tests (EIP-6110, EIP-7002,
-EIP-7251, and future forks).
+Shared pytest fixtures for system-contract request tests (SIP-6110, SIP-7002,
+SIP-7251, and future forks).
 
 These fixtures are request-type agnostic and track inclusion independently per
 request type. For `FeeSystemContractRequest` types (e.g. withdrawals and

@@ -51,7 +51,7 @@ from execution_testing.test_types.chain_config_types import (
 )
 
 from ..execute import contracts
-from ..execute.rpc.chain_builder_eth_rpc import ChainBuilderEthRPC
+from ..execute.rpc.chain_builder_sil_rpc import ChainBuilderEthRPC
 from ..execute.rpc.hive import (
     build_client_files,
     build_client_genesis_dict,
@@ -61,7 +61,7 @@ from ..execute.rpc.hive import (
 from ..shared.helpers import is_help_or_collectonly_mode
 from ..shared.live_client_flags import FEE_BUMP_MULTIPLIER
 
-# 1 billion ETH. Withdrawals are Gwei (u64-capped); much higher risks
+# 1 billion SIL. Withdrawals are Gwei (u64-capped); much higher risks
 # overflow on some clients, this is plenty for any single fill session.
 SEED_FUNDING_WEI = 10**9 * 10**18
 
@@ -188,7 +188,7 @@ def _configure_hive(config: pytest.Config) -> None:
         pytest.exit(
             "The HIVE_SIMULATOR environment variable is not set.\n\n"
             "If running locally, start hive in --dev mode, for example:\n"
-            "./hive --dev --client go-ethereum\n\n"
+            "./hive --dev --client go-sila\n\n"
             "and set the HIVE_SIMULATOR to the reported URL. For example, "
             "in bash:\n"
             "export HIVE_SIMULATOR=http://127.0.0.1:3000\n"
@@ -368,7 +368,7 @@ def worker_count() -> int:
 
 
 @pytest.fixture(scope="session")
-def seed_key(eth_rpc: EthRPC, request: pytest.FixtureRequest) -> EOA:
+def seed_key(sil_rpc: EthRPC, request: pytest.FixtureRequest) -> EOA:
     """Load or generate the seed key used for all session funding."""
     key_str = request.config.getoption("rpc_seed_key")
     if key_str:
@@ -379,7 +379,7 @@ def seed_key(eth_rpc: EthRPC, request: pytest.FixtureRequest) -> EOA:
                 f"--rpc-seed-key must be a 32-byte hex string, "
                 f"got: {key_str!r}"
             )
-        account = eth_rpc.get_account(eoa, skip_code=True)
+        account = sil_rpc.get_account(eoa, skip_code=True)
         eoa.nonce = Number(account.nonce)
     else:
         eoa = EOA(key=int.from_bytes(secrets.token_bytes(32)), nonce=0)
@@ -394,17 +394,17 @@ def session_worker_key(seed_key: EOA) -> EOA:
 
 
 @pytest.fixture(scope="function")
-def worker_key(eth_rpc: EthRPC, session_worker_key: EOA) -> EOA:
+def worker_key(sil_rpc: EthRPC, session_worker_key: EOA) -> EOA:
     """Sync seed key nonce before each test."""
-    account = eth_rpc.get_account(session_worker_key, skip_code=True)
+    account = sil_rpc.get_account(session_worker_key, skip_code=True)
     session_worker_key.nonce = Number(account.nonce)
     return session_worker_key
 
 
 @pytest.fixture(scope="session")
-def sender_funding_transactions_gas_price(eth_rpc: EthRPC) -> int:
+def sender_funding_transactions_gas_price(sil_rpc: EthRPC) -> int:
     """Pinned gas price for session-level funding transactions."""
-    return eth_rpc.gas_price()
+    return sil_rpc.gas_price()
 
 
 @pytest.fixture(scope="session")
@@ -423,7 +423,7 @@ def max_gas_limit_per_test(
 ) -> int | None:
     """
     Override of ``live_client_flags.max_gas_limit_per_test`` — fall back
-    to ``Fork.transaction_gas_limit_cap()`` (EIP-7825) when the CLI flag
+    to ``Fork.transaction_gas_limit_cap()`` (SIP-7825) when the CLI flag
     is unset. Returns ``None`` on pre-Osaka forks (no cap).
     """
     cli_value = request.config.getoption("max_gas_per_test")
@@ -445,14 +445,14 @@ def max_gas_limit_per_test(
 
 
 @pytest.fixture(scope="session")
-def debug_rpc(eth_rpc: EthRPC) -> DebugRPC:
-    """DebugRPC on the same endpoint as eth_rpc (for debug_setHead)."""
-    return DebugRPC(eth_rpc.url)
+def debug_rpc(sil_rpc: EthRPC) -> DebugRPC:
+    """DebugRPC on the same endpoint as sil_rpc (for debug_setHead)."""
+    return DebugRPC(sil_rpc.url)
 
 
 @pytest.fixture(scope="session")
 def client_backend(
-    eth_rpc: ChainBuilderEthRPC,
+    sil_rpc: ChainBuilderEthRPC,
     session_fork: Fork | TransitionFork,
     default_gas_price: int | None,
     default_max_fee_per_gas: int | None,
@@ -466,31 +466,31 @@ def client_backend(
     query bumped 1.5x) so ``make_stateful_fixture`` can size pre-alloc
     funding without mutating ``TransactionDefaults``.
     """
-    assert eth_rpc.testing_rpc is not None, (
+    assert sil_rpc.testing_rpc is not None, (
         "fill-stateful requires a client exposing the `testing` namespace"
     )
     # Share TestingRPC with ChainBuilderEthRPC so both code paths drive
     # the same client.
     backend = ClientBackend(
-        testing_rpc=eth_rpc.testing_rpc,
-        engine_rpc=eth_rpc.engine_rpc,
-        eth_rpc=eth_rpc,
+        testing_rpc=sil_rpc.testing_rpc,
+        engine_rpc=sil_rpc.engine_rpc,
+        sil_rpc=sil_rpc,
         fork=session_fork,
     )
 
     priority_fee = default_max_priority_fee_per_gas
     if priority_fee is None:
         priority_fee = int(
-            eth_rpc.max_priority_fee_per_gas() * FEE_BUMP_MULTIPLIER
+            sil_rpc.max_priority_fee_per_gas() * FEE_BUMP_MULTIPLIER
         )
     max_fee = default_max_fee_per_gas
     if max_fee is None:
-        max_fee = int(eth_rpc.gas_price() * FEE_BUMP_MULTIPLIER)
+        max_fee = int(sil_rpc.gas_price() * FEE_BUMP_MULTIPLIER)
     if priority_fee > max_fee:
         max_fee = priority_fee + 1
     blob_fee = default_max_fee_per_blob_gas
     if blob_fee is None:
-        blob_fee = int(eth_rpc.blob_base_fee() * FEE_BUMP_MULTIPLIER)
+        blob_fee = int(sil_rpc.blob_base_fee() * FEE_BUMP_MULTIPLIER)
     gas_price = (
         default_gas_price
         if default_gas_price is not None
@@ -513,7 +513,7 @@ def client_backend(
 
 @pytest.fixture(scope="session")
 def snapshot_block(
-    request: pytest.FixtureRequest, eth_rpc: "ChainBuilderEthRPC"
+    request: pytest.FixtureRequest, sil_rpc: "ChainBuilderEthRPC"
 ) -> Any:
     """
     Resolve the snapshot anchor to a client block dict.
@@ -524,7 +524,7 @@ def snapshot_block(
     """
     snapshot_arg = request.config.getoption("snapshot_block", default=None)
     if not snapshot_arg:
-        block = eth_rpc.get_block_by_number("latest")
+        block = sil_rpc.get_block_by_number("latest")
         if block is None:
             pytest.exit("Failed to fetch 'latest' block as snapshot anchor")
         return block
@@ -536,7 +536,7 @@ def snapshot_block(
     except Exception:
         pass
     if block_hash:
-        block = eth_rpc.get_block_by_hash(block_hash)
+        block = sil_rpc.get_block_by_hash(block_hash)
         if block is None:
             pytest.exit(
                 f"--snapshot-block hash {stripped} not found on client"
@@ -550,7 +550,7 @@ def snapshot_block(
             f"--snapshot-block must be a 0x-prefixed 32-byte hash or an "
             f"integer block number; got {snapshot_arg!r}"
         )
-    block = eth_rpc.get_block_by_number(number)
+    block = sil_rpc.get_block_by_number(number)
     if block is None:
         pytest.exit(f"--snapshot-block number {number} not found on client")
     return block
@@ -559,7 +559,7 @@ def snapshot_block(
 @pytest.fixture(scope="session", autouse=True)
 def _session_pre_run(
     client_backend: ClientBackend,
-    eth_rpc: ChainBuilderEthRPC,
+    sil_rpc: ChainBuilderEthRPC,
     session_worker_key: EOA,
     session_fork: Fork | TransitionFork,
     snapshot_block: Any,
@@ -594,7 +594,7 @@ def _session_pre_run(
 
     # 2. Fund seed key via CL withdrawal; helper returns the built payload.
     captured: List[EnginePayloadMetadata] = []
-    fund_payload = eth_rpc.fund_via_withdrawals(
+    fund_payload = sil_rpc.fund_via_withdrawals(
         [(Address(session_worker_key), SEED_FUNDING_WEI)]
     )
     if fund_payload is not None:
@@ -606,13 +606,13 @@ def _session_pre_run(
     with FileLock(lock_file):
         if (
             contracts.check_deterministic_factory_deployment(
-                eth_rpc=eth_rpc, fork=session_fork
+                sil_rpc=sil_rpc, fork=session_fork
             )
             is None
         ):
             _, deploy_payloads = (
                 contracts.deploy_deterministic_factory_contract(
-                    eth_rpc=eth_rpc,
+                    sil_rpc=sil_rpc,
                     seed_key=session_worker_key,
                     gas_price=sender_funding_transactions_gas_price,
                     tx_index=0,
@@ -621,7 +621,7 @@ def _session_pre_run(
             captured.extend(deploy_payloads)
 
     # 4. Capture start block (head after global setup).
-    start_block = eth_rpc.get_block_by_number("latest")
+    start_block = sil_rpc.get_block_by_number("latest")
     assert start_block is not None, "Failed to fetch start block"
     client_backend.start_block = start_block
     logger.info(
@@ -694,7 +694,7 @@ def t8n(
 def _reset_chain_between_tests(
     client_backend: ClientBackend,
     debug_rpc: DebugRPC,
-    eth_rpc: "ChainBuilderEthRPC",
+    sil_rpc: "ChainBuilderEthRPC",
 ) -> Generator[None, None, None]:
     """
     Rewind to start_block after each test so the chain is identical for
@@ -707,15 +707,15 @@ def _reset_chain_between_tests(
         return
     start_hex = client_backend.start_block["number"]
     expected_hash = client_backend.start_block["hash"]
-    # Skip when head already at start (geth rejects same-block setHead).
-    current_head = eth_rpc.get_block_by_number("latest")
+    # Skip when head already at start (gsil rejects same-block setHead).
+    current_head = sil_rpc.get_block_by_number("latest")
     if current_head is not None and current_head["hash"] == expected_hash:
         return
     try:
         debug_rpc.set_head(start_hex)
     except Exception as e:
         pytest.exit(f"debug_setHead failed — subsequent fixtures invalid: {e}")
-    head = eth_rpc.get_block_by_number("latest")
+    head = sil_rpc.get_block_by_number("latest")
     if head is None or head["hash"] != expected_hash:
         observed = head["hash"] if head is not None else "<none>"
         pytest.exit(

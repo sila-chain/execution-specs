@@ -14,9 +14,9 @@ from execution_testing import (
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/calldatacopyFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/calldatacopyFiller.yml",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1056"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1056"],
 )
 @pytest.mark.parametrize(
     "code,tx_data,code_address_storage,to_address_storage",
@@ -167,7 +167,7 @@ def test_calldatacopy(
     """
     Test `CALLDATACOPY` opcode.
 
-    Based on https://github.com/ethereum/tests/blob/ae4791077e8fcf716136e70fe8392f1a1f1495fb/src/GeneralStateTestsFiller/VMTests/vmTests/calldatacopyFiller.yml
+    Based on https://github.com/sila/tests/blob/ae4791077e8fcf716136e70fe8392f1a1f1495fb/src/GeneralStateTestsFiller/VMTests/vmTests/calldatacopyFiller.yml
     """
     code_address = pre.deploy_contract(code)
     to = pre.deploy_contract(

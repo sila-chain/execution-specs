@@ -24,7 +24,7 @@ from execution_testing.test_types import EOA, Alloc, ChainConfig
 from ..shared.address_stubs import AddressStubs, StubEOA
 from ..shared.helpers import get_rpc_endpoint
 from ..shared.pre_alloc import AllocFlags
-from ..spec_version_checker.spec_version_checker import EIPSpecTestItem
+from ..spec_version_checker.spec_version_checker import SIPSpecTestItem
 
 logger = get_logger(__name__)
 
@@ -62,11 +62,11 @@ def _validate_and_cache_address_stubs(
     labels to their on-chain ``Account`` and *eoas* maps EOA stub
     labels to ``EOA`` instances with on-chain nonces.
     """
-    eth_rpc = EthRPC(rpc_endpoint)
+    sil_rpc = EthRPC(rpc_endpoint)
     labels = list(address_stubs.root.keys())
     addresses = [address_stubs.root[k].addr for k in labels]
     query = BaseAlloc(root={addr: Account() for addr in addresses})
-    alloc = eth_rpc.get_alloc(query)
+    alloc = sil_rpc.get_alloc(query)
     empty: list[str] = []
     accounts: Dict[str, Account] = {}
     eoas: Dict[str, EOA] = {}
@@ -195,10 +195,10 @@ def pytest_configure(config: pytest.Config) -> None:
     )
     config.addinivalue_line(
         "markers",
-        "eip_checklist(item_id, eip=None): Mark a test as implementing a "
+        "sip_checklist(item_id, sip=None): Mark a test as implementing a "
         "specific checklist item. The first positional parameter is the "
-        "checklist item ID. The optional 'eip' keyword parameter specifies "
-        "additional EIPs covered by the test.",
+        "checklist item ID. The optional 'sip' keyword parameter specifies "
+        "additional SIPs covered by the test.",
     )
     config.addinivalue_line(
         "markers",
@@ -234,7 +234,7 @@ def pytest_configure(config: pytest.Config) -> None:
     )
     config.addinivalue_line(
         "markers",
-        "ported_from: Marks a test as ported from ethereum/tests",
+        "ported_from: Marks a test as ported from sila/tests",
     )
     config.addinivalue_line(
         "markers",
@@ -242,7 +242,7 @@ def pytest_configure(config: pytest.Config) -> None:
     )
     config.addinivalue_line(
         "markers",
-        "mainnet: Tests crafted for running on mainnet and sanity checking.",
+        "sila-mainnet: Tests crafted for running on sila-mainnet and sanity checking.",
     )
     config.addinivalue_line(
         "markers",
@@ -318,7 +318,7 @@ SPEC_TYPES_PARAMETERS: List[str] = list(BaseTest.spec_types.keys())
 
 def pytest_runtest_call(item: pytest.Item) -> None:
     """Pytest hook called in the context of test execution."""
-    if isinstance(item, EIPSpecTestItem):
+    if isinstance(item, SIPSpecTestItem):
         return
 
     class InvalidFillerError(Exception):

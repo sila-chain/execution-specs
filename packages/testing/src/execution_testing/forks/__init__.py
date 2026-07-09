@@ -1,4 +1,4 @@
-"""Ethereum test fork definitions."""
+"""Sila test fork definitions."""
 
 from .base_fork import RefundTypes
 from .forks.forks import (
@@ -46,7 +46,7 @@ from .helpers import (
     ALL_TRANSITION_FORKS,
     Fork,
     ForkAdapter,
-    ForkEIPSetAdapter,
+    ForkSIPSetAdapter,
     ForkOrNoneAdapter,
     ForkRangeDescriptor,
     ForkSet,
@@ -81,7 +81,7 @@ __all__ = [
     "ALL_TRANSITION_FORKS",
     "Fork",
     "ForkAdapter",
-    "ForkEIPSetAdapter",
+    "ForkSIPSetAdapter",
     "ForkOrNoneAdapter",
     "ForkSet",
     "ForkSetAdapter",

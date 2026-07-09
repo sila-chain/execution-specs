@@ -1,4 +1,4 @@
-"""Ethereum test fixture format definitions."""
+"""Sila test fixture format definitions."""
 
 from .base import (
     BaseFixture,

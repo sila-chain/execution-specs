@@ -3,7 +3,7 @@ Existing Opcodes
 
 Current up to Shanghai
 
-| Number | Name           | Execution spec category | Initial Release  | EIP                                                 |
+| Number | Name           | Execution spec category | Initial Release  | SIP                                                 |
 |--------|----------------|-------------------------|------------------|-----------------------------------------------------|
 | 0x00   | STOP           | Control Flow            |                  |                                                     |
 | 0x01   | ADD            | Arithmetic              |                  |                                                     |
@@ -28,9 +28,9 @@ Current up to Shanghai
 | 0x18   | XOR            | Bitwise                 |                  |                                                     |
 | 0x19   | NOT            | Bitwise                 |                  |                                                     |
 | 0x1A   | BYTE           | Bitwise                 |                  |                                                     |
-| 0x1B   | SHL            | Bitwise                 | Constantinople   | [EIP-145](https://eips.ethereum.org/EIPS/eip-145)   |
-| 0x1C   | SHR            | Bitwise                 | Constantinople   | [EIP-145](https://eips.ethereum.org/EIPS/eip-145)   |
-| 0x1D   | SAR            | Bitwise                 | Constantinople   | [EIP-145](https://eips.ethereum.org/EIPS/eip-145)   |
+| 0x1B   | SHL            | Bitwise                 | Constantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)   |
+| 0x1C   | SHR            | Bitwise                 | Constantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)   |
+| 0x1D   | SAR            | Bitwise                 | Constantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)   |
 | 0x20   | KECCAK         | Keccak                  |                  |                                                     |
 | 0x30   | ADDRESS        | Environmental           |                  |                                                     |
 | 0x31   | BALANCE        | Environmental           |                  |                                                     |
@@ -45,19 +45,19 @@ Current up to Shanghai
 | 0x3A   | GASPRICE       | Environmental           |                  |                                                     |
 | 0x3B   | EXTCODESIZE    | Environmental           |                  |                                                     |
 | 0x3C   | EXTCODECOPY    | Environmental           |                  |                                                     |
-| 0x3D   | RETURNDATASIZE | Environmental           | Byzantium        | [EIP-211](https://eips.ethereum.org/EIPS/eip-211)   |
-| 0x3E   | RETURNDATACOPY | Environmental           | Byzantium        | [EIP-211](https://eips.ethereum.org/EIPS/eip-211)   |
-| 0x3F   | EXTCODEHASH    | Environmental           | Constantinople   | [EIP-1052](https://eips.ethereum.org/EIPS/eip-1052) |
+| 0x3D   | RETURNDATASIZE | Environmental           | Byzantium        | [SIP-211](https://sips.sila.org/SIPS/sip-211)   |
+| 0x3E   | RETURNDATACOPY | Environmental           | Byzantium        | [SIP-211](https://sips.sila.org/SIPS/sip-211)   |
+| 0x3F   | EXTCODEHASH    | Environmental           | Constantinople   | [SIP-1052](https://sips.sila.org/SIPS/sip-1052) |
 | 0x40   | BLOCKHASH      | Block                   |                  |                                                     |
 | 0x41   | COINBASE       | Block                   |                  |                                                     |
 | 0x42   | TIMESTAMP      | Block                   |                  |                                                     |
 | 0x43   | NUMBER         | Block                   |                  |                                                     |
 | 0x44   | DIFFICULTY     | Block                   | Frontier->London |                                                     |
-| 0x44   | PREVRANDAO     | Block                   | Paris            | [EIP-4399](https://eips.ethereum.org/EIPS/eip-4399) |
+| 0x44   | PREVRANDAO     | Block                   | Paris            | [SIP-4399](https://sips.sila.org/SIPS/sip-4399) |
 | 0x45   | GASLIMIT       | Block                   |                  |                                                     |
-| 0x46   | CHAINID        | Block                   | Istanbul         | [EIP-1344](https://eips.ethereum.org/EIPS/eip-1344) |
-| 0x47   | SELFBALANCE    | Block                   | Istanbul         | [EIP-1884](https://eips.ethereum.org/EIPS/eip-1884) |
-| 0x48   | BASEFEE        | Block                   | London           | [EIP-3198](https://eips.ethereum.org/EIPS/eip-3198) |
+| 0x46   | CHAINID        | Block                   | Istanbul         | [SIP-1344](https://sips.sila.org/SIPS/sip-1344) |
+| 0x47   | SELFBALANCE    | Block                   | Istanbul         | [SIP-1884](https://sips.sila.org/SIPS/sip-1884) |
+| 0x48   | BASEFEE        | Block                   | London           | [SIP-3198](https://sips.sila.org/SIPS/sip-3198) |
 | 0x50   | POP            | Pop                     |                  |                                                     |
 | 0x51   | MLOAD          | Memory                  |                  |                                                     |
 | 0x52   | MSTORE         | Memory                  |                  |                                                     |
@@ -70,7 +70,7 @@ Current up to Shanghai
 | 0x59   | MSIZE          | Memory                  |                  |                                                     |
 | 0x5A   | GAS            | Control Flow            |                  |                                                     |
 | 0x5B   | JUMPDEST       | Control Flow            |                  |                                                     |
-| 0x5F   | PUSH0          | Push                    | Shanghai         | [EIP-3855](https://eips.ethereum.org/EIPS/eip-3855) |
+| 0x5F   | PUSH0          | Push                    | Shanghai         | [SIP-3855](https://sips.sila.org/SIPS/sip-3855) |
 | 0x60   | PUSH1          | Push                    |                  |                                                     |
 | 0x61   | PUSH2          | Push                    |                  |                                                     |
 | 0x62   | PUSH3          | Push                    |                  |                                                     |
@@ -144,9 +144,9 @@ Current up to Shanghai
 | 0xF1   | CALL           | System                  |                  |                                                     |
 | 0xF2   | CALLCODE       | System                  |                  |                                                     |
 | 0xF3   | RETURN         | System                  |                  |                                                     |
-| 0xF4   | DELEGATECALL   | System                  | Homestead        | [EIP-7](https://eips.ethereum.org/EIPS/eip-7)       |
-| 0xF5   | CREATE2        | System                  | Constantinople   | [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014) |
-| 0xFA   | STATICCALL     | System                  | Byzantium        | [EIP-214](https://eips.ethereum.org/EIPS/eip-214)   |
-| 0xFD   | REVERT         | System                  | Byzantium        | [EIP-140](https://eips.ethereum.org/EIPS/eip-140)   |
-| 0xFE   | INVALID/ABORT  | System                  | (unofficial)     | [EIP-141](https://eips.ethereum.org/EIPS/eip-141)   |
+| 0xF4   | DELEGATECALL   | System                  | Homestead        | [SIP-7](https://sips.sila.org/SIPS/sip-7)       |
+| 0xF5   | CREATE2        | System                  | Constantinople   | [SIP-1014](https://sips.sila.org/SIPS/sip-1014) |
+| 0xFA   | STATICCALL     | System                  | Byzantium        | [SIP-214](https://sips.sila.org/SIPS/sip-214)   |
+| 0xFD   | REVERT         | System                  | Byzantium        | [SIP-140](https://sips.sila.org/SIPS/sip-140)   |
+| 0xFE   | INVALID/ABORT  | System                  | (unofficial)     | [SIP-141](https://sips.sila.org/SIPS/sip-141)   |
 | 0xFF   | SELFDESTRUCT   | System                  |                  |                                                     |

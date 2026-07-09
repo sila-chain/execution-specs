@@ -1,4 +1,4 @@
-"""Pytest utility functions used to write Ethereum tests."""
+"""Pytest utility functions used to write Sila tests."""
 
 from typing import Any, Dict, List
 

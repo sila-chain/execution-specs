@@ -60,10 +60,10 @@ def prepare_suffix(opcode: Opcode) -> Bytecode:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stBadOpcode/badOpcodesFiller.json",
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stBugs/evmBytecodeFiller.json",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stBadOpcode/badOpcodesFiller.json",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stBugs/evmBytecodeFiller.json",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/748"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/748"],
 )
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.eels_base_coverage
@@ -287,10 +287,10 @@ def constant_gas_opcodes(fork: Fork) -> Generator[ParameterSet, None, None]:
         # SSTORE - untestable due to 2300 gas stipend rule
         if opcode == Op.SSTORE:
             continue
-        # EIP-8037: CREATE/CREATE2 have a state gas component charged from
+        # SIP-8037: CREATE/CREATE2 have a state gas component charged from
         # the state reservoir that cannot be measured via the GAS opcode
         # delta used by gas_test. Excluded to keep the test meaningful.
-        if fork.is_eip_enabled(8037) and opcode in (Op.CREATE, Op.CREATE2):
+        if fork.is_sip_enabled(8037) and opcode in (Op.CREATE, Op.CREATE2):
             continue
         yield pytest.param(
             opcode,

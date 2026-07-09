@@ -16,7 +16,7 @@ These markers are used to specify the forks for which a test is valid.
 
 :::execution_testing.cli.pytest_commands.plugins.forks.forks.ValidUntil
 
-### `@pytest.mark.valid_before("FORK_OR_EIP")`
+### `@pytest.mark.valid_before("FORK_OR_SIP")`
 
 :::execution_testing.cli.pytest_commands.plugins.forks.forks.ValidBefore
 
@@ -54,7 +54,7 @@ def test_something_with_all_tx_types(
     pass
 ```
 
-In this example, the test will be parameterized for parameter `tx_type` with values `[0, 1]` for fork Berlin, but with values `[0, 1, 2]` for fork London (because of EIP-1559).
+In this example, the test will be parameterized for parameter `tx_type` with values `[0, 1]` for fork Berlin, but with values `[0, 1, 2]` for fork London (because of SIP-1559).
 
 ### `@pytest.mark.with_all_contract_creating_tx_types`
 
@@ -134,7 +134,7 @@ def test_something_with_all_precompiles(
     pass
 ```
 
-In this example, the test will be parameterized for parameter `precompile` with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` for fork Shanghai, but with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` for fork Cancun which introduced the [point evaluation precompile](https://eips.ethereum.org/EIPS/eip-4844#point-evaluation-precompile) defined in EIP-4844.
+In this example, the test will be parameterized for parameter `precompile` with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` for fork Shanghai, but with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` for fork Cancun which introduced the [point evaluation precompile](https://sips.sila.org/SIPS/sip-4844#point-evaluation-precompile) defined in SIP-4844.
 
 ### `@pytest.mark.with_all_call_opcodes`
 

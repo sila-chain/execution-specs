@@ -2,7 +2,7 @@
 
 ## Requirements
 
-By default, the execution-testing framework only generates fixtures for forks that have been deployed to mainnet. In order to generate fixtures for evm features that are actively under development:
+By default, the execution-testing framework only generates fixtures for forks that have been deployed to sila-mainnet. In order to generate fixtures for evm features that are actively under development:
 
 1. A version of the `evm` and `solc` tools that implement the feature must be available (although, typically only a developer version of the `evm` tool is required, usually the latest stable release of `solc` is adequate), and,
 2. The development fork to test must be explicitly specified on the command-line:
@@ -34,7 +34,7 @@ By default, the execution-testing framework only generates fixtures for forks th
 
 ## Further Help
 
-1. [`geth`/`evm` build documentation](https://geth.ethereum.org/docs/getting-started/installing-geth#build-from-source).
+1. [`gsil`/`evm` build documentation](https://gsil.sila.org/docs/getting-started/installing-gsil#build-from-source).
 2. [`solc` build documentation](https://docs.soliditylang.org/en/v0.8.20/installing-solidity.html#building-from-source).
 
 !!! note "Verifying `evm` and `solc` versions used"

@@ -1,0 +1,35 @@
+"""
+SIP-196: Precompiled contracts for addition and scalar multiplication on
+the elliptic curve alt_bn128.
+
+https://sips.sila.org/SIPS/sip-196
+"""
+
+from dataclasses import replace
+from typing import List
+
+from execution_testing.base_types import Address
+
+from ....base_fork import BaseFork
+from ....gas_costs import GasCosts
+
+
+class SIP196(BaseFork):
+    """SIP-196 class."""
+
+    @classmethod
+    def precompiles(cls) -> List[Address]:
+        """Add BN254 addition and scalar multiplication precompiles."""
+        return [
+            Address(6, label="BN254_ADD"),
+            Address(7, label="BN254_MUL"),
+        ] + super(SIP196, cls).precompiles()
+
+    @classmethod
+    def gas_costs(cls) -> GasCosts:
+        """Set gas costs for BN254 addition and multiplication."""
+        return replace(
+            super(SIP196, cls).gas_costs(),
+            PRECOMPILE_ECADD=500,
+            PRECOMPILE_ECMUL=40_000,
+        )

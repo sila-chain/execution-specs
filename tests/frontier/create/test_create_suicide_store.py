@@ -31,9 +31,9 @@ class Operation(IntEnum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_AcreateB_BSuicide_BStoreFiller.json",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_AcreateB_BSuicide_BStoreFiller.json",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1867"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1867"],
     coverage_missed_reason="Converting solidity code result in following "
     "opcode not being used: PUSH29, DUP4, DUP8, SWAP2, ISZERO, AND, MUL, DIV, "
     "CALLVALUE, EXTCODESIZE. Changed 0x11 address to new address (no check "

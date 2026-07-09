@@ -1,0 +1,192 @@
+"""
+MAX_BLOBS_PER_TX limit tests.
+
+Tests for `MAX_BLOBS_PER_TX` limit in [SIP-7594: SilaPeerDAS - Peer Data
+Availability Sampling](https://sips.sila.org/SIPS/sip-7594).
+"""
+
+import pytest
+from execution_testing import (
+    Address,
+    Alloc,
+    Block,
+    BlockchainTestFiller,
+    Environment,
+    Fork,
+    Hash,
+    StateTestFiller,
+    Transaction,
+    TransactionException,
+    TransitionFork,
+    add_kzg_version,
+)
+
+from .spec import Spec, ref_spec_7594
+
+REFERENCE_SPEC_GIT_PATH = ref_spec_7594.git_path
+REFERENCE_SPEC_VERSION = ref_spec_7594.version
+
+
+@pytest.fixture
+def env() -> Environment:
+    """Environment fixture."""
+    return Environment()
+
+
+@pytest.fixture
+def sender(pre: Alloc) -> Address:
+    """Sender account with sufficient balance for blob transactions."""
+    return pre.fund_eoa(amount=10**18)
+
+
+@pytest.fixture
+def destination(pre: Alloc) -> Address:
+    """Destination account for blob transactions."""
+    return pre.fund_eoa(amount=0)
+
+
+@pytest.fixture
+def blob_gas_price(fork: Fork | TransitionFork) -> int:
+    """Blob gas price for transactions."""
+    return max(
+        fork.transitions_from().min_base_fee_per_blob_gas(),
+        fork.transitions_to().min_base_fee_per_blob_gas(),
+    )
+
+
+@pytest.fixture
+def tx(
+    sender: Address,
+    destination: Address,
+    blob_gas_price: int,
+    blob_count: int,
+) -> Transaction:
+    """Blob transaction fixture."""
+    return Transaction(
+        ty=3,
+        sender=sender,
+        to=destination,
+        value=1,
+        gas_limit=21_000,
+        max_fee_per_gas=10,
+        max_priority_fee_per_gas=1,
+        max_fee_per_blob_gas=blob_gas_price,
+        access_list=[],
+        blob_versioned_hashes=add_kzg_version(
+            [Hash(i) for i in range(0, blob_count)],
+            Spec.BLOB_COMMITMENT_VERSION_KZG,
+        ),
+    )
+
+
+@pytest.mark.parametrize_by_fork(
+    "blob_count",
+    lambda fork: list(range(1, fork.max_blobs_per_tx() + 1)),
+)
+@pytest.mark.valid_from("Osaka")
+def test_valid_max_blobs_per_tx(
+    state_test: StateTestFiller,
+    pre: Alloc,
+    env: Environment,
+    tx: Transaction,
+) -> None:
+    """
+    Test that transactions with blob count from 1 to MAX_BLOBS_PER_TX are
+    accepted. Verifies that individual transactions can contain up to the
+    maximum allowed number of blobs per transaction.
+    """
+    state_test(
+        env=env,
+        pre=pre,
+        tx=tx,
+        post={},
+    )
+
+
+@pytest.mark.parametrize_by_fork(
+    "blob_count",
+    lambda fork: [
+        fork.max_blobs_per_tx() + 1,
+        fork.max_blobs_per_tx() + 2,
+        fork.max_blobs_per_block(),
+        fork.max_blobs_per_block() + 1,
+    ],
+)
+@pytest.mark.valid_from("Osaka")
+@pytest.mark.exception_test
+def test_invalid_max_blobs_per_tx(
+    fork: Fork,
+    state_test: StateTestFiller,
+    pre: Alloc,
+    env: Environment,
+    tx: Transaction,
+    blob_count: int,
+) -> None:
+    """
+    Test that transactions exceeding MAX_BLOBS_PER_TX are rejected. Verifies
+    that individual transactions cannot contain more than the maximum allowed
+    number of blobs per transaction, even if the total would be within the
+    block limit.
+    """
+    state_test(
+        env=env,
+        pre=pre,
+        tx=tx.with_error(
+            TransactionException.TYPE_3_TX_MAX_BLOB_GAS_ALLOWANCE_EXCEEDED
+            if blob_count > fork.max_blobs_per_block()
+            else TransactionException.TYPE_3_TX_BLOB_COUNT_EXCEEDED
+        ),
+        post={},
+    )
+
+
+@pytest.mark.parametrize_by_fork(
+    "blob_count",
+    lambda fork: [
+        fork.transitions_to().max_blobs_per_tx() + 1,
+        fork.transitions_to().max_blobs_per_block() + 1,
+    ],
+)
+@pytest.mark.valid_at_transition_to("Osaka")
+@pytest.mark.exception_test
+def test_max_blobs_per_tx_fork_transition(
+    fork: TransitionFork,
+    blockchain_test: BlockchainTestFiller,
+    env: Environment,
+    pre: Alloc,
+    tx: Transaction,
+    blob_count: int,
+) -> None:
+    """Test `MAX_BLOBS_PER_TX` limit enforcement across fork transition."""
+    expected_exception = (
+        TransactionException.TYPE_3_TX_MAX_BLOB_GAS_ALLOWANCE_EXCEEDED
+        if blob_count > fork.transitions_to().max_blobs_per_block()
+        else TransactionException.TYPE_3_TX_BLOB_COUNT_EXCEEDED
+    )
+    pre_fork_block = Block(
+        txs=[
+            tx
+            if blob_count < fork.transitions_from().max_blobs_per_block()
+            else tx.with_error(expected_exception)
+        ],
+        timestamp=fork.at_timestamp - 1,
+        exception=None
+        if blob_count < fork.transitions_from().max_blobs_per_block()
+        else [expected_exception],
+    )
+    fork_block = Block(
+        txs=[tx.with_nonce(1).with_error(expected_exception)],
+        timestamp=fork.at_timestamp,
+        exception=[expected_exception],
+    )
+    post_fork_block = Block(
+        txs=[tx.with_nonce(1).with_error(expected_exception)],
+        timestamp=fork.at_timestamp + 1,
+        exception=[expected_exception],
+    )
+    blockchain_test(
+        pre=pre,
+        post={},
+        blocks=[pre_fork_block, fork_block, post_fork_block],
+        genesis_environment=env,
+    )

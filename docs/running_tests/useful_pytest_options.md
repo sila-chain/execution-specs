@@ -40,7 +40,7 @@ In addition to Hive's regex-based `--sim.limit` option, running in dev mode supp
 
 ```bash
 uv run consume rlp -k "test_chainid and fork_London"
-uv run consume engine -k "eip1559 or eip4844" -m cancun
+uv run consume engine -k "sip1559 or sip4844" -m cancun
 ```
 
 Use `--collect-only -q` to see which tests would run without executing them:
@@ -68,7 +68,7 @@ uv run consume engine --input=<fixture_input> -m "blockchain_test and cancun"
 Combine marks with keyword filtering:
 
 ```bash
-uv run consume engine --input=<fixture_input> -m "blockchain_test" -k "eip4844 or blob"
+uv run consume engine --input=<fixture_input> -m "blockchain_test" -k "sip4844 or blob"
 ```
 
 !!! note "Mark Availability"

@@ -1,4 +1,4 @@
-"""Ethereum blockchain test spec definition and filler."""
+"""Sila blockchain test spec definition and filler."""
 
 from pprint import pprint
 from typing import (
@@ -309,7 +309,7 @@ class Block(Header):
     rlp_modifier: Header | None = None
     """
     An RLP modifying header which values would be used to override the ones
-    returned by the `ethereum_clis.TransitionTool`.
+    returned by the `sila_clis.TransitionTool`.
     """
     expected_block_access_list: BlockAccessListExpectation | None = None
     """
@@ -345,9 +345,9 @@ class Block(Header):
     expected_post_state: Alloc | None = None
     """Post state for verification after block execution in BlockchainTest"""
     block_access_list: Bytes | None = Field(None)
-    """EIP-7928: Block-level access lists (serialized)."""
+    """SIP-7928: Block-level access lists (serialized)."""
     engine_new_payload_block_access_list: Bytes | None = None
-    """EIP-7928: override only the engine newPayload blockAccessList field."""
+    """SIP-7928: override only the engine newPayload blockAccessList field."""
     expected_gas_used: int | None = None
     """Expected gas used for the block."""
 
@@ -639,7 +639,7 @@ def _split_blocks_by_phase(blocks: List[Block]) -> List[Block]:
     """
     Split each block into contiguous phase runs.
 
-    A mixed-phase block (e.g. EIP-7702 authorization tagged SETUP
+    A mixed-phase block (e.g. SIP-7702 authorization tagged SETUP
     followed by benchmark TEST txs) becomes multiple back-to-back
     blocks, one per run; ``Block.phase`` asserts on mixed input.
 
@@ -1438,7 +1438,7 @@ class BlockchainTest(BaseTest):
             if setup_txs:
                 blocks_to_process.append(Block(txs=setup_txs))
         # Each block must be single-phase (Block.phase asserts otherwise);
-        # mixed blocks (e.g. EIP-7702 authorization + benchmark exec) are
+        # mixed blocks (e.g. SIP-7702 authorization + benchmark exec) are
         # split into contiguous phase runs so benchmark gas isn't
         # swallowed into ``setupEngineNewPayloads``.
         blocks_to_process.extend(_split_blocks_by_phase(self.blocks))

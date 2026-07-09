@@ -1,0 +1,130 @@
+name: Merge SIP Branches
+description: Merges multiple SIP branches into a devnet branch, by pushing using --force-with-lease
+
+inputs:
+  fork:
+    description: 'Fork name (e.g., amsterdam)'
+    required: true
+  devnet_name:
+    description: 'Devnet name (e.g., amsterdam/1, bal/2, sip-1234/3). Created branch will be `devnets/$devnet_name`'
+    required: true
+  sip_numbers:
+    description: 'List of SIP numbers (e.g., 1234,2345+3456 for sip-1234 and combined sip-2345+3456)'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure Git
+      shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Merge SIP branches
+      shell: bash
+      env:
+        FORK: ${{ inputs.fork }}
+        DEVNET_NAME: ${{ inputs.devnet_name }}
+        SIP_NUMBERS: ${{ inputs.sip_numbers }}
+        REMOTE: origin
+      run: |
+        set -euo pipefail
+
+        echo "FORK=$FORK"
+        echo "DEVNET_NAME=$DEVNET_NAME"
+        echo "SIP_NUMBERS=$SIP_NUMBERS"
+
+        FORK_BRANCH="forks/${FORK}"
+        DEVNET_BRANCH="devnets/${DEVNET_NAME}"
+
+        # Basic ref-format validation for user-provided pieces
+        # (git check-ref-format expects full refnames for some checks; --branch is easiest)
+        git check-ref-format --branch "${DEVNET_BRANCH}" >/dev/null
+
+        # Convert comma-separated list to array
+        IFS=',' read -ra RAW_SIPS <<< "$SIP_NUMBERS"
+
+        # Normalize: trim whitespace, drop empties
+        SIPS=()
+        for raw in "${RAW_SIPS[@]}"; do
+          sip="$(echo "$raw" | xargs)"   # trims leading/trailing whitespace
+          if [[ -n "$sip" ]]; then
+            # Ensure it looks like SIP number(s) - digits optionally joined by +
+            if [[ ! "$sip" =~ ^[0-9]+(\+[0-9]+)*$ ]]; then
+              echo "Error: Invalid SIP number ${sip}"
+              exit 1
+            fi
+            SIPS+=("$sip")
+          fi
+        done
+
+        if [[ ${#SIPS[@]} -eq 0 ]]; then
+          echo "Error: No SIP numbers provided after parsing '${SIP_NUMBERS}'"
+          exit 1
+        fi
+
+        git fetch "${REMOTE}" --prune
+
+        # Build the list of expected remote branches and verify all exist,
+        # then checkout each branch and rebase it onto the fork branch automatically.
+        for sip in "${SIPS[@]}"; do
+          SIP_BRANCH="sips/${FORK}/sip-${sip}"
+          # Validate ref format for each constructed branch name
+          git check-ref-format --branch "${SIP_BRANCH}" >/dev/null || {
+            echo "Error: Computed branch name '${SIP_BRANCH}' is not a valid ref"
+            exit 1
+          }
+
+          if ! git show-ref --verify --quiet "refs/remotes/${REMOTE}/${SIP_BRANCH}"; then
+            echo "Error: Missing remote branch ${REMOTE}/${SIP_BRANCH}"
+            exit 1
+          fi
+
+          git checkout -B "${SIP_BRANCH}" "${REMOTE}/${SIP_BRANCH}"
+
+          if git merge-base --is-ancestor "${REMOTE}/${FORK_BRANCH}" "${SIP_BRANCH}"; then
+            echo "${SIP_BRANCH} is already based on ${FORK_BRANCH}, skipping rebase"
+          else
+            if ! git rebase "${REMOTE}/${FORK_BRANCH}"; then
+              echo "Error: Automatic rebase of ${SIP_BRANCH} onto ${FORK_BRANCH} failed"
+              git rebase --abort || true
+              exit 1
+            else
+              echo "Rebase of ${SIP_BRANCH} onto ${FORK_BRANCH} successful"
+            fi
+          fi
+        done
+
+        # Create (or reset) devnet branch from first SIP
+        FIRST_SIP="sips/${FORK}/sip-${SIPS[0]}"
+        echo "Creating branch ${DEVNET_BRANCH} from ${FIRST_SIP}"
+        git checkout -B "${DEVNET_BRANCH}" "${FIRST_SIP}"
+
+        # Merge remaining SIPs
+        for ((i=1; i<${#SIPS[@]}; i++)); do
+          SIP_BRANCH="sips/${FORK}/sip-${SIPS[$i]}"
+          echo "Merging ${SIP_BRANCH}..."
+
+          if ! git merge "${SIP_BRANCH}" -m "Merge ${SIP_BRANCH} into ${DEVNET_BRANCH}"; then
+            echo "Error: Merge conflict occurred while merging ${SIP_BRANCH}"
+            git merge --abort || true
+            exit 1
+          fi
+        done
+
+        echo "Running static checks on merged branch"
+        just static
+
+        echo "All SIP branches merged successfully"
+
+    - name: Push devnet branch
+      shell: bash
+      env:
+        DEVNET_NAME: ${{ inputs.devnet_name }}
+        REMOTE: origin
+      run: |
+        DEVNET_BRANCH="devnets/${DEVNET_NAME}"
+
+        echo "Force pushing ${DEVNET_BRANCH} to ${REMOTE}"
+        git push --force-with-lease "${REMOTE}" "${DEVNET_BRANCH}"

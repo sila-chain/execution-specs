@@ -10,7 +10,7 @@ All `consume` subcommands have an `--input` argument, which implements the same 
 
 ## Example: Two-liner to Download the Latest Fixture Release
 
-Releases can be downloaded without (manually) cloning and installing the @ethereum/execution-specs tools as following:
+Releases can be downloaded without (manually) cloning and installing the @sila/execution-specs tools as following:
 
 1. Install `uv` (a fast, rust-based Python package manager):
 
@@ -18,10 +18,10 @@ Releases can be downloaded without (manually) cloning and installing the @ethere
     curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
 
-2. Run the `consume cache` command via `uv` and request the latest [mainnet `tests` release](../releases.md):
+2. Run the `consume cache` command via `uv` and request the latest [sila-mainnet `tests` release](../releases.md):
 
     ```console
-    uvx --from "git+https://github.com/ethereum/execution-specs.git#subdirectory=packages/testing" \
+    uvx --from "git+https://github.com/sila/execution-specs.git#subdirectory=packages/testing" \
         consume cache --input=latest
     ```
 
@@ -29,14 +29,14 @@ Releases can be downloaded without (manually) cloning and installing the @ethere
     Expected output, as of `tests@v20.0.0`:
 
     ```console
-    Path: /home/dtopz/.cache/ethereum-execution-spec-tests/cached_downloads/ethereum/execution-specs/tests%40v20.0.0/fixtures/fixtures
-    Input: https://github.com/ethereum/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
-    Release page: https://github.com/ethereum/execution-specs/releases/tag/tests%40v20.0.0
+    Path: /home/dtopz/.cache/sila-execution-spec-tests/cached_downloads/sila/execution-specs/tests%40v20.0.0/fixtures/fixtures
+    Input: https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+    Release page: https://github.com/sila/execution-specs/releases/tag/tests%40v20.0.0
     ```
 
     **Note:** Use direct URLs to avoid GitHub API calls (better for CI environments). Version specifiers like `tests@latest` will always use the GitHub API to resolve versions. More details on the arguments to `--input` are provided below.
 
-    **Explanation:** `uv` creates a local Python virtual environment in `~/.cache/uv/`, installs the testing package and executes the `consume cache` command to resolve and download the release, which gets cached at `~/.cache/ethereum-execution-spec-tests`. Subsequent commands will use the cached version of the fixtures.
+    **Explanation:** `uv` creates a local Python virtual environment in `~/.cache/uv/`, installs the testing package and executes the `consume cache` command to resolve and download the release, which gets cached at `~/.cache/sila-execution-spec-tests`. Subsequent commands will use the cached version of the fixtures.
 
 ## The `--input` Flag to Specify Fixtures
 
@@ -52,7 +52,7 @@ A release specification has the format `<release_name>@<version>`.
 
 **Supported release names:**
 
-- `tests`: The mainnet release, all tests for all forks up to and including the latest mainnet fork. A bare `latest` or `vX.Y.Z` input is shorthand for `tests@latest`, respectively `tests@vX.Y.Z`.
+- `tests`: The sila-mainnet release, all tests for all forks up to and including the latest sila-mainnet fork. A bare `latest` or `vX.Y.Z` input is shorthand for `tests@latest`, respectively `tests@vX.Y.Z`.
 - `<feat>-devnet`: Devnet releases, e.g. `bal-devnet`, `glamsterdam-devnet`.
 - Other features: e.g. `benchmark`, `zkevm`.
 
@@ -68,25 +68,25 @@ Any release name is also accepted with its `tests-` git tag prefix, e.g. `tests-
 Examples using a release specification:
 
 ```bash
-# Latest mainnet (tests) release
+# Latest sila-mainnet (tests) release
 uv run consume engine --input latest
 uv run consume rlp --input tests@latest
 
-# Mainnet release by version
+# SilaMainnet release by version
 uv run consume engine --input v20.0.0
 uv run consume rlp --input tests@v20.0.0
 
 # Feature releases, with or without the tests- tag prefix
 uv run consume cache --input bal-devnet@v7.0.0
 uv run consume cache --input glamsterdam-devnet@latest
-uv run consume direct --input tests-bal@v7.3.2 --bin ../go-ethereum/build/bin/evm
+uv run consume direct --input tests-bal@v7.3.2 --bin ../go-sila/build/bin/evm
 ```
 
 Examples using a URL, the target must be a `.tar.gz`:
 
 ```bash
 # GitHub release URL
-uv run consume engine --input https://github.com/ethereum/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+uv run consume engine --input https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
 
 # Direct archive URL
 uv run consume rlp --input https://example.com/custom-fixtures.tar.gz
@@ -101,7 +101,7 @@ All remote fixture sources are automatically cached to avoid repeated downloads:
 **Default cache location:**
 
 ```text
-~/.cache/ethereum-execution-spec-tests/cached_downloads/
+~/.cache/sila-execution-spec-tests/cached_downloads/
 ```
 
 You can override this location with the `--cache-folder` flag:
@@ -119,10 +119,10 @@ uv run consume cache --input bal-devnet@v7.0.0 --extract-to ./devnet-fixtures
 **Cache structure:**
 
 ```text
-❯ tree ~/.cache/ethereum-execution-spec-tests/ -L 5
-/home/dtopz/.cache/ethereum-execution-spec-tests/
+❯ tree ~/.cache/sila-execution-spec-tests/ -L 5
+/home/dtopz/.cache/sila-execution-spec-tests/
 ├── cached_downloads
-│   ├── ethereum
+│   ├── sila
 │   │   └── execution-specs
 │   │       ├── tests%40v20.0.0
 │   │       │   └── fixtures
@@ -143,7 +143,7 @@ The [`fill` command](../../filling_tests/index.md) generates a JSON file `<fixtu
 When using direct GitHub release URLs (instead of version specifiers), the consume command automatically avoids unnecessary GitHub API calls to prevent rate limiting in CI environments:
 
 ```console
-consume cache --input=https://github.com/ethereum/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+consume cache --input=https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
 ```
 
 **API Call Behavior:**
@@ -155,7 +155,7 @@ Examples:
 
 ```console
 # No API calls - direct download
-consume cache --input=https://github.com/ethereum/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+consume cache --input=https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
 
 # API calls required - version resolution
 consume cache --input=latest

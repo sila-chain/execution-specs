@@ -6,10 +6,10 @@ state_tests/stZeroCallsTest/ZeroValue_CALLFiller.json
 
 @manually-enhanced: Do not overwrite. The post-state asserts storage slot
 0 holds the `Op.GAS` value (0x8D5B6), which depends on the gas remaining
-at a fixed execution point. EIP-2780 lowers the intrinsic for this non-self
+at a fixed execution point. SIP-2780 lowers the intrinsic for this non-self
 non-value tx, so the gas budget is derived from the fork as
 `600_000 + (intrinsic - 21_000)`: the fork intrinsic minus the
-pre-EIP-2780 baseline 21_000 keeps the post-intrinsic budget fixed at
+pre-SIP-2780 baseline 21_000 keeps the post-intrinsic budget fixed at
 Cancun's value across forks. Do not hardcode the gas_limit.
 """
 
@@ -81,7 +81,7 @@ def test_zero_value_call(
     )
 
     # Preserve Cancun's post-intrinsic execution budget across
-    # forks; EIP-2780 lowers the intrinsic for non-self non-value
+    # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.
     intrinsic = fork.transaction_intrinsic_cost_calculator()()

@@ -939,7 +939,7 @@ def test_create2_oog_from_call_refunds(
     )
 
     expect_entries_: list[dict] = []
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         expect_entries_.append(
             {
                 "indexes": {

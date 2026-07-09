@@ -1,0 +1,17 @@
+opcode = SIP does not introduce a new opcode
+precompile = SIP does not introduce a new precompile
+removed_precompile = SIP does not remove a precompile
+system_contract = SIP does not introduce a new system contract
+transaction_type = SIP does not introduce a new transaction type
+block_header_field = SIP does not add any new block header fields
+block_body_field = SIP does not add any new block body fields
+gas_cost_changes = SIP does not modify per-operation gas costs
+gas_refunds_changes/test/refund_calculation/over = SIP does not change refund calculation, only block-level accounting
+gas_refunds_changes/test/refund_calculation/exact = SIP does not change refund calculation, only block-level accounting
+gas_refunds_changes/test/refund_calculation/under = SIP does not change refund calculation, only block-level accounting
+gas_refunds_changes/test/exceptional_abort/revertable = SIP does not change refund behavior on revertable aborts
+gas_refunds_changes/test/exceptional_abort/non_revertable = SIP does not change refund behavior on non-revertable aborts
+blob_count_changes = SIP does not introduce any blob count changes
+execution_layer_request = SIP does not introduce an execution layer request
+new_transaction_validity_constraint = SIP does not introduce a new transaction validity constraint
+modified_transaction_validity_constraint = SIP does not introduce a modified transaction validity constraint

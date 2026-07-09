@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - master
-      - mainnet
+      - sila-mainnet
     paths: &checklist_paths
       - "docs/writing_tests/checklist_templates/**"
-      - "packages/testing/src/execution_testing/checklists/eip_checklist.py"
-      - "packages/testing/src/execution_testing/checklists/eip_checklist.pyi"
+      - "packages/testing/src/execution_testing/checklists/sip_checklist.py"
+      - "packages/testing/src/execution_testing/checklists/sip_checklist.pyi"
       - "packages/testing/src/execution_testing/checklists/tests/test_checklist_template_consistency.py"
       - ".github/workflows/test-checklist.yaml"
   pull_request:
@@ -24,7 +24,7 @@ jobs:
     name: Test checklist template consistency
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout ethereum/execution-specs
+      - name: Checkout sila/execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./.github/actions/setup-uv
       - name: Run checklist consistency test

@@ -47,7 +47,7 @@ class FuzzerAccountInput(BaseModel):
 
 class FuzzerAuthorizationInput(BaseModel):
     """
-    Raw authorization tuple from fuzzer output (EIP-7702).
+    Raw authorization tuple from fuzzer output (SIP-7702).
 
     Accepts fuzzer's camelCase JSON format.
     """
@@ -66,7 +66,7 @@ class FuzzerTransactionInput(BaseModel):
     """
     Raw transaction data from fuzzer output.
 
-    This is a DTO that accepts standard Ethereum JSON-RPC transaction format
+    This is a DTO that accepts standard Sila JSON-RPC transaction format
     without triggering EEST's Transaction.model_post_init logic.
 
     Key differences from EEST Transaction:

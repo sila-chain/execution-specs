@@ -9,7 +9,7 @@ fill's filler plugin. This module is the common denominator: any command
 that hits an actual client (execute-remote, execute-hive, fill-stateful,
 ...) can load it.
 
-The fixtures compute real per-session fees from ``eth_rpc`` and feed them
+The fixtures compute real per-session fees from ``sil_rpc`` and feed them
 into ``pre.minimum_balance_for_pending_transactions(...)``, so queued setup
 transactions get live fee values via ``Transaction.set_gas_price`` without
 mutating ``TransactionDefaults`` globally.
@@ -266,13 +266,13 @@ def default_max_fee_per_blob_gas(
 
 @pytest.fixture(scope="function")
 def max_priority_fee_per_gas(
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     default_max_priority_fee_per_gas: int | None,
 ) -> int:
     """Max priority fee per gas for this test (live query or CLI default)."""
     max_priority_fee_per_gas = default_max_priority_fee_per_gas
     if max_priority_fee_per_gas is None:
-        network_max_priority_fee = eth_rpc.max_priority_fee_per_gas()
+        network_max_priority_fee = sil_rpc.max_priority_fee_per_gas()
         max_priority_fee_per_gas = int(
             network_max_priority_fee * FEE_BUMP_MULTIPLIER
         )
@@ -281,14 +281,14 @@ def max_priority_fee_per_gas(
 
 @pytest.fixture(scope="function")
 def max_fee_per_gas(
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     default_max_fee_per_gas: int | None,
     max_priority_fee_per_gas: int,
 ) -> int:
     """Max fee per gas for this test (live query or CLI default)."""
     max_fee_per_gas = default_max_fee_per_gas
     if max_fee_per_gas is None:
-        network_gas_price = eth_rpc.gas_price()
+        network_gas_price = sil_rpc.gas_price()
         max_fee_per_gas = int(network_gas_price * FEE_BUMP_MULTIPLIER)
     if max_priority_fee_per_gas > max_fee_per_gas:
         # Priority fee can exceed max fee due to query timing; bump.
@@ -298,13 +298,13 @@ def max_fee_per_gas(
 
 @pytest.fixture(scope="function")
 def max_fee_per_blob_gas(
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     default_max_fee_per_blob_gas: int | None,
 ) -> int:
     """Max fee per blob gas for this test (live query or CLI default)."""
     max_fee_per_blob_gas = default_max_fee_per_blob_gas
     if max_fee_per_blob_gas is None:
-        network_blob_base_fee = eth_rpc.blob_base_fee()
+        network_blob_base_fee = sil_rpc.blob_base_fee()
         max_fee_per_blob_gas = int(network_blob_base_fee * FEE_BUMP_MULTIPLIER)
     return max_fee_per_blob_gas
 

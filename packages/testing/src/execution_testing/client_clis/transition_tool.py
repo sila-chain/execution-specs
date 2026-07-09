@@ -55,13 +55,13 @@ from .cli_types import (
     TransitionToolOutput,
     TransitionToolRequest,
 )
-from .ethereum_cli import EthereumCLI
+from .sila_cli import SilaCLI
 from .file_utils import dump_files_to_directory
 
 model_dump_config: Mapping = {"by_alias": True, "exclude_none": True}
 
 # TODO: reduce NORMAL_SERVER_TIMEOUT back down to 20 once BLS timeout issue is
-# resolved: https://github.com/ethereum/execution-spec-tests/issues/1894
+# resolved: https://github.com/sila/execution-spec-tests/issues/1894
 NORMAL_SERVER_TIMEOUT = 600
 SLOW_REQUEST_TIMEOUT = 600
 
@@ -179,7 +179,7 @@ class OutputCache:
         self.key = None
 
 
-class TransitionTool(EthereumCLI):
+class TransitionTool(SilaCLI):
     """
     Transition tool abstract base class which should be inherited by all
     transition tool implementations.
@@ -277,7 +277,7 @@ class TransitionTool(EthereumCLI):
             trace_file_name = f"trace-{i}-{r.transaction_hash}.jsonl"
             trace_file_path = temp_dir_path / trace_file_name
             if not trace_file_path.exists():
-                # Transaction was rejected mid-processing (e.g. EIP-3607
+                # Transaction was rejected mid-processing (e.g. SIP-3607
                 # collision): the receipt exists but the tracer's
                 # TransactionEnd event never fired, so no trace file was
                 # written. Record an empty trace for this tx.

@@ -5,12 +5,12 @@ Ported from:
 state_tests/stSpecialTest/eoaEmptyParisFiller.yml
 
 @manually-enhanced: Do not overwrite. Two measured slots shift under
-EIP-8038. Slot 0xF1 times a CALL that forwards `value` to the (warm)
+SIP-8038. Slot 0xF1 times a CALL that forwards `value` to the (warm)
 origin EOA: when `value` is nonzero it gains the value-transfer
 reprice `CALL_VALUE - 9000`; the value-0 cases are unchanged. Slot
 0xFF times a value-0 CALL to a cold contract and gains the cold
 account reprice `COLD_ACCOUNT_ACCESS - 2600`. Both deltas come from
-the fork's own gas model, so each is exactly 0 before EIP-8038.
+the fork's own gas model, so each is exactly 0 before SIP-8038.
 """
 
 import pytest
@@ -105,7 +105,7 @@ def test_eoa_empty_paris(
     v: int,
 ) -> None:
     """Test_eoa_empty_paris."""
-    # EIP-8038 deltas, each 0 before EIP-8038. Slot 0xF1's value-bearing
+    # SIP-8038 deltas, each 0 before SIP-8038. Slot 0xF1's value-bearing
     # CALL to the warm origin gains the value-transfer reprice; slot
     # 0xFF's value-0 CALL to a cold contract gains the cold account
     # reprice.

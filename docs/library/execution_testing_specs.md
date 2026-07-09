@@ -1,3 +1,3 @@
-# Ethereum Test Specs package
+# Sila Test Specs package
 
 ::: execution_testing.specs

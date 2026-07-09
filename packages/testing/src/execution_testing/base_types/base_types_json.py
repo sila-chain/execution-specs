@@ -1,23 +1,23 @@
-"""JSON encoding and decoding for Ethereum types."""
+"""JSON encoding and decoding for Sila types."""
 
 from typing import Any, AnyStr, List
 
-from .pydantic import EthereumTestBaseModel, EthereumTestRootModel
+from .pydantic import SilaTestBaseModel, SilaTestRootModel
 
 
 def to_json(
     input_model: (
-        EthereumTestBaseModel
-        | EthereumTestRootModel
+        SilaTestBaseModel
+        | SilaTestRootModel
         | AnyStr
-        | List[EthereumTestBaseModel | EthereumTestRootModel | AnyStr]
+        | List[SilaTestBaseModel | SilaTestRootModel | AnyStr]
     ),
 ) -> Any:
     """Convert a model to its json data representation."""
     if isinstance(input_model, list):
         return [to_json(item) for item in input_model]
     elif isinstance(
-        input_model, (EthereumTestBaseModel, EthereumTestRootModel)
+        input_model, (SilaTestBaseModel, SilaTestRootModel)
     ):
         return input_model.model_dump(
             mode="json", by_alias=True, exclude_none=True

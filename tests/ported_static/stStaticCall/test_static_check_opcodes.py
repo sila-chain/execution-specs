@@ -269,7 +269,7 @@ def test_static_check_opcodes(
         Hash(addr_2, left_padding=True),
     ]
     tx_gas = [50000, 335000]
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         tx_gas = [g + Op.SSTORE(new_value=1).state_cost(fork) for g in tx_gas]
     tx_value = [0, 100]
 

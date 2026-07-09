@@ -30,7 +30,7 @@ Hive runs client images in Docker containers. There are three different ways to 
 | `Dockerfile.git` | Clone from Github and build from source | `dockerfile: git` |
 | `Dockerfile.local` | Build from local source | `dockerfile: local` |
 
-These Dockerfiles are maintained for each supported client in @ethereum/hive in the [`./clients/`](https://github.com/ethereum/hive/tree/master/clients) subfolder.
+These Dockerfiles are maintained for each supported client in @sila/hive in the [`./clients/`](https://github.com/sila/hive/tree/master/clients) subfolder.
 
 ### Production Image
 
@@ -49,11 +49,11 @@ A pre-built image can be specified, for example, for Besu with:
 "Git Dockerfiles" clone a branch of the client from Github and build it from source, for example:
 
 ```yaml
-- client: go-ethereum
+- client: go-sila
   nametag: experimental
   dockerfile: git
   build_args:
-    github: your-username/go-ethereum
+    github: your-username/go-sila
     tag: experimental-branch
 ```
 
@@ -62,17 +62,17 @@ A pre-built image can be specified, for example, for Besu with:
 "Local Dockerfiles" can be used to build a client from local source for testing local modifications:
 
 ```yaml
-- client: go-ethereum
+- client: go-sila
   nametag: local-dev
   dockerfile: local
   build_args:
-    local_path: ./clients/go-ethereum/go-ethereum-local
+    local_path: ./clients/go-sila/go-sila-local
 ```
 
 This requires copying the local client source code to the Hive directory:
 
 ```bash
-cp -r /path/to/your/go-ethereum ./clients/go-ethereum/go-ethereum-local
+cp -r /path/to/your/go-sila ./clients/go-sila/go-sila-local
 ```
 
 ### Required Fields
@@ -92,8 +92,8 @@ cp -r /path/to/your/go-ethereum ./clients/go-ethereum/go-ethereum-local
 | Argument | Description | Example |
 |----------|-------------|---------|
 | `tag` | Git commit/tag/branch or Docker tag | `master`, `v1.13.8`, `latest` |
-| `github` | GitHub repository for source builds | `ethereum/go-ethereum` |
-| `baseimage` | Docker Hub image for binary builds | `ethereum/client-go` |
+| `github` | GitHub repository for source builds | `sila/go-sila` |
+| `baseimage` | Docker Hub image for binary builds | `sila/client-go` |
 
 ## Troubleshooting
 
@@ -102,17 +102,17 @@ cp -r /path/to/your/go-ethereum ./clients/go-ethereum/go-ethereum-local
 Force rebuild base images:
 
 ```bash
-./hive --docker.pull --sim ethereum/eels/consume-engine
+./hive --docker.pull --sim sila/eels/consume-engine
 ```
 
 Force rebuild specific client:
 
 ```bash
-./hive --docker.nocache "clients/go-ethereum" --sim ethereum/eels/consume-engine
+./hive --docker.nocache "clients/go-sila" --sim sila/eels/consume-engine
 ```
 
 Show the docker container build output:
 
 ```bash
-./hive --docker.buildoutput --sim ethereum/eels/consume-engine
+./hive --docker.buildoutput --sim sila/eels/consume-engine
 ```

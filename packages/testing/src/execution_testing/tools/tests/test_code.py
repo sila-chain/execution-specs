@@ -1,4 +1,4 @@
-"""Test suite for `ethereum_test.code` module."""
+"""Test suite for `sila_test.code` module."""
 
 from string import Template
 from typing import Mapping

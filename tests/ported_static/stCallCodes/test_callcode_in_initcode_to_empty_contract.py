@@ -4,7 +4,7 @@ Callcode inside create contract init to non-existent contract.
 Ported from:
 state_tests/stCallCodes/callcodeInInitcodeToEmptyContractFiller.json
 @manually-enhanced: Do not overwrite. Gas bumped fork-conditionally
-to cover EIP-8037 state-gas spill into regular gas; pre-EIP-8037
+to cover SIP-8037 state-gas spill into regular gas; pre-SIP-8037
 behavior unchanged.
 
 """
@@ -62,10 +62,10 @@ def test_callcode_in_initcode_to_empty_contract(
     v: int,
 ) -> None:
     """Callcode inside create contract init to non-existent contract."""
-    # EIP-8037 gas bumps: original values for pre-EIP-8037 forks.
+    # SIP-8037 gas bumps: original values for pre-SIP-8037 forks.
     outer_tx_gas = 1453081
     inner_call_gas = 300000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         outer_tx_gas = 7265405
         inner_call_gas = 1500000
 

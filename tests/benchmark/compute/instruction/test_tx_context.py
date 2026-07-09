@@ -19,7 +19,7 @@ from execution_testing import (
     add_kzg_version,
 )
 
-from tests.cancun.eip4844_blobs.spec import Spec as BlobsSpec
+from tests.cancun.sip4844_blobs.spec import Spec as BlobsSpec
 
 
 @pytest.mark.repricing

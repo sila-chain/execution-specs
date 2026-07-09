@@ -148,7 +148,7 @@ def test_static_callcodecallcodecall_110_suicide_end(
     )
 
     target_storage = Storage.model_validate({0: 1, 1: 0x2CEC03})
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         target_storage = Storage.model_validate({0: 1})
         target_storage.set_expect_any(1)
     post = {target: Account(storage=target_storage, balance=0, nonce=0)}

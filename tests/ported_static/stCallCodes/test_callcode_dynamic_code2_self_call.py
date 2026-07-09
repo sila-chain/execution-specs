@@ -7,8 +7,8 @@ state_tests/stCallCodes/callcodeDynamicCode2SelfCallFiller.json
 
 @manually-enhanced: Do not overwrite. Hardcoded inner-CALL gas values
 from the original filler (100k / 800k / 150k / 50k) were tuned to the
-pre-EIP-8037 gas budget. On Amsterdam each SSTORE in the inner
-callee adds the EIP-8037 per-storage state-gas (37 568 wei of
+pre-SIP-8037 gas budget. On Amsterdam each SSTORE in the inner
+callee adds the SIP-8037 per-storage state-gas (37 568 wei of
 regular gas), and the inner CALL OoGs before the test's SSTORE
 markers fire. Bumped uniformly with extra headroom; older forks are
 unaffected because only the requested gas changes, the actual
@@ -68,12 +68,12 @@ def test_callcode_dynamic_code2_self_call(
     v: int,
 ) -> None:
     """Callcode happen to a contract that is dynamically created from..."""
-    # EIP-8037 inner-CALL gas bumps (original gas values restored for
-    # pre-EIP-8037 forks; bumped values cover the per-storage state-gas
+    # SIP-8037 inner-CALL gas bumps (original gas values restored for
+    # pre-SIP-8037 forks; bumped values cover the per-storage state-gas
     # spill into regular gas on Amsterdam).
     inner_call_gas = 0x186A0
     outer_call_gas = 0xC3500
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         inner_call_gas = 0xF4240
         outer_call_gas = 0x1E8480
 

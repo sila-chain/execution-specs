@@ -8,9 +8,9 @@ from execution_testing.test_types import EOA, Transaction
 
 
 @pytest.fixture(scope="session")
-def gas_price(eth_rpc: EthRPC) -> int:
+def gas_price(sil_rpc: EthRPC) -> int:
     """Get the gas price for the funding transactions."""
-    return eth_rpc.gas_price()
+    return sil_rpc.gas_price()
 
 
 def test_recover_funds(
@@ -18,12 +18,12 @@ def test_recover_funds(
     index: int,
     eoa: EOA,
     gas_price: int,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
 ) -> None:
     """Recover funds from a failed remote execution."""
     del index
 
-    remaining_balance = eth_rpc.get_balance(eoa)
+    remaining_balance = sil_rpc.get_balance(eoa)
     refund_gas_limit = 200_000
     tx_cost = refund_gas_limit * gas_price
     if remaining_balance < tx_cost:
@@ -33,7 +33,7 @@ def test_recover_funds(
         )
 
     # Get the current nonce for this address from the RPC
-    current_nonce = eth_rpc.get_transaction_count(eoa)
+    current_nonce = sil_rpc.get_transaction_count(eoa)
 
     refund_tx = Transaction(
         sender=eoa,
@@ -44,5 +44,5 @@ def test_recover_funds(
         nonce=current_nonce,
     ).with_signature_and_sender()
 
-    eth_rpc.send_wait_transaction(refund_tx)
+    sil_rpc.send_wait_transaction(refund_tx)
     print(f"Recovered {remaining_balance} from {eoa} to {destination}")

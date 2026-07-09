@@ -1,10 +1,10 @@
 # `extract_config` - Extract Client Configuration Files
 
-The `extract_config` command extracts configuration files from Ethereum clients by spawning them via Hive and retrieving the generated files from the Docker container.
+The `extract_config` command extracts configuration files from Sila clients by spawning them via Hive and retrieving the generated files from the Docker container.
 
 ## Purpose
 
-When Ethereum clients start up with a genesis configuration, they generate various configuration files such as:
+When Sila clients start up with a genesis configuration, they generate various configuration files such as:
 
 - `/chainspec/test.json` - Chain specification file
 - `/configs/test.cfg` - Configuration file
@@ -21,7 +21,7 @@ uv run extract_config --fixture <FIXTURE_PATH> [OPTIONS]
 ### Options
 
 - `--fixture, -f` (required): Path to a fixture JSON file or directory containing fixture files
-- `--client, -c`: Specific client name to extract from (e.g., go-ethereum, besu, nethermind). If not specified, extracts from all available clients
+- `--client, -c`: Specific client name to extract from (e.g., go-sila, besu, nethermind). If not specified, extracts from all available clients
 - `--output, -o`: Output directory for extracted files (default: ./extracted_configs)
 - `--hive-url`: Hive server URL (default: http://127.0.0.1:3000)
 - `--list-files, -l`: List files in the container root before extraction
@@ -81,7 +81,7 @@ For example:
 ```console
 extracted_configs/
   test_selfdestruct_balance_bug/
-    go-ethereum/
+    go-sila/
       genesis.json
     besu/
       genesis.json

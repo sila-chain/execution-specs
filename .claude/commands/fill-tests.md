@@ -19,8 +19,8 @@ uv run fill --collect-only tests/                      # Dry run: list tests wit
 - `-k "pattern"` — filter tests by name pattern
 - `-m "marker"` — filter by pytest marker (e.g. `-m state_test`, `-m blockchain_test`)
 - `-n auto --maxprocesses N` — parallel execution (use `--dist=loadgroup`)
-- `--evm-bin PATH` — t8n tool; defaults to the in-repo EELS Python spec (`src/ethereum/`)
-- `--verify-fixtures` — verify generated fixtures against geth blocktest
+- `--evm-bin PATH` — t8n tool; defaults to the in-repo EELS Python spec (`src/sila/`)
+- `--verify-fixtures` — verify generated fixtures against gsil blocktest
 - `--generate-all-formats` — generate all fixture formats (2-phase)
 
 ## Debugging
@@ -39,7 +39,7 @@ uv run fill --collect-only tests/                      # Dry run: list tests wit
 
 - Excluded from a broad `tests/` run: include them by targeting a `tests/benchmark/...` path, or add `--include-benchmark` when also collecting `tests/`.
 - Pick a mode (mutually exclusive): `--gas-benchmark-values 1,10,100` (millions of gas) or `--fixed-opcode-count 1,10,100` (thousands). These parametrize the tests, e.g. `...[fork_Prague-blockchain_test-benchmark-gas-value_1M]`.
-- Backend is optional: omitting `--evm-bin` runs the slow in-repo EELS Python spec; `--evm-bin=evmone` or `--evm-bin=evm` (geth, used by `just bench-gas`) are faster.
+- Backend is optional: omitting `--evm-bin` runs the slow in-repo EELS Python spec; `--evm-bin=evmone` or `--evm-bin=evm` (gsil, used by `just bench-gas`) are faster.
 
 ## Fixture Formats
 

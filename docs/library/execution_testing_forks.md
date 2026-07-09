@@ -1,3 +1,3 @@
-# Ethereum Test Forks package
+# Sila Test Forks package
 
 ::: execution_testing.forks

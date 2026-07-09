@@ -1,0 +1,16 @@
+general/code_coverage/second_client = Optional
+system_contract = SIP does not include a new system contract
+opcode = SIP does not introduce a new opcode
+removed_precompile = SIP does not remove a precompile
+precompile/test/gas_usage/dynamic = SIP uses a constant amount of gas
+precompile/test/input_lengths/dynamic = SIP input is a constant length
+precompile/test/value_transfer/fee = SIP does not require a minimum value to execute
+transaction_type = SIP does not introduce a new transaction type
+block_header_field = SIP does not add any new block header fields
+gas_cost_changes = SIP does not introduce any gas cost changes
+gas_refunds_changes = SIP does not introduce any gas refund changes
+blob_count_changes = SIP does not introduce any blob count changes
+execution_layer_request = SIP does not introduce an execution layer request
+new_transaction_validity_constraint = SIP does not introduce a new transaction validity constraint
+modified_transaction_validity_constraint = SIP does not introduce a modified transaction validity constraint
+block_body_field = SIP does not add any new block body fields

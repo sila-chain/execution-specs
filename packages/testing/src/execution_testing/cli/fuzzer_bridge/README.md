@@ -1,6 +1,6 @@
 # Fuzzer Bridge for Execution Spec Tests
 
-This module provides a bridge between blocktest fuzzers (like `blocktest-fuzzer`) and the Ethereum execution-spec-tests framework, enabling automatic generation of valid blockchain test fixtures from fuzzer output.
+This module provides a bridge between blocktest fuzzers (like `blocktest-fuzzer`) and the Sila execution-spec-tests framework, enabling automatic generation of valid blockchain test fixtures from fuzzer output.
 
 ## Overview
 
@@ -11,7 +11,7 @@ The fuzzer bridge solves a critical problem: fuzzers can generate transactions a
 ```mermaid
 graph LR
     A[Blocktest<br/>Fuzzer] -->|JSON<br/>v2 format| B[Fuzzer<br/>Bridge]
-    B -->|Blockchain Test<br/>Fixtures| C[Ethereum<br/>Clients]
+    B -->|Blockchain Test<br/>Fixtures| C[Sila<br/>Clients]
 ```
 
 ## Fuzzer Output Format (v2)
@@ -81,13 +81,13 @@ graph TD
     B["DTOs (Pydantic Models)<br/>models.py"]
     B1["FuzzerAccountInput<br/>Raw account JSON"]
     B2["FuzzerTransactionInput<br/>Raw transaction JSON (uses 'gas')"]
-    B3["FuzzerAuthorizationInput<br/>Raw auth tuple (EIP-7702)"]
+    B3["FuzzerAuthorizationInput<br/>Raw auth tuple (SIP-7702)"]
     B4["FuzzerOutput<br/>Complete fuzzer output"]
 
     C["EEST Domain Models<br/>converter.py"]
     C1["Account<br/>With validation & defaults"]
     C2["Transaction<br/>With gas_limit, EOA sender"]
-    C3["AuthorizationTuple<br/>EIP-7702 support"]
+    C3["AuthorizationTuple<br/>SIP-7702 support"]
     C4["EOA<br/>Created from private keys"]
 
     D["BlockchainTest"]
@@ -141,7 +141,7 @@ graph TD
 | `gas`                   | `gas`                | `gas_limit`          | JSON-RPC vs internal naming    |
 | `data`                  | `data`               | `data`               | Same field, explicit mapping   |
 | `gasPrice`              | `gas_price`          | `gas_price`          | CamelCase → snake_case         |
-| `authorizationList`     | `authorization_list` | `authorization_list` | EIP-7702 support               |
+| `authorizationList`     | `authorization_list` | `authorization_list` | SIP-7702 support               |
 | `privateKey`            | `private_key`        | (used to create EOA) | Not stored in Account model    |
 
 ### Module Responsibilities
@@ -191,7 +191,7 @@ The DTO pattern provides cleaner separation and explicit control.
 
 ## Installation
 
-See the [EEST installation guide](https://eest.ethereum.org/main/getting_started/installation/) for setting up the execution-spec-tests framework.
+See the [EEST installation guide](https://eest.sila.org/main/getting_started/installation/) for setting up the execution-spec-tests framework.
 
 Once EEST is installed, the fuzzer bridge will be available as a command-line tool.
 
@@ -226,8 +226,8 @@ blocktest = bridge.convert(fuzzer_data)
 # Save to file
 bridge.save(blocktest, "output.json")
 
-# Or verify with geth directly
-result = bridge.verify_with_geth(blocktest, geth_path="../go-ethereum/build/bin/evm")
+# Or verify with gsil directly
+result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/evm")
 print(f"Test passed: {result['pass']}")
 ```
 
@@ -276,16 +276,16 @@ def test_fuzzer_generated(blockchain_test):
 **Cause**: The provided private key doesn't generate the specified address
 **Solution**: Use correct private key or generate address from private key
 
-## Testing with Ethereum Clients
+## Testing with Sila Clients
 
-### Go-Ethereum (geth)
+### Go-Sila (gsil)
 ```bash
-../go-ethereum/build/bin/evm blocktest generated_test.json
+../go-sila/build/bin/evm blocktest generated_test.json
 ```
 
 ### Besu
 ```bash
-../besu/ethereum/evmtool/build/install/evmtool/bin/evmtool block-test generated_test.json
+../besu/sila/evmtool/build/install/evmtool/bin/evmtool block-test generated_test.json
 ```
 
 ### Nethermind

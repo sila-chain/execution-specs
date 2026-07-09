@@ -2,19 +2,19 @@
 
 from typing import Optional, cast
 
-from ethereum_types.numeric import Uint
+from sila_types.numeric import Uint
 
-import ethereum.trace
+import sila.trace
 
 
 def test_modify_evm_trace() -> None:
     """Tests that EVM trace handlers can be modified and work correctly."""
-    trace1: Optional[ethereum.trace.TraceEvent] = None
-    trace2: Optional[ethereum.trace.TraceEvent] = None
+    trace1: Optional[sila.trace.TraceEvent] = None
+    trace2: Optional[sila.trace.TraceEvent] = None
 
     def tracer1(
         evm: object,
-        event: ethereum.trace.TraceEvent,
+        event: sila.trace.TraceEvent,
     ) -> None:
         del evm
         nonlocal trace1
@@ -22,16 +22,16 @@ def test_modify_evm_trace() -> None:
 
     def tracer2(
         evm: object,
-        event: ethereum.trace.TraceEvent,
+        event: sila.trace.TraceEvent,
     ) -> None:
         del evm
         nonlocal trace2
         trace2 = event
 
-    ethereum.trace.set_evm_trace(tracer1)
+    sila.trace.set_evm_trace(tracer1)
 
-    from ethereum.forks.prague.vm import Evm, Message
-    from ethereum.forks.prague.vm.gas import charge_gas
+    from sila.forks.prague.vm import Evm, Message
+    from sila.forks.prague.vm.gas import charge_gas
 
     evm = Evm(
         pc=Uint(1),
@@ -55,17 +55,17 @@ def test_modify_evm_trace() -> None:
     charge_gas(evm, Uint(5))
 
     assert trace2 is None
-    assert isinstance(trace1, ethereum.trace.GasAndRefund)
+    assert isinstance(trace1, sila.trace.GasAndRefund)
     assert trace1.gas_cost == 5
 
-    ethereum.trace.set_evm_trace(tracer2)
+    sila.trace.set_evm_trace(tracer2)
 
     charge_gas(evm, Uint(6))
 
     # Check that the old event is unmodified.
-    assert isinstance(trace1, ethereum.trace.GasAndRefund)
+    assert isinstance(trace1, sila.trace.GasAndRefund)
     assert trace1.gas_cost == 5
 
     # Check that the new event is populated.
-    assert isinstance(trace2, ethereum.trace.GasAndRefund)
+    assert isinstance(trace2, sila.trace.GasAndRefund)
     assert trace2.gas_cost == 6

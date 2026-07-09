@@ -30,7 +30,7 @@ def test_parsing_fork_range_descriptor_from_string(
     expected_fork_range_descriptor: ForkRangeDescriptor,
 ) -> None:
     """
-    Test multiple strings used as fork range descriptors in ethereum/tests.
+    Test multiple strings used as fork range descriptors in sila/tests.
     """
     assert (
         ForkRangeDescriptor.model_validate(fork_range_descriptor_string)

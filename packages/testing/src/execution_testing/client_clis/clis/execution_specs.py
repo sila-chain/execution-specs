@@ -1,5 +1,5 @@
 """
-Ethereum Specs EVM Transition Tool Interface.
+Sila Specs EVM Transition Tool Interface.
 """
 
 import json
@@ -8,10 +8,10 @@ from io import StringIO
 from pathlib import Path
 from typing import Any, ClassVar, Dict, Optional
 
-import ethereum
-from ethereum_spec_tools.evm_tools import create_parser
-from ethereum_spec_tools.evm_tools.t8n import T8N, ForkCache
-from ethereum_spec_tools.evm_tools.utils import get_supported_forks
+import sila
+from sila_spec_tools.evm_tools import create_parser
+from sila_spec_tools.evm_tools.t8n import T8N, ForkCache
+from sila_spec_tools.evm_tools.utils import get_supported_forks
 from typing_extensions import override
 
 from execution_testing.client_clis.cli_types import TransitionToolOutput
@@ -57,7 +57,7 @@ class ExecutionSpecsTransitionTool(TransitionTool):
 
     def version(self) -> str:
         """Version of the t8n tool."""
-        return ethereum.__version__
+        return sila.__version__
 
     def is_fork_supported(self, fork: Fork) -> bool:
         """Return True if the fork is supported by the tool."""

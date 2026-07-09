@@ -1,4 +1,4 @@
-"""Benchmark ether transfers to receivers that exist on-chain."""
+"""Benchmark sil transfers to receivers that exist on-chain."""
 
 import itertools
 from typing import Generator
@@ -49,7 +49,7 @@ def build_unique_contract_initcode() -> bytes:
     Embedded ADDRESS makes runtime unique per contract;
     initcode and its CREATE2 hash is shared across all salts.
     """
-    max_code_size = 0x6000  # EIP-170 contract code size limit
+    max_code_size = 0x6000  # SIP-170 contract code size limit
 
     # MCOPY fills MEM[0:0x8000] with JUMPDEST.
     # Runtime only uses MEM[0:0x6000].
@@ -94,7 +94,7 @@ def yield_distinct_unique_code_jumpdest_receiver() -> Generator[
         )
 
 
-# Bittrex controller mainnet address
+# Bittrex controller sila-mainnet address
 # Creates 1.5M contracts with deterministic address via CREATE
 # It is guaranteed no contract is destructed
 # Used for existing contract targets in benchmark
@@ -137,7 +137,7 @@ def yield_distinct_nonexistent_receiver() -> Generator[Address, None, None]:
     ],
 )
 @pytest.mark.parametrize("transfer_amount", [0, 1])
-def test_ether_transfers_onchain_receivers(
+def test_siler_transfers_onchain_receivers(
     benchmark_test: BenchmarkTestFiller,
     pre: Alloc,
     case_id: str,
@@ -146,7 +146,7 @@ def test_ether_transfers_onchain_receivers(
     gas_benchmark_value: int,
 ) -> None:
     """
-    Ether transfers to receivers that exist on-chain at run time.
+    Sil transfers to receivers that exist on-chain at run time.
 
     Scenarios:
     - diff_to_nonexistent: distinct nonexistent receivers
@@ -167,7 +167,7 @@ def test_ether_transfers_onchain_receivers(
     elif case_id == "diff_to_contract":
         receivers = yield_distinct_contract_receiver()
         # Runtime code is the same across all the receivers
-        # Example contract: https://etherscan.io/address/0xa888df3ef62286dde06a79395760b9bce6c83c83#code
+        # Example contract: https://silascan.io/address/0xa888df3ef62286dde06a79395760b9bce6c83c83#code
         runtime = (
             Op.MSTORE(0x40, 0x60, new_memory_size=0x60)
             + Op.JUMPI(Op.PUSH2(0x49), Op.ISZERO(Op.CALLDATASIZE))

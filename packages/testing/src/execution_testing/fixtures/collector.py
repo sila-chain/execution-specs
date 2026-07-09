@@ -190,8 +190,8 @@ class TestInfo:
         base ./tests directory) that can be used for output (within the
         configured fixtures output path or the base_dump_dir directory).
 
-        Example: tests/shanghai/eip3855_push0/test_push0.py ->
-        shanghai/eip3855_push0/test_push0
+        Example: tests/shanghai/sip3855_push0/test_push0.py ->
+        shanghai/sip3855_push0/test_push0
         """
         basename = self.module_path.with_suffix("").absolute()
         basename_relative = basename.relative_to(

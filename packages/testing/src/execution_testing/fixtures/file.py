@@ -7,12 +7,12 @@ from typing import Any, Dict, ItemsView, Iterator, KeysView, ValuesView
 from filelock import FileLock
 from pydantic import SerializeAsAny
 
-from execution_testing.base_types import EthereumTestRootModel
+from execution_testing.base_types import SilaTestRootModel
 
 from .base import BaseFixture
 
 
-class Fixtures(EthereumTestRootModel):
+class Fixtures(SilaTestRootModel):
     """
     A base class for defining top-level models that encapsulate multiple test
     fixtures. Each fixture is stored in a dictionary, where each key is a

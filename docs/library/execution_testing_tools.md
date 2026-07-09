@@ -1,3 +1,3 @@
-# Ethereum Test Tools Package
+# Sila Test Tools Package
 
 ::: execution_testing.tools

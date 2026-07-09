@@ -15,9 +15,9 @@ The process of generating fixtures is often referred to as "filling" the tests.
 
 The `fill` command requires an EVM `t8n` tool provided by most clients in order to generate the JSON fixtures. The `t8n` tool is mainly responsible for calculating the post-state of the EVM after executing a transaction, most relevantly, it calculates the updated state root.
 
-## Ethereum Execution Layer Specification (EELS)
+## Sila Execution Layer Specification (EELS)
 
-By default, the [Ethereum Execution Layer Specification](https://github.com/ethereum/execution-specs) (EELS) reference implementation of the `t8n` tool is used to generate test fixtures for all forks that have been deployed to Ethereum mainnet. We strong encourage EIP authors to provide a reference implementation of their EIP in EELS, so that it can be used to generate test fixtures for features under active development.
+By default, the [Sila Execution Layer Specification](https://github.com/sila/execution-specs) (EELS) reference implementation of the `t8n` tool is used to generate test fixtures for all forks that have been deployed to Sila sila-mainnet. We strong encourage SIP authors to provide a reference implementation of their SIP in EELS, so that it can be used to generate test fixtures for features under active development.
 
 ## Limitations of Filling
 

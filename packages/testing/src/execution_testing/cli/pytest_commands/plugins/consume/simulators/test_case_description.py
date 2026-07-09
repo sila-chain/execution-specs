@@ -75,7 +75,7 @@ def hive_clients_yaml_generator_command(
             f"Error: {error_message}\nHive version: {hive_info.commit}\n"
         )
         issue_url = (
-            "https://github.com/ethereum/execution-spec-tests/issues/new"
+            "https://github.com/sila/execution-spec-tests/issues/new"
             f"?title={urllib.parse.quote(issue_title)}"
             f"&body={urllib.parse.quote(issue_body)}"
         )
@@ -207,7 +207,7 @@ def test_case_description(
         {test_docstring}
 
         <b>Run This Test Locally:</b>
-        To run this test in <a href="https://github.com/ethereum/hive">
+        To run this test in <a href="https://github.com/sila/hive">
         hive
         </a></i>:
         <code>{hive_clients_yaml_generator_command}

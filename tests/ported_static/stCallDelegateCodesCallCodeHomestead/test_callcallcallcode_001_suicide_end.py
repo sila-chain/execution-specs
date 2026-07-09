@@ -5,7 +5,7 @@ Ported from:
 state_tests/stCallDelegateCodesCallCodeHomestead/callcallcallcode_001_SuicideEndFiller.json
 
 @manually-enhanced: Do not overwrite. The hardcoded inner-CALL gas
-values (50k / 100k / 150k) were tuned to the pre-EIP-8037 gas budget.
+values (50k / 100k / 150k) were tuned to the pre-SIP-8037 gas budget.
 
 """
 
@@ -39,13 +39,13 @@ def test_callcallcallcode_001_suicide_end(
     fork: Fork,
 ) -> None:
     """Test_callcallcallcode_001_suicide_end."""
-    # EIP-8037 inner-CALL gas bumps: original values restored for
-    # pre-EIP-8037 forks; bumped values cover the per-storage state-
+    # SIP-8037 inner-CALL gas bumps: original values restored for
+    # pre-SIP-8037 forks; bumped values cover the per-storage state-
     # gas spill into regular gas on Amsterdam.
     outer_call_gas = 150000
     middle_call_gas = 100000
     inner_call_gas = 50000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         outer_call_gas = 1000000
         middle_call_gas = 800000
         inner_call_gas = 100000

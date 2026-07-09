@@ -36,7 +36,7 @@ If a test uses `pre.deterministic_deploy_contract`, the `execute` command first 
 
 The value of `DETERMINISTIC_FACTORY_ADDRESS` depends on the currently active fork:
 
-- If EIP-7997 is active in the current fork, the address of the pre-deploy is used.
+- If SIP-7997 is active in the current fork, the address of the pre-deploy is used.
 - Otherwise, the address `0x4E59B44847B379578588920CA78FBF26C0B4956C` is used (see https://github.com/Arachnid/deterministic-deployment-proxy for details on how this address is computed)
 
 The transactions are collected and only sent after the test function finishes execution. This is done in order to perform optimizations based on the transactions that the test requires to perform its verifications.
@@ -48,7 +48,7 @@ One optimization is the deferred calculation of the funding amount for the EOA, 
 Dry run mode calculates the minimum balance required without executing any transactions on chain:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --dry-run ./tests/prague/eip7702_set_code_tx/
+uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --dry-run ./tests/prague/sip7702_set_code_tx/
 ```
 
 This outputs the minimum balance needed and total gas consumption per test, useful for:
@@ -100,7 +100,7 @@ uv run execute remote --fork=Prague \
     --use-testing-build-block
 ```
 
-This flag requires `--engine-endpoint` to be set, because `engine_newPayload` and `engine_forkchoiceUpdated` are still needed to finalize blocks built by `testing_buildBlockV1`. Note that `testing_buildBlockV1` itself is served on the unauthenticated ETH RPC port.
+This flag requires `--engine-endpoint` to be set, because `engine_newPayload` and `engine_forkchoiceUpdated` are still needed to finalize blocks built by `testing_buildBlockV1`. Note that `testing_buildBlockV1` itself is served on the unauthenticated SIL RPC port.
 
 See [Block Building with `testing_buildBlockV1`](./index.md#block-building-with-testing_buildblockv1) for architectural details.
 
@@ -109,16 +109,16 @@ The `execute remote` command will connect to the client via the RPC endpoint and
 It is recommended to only run a subset of the tests when executing on a live network. To do so, a path to a specific test can be provided to the command:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 ./tests/prague/eip7702_set_code_tx/test_set_code_txs.py::test_set_code_to_sstore
+uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 ./tests/prague/sip7702_set_code_tx/test_set_code_txs.py::test_set_code_to_sstore
 ```
 
 ## Address Stubs for Pre-deployed Contracts
 
-When running tests on networks that already have specific contracts deployed (such as mainnet or testnets with pre-deployed contracts), you can use the `--address-stubs` flag to specify these contracts instead of deploying new ones.
+When running tests on networks that already have specific contracts deployed (such as sila-mainnet or testnets with pre-deployed contracts), you can use the `--address-stubs` flag to specify these contracts instead of deploying new ones.
 
 Address stubs allow you to map contract labels used in tests to actual addresses where those contracts are already deployed on the network. This is particularly useful for:
 
-- Testing against mainnet with existing contracts (e.g., Uniswap, Compound)
+- Testing against sila-mainnet with existing contracts (e.g., Uniswap, Compound)
 - Using pre-deployed contracts on testnets
 - Testing on bloat-net, a network containing pre-existing contracts with extensive storage history
 - Avoiding redeployment of large contracts to save gas and time
@@ -222,7 +222,7 @@ The `execute remote` and `execute hive` commands first creates a random sender a
 The sweep amount can be configured by setting the `--seed-account-sweep-amount` flag:
 
 ```bash
---seed-account-sweep-amount "1000 ether"
+--seed-account-sweep-amount "1000 sil"
 ```
 
 Once the sender account is funded, the command will start executing tests one by one by sending the transactions from this account to the network.

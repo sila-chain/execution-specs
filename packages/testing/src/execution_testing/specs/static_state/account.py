@@ -1,4 +1,4 @@
-"""Account structure of ethereum/tests fillers."""
+"""Account structure of sila/tests fillers."""
 
 import hashlib
 import json
@@ -8,7 +8,7 @@ from pydantic import BaseModel, ConfigDict
 
 from execution_testing.base_types import (
     Account,
-    EthereumTestRootModel,
+    SilaTestRootModel,
     Hash,
     HexNumber,
 )
@@ -31,7 +31,7 @@ from .common import (
 )
 
 
-class StorageInPre(EthereumTestRootModel):
+class StorageInPre(SilaTestRootModel):
     """Class that represents a storage in pre-state."""
 
     root: Dict[ValueInFiller, ValueOrTagInFiller]
@@ -107,7 +107,7 @@ class AccountInFiller(BaseModel, TagDependentData):
         )
 
 
-class PreInFiller(EthereumTestRootModel):
+class PreInFiller(SilaTestRootModel):
     """Class that represents a pre-state in filler."""
 
     root: Dict[AddressOrTagInFiller, AccountInFiller]

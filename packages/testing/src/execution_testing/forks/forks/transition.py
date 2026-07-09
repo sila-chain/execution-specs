@@ -73,7 +73,7 @@ class BPO2ToAmsterdamAtTime15k(TransitionBaseClass):
 
     # TODO: We may need to adjust which BPO Amsterdam inherits from as the
     #  related Amsterdam specs change over time, and before Amsterdam is
-    #  live on mainnet.
+    #  live on sila-mainnet.
 
     pass
 

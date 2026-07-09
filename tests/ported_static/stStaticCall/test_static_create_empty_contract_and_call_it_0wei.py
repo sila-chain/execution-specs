@@ -81,7 +81,7 @@ def test_static_create_empty_contract_and_call_it_0wei(
         gas_limit=600000,
     )
 
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         contract_0_storage = Storage.model_validate(
             {1: compute_create_address(address=contract_0, nonce=0), 3: 1}
         )

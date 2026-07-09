@@ -9,8 +9,8 @@ slot 0, asserting `0x8D5B6` remaining at a fixed execution point, so the
 tx gas budget must track the intrinsic across forks. `gas_limit` is
 derived as `600_000 + (intrinsic - 21_000)`, where `intrinsic` comes from
 `fork.transaction_intrinsic_cost_calculator()`; subtracting the
-pre-EIP-2780 baseline intrinsic 21_000 keeps the post-intrinsic execution
-budget fixed when EIP-2780 lowers the intrinsic for non-value, non-self
+pre-SIP-2780 baseline intrinsic 21_000 keeps the post-intrinsic execution
+budget fixed when SIP-2780 lowers the intrinsic for non-value, non-self
 txs. Do not hardcode the literal gas limit.
 """
 
@@ -85,7 +85,7 @@ def test_zero_value_call_to_one_storage_key_paris(
     )
 
     # Preserve Cancun's post-intrinsic execution budget across
-    # forks; EIP-2780 lowers the intrinsic for non-self non-value
+    # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.
     intrinsic = fork.transaction_intrinsic_cost_calculator()()

@@ -21,7 +21,7 @@ from execution_testing.test_types import Alloc, Environment, Transaction
 
 CURRENT_FOLDER = Path(realpath(__file__)).parent
 FIXTURES_ROOT = CURRENT_FOLDER / "fixtures"
-DEFAULT_EVM_T8N_BINARY_NAME = "ethereum-spec-evm-resolver"
+DEFAULT_EVM_T8N_BINARY_NAME = "sila-spec-evm-resolver"
 
 
 @pytest.fixture(autouse=True)
@@ -35,7 +35,7 @@ def monkeypatch_path_for_entry_points(
     This would typically be in the venv in which pytest is running these tests
     and fill, which, with uv, is `./.venv/bin`.
 
-    This is required in order for fill to locate the ethereum-spec-evm-resolver
+    This is required in order for fill to locate the sila-spec-evm-resolver
     "binary" (entrypoint) when being executed using pytester.
     """
     bin_dir = sysconfig.get_path("scripts")
@@ -185,7 +185,7 @@ def test_evm_t8n(
         )
         assert to_json(t8n_output.alloc.get()) == expected.get("alloc")
         if isinstance(default_t8n, ExecutionSpecsTransitionTool):
-            # The expected output was generated with geth, instead of deleting
+            # The expected output was generated with gsil, instead of deleting
             # any info from this expected output, the fields not returned by
             # eels are handled here.
             missing_receipt_fields = [

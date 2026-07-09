@@ -18,22 +18,22 @@ from execution_testing import (
     While,
     WhileGas,
 )
-from py_ecc.bn128 import G1, G2, multiply
-from py_ecc.fields import bn128_FQ2
+from sila_ecc.bn128 import G1, G2, multiply
+from sila_ecc.fields import bn128_FQ2
 
 from tests.benchmark.compute.helpers import Precompile
-from tests.byzantium.eip196_ec_add_mul.spec import (
+from tests.byzantium.sip196_ec_add_mul.spec import (
     PointG1,
     Scalar,
 )
-from tests.byzantium.eip196_ec_add_mul.spec import (
-    Spec as EIP196Spec,
+from tests.byzantium.sip196_ec_add_mul.spec import (
+    Spec as SIP196Spec,
 )
-from tests.byzantium.eip197_ec_pairing.spec import (
+from tests.byzantium.sip197_ec_pairing.spec import (
     PointG2,
 )
-from tests.byzantium.eip197_ec_pairing.spec import (
-    Spec as EIP197Spec,
+from tests.byzantium.sip197_ec_pairing.spec import (
+    Spec as SIP197Spec,
 )
 
 
@@ -41,7 +41,7 @@ from tests.byzantium.eip197_ec_pairing.spec import (
     "precompile_address,calldata,target",
     [
         pytest.param(
-            EIP196Spec.ECADD,
+            SIP196Spec.ECADD,
             PointG1(
                 x=0x18B18ACFB4C2C30276DB5411368E7185B311DD124691610C5D3B74034E093DC9,
                 y=0x063C909C4720840CB5134CB9F59FA749755796819658D32EFC0D288198F37266,
@@ -55,7 +55,7 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             marks=pytest.mark.repricing,
         ),
         pytest.param(
-            EIP196Spec.ECADD,
+            SIP196Spec.ECADD,
             PointG1(
                 x=0x18B18ACFB4C2C30276DB5411368E7185B311DD124691610C5D3B74034E093DC9,
                 y=0x063C909C4720840CB5134CB9F59FA749755796819658D32EFC0D288198F37266,
@@ -70,7 +70,7 @@ from tests.byzantium.eip197_ec_pairing.spec import (
         ),
         # Second point is the negative of the first one
         pytest.param(
-            EIP196Spec.ECADD,
+            SIP196Spec.ECADD,
             PointG1(
                 x=0x18B18ACFB4C2C30276DB5411368E7185B311DD124691610C5D3B74034E093DC9,
                 y=0x063C909C4720840CB5134CB9F59FA749755796819658D32EFC0D288198F37266,
@@ -84,24 +84,24 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             marks=pytest.mark.repricing,
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L326
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L326
         pytest.param(
-            EIP196Spec.ECADD,
-            EIP196Spec.INF_G1 + EIP196Spec.INF_G1,
+            SIP196Spec.ECADD,
+            SIP196Spec.INF_G1 + SIP196Spec.INF_G1,
             Precompile.BN128_ADD,
             id="bn128_add_infinities",
             marks=pytest.mark.repricing,
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L329
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L329
         pytest.param(
-            EIP196Spec.ECADD,
-            EIP196Spec.G1 + EIP196Spec.G1,
+            SIP196Spec.ECADD,
+            SIP196Spec.G1 + SIP196Spec.G1,
             Precompile.BN128_ADD,
             id="bn128_add_1_2",
         ),
         pytest.param(
-            EIP196Spec.ECMUL,
+            SIP196Spec.ECMUL,
             PointG1(
                 x=0x1A87B0584CE92F4593D161480614F2989035225609F08058CCFA3D0F940FEBE3,
                 y=0x1A2F3C951F6DADCC7EE9007DFF81504B0FCD6D7CF59996EFDC33D92BF7F9F8F6,
@@ -113,18 +113,18 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             id="bn128_mul",
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L335
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L335
         pytest.param(
-            EIP196Spec.ECMUL,
-            EIP196Spec.INF_G1 + Scalar(x=2),
+            SIP196Spec.ECMUL,
+            SIP196Spec.INF_G1 + Scalar(x=2),
             Precompile.BN128_MUL,
             id="bn128_mul_infinities_2_scalar",
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L338
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L338
         pytest.param(
-            EIP196Spec.ECMUL,
-            EIP196Spec.INF_G1
+            SIP196Spec.ECMUL,
+            SIP196Spec.INF_G1
             + Scalar(
                 x=0x25F8C89EA3437F44F8FC8B6BFBB6312074DC6F983809A5E809FF4E1D076DD585
             ),
@@ -133,18 +133,18 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             marks=pytest.mark.repricing,
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L341
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L341
         pytest.param(
-            EIP196Spec.ECMUL,
-            EIP196Spec.G1 + Scalar(x=2),
+            SIP196Spec.ECMUL,
+            SIP196Spec.G1 + Scalar(x=2),
             Precompile.BN128_MUL,
             id="bn128_mul_1_2_2_scalar",
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L344
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L344
         pytest.param(
-            EIP196Spec.ECMUL,
-            EIP196Spec.G1
+            SIP196Spec.ECMUL,
+            SIP196Spec.G1
             + Scalar(
                 x=0x25F8C89EA3437F44F8FC8B6BFBB6312074DC6F983809A5E809FF4E1D076DD585
             ),
@@ -152,9 +152,9 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             id="bn128_mul_1_2_32_byte_scalar",
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L347
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L347
         pytest.param(
-            EIP196Spec.ECMUL,
+            SIP196Spec.ECMUL,
             PointG1(
                 x=0x089142DEBB13C461F61523586A60732D8B69C5B38A3380A74DA7B2961D867DBF,
                 y=0x2D5FC7BBC013C16D7945F190B232EACC25DA675C0EB093FE6B9F1B4B4E107B36,
@@ -165,9 +165,9 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             marks=pytest.mark.repricing,
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L350
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L350
         pytest.param(
-            EIP196Spec.ECMUL,
+            SIP196Spec.ECMUL,
             PointG1(
                 x=0x089142DEBB13C461F61523586A60732D8B69C5B38A3380A74DA7B2961D867DBF,
                 y=0x2D5FC7BBC013C16D7945F190B232EACC25DA675C0EB093FE6B9F1B4B4E107B36,
@@ -180,7 +180,7 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             marks=pytest.mark.repricing,
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             # First pairing
             PointG1(
                 x=0x1C76476F4DEF4BB94541D57EBBA1193381FFA7AA76ADA664DD31C16024C43F59,
@@ -201,12 +201,12 @@ from tests.byzantium.eip197_ec_pairing.spec import (
                 x=0x111E129F1CF1097710D41C4AC70FCDFA5BA2023C6FF1CBEAC322DE49D1B6DF7C,
                 y=0x103188585E2364128FE25C70558F1560F4F9350BAF3959E603CC91486E110936,
             )
-            + EIP197Spec.G2,
+            + SIP197Spec.G2,
             Precompile.BN128_PAIRING,
             id="bn128_two_pairings",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             PointG1(
                 x=0x1C76476F4DEF4BB94541D57EBBA1193381FFA7AA76ADA664DD31C16024C43F59,
                 y=0x3034DD2920F673E204FEE2811C678745FC819B55D3E9D294E45C9B03A76AEF41,
@@ -225,15 +225,15 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             id="bn128_one_pairing",
         ),
         # Ported from
-        # https://github.com/NethermindEth/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L353
+        # https://github.com/NethermindSil/nethermind/blob/ceb8d57b8530ce8181d7427c115ca593386909d6/tools/EngineRequestsGenerator/TestCase.cs#L353
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             [],
             Precompile.BN128_PAIRING,
             id="ec_pairing_zero_input",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             # First pairing
             PointG1(
                 x=0x2CF44499D5D27BB186308B7AF7AF02AC5BC9EEB6A3D147C186B21FB1B76E18DA,
@@ -268,13 +268,13 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             id="ec_pairing_2_sets",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             b"",
             Precompile.BN128_PAIRING,
             id="ec_pairing_1_pair",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             # First pairing
             PointG1(
                 x=0x2371E7D92E9FC444D0E11526F0752B520318C80BE68BF0131704B36B7976572E,
@@ -295,12 +295,12 @@ from tests.byzantium.eip197_ec_pairing.spec import (
                 x=0x09A760EA8F9BD87DC258A949395A03F7D2500C6E72C61F570986328A096B610A,
                 y=0x148027063C072345298117EB2CB980AD79601DB31CC69BBA6BCBE4937ADA6720,
             )
-            + EIP197Spec.G2,
+            + SIP197Spec.G2,
             Precompile.BN128_PAIRING,
             id="ec_pairing_2_pair",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             # First pairing
             PointG1(x=0, y=0)
             + PointG2(
@@ -315,15 +315,15 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             )
             # Second pairing (32 zero + G2 generator = 160 bytes)
             + bytes(32)
-            + EIP197Spec.G2
+            + SIP197Spec.G2
             # Third pairing (same structure as second)
             + bytes(32)
-            + EIP197Spec.G2,
+            + SIP197Spec.G2,
             Precompile.BN128_PAIRING,
             id="ec_pairing_3_pair",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             (
                 PointG1(
                     x=0x24AB69F46F3E3333027D67D51AF71571141BD5652B9829157A3C5D1268461984,
@@ -392,7 +392,7 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             id="ec_pairing_4_pair",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             # First pairing
             PointG1(
                 x=0x1147057B17237DF94A3186435ACF66924E1D382B8C935FDD493CEB38C38DEF73,
@@ -443,7 +443,7 @@ from tests.byzantium.eip197_ec_pairing.spec import (
                 x=0x1BA47A91D487CCE77AA78390A295DF54D9351637D67810C400415FB374278E3F,
                 y=0x24318BBC05A4E4D779B9498075841C360C6973C1C51DEA254281829BBC9AEF33,
             )
-            + EIP197Spec.G2
+            + SIP197Spec.G2
             # Fifth pairing
             + PointG1(
                 x=0x1E219772C16EEE72450BBF43E9CADAE7BF6B2E6AE6637CFEB1D1E8965287ACFB,
@@ -463,7 +463,7 @@ from tests.byzantium.eip197_ec_pairing.spec import (
             id="ec_pairing_5_pair",
         ),
         pytest.param(
-            EIP197Spec.ECPAIRING,
+            SIP197Spec.ECPAIRING,
             bytes(32),
             Precompile.BN128_PAIRING,
             id="ec_pairing_1_pair_empty",
@@ -600,7 +600,7 @@ def test_bn128_pairings_amortized(
 
     setup = Op.CALLDATACOPY(size=Op.CALLDATASIZE)
     attack_block = Op.POP(
-        Op.STATICCALL(Op.GAS, EIP197Spec.ECPAIRING, 0, Op.CALLDATASIZE, 0, 0)
+        Op.STATICCALL(Op.GAS, SIP197Spec.ECPAIRING, 0, Op.CALLDATASIZE, 0, 0)
     )
 
     benchmark_test(
@@ -629,7 +629,7 @@ def test_alt_bn128_benchmark(
     attack_block = Op.POP(
         Op.STATICCALL(
             gas=Op.GAS,
-            address=EIP197Spec.ECPAIRING,
+            address=SIP197Spec.ECPAIRING,
             args_size=Op.CALLDATASIZE,
         ),
     )
@@ -670,7 +670,7 @@ def test_ec_pairing(
     attack_block = Op.POP(
         Op.STATICCALL(
             gas=Op.GAS,
-            address=EIP197Spec.ECPAIRING,
+            address=SIP197Spec.ECPAIRING,
             args_offset=Op.MLOAD(Op.CALLDATASIZE),
             args_size=pair_size,
             # gas accounting
@@ -776,16 +776,16 @@ def _generate_g1_point(seed: int) -> Bytes:
     "precompile_address,scalar,target",
     [
         pytest.param(
-            EIP196Spec.ECADD, None, Precompile.BN128_ADD, id="ec_add"
+            SIP196Spec.ECADD, None, Precompile.BN128_ADD, id="ec_add"
         ),
         pytest.param(
-            EIP196Spec.ECMUL,
+            SIP196Spec.ECMUL,
             2,
             Precompile.BN128_MUL,
             id="ec_mul_small_scalar",
         ),
         pytest.param(
-            EIP196Spec.ECMUL,
+            SIP196Spec.ECMUL,
             2**256 - 1,
             Precompile.BN128_MUL,
             id="ec_mul_max_scalar",
@@ -813,7 +813,7 @@ def test_alt_bn128_uncachable(
     gsc = fork.gas_costs()
     precompile_cost = (
         gsc.PRECOMPILE_ECMUL
-        if precompile_address == EIP196Spec.ECMUL
+        if precompile_address == SIP196Spec.ECMUL
         else gsc.PRECOMPILE_ECADD
     )
     attack_block = Op.POP(

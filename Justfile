@@ -69,7 +69,7 @@ typecheck *args:
 # Check EELS import isolation
 [group('static analysis')]
 lint-spec:
-    uv run ethereum-spec-lint
+    uv run sila-spec-lint
 
 # Verify uv.lock is up to date
 [group('static analysis')]
@@ -96,8 +96,8 @@ lint-actions:
 coverage:
     uv run coverage html -d "{{ output_dir }}/fill/coverage-html"
 
-# Generate EIP test checklists from eip_checklist markers                                                                         
-[group('consensus tests')] 
+# Generate SIP test checklists from sip_checklist markers
+[group('consensus tests')]
 checklist *args:
     uv run checklist --output tmp/checklist "$@"
 
@@ -111,7 +111,7 @@ fill *args:
         --skip-index \
         --output="{{ output_dir }}/fill/fixtures" \
         --cov-config=pyproject.toml \
-        --cov=ethereum \
+        --cov=sila \
         --cov-report=term \
         --cov-report "xml:{{ output_dir }}/fill/coverage.xml" \
         --no-cov-on-fail \
@@ -162,7 +162,7 @@ json-loader *args:
         --ignore=tests/ported_static \
         --output="tests/json_loader/fixtures" \
         --cov-config=pyproject.toml \
-        --cov=ethereum \
+        --cov=sila \
         --cov-branch \
         --cov-report=term \
         --durations=50 \
@@ -171,7 +171,7 @@ json-loader *args:
         -m "not slow" \
         -n {{ xdist_workers }} --dist=loadfile \
         --cov-config=pyproject.toml \
-        --cov=ethereum \
+        --cov=sila \
         --cov-branch \
         --cov-report=term \
         --cov-report "xml:{{ output_dir }}/json-loader/coverage.xml" \
@@ -343,7 +343,7 @@ lint-md:
 
 [private]
 crops:
-    @uvx pycowsay==0.0.0.2 "ethereum is good"
+    @uvx pycowsay==0.0.0.2 "sila is good"
 
 # --- Housekeeping ---
 

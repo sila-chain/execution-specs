@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from execution_testing.base_types import BlobSchedule
 from execution_testing.vm import Opcodes
 
-from ..forks.eips.paris.eip_3675 import EIP3675
+from ..forks.sips.paris.sip_3675 import SIP3675
 from ..forks.forks import (
     BPO1,
     BPO2,
@@ -785,23 +785,23 @@ def test_method_versions() -> None:  # noqa: D103
     assert Amsterdam.engine_new_payload_version() == 5
 
 
-def test_eips() -> None:  # noqa: D103
-    assert EIP3675.enabling_forks() == {Paris}
-    assert Paris.is_eip_enabled(3675)
-    assert Paris.is_eip_enabled(3675, 1559)
-    assert Shanghai.is_eip_enabled(3675)
-    assert not Paris.is_eip_enabled(3855)
-    assert not Paris.is_eip_enabled(3675, 3855)
-    assert not Paris.is_eip_enabled(3855, 3675)
-    assert Shanghai.is_eip_enabled(3855)
+def test_sips() -> None:  # noqa: D103
+    assert SIP3675.enabling_forks() == {Paris}
+    assert Paris.is_sip_enabled(3675)
+    assert Paris.is_sip_enabled(3675, 1559)
+    assert Shanghai.is_sip_enabled(3675)
+    assert not Paris.is_sip_enabled(3855)
+    assert not Paris.is_sip_enabled(3675, 3855)
+    assert not Paris.is_sip_enabled(3855, 3675)
+    assert Shanghai.is_sip_enabled(3855)
 
 
 def test_oog_budget_lift() -> None:
     """
-    `Fork.oog_budget_lift` returns zero pre-EIP-8037 and the cumulative
+    `Fork.oog_budget_lift` returns zero pre-SIP-8037 and the cumulative
     SSTORE-set + CREATE + code-deposit state-gas spill on Amsterdam.
     """
-    # Pre-EIP-8037: state_gas helpers are 0, so any lift is 0.
+    # Pre-SIP-8037: state_gas helpers are 0, so any lift is 0.
     assert Cancun.oog_budget_lift(sstores_before_oog=1) == 0
     assert Cancun.oog_budget_lift(creates_before_oog=1) == 0
     assert (

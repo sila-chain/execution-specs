@@ -1,1 +1,1 @@
-"""Implementations of interfaces for Ethereum EL clients."""
+"""Implementations of interfaces for Sila EL clients."""

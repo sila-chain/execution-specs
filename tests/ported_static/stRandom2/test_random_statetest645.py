@@ -1,5 +1,5 @@
 """
-Geth Failed this test on Frontier and Homestead.
+Gsil Failed this test on Frontier and Homestead.
 
 Ported from:
 state_tests/stRandom2/randomStatetest645Filler.json
@@ -53,7 +53,7 @@ def test_random_statetest645(
     g: int,
     v: int,
 ) -> None:
-    """Geth Failed this test on Frontier and Homestead."""
+    """Gsil Failed this test on Frontier and Homestead."""
     coinbase = Address(0xAA0103980A7C3113D3A8F81478B0281492EB3D38)
     addr_2 = Address(0x9E9C03F8F885C32813DB5207FD04870F08327F30)
     sender = EOA(

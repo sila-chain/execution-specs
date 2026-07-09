@@ -1,17 +1,17 @@
 # Getting Help
 
-The work in this repository is a community effort to help improve Ethereum's fork cadence and the development cycle of all Ethereum execution clients.
+The work in this repository is a community effort to help improve Sila's fork cadence and the development cycle of all Sila execution clients.
 
-We encourage contributions and recognize that Python is not everyone's  primary language - if you stumble over issues or need help, please reach out to one of the execution-specs maintainers either directly or in the `#el-testing` channel in the [Ethereum R&D Discord Server](https://discord.com/invite/qGpsxSA).
+We encourage contributions and recognize that Python is not everyone's  primary language - if you stumble over issues or need help, please reach out to one of the execution-specs maintainers either directly or in the `#el-testing` channel in the [Sila R&D Discord Server](https://discord.com/invite/qGpsxSA).
 
 ## Contact STEEL
 
-Feel free to contact any [STEEL team member](https://steel.ethereum.foundation/team/):
+Feel free to contact any [STEEL team member](https://steel.sila.foundation/team/):
 
 - Dan on [Discord](https://discordapp.com/users/danceratopz) or [Telegram](https://t.me/danceratopz) (`danceratopz`).
 - Spencer on [Discord](https://discordapp.com/users/spencertaylorbrown) or [Telegram](https://t.me/spencertb) (`spencertaylorbrown`/`@techbro_ccoli`).
 - Mario on [Discord](https://discordapp.com/users/marioevz) or [Telegram](https://t.me/marioevz) (`marioevz`/`@marioevz`).
 
 <figure markdown>  <!-- markdownlint-disable MD033 (MD033=no-inline-html) -->
-  ![ukiyo-e style design of 3 furry happy pandas playfully doing experiments on ethereum in a laboratory](img/testing_pandas.png){width="400"}
+  ![ukiyo-e style design of 3 furry happy pandas playfully doing experiments on sila in a laboratory](img/testing_pandas.png){width="400"}
 </figure>

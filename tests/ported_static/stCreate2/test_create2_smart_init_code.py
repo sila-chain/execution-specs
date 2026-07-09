@@ -8,11 +8,11 @@ state_tests/stCreate2/create2SmartInitCodeFiller.json
 value-bearing CREATE2s plus a SELFDESTRUCT to a non-alive beneficiary
 and two fresh SSTORE-sets before it finishes; with an empty state-gas
 reservoir every one of those state-gas charges spills into regular gas
-on EIP-8037, overrunning the original 400 000 budget. Lift the budget
+on SIP-8037, overrunning the original 400 000 budget. Lift the budget
 by exactly that spilled state gas via `fork.oog_budget_lift` (three
 `create_state_gas()` charges -- two CREATE2 dispatches and the
 SELFDESTRUCT account creation -- plus two fresh SSTORE-set state
-costs), which is 0 pre-EIP-8037. Post-state expectations are unchanged
+costs), which is 0 pre-SIP-8037. Post-state expectations are unchanged
 on all forks.
 """
 
@@ -184,7 +184,7 @@ def test_create2_smart_init_code(
     # CREATE2 dispatches and the SELFDESTRUCT to a non-alive
     # beneficiary) and two fresh SSTORE-set state costs into regular
     # gas when the reservoir is empty. Lift the original budget by
-    # exactly that spilled state gas; 0 pre-EIP-8037.
+    # exactly that spilled state gas; 0 pre-SIP-8037.
     outer_tx_gas = 400_000 + fork.oog_budget_lift(
         creates_before_oog=3, sstores_before_oog=2
     )

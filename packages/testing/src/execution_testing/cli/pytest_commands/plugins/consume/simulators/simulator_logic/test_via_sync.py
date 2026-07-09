@@ -43,10 +43,10 @@ logger = get_logger(__name__)
 
 def test_blockchain_via_sync(
     timing_data: TimingData,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     engine_rpc: EngineRPC,
     net_rpc: NetRPC,
-    sync_eth_rpc: EthRPC,
+    sync_sil_rpc: EthRPC,
     sync_engine_rpc: EngineRPC,
     sync_net_rpc: NetRPC,
     sync_admin_rpc: AdminRPC,
@@ -91,7 +91,7 @@ def test_blockchain_via_sync(
     # Verify genesis block on client under test
     with timing_data.time("Verify genesis on client under test"):
         logger.info("Verifying genesis block on client under test...")
-        genesis_block = eth_rpc.get_block_by_number(0)
+        genesis_block = sil_rpc.get_block_by_number(0)
         assert genesis_block is not None, "genesis_block is None"
         if genesis_block["hash"] != str(fixture.genesis.block_hash):
             expected = fixture.genesis.block_hash
@@ -411,7 +411,7 @@ def test_blockchain_via_sync(
                     "ancestors"
                 )
 
-            # Wait for P2P connections after sync starts. Note: Reth does not
+            # Wait for P2P connections after sync starts. Note: Rsil does not
             # report peer count but still syncs successfully
             try:
                 assert sync_net_rpc is not None, "sync_net_rpc is required"
@@ -445,7 +445,7 @@ def test_blockchain_via_sync(
     # Wait for synchronization with continuous forkchoice updates
     with timing_data.time("Wait for synchronization"):
         # Get the target block number for logging
-        target_block = eth_rpc.get_block_by_hash(last_valid_block_hash)
+        target_block = sil_rpc.get_block_by_hash(last_valid_block_hash)
         target_block_number = (
             int(target_block["number"], 16) if target_block else "unknown"
         )
@@ -483,7 +483,7 @@ def test_blockchain_via_sync(
         sync_block = None
 
         try:
-            client_block = eth_rpc.get_block_by_hash_with_retry(
+            client_block = sil_rpc.get_block_by_hash_with_retry(
                 last_valid_block_hash,
                 max_attempts=5,
                 wait_fixed=1.0,
@@ -494,7 +494,7 @@ def test_blockchain_via_sync(
             )
 
         try:
-            sync_block = sync_eth_rpc.get_block_by_hash_with_retry(
+            sync_block = sync_sil_rpc.get_block_by_hash_with_retry(
                 last_valid_block_hash,
                 max_attempts=5,
                 wait_fixed=1.0,
@@ -522,7 +522,7 @@ def test_blockchain_via_sync(
                     )
 
             logger.info(
-                f"Block state verified via eth_getBlockByHash: "
+                f"Block state verified via sil_getBlockByHash: "
                 f"{sync_block['stateRoot']}"
             )
 

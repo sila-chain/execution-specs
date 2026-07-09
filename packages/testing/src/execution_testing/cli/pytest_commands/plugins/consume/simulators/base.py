@@ -20,8 +20,8 @@ from ..consume import FixturesSource
 
 
 @pytest.fixture(scope="function")
-def eth_rpc(client: Client) -> Generator[EthRPC, None, None]:
-    """Initialize ethereum RPC client for the execution client under test."""
+def sil_rpc(client: Client) -> Generator[EthRPC, None, None]:
+    """Initialize sila RPC client for the execution client under test."""
     with EthRPC(f"http://{client.ip}:8545") as rpc:
         yield rpc
 

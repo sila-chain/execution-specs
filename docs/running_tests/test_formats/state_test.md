@@ -6,7 +6,7 @@ These are produced by the `StateTest` and `StateTestOnly` test specs.
 
 ## Description
 
-The state test fixture format is used to test the state transition function of the Ethereum Virtual Machine (EVM).
+The state test fixture format is used to test the state transition function of the Sila Virtual Machine (EVM).
 
 It does so by defining a transaction, a pre-execution state, and a post-execution state, and verifying that the transaction execution results in the expected post-execution state.
 
@@ -70,7 +70,7 @@ At the moment this object can contain only the `blobSchedule` that is necessary 
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [EIP-7840](https://eips.ethereum.org/EIPS/eip-7840).
+Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
 
 ### `FixtureEnvironment`
 

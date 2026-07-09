@@ -1,6 +1,6 @@
 """
 A pytest plugin that checks that the spec version specified in test/filler
-modules matches that of https://github.com/ethereum/EIPs.
+modules matches that of https://github.com/sila/SIPs.
 """
 
 import os
@@ -31,7 +31,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     """Add Github token option to pytest command line options."""
     group = parser.getgroup(
         "spec_version_checker",
-        "Arguments defining the EIP spec version checker",
+        "Arguments defining the SIP spec version checker",
     )
     group.addoption(
         "--github-token",
@@ -55,8 +55,8 @@ def pytest_configure(config: pytest.Config) -> None:
     """
     config.addinivalue_line(
         "markers",
-        "eip_version_check: a test that tests the reference spec defined in "
-        "an EIP test module.",
+        "sip_version_check: a test that tests the reference spec defined in "
+        "an SIP test module.",
     )
 
     github_token = config.getoption("github_token") or os.environ.get(
@@ -83,16 +83,16 @@ def get_ref_spec_from_module(
       github_token: Optional GitHub token for API authentication
 
     Raises:
-      Exception: If the module path contains "eip" and the module does
+      Exception: If the module path contains "sip" and the module does
                  not define a reference spec.
 
     Returns:
-      spec_obj: Return None if the module path does not contain "eip",
+      spec_obj: Return None if the module path does not contain "sip",
       i.e., the module is not required to define a reference spec, otherwise,
       return the ReferenceSpec object as defined by the module.
 
     """
-    if not is_test_for_an_eip(str(module.__file__)):
+    if not is_test_for_an_sip(str(module.__file__)):
         return None
     module_dict = module.__dict__
     parseable_ref_specs = [
@@ -118,20 +118,20 @@ def get_ref_spec_from_module(
     return spec_obj
 
 
-def is_test_for_an_eip(input_string: str) -> bool:
-    """Return True if `input_string` contains an EIP number, i.e., eipNNNN."""
-    pattern = re.compile(r".*eip\d{1,4}", re.IGNORECASE)
+def is_test_for_an_sip(input_string: str) -> bool:
+    """Return True if `input_string` contains an SIP number, i.e., eipNNNN."""
+    pattern = re.compile(r".*sip\d{1,4}", re.IGNORECASE)
     if pattern.match(input_string):
         return True
     return False
 
 
-def test_eip_spec_version(
+def test_sip_spec_version(
     module: ModuleType, github_token: Optional[str] = None
 ) -> None:
     """
     Test that the ReferenceSpec object as defined in the test module is not
-    outdated when compared to the remote hash from ethereum/EIPs.
+    outdated when compared to the remote hash from sila/SIPs.
 
     Args:
       module: Module to test
@@ -143,7 +143,7 @@ def test_eip_spec_version(
 
     message = (
         "The version of the spec referenced in "
-        f"{module} does not match that from ethereum/EIPs, "
+        f"{module} does not match that from sila/SIPs, "
         f"tests might be outdated: Spec: {ref_spec.name()}. "
         f"Referenced version: {ref_spec.known_version()}. "
         f"Latest version: {ref_spec.latest_version()}. The "
@@ -160,8 +160,8 @@ def test_eip_spec_version(
     assert is_up_to_date, message
 
 
-class EIPSpecTestItem(Item):
-    """Custom pytest test item to test EIP spec versions."""
+class SIPSpecTestItem(Item):
+    """Custom pytest test item to test SIP spec versions."""
 
     module: ModuleType
     github_token: Optional[str]
@@ -181,7 +181,7 @@ class EIPSpecTestItem(Item):
         self.github_token = None
 
     @classmethod
-    def from_parent(cls, parent: Node, **kw: Any) -> "EIPSpecTestItem":
+    def from_parent(cls, parent: Node, **kw: Any) -> "SIPSpecTestItem":
         """
         Public constructor to define new tests.
         https://docs.pytest.org/en/latest/reference/reference.html#pytest.nodes.Node.from_parent.
@@ -194,8 +194,8 @@ class EIPSpecTestItem(Item):
         module = kw.pop("module", None)
         github_token = kw.pop("github_token", None)
 
-        kw["name"] = "test_eip_spec_version"
-        item = super(EIPSpecTestItem, cls).from_parent(parent, **kw)
+        kw["name"] = "test_sip_spec_version"
+        item = super(SIPSpecTestItem, cls).from_parent(parent, **kw)
 
         item.module = module
         item.github_token = github_token
@@ -203,7 +203,7 @@ class EIPSpecTestItem(Item):
 
     def runtest(self) -> None:
         """Define the test to execute for this item."""
-        test_eip_spec_version(self.module, github_token=self.github_token)
+        test_sip_spec_version(self.module, github_token=self.github_token)
 
     def reportinfo(self) -> tuple[str, int, str]:
         """
@@ -220,7 +220,7 @@ def pytest_collection_modifyitems(
     config: pytest.Config, items: List[Item]
 ) -> None:
     """
-    Insert a new test EIPSpecTestItem for every test module with 'eip' in its
+    Insert a new test SIPSpecTestItem for every test module with 'sip' in its
     path.
     """
     github_token = (
@@ -230,13 +230,13 @@ def pytest_collection_modifyitems(
     modules: Set[Module] = {
         item.parent for item in items if isinstance(item.parent, Module)
     }
-    new_test_eip_spec_version_items = [
-        EIPSpecTestItem.from_parent(
+    new_test_sip_spec_version_items = [
+        SIPSpecTestItem.from_parent(
             parent=module, module=module.obj, github_token=github_token
         )
         for module in sorted(modules, key=lambda module: module.path)
-        if is_test_for_an_eip(str(module.path))
+        if is_test_for_an_sip(str(module.path))
     ]
-    for item in new_test_eip_spec_version_items:
-        item.add_marker("eip_version_check", append=True)
-    items.extend(new_test_eip_spec_version_items)
+    for item in new_test_sip_spec_version_items:
+        item.add_marker("sip_version_check", append=True)
+    items.extend(new_test_sip_spec_version_items)

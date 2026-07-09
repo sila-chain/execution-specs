@@ -1,0 +1,72 @@
+"""
+Optimized Spec.
+
+.. contents:: Table of Contents
+    :backlinks: none
+    :local:
+
+Introduction
+------------
+
+This module contains optimized POW functions that can be monkey patched into
+the `fork` module of a fork.
+"""
+
+from typing import Any, Dict, cast
+
+from sila_types.numeric import U256, Uint
+
+from sila.silash import epoch
+from sila.exceptions import InvalidBlock
+from sila_spec_tools.forks import Hardfork
+
+from .utils import add_item
+
+try:
+    import silash
+except ImportError as e:
+    # Add a message, but keep it an ImportError.
+    raise e from Exception(
+        "Install with `pip install 'sila[optimized]'` to enable this "
+        "package"
+    )
+
+Header_ = Any
+
+
+def get_optimized_pow_patches(fork: Hardfork) -> Dict[str, Any]:
+    """
+    Get a dictionary of patches to be patched into the fork to make it
+    optimized.
+    """
+    patches: Dict[str, Any] = {}
+
+    mod = cast(Any, fork.module("fork"))
+
+    if not hasattr(mod, "validate_proof_of_work"):
+        raise Exception(
+            "Attempted to get optimized pow patches for non-pow fork"
+        )
+
+    generate_header_hash_for_pow = mod.generate_header_hash_for_pow
+
+    @add_item(patches)
+    def validate_proof_of_work(header: Header_) -> None:
+        """
+        See `validate_proof_of_work`.
+        """
+        epoch_number = epoch(header.number)
+        header_hash = generate_header_hash_for_pow(header)
+
+        limit = Uint(U256.MAX_VALUE) + Uint(1)
+        result = silash.verify(
+            int(epoch_number),
+            header_hash,
+            header.mix_digest,
+            int.from_bytes(header.nonce, "big"),
+            (limit // header.difficulty).to_be_bytes32(),
+        )
+        if not result:
+            raise InvalidBlock
+
+    return patches

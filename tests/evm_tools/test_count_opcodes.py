@@ -10,8 +10,8 @@ from typing import Callable
 
 import pytest
 
-from ethereum_spec_tools.evm_tools import create_parser
-from ethereum_spec_tools.evm_tools.t8n import T8N, ForkCache
+from sila_spec_tools.evm_tools import create_parser
+from sila_spec_tools.evm_tools.t8n import T8N, ForkCache
 
 parser = create_parser()
 

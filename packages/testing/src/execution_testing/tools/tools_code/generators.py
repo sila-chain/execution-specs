@@ -22,7 +22,7 @@ class Initcode(Bytecode):
     affect the deployed code.
 
     Other costs such as the CREATE2 hashing costs or the initcode_word_cost of
-    EIP-3860 are *not* taken into account by any of these calculated costs.
+    SIP-3860 are *not* taken into account by any of these calculated costs.
     """
 
     deploy_code: Bytes | Bytecode
@@ -522,7 +522,7 @@ def _dynamic_nonce_encode_bytecode(
     Generate branch-free bytecode to RLP-encode a nonce to memory.
 
     Support nonce range 1 to 2^64 - 1.  Nonce 0 is not handled
-    because EIP-161 guarantees contract nonces start at 1.
+    because SIP-161 guarantees contract nonces start at 1.
 
     Use CLZ to derive the nonce byte length, then compute the
     RLP encoding and preimage size from it.
@@ -808,7 +808,7 @@ class IteratingBytecode(Bytecode):
     """Bytecode executed once at the end after all iterations complete."""
     iterating_state_gas: int
     """
-    State-gas portion (EIP-8037) charged per loop iteration.
+    State-gas portion (SIP-8037) charged per loop iteration.
     """
 
     def __new__(
@@ -838,7 +838,7 @@ class IteratingBytecode(Bytecode):
                 calculation. The value can also be an integer, in which case it
                 represents the gas cost of the subcall (e.g. the subcall is a
                 precompiled contract).
-            iterating_state_gas: EIP-8037 state-gas portion charged
+            iterating_state_gas: SIP-8037 state-gas portion charged
                 per iteration, defaults to 0.
 
         Returns:

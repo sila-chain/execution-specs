@@ -6,12 +6,12 @@ from typing import Any, Dict, Generator, List, Tuple
 import pytest
 from _pytest.config import Config
 from _pytest.nodes import Item
-from ethereum_rlp import rlp
-from ethereum_types.numeric import U64, U256, Uint
+from sila_rlp import rlp
+from sila_types.numeric import U64, U256, Uint
 from pytest import Collector
 
-from ethereum.crypto.hash import keccak256
-from ethereum.utils.hexadecimal import (
+from sila.crypto.hash import keccak256
+from sila.utils.hexadecimal import (
     hex_to_bytes,
     hex_to_bytes32,
     hex_to_u256,
@@ -92,9 +92,9 @@ class VmTestLoader:
         try:
             return self._module("state")
         except ModuleNotFoundError:
-            import ethereum.state
+            import sila.state
 
-            return ethereum.state
+            return sila.state
 
     def run_test_from_dict(self, json_data: Dict[str, Any]) -> None:
         """
@@ -243,7 +243,7 @@ class VmTestLoader:
         """
         Initial state for the dummy account.
         """
-        # dummy account balance is the min balance needed plus 1 eth for gas
+        # dummy account balance is the min balance needed plus 1 sil for gas
         # cost
         account_balance = hex_to_uint(min_balance) + Uint(10**18)
 

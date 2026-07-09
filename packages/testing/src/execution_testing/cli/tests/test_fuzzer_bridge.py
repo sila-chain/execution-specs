@@ -36,7 +36,7 @@ def load_fuzzer_vector(filename: str) -> Dict[str, Any]:
     Load fuzzer test vector from vectors/ directory.
 
     Follows the pattern from
-    tests/prague/eip2537_bls_12_381_precompiles/helpers.py
+    tests/prague/sip2537_bls_12_381_precompiles/helpers.py
     """
     vector_path = Path(__file__).parent / "vectors" / filename
     with open(vector_path) as f:
@@ -60,7 +60,7 @@ class TestFuzzerOutputParsing:
         assert fuzzer_output.chain_id == HexNumber(1)
         assert len(fuzzer_output.transactions) == 17
         assert len(fuzzer_output.accounts) > 0
-        assert fuzzer_output.parent_beacon_block_root is not None  # EIP-4788
+        assert fuzzer_output.parent_beacon_block_root is not None  # SIP-4788
 
     def test_parse_account_with_private_key(
         self, fuzzer_data: Dict[str, Any]
@@ -98,7 +98,7 @@ class TestFuzzerOutputParsing:
     def test_parse_transaction_with_authorization_list(
         self, fuzzer_data: Dict[str, Any]
     ) -> None:
-        """Test parsing EIP-7702 transaction with authorization list."""
+        """Test parsing SIP-7702 transaction with authorization list."""
         tx_data = next(
             (
                 tx
@@ -385,7 +385,7 @@ class TestBlockchainTestGeneration:
     def test_blockchain_test_beacon_root_first_block_only(
         self, fuzzer_output: FuzzerOutput
     ) -> None:
-        """Test parent beacon block root only in first block (EIP-4788)."""
+        """Test parent beacon block root only in first block (SIP-4788)."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
             fork=Osaka,
@@ -401,7 +401,7 @@ class TestBlockchainTestGeneration:
 
 
 class TestEIPFeatures:
-    """Test EIP-specific feature handling."""
+    """Test SIP-specific feature handling."""
 
     @pytest.fixture
     def fuzzer_output(self) -> FuzzerOutput:
@@ -409,10 +409,10 @@ class TestEIPFeatures:
         data = load_fuzzer_vector("fuzzer_test_0.json")
         return FuzzerOutput(**data)
 
-    def test_eip7702_authorization_lists(
+    def test_sip7702_authorization_lists(
         self, fuzzer_output: FuzzerOutput
     ) -> None:
-        """Test EIP-7702 authorization list handling."""
+        """Test SIP-7702 authorization list handling."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
             fork=Osaka,
@@ -435,10 +435,10 @@ class TestEIPFeatures:
                     for auth in tx.authorization_list
                 )
 
-    def test_eip4788_parent_beacon_block_root(
+    def test_sip4788_parent_beacon_block_root(
         self, fuzzer_output: FuzzerOutput
     ) -> None:
-        """Test EIP-4788 parent beacon block root handling."""
+        """Test SIP-4788 parent beacon block root handling."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
             fork=Osaka,

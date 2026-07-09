@@ -7,7 +7,7 @@ state_tests/stCreate2/CREATE2_ContractSuicideDuringInit_ThenStoreThenReturnFille
 @manually-enhanced: Do not overwrite. The inner CALL gas was raised
 from 0x249F0 to 0x100000 and the tx gas_limit from 600 000 to
 5 000 000 so the nested CREATE2 + init-code SELFDESTRUCT to address
-0x01 can afford its EIP-8037 NEW_ACCOUNT state gas on Amsterdam
+0x01 can afford its SIP-8037 NEW_ACCOUNT state gas on Amsterdam
 (post-state expectations are unchanged on all forks).
 """
 
@@ -59,12 +59,12 @@ def test_create2_contract_suicide_during_init_then_store_then_return(
     )
 
     pre[sender] = Account(balance=0xE8D4A51000)
-    # EIP-8037 NEW_ACCOUNT state-gas on Amsterdam pushes both the inner
-    # CALL and the outer tx over the original budgets; pre-EIP-8037
+    # SIP-8037 NEW_ACCOUNT state-gas on Amsterdam pushes both the inner
+    # CALL and the outer tx over the original budgets; pre-SIP-8037
     # forks keep the values the original filler was tuned for.
     inner_call_gas = 0x249F0
     tx_gas_limit = 600_000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         inner_call_gas = 0x100000
         tx_gas_limit = 5_000_000
     # Source: lll

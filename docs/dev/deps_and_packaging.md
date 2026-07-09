@@ -8,10 +8,10 @@ The repo is a `uv` workspace with two members, each defined by its own `pyprojec
 
 | Package                      | `pyproject.toml`                                                                                                            | Contents                                                 |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `ethereum-execution`         | [`pyproject.toml`](https://github.com/ethereum/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/pyproject.toml)                                  | The Python specs (`src/ethereum/`) and associated tools. |
-| `ethereum-execution-testing` | [`packages/testing/pyproject.toml`](https://github.com/ethereum/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/pyproject.toml) | The EEST test framework under `packages/testing/`.       |
+| `sila-execution`         | [`pyproject.toml`](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/pyproject.toml)                                  | The Python specs (`src/sila/`) and associated tools. |
+| `sila-execution-testing` | [`packages/testing/pyproject.toml`](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/pyproject.toml) | The EEST test framework under `packages/testing/`.       |
 
-A single [`uv.lock`](https://github.com/ethereum/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/uv.lock) at the repo root pins dependencies for both packages.
+A single [`uv.lock`](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/uv.lock) at the repo root pins dependencies for both packages.
 
 ## Managing Dependencies
 
@@ -25,7 +25,7 @@ We aim to provide specific [version specifiers](https://peps.python.org/pep-0440
 
 !!! info "Target the right workspace member"
 
-    Run `uv` commands from the repo root. By default they target `ethereum-execution` (the specs package). To target the test framework, pass `--package ethereum-execution-testing` (or equivalently, `cd packages/testing/` first and run `uv` from there).
+    Run `uv` commands from the repo root. By default they target `sila-execution` (the specs package). To target the test framework, pass `--package sila-execution-testing` (or equivalently, `cd packages/testing/` first and run `uv` from there).
 
     Either way, the single `uv.lock` at the repo root is updated and should be committed alongside the `pyproject.toml` change.
 
@@ -51,7 +51,7 @@ Direct dependencies are the packages listed in each package's `[project] depende
 !!! example "Adding a direct dependency to the testing package"
 
     ```console
-    uv add --package ethereum-execution-testing "requests>=2.31,<2.33"
+    uv add --package sila-execution-testing "requests>=2.31,<2.33"
     ```
 
 ### Adding or modifying development dependencies
@@ -77,17 +77,17 @@ Groups defined by the testing package:
 !!! example "Adding a dev dependency to the testing package `test` group"
 
     ```console
-    uv add --package ethereum-execution-testing --group test "pytest-timeout>=2.3,<3"
+    uv add --package sila-execution-testing --group test "pytest-timeout>=2.3,<3"
     ```
 
 ### Adding or modifying optional dependencies
 
-The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and `ethash` for EVM performance.
+The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and `silash` for EVM performance.
 
 !!! example "Updating an optional dependency"
 
     ```console
-    uv add --optional optimized "ethash>=1.1.0,<2"
+    uv add --optional optimized "silash>=1.1.0,<2"
     ```
 
 ## Upgrading Pinned Dependencies in `uv.lock`

@@ -61,7 +61,7 @@ def test_call_recursive_contract(
 
     gas_limit = 400_000
     pre_fund_deploy_addresses = False
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         gas_limit = 2_000_000
         # In 8037, the cost of creating an account is beared by the parent
         # creating it, so in order to not run out of gas when we return from

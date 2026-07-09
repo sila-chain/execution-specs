@@ -1,4 +1,4 @@
-"""Ethereum state test spec definition and filler."""
+"""Sila state test spec definition and filler."""
 
 from pprint import pprint
 from typing import (

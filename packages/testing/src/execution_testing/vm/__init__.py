@@ -1,4 +1,4 @@
-"""Ethereum Virtual Machine related definitions and utilities."""
+"""Sila Virtual Machine related definitions and utilities."""
 
 from .bases import (
     ForkOpcodeInterface,

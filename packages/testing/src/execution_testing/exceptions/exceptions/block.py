@@ -112,7 +112,7 @@ class BlockException(ExceptionBase):
     """Incorrect number of versioned hashes in a payload."""
     RLP_STRUCTURES_ENCODING = auto()
     """
-    Block's rlp encoding is valid but ethereum structures in it are invalid.
+    Block's rlp encoding is valid but sila structures in it are invalid.
     """
     RLP_WITHDRAWALS_NOT_READ = auto()
     """Block's rlp encoding is missing withdrawals."""
@@ -169,15 +169,15 @@ class BlockException(ExceptionBase):
     """
     INVALID_DEPOSIT_EVENT_LAYOUT = auto()
     """
-    Transaction emits a `DepositEvent` in the deposit contract (EIP-6110), but
+    Transaction emits a `DepositEvent` in the deposit contract (SIP-6110), but
     the layout of the event does not match the required layout.
     """
-    # --- Block-Level Access Lists (EIP-7928) --- #
+    # --- Block-Level Access Lists (SIP-7928) --- #
     INVALID_BLOCK_ACCESS_LIST = auto()
     """Block's access list is invalid."""
     INVALID_BAL_HASH = auto()
     """Block header's BAL hash does not match the computed BAL hash."""
     BLOCK_ACCESS_LIST_GAS_LIMIT_EXCEEDED = auto()
     """
-    Block access list exceeds the gas limit constraint (EIP-7928).
+    Block access list exceeds the gas limit constraint (SIP-7928).
     """

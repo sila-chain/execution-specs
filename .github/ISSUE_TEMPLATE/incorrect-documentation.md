@@ -24,7 +24,7 @@ assignees: ''
         * Specification code itself
         * Yellow Paper
         * Client Source Code (preferably examples from multiple clients)
-        * Ethereum Improvement Proposals
+        * Sila Improvement Proposals
 -->
 
 ### Additional Context

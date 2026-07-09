@@ -12,7 +12,7 @@ from ..sender import sync_worker_key_nonce
 
 
 @pytest.fixture
-def mock_eth_rpc() -> MagicMock:
+def mock_sil_rpc() -> MagicMock:
     """Create a mock EthRPC instance."""
     return MagicMock()
 
@@ -47,18 +47,18 @@ def mock_eoa() -> EOA:
     ],
 )
 def test_worker_key_nonce_sync(
-    mock_eth_rpc: MagicMock,
+    mock_sil_rpc: MagicMock,
     mock_eoa: EOA,
     initial_nonce: int,
     rpc_nonce: int,
 ) -> None:
     """Test worker key nonce is updated whenever it differs from RPC."""
     mock_eoa.nonce = Number(initial_nonce)
-    mock_eth_rpc.get_account.return_value = Account(
+    mock_sil_rpc.get_account.return_value = Account(
         nonce=rpc_nonce, balance=10**18
     )
 
-    sync_worker_key_nonce(mock_eth_rpc, mock_eoa)
+    sync_worker_key_nonce(mock_sil_rpc, mock_eoa)
 
     assert mock_eoa.nonce == Number(rpc_nonce), (
         f"Expected nonce to be synced to {rpc_nonce}, got {mock_eoa.nonce}"
@@ -66,32 +66,32 @@ def test_worker_key_nonce_sync(
 
 
 def test_worker_key_nonce_unchanged_when_matching(
-    mock_eth_rpc: MagicMock,
+    mock_sil_rpc: MagicMock,
     mock_eoa: EOA,
 ) -> None:
     """Test worker key nonce is not modified when it matches RPC."""
     mock_eoa.nonce = Number(5)
-    mock_eth_rpc.get_account.return_value = Account(nonce=5, balance=10**18)
+    mock_sil_rpc.get_account.return_value = Account(nonce=5, balance=10**18)
 
-    sync_worker_key_nonce(mock_eth_rpc, mock_eoa)
+    sync_worker_key_nonce(mock_sil_rpc, mock_eoa)
 
     assert mock_eoa.nonce == Number(5)
 
 
 def test_sync_falls_back_to_pending_on_jsonrpc_error(
-    mock_eth_rpc: MagicMock,
+    mock_sil_rpc: MagicMock,
     mock_eoa: EOA,
 ) -> None:
     """Test fallback to pending block when latest is unavailable."""
     mock_eoa.nonce = Number(3)
     pending_account = Account(nonce=5, balance=10**18)
-    mock_eth_rpc.get_account.side_effect = [
+    mock_sil_rpc.get_account.side_effect = [
         JSONRPCError(code=-32000, message="not available"),
         pending_account,
     ]
 
-    result = sync_worker_key_nonce(mock_eth_rpc, mock_eoa)
+    result = sync_worker_key_nonce(mock_sil_rpc, mock_eoa)
 
     assert mock_eoa.nonce == Number(5)
     assert result is pending_account
-    assert mock_eth_rpc.get_account.call_count == 2
+    assert mock_sil_rpc.get_account.call_count == 2

@@ -1,4 +1,4 @@
-"""Simple CLI tool that reads filler files in the `ethereum/tests` format."""
+"""Simple CLI tool that reads filler files in the `sila/tests` format."""
 
 import argparse
 from glob import glob

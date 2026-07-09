@@ -4,10 +4,10 @@ from typing import List, Type
 
 from execution_testing.fixtures import FixtureConsumer, FixtureFormat
 
-from .ethereum_cli import EthereumCLI
+from .sila_cli import SilaCLI
 
 
-class FixtureConsumerTool(FixtureConsumer, EthereumCLI):
+class FixtureConsumerTool(FixtureConsumer, SilaCLI):
     """
     Fixture consumer tool abstract base class which should be inherited by all
     fixture consumer tool implementations.

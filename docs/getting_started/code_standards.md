@@ -1,6 +1,6 @@
 # Code Standards
 
-This page outlines the code standards used in @ethereum/execution-specs. Many of the following preferences are enforced in CI via static code checks which can be ran locally via:
+This page outlines the code standards used in @sila/execution-specs. Many of the following preferences are enforced in CI via static code checks which can be ran locally via:
 
 ```console
 just static

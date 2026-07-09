@@ -33,12 +33,12 @@ Hexadecimal number with "0x" prefix encoded as a JSON string.
 ### `List`
 
 A JSON array where each element is a specific type, also defined in this document.
-E.g. `List[Address]` is a JSON array where each element is an Ethereum address.
+E.g. `List[Address]` is a JSON array where each element is an Sila address.
 
 ### `Mapping`
 
 A JSON object where the keys and values are specific types, also defined in this document.
-E.g. `Mapping[Address, Account]` is a JSON object where the keys are Ethereum addresses, and the values are Ethereum accounts.
+E.g. `Mapping[Address, Account]` is a JSON object where the keys are Sila addresses, and the values are Sila accounts.
 
 ### `Number`
 
@@ -60,7 +60,7 @@ Storage represented as a JSON object, where the keys and values are represented 
 
 ### `Account`
 
-An Ethereum account represented as a JSON object with the following fields:
+An Sila account represented as a JSON object with the following fields:
 
 #### - `balance`: [`ZeroPaddedHexNumber`](#zeropaddedhexnumber)
 
@@ -84,7 +84,7 @@ State allocation represented as a JSON object, where the keys are the addresses 
 
 ### `BlobSchedule`: [`Mapping`](#mapping)`[`[`Fork`](#fork)`,`[`ForkBlobSchedule`](#forkblobschedule)`]`
 
-Maps forks to blob schedule configurations as defined by [EIP-7840](https://eips.ethereum.org/EIPS/eip-7840).
+Maps forks to blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
 
 ### `Environment`
 
@@ -92,7 +92,7 @@ Contains blockchain-related configuration that provides the context in which a t
 
 ### `ForkBlobSchedule`
 
-A fork blob schedule as defined by [EIP-7840](https://eips.ethereum.org/EIPS/eip-7840) as a JSON dictionary with the following entries:
+A fork blob schedule as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840) as a JSON dictionary with the following entries:
 
 #### - `target`: [`ZeroPaddedHexNumber`](#zeropaddedhexnumber)
 
@@ -123,9 +123,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 
@@ -133,9 +133,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -144,9 +144,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -156,9 +156,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -169,9 +169,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -183,9 +183,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -198,9 +198,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -214,9 +214,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -230,9 +230,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -247,9 +247,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -265,9 +265,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -284,9 +284,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -304,9 +304,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -324,9 +324,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`
@@ -345,9 +345,9 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x01`
 - Homestead Block: `0x00`
-- EIP150 Block: `0x00`
-- EIP155 Block: `0x00`
-- EIP158 Block: `0x00`
+- SIP150 Block: `0x00`
+- SIP155 Block: `0x00`
+- SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
 - Byzantium Block: `0x00`
 - Constantinople Block: `0x00`

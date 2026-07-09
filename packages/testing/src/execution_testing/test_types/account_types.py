@@ -1,4 +1,4 @@
-"""Account-related types for Ethereum tests."""
+"""Account-related types for Sila tests."""
 
 import json
 from dataclasses import dataclass, field
@@ -16,8 +16,8 @@ from typing import (
 )
 
 from coincurve.keys import PrivateKey
-from ethereum_types.bytes import Bytes20
-from ethereum_types.numeric import U256, Bytes32, Uint
+from sila_types.bytes import Bytes20
+from sila_types.numeric import U256, Bytes32, Uint
 
 from execution_testing.base_types import (
     Account,

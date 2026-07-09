@@ -44,7 +44,7 @@ logger = get_logger(__name__)
 
 def test_blockchain_via_engine(
     timing_data: TimingData,
-    eth_rpc: EthRPC,
+    sil_rpc: EthRPC,
     engine_rpc: EngineRPC,
     fixture: Union[BlockchainEngineFixture, BlockchainEngineXFixture],
     strict_exception_matching: bool,
@@ -103,7 +103,7 @@ def test_blockchain_via_engine(
 
     with timing_data.time("Get genesis block"):
         logger.info("Calling getBlockByNumber to get genesis block...")
-        genesis_block = eth_rpc.get_block_by_number(0)
+        genesis_block = sil_rpc.get_block_by_number(0)
         assert genesis_block is not None, "genesis_block is None"
         if genesis_block["hash"] != str(genesis_header.block_hash):
             expected = genesis_header.block_hash

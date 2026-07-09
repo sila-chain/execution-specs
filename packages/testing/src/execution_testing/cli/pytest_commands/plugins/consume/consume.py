@@ -50,7 +50,7 @@ from .releases import (
 )
 
 CACHED_DOWNLOADS_DIRECTORY = (
-    Path(platformdirs.user_cache_dir("ethereum-execution-spec-tests"))
+    Path(platformdirs.user_cache_dir("sila-execution-spec-tests"))
     / "cached_downloads"
 )
 
@@ -379,7 +379,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
             "(e.g. `tests@v20.0.0` or `bal-devnet@v7.0.0`, with or "
             "without the `tests-` tag prefix, and `latest` is a valid "
             "version), a bare `latest` or `vX.Y.Z` which resolves the "
-            "mainnet `tests` release, or the special keyword 'stdin'. "
+            "sila-mainnet `tests` release, or the special keyword 'stdin'. "
             f"Defaults to the following local directory: '{default_input()}'."
         ),
     )
@@ -432,7 +432,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
             "Without the `id:` prefix, the argument is interpreted as a "
             "Python regex pattern. To see which test cases are matched, "
             "without executing them, prefix with `collectonly:`, e.g. "
-            '`--sim.limit "collectonly:.*eip4788.*fork_Prague.*"`. '
+            '`--sim.limit "collectonly:.*sip4788.*fork_Prague.*"`. '
             "To list all available test case IDs, set the value to "
             "`collectonly`."
         ),
@@ -529,7 +529,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
         if not fork.ignore()
     }
     # Append all forks within the index file (compatibility with
-    # `ethereum/tests`)
+    # `sila/tests`)
     all_forks.update(getattr(index, "forks", []))
     for fork in all_forks:
         config.addinivalue_line(

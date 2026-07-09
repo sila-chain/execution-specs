@@ -9,8 +9,8 @@ resolution-markers = [
 
 [manifest]
 members = [
-    "ethereum-execution",
-    "ethereum-execution-testing",
+    "sila-execution",
+    "sila-execution-testing",
 ]
 
 [[package]]
@@ -796,43 +796,29 @@ wheels = [
 ]
 
 [[package]]
-name = "eth-abi"
-version = "5.2.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "eth-typing" },
-    { name = "eth-utils" },
-    { name = "parsimonious" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/00/71/d9e1380bd77fd22f98b534699af564f189b56d539cc2b9dab908d4e4c242/eth_abi-5.2.0.tar.gz", hash = "sha256:178703fa98c07d8eecd5ae569e7e8d159e493ebb6eeb534a8fe973fbc4e40ef0", size = 49797, upload-time = "2025-01-14T16:29:34.629Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/7a/b4/2f3982c4cbcbf5eeb6aec62df1533c0e63c653b3021ff338d44944405676/eth_abi-5.2.0-py3-none-any.whl", hash = "sha256:17abe47560ad753f18054f5b3089fcb588f3e3a092136a416b6c1502cb7e8877", size = 28511, upload-time = "2025-01-14T16:29:31.862Z" },
-]
-
-[[package]]
 name = "eth-hash"
-version = "0.7.1"
+version = "0.8.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/ee/38/577b7bc9380ef9dff0f1dffefe0c9a1ded2385e7a06c306fd95afb6f9451/eth_hash-0.7.1.tar.gz", hash = "sha256:d2411a403a0b0a62e8247b4117932d900ffb4c8c64b15f92620547ca5ce46be5", size = 12227, upload-time = "2025-01-13T21:29:21.765Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3c/f5/c67fc24f2f676aa9b7ab29679d44f113f314c817207cd4319353356f62da/eth_hash-0.8.0.tar.gz", hash = "sha256:b009752b620da2e9c7668014849d1f5fadbe4f138603f1871cc5d4ca706896b1", size = 12225, upload-time = "2026-03-25T16:36:55.099Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/eb/db/f8775490669d28aca24871c67dd56b3e72105cb3bcae9a4ec65dd70859b3/eth_hash-0.7.1-py3-none-any.whl", hash = "sha256:0fb1add2adf99ef28883fd6228eb447ef519ea72933535ad1a0b28c6f65f868a", size = 8028, upload-time = "2025-01-13T21:29:19.365Z" },
+    { url = "https://files.pythonhosted.org/packages/87/87/b36792150ca0b28e4df683a34be15a61461ca0e349e5b5cf3ec8f694edb9/eth_hash-0.8.0-py3-none-any.whl", hash = "sha256:523718a51b369ab89866b929a5c93c52978cd866ea309192ad980dd8271f9fac", size = 7965, upload-time = "2026-03-25T16:36:54.205Z" },
 ]
 
 [[package]]
 name = "eth-typing"
-version = "5.2.1"
+version = "6.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/60/54/62aa24b9cc708f06316167ee71c362779c8ed21fc8234a5cd94a8f53b623/eth_typing-5.2.1.tar.gz", hash = "sha256:7557300dbf02a93c70fa44af352b5c4a58f94e997a0fd6797fb7d1c29d9538ee", size = 21806, upload-time = "2025-04-14T20:39:28.217Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/37/e7/06c5af99ad40494f6d10126a9030ff4eb14c5b773f2a4076017efb0a163a/eth_typing-6.0.0.tar.gz", hash = "sha256:315dd460dc0b71c15a6cd51e3c0b70d237eec8771beb844144f3a1fb4adb2392", size = 21852, upload-time = "2026-03-25T16:41:57.444Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/30/72/c370bbe4c53da7bf998d3523f5a0f38867654923a82192df88d0705013d3/eth_typing-5.2.1-py3-none-any.whl", hash = "sha256:b0c2812ff978267563b80e9d701f487dd926f1d376d674f3b535cfe28b665d3d", size = 19163, upload-time = "2025-04-14T20:39:26.571Z" },
+    { url = "https://files.pythonhosted.org/packages/aa/0d/e756622fab29f404d846d7464f929d642a7ee6eff5b38bcc79e7c64ac630/eth_typing-6.0.0-py3-none-any.whl", hash = "sha256:ee74fb641eb36dd885e1c42c2a3055314efa532b3e71480816df70a94d35cfb9", size = 19191, upload-time = "2026-03-25T16:41:55.544Z" },
 ]
 
 [[package]]
 name = "eth-utils"
-version = "5.3.1"
+version = "6.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cytoolz", marker = "implementation_name == 'cpython'" },
@@ -841,395 +827,9 @@ dependencies = [
     { name = "pydantic" },
     { name = "toolz", marker = "implementation_name == 'pypy'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e6/e1/ee3a8728227c3558853e63ff35bd4c449abdf5022a19601369400deacd39/eth_utils-5.3.1.tar.gz", hash = "sha256:c94e2d2abd024a9a42023b4ddc1c645814ff3d6a737b33d5cfd890ebf159c2d1", size = 123506, upload-time = "2025-08-27T16:37:17.378Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e9/1b/0b8548da7b31eba87ed58bca1d0de5dcb13a6c113e02c09019ec5a6716ed/eth_utils-6.0.0.tar.gz", hash = "sha256:eb54b2f82dd300d3142c49a89da195e823f5e5284d43203593f87c67bad92a96", size = 123457, upload-time = "2026-03-25T17:11:51.433Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bf/4d/257cdc01ada430b8e84b9f2385c2553f33218f5b47da9adf0a616308d4b7/eth_utils-5.3.1-py3-none-any.whl", hash = "sha256:1f5476d8f29588d25b8ae4987e1ffdfae6d4c09026e476c4aad13b32dda3ead0", size = 102529, upload-time = "2025-08-27T16:37:15.449Z" },
-]
-
-[[package]]
-name = "ethash"
-version = "1.1.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "cffi" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/48/04/3d70c9725ab5260aa0a3488e291a22046f8fa6047263bf4d69e56c56d76d/ethash-1.1.0.tar.gz", hash = "sha256:7ed9bb781c6b740ad1af2bd69d0b2d77d5ed1f3b2bf22542436660c0dde3b30f", size = 32650, upload-time = "2025-02-13T16:35:27.75Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c9/a8/7b95a5447609610e0a6402045d31fd39fb259d0e78e4ba15bdecd017733f/ethash-1.1.0-cp311-cp311-macosx_14_0_x86_64.whl", hash = "sha256:1f9681d25290bb6e3d90b39fa6224e73c08f7fe10b28a4296d35d34de9c680b1", size = 26387, upload-time = "2025-02-13T19:19:29.703Z" },
-    { url = "https://files.pythonhosted.org/packages/2d/00/9127d6dc37ea12335eab9ad058f759db398e2f8235acc4cb515fa53cc957/ethash-1.1.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:3718f0b110336c382956ae60166f2dde1a278aa66075f3ea46dd2e52756ba1be", size = 53415, upload-time = "2025-02-13T16:44:22.145Z" },
-    { url = "https://files.pythonhosted.org/packages/60/37/6ed40670bd75bc6226fb8324492dfb70c236415adf7b68d38ebaddbef773/ethash-1.1.0-cp311-cp311-win_amd64.whl", hash = "sha256:e66cbc6cf6ed41306c6a6d1ffabacda28681a61da0a8cf0724fd44e992b4864c", size = 21839, upload-time = "2025-02-13T17:07:56.182Z" },
-    { url = "https://files.pythonhosted.org/packages/3d/7a/e6de134a090c89ea2f86fc95826e482359f2f39c3c9508fcda9b424014e9/ethash-1.1.0-cp312-cp312-macosx_14_0_arm64.whl", hash = "sha256:7382498ead2df2d5c714774e08a7708cdc2a1bbd7bc6c74de786602f69ba4cb4", size = 26036, upload-time = "2025-02-13T16:44:23.979Z" },
-    { url = "https://files.pythonhosted.org/packages/03/a2/289d3d9227fd2e0b182232a71a40d54ce637599161d3f9539fb06be62eb6/ethash-1.1.0-cp312-cp312-macosx_14_0_x86_64.whl", hash = "sha256:3b791656fc1cc4eda727d697b289c7fecc0b414c5eefa3c1ecabee1bc5f889ce", size = 26385, upload-time = "2025-02-13T19:19:31.416Z" },
-    { url = "https://files.pythonhosted.org/packages/80/59/06a5b2076febb63240575c046fb4ebc0edf2add82929cc653a672691d278/ethash-1.1.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:704884467599c1195d886f6d36c15082bbf9b067ecce8c7d45c72fa5d6742183", size = 53542, upload-time = "2025-02-13T16:44:26.446Z" },
-    { url = "https://files.pythonhosted.org/packages/52/a0/4ba21ae669e57149017c51e0298143e597d4d99dde49eaf9b3bd9410159f/ethash-1.1.0-cp312-cp312-win_amd64.whl", hash = "sha256:74806864c6cdb1ac384fbe3ad123369188aa06b360d869fff84663e674791a7a", size = 21849, upload-time = "2025-02-13T17:07:58.656Z" },
-    { url = "https://files.pythonhosted.org/packages/a2/ea/685f04ef915bd7cf018b315f413f119f224e4f2ceba0c8ddf5e867f66dd5/ethash-1.1.0-cp313-cp313-macosx_15_0_x86_64.whl", hash = "sha256:88239e3cf47798de3816ab28e36bf8ec222f587311e516493ab0a3290d38a7ca", size = 26380, upload-time = "2025-02-13T19:19:34.008Z" },
-    { url = "https://files.pythonhosted.org/packages/5f/c1/63a614d6b5773a9c4eedefeb14402bab89e23e0dc910165f42344ce1f81d/ethash-1.1.0-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:5c93ce3e47718cb5cb3585457c9bbff8b4689242df5bbbcdb67ccff11c7b8c89", size = 53512, upload-time = "2025-02-13T16:44:28.686Z" },
-    { url = "https://files.pythonhosted.org/packages/b5/12/28c6e7056de44395ec3f50fc6db89b8caa056c9a077815406c15d898d895/ethash-1.1.0-cp313-cp313-win_amd64.whl", hash = "sha256:625062b65233b63bcae2e5d39c9b6a446762ffa6717bfe5f1c3e89df60a63ffb", size = 21844, upload-time = "2025-02-13T17:08:00.114Z" },
-]
-
-[[package]]
-name = "ethereum-execution"
-source = { editable = "." }
-dependencies = [
-    { name = "coincurve" },
-    { name = "cryptography" },
-    { name = "ethereum-rlp" },
-    { name = "ethereum-types" },
-    { name = "libcst" },
-    { name = "platformdirs" },
-    { name = "py-ecc" },
-    { name = "pycryptodome" },
-    { name = "typing-extensions" },
-]
-
-[package.optional-dependencies]
-optimized = [
-    { name = "ethash" },
-    { name = "rust-pyspec-glue" },
-]
-
-[package.dev-dependencies]
-actionlint = [
-    { name = "actionlint-py" },
-    { name = "pyflakes" },
-    { name = "shellcheck-py" },
-]
-dev = [
-    { name = "actionlint-py" },
-    { name = "cairosvg" },
-    { name = "codespell" },
-    { name = "docc" },
-    { name = "ethereum-execution", extra = ["optimized"] },
-    { name = "ethereum-execution-testing" },
-    { name = "filelock" },
-    { name = "fladrif" },
-    { name = "gitpython" },
-    { name = "jinja2" },
-    { name = "libcst" },
-    { name = "lxml" },
-    { name = "markdown" },
-    { name = "mike" },
-    { name = "mistletoe" },
-    { name = "mkdocs" },
-    { name = "mkdocs-click" },
-    { name = "mkdocs-gen-files" },
-    { name = "mkdocs-git-authors-plugin" },
-    { name = "mkdocs-glightbox" },
-    { name = "mkdocs-literate-nav" },
-    { name = "mkdocs-material" },
-    { name = "mkdocs-material-extensions" },
-    { name = "mkdocstrings" },
-    { name = "mkdocstrings-python" },
-    { name = "mypy" },
-    { name = "pillow" },
-    { name = "psutil" },
-    { name = "pyflakes" },
-    { name = "pyspelling" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "pytest-xdist" },
-    { name = "requests" },
-    { name = "requests-cache" },
-    { name = "ruff" },
-    { name = "shellcheck-py" },
-    { name = "types-requests" },
-    { name = "vulture" },
-]
-doc = [
-    { name = "docc" },
-    { name = "fladrif" },
-    { name = "mistletoe" },
-]
-lint = [
-    { name = "codespell" },
-    { name = "mypy" },
-    { name = "ruff" },
-    { name = "types-requests" },
-    { name = "vulture" },
-]
-mkdocs = [
-    { name = "cairosvg" },
-    { name = "codespell" },
-    { name = "jinja2" },
-    { name = "lxml" },
-    { name = "markdown" },
-    { name = "mike" },
-    { name = "mkdocs" },
-    { name = "mkdocs-click" },
-    { name = "mkdocs-gen-files" },
-    { name = "mkdocs-git-authors-plugin" },
-    { name = "mkdocs-glightbox" },
-    { name = "mkdocs-literate-nav" },
-    { name = "mkdocs-material" },
-    { name = "mkdocs-material-extensions" },
-    { name = "mkdocstrings" },
-    { name = "mkdocstrings-python" },
-    { name = "pillow" },
-    { name = "pyspelling" },
-]
-test = [
-    { name = "ethereum-execution-testing" },
-    { name = "filelock" },
-    { name = "gitpython" },
-    { name = "libcst" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "pytest-xdist" },
-    { name = "requests" },
-    { name = "requests-cache" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "coincurve", specifier = ">=20,<21" },
-    { name = "cryptography", specifier = ">=45.0.1,<46" },
-    { name = "ethash", marker = "extra == 'optimized'", specifier = ">=1.1.0,<2" },
-    { name = "ethereum-rlp", specifier = ">=0.1.6,<0.2" },
-    { name = "ethereum-types", specifier = ">=0.4.1,<0.5" },
-    { name = "libcst", specifier = ">=1.8,<2" },
-    { name = "platformdirs", specifier = ">=4.2,<5" },
-    { name = "py-ecc", specifier = ">=8.0.0b2,<9" },
-    { name = "pycryptodome", specifier = ">=3.22,<4" },
-    { name = "rust-pyspec-glue", marker = "extra == 'optimized'", specifier = ">=0.0.9,<0.1.0" },
-    { name = "typing-extensions", specifier = ">=4.4" },
-]
-provides-extras = ["optimized"]
-
-[package.metadata.requires-dev]
-actionlint = [
-    { name = "actionlint-py", specifier = ">=1.7.11,<2" },
-    { name = "pyflakes", specifier = ">=3.0" },
-    { name = "shellcheck-py", specifier = ">=0.10" },
-]
-dev = [
-    { name = "actionlint-py", specifier = ">=1.7.11,<2" },
-    { name = "cairosvg", specifier = ">=2.7.0,<3" },
-    { name = "codespell", specifier = "==2.4.1" },
-    { name = "codespell", specifier = ">=2.4.1,<3" },
-    { name = "docc", specifier = ">=0.6.1,<0.7.0" },
-    { name = "ethereum-execution", extras = ["optimized"] },
-    { name = "ethereum-execution-testing", editable = "packages/testing" },
-    { name = "filelock", specifier = ">=3.15.1,<4" },
-    { name = "fladrif", specifier = ">=0.2.0,<0.3.0" },
-    { name = "gitpython", specifier = ">=3.1.0,<3.2" },
-    { name = "jinja2", specifier = ">=3,<4" },
-    { name = "libcst", specifier = ">=1.8,<2" },
-    { name = "lxml", specifier = ">=6.0.0,<7" },
-    { name = "markdown", specifier = "==3.8" },
-    { name = "mike", specifier = ">=1.1.2,<2" },
-    { name = "mistletoe", specifier = ">=1.5.0,<2" },
-    { name = "mkdocs", specifier = ">=1.4.3,<2" },
-    { name = "mkdocs-click", specifier = ">=0.8,<1" },
-    { name = "mkdocs-gen-files", specifier = ">=0.5.0,<1" },
-    { name = "mkdocs-git-authors-plugin", specifier = ">=0.7.1,<1" },
-    { name = "mkdocs-glightbox", specifier = ">=0.3.4,<1" },
-    { name = "mkdocs-literate-nav", specifier = ">=0.6.0,<1" },
-    { name = "mkdocs-material", specifier = ">=9.1.14,<10" },
-    { name = "mkdocs-material-extensions", specifier = ">=1.1.1,<2" },
-    { name = "mkdocstrings", specifier = ">=0.21.2,<1" },
-    { name = "mkdocstrings-python", specifier = ">=1.0.0,<2" },
-    { name = "mypy", specifier = "==2.1.0" },
-    { name = "pillow", specifier = ">=12,<13" },
-    { name = "psutil", specifier = ">=7.2.2" },
-    { name = "pyflakes", specifier = ">=3.0" },
-    { name = "pyspelling", specifier = ">=2.8.2,<3" },
-    { name = "pytest", specifier = ">=8,<9" },
-    { name = "pytest-cov", specifier = ">=4.1.0,<5" },
-    { name = "pytest-xdist", specifier = ">=3.3.1,<4" },
-    { name = "requests" },
-    { name = "requests-cache", specifier = ">=1.2.1,<2" },
-    { name = "ruff", specifier = "==0.13.2" },
-    { name = "shellcheck-py", specifier = ">=0.10" },
-    { name = "types-requests", specifier = ">=2.31,<2.33" },
-    { name = "vulture", specifier = "==2.14.0" },
-]
-doc = [
-    { name = "docc", specifier = ">=0.6.1,<0.7.0" },
-    { name = "fladrif", specifier = ">=0.2.0,<0.3.0" },
-    { name = "mistletoe", specifier = ">=1.5.0,<2" },
-]
-lint = [
-    { name = "codespell", specifier = "==2.4.1" },
-    { name = "mypy", specifier = "==2.1.0" },
-    { name = "ruff", specifier = "==0.13.2" },
-    { name = "types-requests", specifier = ">=2.31,<2.33" },
-    { name = "vulture", specifier = "==2.14.0" },
-]
-mkdocs = [
-    { name = "cairosvg", specifier = ">=2.7.0,<3" },
-    { name = "codespell", specifier = ">=2.4.1,<3" },
-    { name = "jinja2", specifier = ">=3,<4" },
-    { name = "lxml", specifier = ">=6.0.0,<7" },
-    { name = "markdown", specifier = "==3.8" },
-    { name = "mike", specifier = ">=1.1.2,<2" },
-    { name = "mkdocs", specifier = ">=1.4.3,<2" },
-    { name = "mkdocs-click", specifier = ">=0.8,<1" },
-    { name = "mkdocs-gen-files", specifier = ">=0.5.0,<1" },
-    { name = "mkdocs-git-authors-plugin", specifier = ">=0.7.1,<1" },
-    { name = "mkdocs-glightbox", specifier = ">=0.3.4,<1" },
-    { name = "mkdocs-literate-nav", specifier = ">=0.6.0,<1" },
-    { name = "mkdocs-material", specifier = ">=9.1.14,<10" },
-    { name = "mkdocs-material-extensions", specifier = ">=1.1.1,<2" },
-    { name = "mkdocstrings", specifier = ">=0.21.2,<1" },
-    { name = "mkdocstrings-python", specifier = ">=1.0.0,<2" },
-    { name = "pillow", specifier = ">=12,<13" },
-    { name = "pyspelling", specifier = ">=2.8.2,<3" },
-]
-test = [
-    { name = "ethereum-execution-testing", editable = "packages/testing" },
-    { name = "filelock", specifier = ">=3.15.1,<4" },
-    { name = "gitpython", specifier = ">=3.1.0,<3.2" },
-    { name = "libcst", specifier = ">=1.8,<2" },
-    { name = "pytest", specifier = ">=8,<9" },
-    { name = "pytest-cov", specifier = ">=4.1.0,<5" },
-    { name = "pytest-xdist", specifier = ">=3.3.1,<4" },
-    { name = "requests" },
-    { name = "requests-cache", specifier = ">=1.2.1,<2" },
-]
-
-[[package]]
-name = "ethereum-execution-testing"
-version = "1.0.0"
-source = { editable = "packages/testing" }
-dependencies = [
-    { name = "ckzg" },
-    { name = "click" },
-    { name = "coincurve" },
-    { name = "colorlog" },
-    { name = "eth-abi" },
-    { name = "ethereum-execution" },
-    { name = "ethereum-hive" },
-    { name = "ethereum-rlp" },
-    { name = "ethereum-types" },
-    { name = "filelock" },
-    { name = "gitpython" },
-    { name = "ijson" },
-    { name = "jinja2" },
-    { name = "joblib" },
-    { name = "platformdirs" },
-    { name = "pydantic" },
-    { name = "pyjwt" },
-    { name = "pytest" },
-    { name = "pytest-custom-report" },
-    { name = "pytest-html" },
-    { name = "pytest-json-report" },
-    { name = "pytest-metadata" },
-    { name = "pytest-regex" },
-    { name = "pytest-xdist" },
-    { name = "pyyaml" },
-    { name = "questionary" },
-    { name = "requests" },
-    { name = "requests-unixsocket2" },
-    { name = "rich" },
-    { name = "ruff" },
-    { name = "semver" },
-    { name = "tenacity" },
-    { name = "trie" },
-    { name = "types-pyyaml" },
-    { name = "typing-extensions" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "mypy" },
-    { name = "pytest-cov" },
-    { name = "types-requests" },
-]
-lint = [
-    { name = "mypy" },
-    { name = "types-requests" },
-]
-test = [
-    { name = "pytest-cov" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "ckzg", specifier = ">=2.1.3,<3" },
-    { name = "click", specifier = ">=8.1.0,<9" },
-    { name = "coincurve", specifier = ">=20.0.0,<21" },
-    { name = "colorlog", specifier = ">=6.7.0,<7" },
-    { name = "eth-abi", specifier = ">=5.2.0" },
-    { name = "ethereum-execution", editable = "." },
-    { name = "ethereum-hive", specifier = ">=0.1.0a5,<1.0.0" },
-    { name = "ethereum-rlp", specifier = ">=0.1.6,<0.2" },
-    { name = "ethereum-types", specifier = ">=0.4.1,<0.5" },
-    { name = "filelock", specifier = ">=3.15.1,<4" },
-    { name = "gitpython", specifier = ">=3.1.31,<4" },
-    { name = "ijson", specifier = ">=3.3,<4" },
-    { name = "jinja2", specifier = ">=3,<4" },
-    { name = "joblib", specifier = ">=1.4.2" },
-    { name = "platformdirs", specifier = ">=4.2,<5" },
-    { name = "pydantic", specifier = ">=2.12.3,<3" },
-    { name = "pyjwt", specifier = ">=2.3.0,<3" },
-    { name = "pytest", specifier = ">=8,<9" },
-    { name = "pytest-custom-report", specifier = ">=1.0.1,<2" },
-    { name = "pytest-html", specifier = ">=4.1.0,<5" },
-    { name = "pytest-json-report", specifier = ">=1.5.0,<2" },
-    { name = "pytest-metadata", specifier = ">=3,<4" },
-    { name = "pytest-regex", specifier = ">=0.2.0,<0.3" },
-    { name = "pytest-xdist", specifier = ">=3.3.1,<4" },
-    { name = "pyyaml", specifier = ">=6.0.2,<7" },
-    { name = "questionary", specifier = ">=2.1.0,<3" },
-    { name = "requests", specifier = ">=2.31.0,<3" },
-    { name = "requests-unixsocket2", specifier = ">=0.4.0" },
-    { name = "rich", specifier = ">=13.7.0,<15" },
-    { name = "ruff", specifier = "==0.13.2" },
-    { name = "semver", specifier = ">=3.0.1,<4" },
-    { name = "tenacity", specifier = ">=9.0.0,<10" },
-    { name = "trie", specifier = ">=3.1.0,<4" },
-    { name = "types-pyyaml", specifier = ">=6.0.12.20240917,<7" },
-    { name = "typing-extensions", specifier = ">=4.12.2,<5" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "mypy", specifier = "==2.1.0" },
-    { name = "pytest-cov", specifier = ">=4.1.0,<5" },
-    { name = "types-requests", specifier = ">=2.31,<2.33" },
-]
-lint = [
-    { name = "mypy", specifier = "==2.1.0" },
-    { name = "types-requests", specifier = ">=2.31,<2.33" },
-]
-test = [{ name = "pytest-cov", specifier = ">=4.1.0,<5" }]
-
-[[package]]
-name = "ethereum-hive"
-version = "0.1.0a5"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "requests" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/40/a8/95676acd86095a5dcf5dacfa5a991175b3a547dcd5729735fea777b8feec/ethereum_hive-0.1.0a5.tar.gz", hash = "sha256:bf91d3144c263a1a6407c931b3864ab3edd40bc5c34b812e571e7c49cc70f9eb", size = 75064, upload-time = "2026-03-11T07:36:24.532Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/73/95/986727018ac0401562d91961e2f46462ed65a08e2d5162a255d9f871a7ad/ethereum_hive-0.1.0a5-py3-none-any.whl", hash = "sha256:3225747ed83a9124a697db0ab8d736c4820117462e64aa3395bbc1588c4d40d0", size = 37589, upload-time = "2026-03-11T07:36:23.286Z" },
-]
-
-[[package]]
-name = "ethereum-rlp"
-version = "0.1.6"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "ethereum-types" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/54/55/1fab3dea8f912459751cb39ad4500e165344963af2dbd5fa699befe3e8d4/ethereum_rlp-0.1.6.tar.gz", hash = "sha256:ede36f53b53c8da21f19259a676eed8790950d47f0b42cb928ac8a3c562282f3", size = 14015, upload-time = "2026-06-03T23:12:02.472Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/37/ab/b9b2ff2d37b7feabe3dcdee7d5170cf0e71b849a073bda8857c0afb54962/ethereum_rlp-0.1.6-py3-none-any.whl", hash = "sha256:f4144caa96b975720c62b967bbfd6c98601e95ee3c36457ece11ef4ce0cffa04", size = 9944, upload-time = "2026-06-03T23:12:01.492Z" },
-]
-
-[[package]]
-name = "ethereum-types"
-version = "0.4.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "mypy-extensions" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/e5/bf/6c15ea3372a19b4df9d47ba08d32ad0751c059c31c7f15842cf12e5736bd/ethereum_types-0.4.1.tar.gz", hash = "sha256:c0eee4464c42ed8217dfc927400db98157cc8b09252ecefa703176496dbe3b4d", size = 67752, upload-time = "2026-06-08T16:57:04.424Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/78/f6/466c684cee5eacd6413f33284a8bd45686564e7c5974d5cda331c9577c4e/ethereum_types-0.4.1-py3-none-any.whl", hash = "sha256:33de3e2a0c0e57ea1b67802485de556b92d557aae7c8c640070800f2b4f639e3", size = 12162, upload-time = "2026-06-08T16:57:05.382Z" },
+    { url = "https://files.pythonhosted.org/packages/53/45/a20b907227b9d1aea2e36f7b12818d055629ca9bc65fc282b45738f28ca3/eth_utils-6.0.0-py3-none-any.whl", hash = "sha256:63cf48ee32c45541cb5748751909a8345c470432fb6f0fed4bd7c53fd6400469", size = 102473, upload-time = "2026-03-25T17:11:49.953Z" },
 ]
 
 [[package]]
@@ -1305,15 +905,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ec/d7/6c09dd7ce4c7837e4cdb11dce980cb45ae3cd87677298dc3b781b6bce7d3/griffe-1.14.0.tar.gz", hash = "sha256:9d2a15c1eca966d68e00517de5d69dd1bc5c9f2335ef6c1775362ba5b8651a13", size = 424684, upload-time = "2025-09-05T15:02:29.167Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2a/b1/9ff6578d789a89812ff21e4e0f80ffae20a65d5dd84e7a17873fe3b365be/griffe-1.14.0-py3-none-any.whl", hash = "sha256:0e9d52832cccf0f7188cfe585ba962d2674b241c01916d780925df34873bceb0", size = 144439, upload-time = "2025-09-05T15:02:27.511Z" },
-]
-
-[[package]]
-name = "hexbytes"
-version = "1.3.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/7f/87/adf4635b4b8c050283d74e6db9a81496063229c9263e6acc1903ab79fbec/hexbytes-1.3.1.tar.gz", hash = "sha256:a657eebebdfe27254336f98d8af6e2236f3f83aed164b87466b6cf6c5f5a4765", size = 8633, upload-time = "2025-05-14T16:45:17.5Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/8d/e0/3b31492b1c89da3c5a846680517871455b30c54738486fc57ac79a5761bd/hexbytes-1.3.1-py3-none-any.whl", hash = "sha256:da01ff24a1a9a2b1881c4b85f0e9f9b0f51b526b379ffa23832ae7899d29c2c7", size = 5074, upload-time = "2025-05-14T16:45:16.179Z" },
 ]
 
 [[package]]
@@ -2258,19 +1849,6 @@ wheels = [
 ]
 
 [[package]]
-name = "py-ecc"
-version = "8.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "eth-typing" },
-    { name = "eth-utils" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/1c/96/e73075d5c885274efada2fbc5db6377022036c2f5b4b470dbcf4106e07d5/py_ecc-8.0.0.tar.gz", hash = "sha256:56aca19e5dc37294f60c1cc76666c03c2276e7666412b9a559fa0145d099933d", size = 51193, upload-time = "2025-04-14T16:14:03.29Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/81/58/383335eac96d2f1aba78741c6ce128c54e7eba2ea1dc47408257d751d35c/py_ecc-8.0.0-py3-none-any.whl", hash = "sha256:c0b2dfc4bde67a55122a392591a10e851a986d5128f680628c80b405f7663e13", size = 47814, upload-time = "2025-04-14T16:14:01.827Z" },
-]
-
-[[package]]
 name = "pycparser"
 version = "2.23"
 source = { registry = "https://pypi.org/simple" }
@@ -2969,6 +2547,426 @@ wheels = [
 ]
 
 [[package]]
+name = "sil-abi"
+version = "6.0.0b1"
+source = { git = "https://github.com/sila-chain/sil-abi.git?rev=v6.0.0-beta.1-sila.1#bc042758af799070e54634d6182a98d2f703ea15" }
+dependencies = [
+    { name = "parsimonious" },
+    { name = "sil-typing" },
+    { name = "sil-utils" },
+]
+
+[[package]]
+name = "sil-hash"
+version = "0.8.0"
+source = { git = "https://github.com/sila-chain/sil-hash.git?rev=v0.8.0-sila.1#a01f6769d9f69d8872c61926fd4c9c459cdeb5aa" }
+
+[package.optional-dependencies]
+pycryptodome = [
+    { name = "pycryptodome" },
+]
+
+[[package]]
+name = "sil-typing"
+version = "6.0.0"
+source = { git = "https://github.com/sila-chain/sil-typing.git?rev=v6.0.0-sila.1#0737e57b60f6b67b70cfcffc59fe206bb0333f91" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+
+[[package]]
+name = "sil-utils"
+version = "6.0.0"
+source = { git = "https://github.com/sila-chain/sil-utils.git?rev=v6.0.0-sila.2#a3fa24862e17f3815e665ca5fafef5d66c3ff42c" }
+dependencies = [
+    { name = "cytoolz", marker = "implementation_name == 'cpython'" },
+    { name = "pydantic" },
+    { name = "sil-hash", extra = ["pycryptodome"] },
+    { name = "sil-typing" },
+    { name = "toolz", marker = "implementation_name == 'pypy'" },
+]
+
+[[package]]
+name = "sila-ecc"
+version = "8.0.0"
+source = { git = "https://github.com/sila-chain/sila-ecc.git?rev=v8.0.0-sila.2#236216441e3bfd59fc6cfab4f368a878a58ec336" }
+dependencies = [
+    { name = "sil-typing" },
+    { name = "sil-utils" },
+]
+
+[[package]]
+name = "sila-execution"
+source = { editable = "." }
+dependencies = [
+    { name = "coincurve" },
+    { name = "cryptography" },
+    { name = "libcst" },
+    { name = "platformdirs" },
+    { name = "pycryptodome" },
+    { name = "sila-ecc" },
+    { name = "sila-rlp" },
+    { name = "sila-types" },
+    { name = "typing-extensions" },
+]
+
+[package.optional-dependencies]
+optimized = [
+    { name = "rust-pyspec-glue" },
+    { name = "sil-hash" },
+]
+
+[package.dev-dependencies]
+actionlint = [
+    { name = "actionlint-py" },
+    { name = "pyflakes" },
+    { name = "shellcheck-py" },
+]
+dev = [
+    { name = "actionlint-py" },
+    { name = "cairosvg" },
+    { name = "codespell" },
+    { name = "docc" },
+    { name = "filelock" },
+    { name = "fladrif" },
+    { name = "gitpython" },
+    { name = "jinja2" },
+    { name = "libcst" },
+    { name = "lxml" },
+    { name = "markdown" },
+    { name = "mike" },
+    { name = "mistletoe" },
+    { name = "mkdocs" },
+    { name = "mkdocs-click" },
+    { name = "mkdocs-gen-files" },
+    { name = "mkdocs-git-authors-plugin" },
+    { name = "mkdocs-glightbox" },
+    { name = "mkdocs-literate-nav" },
+    { name = "mkdocs-material" },
+    { name = "mkdocs-material-extensions" },
+    { name = "mkdocstrings" },
+    { name = "mkdocstrings-python" },
+    { name = "mypy" },
+    { name = "pillow" },
+    { name = "psutil" },
+    { name = "pyflakes" },
+    { name = "pyspelling" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "pytest-xdist" },
+    { name = "requests" },
+    { name = "requests-cache" },
+    { name = "ruff" },
+    { name = "shellcheck-py" },
+    { name = "sila-execution", extra = ["optimized"] },
+    { name = "sila-execution-testing" },
+    { name = "types-requests" },
+    { name = "vulture" },
+]
+doc = [
+    { name = "docc" },
+    { name = "fladrif" },
+    { name = "mistletoe" },
+]
+lint = [
+    { name = "codespell" },
+    { name = "mypy" },
+    { name = "ruff" },
+    { name = "types-requests" },
+    { name = "vulture" },
+]
+mkdocs = [
+    { name = "cairosvg" },
+    { name = "codespell" },
+    { name = "jinja2" },
+    { name = "lxml" },
+    { name = "markdown" },
+    { name = "mike" },
+    { name = "mkdocs" },
+    { name = "mkdocs-click" },
+    { name = "mkdocs-gen-files" },
+    { name = "mkdocs-git-authors-plugin" },
+    { name = "mkdocs-glightbox" },
+    { name = "mkdocs-literate-nav" },
+    { name = "mkdocs-material" },
+    { name = "mkdocs-material-extensions" },
+    { name = "mkdocstrings" },
+    { name = "mkdocstrings-python" },
+    { name = "pillow" },
+    { name = "pyspelling" },
+]
+test = [
+    { name = "filelock" },
+    { name = "gitpython" },
+    { name = "libcst" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "pytest-xdist" },
+    { name = "requests" },
+    { name = "requests-cache" },
+    { name = "sila-execution-testing" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "coincurve", specifier = ">=20,<21" },
+    { name = "cryptography", specifier = ">=45.0.1,<46" },
+    { name = "libcst", specifier = ">=1.8,<2" },
+    { name = "platformdirs", specifier = ">=4.2,<5" },
+    { name = "pycryptodome", specifier = ">=3.22,<4" },
+    { name = "rust-pyspec-glue", marker = "extra == 'optimized'", specifier = ">=0.0.9,<0.1.0" },
+    { name = "sil-hash", marker = "extra == 'optimized'", git = "https://github.com/sila-chain/sil-hash.git?rev=v0.8.0-sila.1" },
+    { name = "sila-ecc", git = "https://github.com/sila-chain/sila-ecc.git?rev=v8.0.0-sila.2" },
+    { name = "sila-rlp", git = "https://github.com/sila-chain/sila-rlp.git?rev=v0.1.6-sila.1" },
+    { name = "sila-types", git = "https://github.com/sila-chain/sila-types.git?rev=v0.4.1-sila.1" },
+    { name = "typing-extensions", specifier = ">=4.4" },
+]
+provides-extras = ["optimized"]
+
+[package.metadata.requires-dev]
+actionlint = [
+    { name = "actionlint-py", specifier = ">=1.7.11,<2" },
+    { name = "pyflakes", specifier = ">=3.0" },
+    { name = "shellcheck-py", specifier = ">=0.10" },
+]
+dev = [
+    { name = "actionlint-py", specifier = ">=1.7.11,<2" },
+    { name = "cairosvg", specifier = ">=2.7.0,<3" },
+    { name = "codespell", specifier = "==2.4.1" },
+    { name = "codespell", specifier = ">=2.4.1,<3" },
+    { name = "docc", specifier = ">=0.6.1,<0.7.0" },
+    { name = "filelock", specifier = ">=3.15.1,<4" },
+    { name = "fladrif", specifier = ">=0.2.0,<0.3.0" },
+    { name = "gitpython", specifier = ">=3.1.0,<3.2" },
+    { name = "jinja2", specifier = ">=3,<4" },
+    { name = "libcst", specifier = ">=1.8,<2" },
+    { name = "lxml", specifier = ">=6.0.0,<7" },
+    { name = "markdown", specifier = "==3.8" },
+    { name = "mike", specifier = ">=1.1.2,<2" },
+    { name = "mistletoe", specifier = ">=1.5.0,<2" },
+    { name = "mkdocs", specifier = ">=1.4.3,<2" },
+    { name = "mkdocs-click", specifier = ">=0.8,<1" },
+    { name = "mkdocs-gen-files", specifier = ">=0.5.0,<1" },
+    { name = "mkdocs-git-authors-plugin", specifier = ">=0.7.1,<1" },
+    { name = "mkdocs-glightbox", specifier = ">=0.3.4,<1" },
+    { name = "mkdocs-literate-nav", specifier = ">=0.6.0,<1" },
+    { name = "mkdocs-material", specifier = ">=9.1.14,<10" },
+    { name = "mkdocs-material-extensions", specifier = ">=1.1.1,<2" },
+    { name = "mkdocstrings", specifier = ">=0.21.2,<1" },
+    { name = "mkdocstrings-python", specifier = ">=1.0.0,<2" },
+    { name = "mypy", specifier = "==2.1.0" },
+    { name = "pillow", specifier = ">=12,<13" },
+    { name = "psutil", specifier = ">=7.2.2" },
+    { name = "pyflakes", specifier = ">=3.0" },
+    { name = "pyspelling", specifier = ">=2.8.2,<3" },
+    { name = "pytest", specifier = ">=8,<9" },
+    { name = "pytest-cov", specifier = ">=4.1.0,<5" },
+    { name = "pytest-xdist", specifier = ">=3.3.1,<4" },
+    { name = "requests" },
+    { name = "requests-cache", specifier = ">=1.2.1,<2" },
+    { name = "ruff", specifier = "==0.13.2" },
+    { name = "shellcheck-py", specifier = ">=0.10" },
+    { name = "sila-execution", extras = ["optimized"] },
+    { name = "sila-execution-testing", editable = "packages/testing" },
+    { name = "types-requests", specifier = ">=2.31,<2.33" },
+    { name = "vulture", specifier = "==2.14.0" },
+]
+doc = [
+    { name = "docc", specifier = ">=0.6.1,<0.7.0" },
+    { name = "fladrif", specifier = ">=0.2.0,<0.3.0" },
+    { name = "mistletoe", specifier = ">=1.5.0,<2" },
+]
+lint = [
+    { name = "codespell", specifier = "==2.4.1" },
+    { name = "mypy", specifier = "==2.1.0" },
+    { name = "ruff", specifier = "==0.13.2" },
+    { name = "types-requests", specifier = ">=2.31,<2.33" },
+    { name = "vulture", specifier = "==2.14.0" },
+]
+mkdocs = [
+    { name = "cairosvg", specifier = ">=2.7.0,<3" },
+    { name = "codespell", specifier = ">=2.4.1,<3" },
+    { name = "jinja2", specifier = ">=3,<4" },
+    { name = "lxml", specifier = ">=6.0.0,<7" },
+    { name = "markdown", specifier = "==3.8" },
+    { name = "mike", specifier = ">=1.1.2,<2" },
+    { name = "mkdocs", specifier = ">=1.4.3,<2" },
+    { name = "mkdocs-click", specifier = ">=0.8,<1" },
+    { name = "mkdocs-gen-files", specifier = ">=0.5.0,<1" },
+    { name = "mkdocs-git-authors-plugin", specifier = ">=0.7.1,<1" },
+    { name = "mkdocs-glightbox", specifier = ">=0.3.4,<1" },
+    { name = "mkdocs-literate-nav", specifier = ">=0.6.0,<1" },
+    { name = "mkdocs-material", specifier = ">=9.1.14,<10" },
+    { name = "mkdocs-material-extensions", specifier = ">=1.1.1,<2" },
+    { name = "mkdocstrings", specifier = ">=0.21.2,<1" },
+    { name = "mkdocstrings-python", specifier = ">=1.0.0,<2" },
+    { name = "pillow", specifier = ">=12,<13" },
+    { name = "pyspelling", specifier = ">=2.8.2,<3" },
+]
+test = [
+    { name = "filelock", specifier = ">=3.15.1,<4" },
+    { name = "gitpython", specifier = ">=3.1.0,<3.2" },
+    { name = "libcst", specifier = ">=1.8,<2" },
+    { name = "pytest", specifier = ">=8,<9" },
+    { name = "pytest-cov", specifier = ">=4.1.0,<5" },
+    { name = "pytest-xdist", specifier = ">=3.3.1,<4" },
+    { name = "requests" },
+    { name = "requests-cache", specifier = ">=1.2.1,<2" },
+    { name = "sila-execution-testing", editable = "packages/testing" },
+]
+
+[[package]]
+name = "sila-execution-testing"
+version = "1.0.0"
+source = { editable = "packages/testing" }
+dependencies = [
+    { name = "ckzg" },
+    { name = "click" },
+    { name = "coincurve" },
+    { name = "colorlog" },
+    { name = "filelock" },
+    { name = "gitpython" },
+    { name = "ijson" },
+    { name = "jinja2" },
+    { name = "joblib" },
+    { name = "platformdirs" },
+    { name = "pydantic" },
+    { name = "pyjwt" },
+    { name = "pytest" },
+    { name = "pytest-custom-report" },
+    { name = "pytest-html" },
+    { name = "pytest-json-report" },
+    { name = "pytest-metadata" },
+    { name = "pytest-regex" },
+    { name = "pytest-xdist" },
+    { name = "pyyaml" },
+    { name = "questionary" },
+    { name = "requests" },
+    { name = "requests-unixsocket2" },
+    { name = "rich" },
+    { name = "ruff" },
+    { name = "semver" },
+    { name = "sil-abi" },
+    { name = "sila-execution" },
+    { name = "sila-hive" },
+    { name = "sila-rlp" },
+    { name = "sila-trie" },
+    { name = "sila-types" },
+    { name = "tenacity" },
+    { name = "types-pyyaml" },
+    { name = "typing-extensions" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "pytest-cov" },
+    { name = "types-requests" },
+]
+lint = [
+    { name = "mypy" },
+    { name = "types-requests" },
+]
+test = [
+    { name = "pytest-cov" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ckzg", specifier = ">=2.1.3,<3" },
+    { name = "click", specifier = ">=8.1.0,<9" },
+    { name = "coincurve", specifier = ">=20.0.0,<21" },
+    { name = "colorlog", specifier = ">=6.7.0,<7" },
+    { name = "filelock", specifier = ">=3.15.1,<4" },
+    { name = "gitpython", specifier = ">=3.1.31,<4" },
+    { name = "ijson", specifier = ">=3.3,<4" },
+    { name = "jinja2", specifier = ">=3,<4" },
+    { name = "joblib", specifier = ">=1.4.2" },
+    { name = "platformdirs", specifier = ">=4.2,<5" },
+    { name = "pydantic", specifier = ">=2.12.3,<3" },
+    { name = "pyjwt", specifier = ">=2.3.0,<3" },
+    { name = "pytest", specifier = ">=8,<9" },
+    { name = "pytest-custom-report", specifier = ">=1.0.1,<2" },
+    { name = "pytest-html", specifier = ">=4.1.0,<5" },
+    { name = "pytest-json-report", specifier = ">=1.5.0,<2" },
+    { name = "pytest-metadata", specifier = ">=3,<4" },
+    { name = "pytest-regex", specifier = ">=0.2.0,<0.3" },
+    { name = "pytest-xdist", specifier = ">=3.3.1,<4" },
+    { name = "pyyaml", specifier = ">=6.0.2,<7" },
+    { name = "questionary", specifier = ">=2.1.0,<3" },
+    { name = "requests", specifier = ">=2.31.0,<3" },
+    { name = "requests-unixsocket2", specifier = ">=0.4.0" },
+    { name = "rich", specifier = ">=13.7.0,<15" },
+    { name = "ruff", specifier = "==0.13.2" },
+    { name = "semver", specifier = ">=3.0.1,<4" },
+    { name = "sil-abi", git = "https://github.com/sila-chain/sil-abi.git?rev=v6.0.0-beta.1-sila.1" },
+    { name = "sila-execution", editable = "." },
+    { name = "sila-hive", git = "https://github.com/sila-chain/sila-hive.git?rev=v0.1.0a5%2Bsila.1" },
+    { name = "sila-rlp", git = "https://github.com/sila-chain/sila-rlp.git?rev=v0.1.6-sila.1" },
+    { name = "sila-trie", git = "https://github.com/sila-chain/sila-trie.git?rev=v3.1.0-sila.3" },
+    { name = "sila-types", git = "https://github.com/sila-chain/sila-types.git?rev=v0.4.1-sila.1" },
+    { name = "tenacity", specifier = ">=9.0.0,<10" },
+    { name = "types-pyyaml", specifier = ">=6.0.12.20240917,<7" },
+    { name = "typing-extensions", specifier = ">=4.12.2,<5" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = "==2.1.0" },
+    { name = "pytest-cov", specifier = ">=4.1.0,<5" },
+    { name = "types-requests", specifier = ">=2.31,<2.33" },
+]
+lint = [
+    { name = "mypy", specifier = "==2.1.0" },
+    { name = "types-requests", specifier = ">=2.31,<2.33" },
+]
+test = [{ name = "pytest-cov", specifier = ">=4.1.0,<5" }]
+
+[[package]]
+name = "sila-hexbytes"
+version = "2.0.0b1+sila.1"
+source = { git = "https://github.com/sila-chain/sila-hexbytes.git?rev=v2.0.0b1%2Bsila.1#431c7c8364484c60188b0916c1536e9de9a4253e" }
+
+[[package]]
+name = "sila-hive"
+version = "0.1.0a5+sila.1"
+source = { git = "https://github.com/sila-chain/sila-hive.git?rev=v0.1.0a5%2Bsila.1#8d406a0a19097620a951368133ad364c04f3391d" }
+dependencies = [
+    { name = "requests" },
+]
+
+[[package]]
+name = "sila-rlp"
+version = "0.1.7"
+source = { git = "https://github.com/sila-chain/sila-rlp.git?rev=v0.1.6-sila.1#89299672a1c03ddd5a62455f821542ce56a11400" }
+dependencies = [
+    { name = "sila-types" },
+    { name = "typing-extensions" },
+]
+
+[[package]]
+name = "sila-trie"
+version = "3.1.0"
+source = { git = "https://github.com/sila-chain/sila-trie.git?rev=v3.1.0-sila.3#beb231782096144b443155e0bb2365c9288b5fbe" }
+dependencies = [
+    { name = "rlp" },
+    { name = "sil-hash" },
+    { name = "sil-typing" },
+    { name = "sil-utils" },
+    { name = "sila-hexbytes" },
+    { name = "sortedcontainers" },
+]
+
+[[package]]
+name = "sila-types"
+version = "0.4.1"
+source = { git = "https://github.com/sila-chain/sila-types.git?rev=v0.4.1-sila.1#c1a4f30ab8226bd0067f3a1b279fe9cfc1921f78" }
+dependencies = [
+    { name = "mypy-extensions" },
+    { name = "typing-extensions" },
+]
+
+[[package]]
 name = "six"
 version = "1.17.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3081,22 +3079,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/11/d6/114b492226588d6ff54579d95847662fc69196bdeec318eb45393b24c192/toolz-1.1.0.tar.gz", hash = "sha256:27a5c770d068c110d9ed9323f24f1543e83b2f300a687b7891c1a6d56b697b5b", size = 52613, upload-time = "2025-10-17T04:03:21.661Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fb/12/5911ae3eeec47800503a238d971e51722ccea5feb8569b735184d5fcdbc0/toolz-1.1.0-py3-none-any.whl", hash = "sha256:15ccc861ac51c53696de0a5d6d4607f99c210739caf987b5d2054f3efed429d8", size = 58093, upload-time = "2025-10-17T04:03:20.435Z" },
-]
-
-[[package]]
-name = "trie"
-version = "3.1.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "eth-hash" },
-    { name = "eth-utils" },
-    { name = "hexbytes" },
-    { name = "rlp" },
-    { name = "sortedcontainers" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a6/2f/5ec6be52952de47e79b1d250c00a922365a76503e3c75605c1cd890c61aa/trie-3.1.0.tar.gz", hash = "sha256:b31fd3376d6dccfe8ad13b525e233f2c268d5c48afb90a4de09672423d4b1026", size = 72800, upload-time = "2025-01-29T17:51:26.309Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/85/79/e6e105236eb1bb0c3ac82c968c143de456a3192c17d60df2f8c528eb3323/trie-3.1.0-py3-none-any.whl", hash = "sha256:dfc3e6ac0e76f0efa900ec1bfd082f0f1ba87f95cbfd81cc12338b03f4c679c4", size = 38940, upload-time = "2025-01-29T17:51:24.21Z" },
 ]
 
 [[package]]

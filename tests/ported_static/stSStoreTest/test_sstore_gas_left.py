@@ -1,5 +1,5 @@
 """
-Checks EIP-1706/EIP-2200 out of gas requirement for non-mutating SSTOREs.
+Checks SIP-1706/SIP-2200 out of gas requirement for non-mutating SSTOREs.
 
 Ported from:
 state_tests/stSStoreTest/sstore_gasLeftFiller.json
@@ -8,7 +8,7 @@ state_tests/stSStoreTest/sstore_gasLeftFiller.json
 fork-aware (`tx_gas = [intrinsic + tx_data[d].gas_cost(fork)]`), and
 each `Op.CALL` annotated with `inner_call_cost=<gas>` metadata so
 `Bytecode.gas_cost(fork)` covers the forwarded inner-frame gas.
-Required for the test to fill correctly under EIP-8037's two-
+Required for the test to fill correctly under SIP-8037's two-
 dimensional gas model. Hex `gas=` literals also converted to
 human-readable decimals.
 """
@@ -105,7 +105,7 @@ def test_sstore_gas_left(
     g: int,
     v: int,
 ) -> None:
-    """Checks EIP-1706/EIP-2200 out of gas requirement for non-mutating..."""
+    """Checks SIP-1706/SIP-2200 out of gas requirement for non-mutating..."""
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)
     sender = EOA(
         key=0x4F31B3206FBF0E0E598B9B1A7D8AC86302A0FF1D8930738F1BEBAE9B67173E52

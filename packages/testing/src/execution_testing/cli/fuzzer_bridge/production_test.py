@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 """
-Production-ready test suite for fuzzer bridge with geth verification.
+Production-ready test suite for fuzzer bridge with gsil verification.
 
 This script:
 1. Loads fuzzer output
 2. Converts to blockchain test
 3. Generates fixtures
-4. Verifies with go-ethereum
+4. Verifies with go-sila
 5. Reports comprehensive results
 """
 
@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from execution_testing.base_types import Account, Address
-from execution_testing.client_clis import GethTransitionTool
+from execution_testing.client_clis import GsilTransitionTool
 from execution_testing.fixtures.blockchain import BlockchainFixture
 from execution_testing.specs import Block
 from execution_testing.specs.blockchain import BlockchainTest
@@ -37,7 +37,7 @@ class FuzzerBridge:
         keep_fixtures: bool = False,
     ):
         """Initialize bridge with optional transition tool path."""
-        self.t8n = GethTransitionTool(
+        self.t8n = GsilTransitionTool(
             binary=Path(t8n_path) if t8n_path else None
         )
         self.verbose = verbose
@@ -218,10 +218,10 @@ class FuzzerBridge:
 
         return fixture.model_dump(exclude_none=True, by_alias=True)
 
-    def verify_with_geth(
-        self, fixture: Dict[str, Any], geth_path: str, test_name: str = "test"
+    def verify_with_gsil(
+        self, fixture: Dict[str, Any], gsil_path: str, test_name: str = "test"
     ) -> Dict[str, Any]:
-        """Verify fixture with go-ethereum evm tool."""
+        """Verify fixture with go-sila evm tool."""
         # Write fixture to temp file
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".json", delete=False
@@ -230,9 +230,9 @@ class FuzzerBridge:
             fixture_path = f.name
 
         try:
-            # Run geth blocktest
+            # Run gsil blocktest
             result = subprocess.run(
-                [geth_path, "blocktest", fixture_path],
+                [gsil_path, "blocktest", fixture_path],
                 capture_output=True,
                 text=True,
                 timeout=30,
@@ -286,8 +286,8 @@ class FuzzerBridge:
             # Note: args is not defined here - should be passed as parameter
             pass
 
-    def run_full_test(self, fuzzer_file: str, geth_path: str) -> bool:
-        """Run full test pipeline from fuzzer output to geth verification."""
+    def run_full_test(self, fuzzer_file: str, gsil_path: str) -> bool:
+        """Run full test pipeline from fuzzer output to gsil verification."""
         print(f"🔧 Loading fuzzer output from {fuzzer_file}")
         with open(fuzzer_file) as f:
             fuzzer_data = json.load(f)
@@ -334,9 +334,9 @@ class FuzzerBridge:
         print(f"   Genesis hash: {genesis_hash[:16]}...")
         print(f"   Pre-state accounts: {pre_count}")
 
-        # Verify with geth
-        print("\n🔍 Verifying with go-ethereum...")
-        result = self.verify_with_geth(fixture, geth_path, "fuzzer_test")
+        # Verify with gsil
+        print("\n🔍 Verifying with go-sila...")
+        result = self.verify_with_gsil(fixture, gsil_path, "fuzzer_test")
 
         if result["pass"]:
             print("✅ Test PASSED!")
@@ -362,7 +362,7 @@ class FuzzerBridge:
 def main() -> int:
     """Main entry point for production test."""
     parser = argparse.ArgumentParser(
-        description="Production test for fuzzer bridge with geth verification"
+        description="Production test for fuzzer bridge with gsil verification"
     )
     parser.add_argument(
         "--fuzzer-output",
@@ -370,7 +370,7 @@ def main() -> int:
         help="Path to fuzzer output JSON file",
     )
     parser.add_argument(
-        "--geth-path", required=True, help="Path to go-ethereum evm binary"
+        "--gsil-path", required=True, help="Path to go-sila evm binary"
     )
     parser.add_argument(
         "--t8n-path", help="Path to transition tool binary (optional)"
@@ -391,15 +391,15 @@ def main() -> int:
         print(f"❌ Fuzzer output not found: {args.fuzzer_output}")
         return 1
 
-    if not Path(args.geth_path).exists():
-        print(f"❌ Geth binary not found: {args.geth_path}")
+    if not Path(args.gsil_path).exists():
+        print(f"❌ Gsil binary not found: {args.gsil_path}")
         return 1
 
     # Run test
     bridge = FuzzerBridge(t8n_path=args.t8n_path)
 
     start_time = time.time()
-    success = bridge.run_full_test(args.fuzzer_output, args.geth_path)
+    success = bridge.run_full_test(args.fuzzer_output, args.gsil_path)
     elapsed = time.time() - start_time
 
     print(f"\n⏱️  Completed in {elapsed:.2f} seconds")

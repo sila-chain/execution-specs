@@ -1,4 +1,4 @@
-"""All Ethereum fork class definitions."""
+"""All Sila fork class definitions."""
 
 from __future__ import annotations
 
@@ -35,8 +35,8 @@ from ..base_fork import (
     TransactionIntrinsicCostCalculator,
 )
 from ..gas_costs import BASE, HIGH, LOW, MID, VERY_LOW, GasCosts
-from . import eips
-from .eips.amsterdam import AmsterdamEIPs
+from . import sips
+from .sips.amsterdam import AmsterdamSIPs
 from .helpers import ceiling_division
 
 
@@ -967,7 +967,7 @@ class Frontier(
 
     @classmethod
     def header_slot_number_required(cls) -> bool:
-        """At genesis, header must not contain slot number (EIP-7843)."""
+        """At genesis, header must not contain slot number (SIP-7843)."""
         return False
 
     @classmethod
@@ -1027,7 +1027,7 @@ class Frontier(
 
     @classmethod
     def supports_protected_txs(cls) -> bool:
-        """At Genesis, fork has no support for EIP-155 protected txs."""
+        """At Genesis, fork has no support for SIP-155 protected txs."""
         return False
 
     @classmethod
@@ -1098,7 +1098,7 @@ class Frontier(
         At genesis, there is no upper bound for code size (bounded by block gas
         limit).
 
-        However, the default is set to the limit of EIP-170 (Spurious Dragon)
+        However, the default is set to the limit of SIP-170 (Spurious Dragon)
         """
         return 0x6000
 
@@ -1112,7 +1112,7 @@ class Frontier(
         """
         At genesis, there is no upper bound for initcode size.
 
-        However, the default is set to the limit of EIP-3860 (Shanghai).
+        However, the default is set to the limit of SIP-3860 (Shanghai).
         """
         return 0xC000
 
@@ -1346,8 +1346,8 @@ class Frontier(
 
 
 class Homestead(
-    eips.EIP7,
-    eips.EIP2,
+    sips.SIP7,
+    sips.SIP2,
     Frontier,
 ):
     """Homestead fork."""
@@ -1369,15 +1369,15 @@ class TangerineWhistle(
     DAOFork,
     ruleset_name="TANGERINE",
 ):
-    """TangerineWhistle fork (EIP-150)."""
+    """TangerineWhistle fork (SIP-150)."""
 
     pass
 
 
 class SpuriousDragon(
-    eips.EIP170,
-    eips.EIP161,
-    eips.EIP155,
+    sips.SIP170,
+    sips.SIP161,
+    sips.SIP155,
     TangerineWhistle,
     ruleset_name="SPURIOUS",
 ):
@@ -1387,13 +1387,13 @@ class SpuriousDragon(
 
 
 class Byzantium(
-    eips.EIP649,
-    eips.EIP214,
-    eips.EIP211,
-    eips.EIP140,
-    eips.EIP198,
-    eips.EIP196,
-    eips.EIP197,
+    sips.SIP649,
+    sips.SIP214,
+    sips.SIP211,
+    sips.SIP140,
+    sips.SIP198,
+    sips.SIP196,
+    sips.SIP197,
     SpuriousDragon,
 ):
     """Byzantium fork."""
@@ -1402,10 +1402,10 @@ class Byzantium(
 
 
 class Constantinople(
-    eips.EIP1234,
-    eips.EIP1052,
-    eips.EIP1014,
-    eips.EIP145,
+    sips.SIP1234,
+    sips.SIP1052,
+    sips.SIP1014,
+    sips.SIP145,
     Byzantium,
 ):
     """Constantinople fork."""
@@ -1424,11 +1424,11 @@ class ConstantinopleFix(
 
 
 class Istanbul(
-    eips.EIP2028,
-    eips.EIP1884,
-    eips.EIP1344,
-    eips.EIP1108,
-    eips.EIP152,
+    sips.SIP2028,
+    sips.SIP1884,
+    sips.SIP1344,
+    sips.SIP1108,
+    sips.SIP152,
     ConstantinopleFix,
 ):
     """Istanbul fork."""
@@ -1448,7 +1448,7 @@ class MuirGlacier(
 
 
 class Berlin(
-    eips.EIP2930,
+    sips.SIP2930,
     Istanbul,
 ):
     """Berlin fork."""
@@ -1457,9 +1457,9 @@ class Berlin(
 
 
 class London(
-    eips.EIP3529,
-    eips.EIP3198,
-    eips.EIP1559,
+    sips.SIP3529,
+    sips.SIP3198,
+    sips.SIP1559,
     Berlin,
 ):
     """London fork."""
@@ -1489,7 +1489,7 @@ class GrayGlacier(
 
 
 class Paris(
-    eips.EIP3675,
+    sips.SIP3675,
     London,
     transition_tool_name="Merge",
     ruleset_name="MERGE",
@@ -1500,9 +1500,9 @@ class Paris(
 
 
 class Shanghai(
-    eips.EIP3855,
-    eips.EIP3860,
-    eips.EIP4895,
+    sips.SIP3855,
+    sips.SIP3860,
+    sips.SIP4895,
     Paris,
     fork_by_timestamp=True,
 ):
@@ -1512,12 +1512,12 @@ class Shanghai(
 
 
 class Cancun(
-    eips.EIP5656,
-    eips.EIP1153,
-    eips.EIP4788,
-    eips.EIP4844,
-    eips.EIP7516,
-    eips.EIP6780,
+    sips.SIP5656,
+    sips.SIP1153,
+    sips.SIP4788,
+    sips.SIP4844,
+    sips.SIP7516,
+    sips.SIP6780,
     Shanghai,
 ):
     """Cancun fork."""
@@ -1526,15 +1526,15 @@ class Cancun(
 
 
 class Prague(
-    eips.EIP7691,
-    eips.EIP7685,
-    eips.EIP2935,
-    eips.EIP7251,
-    eips.EIP7002,
-    eips.EIP6110,
-    eips.EIP7623,
-    eips.EIP7702,
-    eips.EIP2537,
+    sips.SIP7691,
+    sips.SIP7685,
+    sips.SIP2935,
+    sips.SIP7251,
+    sips.SIP7002,
+    sips.SIP6110,
+    sips.SIP7623,
+    sips.SIP7702,
+    sips.SIP2537,
     Cancun,
 ):
     """Prague fork."""
@@ -1543,13 +1543,13 @@ class Prague(
 
 
 class Osaka(
-    eips.EIP7939,
-    eips.EIP7934,
-    eips.EIP7825,
-    eips.EIP7918,
-    eips.EIP7594,
-    eips.EIP7951,
-    eips.EIP7883,
+    sips.SIP7939,
+    sips.SIP7934,
+    sips.SIP7825,
+    sips.SIP7918,
+    sips.SIP7594,
+    sips.SIP7951,
+    sips.SIP7883,
     Prague,
     solc_name="cancun",
 ):
@@ -1567,7 +1567,7 @@ class BPO1(
         "MAX_BLOBS_PER_BLOCK": 15,
     },
 ):
-    """Mainnet BPO1 fork - Blob Parameter Only fork 1."""
+    """SilaMainnet BPO1 fork - Blob Parameter Only fork 1."""
 
     pass
 
@@ -1581,7 +1581,7 @@ class BPO2(
         "MAX_BLOBS_PER_BLOCK": 21,
     },
 ):
-    """Mainnet BPO2 fork - Blob Parameter Only fork 2."""
+    """SilaMainnet BPO2 fork - Blob Parameter Only fork 2."""
 
     pass
 
@@ -1634,7 +1634,7 @@ class BPO5(
 
 
 class Amsterdam(
-    AmsterdamEIPs,
+    AmsterdamSIPs,
     BPO2,
     deployed=False,
 ):
@@ -1642,6 +1642,6 @@ class Amsterdam(
 
     # TODO: We may need to adjust which BPO Amsterdam inherits from as the
     #  related Amsterdam specs change over time, and before Amsterdam is
-    #  live on mainnet.
+    #  live on sila-mainnet.
 
     pass

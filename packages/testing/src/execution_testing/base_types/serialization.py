@@ -1,16 +1,16 @@
-"""Ethereum test types for serialization and encoding."""
+"""Sila test types for serialization and encoding."""
 
 from typing import Any, ClassVar, List, Self, Sequence
 
-import ethereum_rlp as eth_rlp
-from ethereum_types.numeric import Uint
-from trie import HexaryTrie
+import sila_rlp as sil_rlp
+from sila_types.numeric import Uint
+from sila_trie import HexarySilaTrie
 
 from execution_testing.base_types import Bytes
 
 
 def to_serializable_element(v: Any) -> Any:
-    """Return a serializable element that can be passed to `eth_rlp.encode`."""
+    """Return a serializable element that can be passed to `sil_rlp.encode`."""
     if isinstance(v, int):
         return Uint(v)
     elif isinstance(v, bytes):
@@ -89,7 +89,7 @@ class RLPSerializable:
 
     def to_list_from_fields(self, fields: List[str]) -> List[Any]:
         """
-        Return an RLP serializable list that can be passed to `eth_rlp.encode`.
+        Return an RLP serializable list that can be passed to `sil_rlp.encode`.
 
         Can be for signing purposes or the entire object.
         """
@@ -117,7 +117,7 @@ class RLPSerializable:
 
     def to_list(self, signing: bool = False) -> List[Any]:
         """
-        Return an RLP serializable list that can be passed to `eth_rlp.encode`.
+        Return an RLP serializable list that can be passed to `sil_rlp.encode`.
 
         Can be for signing purposes or the entire object.
         """
@@ -143,7 +143,7 @@ class RLPSerializable:
         """Return the signing serialized envelope used for signing."""
         return Bytes(
             self.get_rlp_signing_prefix()
-            + eth_rlp.encode(self.to_list(signing=True))
+            + sil_rlp.encode(self.to_list(signing=True))
         )
 
     def rlp(self) -> Bytes:
@@ -151,16 +151,16 @@ class RLPSerializable:
         if self.rlp_override is not None:
             return self.rlp_override
         return Bytes(
-            self.get_rlp_prefix() + eth_rlp.encode(self.to_list(signing=False))
+            self.get_rlp_prefix() + sil_rlp.encode(self.to_list(signing=False))
         )
 
     @classmethod
     def list_root(cls, element_list: Sequence[Self]) -> bytes:
         """Return the root of a list of the given type."""
-        t = HexaryTrie(db={})
+        t = HexarySilaTrie(db={})
         for i, e in enumerate(element_list):
             t.set(
-                eth_rlp.encode(Uint(i)),
+                sil_rlp.encode(Uint(i)),
                 e.rlp(),
             )
         return t.root_hash

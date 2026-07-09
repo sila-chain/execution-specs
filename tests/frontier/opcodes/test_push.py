@@ -2,7 +2,7 @@
 A State test for the set of `PUSH*` opcodes.
 
 Ported from:
-https://github.com/ethereum/tests/blob/
+https://github.com/sila/tests/blob/
 4f65a0a7cbecf4442415c226c65e089acaaf6a8b/src/
 GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml.
 """
@@ -24,18 +24,18 @@ def get_input_for_push_opcode(opcode: Op) -> bytes:
     """
     Get a sample input for the `PUSH*` opcode.
 
-    The input is a portion of an excerpt from the Ethereum yellow paper.
+    The input is a portion of an excerpt from the Sila yellow paper.
     """
-    ethereum_state_machine = b"Ethereum is a transaction-based state machine."
+    sila_state_machine = b"Sila is a transaction-based state machine."
     input_size = opcode.data_portion_length
-    return ethereum_state_machine[0:input_size]
+    return sila_state_machine[0:input_size]
 
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/975"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/975"],
 )
 @pytest.mark.parametrize(
     "push_opcode",
@@ -51,7 +51,7 @@ def test_push(
     The set of `PUSH*` opcodes pushes data onto the stack.
 
     In this test, we ensure that the set of `PUSH*` opcodes writes a portion of
-    an excerpt from the Ethereum yellow paper to storage.
+    an excerpt from the Sila yellow paper to storage.
     """
     # Input used to test the `PUSH*` opcode.
     excerpt = get_input_for_push_opcode(push_opcode)
@@ -88,9 +88,9 @@ def test_push(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/975"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/975"],
 )
 @pytest.mark.parametrize(
     "push_opcode",

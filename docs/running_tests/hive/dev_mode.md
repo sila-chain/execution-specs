@@ -26,7 +26,7 @@ This avoids running the simulator in a dockerized environment and has several ad
 1. Start Hive in development mode, e.g.:
 
     ```bash
-    ./hive --dev --client go-ethereum --client-file clients.yaml --docker.output
+    ./hive --dev --client go-sila --client-file clients.yaml --docker.output
     ```
 
 2. In a separate shell, configure environment for execution-specs:
@@ -62,14 +62,14 @@ The following section details the setup and usage of option 3.
 
 ### EELS Docker Development Image
 
-Within the [`eels/`](https://github.com/ethereum/hive/tree/master/simulators/ethereum/eels) directory of hive, a new dockerfile must be created: `Dockerfile.dev`, with the following contents:
+Within the [`eels/`](https://github.com/sila/hive/tree/master/simulators/sila/eels) directory of hive, a new dockerfile must be created: `Dockerfile.dev`, with the following contents:
 
 ```docker
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 ARG branch=""
 
 RUN apt-get update && apt-get install -y git
-RUN git clone --depth 1 https://github.com/ethereum/execution-specs.git && \
+RUN git clone --depth 1 https://github.com/sila/execution-specs.git && \
     cd execution-specs && \
     if [ -n "$branch" ]; then \
         git fetch --depth 1 origin "$branch" && \
@@ -104,13 +104,13 @@ This dockerfile will be our entry point for running simulator commands.
 2. Start Hive in development mode with your local IP:
 
     ```bash
-    ./hive --dev --dev.addr <LOCAL_IP>:3000 --client go-ethereum --client-file clients.yaml 
+    ./hive --dev --dev.addr <LOCAL_IP>:3000 --client go-sila --client-file clients.yaml
     ```
 
 3. In a separate terminal session, build the EELS development image:
 
     ```bash
-    cd simulators/ethereum/eels/
+    cd simulators/sila/eels/
     docker build -t macos-consume-dev -f Dockerfile.dev .
     ```
 
@@ -148,7 +148,7 @@ Specify a custom address and port via `--dev.addr`:
 ```bash
 ./hive --dev \
   --dev.addr 127.0.0.1:5000 \
-  --client reth \
+  --client rsil \
   --client-file clients.yaml
 ```
 

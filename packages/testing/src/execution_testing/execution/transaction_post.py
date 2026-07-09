@@ -88,7 +88,7 @@ class TransactionPost(BaseExecute):
     def execute(
         self,
         fork: Fork,
-        eth_rpc: EthRPC,
+        sil_rpc: EthRPC,
         engine_rpc: EngineRPC | None,
         request: FixtureRequest,
     ) -> ExecuteResult:
@@ -139,7 +139,7 @@ class TransactionPost(BaseExecute):
                         tx_queue.append(transaction)
                     else:
                         if tx_queue:
-                            eth_rpc.send_wait_transactions(tx_queue)
+                            sil_rpc.send_wait_transactions(tx_queue)
                             current_block_tx_hashes.extend(
                                 tx.hash for tx in tx_queue
                             )
@@ -151,17 +151,17 @@ class TransactionPost(BaseExecute):
                         with pytest.raises(
                             SendTransactionExceptionError
                         ) as exc_info:
-                            eth_rpc.send_transaction(transaction)
+                            sil_rpc.send_transaction(transaction)
                         logger.info(
                             "Transaction rejected as expected: "
                             f"{exc_info.value}"
                         )
                 if tx_queue:
-                    eth_rpc.send_wait_transactions(tx_queue)
+                    sil_rpc.send_wait_transactions(tx_queue)
                     current_block_tx_hashes.extend(tx.hash for tx in tx_queue)
             else:
-                # Send transactions (batching is handled by eth_rpc internally)
-                eth_rpc.send_wait_transactions(signed_txs)
+                # Send transactions (batching is handled by sil_rpc internally)
+                sil_rpc.send_wait_transactions(signed_txs)
                 current_block_tx_hashes = [tx.hash for tx in signed_txs]
             all_tx_hashes.extend(current_block_tx_hashes)
             last_block_tx_hashes = current_block_tx_hashes
@@ -171,14 +171,14 @@ class TransactionPost(BaseExecute):
         if self.benchmark_mode:
             benchmark_gas_used = 0
             for tx_hash in last_block_tx_hashes:
-                receipt = eth_rpc.get_transaction_receipt(tx_hash)
+                receipt = sil_rpc.get_transaction_receipt(tx_hash)
                 assert receipt is not None, (
                     f"Failed to get receipt for transaction {tx_hash}"
                 )
                 gas_used = int(receipt["gasUsed"], 16)
                 benchmark_gas_used += gas_used
 
-        actual_alloc = eth_rpc.get_alloc(self.post)
+        actual_alloc = sil_rpc.get_alloc(self.post)
         for address, expected_account in self.post.root.items():
             actual_account = actual_alloc.root[address]
             assert actual_account is not None

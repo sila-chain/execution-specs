@@ -101,7 +101,7 @@ class EvmoneFixtureConsumerCommon:
         except Exception as e:
             raise Exception("Unexpected exception calling evm tool.") from e
 
-    # TODO: copied from geth.py, needs to be deduplicated, but nethermind.py
+    # TODO: copied from gsil.py, needs to be deduplicated, but nethermind.py
     # also has its version
     def _consume_debug_dump(
         self,

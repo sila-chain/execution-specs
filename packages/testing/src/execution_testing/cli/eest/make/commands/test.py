@@ -2,7 +2,7 @@
 Provides a CLI command to scaffold a test file.
 
 The `test` command guides the user through a series of prompts to generate a
-test file based on the selected test type, fork, EIP number, and EIP name. The
+test file based on the selected test type, fork, SIP number, and SIP name. The
 generated test file is saved in the appropriate directory with a rendered
 template using Jinja2.
 """
@@ -35,16 +35,16 @@ def exit_now() -> None:
 
 
 @click.command(
-    short_help="Generate a new test file for an EIP.",
+    short_help="Generate a new test file for an SIP.",
     epilog=f"Further help: {DocsConfig().DOCS_URL__WRITING_TESTS}",
 )
 def test() -> None:
     """
-    Generate a new test file for an EIP.
+    Generate a new test file for an SIP.
 
     This function guides the user through a series of prompts to generate a
-    test file for Ethereum execution specifications. The user is prompted to
-    select the type of test, the fork to use, and to provide the EIP number and
+    test file for Sila execution specifications. The user is prompted to
+    select the type of test, the fork to use, and to provide the SIP number and
     name. Based on the inputs, a test file is created in the appropriate
     directory with a rendered template.
 
@@ -94,14 +94,14 @@ def test() -> None:
         exit_now()
 
     if location_choice == "new":
-        eip_number = input_text("Enter the EIP number (int)").strip()
-        eip_name = input_text(
-            "Enter the EIP name (spaces ok, only used in docstrings)"
+        sip_number = input_text("Enter the SIP number (int)").strip()
+        sip_name = input_text(
+            "Enter the SIP name (spaces ok, only used in docstrings)"
         ).strip()
         directory_name = input_text(
             "Enter directory name (snake_case, part after eipXXXX_)"
         ).strip()
-        dir_name = f"eip{eip_number}_{directory_name}"
+        dir_name = f"sip{sip_number}_{directory_name}"
         directory_path = base_path / dir_name
         raw_module = input_text("Enter module name (snake_case)").strip()
         module_name = (
@@ -110,9 +110,9 @@ def test() -> None:
             else f"test_{raw_module}"
         )
     elif location_choice == "current":
-        eip_number = input_text("Enter the EIP number (int)").strip()
-        eip_name = input_text(
-            "Enter the EIP name (spaces ok, only used in docstrings)"
+        sip_number = input_text("Enter the SIP number (int)").strip()
+        sip_name = input_text(
+            "Enter the SIP name (spaces ok, only used in docstrings)"
         ).strip()
         raw_module = input_text("Enter module name (snake_case)").strip()
         module_name = (
@@ -123,8 +123,8 @@ def test() -> None:
         directory_path = base_path
     else:
         dir_parts = location_choice.split("_")
-        eip_number = dir_parts[0][3:]
-        eip_name = " ".join(dir_parts[1:]).title()
+        sip_number = dir_parts[0][3:]
+        sip_name = " ".join(dir_parts[1:]).title()
         raw_module = input_text("Enter module name (snake_case)").strip()
         module_name = (
             raw_module
@@ -151,8 +151,8 @@ def test() -> None:
     template = template_env.get_template(f"{test_type.lower()}_test.py.j2")
     rendered_template = template.render(
         fork=fork,
-        eip_number=eip_number,
-        eip_name=eip_name,
+        sip_number=sip_number,
+        sip_name=sip_name,
         module_name=module_name,
     )
 

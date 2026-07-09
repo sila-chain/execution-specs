@@ -1,4 +1,4 @@
-"""Test phase management for Ethereum tests."""
+"""Test phase management for Sila tests."""
 
 from contextlib import contextmanager
 from enum import Enum

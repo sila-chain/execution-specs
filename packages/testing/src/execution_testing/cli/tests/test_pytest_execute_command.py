@@ -85,9 +85,9 @@ def test_execute_hive_help(runner: CliRunner) -> None:
     assert "After displaying help" in result.output
 
 
-def test_execute_eth_config_help(runner: CliRunner) -> None:
-    """Test that execute eth-config --help works without errors."""
-    result = runner.invoke(execute, ["eth-config", "--help"])
+def test_execute_sil_config_help(runner: CliRunner) -> None:
+    """Test that execute sil-config --help works without errors."""
+    result = runner.invoke(execute, ["sil-config", "--help"])
     assert result.exit_code == 0
     assert "After displaying help" in result.output
 
@@ -99,7 +99,7 @@ def test_all_execute_subcommands_help_no_conflicts(runner: CliRunner) -> None:
     This is a regression test for issue where --chain-id was defined in
     multiple plugins, causing argparse.ArgumentError conflicts.
     """
-    subcommands = ["remote", "recover", "hive", "eth-config"]
+    subcommands = ["remote", "recover", "hive", "sil-config"]
 
     for subcommand in subcommands:
         result = runner.invoke(execute, [subcommand, "--help"])
@@ -146,9 +146,9 @@ def test_execute_remote_leaks_chain_id_into_later_defaults(
 
     ChainConfigDefaults.chain_id = DEFAULT_CHAIN_ID
     with patch(
-        "execution_testing.cli.pytest_commands.plugins.execute.rpc.remote.EthRPC"
-    ) as mock_eth_rpc:
-        mock_eth_rpc.return_value.chain_id.return_value = 12345
+        "execution_testing.cli.pytest_commands.plugins.execute.rpc.remote.SilRPC"
+    ) as mock_sil_rpc:
+        mock_sil_rpc.return_value.chain_id.return_value = 12345
         result = runner.invoke(
             execute,
             [
@@ -193,9 +193,9 @@ def test_execute_remote_accepts_address_stubs_with_env_rpc_endpoint(
     )
 
     with patch(
-        "execution_testing.cli.pytest_commands.plugins.execute.rpc.remote.EthRPC"
-    ) as mock_eth_rpc:
-        mock_eth_rpc.return_value.chain_id.return_value = 12345
+        "execution_testing.cli.pytest_commands.plugins.execute.rpc.remote.SilRPC"
+    ) as mock_sil_rpc:
+        mock_sil_rpc.return_value.chain_id.return_value = 12345
         result = runner.invoke(
             execute,
             [

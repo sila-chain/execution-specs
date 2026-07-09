@@ -2,7 +2,7 @@
 
 import pytest
 
-from ethereum_spec_tools.forks import Hardfork
+from sila_spec_tools.forks import Hardfork
 
 
 class CustomHardfork(Hardfork):
@@ -14,7 +14,7 @@ def test_by_short_name_returns_matching_hardfork() -> None:
     fork = Hardfork.by_short_name("frontier")
 
     assert fork.short_name == "frontier"
-    assert fork.name == "ethereum.forks.frontier"
+    assert fork.name == "sila.forks.frontier"
 
 
 def test_by_short_name_preserves_subclass() -> None:

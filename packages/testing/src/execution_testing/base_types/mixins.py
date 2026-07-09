@@ -10,8 +10,8 @@ class ModelCustomizationsMixin:
     A mixin that customizes the behavior of pydantic models. Any pydantic
     configuration override that must apply to all models should be placed here.
 
-    This mixin is applied to both `EthereumTestBaseModel` and
-    `EthereumTestRootModel`.
+    This mixin is applied to both `SilaTestBaseModel` and
+    `SilaTestRootModel`.
     """
 
     def serialize(
@@ -64,7 +64,7 @@ class ModelCustomizationsMixin:
 
         and
 
-        https://github.com/ethereum/execution-spec-tests/pull/
+        https://github.com/sila/execution-spec-tests/pull/
         901#issuecomment-24432968 35
 
         Returns:
@@ -85,7 +85,7 @@ class ModelCustomizationsMixin:
         for a, v in attrs:
             match v:
                 # Note: The `None` case handles an edge case with transactions
-                # see: https://github.com/ethereum/execution-spec-tests/pull/
+                # see: https://github.com/sila/execution-spec-tests/pull/
                 # 901#discussion_r1828491918
                 case list() | dict() | BaseModel() | None:
                     repr_attrs.append((a, v))

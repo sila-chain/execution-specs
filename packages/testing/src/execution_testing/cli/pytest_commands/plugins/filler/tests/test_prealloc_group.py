@@ -129,51 +129,51 @@ def test_pre_alloc_group_custom_salt() -> None:
     pre = Alloc(fork=Prague, flags=AllocFlags.NONE)
     fork = Prague
 
-    # Create test with custom group "eip1234"
+    # Create test with custom group "sip1234"
     mock_request1 = Mock()
     mock_request1.node = Mock()
     mock_request1.node.nodeid = "test_module.py::test_function1"
     mock_marker1 = Mock()
-    mock_marker1.args = ("eip1234",)
+    mock_marker1.args = ("sip1234",)
     mock_request1.node.get_closest_marker = Mock(return_value=mock_marker1)
 
     test1 = MockTest(pre=pre, genesis_environment=env, fork=fork)
     genesis_env1 = test1.get_genesis_environment()
     hash1 = pre.compute_pre_alloc_group_hash(
-        fork=fork, genesis_environment=genesis_env1, group_salt="eip1234"
+        fork=fork, genesis_environment=genesis_env1, group_salt="sip1234"
     )
 
-    # Create another test with same custom group "eip1234"
+    # Create another test with same custom group "sip1234"
     mock_request2 = Mock()
     mock_request2.node = Mock()
     mock_request2.node.nodeid = (
         "test_module.py::test_function2"  # Different nodeid
     )
     mock_marker2 = Mock()
-    mock_marker2.args = ("eip1234",)  # Same group
+    mock_marker2.args = ("sip1234",)  # Same group
     mock_request2.node.get_closest_marker = Mock(return_value=mock_marker2)
 
     test2 = MockTest(pre=pre, genesis_environment=env, fork=fork)
     genesis_env2 = test2.get_genesis_environment()
     hash2 = pre.compute_pre_alloc_group_hash(
-        fork=fork, genesis_environment=genesis_env2, group_salt="eip1234"
+        fork=fork, genesis_environment=genesis_env2, group_salt="sip1234"
     )
 
-    # Hashes should be the same - both in "eip1234" group
+    # Hashes should be the same - both in "sip1234" group
     assert hash1 == hash2
 
-    # Create test with different custom group "eip5678"
+    # Create test with different custom group "sip5678"
     mock_request3 = Mock()
     mock_request3.node = Mock()
     mock_request3.node.nodeid = "test_module.py::test_function3"
     mock_marker3 = Mock()
-    mock_marker3.args = ("eip5678",)  # Different group
+    mock_marker3.args = ("sip5678",)  # Different group
     mock_request3.node.get_closest_marker = Mock(return_value=mock_marker3)
 
     test3 = MockTest(pre=pre, genesis_environment=env, fork=fork)
     genesis_env3 = test3.get_genesis_environment()
     hash3 = pre.compute_pre_alloc_group_hash(
-        fork=fork, genesis_environment=genesis_env3, group_salt="eip5678"
+        fork=fork, genesis_environment=genesis_env3, group_salt="sip5678"
     )
 
     # Hash should be different - different custom group

@@ -1,11 +1,11 @@
 # Hive client configuration file with latest release images
 
-# Geth (Go-Ethereum)
-# Docker Hub: https://hub.docker.com/r/ethereum/client-go
-- client: go-ethereum
+# Gsil (Go-Sila)
+# Docker Hub: https://hub.docker.com/r/sila/client-go
+- client: go-sila
   nametag: ""
   build_args:
-    baseimage: docker.io/ethereum/client-go
+    baseimage: docker.io/sila/client-go
     tag: latest
 
 # Nethermind
@@ -24,12 +24,12 @@
     baseimage: docker.io/hyperledger/besu
     tag: latest
 
-# Reth (Paradigm)
-# GHCR: https://ghcr.io/paradigmxyz/reth
-- client: reth
+# Rsil (Paradigm)
+# GHCR: https://ghcr.io/paradigmxyz/rsil
+- client: rsil
   nametag: ""
   build_args:
-    baseimage: ghcr.io/paradigmxyz/reth
+    baseimage: ghcr.io/paradigmxyz/rsil
     tag: latest
 
 # Erigon
@@ -40,10 +40,10 @@
     baseimage: docker.io/erigontech/erigon
     tag: latest
 
-# Nimbus Execution Layer (nimbus-eth1)
-# Docker Hub: https://hub.docker.com/r/statusim/nimbus-eth1
+# Nimbus Execution Layer (nimbus-sil1)
+# Docker Hub: https://hub.docker.com/r/statusim/nimbus-sil1
 - client: nimbus-el
   nametag: "" # latest-release
   build_args:
-    baseimage: docker.io/statusim/nimbus-eth1
+    baseimage: docker.io/statusim/nimbus-sil1
     tag: linux-amd64-latest

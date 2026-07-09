@@ -1,4 +1,4 @@
-"""Helper functions to load and run general state tests for Ethereum forks."""
+"""Helper functions to load and run general state tests for Sila forks."""
 
 import json
 import sys
@@ -10,11 +10,11 @@ from _pytest.config import Config
 from _pytest.nodes import Item
 from pytest import Collector
 
-from ethereum.exceptions import StateWithEmptyAccount
-from ethereum.utils.hexadecimal import hex_to_bytes
-from ethereum_spec_tools.evm_tools import create_parser
-from ethereum_spec_tools.evm_tools.statetest import read_test_case
-from ethereum_spec_tools.evm_tools.t8n import T8N, ForkCache
+from sila.exceptions import StateWithEmptyAccount
+from sila.utils.hexadecimal import hex_to_bytes
+from sila_spec_tools.evm_tools import create_parser
+from sila_spec_tools.evm_tools.statetest import read_test_case
+from sila_spec_tools.evm_tools.t8n import T8N, ForkCache
 
 from .. import FORKS
 from ..stash_keys import desired_forks_key, fork_cache_key

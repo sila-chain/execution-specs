@@ -1,9 +1,9 @@
 # Contribution Guidelines
 
-Help is always welcome. The Ethereum Execution Layer Specifications (EELS) are a community effort and we appreciate support in the following areas:
+Help is always welcome. The Sila Execution Layer Specifications (EELS) are a community effort and we appreciate support in the following areas:
 
 - Reporting issues.
-- Fixing and responding to [issues](https://github.com/ethereum/execution-specs/issues), especially those tagged [E-easy](https://github.com/ethereum/execution-specs/labels/E-easy), which are intended as introductory issues for external contributors.
+- Fixing and responding to [issues](https://github.com/sila/execution-specs/issues), especially those tagged [E-easy](https://github.com/sila/execution-specs/labels/E-easy), which are intended as introductory issues for external contributors.
 - Improving the documentation.
 
 > [!IMPORTANT]
@@ -18,14 +18,14 @@ Pull requests should have reasonable substance and context. In particular, we do
 
 ## Code of Conduct
 
-All contributors are expected to be excellent to each other; other behavior is not tolerated. To report a concern, contact one of the [STEEL team members](https://steel.ethereum.foundation/team/).
+All contributors are expected to be excellent to each other; other behavior is not tolerated. To report a concern, contact one of the [STEEL team members](https://steel.sila.foundation/team/).
 
 ## Principles
 
 The specification aims to be:
 
-1. **Correct.** Describe the *intended* behavior of the Ethereum blockchain. Any deviation from that is a bug.
-2. **Complete.** Capture the entirety of *consensus-critical* parts of Ethereum.
+1. **Correct.** Describe the *intended* behavior of the Sila blockchain. Any deviation from that is a bug.
+2. **Complete.** Capture the entirety of *consensus-critical* parts of Sila.
 3. **Accessible.** Prioritize readability, clarity, and plain language over performance and brevity.
 
 ## Getting set up
@@ -36,11 +36,11 @@ Before opening a PR, run the checks relevant to your change; see [Verifying Chan
 
 ## Changes that affect multiple forks
 
-When creating pull requests that touch several forks under `src/ethereum/forks/`, we recommend a two-step workflow:
+When creating pull requests that touch several forks under `src/sila/forks/`, we recommend a two-step workflow:
 
 1. Apply the changes on a single fork, open a *draft* PR, and get feedback.
 2. Apply the changes across the other forks, push them, and mark the PR as ready for review.
 
 This saves you from applying code review feedback repeatedly for each fork.
 
-See [Writing Specs](docs/specs/writing_specs.md) for the technical style rules (naming, comments, docstrings, constants, cross-fork discipline) and for the `ethereum_spec_tools` CLI utilities that help with these workflows.
+See [Writing Specs](docs/specs/writing_specs.md) for the technical style rules (naming, comments, docstrings, constants, cross-fork discipline) and for the `sila_spec_tools` CLI utilities that help with these workflows.

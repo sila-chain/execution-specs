@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
 CLI tool to extract client configuration files (chainspec/genesis.json) from
-Ethereum clients.
+Sila clients.
 
-This tool spawns an Ethereum client using Hive and extracts the generated
+This tool spawns an Sila client using Hive and extracts the generated
 configuration files such as /chainspec/test.json, /configs/test.cfg, or
 /genesis.json from the Docker container.
 """
@@ -213,7 +213,7 @@ class GenesisState(BaseModel):
     "-c",
     required=False,
     default=None,
-    help="Client name (e.g., go-ethereum, besu, nethermind)",
+    help="Client name (e.g., go-sila, besu, nethermind)",
 )
 @click.option(
     "--fixture",
@@ -248,9 +248,9 @@ def extract_config(
     list_files: bool,
 ) -> None:
     """
-    Extract client configuration files from Ethereum clients.
+    Extract client configuration files from Sila clients.
 
-    This tool spawns an Ethereum client using Hive and extracts the generated
+    This tool spawns an Sila client using Hive and extracts the generated
     configuration files such as /chainspec/test.json, /configs/test.cfg, or
     /genesis.json from the Docker container.
     """

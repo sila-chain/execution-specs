@@ -68,7 +68,7 @@ class FeeSystemContractRequest(SystemContractRequest):
     """
     A `SystemContractRequest` whose triggering call must pay a fee that grows
     with the per-block excess request count, following the `fake_exponential`
-    dynamic shared by EIP-7002, EIP-7251 (and future system contracts).
+    dynamic shared by SIP-7002, SIP-7251 (and future system contracts).
 
     Subclasses set `min_fee`, `update_fraction` and `target_per_block`, and
     implement `from_index` to build a request from a sequential index.

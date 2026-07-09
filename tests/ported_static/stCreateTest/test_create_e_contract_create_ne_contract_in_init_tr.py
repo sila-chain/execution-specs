@@ -4,7 +4,7 @@ Test_create_e_contract_create_ne_contract_in_init_tr.
 Ported from:
 state_tests/stCreateTest/CREATE_EContractCreateNEContractInInit_TrFiller.json
 @manually-enhanced: Do not overwrite. Inner-CALL gas and tx `gas_limit`
-bumped on Amsterdam to cover EIP-8037 state-gas spill; pre-EIP-8037
+bumped on Amsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037
 unchanged.
 
 """
@@ -39,10 +39,10 @@ def test_create_e_contract_create_ne_contract_in_init_tr(
     fork: Fork,
 ) -> None:
     """Test_create_e_contract_create_ne_contract_in_init_tr."""
-    # EIP-8037 state-gas spill OoGs the 60k inner CALL.
+    # SIP-8037 state-gas spill OoGs the 60k inner CALL.
     inner_call_gas = 60000
     tx_gas_limit = 600000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         inner_call_gas = 200000
         tx_gas_limit = 1_000_000
 

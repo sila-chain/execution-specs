@@ -1,0 +1,106 @@
+name: Rebase SIP Branches
+description: Rebases SIP branches onto a fork branch
+inputs:
+  fork:
+    description: 'Fork name (e.g., amsterdam)'
+    required: true
+    default: 'amsterdam'
+  sip_numbers:
+    description: 'List of SIP numbers (e.g., 1234,2345+3456 for sip-1234 and combined sip-2345+3456)'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Configure Git
+      shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Rebase SIP branches (create if missing)
+      shell: bash
+      env:
+        FORK: ${{ inputs.fork }}
+        SIP_NUMBERS: ${{ inputs.sip_numbers }}
+        REMOTE: origin
+      run: |
+        set -euo pipefail
+
+        echo "FORK=$FORK"
+        echo "SIP_NUMBERS=$SIP_NUMBERS"
+        FORK_BRANCH="forks/${FORK}"
+
+        git fetch "${REMOTE}" --prune
+
+        # Sanity: fork base must exist
+        if ! git show-ref --verify --quiet "refs/remotes/${REMOTE}/${FORK_BRANCH}"; then
+          echo "Error: Base fork branch ${REMOTE}/${FORK_BRANCH} does not exist"
+          exit 1
+        fi
+
+        # Convert comma-separated list to array
+        IFS=',' read -ra RAW_SIPS <<< "$SIP_NUMBERS"
+
+        # Normalize: trim whitespace, drop empties, validate
+        SIPS=()
+        for raw in "${RAW_SIPS[@]}"; do
+          sip="$(echo "$raw" | xargs)"   # trims leading/trailing whitespace
+          if [[ -n "$sip" ]]; then
+            # Ensure it looks like SIP number(s) - digits optionally joined by +
+            if [[ ! "$sip" =~ ^[0-9]+(\+[0-9]+)*$ ]]; then
+              echo "Error: Invalid SIP number ${sip}"
+              exit 1
+            fi
+            SIPS+=("$sip")
+          fi
+        done
+
+        if [[ ${#SIPS[@]} -eq 0 ]]; then
+          echo "Error: No SIP numbers provided after parsing '${SIP_NUMBERS}'"
+          exit 1
+        fi
+
+        for SIP_NUMBER in "${SIPS[@]}"; do
+          SIP_BRANCH="sips/${FORK}/sip-${SIP_NUMBER}"
+
+          # Create local branch from remote if it exists, else create from fork base
+          if git show-ref --verify --quiet "refs/remotes/${REMOTE}/${SIP_BRANCH}"; then
+            echo "Checking out existing ${SIP_BRANCH} (tracking ${REMOTE})"
+            git checkout -B "${SIP_BRANCH}" "${REMOTE}/${SIP_BRANCH}"
+          else
+            echo "Branch ${SIP_BRANCH} does not exist on ${REMOTE}; creating from ${REMOTE}/${FORK_BRANCH}"
+            git checkout -B "${SIP_BRANCH}" "${REMOTE}/${FORK_BRANCH}"
+
+            # First push creates the remote branch (no force needed)
+            git push -u "${REMOTE}" "${SIP_BRANCH}"
+          fi
+
+          echo "Rebasing ${SIP_BRANCH} onto ${REMOTE}/${FORK_BRANCH}"
+          if ! git rebase "${REMOTE}/${FORK_BRANCH}"; then
+            echo "Error: Rebase conflict occurred while rebasing ${SIP_BRANCH} onto ${FORK_BRANCH}"
+            git rebase --abort || true
+            exit 1
+          fi
+
+          echo "Rebase of ${SIP_BRANCH} successful"
+
+          echo "Running static checks on ${SIP_BRANCH}"
+          just static
+        done
+
+    - name: Push rebased branches
+      shell: bash
+      env:
+        FORK: ${{ inputs.fork }}
+        SIP_NUMBERS: ${{ inputs.sip_numbers }}
+        REMOTE: origin
+      run: |
+        IFS=',' read -ra RAW_SIPS <<< "$SIP_NUMBERS"
+        for raw in "${RAW_SIPS[@]}"; do
+          sip="$(echo "$raw" | xargs)"
+          if [[ -n "$sip" ]]; then
+            SIP_BRANCH="sips/${FORK}/sip-${sip}"
+            echo "Force pushing ${SIP_BRANCH} to ${REMOTE}"
+            git push --force-with-lease "${REMOTE}" "${SIP_BRANCH}"
+          fi
+        done

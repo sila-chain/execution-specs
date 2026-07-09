@@ -1,12 +1,12 @@
-"""Common field types from ethereum/tests."""
+"""Common field types from sila/tests."""
 
 import re
 import subprocess
 import tempfile
 from typing import Any, Dict, List, Mapping, Tuple, Union
 
-from eth_abi import encode
-from eth_utils import function_signature_to_4byte_selector
+from sil_abi import encode
+from sil_utils import function_signature_to_4byte_selector
 from pydantic import (
     BaseModel,
     BeforeValidator,

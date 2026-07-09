@@ -1,4 +1,4 @@
-"""Common values used in Ethereum tests."""
+"""Common values used in Sila tests."""
 
 from .base_types import Address
 

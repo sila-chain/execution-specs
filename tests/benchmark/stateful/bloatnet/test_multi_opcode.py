@@ -379,7 +379,7 @@ def test_bloatnet_call_value_new_account(
     code = setup + loop
     attack_contract_address = pre.deploy_contract(
         code=code,
-        balance=10**18,  # 1 ETH, enough for all iterations
+        balance=10**18,  # 1 SIL, enough for all iterations
     )
 
     # Gas Accounting

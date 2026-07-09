@@ -41,9 +41,9 @@ def precompile_addresses(fork: Fork) -> Iterator[Tuple[Address, bool]]:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts/idPrecompsFiller.yml"
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts/idPrecompsFiller.yml"
     ],
-    pr=["https://github.com/ethereum/execution-spec-tests/pull/1120"],
+    pr=["https://github.com/sila/execution-spec-tests/pull/1120"],
     coverage_missed_reason=(
         "Original test saves variables to memory, loads from storage, uses "
         "calldataload to get the precompile address to call, uses lt and gt "
@@ -64,7 +64,7 @@ def test_precompiles(
     pre: Alloc,
 ) -> None:
     """
-    Tests the behavior of precompiled contracts in the Ethereum state test.
+    Tests the behavior of precompiled contracts in the Sila state test.
 
     Args:
       state_test (StateTestFiller): The state test filler object used to

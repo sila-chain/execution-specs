@@ -27,7 +27,7 @@ Tests the effects of individual transactions (ideally a single one) that span a 
 
 ### Purpose
 
-Blockchain tests span multiple blocks which may or may not contain transactions and mainly focus on the block to block effects to the Ethereum state.
+Blockchain tests span multiple blocks which may or may not contain transactions and mainly focus on the block to block effects to the Sila state.
 
 ### Use cases
 
@@ -71,7 +71,7 @@ Test correct transaction rejection/acceptance of a serialized transaction (curre
 
 !!! info
 
-    Using the `execute` command, transaction tests can be sent to clients in a live network using the `eth_sendRawTransaction` endpoint.
+    Using the `execute` command, transaction tests can be sent to clients in a live network using the `sil_sendRawTransaction` endpoint.
 
 ## Deciding on a test type
 
@@ -79,6 +79,6 @@ Test correct transaction rejection/acceptance of a serialized transaction (curre
 
 Whenever possible, use `state_test` to examine individual transactions. This method is more straightforward and less prone to external influences that can occur during block building.
 
-This provides more targeted testing since it does not invoke the client's block-building machinery. This reduces the risk of encountering false positives, particularly in exception scenarios (e.g., see issue [#343: "Zero max_fee_per_blob_gas test is ineffective"](https://github.com/ethereum/execution-specs/issues/343)).
+This provides more targeted testing since it does not invoke the client's block-building machinery. This reduces the risk of encountering false positives, particularly in exception scenarios (e.g., see issue [#343: "Zero max_fee_per_blob_gas test is ineffective"](https://github.com/sila/execution-specs/issues/343)).
 
 Moreover, the `fill` command automatically additionally generates a `blockchain_test` for every `state_test` by wrapping the `state_test`'s transaction in a block.

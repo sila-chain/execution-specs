@@ -18,7 +18,7 @@ The most effective method of learning how to write tests is to study a straightf
 
 ### Complete Test Example
 
-We'll examine a simple test that uses the Python Opcodes minilang to write EVM bytecode. This example is based on the CHAINID opcode test from `tests/istanbul/eip1344_chainid/test_chainid.py`.
+We'll examine a simple test that uses the Python Opcodes minilang to write EVM bytecode. This example is based on the CHAINID opcode test from `tests/istanbul/sip1344_chainid/test_chainid.py`.
 
 Let's examine each section.
 
@@ -43,7 +43,7 @@ In this snippet the required constants, types and helper functions are imported 
 
 In Python this kind of definition is called a [*decorator*](https://docs.python.org/3/search.html?q=decorator).
 It modifies the action of the function after it.
-In this case, the decorator is a custom [pytest mark](https://docs.pytest.org/en/latest/how-to/mark.html) defined by the execution-specs-test framework that specifies that the test is valid for the [Istanbul fork](https://ethereum.org/en/history/#istanbul) and all forks after it. The framework will then fill this test case for all forks in the fork range specified by the command-line arguments.
+In this case, the decorator is a custom [pytest mark](https://docs.pytest.org/en/latest/how-to/mark.html) defined by the execution-specs-test framework that specifies that the test is valid for the [Istanbul fork](https://sila.org/en/history/#istanbul) and all forks after it. The framework will then fill this test case for all forks in the fork range specified by the command-line arguments.
 
 For more information about test markers and fork validity, see [Test Markers](../../writing_tests/test_markers.md).
 
@@ -79,7 +79,7 @@ The function parameters (`state_test` and `pre`) are [pytest fixtures](https://d
     env = Environment(number=1)
 ```
 
-This line specifies that `env` is an [`Environment`][execution_testing.test_types.Environment] object. In this example, we only override the block `number` to 1, leaving all other values at their defaults. It's recommended to use default values whenever possible and only specify custom values when required for your specific test scenario. (For all available fields, see the pydantic model fields in the source code of [`Environment`][execution_testing.test_types.Environment] and [`EnvironmentGeneric`](https://github.com/ethereum/execution-specs/blob/b4d7826bec631574a6fb95d0c58d2c8c4d6e02ca/packages/testing/src/execution_testing/test_types/block_types.py#L76) from which `Environment` inherits.)
+This line specifies that `env` is an [`Environment`][execution_testing.test_types.Environment] object. In this example, we only override the block `number` to 1, leaving all other values at their defaults. It's recommended to use default values whenever possible and only specify custom values when required for your specific test scenario. (For all available fields, see the pydantic model fields in the source code of [`Environment`][execution_testing.test_types.Environment] and [`EnvironmentGeneric`](https://github.com/sila/execution-specs/blob/b4d7826bec631574a6fb95d0c58d2c8c4d6e02ca/packages/testing/src/execution_testing/test_types/block_types.py#L76) from which `Environment` inherits.)
 
 #### Pre State
 
@@ -132,7 +132,7 @@ The returned object, which includes a private key, an address, and a nonce, is s
     )
 ```
 
-With the pre-state built, we can now create the transaction that will call our contract. Let's examine the key components of this [`Transaction`][execution_testing.test_types.Transaction] (for all available fields, see the source code of [`Transaction`][execution_testing.test_types.Transaction] and [`TransactionGeneric`](https://github.com/ethereum/execution-specs/blob/b4d7826bec631574a6fb95d0c58d2c8c4d6e02ca/packages/testing/src/execution_testing/test_types/transaction_types.py#L163) from which `Transaction` inherits).
+With the pre-state built, we can now create the transaction that will call our contract. Let's examine the key components of this [`Transaction`][execution_testing.test_types.Transaction] (for all available fields, see the source code of [`Transaction`][execution_testing.test_types.Transaction] and [`TransactionGeneric`](https://github.com/sila/execution-specs/blob/b4d7826bec631574a6fb95d0c58d2c8c4d6e02ca/packages/testing/src/execution_testing/test_types/transaction_types.py#L163) from which `Transaction` inherits).
 
 - **`sender=sender`**: We use the EOA we created earlier, which already has the necessary information to sign the transaction and contains the correct `nonce`. The `nonce` is a protection mechanism to prevent replay attacks - it must equal the number of transactions sent from the sender's address, starting from zero. The framework automatically manages nonce incrementing for us.
 
@@ -140,7 +140,7 @@ With the pre-state built, we can now create the transaction that will call our c
 
 - **`gas_limit=100_000`**: This sets a high enough gas limit to ensure our simple contract execution doesn't run out of gas.
 
-- **`ty=0x2`**: This specifies the transaction type (EIP-1559).
+- **`ty=0x2`**: This specifies the transaction type (SIP-1559).
 
 #### Post State
 
@@ -156,7 +156,7 @@ Now we need to define what we expect the blockchain state to look like after our
     }
 ```
 
-This is the post-state which is equivalent to [`expect`](https://ethereum-tests.readthedocs.io/en/latest/test_filler/state_filler.html#expect) in static tests, but without the indexes. It is similar to the pre-state, except that we do not need to specify everything, only those accounts and fields we wish to test.
+This is the post-state which is equivalent to [`expect`](https://sila-tests.readthedocs.io/en/latest/test_filler/state_filler.html#expect) in static tests, but without the indexes. It is similar to the pre-state, except that we do not need to specify everything, only those accounts and fields we wish to test.
 
 In this case, we look at the storage of the contract we called and add to it what we expect to see. In this example storage cell `0x00` should be `0x03` as we stored this value using the `SSTORE` opcode in our contract bytecode.
 
@@ -179,4 +179,4 @@ At this point you should be able to write state transition tests within a single
 ## Next Steps
 
 - Learn about [Adding a New Test](../../writing_tests/adding_a_new_test.md) to understand test organization and structure.
-- Explore [Fork Methods](../../writing_tests/fork_methods.md) for writing tests that adapt to different Ethereum forks.
+- Explore [Fork Methods](../../writing_tests/fork_methods.md) for writing tests that adapt to different Sila forks.

@@ -21,7 +21,7 @@ Check `$ARGUMENTS` (default: `src/`). Use Glob to find:
 ## What to Ignore
 
 - Code syntax and variable names
-- Technical terms, EIP numbers, hex values
+- Technical terms, SIP numbers, hex values
 - Intentional shorthand in inline code comments
 - Content inside code blocks (``` or indented blocks in markdown)
 - URLs and email addresses

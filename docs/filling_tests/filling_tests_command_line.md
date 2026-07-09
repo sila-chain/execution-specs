@@ -33,7 +33,7 @@ uv run fill --collect-only -k warm_coinbase -vv
 
 ## Execution
 
-By default, test cases are filled for all forks already deployed to mainnet, but not for forks still under active development, i.e., as of time of writing, Q2 2023:
+By default, test cases are filled for all forks already deployed to sila-mainnet, but not for forks still under active development, i.e., as of time of writing, Q2 2023:
 
 ```console
 uv run fill
@@ -50,10 +50,10 @@ uv run fill ./tests/shanghai --output="fixtures-shanghai"
 !!! note "Test case verification"
     Note, that the (limited set of) test `post` conditions are tested against the output of the `evm t8n` command during test generation.
 
-To generate all the test fixtures in the `tests/shanghai/eip3651_warm_coinbase/test_warm_coinbase.py` module, for example, run:
+To generate all the test fixtures in the `tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py` module, for example, run:
 
 ```console
-uv run fill tests/shanghai/eip3651_warm_coinbase/test_warm_coinbase.py
+uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py
 ```
 
 To generate specific test fixtures from a specific test function or even test function and parameter set, obtain the corresponding test ID using:
@@ -65,19 +65,19 @@ uv run fill --collect-only -q -k test_warm_coinbase
 This filters the tests by `test_warm_coinbase`. Then find the relevant test ID in the console output and provide it to fill, for example, for a test function:
 
 ```console
-uv run fill tests/shanghai/eip3651_warm_coinbase/test_warm_coinbase.py::test_warm_coinbase_gas_usage
+uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py::test_warm_coinbase_gas_usage
 ```
 
 or, for a test function and specific parameter combination:
 
 ```console
-uv run fill tests/shanghai/eip3651_warm_coinbase/test_warm_coinbase.py::test_warm_coinbase_gas_usage[fork_Paris-DELEGATECALL]
+uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py::test_warm_coinbase_gas_usage[fork_Paris-DELEGATECALL]
 ```
 
 ## Execution for Development Forks
 
 !!! note ""
-    By default, test cases are not filled for upcoming Ethereum forks so that they can be readily filled using the `evm` tool from the latest `geth` release.
+    By default, test cases are not filled for upcoming Sila forks so that they can be readily filled using the `evm` tool from the latest `gsil` release.
 
     In order to fill test cases for an upcoming fork, ensure that the `evm` tool used supports that fork and features under test and use the `--until` or `--fork` flag.
 
@@ -126,7 +126,7 @@ This will:
 4. Clear the screen and show which files changed.
 
 ```console
-uv run fill tests/amsterdam/eip7928_block_level_access_lists/test_block_access_lists.py --clean --until Amsterdam --watch
+uv run fill tests/amsterdam/sip7928_block_level_access_lists/test_block_access_lists.py --clean --until Amsterdam --watch
 ✓ Fill completed
 
 Watching for changes...
@@ -141,7 +141,7 @@ Watching for changes...
 Same as `--watch` but without clearing the terminal between runs, so you can see the full output history:
 
 ```console
-uv run fill tests/amsterdam/eip7928_block_level_access_lists/test_block_access_lists.py --clean --until Amsterdam --watcherfall
+uv run fill tests/amsterdam/sip7928_block_level_access_lists/test_block_access_lists.py --clean --until Amsterdam --watcherfall
 Starting watcherfall mode (verbose)...
 ✓ Fill completed
 

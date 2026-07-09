@@ -1,6 +1,6 @@
 """
 Types used to describe a reference specification and versioning used to write
-Ethereum tests.
+Sila tests.
 """
 
 from abc import abstractmethod

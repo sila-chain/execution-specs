@@ -3,15 +3,15 @@ name: render
 on:
   push:
     branches:
-      - mainnet
+      - sila-mainnet
       - 'forks/**'
     paths: &render_paths
-      - 'src/ethereum/**'
+      - 'src/sila/**'
       - 'static/**'
       - '.github/workflows/gh-pages.yaml'
       - 'uv.lock'
-      - 'src/ethereum_spec_tools/docc.py'
-      - 'src/ethereum_spec_tools/forks.py'
+      - 'src/sila_spec_tools/docc.py'
+      - 'src/sila_spec_tools/forks.py'
   workflow_dispatch:
   pull_request:
     paths: *render_paths

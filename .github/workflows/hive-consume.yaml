@@ -31,11 +31,11 @@ on:
       docker_images:
         description: "Space-separated list of Docker images to cache"
         required: false
-        default: "docker.io/ethereum/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
+        default: "docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
       client:
-        description: "Hive client to test (e.g., go-ethereum, besu)"
+        description: "Hive client to test (e.g., go-sila, besu)"
         required: false
-        default: "go-ethereum"
+        default: "go-sila"
       client_file:
         description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml, master.yaml)"
         required: false
@@ -46,12 +46,12 @@ on:
         description: "Space-separated list of Docker images to cache"
         required: false
         type: string
-        default: "docker.io/ethereum/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
+        default: "docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
       client:
-        description: "Hive client to test (e.g., go-ethereum, besu)"
+        description: "Hive client to test (e.g., go-sila, besu)"
         required: false
         type: string
-        default: "go-ethereum"
+        default: "go-sila"
       client_file:
         description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml, master.yaml)"
         required: false
@@ -64,7 +64,7 @@ concurrency:
 
 env:
   # Use direct URL instead of release spec (e.g., develop@v5.3.0) to avoid GitHub API rate limits
-  FIXTURES_URL: https://github.com/ethereum/execution-spec-tests/releases/download/v5.3.0/fixtures_develop.tar.gz
+  FIXTURES_URL: https://github.com/sila/execution-spec-tests/releases/download/v5.3.0/fixtures_develop.tar.gz
 
 jobs:
   cache-docker-images:
@@ -77,14 +77,14 @@ jobs:
       - name: Cache Docker images
         uses: ./.github/actions/cache-docker-images
         with:
-          images: ${{ inputs.docker_images || 'docker.io/ethereum/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine' }}
+          images: ${{ inputs.docker_images || 'docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine' }}
 
   test-hive:
     name: ${{ matrix.name }}
     needs: cache-docker-images
     runs-on: [self-hosted-ghr, size-l-x64]
     env:
-      CLIENT: ${{ inputs.client || 'go-ethereum' }}
+      CLIENT: ${{ inputs.client || 'go-sila' }}
       CLIENT_FILE: ${{ inputs.client_file || 'latest.yaml' }}
     strategy:
       fail-fast: true
@@ -92,20 +92,20 @@ jobs:
         include:
           - name: Engine
             mode: simulator
-            simulator: ethereum/eels/consume-engine
+            simulator: sila/eels/consume-engine
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
           # TODO: Enable once eels/consume-enginex simulator is added to Hive
           # - name: consume-enginex
           #   mode: simulator
-          #   simulator: ethereum/eels/consume-enginex
+          #   simulator: sila/eels/consume-enginex
           #   sim_limit: ".*push0.*(Shanghai|Cancun).*"
           - name: RLP
             mode: simulator
-            simulator: ethereum/eels/consume-rlp
+            simulator: sila/eels/consume-rlp
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
           - name: Sync
             mode: simulator
-            simulator: ethereum/eels/consume-sync
+            simulator: sila/eels/consume-sync
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
           - name: Dev Mode Consume Engine
             mode: dev
@@ -126,7 +126,7 @@ jobs:
           # TODO: Enable once eels/build-block simulator is added to Hive
           # - name: Build Block
           #   mode: simulator
-          #   simulator: ethereum/eels/build-block
+          #   simulator: sila/eels/build-block
           #   sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
     steps:
       - name: Checkout execution-specs
@@ -137,7 +137,7 @@ jobs:
       - name: Checkout Hive
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          repository: ethereum/hive
+          repository: sila/hive
           ref: master
           path: hive
 

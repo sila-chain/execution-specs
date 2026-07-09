@@ -4,7 +4,7 @@ Test_transaction_create_stop_in_initcode.
 Ported from:
 state_tests/stInitCodeTest/TransactionCreateStopInInitcodeFiller.json
 @manually-enhanced: Do not overwrite. tx `gas_limit` bumped on Amsterdam
-above intrinsic+state-gas; pre-EIP-8037 unchanged.
+above intrinsic+state-gas; pre-SIP-8037 unchanged.
 
 """
 
@@ -35,10 +35,10 @@ def test_transaction_create_stop_in_initcode(
     fork: Fork,
 ) -> None:
     """Test_transaction_create_stop_in_initcode."""
-    # EIP-8037 folds new-account state-gas into TX_CREATE intrinsic.
+    # SIP-8037 folds new-account state-gas into TX_CREATE intrinsic.
     tx_gas_limit = 55000
     sender_balance = 1000000
-    if fork.is_eip_enabled(8037):
+    if fork.is_sip_enabled(8037):
         tx_gas_limit = 300_000
         sender_balance = 10000000
 

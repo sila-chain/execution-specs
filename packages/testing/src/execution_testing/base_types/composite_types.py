@@ -1,4 +1,4 @@
-"""Base composite types for Ethereum test cases."""
+"""Base composite types for Sila test cases."""
 
 import hashlib
 import json
@@ -26,7 +26,7 @@ from .base_types import (
     ZeroPaddedHexNumber,
 )
 from .conversions import BytesConvertible, NumberConvertible
-from .pydantic import CamelModel, EthereumTestRootModel
+from .pydantic import CamelModel, SilaTestRootModel
 from .serialization import RLPSerializable
 
 StorageKeyValueTypeConvertible = NumberConvertible
@@ -36,7 +36,7 @@ StorageRootType = Dict[NumberConvertible, NumberConvertible]
 
 
 class Storage(
-    EthereumTestRootModel[Dict[StorageKeyValueType, StorageKeyValueType]]
+    SilaTestRootModel[Dict[StorageKeyValueType, StorageKeyValueType]]
 ):
     """
     Definition of contract storage in the `pre` or `post` state of a test.
@@ -357,7 +357,7 @@ class Account(CamelModel):
     Externally Owned Account, b) the amount of contracts created by a contract.
     """
     balance: ZeroPaddedHexNumber = ZeroPaddedHexNumber(0)
-    """The amount of Wei (10<sup>-18</sup> Eth) the account has."""
+    """The amount of Wei (10<sup>-18</sup> Sil) the account has."""
     code: Bytes = Bytes(b"")
     """Bytecode contained by the account."""
     storage: Storage = Field(default_factory=Storage)
@@ -561,7 +561,7 @@ class Account(CamelModel):
         return cls(**kwargs)
 
 
-class Alloc(EthereumTestRootModel[Dict[Address, Account | None]]):
+class Alloc(SilaTestRootModel[Dict[Address, Account | None]]):
     """Allocation of accounts in the state, pre and post test execution."""
 
     root: Dict[Address, Account | None] = Field(
@@ -586,7 +586,7 @@ class ForkBlobSchedule(CamelModel):
     base_fee_update_fraction: HexNumber = Field(...)
 
 
-class BlobSchedule(EthereumTestRootModel[Dict[str, ForkBlobSchedule]]):
+class BlobSchedule(SilaTestRootModel[Dict[str, ForkBlobSchedule]]):
     """Blob schedule configuration dictionary."""
 
     root: Dict[str, ForkBlobSchedule] = Field(

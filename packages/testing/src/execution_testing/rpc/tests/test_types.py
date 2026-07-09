@@ -4,9 +4,9 @@ from typing import Any, Dict
 
 import pytest
 
-from execution_testing.rpc import EthConfigResponse
+from execution_testing.rpc import SilConfigResponse
 
-eth_config_dict: Dict[str, Any] = {
+sil_config_dict: Dict[str, Any] = {
     "current": {
         "activationTime": 0,
         "blobSchedule": {
@@ -126,19 +126,19 @@ eth_config_dict: Dict[str, Any] = {
 
 
 @pytest.fixture
-def eth_config_response() -> EthConfigResponse:
+def sil_config_response() -> SilConfigResponse:
     """
-    Get the `eth_config` response from the client to be verified by all tests.
+    Get the `sil_config` response from the client to be verified by all tests.
     """
-    return EthConfigResponse.model_validate(eth_config_dict)
+    return SilConfigResponse.model_validate(sil_config_dict)
 
 
-def test_fork_config_get_hash(eth_config_response: EthConfigResponse) -> None:
+def test_fork_config_get_hash(sil_config_response: SilConfigResponse) -> None:
     """Test the `get_hash` method of the `ForkConfig` class."""
     # Iterate through each fork config and validate
     for config_name in ("current", "next", "last"):
-        config = getattr(eth_config_response, config_name)
-        expected = eth_config_dict[config_name]
+        config = getattr(sil_config_response, config_name)
+        expected = sil_config_dict[config_name]
         if config is None:
             assert expected is None
             continue

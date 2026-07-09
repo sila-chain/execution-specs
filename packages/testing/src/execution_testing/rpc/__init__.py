@@ -20,7 +20,7 @@ from .rpc import (
 from .rpc_types import (
     BlobAndProofV1,
     BlobAndProofV2,
-    EthConfigResponse,
+    SilConfigResponse,
     ForkConfig,
     ForkConfigBlobSchedule,
     JSONRPCRequest,
@@ -37,7 +37,7 @@ __all__ = [
     "BlockNumberType",
     "DebugRPC",
     "EngineRPC",
-    "EthConfigResponse",
+    "SilConfigResponse",
     "EthRPC",
     "ForkConfig",
     "ForkConfigBlobSchedule",

@@ -11,7 +11,7 @@ from execution_testing.test_types.chain_config_types import (
 )
 
 from ...shared.helpers import get_rpc_endpoint, is_help_or_collectonly_mode
-from .chain_builder_eth_rpc import ChainBuilderEthRPC, TestingRPC
+from .chain_builder_sil_rpc import ChainBuilderEthRPC, TestingRPC
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -104,8 +104,8 @@ def pytest_configure(config: pytest.Config) -> None:
             "RPC endpoint must be provided with the --rpc-endpoint flag or "
             "the RPC_ENDPOINT environment variable."
         )
-    eth_rpc = EthRPC(rpc_endpoint)
-    remote_chain_id = eth_rpc.chain_id()
+    sil_rpc = EthRPC(rpc_endpoint)
+    remote_chain_id = sil_rpc.chain_id()
     configured_chain_id = ChainConfigDefaults.chain_id
     if remote_chain_id != configured_chain_id:
         pytest.exit(
@@ -169,7 +169,7 @@ def rpc_endpoint(request: pytest.FixtureRequest) -> str:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def eth_rpc(
+def sil_rpc(
     request: pytest.FixtureRequest,
     rpc_endpoint: str,
     engine_rpc: EngineRPC | None,
@@ -178,7 +178,7 @@ def eth_rpc(
     max_transactions_per_batch: int | None,
     use_testing_build_block: bool,
 ) -> EthRPC:
-    """Initialize ethereum RPC client for the execution client under test."""
+    """Initialize sila RPC client for the execution client under test."""
     tx_wait_timeout = request.config.getoption("tx_wait_timeout")
     if engine_rpc is None:
         if use_testing_build_block:
