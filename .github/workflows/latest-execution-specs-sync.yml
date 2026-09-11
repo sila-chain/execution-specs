@@ -75,8 +75,8 @@ jobs:
               else: p.rename(q)
           for rel,target in links:
               q=out/pathlib.PurePosixPath(path(rel)); q.parent.mkdir(parents=True,exist_ok=True); os.symlink(path(target),q)
-          rp=out/'pyproject.toml'; s=rp.read_text(); s=s.replace('"py-ecc>=8.0.0b2,<9",','"sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",').replace('"silash>=1.1.0,<2",','"sil-hash @ git+https://github.com/sila-chain/sil-hash.git@v0.8.0-sila.1",').replace('"sila-rlp>=0.1.6,<0.2",','"sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",'); rp.write_text(s)
-          tp=out/'packages/testing/pyproject.toml'; s=tp.read_text().replace('"trie>=3.1.0,<4",','"sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",').replace('"sil-remerkleable==0.1.31",','"sil-remerkleable @ git+https://github.com/sila-chain/remerkleable.git@v0.1.31-sila.1",'); tp.write_text(s)
+          rp=out/'pyproject.toml'; s=rp.read_text(); s=s.replace('"py-ecc>=8.0.0b2,<9",','"sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",').replace('"silash>=1.1.0,<2",','"sil-hash @ git+https://github.com/sila-chain/sil-hash.git@v0.8.0-sila.1",').replace('"sila-types>=0.4.1,<0.5",','"sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",').replace('"sila-rlp>=0.1.6,<0.2",','"sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",'); rp.write_text(s)
+          tp=out/'packages/testing/pyproject.toml'; s=tp.read_text().replace('"trie>=3.1.0,<4",','"sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",').replace('"sila-types>=0.4.1,<0.5",','"sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",').replace('"sila-rlp>=0.1.6,<0.2",','"sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",').replace('"sil-remerkleable==0.1.31",','"sil-remerkleable @ git+https://github.com/sila-chain/remerkleable.git@v0.1.31-sila.1",'); tp.write_text(s)
           cwd=pathlib.Path.cwd()
           for p in list(cwd.iterdir()):
               if p.name=='.git': continue
