@@ -22,23 +22,32 @@ jobs:
           git remote add upstream https://github.com/ethereum/execution-specs.git
           git fetch --no-tags upstream 4887bcaa2b92c27f0d12891b3518dffe5bbd1749
           test "$(git rev-parse FETCH_HEAD)" = "4887bcaa2b92c27f0d12891b3518dffe5bbd1749"
-      - name: Diagnose replay of proven Sila identity patch
-        shell: bash
+      - name: Derive proven path identity rules from baseline
+        shell: python
         run: |
-          set +e
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git diff --binary --full-index --find-renames e0e4abc744fda937ccb4da26b9d5c4bdd1e74bc5 461f6633990a25ed887b8ced75fd7b4354c96eb6 > /tmp/sila-identity.patch
-          echo "IDENTITY_PATCH_BYTES=$(wc -c < /tmp/sila-identity.patch | tr -d ' ')"
-          git reset --hard 4887bcaa2b92c27f0d12891b3518dffe5bbd1749
-          git apply --3way --index /tmp/sila-identity.patch >/tmp/apply.out 2>&1
-          rc=$?
-          echo "APPLY_RC=$rc"
-          tail -200 /tmp/apply.out
-          echo "UNMERGED_COUNT=$(git diff --name-only --diff-filter=U | wc -l | tr -d ' ')"
-          echo "UNMERGED_PATHS_BEGIN"
-          git diff --name-only --diff-filter=U | head -300
-          echo "UNMERGED_PATHS_END"
-          echo "INDEX_CHANGE_COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')"
-          echo "WORKTREE_CHANGE_COUNT=$(git diff --name-only | wc -l | tr -d ' ')"
-          exit 0
+          import subprocess, difflib, collections
+          base='e0e4abc744fda937ccb4da26b9d5c4bdd1e74bc5'
+          sila='461f6633990a25ed887b8ced75fd7b4354c96eb6'
+          out=subprocess.check_output(['git','-c','diff.renameLimit=10000','diff','--name-status','-M20%',base,sila],text=True,errors='replace')
+          ren=[]; adds=0; dels=0; mods=0
+          for line in out.splitlines():
+              p=line.split('\t')
+              st=p[0]
+              if st.startswith('R') and len(p)>=3: ren.append((p[1],p[2],st))
+              elif st=='A': adds+=1
+              elif st=='D': dels+=1
+              elif st=='M': mods+=1
+          print(f'RENAMES={len(ren)} ADDS={adds} DELETES={dels} MODS={mods}')
+          subs=collections.Counter()
+          for a,b,_ in ren:
+              sm=difflib.SequenceMatcher(None,a,b)
+              for tag,i1,i2,j1,j2 in sm.get_opcodes():
+                  if tag=='replace':
+                      old=a[i1:i2]; new=b[j1:j2]
+                      if old or new: subs[(old,new)]+=1
+          print('TOP_PATH_SUBSTITUTIONS_BEGIN')
+          for (a,b),n in subs.most_common(80): print(f'{n}\t{a!r}\t=>\t{b!r}')
+          print('TOP_PATH_SUBSTITUTIONS_END')
+          print('SAMPLE_RENAMES_BEGIN')
+          for a,b,st in ren[:200]: print(f'{st}\t{a}\t=>\t{b}')
+          print('SAMPLE_RENAMES_END')
