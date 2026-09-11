@@ -40,24 +40,18 @@ jobs:
               if p1.returncode or p2.returncode: raise SystemExit('ARCHIVE_FAILED')
           archive(BASE,b); archive(REF,s); archive(LATEST,l)
 
-          def rep_token(text,old,new,case='lower'):
-              if case=='lower': pat=rf'(?<![A-Za-z]){re.escape(old)}(?=[^a-z]|$)'
-              else: pat=rf'(?<![A-Za-z]){re.escape(old)}(?=[^a-z]|$)'
-              return re.sub(pat,new,text)
+          def rep_token(text,old,new):
+              return re.sub(rf'(?<![A-Za-z]){re.escape(old)}(?=[^a-z]|$)',new,text)
           def tx_text(x):
               x=x.replace('eips.ethereum.org','sips.sila.org').replace('github.com/ethereum','github.com/sila').replace('ethereum.org','sila.org')
               x=x.replace('Ethereum Foundation','Sila Foundation')
-              # Specific compound identities first.
               for a,bv in [
                 ('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),
                 ('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),
                 ('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX'),('ethash','silash'),('Ethash','Silash'),('ETHASH','SILASH'),
                 ('Etherscan','SilaScan')]: x=x.replace(a,bv)
-              # Ethereum is a project identity even as an identifier prefix (ethereumjs -> silajs).
               x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
-              # Protocol tokens only at token/prefix boundaries; never inside receipt/fillerconvert/etc.
-              for a,bv in [('EIPs','SIPs'),('EIP','SIP'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('ERC','SRC'),('erc','src')]:
-                  x=rep_token(x,a,bv)
+              for a,bv in [('EIPs','SIPs'),('EIP','SIP'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('ERC','SRC'),('erc','src')]: x=rep_token(x,a,bv)
               x=x.replace('Ether','Sila').replace('ether','sila')
               x=re.sub(r'(?<![A-Za-z])ETH(?=[^a-z]|$)','SIL',x)
               x=re.sub(r'(?<![A-Za-z])Eth(?=[^a-z]|$)','Sil',x)
@@ -73,6 +67,12 @@ jobs:
               if x.endswith('/mainnet.json') or x=='mainnet.json': x=x[:-len('mainnet.json')]+'sila-mainnet.json'
               return x
           def transform(d):
+              # Preserve symlinks as links and transform both link names and their targets.
+              links=[]
+              for p in list(d.rglob('*')):
+                  if p.is_symlink():
+                      links.append((p.relative_to(d).as_posix(),os.readlink(p)))
+                      p.unlink()
               for p in list(d.rglob('*')):
                   if not p.is_file(): continue
                   z=p.read_bytes()
@@ -92,21 +92,26 @@ jobs:
                           p.rmdir()
                       else: raise SystemExit(f'PATH_COLLISION {rel}->{nr}')
                   else: p.rename(q)
+              for rel,target in links:
+                  nr=tx_path(rel); nt=tx_path(target)
+                  q=d/pathlib.PurePosixPath(nr); q.parent.mkdir(parents=True,exist_ok=True)
+                  if q.exists() or q.is_symlink(): raise SystemExit(f'SYMLINK_COLLISION {nr}')
+                  os.symlink(nt,q)
           transform(b); transform(l)
 
-          # Build a synthetic ancestry: transformed baseline -> proven Sila residual commit;
-          # and transformed baseline -> transformed latest. Then cherry-pick residual Sila changes.
-          shutil.copytree(b,repo)
+          shutil.copytree(b,repo,symlinks=True)
           run(['git','init'],cwd=repo); run(['git','config','user.name','model'],cwd=repo); run(['git','config','user.email','model@sila.local'],cwd=repo)
           run(['git','add','-A'],cwd=repo); run(['git','commit','-m','generic transformed baseline'],cwd=repo,stdout=subprocess.DEVNULL)
           base_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip()
           def replace_tree(src):
               for p in list(repo.iterdir()):
                   if p.name=='.git': continue
-                  if p.is_dir(): shutil.rmtree(p)
+                  if p.is_symlink(): p.unlink()
+                  elif p.is_dir(): shutil.rmtree(p)
                   else: p.unlink()
               for p in src.iterdir():
-                  if p.is_dir(): shutil.copytree(p,repo/p.name)
+                  if p.is_symlink(): os.symlink(os.readlink(p),repo/p.name)
+                  elif p.is_dir(): shutil.copytree(p,repo/p.name,symlinks=True)
                   else: shutil.copy2(p,repo/p.name)
           replace_tree(s); run(['git','add','-A'],cwd=repo); run(['git','commit','-m','proven Sila residual'],cwd=repo,stdout=subprocess.DEVNULL)
           residual_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip()
@@ -114,7 +119,6 @@ jobs:
           print(f'RESIDUAL_FILE_COUNT={len(residual_files)}')
           run(['git','checkout','-B','latest',base_sha],cwd=repo,stdout=subprocess.DEVNULL)
           replace_tree(l); run(['git','add','-A'],cwd=repo); run(['git','commit','-m','generic transformed latest'],cwd=repo,stdout=subprocess.DEVNULL)
-          latest_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip()
           cp=run(['git','cherry-pick',residual_sha],cwd=repo,check=False,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
           print(f'CHERRY_PICK_RC={cp.returncode}')
           print(cp.stdout[-12000:])
@@ -123,4 +127,6 @@ jobs:
           print('RESIDUAL_CONFLICT_PATHS_BEGIN')
           for x in conflicts[:300]: print(x)
           print('RESIDUAL_CONFLICT_PATHS_END')
-          print(f'GENERIC_LATEST_FILES={len([p for p in l.rglob("*") if p.is_file()])}')
+          print(f'GENERIC_LATEST_FILES={len([p for p in l.rglob("*") if p.is_file() or p.is_symlink()])}')
+          # Always diagnostic: abort if conflicted so the job itself reports successfully.
+          if conflicts: run(['git','cherry-pick','--abort'],cwd=repo,check=False)
