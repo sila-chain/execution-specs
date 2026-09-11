@@ -22,96 +22,105 @@ jobs:
           git remote add upstream https://github.com/ethereum/execution-specs.git
           git fetch --no-tags upstream 4887bcaa2b92c27f0d12891b3518dffe5bbd1749
           test "$(git rev-parse FETCH_HEAD)" = "4887bcaa2b92c27f0d12891b3518dffe5bbd1749"
-      - name: Baseline transformer fidelity diagnostic
+      - name: Model residual Sila patch over transformed latest authority
         shell: python
         run: |
-          import os,re,shutil,subprocess,tempfile,pathlib
+          import os,re,shutil,subprocess,pathlib
           BASE='e0e4abc744fda937ccb4da26b9d5c4bdd1e74bc5'
           REF='461f6633990a25ed887b8ced75fd7b4354c96eb6'
-          root=pathlib.Path('/tmp/sila-transform')
-          work=root/'work'; ref=root/'ref'
-          shutil.rmtree(root,ignore_errors=True); work.mkdir(parents=True); ref.mkdir(parents=True)
+          LATEST='4887bcaa2b92c27f0d12891b3518dffe5bbd1749'
+          root=pathlib.Path('/tmp/model'); shutil.rmtree(root,ignore_errors=True); root.mkdir()
+          b=root/'base'; s=root/'sila'; l=root/'latest'; repo=root/'repo'
+          for d in (b,s,l): d.mkdir()
+          def run(args,cwd=None,check=True,**kw): return subprocess.run(args,cwd=cwd,check=check,text=True,**kw)
           def archive(commit,dst):
               p1=subprocess.Popen(['git','archive',commit],stdout=subprocess.PIPE)
               p2=subprocess.Popen(['tar','-x','-C',str(dst)],stdin=p1.stdout)
               p1.stdout.close(); p2.wait(); p1.wait()
               if p1.returncode or p2.returncode: raise SystemExit('ARCHIVE_FAILED')
-          archive(BASE,work); archive(REF,ref)
+          archive(BASE,b); archive(REF,s); archive(LATEST,l)
 
-          literal=[
-            ('Ethereum Foundation','Sila Foundation'),
-            ('ETHEREUM','SILA'),('Ethereum','Sila'),('ethereum','sila'),
-            ('EIPs','SIPs'),('EIP','SIP'),('eips','sips'),('eip','sip'),
-            ('ERCS','SRCS'),('ERCs','SRCs'),('ERC','SRC'),('erc','src'),
-            ('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),
-            ('Etherscan','SilaScan'),
-            ('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),
-            ('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),
-            ('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX'),
-            ('ETH','SIL'),('Eth','Sil'),
-            ('Ether','Sila'),('ether','sila'),
-          ]
-          def tx_text(s):
-              # Exact URL/domain rules first.
-              s=s.replace('eips.ethereum.org','sips.sila.org')
-              s=s.replace('github.com/ethereum','github.com/sila')
-              s=s.replace('ethereum.org','sila.org')
-              for a,b in literal: s=s.replace(a,b)
-              # lower-case eth only when it is a token/prefix, never inside normal English words.
-              s=re.sub(r'(?<![A-Za-z])eth(?=[^A-Za-z]|$)', 'sil', s)
-              return s
-          def tx_path(s):
-              s=s.replace('Ethereum','Sila').replace('ETH','SIL')
-              s=s.replace('ethereum','sila')
-              s=s.replace('EIP','SIP').replace('eips','sips').replace('eip','sip')
-              s=s.replace('ERC','SRC').replace('erc','src')
-              s=s.replace('geth','gsil').replace('reth','rsil').replace('ethrex','silrex')
-              s=re.sub(r'(?<![A-Za-z])eth(?=[^A-Za-z]|$)', 'sil', s)
-              # Proven mainnet path forms from the existing Sila tree.
-              s=s.replace('mainnet_genesis','sila_mainnet_genesis')
-              s=s.replace('test_sip_mainnet','test_sip_sila_mainnet')
-              if s.endswith('/mainnet.json') or s=='mainnet.json':
-                  s=s[:-len('mainnet.json')]+'sila-mainnet.json'
-              return s
+          def rep_token(text,old,new,case='lower'):
+              if case=='lower': pat=rf'(?<![A-Za-z]){re.escape(old)}(?=[^a-z]|$)'
+              else: pat=rf'(?<![A-Za-z]){re.escape(old)}(?=[^a-z]|$)'
+              return re.sub(pat,new,text)
+          def tx_text(x):
+              x=x.replace('eips.ethereum.org','sips.sila.org').replace('github.com/ethereum','github.com/sila').replace('ethereum.org','sila.org')
+              x=x.replace('Ethereum Foundation','Sila Foundation')
+              # Specific compound identities first.
+              for a,bv in [
+                ('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),
+                ('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),
+                ('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX'),('ethash','silash'),('Ethash','Silash'),('ETHASH','SILASH'),
+                ('Etherscan','SilaScan')]: x=x.replace(a,bv)
+              # Ethereum is a project identity even as an identifier prefix (ethereumjs -> silajs).
+              x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
+              # Protocol tokens only at token/prefix boundaries; never inside receipt/fillerconvert/etc.
+              for a,bv in [('EIPs','SIPs'),('EIP','SIP'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('ERC','SRC'),('erc','src')]:
+                  x=rep_token(x,a,bv)
+              x=x.replace('Ether','Sila').replace('ether','sila')
+              x=re.sub(r'(?<![A-Za-z])ETH(?=[^a-z]|$)','SIL',x)
+              x=re.sub(r'(?<![A-Za-z])Eth(?=[^a-z]|$)','Sil',x)
+              x=re.sub(r'(?<![A-Za-z])eth(?=[^a-z]|$)','sil',x)
+              return x
+          def tx_path(x):
+              x=x.replace('Ethereum','Sila').replace('ETHEREUM','SILA').replace('ethereum','sila')
+              for a,bv in [('geth','gsil'),('reth','rsil'),('ethrex','silrex'),('ethash','silash')]: x=x.replace(a,bv)
+              for a,bv in [('EIPs','SIPs'),('EIP','SIP'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERC','SRC'),('erc','src')]: x=rep_token(x,a,bv)
+              x=re.sub(r'(?<![A-Za-z])ETH(?=[^a-z]|$)','SIL',x)
+              x=re.sub(r'(?<![A-Za-z])eth(?=[^a-z]|$)','sil',x)
+              x=x.replace('mainnet_genesis','sila_mainnet_genesis').replace('test_sip_mainnet','test_sip_sila_mainnet')
+              if x.endswith('/mainnet.json') or x=='mainnet.json': x=x[:-len('mainnet.json')]+'sila-mainnet.json'
+              return x
+          def transform(d):
+              for p in list(d.rglob('*')):
+                  if not p.is_file(): continue
+                  z=p.read_bytes()
+                  if b'\0' in z[:8192]: continue
+                  try: t=z.decode('utf-8')
+                  except UnicodeDecodeError: continue
+                  u=tx_text(t)
+                  if u!=t: p.write_text(u,encoding='utf-8',newline='')
+              for p in sorted(list(d.rglob('*')),key=lambda p:len(p.parts),reverse=True):
+                  if not p.exists(): continue
+                  rel=p.relative_to(d).as_posix(); nr=tx_path(rel)
+                  if nr==rel: continue
+                  q=d/pathlib.PurePosixPath(nr); q.parent.mkdir(parents=True,exist_ok=True)
+                  if q.exists():
+                      if p.is_dir():
+                          for ch in list(p.iterdir()): shutil.move(str(ch),str(q/ch.name))
+                          p.rmdir()
+                      else: raise SystemExit(f'PATH_COLLISION {rel}->{nr}')
+                  else: p.rename(q)
+          transform(b); transform(l)
 
-          # Transform UTF-8 text in place, leave binary bytes untouched.
-          for p in list(work.rglob('*')):
-              if not p.is_file(): continue
-              data=p.read_bytes()
-              if b'\0' in data[:8192]: continue
-              try: text=data.decode('utf-8')
-              except UnicodeDecodeError: continue
-              new=tx_text(text)
-              if new!=text: p.write_text(new,encoding='utf-8',newline='')
-
-          # Rename paths deepest-first.
-          paths=sorted([p for p in work.rglob('*')],key=lambda p:len(p.parts),reverse=True)
-          for p in paths:
-              if not p.exists(): continue
-              rel=p.relative_to(work).as_posix(); newrel=tx_path(rel)
-              if newrel==rel: continue
-              q=work/pathlib.PurePosixPath(newrel); q.parent.mkdir(parents=True,exist_ok=True)
-              if q.exists():
-                  if p.is_dir():
-                      for child in list(p.iterdir()): shutil.move(str(child),str(q/child.name))
-                      p.rmdir()
-                  else: raise SystemExit(f'PATH_COLLISION {rel} -> {newrel}')
-              else: p.rename(q)
-
-          # Compare transformed baseline with the proven Sila baseline tree.
-          cp=subprocess.run(['diff','-qr',str(work),str(ref)],text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-          lines=cp.stdout.splitlines()
-          print(f'BASELINE_MISMATCH_COUNT={len(lines)}')
-          print('BASELINE_MISMATCH_SAMPLE_BEGIN')
-          for line in lines[:250]: print(line)
-          print('BASELINE_MISMATCH_SAMPLE_END')
-          # Identity residuals in transformed baseline.
-          residual=[]
-          pat=re.compile(r'ethereum|Ethereum|\bEIP\b|\beip\b|\bETH\b|\beth\b|\bERC\b|\berc\b')
-          for p in work.rglob('*'):
-              if not p.is_file(): continue
-              try: t=p.read_text(encoding='utf-8')
-              except Exception: continue
-              if pat.search(t): residual.append(p.relative_to(work).as_posix())
-          print(f'BASELINE_RESIDUAL_PATH_COUNT={len(residual)}')
-          for x in residual[:150]: print('RESIDUAL',x)
+          # Build a synthetic ancestry: transformed baseline -> proven Sila residual commit;
+          # and transformed baseline -> transformed latest. Then cherry-pick residual Sila changes.
+          shutil.copytree(b,repo)
+          run(['git','init'],cwd=repo); run(['git','config','user.name','model'],cwd=repo); run(['git','config','user.email','model@sila.local'],cwd=repo)
+          run(['git','add','-A'],cwd=repo); run(['git','commit','-m','generic transformed baseline'],cwd=repo,stdout=subprocess.DEVNULL)
+          base_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip()
+          def replace_tree(src):
+              for p in list(repo.iterdir()):
+                  if p.name=='.git': continue
+                  if p.is_dir(): shutil.rmtree(p)
+                  else: p.unlink()
+              for p in src.iterdir():
+                  if p.is_dir(): shutil.copytree(p,repo/p.name)
+                  else: shutil.copy2(p,repo/p.name)
+          replace_tree(s); run(['git','add','-A'],cwd=repo); run(['git','commit','-m','proven Sila residual'],cwd=repo,stdout=subprocess.DEVNULL)
+          residual_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip()
+          residual_files=subprocess.check_output(['git','diff','--name-only',base_sha,residual_sha],cwd=repo,text=True).splitlines()
+          print(f'RESIDUAL_FILE_COUNT={len(residual_files)}')
+          run(['git','checkout','-B','latest',base_sha],cwd=repo,stdout=subprocess.DEVNULL)
+          replace_tree(l); run(['git','add','-A'],cwd=repo); run(['git','commit','-m','generic transformed latest'],cwd=repo,stdout=subprocess.DEVNULL)
+          latest_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip()
+          cp=run(['git','cherry-pick',residual_sha],cwd=repo,check=False,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+          print(f'CHERRY_PICK_RC={cp.returncode}')
+          print(cp.stdout[-12000:])
+          conflicts=subprocess.check_output(['git','diff','--name-only','--diff-filter=U'],cwd=repo,text=True).splitlines()
+          print(f'RESIDUAL_CONFLICT_COUNT={len(conflicts)}')
+          print('RESIDUAL_CONFLICT_PATHS_BEGIN')
+          for x in conflicts[:300]: print(x)
+          print('RESIDUAL_CONFLICT_PATHS_END')
+          print(f'GENERIC_LATEST_FILES={len([p for p in l.rglob("*") if p.is_file()])}')
