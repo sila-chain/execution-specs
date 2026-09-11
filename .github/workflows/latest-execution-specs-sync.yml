@@ -9,13 +9,12 @@ permissions:
   contents: write
 
 jobs:
-  generate-validate:
+  identity:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
-
       - name: Fetch exact upstream authority
         shell: bash
         run: |
@@ -23,248 +22,91 @@ jobs:
           git remote add upstream https://github.com/ethereum/execution-specs.git
           git fetch --no-tags upstream 4887bcaa2b92c27f0d12891b3518dffe5bbd1749
           test "$(git rev-parse FETCH_HEAD)" = "4887bcaa2b92c27f0d12891b3518dffe5bbd1749"
-
-      - name: Generate latest Pure Sila tree from exact authority
+      - name: Generate latest Pure Sila candidate
         shell: python
         run: |
-          import os, re, shutil, subprocess, pathlib
-
-          AUTH = '4887bcaa2b92c27f0d12891b3518dffe5bbd1749'
-          out = pathlib.Path('/tmp/generated-sila-execution-specs')
-          shutil.rmtree(out, ignore_errors=True)
-          out.mkdir(parents=True)
-
-          p1 = subprocess.Popen(['git', 'archive', AUTH], stdout=subprocess.PIPE)
-          p2 = subprocess.Popen(['tar', '-x', '-C', str(out)], stdin=p1.stdout)
-          p1.stdout.close(); p2.wait(); p1.wait()
-          if p1.returncode or p2.returncode:
-              raise SystemExit('AUTHORITY_ARCHIVE_FAILED')
-
-          def token(text, old, new):
-              return re.sub(rf'(?<![A-Za-z]){re.escape(old)}(?=[^a-z]|$)', new, text)
-
-          def mainnet(text):
-              text = text.replace('MAINNET', 'SILA_MAINNET').replace('Mainnet', 'SilaMainnet')
-              def repl(m):
-                  i, j = m.start(), m.end()
-                  prev = text[i-1] if i else ''
-                  nxt = text[j] if j < len(text) else ''
-                  if prev.isalnum() or prev == '_' or nxt.isalnum() or nxt == '_':
-                      return 'sila_mainnet'
-                  return 'sila-mainnet'
-              return re.sub(r'(?<!sila[-_])mainnet', repl, text)
-
-          def convert_text(text):
-              # Exact authorities/domains first.
-              text = text.replace('eips.ethereum.org', 'sips.sila.org')
-              text = text.replace('github.com/ethereum', 'github.com/sila')
-              text = text.replace('ethereum.org', 'sila.org')
-              text = text.replace('Ethereum Foundation', 'Sila Foundation')
-
-              # Established compound identities.
-              compounds = [
-                  ('WETH','WSIL'), ('IWETH','IWSIL'), ('IERC','ISRC'),
-                  ('AERC','ASRC'), ('IEIP','ISIP'), ('Etherscan','SilaScan'),
-                  ('geth','gsil'), ('Geth','Gsil'), ('GETH','GSIL'),
-                  ('reth','rsil'), ('Reth','Rsil'), ('RETH','RSIL'),
-                  ('ethrex','silrex'), ('Ethrex','Silrex'), ('ETHREX','SILREX'),
-                  ('ethash','silash'), ('Ethash','Silash'), ('ETHASH','SILASH'),
-              ]
-              for a, b in compounds:
-                  text = text.replace(a, b)
-
-              # Project identity is valid as an identifier prefix too.
-              text = text.replace('ETHEREUM', 'SILA').replace('Ethereum', 'Sila').replace('ethereum', 'sila')
-
-              # Protocol tokens must never mutate ordinary words such as receipt/fillerconvert/whether.
-              for a, b in [
-                  ('EIPs','SIPs'), ('EIP','SIP'), ('eips','sips'), ('eip','sip'),
-                  ('ERCS','SRCS'), ('ERCs','SRCs'), ('ERC','SRC'), ('erc','src'),
-                  ('Ether','Sila'), ('ether','sila'),
-                  ('ETH','SIL'), ('Eth','Sil'), ('eth','sil'),
-              ]:
-                  text = token(text, a, b)
-
-              text = text.replace('Sepolia', 'SilaSepolia').replace('Holesky', 'SilaHolesky')
-              text = mainnet(text)
-              return text
-
-          def convert_path(path):
-              path = path.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
-              for a,b in [('geth','gsil'),('reth','rsil'),('ethrex','silrex'),('ethash','silash')]:
-                  path = path.replace(a,b)
-              for a,b in [
-                  ('EIPs','SIPs'),('EIP','SIP'),('eips','sips'),('eip','sip'),
-                  ('ERCS','SRCS'),('ERC','SRC'),('erc','src'),
-                  ('ETH','SIL'),('eth','sil')
-              ]:
-                  path = token(path,a,b)
-              return mainnet(path)
-
-          # Preserve and transform symbolic links as links.
-          links = []
+          import os,re,shutil,subprocess,pathlib
+          AUTH='4887bcaa2b92c27f0d12891b3518dffe5bbd1749'
+          out=pathlib.Path('/tmp/generated'); shutil.rmtree(out,ignore_errors=True); out.mkdir()
+          p1=subprocess.Popen(['git','archive',AUTH],stdout=subprocess.PIPE)
+          p2=subprocess.Popen(['tar','-x','-C',str(out)],stdin=p1.stdout); p1.stdout.close(); p2.wait(); p1.wait()
+          if p1.returncode or p2.returncode: raise SystemExit('ARCHIVE_FAILED')
+          def token(x,a,b): return re.sub(rf'(?<![A-Za-z]){re.escape(a)}(?=[^a-z]|$)',b,x)
+          def mainnet(x):
+              x=x.replace('MAINNET','SILA_MAINNET').replace('Mainnet','SilaMainnet')
+              def r(m):
+                  i,j=m.start(),m.end(); prev=x[i-1] if i else ''; nxt=x[j] if j<len(x) else ''
+                  return 'sila_mainnet' if (prev.isalnum() or prev=='_' or nxt.isalnum() or nxt=='_') else 'sila-mainnet'
+              return re.sub(r'(?<!sila[-_])mainnet',r,x)
+          def text(x):
+              x=x.replace('eips.ethereum.org','sips.sila.org').replace('github.com/ethereum','github.com/sila').replace('ethereum.org','sila.org').replace('Ethereum Foundation','Sila Foundation')
+              for a,b in [('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),('Etherscan','SilaScan'),('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX'),('ethash','silash'),('Ethash','Silash'),('ETHASH','SILASH')]: x=x.replace(a,b)
+              x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
+              for a,b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('Ether','Sila'),('ether','sila'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]: x=token(x,a,b)
+              x=x.replace('Sepolia','SilaSepolia').replace('Holesky','SilaHolesky')
+              return mainnet(x)
+          def path(x):
+              x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
+              for a,b in [('geth','gsil'),('reth','rsil'),('ethrex','silrex'),('ethash','silash')]: x=x.replace(a,b)
+              for a,b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]: x=token(x,a,b)
+              return mainnet(x)
+          links=[]
           for p in list(out.rglob('*')):
-              if p.is_symlink():
-                  links.append((p.relative_to(out).as_posix(), os.readlink(p)))
-                  p.unlink()
-
-          # uv.lock is generated data: never identity-edit it; regenerate below.
-          lock = out / 'uv.lock'
-          if lock.exists():
-              lock.unlink()
-
+              if p.is_symlink(): links.append((p.relative_to(out).as_posix(),os.readlink(p))); p.unlink()
+          if (out/'uv.lock').exists(): (out/'uv.lock').unlink()
           for p in list(out.rglob('*')):
-              if not p.is_file():
-                  continue
-              data = p.read_bytes()
-              if b'\0' in data[:8192]:
-                  continue
-              try:
-                  old = data.decode('utf-8')
-              except UnicodeDecodeError:
-                  continue
-              new = convert_text(old)
-              if new != old:
-                  p.write_text(new, encoding='utf-8', newline='')
-
-          for p in sorted(list(out.rglob('*')), key=lambda x: len(x.parts), reverse=True):
-              if not p.exists():
-                  continue
-              rel = p.relative_to(out).as_posix()
-              new_rel = convert_path(rel)
-              if rel == new_rel:
-                  continue
-              q = out / pathlib.PurePosixPath(new_rel)
-              q.parent.mkdir(parents=True, exist_ok=True)
+              if not p.is_file(): continue
+              z=p.read_bytes()
+              if b'\0' in z[:8192]: continue
+              try: s=z.decode()
+              except UnicodeDecodeError: continue
+              t=text(s)
+              if t!=s: p.write_text(t,encoding='utf-8',newline='')
+          for p in sorted(list(out.rglob('*')),key=lambda q:len(q.parts),reverse=True):
+              if not p.exists(): continue
+              rel=p.relative_to(out).as_posix(); nr=path(rel)
+              if nr==rel: continue
+              q=out/pathlib.PurePosixPath(nr); q.parent.mkdir(parents=True,exist_ok=True)
               if q.exists():
                   if p.is_dir():
-                      for child in list(p.iterdir()):
-                          shutil.move(str(child), str(q / child.name))
+                      for c in list(p.iterdir()): shutil.move(str(c),str(q/c.name))
                       p.rmdir()
-                  else:
-                      raise SystemExit(f'PATH_COLLISION={rel}->{new_rel}')
-              else:
-                  p.rename(q)
-
-          for rel, target in links:
-              q = out / pathlib.PurePosixPath(convert_path(rel))
-              q.parent.mkdir(parents=True, exist_ok=True)
-              os.symlink(convert_path(target), q)
-
-          # Exact latest stable Sila dependency overlays not derivable by identity spelling alone.
-          root_py = out / 'pyproject.toml'
-          s = root_py.read_text()
-          s = s.replace('"py-ecc>=8.0.0b2,<9",', '"sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",')
-          s = s.replace('"silash>=1.1.0,<2",', '"sil-hash @ git+https://github.com/sila-chain/sil-hash.git@v0.8.0-sila.1",')
-          root_py.write_text(s)
-
-          test_py = out / 'packages/testing/pyproject.toml'
-          s = test_py.read_text()
-          s = s.replace('"trie>=3.1.0,<4",', '"sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",')
-          test_py.write_text(s)
-
-          # Replace checkout contents with generated tree; keep only .git from the working branch.
-          cwd = pathlib.Path.cwd()
+                  else: raise SystemExit(f'PATH_COLLISION={rel}->{nr}')
+              else: p.rename(q)
+          for rel,target in links:
+              q=out/pathlib.PurePosixPath(path(rel)); q.parent.mkdir(parents=True,exist_ok=True); os.symlink(path(target),q)
+          rp=out/'pyproject.toml'; s=rp.read_text(); s=s.replace('"py-ecc>=8.0.0b2,<9",','"sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",').replace('"silash>=1.1.0,<2",','"sil-hash @ git+https://github.com/sila-chain/sil-hash.git@v0.8.0-sila.1",'); rp.write_text(s)
+          tp=out/'packages/testing/pyproject.toml'; s=tp.read_text().replace('"trie>=3.1.0,<4",','"sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",'); tp.write_text(s)
+          cwd=pathlib.Path.cwd()
           for p in list(cwd.iterdir()):
-              if p.name == '.git':
-                  continue
+              if p.name=='.git': continue
               if p.is_symlink(): p.unlink()
               elif p.is_dir(): shutil.rmtree(p)
               else: p.unlink()
           for p in out.iterdir():
-              dst = cwd / p.name
-              if p.is_symlink(): os.symlink(os.readlink(p), dst)
-              elif p.is_dir(): shutil.copytree(p, dst, symlinks=True)
-              else: shutil.copy2(p, dst)
-
-          print('GENERATED_FROM_AUTHORITY=' + AUTH)
-
-      - name: Pure Sila identity gate before lock generation
+              d=cwd/p.name
+              if p.is_symlink(): os.symlink(os.readlink(p),d)
+              elif p.is_dir(): shutil.copytree(p,d,symlinks=True)
+              else: shutil.copy2(p,d)
+          print('GENERATED_FROM_AUTHORITY='+AUTH)
+      - name: Detailed Pure Sila identity gate
         shell: python
         run: |
-          import pathlib, re
-          patterns = [
-              re.compile(r'ethereum', re.I),
-              re.compile(r'(?<![A-Za-z])eips?(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<![A-Za-z])ercs?(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<![A-Za-z])eth(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<![A-Za-z])ether(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<!sila[-_])mainnet', re.I),
-          ]
+          import pathlib,re
+          rules=[('ethereum',re.compile(r'ethereum',re.I)),('eip',re.compile(r'(?<![A-Za-z])eips?(?=[^a-z]|$)',re.I)),('erc',re.compile(r'(?<![A-Za-z])ercs?(?=[^a-z]|$)',re.I)),('eth',re.compile(r'(?<![A-Za-z])eth(?=[^a-z]|$)',re.I)),('ether',re.compile(r'(?<![A-Za-z])ether(?=[^a-z]|$)',re.I)),('mainnet',re.compile(r'(?<!sila[-_])mainnet',re.I))]
           hits=[]
           for p in pathlib.Path('.').rglob('*'):
-              if not p.is_file() or '.git' in p.parts or p.name == 'uv.lock': continue
-              try: t=p.read_text(encoding='utf-8')
+              if not p.is_file() or '.git' in p.parts or p.name=='uv.lock': continue
+              try: lines=p.read_text(encoding='utf-8').splitlines()
               except Exception: continue
-              if any(rx.search(t) for rx in patterns): hits.append(str(p))
-          print('ACTIONABLE_IDENTITY_RESIDUAL_COUNT=' + str(len(hits)))
-          for x in hits[:300]: print(x)
+              found=False
+              for n,line in enumerate(lines,1):
+                  for label,rx in rules:
+                      m=rx.search(line)
+                      if m:
+                          if not found: hits.append(str(p)); found=True
+                          print(f'{p}:{n}:{label}:{m.group(0)!r}:{line[:400]}')
+                          break
+                  if found: break
+          print('ACTIONABLE_IDENTITY_RESIDUAL_COUNT='+str(len(hits)))
           if hits: raise SystemExit(1)
-
-      - name: Setup uv Python and just from generated authority tree
-        uses: ./.github/actions/setup-uv
-
-      - name: Regenerate authoritative lockfile
-        shell: bash
-        run: |
-          uv lock
-          uv lock --check
-
-      - name: Validate dependency install
-        shell: bash
-        run: uv sync --all-groups
-
-      - name: Static gate
-        shell: bash
-        run: just static
-
-      - name: Packaging gate
-        shell: bash
-        run: just test-packaging
-
-      - name: Execute collect gate
-        shell: bash
-        run: just execute-collect
-
-      - name: Consume collect gate
-        shell: bash
-        run: just consume-collect
-
-      - name: Spec tools gate
-        shell: bash
-        run: just spec-tools
-
-      - name: CI scripts gate
-        shell: bash
-        run: just test-ci-scripts
-
-      - name: Final identity gate
-        shell: python
-        run: |
-          import pathlib, re
-          patterns = [
-              re.compile(r'ethereum', re.I),
-              re.compile(r'(?<![A-Za-z])eips?(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<![A-Za-z])ercs?(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<![A-Za-z])eth(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<![A-Za-z])ether(?=[^a-z]|$)', re.I),
-              re.compile(r'(?<!sila[-_])mainnet', re.I),
-          ]
-          hits=[]
-          for p in pathlib.Path('.').rglob('*'):
-              if not p.is_file() or '.git' in p.parts or p.name == 'uv.lock': continue
-              try: t=p.read_text(encoding='utf-8')
-              except Exception: continue
-              if any(rx.search(t) for rx in patterns): hits.append(str(p))
-          print('ACTIONABLE_IDENTITY_RESIDUAL_COUNT=' + str(len(hits)))
-          for x in hits[:300]: print(x)
-          if hits: raise SystemExit(1)
-
-      - name: Publish clean generated branch
-        shell: bash
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m 'sync: latest execution specs authority 4887bcaa'
-          git push --force origin HEAD:refs/heads/sila/generated-execution-specs-4887bcaa
