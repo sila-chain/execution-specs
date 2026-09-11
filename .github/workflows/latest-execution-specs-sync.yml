@@ -39,12 +39,15 @@ jobs:
                   return 'sila_mainnet' if (prev.isalnum() or prev=='_' or nxt.isalnum() or nxt=='_') else 'sila-mainnet'
               return re.sub(r'(?<!sila[-_])mainnet',r,x)
           def text(x):
+              # eth-abi is currently maintained by ApeWorX, not Ethereum. Preserve this third-party identity.
+              x=x.replace('eth-abi','__THIRD_PARTY_ETH_ABI_HYPHEN__').replace('eth_abi','__THIRD_PARTY_ETH_ABI_UNDERSCORE__')
               x=x.replace('eips.ethereum.org','sips.sila.org').replace('github.com/ethereum','github.com/sila').replace('ethereum.org','sila.org').replace('Ethereum Foundation','Sila Foundation')
               for a,b in [('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),('Etherscan','SilaScan'),('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX'),('ethash','silash'),('Ethash','Silash'),('ETHASH','SILASH')]: x=x.replace(a,b)
               x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
               for a,b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('Ether','Sila'),('ether','sila'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]: x=token(x,a,b)
               x=x.replace('Sepolia','SilaSepolia').replace('Holesky','SilaHolesky')
-              return mainnet(x)
+              x=mainnet(x)
+              return x.replace('__THIRD_PARTY_ETH_ABI_HYPHEN__','eth-abi').replace('__THIRD_PARTY_ETH_ABI_UNDERSCORE__','eth_abi')
           def path(x):
               x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
               for a,b in [('geth','gsil'),('reth','rsil'),('ethrex','silrex'),('ethash','silash')]: x=x.replace(a,b)
@@ -99,6 +102,8 @@ jobs:
               if not p.is_file() or '.git' in p.parts or p.name=='uv.lock': continue
               try: t=p.read_text(encoding='utf-8')
               except Exception: continue
+              # Narrow third-party allowlist: ApeWorX eth-abi package/import identity only.
+              t=t.replace('eth-abi','__THIRD_PARTY_ABI__').replace('eth_abi','__THIRD_PARTY_ABI__')
               if any(rx.search(t) for rx in rules): hits.append(str(p))
           print('ACTIONABLE_IDENTITY_RESIDUAL_COUNT='+str(len(hits)))
           for x in hits[:200]: print(x)
