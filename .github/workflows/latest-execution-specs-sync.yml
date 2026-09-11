@@ -22,32 +22,40 @@ jobs:
           git remote add upstream https://github.com/ethereum/execution-specs.git
           git fetch --no-tags upstream 4887bcaa2b92c27f0d12891b3518dffe5bbd1749
           test "$(git rev-parse FETCH_HEAD)" = "4887bcaa2b92c27f0d12891b3518dffe5bbd1749"
-      - name: Derive proven path identity rules from baseline
+      - name: Derive proven content token rules from baseline
         shell: python
         run: |
-          import subprocess, difflib, collections
+          import subprocess, re, difflib, collections
           base='e0e4abc744fda937ccb4da26b9d5c4bdd1e74bc5'
           sila='461f6633990a25ed887b8ced75fd7b4354c96eb6'
-          out=subprocess.check_output(['git','-c','diff.renameLimit=10000','diff','--name-status','-M20%',base,sila],text=True,errors='replace')
-          ren=[]; adds=0; dels=0; mods=0
-          for line in out.splitlines():
-              p=line.split('\t')
-              st=p[0]
-              if st.startswith('R') and len(p)>=3: ren.append((p[1],p[2],st))
-              elif st=='A': adds+=1
-              elif st=='D': dels+=1
-              elif st=='M': mods+=1
-          print(f'RENAMES={len(ren)} ADDS={adds} DELETES={dels} MODS={mods}')
-          subs=collections.Counter()
-          for a,b,_ in ren:
-              sm=difflib.SequenceMatcher(None,a,b)
+          ns=subprocess.check_output(['git','-c','diff.renameLimit=10000','diff','--name-status','-M50%',base,sila],text=True,errors='replace')
+          pairs=[]
+          for line in ns.splitlines():
+              p=line.split('\t'); st=p[0]
+              if st=='M' and len(p)==2: pairs.append((p[1],p[1]))
+              elif st.startswith('R') and len(p)>=3: pairs.append((p[1],p[2]))
+          def blob(commit,path):
+              try: return subprocess.check_output(['git','show',f'{commit}:{path}'])
+              except subprocess.CalledProcessError: return None
+          tok_re=re.compile(r'[A-Za-z_][A-Za-z0-9_\-\.]*|\d+|\s+|.',re.S)
+          c=collections.Counter(); files=0
+          for a,b in pairs:
+              x=blob(base,a); y=blob(sila,b)
+              if x is None or y is None or b'\0' in x[:8192] or b'\0' in y[:8192]: continue
+              try: xs=x.decode('utf-8'); ys=y.decode('utf-8')
+              except UnicodeDecodeError: continue
+              xt=tok_re.findall(xs); yt=tok_re.findall(ys)
+              if len(xt)>200000 or len(yt)>200000: continue
+              sm=difflib.SequenceMatcher(None,xt,yt,autojunk=False)
               for tag,i1,i2,j1,j2 in sm.get_opcodes():
-                  if tag=='replace':
-                      old=a[i1:i2]; new=b[j1:j2]
-                      if old or new: subs[(old,new)]+=1
-          print('TOP_PATH_SUBSTITUTIONS_BEGIN')
-          for (a,b),n in subs.most_common(80): print(f'{n}\t{a!r}\t=>\t{b!r}')
-          print('TOP_PATH_SUBSTITUTIONS_END')
-          print('SAMPLE_RENAMES_BEGIN')
-          for a,b,st in ren[:200]: print(f'{st}\t{a}\t=>\t{b}')
-          print('SAMPLE_RENAMES_END')
+                  if tag!='replace': continue
+                  aa=[t for t in xt[i1:i2] if not t.isspace()]
+                  bb=[t for t in yt[j1:j2] if not t.isspace()]
+                  if len(aa)==1 and len(bb)==1 and aa[0]!=bb[0]: c[(aa[0],bb[0])]+=1
+              files+=1
+          print(f'PAIRED_TEXT_FILES={files}')
+          print('TOKEN_RULES_BEGIN')
+          for (a,b),n in c.most_common(200):
+              if n>=2 or any(k in a for k in ('eth','Eth','ETH','eip','EIP','erc','ERC','mainnet','Mainnet','ethereum','Ethereum')):
+                  print(f'{n}\t{a!r}\t=>\t{b!r}')
+          print('TOKEN_RULES_END')
