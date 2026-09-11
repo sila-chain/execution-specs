@@ -22,7 +22,7 @@ jobs:
           git remote add upstream https://github.com/ethereum/execution-specs.git
           git fetch --no-tags upstream 4887bcaa2b92c27f0d12891b3518dffe5bbd1749
           test "$(git rev-parse FETCH_HEAD)" = "4887bcaa2b92c27f0d12891b3518dffe5bbd1749"
-      - name: Model residual Sila patch over transformed latest authority
+      - name: Reduce residual conflicts against transformed latest
         shell: python
         run: |
           import os,re,shutil,subprocess,pathlib
@@ -67,12 +67,10 @@ jobs:
               if x.endswith('/mainnet.json') or x=='mainnet.json': x=x[:-len('mainnet.json')]+'sila-mainnet.json'
               return x
           def transform(d):
-              # Preserve symlinks as links and transform both link names and their targets.
               links=[]
               for p in list(d.rglob('*')):
                   if p.is_symlink():
-                      links.append((p.relative_to(d).as_posix(),os.readlink(p)))
-                      p.unlink()
+                      links.append((p.relative_to(d).as_posix(),os.readlink(p))); p.unlink()
               for p in list(d.rglob('*')):
                   if not p.is_file(): continue
                   z=p.read_bytes()
@@ -115,18 +113,45 @@ jobs:
                   else: shutil.copy2(p,repo/p.name)
           replace_tree(s); run(['git','add','-A'],cwd=repo); run(['git','commit','-m','proven Sila residual'],cwd=repo,stdout=subprocess.DEVNULL)
           residual_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip()
-          residual_files=subprocess.check_output(['git','diff','--name-only',base_sha,residual_sha],cwd=repo,text=True).splitlines()
-          print(f'RESIDUAL_FILE_COUNT={len(residual_files)}')
           run(['git','checkout','-B','latest',base_sha],cwd=repo,stdout=subprocess.DEVNULL)
           replace_tree(l); run(['git','add','-A'],cwd=repo); run(['git','commit','-m','generic transformed latest'],cwd=repo,stdout=subprocess.DEVNULL)
           cp=run(['git','cherry-pick',residual_sha],cwd=repo,check=False,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-          print(f'CHERRY_PICK_RC={cp.returncode}')
-          print(cp.stdout[-12000:])
           conflicts=subprocess.check_output(['git','diff','--name-only','--diff-filter=U'],cwd=repo,text=True).splitlines()
-          print(f'RESIDUAL_CONFLICT_COUNT={len(conflicts)}')
-          print('RESIDUAL_CONFLICT_PATHS_BEGIN')
-          for x in conflicts[:300]: print(x)
-          print('RESIDUAL_CONFLICT_PATHS_END')
-          print(f'GENERIC_LATEST_FILES={len([p for p in l.rglob("*") if p.is_file() or p.is_symlink()])}')
-          # Always diagnostic: abort if conflicted so the job itself reports successfully.
-          if conflicts: run(['git','cherry-pick','--abort'],cwd=repo,check=False)
+          print(f'INITIAL_CONFLICT_COUNT={len(conflicts)}')
+
+          deleted=[]
+          for rel in conflicts:
+              lp=l/pathlib.PurePosixPath(rel)
+              if not lp.exists() and not lp.is_symlink():
+                  run(['git','rm','-f','--',rel],cwd=repo,check=False,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+                  deleted.append(rel)
+          print(f'UPSTREAM_DELETION_RESOLVED_COUNT={len(deleted)}')
+          print('UPSTREAM_DELETION_RESOLVED_BEGIN')
+          for x in deleted: print(x)
+          print('UPSTREAM_DELETION_RESOLVED_END')
+
+          remain=subprocess.check_output(['git','diff','--name-only','--diff-filter=U'],cwd=repo,text=True).splitlines()
+          print(f'REMAINING_REAL_CONFLICT_COUNT={len(remain)}')
+          print('REMAINING_REAL_CONFLICTS_BEGIN')
+          for x in remain: print(x)
+          print('REMAINING_REAL_CONFLICTS_END')
+
+          # Print compact conflict hunks for remaining paths, enough to classify the Sila-only deltas.
+          print('CONFLICT_HUNKS_BEGIN')
+          for rel in remain:
+              print(f'===== {rel} =====')
+              p=repo/pathlib.PurePosixPath(rel)
+              if not p.exists() or p.is_symlink(): continue
+              try: lines=p.read_text(encoding='utf-8',errors='replace').splitlines()
+              except Exception: continue
+              shown=0; i=0
+              while i < len(lines) and shown < 3:
+                  if lines[i].startswith('<<<<<<<'):
+                      j=i
+                      while j < len(lines) and not lines[j].startswith('>>>>>>>'): j+=1
+                      for q in lines[max(0,i-3):min(len(lines),j+4)]: print(q[:500])
+                      print('---')
+                      shown+=1; i=j+1
+                  else: i+=1
+          print('CONFLICT_HUNKS_END')
+          run(['git','cherry-pick','--abort'],cwd=repo,check=False)
