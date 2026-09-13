@@ -119,9 +119,30 @@ jobs:
       - name: Validate dependency install
         shell: bash
         run: uv sync --all-groups
-      - name: Static gate
+      - name: Static - typecheck
         shell: bash
-        run: just static
+        run: just typecheck
+      - name: Static - lint-spec
+        shell: bash
+        run: just lint-spec
+      - name: Static - spellcheck
+        shell: bash
+        run: just spellcheck
+      - name: Static - deadcode
+        shell: bash
+        run: just deadcode
+      - name: Static - lint-actions
+        shell: bash
+        run: just lint-actions
+      - name: Static - lock-check
+        shell: bash
+        run: just lock-check
+      - name: Static - format-check
+        shell: bash
+        run: just format-check
+      - name: Static - lint
+        shell: bash
+        run: just lint
       - name: Packaging gate
         shell: bash
         run: just test-packaging
