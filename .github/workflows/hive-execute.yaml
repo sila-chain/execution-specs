@@ -28,7 +28,7 @@ concurrency:
 jobs:
   cache-docker-images:
     name: Cache Docker Images
-    runs-on: [self-hosted-ghr, size-l-x64]
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -36,12 +36,12 @@ jobs:
       - name: Cache Docker images
         uses: ./.github/actions/cache-docker-images
         with:
-          images: "docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
+          images: "docker.io/alpine:latest docker.io/library/golang:1-alpine"
 
   test-execute-remote:
     name: Execute Remote E2E
     needs: cache-docker-images
-    runs-on: [self-hosted-ghr, size-l-x64]
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
