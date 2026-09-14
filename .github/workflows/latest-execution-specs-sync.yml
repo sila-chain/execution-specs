@@ -52,6 +52,7 @@ jobs:
           def text(x):
               x = x.replace('eth-abi', '__EXTERNAL_ABI_HYPHEN__').replace('eth_abi', '__EXTERNAL_ABI_UNDERSCORE__')
               x = x.replace('ethereum-hive', '__EXTERNAL_HIVE_DIST__')
+              x = x.replace('ethereum_test_', '__EXTERNAL_EXECUTION_TEST_PKG__')
               x = x.replace('eips.ethereum.org', 'sips.sila.org').replace('github.com/ethereum', 'github.com/sila').replace('ethereum.org', 'sila.org').replace('Ethereum Foundation', 'Sila Foundation')
               for a, b in [('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),('Etherscan','SilaScan'),('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX')]:
                   x = x.replace(a, b)
@@ -64,15 +65,16 @@ jobs:
               x = x.replace('from sila_rlp import rlp', 'import sila_rlp as rlp')
               x = x.replace('from sila_rlp.exceptions import RLPException', 'from sila_rlp.exceptions import SILA_RLPException as RLPException')
               x = mainnet(x)
-              return x.replace('__EXTERNAL_ABI_HYPHEN__', 'eth-abi').replace('__EXTERNAL_ABI_UNDERSCORE__', 'eth_abi').replace('__EXTERNAL_HIVE_DIST__', 'ethereum-hive')
+              return x.replace('__EXTERNAL_ABI_HYPHEN__', 'eth-abi').replace('__EXTERNAL_ABI_UNDERSCORE__', 'eth_abi').replace('__EXTERNAL_HIVE_DIST__', 'ethereum-hive').replace('__EXTERNAL_EXECUTION_TEST_PKG__', 'ethereum_test_')
 
           def path(x):
+              x = x.replace('ethereum_test_', '__EXTERNAL_EXECUTION_TEST_PKG__')
               x = x.replace('ETHEREUM', 'SILA').replace('Ethereum', 'Sila').replace('ethereum', 'sila')
               for a, b in [('geth','gsil'),('reth','rsil'),('ethrex','silrex')]:
                   x = x.replace(a, b)
               for a, b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]:
                   x = token(x, a, b)
-              return mainnet(x)
+              return mainnet(x).replace('__EXTERNAL_EXECUTION_TEST_PKG__', 'ethereum_test_')
 
           links = []
           for p in list(out.rglob('*')):
@@ -161,6 +163,7 @@ jobs:
               try: t = p.read_text(encoding='utf-8')
               except Exception: continue
               t = t.replace('eth-abi','__EXTERNAL_ABI__').replace('eth_abi','__EXTERNAL_ABI__').replace('ethereum-hive','__EXTERNAL_HIVE__')
+              t = re.sub(r'ethereum_test_[A-Za-z0-9_]*', '__EXTERNAL_EXECUTION_TEST_PKG__', t)
               if any(rx.search(t) for rx in rules): hits.append(str(p))
           print('ACTIONABLE_IDENTITY_RESIDUAL_COUNT=' + str(len(hits)))
           for x in hits[:200]: print(x)
