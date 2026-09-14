@@ -85,7 +85,7 @@ jobs:
   test-hive:
     name: ${{ matrix.name }}
     needs: cache-docker-images
-    runs-on: [self-hosted-ghr, size-l-x64]
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     env:
       CLIENT: ${{ inputs.client || 'go-sila' }}
       CLIENT_FILE: ${{ inputs.client_file || 'latest.yaml' }}
