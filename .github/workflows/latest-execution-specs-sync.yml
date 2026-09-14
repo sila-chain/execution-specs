@@ -50,7 +50,6 @@ jobs:
               return re.sub(r'(?<!sila[-_])mainnet', repl, x)
 
           def text(x):
-              # Preserve external third-party distributions/modules with no proven Sila replacement.
               x = x.replace('eth-abi', '__EXTERNAL_ABI_HYPHEN__').replace('eth_abi', '__EXTERNAL_ABI_UNDERSCORE__')
               x = x.replace('ethereum-hive', '__EXTERNAL_HIVE_DIST__')
               x = x.replace('eips.ethereum.org', 'sips.sila.org').replace('github.com/ethereum', 'github.com/sila').replace('ethereum.org', 'sila.org').replace('Ethereum Foundation', 'Sila Foundation')
@@ -177,6 +176,35 @@ jobs:
       - name: Validate dependency install
         shell: bash
         run: uv sync --all-groups
+      - name: Normalize identity-expanded lines
+        shell: python
+        run: |
+          import pathlib
+          replacements = {
+              '        # A bare `latest` or `vX.Y.Z` resolves the sila-mainnet `tests` release.\n': '        # A bare `latest` or `vX.Y.Z` resolves the sila-mainnet `tests`\n        # release.\n',
+              '        "sila-mainnet: Tests crafted for running on sila-mainnet and sanity checking.",\n': '        "sila-mainnet: Tests crafted for running on sila-mainnet and "\n        "sanity checking.",\n',
+              '        Return whether the transitions-to fork has been deployed to sila-mainnet,\n': '        Return whether the transitions-to fork has been deployed to\n        sila-mainnet,\n',
+              'At sila-mainnet block 1,880,000 the following accounts were encoded into this list:\n': 'At sila-mainnet block 1,880,000 the following accounts were encoded into\nthis list:\n',
+              '# Bittrex controller sila-mainnet address: it created 1.5M contracts via CREATE with\n': '# Bittrex controller sila-mainnet address: it created 1.5M contracts via\n# CREATE with\n',
+              'window, so this is a state-test tooling bug, not a sila-mainnet consensus bug --\n': 'window, so this is a state-test tooling bug, not a sila-mainnet consensus\nbug --\n',
+              'SILA_MAINNET_GENESIS_CONFIGURATION = get_genesis_configuration("sila-mainnet.json")\n': 'SILA_MAINNET_GENESIS_CONFIGURATION = get_genesis_configuration(\n    "sila-mainnet.json"\n)\n',
+              '    Supplants the sila-mainnet contract with a variant that emits a `Transfer` log.\n': '    Supplants the sila-mainnet contract with a variant that emits a\n    `Transfer` log.\n',
+          }
+          matched = 0
+          for p in pathlib.Path('.').rglob('*.py'):
+              if '.git' in p.parts:
+                  continue
+              s = p.read_text()
+              t = s
+              for old, new in replacements.items():
+                  if old in t:
+                      t = t.replace(old, new)
+                      matched += 1
+              if t != s:
+                  p.write_text(t)
+          print(f'IDENTITY_EXPANDED_LINE_FIX_COUNT={matched}')
+          if matched != 8:
+              raise SystemExit(f'EXPECTED_8_IDENTITY_LINE_FIXES_GOT_{matched}')
       - name: Normalize generated lint and formatting
         shell: bash
         run: |
