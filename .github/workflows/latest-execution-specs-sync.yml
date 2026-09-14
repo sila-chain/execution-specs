@@ -177,9 +177,11 @@ jobs:
       - name: Validate dependency install
         shell: bash
         run: uv sync --all-groups
-      - name: Normalize generated formatting
+      - name: Normalize generated lint and formatting
         shell: bash
-        run: uv run ruff format
+        run: |
+          uv run ruff check --fix
+          uv run ruff format
       - name: Static - typecheck
         shell: bash
         run: |
