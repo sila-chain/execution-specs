@@ -61,6 +61,7 @@ jobs:
                   x = token(x, a, b)
               x = x.replace('Sepolia', 'SilaSepolia').replace('Holesky', 'SilaHolesky')
               x = x.replace('py_ecc', 'sila_ecc')
+              x = x.replace('from trie import ', 'from sila_trie import ')
               x = x.replace('from sila_rlp import Extended, rlp', 'from sila_rlp import Extended\nimport sila_rlp as rlp')
               x = x.replace('from sila_rlp import rlp', 'import sila_rlp as rlp')
               x = x.replace('from sila_rlp.exceptions import RLPException', 'from sila_rlp.exceptions import SILA_RLPException as RLPException')
