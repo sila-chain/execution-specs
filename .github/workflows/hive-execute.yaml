@@ -32,7 +32,6 @@ jobs:
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
       - name: Cache Docker images
         uses: ./.github/actions/cache-docker-images
         with:
@@ -48,17 +47,18 @@ jobs:
         with:
           path: execution-specs
           submodules: recursive
-
       - name: Checkout Hive
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           repository: sila-chain/sila-hive
           ref: main
           path: hive
-
-      # Redirect Go's caches to a per-job temp dir so the setup-go cache
-      # restore doesn't collide with a persistent $GOMODCACHE on
-      # self-hosted runners (see build-benchmark-genesis/action.yaml).
+      - name: Checkout exact go-sila authority
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          repository: sila-chain/go-sila
+          ref: 7a388df6c1afbf78af7b120d7119fe1c363d0a12
+          path: go-sila
       - name: Use ephemeral Go cache dirs
         shell: bash
         run: |
@@ -69,20 +69,17 @@ jobs:
         with:
           go-version: ">=1.24"
           cache-dependency-path: hive/go.sum
-
       - name: Install uv and python
         uses: ./execution-specs/.github/actions/setup-uv
         with:
           cache-dependency-glob: "execution-specs/uv.lock"
-
       - name: Load cached Docker images
         uses: ./execution-specs/.github/actions/load-docker-images
-
-      - name: Build Hive
+      - name: Build Hive against exact go-sila authority
         run: |
           cd hive
+          go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
           go build .
-
       - name: Start Hive in dev mode
         id: start-hive
         uses: ./execution-specs/.github/actions/start-hive-dev
@@ -91,7 +88,6 @@ jobs:
           client-file: execution-specs/.github/configs/hive/latest.yaml
           hive-path: hive
           timeout: "180"
-
       - name: Run execute remote E2E tests
         working-directory: execution-specs
         env:
