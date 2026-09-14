@@ -20,7 +20,7 @@ classifiers = [
 ]
 dependencies = [
     "click>=8.1.0,<9",
-    "sila-hive @ git+https://github.com/sila-chain/sila-hive.git@v0.1.0a5+sila.1",
+    "ethereum-hive>=0.1.0,<1.0.0",
     "sila-execution",
     "gitpython>=3.1.31,<4",
     "PyJWT>=2.3.0,<3",
@@ -33,7 +33,7 @@ dependencies = [
     "pytest-html>=4.1.0,<5",
     "pytest-metadata>=3,<4",
     "pytest-xdist>=3.3.1,<4",
-    "coincurve>=20.0.0,<21",
+    "spec256k1>=0.2.3,<0.3",
     "sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",
     "semver>=3.0.1,<4",
     "pydantic>=2.12.3,<3",
@@ -48,12 +48,13 @@ dependencies = [
     "questionary>=2.1.0,<3",
     "sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",
     "pytest-regex>=0.2.0,<0.3",
-    "sil-abi @ git+https://github.com/sila-chain/sil-abi.git@v6.0.0-beta.1-sila.1",
+    "eth-abi>=5.2.0",
     "joblib>=1.4.2",
     "ckzg>=2.1.3,<3",
     "tenacity>=9.0.0,<10",
     "Jinja2>=3,<4",
     "ijson>=3.3,<4",
+    "sil-remerkleable @ git+https://github.com/sila-chain/remerkleable.git@v0.1.31-sila.1",
 ]
 
 [project.urls]
@@ -77,6 +78,7 @@ dev = [
 ]
 
 [project.scripts]
+sila-spec-evm = "execution_testing.evm_tools:main"
 fill = "execution_testing.cli.pytest_commands.fill:fill"
 phil = "execution_testing.cli.pytest_commands.fill:phil"
 execute = "execution_testing.cli.pytest_commands.execute:execute"
@@ -96,11 +98,9 @@ order_fixtures = "execution_testing.cli.order_fixtures:order_fixtures"
 evm_bytes = "execution_testing.cli.evm_bytes:evm_bytes"
 hasher = "execution_testing.cli.hasher:main"
 eest = "execution_testing.cli.eest.cli:eest"
-fillerconvert = "execution_testing.cli.fillerconvert.fillerconvert:main"
 groupstats = "execution_testing.cli.show_pre_alloc_group_stats:main"
 extract_config = "execution_testing.cli.extract_config:extract_config"
 compare_fixtures = "execution_testing.cli.compare_fixtures:main"
-modify_static_test_gas_limits = "execution_testing.cli.modify_static_test_gas_limits:main"
 benchmark_parser = "execution_testing.cli.benchmark_parser:main"
 
 [tool.setuptools.packages.find]
@@ -142,6 +142,7 @@ markers = [
     "some_mark: Test marker for parametrizer tests",
     "sip_checklist: Custom marker for SIP checklist tests",
     "slow: Marks tests as slow running",
+    "evm_tools: marks tests as evm_tools (deselect with '-m \"not evm_tools\"')",
 ]
 
 [tool.uv]

@@ -7,7 +7,7 @@ transactions are the events that move between states.
 from dataclasses import dataclass
 from typing import Tuple, TypeGuard, final
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes, Bytes0, Bytes32
 from sila_types.frozen import slotted_freezable
 from sila_types.numeric import U64, U256, Uint, ulen
@@ -21,7 +21,11 @@ from sila.exceptions import (
 )
 from sila.state import Address
 
-from .exceptions import InitCodeTooLargeError, TransactionTypeError
+from .exceptions import (
+    InitCodeTooLargeError,
+    PriorityFeeGreaterThanMaxFeeError,
+    TransactionTypeError,
+)
 from .fork_types import Authorization, VersionedHash
 
 
@@ -79,7 +83,7 @@ class LegacyTransaction:
 
     value: U256
     """
-    The amount of sil (in wei) to send with this transaction.
+    The amount of sila (in wei) to send with this transaction.
     """
 
     data: Bytes
@@ -166,7 +170,7 @@ class AccessListTransaction:
 
     value: U256
     """
-    The amount of sil (in wei) to send with this transaction.
+    The amount of sila (in wei) to send with this transaction.
     """
 
     data: Bytes
@@ -244,7 +248,7 @@ class FeeMarketTransaction:
 
     value: U256
     """
-    The amount of sil (in wei) to send with this transaction.
+    The amount of sila (in wei) to send with this transaction.
     """
 
     data: Bytes
@@ -322,7 +326,7 @@ class BlobTransaction:
 
     value: U256
     """
-    The amount of sil (in wei) to send with this transaction.
+    The amount of sila (in wei) to send with this transaction.
     """
 
     data: Bytes
@@ -411,7 +415,7 @@ class SetCodeTransaction:
 
     value: U256
     """
-    The amount of sil (in wei) to send with this transaction.
+    The amount of sila (in wei) to send with this transaction.
     """
 
     data: Bytes
@@ -559,7 +563,9 @@ def validate_transaction(tx: Transaction) -> IntrinsicGasCost:
     the transaction does not provide enough gas to cover the intrinsic cost,
     and a `NonceOverflowError` exception if the nonce is greater than
     `2**64 - 2`. It also raises an `InitCodeTooLargeError` if the code size of
-    a contract creation transaction exceeds the maximum allowed size.
+    a contract creation transaction exceeds the maximum allowed size, and a
+    `PriorityFeeGreaterThanMaxFeeError` if the maximum priority fee per gas
+    of a fee market transaction exceeds its maximum fee per gas.
 
     [SIP-2681]: https://sips.sila.org/SIPS/sip-2681
     [SIP-7623]: https://sips.sila.org/SIPS/sip-7623
@@ -573,6 +579,11 @@ def validate_transaction(tx: Transaction) -> IntrinsicGasCost:
         raise InitCodeTooLargeError("Code size too large")
     if U256(tx.nonce) >= U256(U64.MAX_VALUE):
         raise NonceOverflowError("Nonce too high")
+    if isinstance(tx, FeeMarketCapableTransaction):
+        if tx.max_fee_per_gas < tx.max_priority_fee_per_gas:
+            raise PriorityFeeGreaterThanMaxFeeError(
+                "priority fee greater than max fee"
+            )
 
     return intrinsic
 
@@ -585,7 +596,7 @@ def calculate_intrinsic_cost(tx: Transaction) -> IntrinsicGasCost:
     begun. Functions/operations in the EVM cost money to execute so this
     intrinsic cost is for the operations that need to be paid for as part of
     the transaction. Data transfer, for example, is part of this intrinsic
-    cost. It costs sil to send data over the wire and that sil is
+    cost. It costs sila to send data over the wire and that sila is
     accounted for in the intrinsic cost calculated in this function. This
     intrinsic cost must be calculated and paid for before execution in order
     for all operations to be implemented.

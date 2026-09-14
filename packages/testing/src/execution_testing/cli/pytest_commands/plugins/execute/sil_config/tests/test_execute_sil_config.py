@@ -368,9 +368,9 @@ EXPECTED_AMSTERDAM = json.loads("""
     "systemContracts": {
     "BEACON_ROOTS_ADDRESS": "0x000f3df6d732807ef1319fb7b8bb8522d0beac02",
     "BUILDER_DEPOSIT_CONTRACT_ADDRESS":
-                           "0x0000884d2aa32eaa155f59a2f24efa73d9008282",
+                           "0x0000bff46984e3725691fa540a8c7589300d8282",
     "BUILDER_EXIT_CONTRACT_ADDRESS":
-                           "0x000014574a74c805590aff9499fc7a690f008282",
+                           "0x000064d678505ad48f8ccb093bc65613800e8282",
     "CONSOLIDATION_REQUEST_PREDEPLOY_ADDRESS":
                            "0x0000bbddc7ce488642fb579f8b00f3a590007251",
     "DEPOSIT_CONTRACT_ADDRESS": "0x00000000219ab540356cbb839cbe05303d7705fa",
@@ -418,7 +418,7 @@ SilaMainnet:
       max: 9
       baseFeeUpdateFraction: 5007716
 
-Sepolia:
+SilaSepolia:
   chainId:              0xaa36a7
   genesisHash:          0x25a5cc106eea7138acab33231d7160d69cb777ee0c2c553fcddf5138993e6dd9
   forkActivationTimes:
@@ -455,7 +455,7 @@ Hoodi:
       max: 9
       baseFeeUpdateFraction: 5007716
 
-Holesky:
+SilaHolesky:
   chainId:              0x4268
   genesisHash:          0xb5f7f912443c940f21fd611f12828d75b534364ed9e95ca4e307729a4661bde4
   forkActivationTimes:
@@ -729,7 +729,7 @@ def test_fork_config_from_fork(
             id="sila_mainnet_cancun",
         ),
         pytest.param(
-            "Sepolia",
+            "SilaSepolia",
             1741159775,  # Right before Prague activation
             ForkHash(0x88CF81D9),
             ForkHash(0xED88B5FD),
@@ -737,7 +737,7 @@ def test_fork_config_from_fork(
             id="sepolia_cancun",
         ),
         pytest.param(
-            "Holesky",
+            "SilaHolesky",
             1740434111,  # Right before Prague activation
             ForkHash(0x9B192AD0),
             ForkHash(0xDFBD9BED),

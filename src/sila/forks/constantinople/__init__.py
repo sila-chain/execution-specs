@@ -41,7 +41,7 @@ awkward situation and presents only a single fork without SIP-1283.
 [js]: https://github.com/silajs/silajs-vm/releases/tag/v2.6.0
 [Gsil 1.8.23]: https://github.com/sila/go-sila/releases/tag/v1.8.23
 [h]: https://github.com/sila-camp/sila-harmony/releases/tag/v2.3b74
-[n]: https://github.com/NethermindSil/nethermind/releases/tag/v0.9.4
+[n]: https://github.com/NethermindEth/nethermind/releases/tag/v0.9.4
 [pan]: https://github.com/PegaSysEng/pantheon/releases/tag/0.9.1
 [t]: https://github.com/sila/trinity/releases/tag/v0.1.0-alpha.23
 """  # noqa: E501

@@ -31,22 +31,22 @@ def test_extract_tokens_returns_full_keys() -> None:
     """Return full keys matching the prefix."""
     stubs = _stubs(
         {
-            "test_sload_empty_erc20_balanceof_XEN": _entry(),
-            "test_sload_empty_erc20_balanceof_USDC": _entry(),
+            "test_sload_empty_src20_balanceof_XEN": _entry(),
+            "test_sload_empty_src20_balanceof_USDC": _entry(),
             "unrelated_key": _entry(),
         }
     )
-    result = stubs.extract_tokens("test_sload_empty_erc20_balanceof_")
+    result = stubs.extract_tokens("test_sload_empty_src20_balanceof_")
     assert result == [
-        "test_sload_empty_erc20_balanceof_XEN",
-        "test_sload_empty_erc20_balanceof_USDC",
+        "test_sload_empty_src20_balanceof_XEN",
+        "test_sload_empty_src20_balanceof_USDC",
     ]
 
 
 def test_extract_tokens_no_match() -> None:
     """Return empty list when no keys match the prefix."""
-    stubs = _stubs({"test_sstore_erc20_approve_XEN": _entry()})
-    assert stubs.extract_tokens("test_sload_empty_erc20_balanceof_") == []
+    stubs = _stubs({"test_sstore_src20_approve_XEN": _entry()})
+    assert stubs.extract_tokens("test_sload_empty_src20_balanceof_") == []
 
 
 def test_extract_tokens_empty_stubs() -> None:
@@ -58,9 +58,9 @@ def test_extract_tokens_empty_stubs() -> None:
 @pytest.mark.parametrize(
     "prefix",
     [
-        "test_sload_empty_erc20_balanceof_",
-        "test_sstore_erc20_approve_",
-        "test_sstore_erc20_mint_",
+        "test_sload_empty_src20_balanceof_",
+        "test_sstore_src20_approve_",
+        "test_sstore_src20_mint_",
         "test_mixed_sload_sstore_",
         "bloatnet_factory_",
     ],
@@ -84,14 +84,14 @@ def test_parametrize_args_values_and_ids() -> None:
     """Return full keys as values and stripped names as ids."""
     stubs = _stubs(
         {
-            "test_sload_empty_erc20_balanceof_XEN": _entry(),
-            "test_sload_empty_erc20_balanceof_USDC": _entry(),
+            "test_sload_empty_src20_balanceof_XEN": _entry(),
+            "test_sload_empty_src20_balanceof_USDC": _entry(),
         }
     )
-    values, ids = stubs.parametrize_args("test_sload_empty_erc20_balanceof_")
+    values, ids = stubs.parametrize_args("test_sload_empty_src20_balanceof_")
     assert values == [
-        "test_sload_empty_erc20_balanceof_XEN",
-        "test_sload_empty_erc20_balanceof_USDC",
+        "test_sload_empty_src20_balanceof_XEN",
+        "test_sload_empty_src20_balanceof_USDC",
     ]
     assert ids == ["XEN", "USDC"]
 

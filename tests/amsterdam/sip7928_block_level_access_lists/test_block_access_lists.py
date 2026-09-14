@@ -21,7 +21,6 @@ from execution_testing import (
     BlockchainTestFiller,
     BlockException,
     Conditional,
-    SIPChecklist,
     Environment,
     Fork,
     Hash,
@@ -29,6 +28,7 @@ from execution_testing import (
     Initcode,
     Op,
     RecipientType,
+    SIPChecklist,
     StateTestFiller,
     Transaction,
     TransactionException,
@@ -44,9 +44,11 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
 pytestmark = pytest.mark.valid_from("Amsterdam")
+SYSTEM_ADDRESS = Address(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE)
 
 
 @SIPChecklist.BlockHeaderField.Test.ValueBehavior.Accept()
+@SIPChecklist.BlockHeaderField.Test.Genesis()
 def test_bal_nonce_changes(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -1631,6 +1633,65 @@ def test_bal_coinbase_zero_tip(
     )
 
 
+def test_bal_system_address_coinbase_zero_tip(
+    pre: Alloc,
+    blockchain_test: BlockchainTestFiller,
+    fork: Fork,
+) -> None:
+    """
+    Ensure BAL includes SYSTEM_ADDRESS when it is the zero-tip fee recipient.
+    """
+    bob = pre.fund_eoa(amount=0)
+
+    genesis_env = Environment(base_fee_per_gas=0x7)
+    base_fee_per_gas = fork.base_fee_per_gas_calculator()(
+        parent_base_fee_per_gas=int(genesis_env.base_fee_per_gas or 0),
+        parent_gas_used=0,
+        parent_gas_limit=genesis_env.gas_limit,
+    )
+
+    tx_value = 5
+    alice = pre.fund_eoa()
+    tx = Transaction(
+        sender=alice,
+        to=bob,
+        value=tx_value,
+        gas_price=base_fee_per_gas,
+    )
+
+    block = Block(
+        txs=[tx],
+        fee_recipient=SYSTEM_ADDRESS,
+        header_verify=Header(base_fee_per_gas=base_fee_per_gas),
+        expected_block_access_list=BlockAccessListExpectation(
+            account_expectations={
+                alice: BalAccountExpectation(
+                    nonce_changes=[
+                        BalNonceChange(block_access_index=1, post_nonce=1)
+                    ],
+                ),
+                bob: BalAccountExpectation(
+                    balance_changes=[
+                        BalBalanceChange(block_access_index=1, post_balance=5)
+                    ]
+                ),
+                SYSTEM_ADDRESS: BalAccountExpectation.empty(),
+            }
+        ),
+    )
+
+    blockchain_test(
+        pre=pre,
+        blocks=[block],
+        post={
+            alice: Account(nonce=1),
+            bob: Account(balance=5),
+            SYSTEM_ADDRESS: Account.NONEXISTENT,
+        },
+        genesis_environment=genesis_env,
+    )
+
+
 @pytest.mark.parametrize(
     "value",
     [
@@ -1661,7 +1722,7 @@ def test_bal_precompile_funded(
     # - For 0x0a (POINT_EVALUATION), use a known valid input from sila-mainnet
     if addr_int == 0x0A:
         # Valid point evaluation input from sila-mainnet tx:
-        # https://silascan.io/tx/0xcb3dc8f3b14f1cda0c16a619a112102a8ec70dce1b3f1b28272227cf8d5fbb0e
+        # https://etherscan.io/tx/0xcb3dc8f3b14f1cda0c16a619a112102a8ec70dce1b3f1b28272227cf8d5fbb0e
         tx_data = (
             bytes.fromhex(
                 # versioned_hash (32)
@@ -2430,6 +2491,77 @@ def test_bal_cross_tx_storage_write(
     )
 
 
+def test_bal_cross_tx_reverted_storage_reads(
+    pre: Alloc,
+    blockchain_test: BlockchainTestFiller,
+) -> None:
+    """
+    Reverted `SSTORE`s from two transactions accumulate in one account's
+    `storage_reads`.
+
+    Each transaction succeeds while the frame holding its `SSTORE` reverts,
+    so both demoted writes must survive their transaction boundary and the
+    block-level list must hold the union of the two slots. Reported in
+    https://github.com/erigontech/erigon/issues/23407.
+    """
+    alice = pre.fund_eoa()
+    slots = [0x01, 0x02]  # one per transaction
+    pre_value = 0xDEAD
+
+    reverting_writer = pre.deploy_contract(
+        code=Op.SSTORE(Op.CALLDATALOAD(0), 0x42) + Op.REVERT(0, 0),
+        storage=dict.fromkeys(slots, pre_value),
+    )
+    # Ignores the failed call so the transaction itself succeeds and only
+    # `reverting_writer`'s frame is rolled back.
+    caller = pre.deploy_contract(
+        code=Op.CALLDATACOPY(0, 0, Op.CALLDATASIZE)
+        + Op.POP(
+            Op.CALL(
+                gas=Op.GAS,
+                address=reverting_writer,
+                args_offset=0,
+                args_size=Op.CALLDATASIZE,
+            )
+        )
+    )
+
+    blockchain_test(
+        pre=pre,
+        blocks=[
+            Block(
+                txs=[
+                    Transaction(sender=alice, to=caller, data=Hash(slot))
+                    for slot in slots
+                ],
+                expected_block_access_list=BlockAccessListExpectation(
+                    account_expectations={
+                        alice: BalAccountExpectation(
+                            nonce_changes=[
+                                BalNonceChange(
+                                    block_access_index=1, post_nonce=1
+                                ),
+                                BalNonceChange(
+                                    block_access_index=2, post_nonce=2
+                                ),
+                            ],
+                        ),
+                        caller: BalAccountExpectation.empty(),
+                        reverting_writer: BalAccountExpectation(
+                            storage_changes=[],
+                            storage_reads=slots,
+                        ),
+                    }
+                ),
+            )
+        ],
+        post={
+            alice: Account(nonce=2),
+            reverting_writer: Account(storage=dict.fromkeys(slots, pre_value)),
+        },
+    )
+
+
 def test_bal_cross_tx_storage_chain(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -2946,6 +3078,7 @@ def test_bal_cross_tx_balance_dependency(
     )
 
 
+@pytest.mark.inclusion_test
 @pytest.mark.parametrize(
     "eunice_outcome",
     [
@@ -3000,7 +3133,7 @@ def test_bal_cross_tx_funding_chain(
     # to recipients that begin empty, so each pays the value-transfer
     # intrinsic surcharges plus the top-frame ``NEW_ACCOUNT`` state
     # charge that fires under SIP-2780. With the default zero
-    # state-gas reservoir the latter spills entirely into regular gas.
+    # state-gas reservoir the latter spills entirely into execution gas.
     forwarding_intrinsic = intrinsic_calc(
         sends_value=True,
         recipient_type=RecipientType.EMPTY_ACCOUNT,
@@ -3269,6 +3402,62 @@ def test_bal_cross_block_ripemd160_state_leak(
             bob: Account(nonce=1),
             ripemd160_addr: Account(balance=1),
         },
+    )
+
+
+@pytest.mark.parametrize(
+    "touch_first",
+    [
+        pytest.param(True, id="zero_value_touch"),
+        pytest.param(False, id="no_touch"),
+    ],
+)
+def test_bal_insufficient_balance_call_to_touched_precompile(
+    pre: Alloc,
+    state_test: StateTestFiller,
+    touch_first: bool,
+) -> None:
+    """
+    Ensure BAL records a dead precompile whose only value call fails its
+    balance check, with or without a prior zero-value touch.
+
+    The value call fails its balance check after the target access is
+    charged, so RIPEMD-160 must appear in the BAL with empty changes and
+    must not exist in post-state. Regression test for
+    https://github.com/erigontech/erigon/issues/23670.
+    """
+    ripemd160_addr = Address(0x03)
+    alice = pre.fund_eoa()
+
+    value_call = Op.POP(Op.CALL(gas=100_000, address=ripemd160_addr, value=2))
+    if touch_first:
+        code = (
+            Op.POP(Op.CALL(gas=100_000, address=ripemd160_addr)) + value_call
+        )
+    else:
+        code = value_call
+    caller = pre.deploy_contract(code, balance=1)
+
+    tx = Transaction(sender=alice, to=caller)
+
+    state_test(
+        pre=pre,
+        post={
+            caller: Account(balance=1),
+            ripemd160_addr: Account.NONEXISTENT,
+        },
+        tx=tx,
+        expected_block_access_list=BlockAccessListExpectation(
+            account_expectations={
+                alice: BalAccountExpectation(
+                    nonce_changes=[
+                        BalNonceChange(block_access_index=1, post_nonce=1)
+                    ],
+                ),
+                caller: BalAccountExpectation.empty(),
+                ripemd160_addr: BalAccountExpectation.empty(),
+            }
+        ),
     )
 
 
@@ -3623,6 +3812,121 @@ def test_bal_lexicographic_address_ordering(
     )
 
 
+def test_bal_storage_slot_numeric_ordering(
+    pre: Alloc,
+    blockchain_test: BlockchainTestFiller,
+) -> None:
+    """
+    Test BAL sorts storage slots as fixed-width 32-byte keys (numeric
+    order), not by their minimal-length RLP encodings.
+
+    Slots with 1, 2 and 3 byte minimal encodings are accessed in
+    reverse numeric order; byte-prefix comparison of the stripped keys
+    would order e.g. 0x0100 before 0x02.
+    """
+    alice = pre.fund_eoa()
+
+    # Written slots span minimal-encoding widths so that stripped-key
+    # byte-prefix comparison yields [0x00, 0x0100, 0x010000, 0x02, 0xFF]
+    # instead of the numeric [0x00, 0x02, 0xFF, 0x0100, 0x010000].
+    # Read slots are disjoint from written ones so they stay in
+    # storage_reads. Distinct stored values tie each change to its slot.
+    contract_code = (
+        # SSTORE in reverse numeric slot order
+        Op.SSTORE(0x010000, 0x0E)
+        + Op.SSTORE(0x0100, 0x0D)
+        + Op.SSTORE(0xFF, 0x0C)
+        + Op.SSTORE(0x02, 0x0B)
+        + Op.SSTORE(0x00, 0x0A)
+        # SLOAD empty slots in reverse numeric order
+        + Op.SLOAD(0x0200)
+        + Op.POP
+        + Op.SLOAD(0x03)
+        + Op.POP
+        + Op.STOP
+    )
+
+    contract = pre.deploy_contract(code=contract_code)
+
+    tx = Transaction(sender=alice, to=contract)
+
+    block = Block(
+        txs=[tx],
+        expected_block_access_list=BlockAccessListExpectation(
+            account_expectations={
+                alice: BalAccountExpectation(
+                    nonce_changes=[
+                        BalNonceChange(block_access_index=1, post_nonce=1)
+                    ],
+                ),
+                contract: BalAccountExpectation(
+                    # Numeric slot order, regardless of access order
+                    storage_changes=[
+                        BalStorageSlot(
+                            slot=0x00,
+                            slot_changes=[
+                                BalStorageChange(
+                                    block_access_index=1, post_value=0x0A
+                                )
+                            ],
+                        ),
+                        BalStorageSlot(
+                            slot=0x02,
+                            slot_changes=[
+                                BalStorageChange(
+                                    block_access_index=1, post_value=0x0B
+                                )
+                            ],
+                        ),
+                        BalStorageSlot(
+                            slot=0xFF,
+                            slot_changes=[
+                                BalStorageChange(
+                                    block_access_index=1, post_value=0x0C
+                                )
+                            ],
+                        ),
+                        BalStorageSlot(
+                            slot=0x0100,
+                            slot_changes=[
+                                BalStorageChange(
+                                    block_access_index=1, post_value=0x0D
+                                )
+                            ],
+                        ),
+                        BalStorageSlot(
+                            slot=0x010000,
+                            slot_changes=[
+                                BalStorageChange(
+                                    block_access_index=1, post_value=0x0E
+                                )
+                            ],
+                        ),
+                    ],
+                    storage_reads=[0x03, 0x0200],
+                ),
+            }
+        ),
+    )
+
+    blockchain_test(
+        pre=pre,
+        blocks=[block],
+        post={
+            alice: Account(nonce=1),
+            contract: Account(
+                storage={
+                    0x00: 0x0A,
+                    0x02: 0x0B,
+                    0xFF: 0x0C,
+                    0x0100: 0x0D,
+                    0x010000: 0x0E,
+                }
+            ),
+        },
+    )
+
+
 @SIPChecklist.BlockLevelConstraint.Test.Boundary.Under()
 @SIPChecklist.BlockLevelConstraint.Test.Boundary.Exact()
 @SIPChecklist.BlockLevelConstraint.Test.Boundary.Over()
@@ -3665,7 +3969,7 @@ def test_bal_gas_limit_boundary(
       coinbase warmed via SIP-3651).
     - `with_cl_withdrawal`: SIP-4895 withdrawal to a recipient adds 1
       item, processed between txs and the rest of the post-tx system
-      work. Together they catch clients that validate the cap before
+      work. Togsiler they catch clients that validate the cap before
       `process_withdrawals` runs.
     """
     # Match framework's DEFAULT_BASE_FEE so gas_price == base_fee

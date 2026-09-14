@@ -13,9 +13,9 @@ from pydantic import model_validator
 
 from execution_testing.base_types import (
     Address,
+    Hash,
     SilaTestBaseModel,
     SilaTestRootModel,
-    Hash,
 )
 from execution_testing.test_types import EOA
 

@@ -21,10 +21,10 @@ from execution_testing.rpc import (
     AdminRPC,
     BlockNotAvailableError,
     EngineRPC,
-    EthRPC,
     ForkchoiceUpdateTimeoutError,
     NetRPC,
     PeerConnectionTimeoutError,
+    SilRPC,
 )
 from execution_testing.rpc.rpc_types import (
     ForkchoiceState,
@@ -43,10 +43,10 @@ logger = get_logger(__name__)
 
 def test_blockchain_via_sync(
     timing_data: TimingData,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     engine_rpc: EngineRPC,
     net_rpc: NetRPC,
-    sync_sil_rpc: EthRPC,
+    sync_sil_rpc: SilRPC,
     sync_engine_rpc: EngineRPC,
     sync_net_rpc: NetRPC,
     sync_admin_rpc: AdminRPC,

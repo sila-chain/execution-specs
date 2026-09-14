@@ -14,8 +14,6 @@ Precompile for BLS12-381 curve operations.
 from functools import lru_cache
 from typing import Tuple
 
-from sila_types.bytes import Bytes
-from sila_types.numeric import U256, Uint
 from sila_ecc.optimized_bls12_381.optimized_curve import (
     FQ,
     FQ2,
@@ -30,6 +28,8 @@ from sila_ecc.optimized_bls12_381.optimized_curve import (
     multiply as bls12_multiply,
 )
 from sila_ecc.typing import Optimized_Point3D as Point3D
+from sila_types.bytes import Bytes
+from sila_types.numeric import U256, Uint
 
 from ....vm.memory import buffer_read
 from ...exceptions import InvalidParameter

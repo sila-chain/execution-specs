@@ -4,7 +4,7 @@ a `Header` and zero or more transactions. Each `Header` contains associated
 metadata like the block number, parent block hash, and how much gas was
 consumed by its transactions.
 
-Together, these blocks form a cryptographically secure journal recording the
+Togsiler, these blocks form a cryptographically secure journal recording the
 history of all state transitions that have happened since the genesis of the
 chain.
 """
@@ -62,12 +62,12 @@ class Header:
     Root hash ([`keccak256`]) of the state trie after executing all
     transactions in this block. It represents the state of the Sila Virtual
     Machine (EVM) after all transactions in this block have been processed. It
-    is computed using [`compute_state_root_and_trie_changes()`][changes],
+    is computed using [`compute_state_root()`][changes],
     which computes the root of the Merkle-Patricia [Trie] representing the
     Sila world state after applying the block's state changes.
 
     [`keccak256`]: ref:sila.crypto.hash.keccak256
-    [changes]: ref:sila.state.State.compute_state_root_and_trie_changes
+    [changes]: ref:sila.state_mpt.State.compute_state_root
     [Trie]: ref:sila.merkle_patricia_trie.Trie
     """  # noqa: E501
 

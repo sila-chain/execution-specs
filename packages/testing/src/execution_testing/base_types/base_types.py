@@ -13,7 +13,6 @@ from typing import (
     TypeVar,
 )
 
-from sila.crypto.hash import keccak256 as _keccak256
 from pydantic import GetCoreSchemaHandler, StringConstraints
 from pydantic_core.core_schema import (
     PlainValidatorFunctionSchema,
@@ -102,17 +101,17 @@ class Wei(Number):
         match unit:
             case "wei":
                 return 1
-            case "kwei" | "babbage" | "femtosil":
+            case "kwei" | "babbage" | "femtoether":
                 return 10**3
-            case "mwei" | "lovelace" | "picosil":
+            case "mwei" | "lovelace" | "picoether":
                 return 10**6
-            case "gwei" | "shannon" | "nanosil" | "nano":
+            case "gwei" | "shannon" | "nanoether" | "nano":
                 return 10**9
-            case "szabo" | "microsil" | "micro":
+            case "szabo" | "microether" | "micro":
                 return 10**12
-            case "finney" | "millisil" | "milli":
+            case "finney" | "milliether" | "milli":
                 return 10**15
-            case "sil" | "sil":
+            case "sila" | "sil":
                 return 10**18
             case _:
                 raise ValueError(f"Invalid unit {unit}")
@@ -201,6 +200,12 @@ class Bytes(bytes, ToStringSchema):
 
     def keccak256(self) -> "Hash":
         """Return the keccak256 hash of the opcode byte representation."""
+        # Imported lazily so that merely importing the test framework does not
+        # import the `sila` package: on xdist workers that import would
+        # happen before pytest-cov starts the worker's coverage session,
+        # making coverage report `sila` as "module-not-measured".
+        from sila.crypto.hash import keccak256 as _keccak256
+
         return Hash(_keccak256(self))
 
     def sha256(self) -> "Hash":

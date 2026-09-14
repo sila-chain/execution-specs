@@ -12,7 +12,7 @@ Address specific functions used in this paris version of
 specification.
 """
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes, Bytes32
 from sila_types.numeric import U256, Uint
 

@@ -15,8 +15,8 @@ from execution_testing.fixtures import (
     StateFixture,
     strip_fixture_format_from_node,
 )
+from execution_testing.specs.base import labeled_format_parameter_set
 
-from ...shared.helpers import labeled_format_parameter_set
 from ..filler import _strip_xdist_group_suffix
 
 
@@ -246,8 +246,8 @@ class TestCacheExecutionOrder:
         # Alphabetical order determines which format runs first.
         assert "blockchain_test" < "blockchain_test_engine"
 
-    def test_related_formats_group_together_when_sorted(self) -> None:
-        """Test that sorting by base nodeid groups related formats together."""
+    def test_related_formats_group_togsiler_when_sorted(self) -> None:
+        """Test that sorting by base nodeid groups related formats togsiler."""
         nodes = [
             MockItem(
                 "tests/test.py::test_foo[fork_Osaka-blockchain_test]",
@@ -283,7 +283,7 @@ class TestCacheExecutionOrder:
         assert test_foo_indices == [0, 1] or test_foo_indices == [2, 3]
 
     def test_related_formats_grouped_when_sorted(self) -> None:
-        """Test sorting groups related formats together (same base nodeid)."""
+        """Test sorting groups related formats togsiler (same base nodeid)."""
         nodes = [
             MockItem(
                 "tests/test.py::test_foo[fork_Osaka-blockchain_test]",
@@ -450,7 +450,7 @@ class TestCollectionSortingBehavior:
         assert group0.startswith("t8n-cache-")
 
     def test_xdist_sorting_groups_related_formats(self) -> None:
-        """Test xdist collection groups related formats together."""
+        """Test xdist collection groups related formats togsiler."""
         items = [
             MockItem(
                 "tests/test.py::test_b[fork_Osaka-blockchain_test]",
@@ -474,7 +474,7 @@ class TestCollectionSortingBehavior:
 
         # Items should be sorted so related formats are adjacent.
         nodeids = [i.nodeid for i in items]
-        # test_a variants should be together, test_b variants together.
+        # test_a variants should be togsiler, test_b variants togsiler.
         test_a_indices = [i for i, n in enumerate(nodeids) if "test_a" in n]
         test_b_indices = [i for i, n in enumerate(nodeids) if "test_b" in n]
 

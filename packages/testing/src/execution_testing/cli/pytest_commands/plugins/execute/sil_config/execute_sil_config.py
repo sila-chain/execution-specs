@@ -12,7 +12,7 @@ import pytest
 from execution_testing.logging import (
     get_logger,
 )
-from execution_testing.rpc import SilConfigResponse, EthRPC
+from execution_testing.rpc import SilConfigResponse, SilRPC
 
 from .execute_types import NetworkConfig
 
@@ -20,7 +20,7 @@ logger = get_logger(__name__)
 
 
 @pytest.fixture(scope="function")
-def sil_config_response(sil_rpc: List[EthRPC]) -> SilConfigResponse | None:
+def sil_config_response(sil_rpc: List[SilRPC]) -> SilConfigResponse | None:
     """
     Get the `sil_config` response from the client to be verified by all tests.
     """
@@ -219,7 +219,7 @@ def test_sil_config_last_fork_id(
 
 
 def test_sil_config_majority(
-    all_rpc_endpoints: Dict[str, List[EthRPC]],
+    all_rpc_endpoints: Dict[str, List[SilRPC]],
 ) -> None:
     """
     Queries devnet exec clients for their sil_config and fails if not all have

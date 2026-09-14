@@ -6,7 +6,7 @@ from execution_testing.base_types import Address
 from execution_testing.client_clis.cli_types import EnginePayloadMetadata
 from execution_testing.forks import Fork, TransitionFork
 from execution_testing.logging import get_logger
-from execution_testing.rpc import EthRPC
+from execution_testing.rpc import SilRPC
 from execution_testing.test_types import (
     DETERMINISTIC_FACTORY_ADDRESS,
     DETERMINISTIC_FACTORY_BYTECODE,
@@ -29,7 +29,7 @@ class DeterministicFactoryNotDeployableError(Exception):
 
 def check_deterministic_factory_deployment(
     *,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     fork: Fork | TransitionFork,
 ) -> Address | None:
     """Check if the deterministic deployment contract is deployed."""
@@ -47,7 +47,7 @@ def check_deterministic_factory_deployment(
 
 
 def _send_tx_capturing(
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     tx: Transaction,
 ) -> EnginePayloadMetadata | None:
     """
@@ -66,7 +66,7 @@ def _send_tx_capturing(
 
 def deploy_deterministic_factory_contract(
     *,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     seed_key: EOA,
     gas_price: int,
     tx_index: int = 0,

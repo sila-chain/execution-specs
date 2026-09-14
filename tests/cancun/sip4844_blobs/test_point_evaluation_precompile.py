@@ -274,7 +274,7 @@ def post(
             id="in_bounds_z",
         ),
         # Example valid input from a SilaMainnet transaction:
-        # https://silascan.io/tx/0xcb3dc8f3b14f1cda0c16a619a112102a8ec70dce1b3f1b28272227cf8d5fbb0e
+        # https://etherscan.io/tx/0xcb3dc8f3b14f1cda0c16a619a112102a8ec70dce1b3f1b28272227cf8d5fbb0e
         pytest.param(
             0x019123BCB9D06356701F7BE08B4494625B87A7B02EDC566126FB81F6306E915F,
             0x6C2EB1E94C2532935B8465351BA1BD88EABE2B3FA1AADFF7D1CD816E8315BD38,

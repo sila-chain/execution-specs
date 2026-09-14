@@ -4,8 +4,6 @@ from hashlib import sha256
 from typing import Tuple
 
 from sil_typing.bls import BLSPubkey, BLSSignature
-from sila_types.bytes import Bytes32, Bytes48
-from sila_types.numeric import U256
 from sila_ecc.bls import G2ProofOfPossession
 from sila_ecc.bls.g2_primitives import pubkey_to_G1, signature_to_G2
 from sila_ecc.fields import optimized_bls12_381_FQ, optimized_bls12_381_FQ2
@@ -16,6 +14,8 @@ from sila_ecc.optimized_bls12_381.optimized_pairing import (
     final_exponentiate,
     pairing,
 )
+from sila_types.bytes import Bytes32, Bytes48
+from sila_types.numeric import U256
 
 from sila.utils.hexadecimal import hex_to_bytes
 

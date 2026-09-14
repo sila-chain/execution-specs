@@ -7,12 +7,6 @@ from execution_testing.client_clis.clis.besu import BesuExceptionMapper
 from execution_testing.client_clis.clis.erigon import (
     ErigonExceptionMapper,
 )
-from execution_testing.client_clis.clis.silajs import (
-    SilaJSExceptionMapper,
-)
-from execution_testing.client_clis.clis.silrex import (
-    SilrexExceptionMapper,
-)
 from execution_testing.client_clis.clis.gsil import GsilExceptionMapper
 from execution_testing.client_clis.clis.nethermind import (
     NethermindExceptionMapper,
@@ -21,6 +15,12 @@ from execution_testing.client_clis.clis.nimbus import (
     NimbusExceptionMapper,
 )
 from execution_testing.client_clis.clis.rsil import RsilExceptionMapper
+from execution_testing.client_clis.clis.silajs import (
+    SilaJSExceptionMapper,
+)
+from execution_testing.client_clis.clis.silrex import (
+    SilrexExceptionMapper,
+)
 from execution_testing.exceptions import ExceptionMapper
 from execution_testing.fixtures.blockchain import FixtureHeader
 from execution_testing.logging import get_logger

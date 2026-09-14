@@ -1,7 +1,7 @@
 """
-abstract: Crafted tests for sila-mainnet of
+Crafted tests for sila-mainnet of
 [SIP-2537: Precompile for BLS12-381 curve operations](https://sips.sila.org/SIPS/sip-2537).
-"""  # noqa: E501
+"""
 
 import pytest
 from execution_testing import Alloc, StateTestFiller, Transaction
@@ -11,7 +11,7 @@ from .spec import FP, FP2, Scalar, Spec, ref_spec_2537
 REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

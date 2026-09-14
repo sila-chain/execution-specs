@@ -1,11 +1,11 @@
 """
-The Dao Fork was an irregular state change that moved all Sil from a large
+The Dao Fork was an irregular state change that moved all Sila from a large
 collection of accounts (The DAO and all its children) to a recovery contract.
 
 The recovery contract was previously created using normal contract deployment.
 """
 
-from sila.state import State
+from sila.state_mpt import State
 
 from .state_tracker import TransactionState, get_account, move_sila
 from .utils.hexadecimal import hex_to_address
@@ -132,9 +132,10 @@ DAO_ACCOUNTS = [
     ]
 ]
 """
-The list of accounts from which sil is transferred. See [`apply_dao`].
+The list of accounts from which sila is transferred. See [`apply_dao`].
 
-At sila-mainnet block 1,880,000 the following accounts were encoded into this list:
+At sila-mainnet block 1,880,000 the following accounts were encoded into
+this list:
 
 - The DAO (`0xbb9bc244d798123fde783fcc1c72d3bb8c189413`),
 - its `extraBalance` (`0x807640a13483f8ac783c557fcdf27be11ea4ac7a`),
@@ -147,7 +148,7 @@ At sila-mainnet block 1,880,000 the following accounts were encoded into this li
 
 DAO_RECOVERY = hex_to_address("0xbf4ed7b27f1d666546e30d74d50d173d20bca754")
 """
-At the beginning of block 1,920,000, all sil throughout all accounts in
+At the beginning of block 1,920,000, all sila throughout all accounts in
 [`DAO_ACCOUNTS`] is transferred to the contract deployed at this address.
 
 The contract was created from the following Solidity code (compiler version
@@ -349,12 +350,12 @@ def apply_dao(state: State) -> None:
     """
     Apply the dao fork to the state.
 
-    Moves all sil from [`DAO_ACCOUNTS`] to [`DAO_RECOVERY`].
+    Moves all sila from [`DAO_ACCOUNTS`] to [`DAO_RECOVERY`].
 
     [`DAO_ACCOUNTS`]: ref:sila.forks.dao_fork.dao.DAO_ACCOUNTS
     [`DAO_RECOVERY`]: ref:sila.forks.dao_fork.dao.DAO_RECOVERY
     """
-    from sila.state import apply_changes_to_state
+    from sila.state_mpt import apply_changes_to_state
 
     from .state_tracker import (
         BlockState,
