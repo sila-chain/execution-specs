@@ -20,13 +20,13 @@ jobs:
         run: |
           git remote remove upstream 2>/dev/null || true
           git remote add upstream https://github.com/ethereum/execution-specs.git
-          git fetch --no-tags upstream 4887bcaa2b92c27f0d12891b3518dffe5bbd1749
-          test "$(git rev-parse FETCH_HEAD)" = "4887bcaa2b92c27f0d12891b3518dffe5bbd1749"
+          git fetch --no-tags upstream d4ca3c94d6ea920fd792fcb474afc5fc1e3ad567
+          test "$(git rev-parse FETCH_HEAD)" = "d4ca3c94d6ea920fd792fcb474afc5fc1e3ad567"
       - name: Generate latest Pure Sila candidate
         shell: python
         run: |
           import os,re,shutil,subprocess,pathlib
-          AUTH='4887bcaa2b92c27f0d12891b3518dffe5bbd1749'
+          AUTH='d4ca3c94d6ea920fd792fcb474afc5fc1e3ad567'
           out=pathlib.Path('/tmp/generated'); shutil.rmtree(out,ignore_errors=True); out.mkdir()
           p1=subprocess.Popen(['git','archive',AUTH],stdout=subprocess.PIPE)
           p2=subprocess.Popen(['tar','-x','-C',str(out)],stdin=p1.stdout); p1.stdout.close(); p2.wait(); p1.wait()
@@ -121,7 +121,17 @@ jobs:
         run: uv sync --all-groups
       - name: Static - typecheck
         shell: bash
-        run: just typecheck
+        run: |
+          set -o pipefail
+          just typecheck 2>&1 | tee /tmp/typecheck.log
+      - name: Upload typecheck failure evidence
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: typecheck-failure-log
+          path: /tmp/typecheck.log
+          if-no-files-found: error
+          retention-days: 1
       - name: Static - lint-spec
         shell: bash
         run: just lint-spec
@@ -164,5 +174,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m 'sync: latest execution specs authority 4887bcaa'
-          git push --force origin HEAD:refs/heads/sila/generated-execution-specs-4887bcaa
+          git commit -m 'sync: latest execution specs authority d4ca3c94'
+          git push --force origin HEAD:refs/heads/sila/generated-execution-specs-d4ca3c94
