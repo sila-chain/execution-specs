@@ -2,8 +2,7 @@ name: Latest Execution Specs Sync
 
 on:
   push:
-    branches:
-      - sila/execution-specs-latest-pure-20260911
+    branches: [sila/execution-specs-latest-pure-20260911]
 
 permissions:
   contents: write
@@ -15,6 +14,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
+
       - name: Fetch exact upstream authority
         shell: bash
         run: |
@@ -22,96 +22,151 @@ jobs:
           git remote add upstream https://github.com/ethereum/execution-specs.git
           git fetch --no-tags upstream d4ca3c94d6ea920fd792fcb474afc5fc1e3ad567
           test "$(git rev-parse FETCH_HEAD)" = "d4ca3c94d6ea920fd792fcb474afc5fc1e3ad567"
+
       - name: Generate latest Pure Sila candidate
         shell: python
         run: |
-          import os,re,shutil,subprocess,pathlib
-          AUTH='d4ca3c94d6ea920fd792fcb474afc5fc1e3ad567'
-          out=pathlib.Path('/tmp/generated'); shutil.rmtree(out,ignore_errors=True); out.mkdir()
-          p1=subprocess.Popen(['git','archive',AUTH],stdout=subprocess.PIPE)
-          p2=subprocess.Popen(['tar','-x','-C',str(out)],stdin=p1.stdout); p1.stdout.close(); p2.wait(); p1.wait()
-          if p1.returncode or p2.returncode: raise SystemExit('ARCHIVE_FAILED')
-          def token(x,a,b): return re.sub(rf'(?<![A-Za-z]){re.escape(a)}(?=[^a-z]|$)',b,x)
+          import os, re, shutil, subprocess, pathlib
+          AUTH = 'd4ca3c94d6ea920fd792fcb474afc5fc1e3ad567'
+          out = pathlib.Path('/tmp/generated')
+          shutil.rmtree(out, ignore_errors=True)
+          out.mkdir()
+          p1 = subprocess.Popen(['git', 'archive', AUTH], stdout=subprocess.PIPE)
+          p2 = subprocess.Popen(['tar', '-x', '-C', str(out)], stdin=p1.stdout)
+          p1.stdout.close(); p2.wait(); p1.wait()
+          if p1.returncode or p2.returncode:
+              raise SystemExit('ARCHIVE_FAILED')
+
+          def token(x, a, b):
+              return re.sub(rf'(?<![A-Za-z]){re.escape(a)}(?=[^a-z]|$)', b, x)
+
           def mainnet(x):
-              x=x.replace('MAINNET','SILA_MAINNET').replace('Mainnet','SilaMainnet')
-              def r(m):
-                  i,j=m.start(),m.end(); prev=x[i-1] if i else ''; nxt=x[j] if j<len(x) else ''
-                  return 'sila_mainnet' if (prev.isalnum() or prev in '._' or nxt.isalnum() or nxt=='_') else 'sila-mainnet'
-              return re.sub(r'(?<!sila[-_])mainnet',r,x)
+              x = x.replace('MAINNET', 'SILA_MAINNET').replace('Mainnet', 'SilaMainnet')
+              def repl(m):
+                  i, j = m.start(), m.end()
+                  prev = x[i-1] if i else ''
+                  nxt = x[j] if j < len(x) else ''
+                  return 'sila_mainnet' if (prev.isalnum() or prev in '._' or nxt.isalnum() or nxt == '_') else 'sila-mainnet'
+              return re.sub(r'(?<!sila[-_])mainnet', repl, x)
+
           def text(x):
-              # Preserve external dependency identities where no stable Sila equivalent exists.
-              x=x.replace('eth-abi','__EXTERNAL_ABI_HYPHEN__').replace('eth_abi','__EXTERNAL_ABI_UNDERSCORE__')
-              x=x.replace('ethereum-hive','__EXTERNAL_HIVE_DIST__')
-              x=x.replace('eips.ethereum.org','sips.sila.org').replace('github.com/ethereum','github.com/sila').replace('ethereum.org','sila.org').replace('Ethereum Foundation','Sila Foundation')
-              for a,b in [('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),('Etherscan','SilaScan'),('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX'),('ethash','sil_hash'),('Ethash','SilHash'),('ETHASH','SIL_HASH')]: x=x.replace(a,b)
-              x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
-              for a,b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('Ether','Sila'),('ether','sila'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]: x=token(x,a,b)
-              x=x.replace('Sepolia','SilaSepolia').replace('Holesky','SilaHolesky')
-              x=x.replace('py_ecc','sila_ecc')
-              x=x.replace('from sila_rlp import rlp','import sila_rlp as rlp')
-              x=x.replace('from sila_rlp.exceptions import RLPException','from sila_rlp.exceptions import SILA_RLPException as RLPException')
-              x=mainnet(x)
-              return x.replace('__EXTERNAL_ABI_HYPHEN__','eth-abi').replace('__EXTERNAL_ABI_UNDERSCORE__','eth_abi').replace('__EXTERNAL_HIVE_DIST__','ethereum-hive')
+              # Preserve external third-party distributions/modules with no proven Sila replacement.
+              x = x.replace('eth-abi', '__EXTERNAL_ABI_HYPHEN__').replace('eth_abi', '__EXTERNAL_ABI_UNDERSCORE__')
+              x = x.replace('ethereum-hive', '__EXTERNAL_HIVE_DIST__')
+              x = x.replace('eips.ethereum.org', 'sips.sila.org').replace('github.com/ethereum', 'github.com/sila').replace('ethereum.org', 'sila.org').replace('Ethereum Foundation', 'Sila Foundation')
+              for a, b in [('WETH','WSIL'),('IWETH','IWSIL'),('IERC','ISRC'),('AERC','ASRC'),('IEIP','ISIP'),('Etherscan','SilaScan'),('geth','gsil'),('Geth','Gsil'),('GETH','GSIL'),('reth','rsil'),('Reth','Rsil'),('RETH','RSIL'),('ethrex','silrex'),('Ethrex','Silrex'),('ETHREX','SILREX')]:
+                  x = x.replace(a, b)
+              x = x.replace('ETHEREUM', 'SILA').replace('Ethereum', 'Sila').replace('ethereum', 'sila')
+              for a, b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('Ether','Sila'),('ether','sila'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]:
+                  x = token(x, a, b)
+              x = x.replace('Sepolia', 'SilaSepolia').replace('Holesky', 'SilaHolesky')
+              x = x.replace('py_ecc', 'sila_ecc')
+              x = x.replace('from sila_rlp import Extended, rlp', 'from sila_rlp import Extended\nimport sila_rlp as rlp')
+              x = x.replace('from sila_rlp import rlp', 'import sila_rlp as rlp')
+              x = x.replace('from sila_rlp.exceptions import RLPException', 'from sila_rlp.exceptions import SILA_RLPException as RLPException')
+              x = mainnet(x)
+              return x.replace('__EXTERNAL_ABI_HYPHEN__', 'eth-abi').replace('__EXTERNAL_ABI_UNDERSCORE__', 'eth_abi').replace('__EXTERNAL_HIVE_DIST__', 'ethereum-hive')
+
           def path(x):
-              x=x.replace('ETHEREUM','SILA').replace('Ethereum','Sila').replace('ethereum','sila')
-              for a,b in [('geth','gsil'),('reth','rsil'),('ethrex','silrex'),('ethash','sil_hash')]: x=x.replace(a,b)
-              for a,b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]: x=token(x,a,b)
+              x = x.replace('ETHEREUM', 'SILA').replace('Ethereum', 'Sila').replace('ethereum', 'sila')
+              for a, b in [('geth','gsil'),('reth','rsil'),('ethrex','silrex')]:
+                  x = x.replace(a, b)
+              for a, b in [('EIPs','SIPs'),('Eips','Sips'),('EIP','SIP'),('Eip','Sip'),('eips','sips'),('eip','sip'),('ERCS','SRCS'),('ERCs','SRCs'),('Ercs','Srcs'),('ERC','SRC'),('Erc','Src'),('erc','src'),('ETH','SIL'),('Eth','Sil'),('eth','sil')]:
+                  x = token(x, a, b)
               return mainnet(x)
-          links=[]
+
+          links = []
           for p in list(out.rglob('*')):
-              if p.is_symlink(): links.append((p.relative_to(out).as_posix(),os.readlink(p))); p.unlink()
-          if (out/'uv.lock').exists(): (out/'uv.lock').unlink()
+              if p.is_symlink():
+                  links.append((p.relative_to(out).as_posix(), os.readlink(p)))
+                  p.unlink()
+          if (out / 'uv.lock').exists():
+              (out / 'uv.lock').unlink()
+
           for p in list(out.rglob('*')):
-              if not p.is_file(): continue
-              z=p.read_bytes()
-              if b'\0' in z[:8192]: continue
-              try: s=z.decode()
-              except UnicodeDecodeError: continue
-              t=text(s)
-              if t!=s: p.write_text(t,encoding='utf-8',newline='')
-          for p in sorted(list(out.rglob('*')),key=lambda q:len(q.parts),reverse=True):
-              if not p.exists(): continue
-              rel=p.relative_to(out).as_posix(); nr=path(rel)
-              if nr==rel: continue
-              q=out/pathlib.PurePosixPath(nr); q.parent.mkdir(parents=True,exist_ok=True)
+              if not p.is_file():
+                  continue
+              z = p.read_bytes()
+              if b'\0' in z[:8192]:
+                  continue
+              try:
+                  s = z.decode()
+              except UnicodeDecodeError:
+                  continue
+              t = text(s)
+              if t != s:
+                  p.write_text(t, encoding='utf-8', newline='')
+
+          for p in sorted(list(out.rglob('*')), key=lambda q: len(q.parts), reverse=True):
+              if not p.exists():
+                  continue
+              rel = p.relative_to(out).as_posix()
+              nr = path(rel)
+              if nr == rel:
+                  continue
+              q = out / pathlib.PurePosixPath(nr)
+              q.parent.mkdir(parents=True, exist_ok=True)
               if q.exists():
                   if p.is_dir():
-                      for c in list(p.iterdir()): shutil.move(str(c),str(q/c.name))
+                      for c in list(p.iterdir()):
+                          shutil.move(str(c), str(q / c.name))
                       p.rmdir()
-                  else: raise SystemExit(f'PATH_COLLISION={rel}->{nr}')
-              else: p.rename(q)
-          for rel,target in links:
-              q=out/pathlib.PurePosixPath(path(rel)); q.parent.mkdir(parents=True,exist_ok=True); os.symlink(path(target),q)
-          rp=out/'pyproject.toml'; s=rp.read_text(); s=s.replace('"py-ecc>=8.0.0b2,<9",','"sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",').replace('"sil_hash>=1.1.0,<2",','"sil-hash @ git+https://github.com/sila-chain/sil-hash.git@v0.8.0-sila.1",').replace('"sila-types>=0.4.1,<0.5",','"sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",').replace('"sila-rlp>=0.1.6,<0.2",','"sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",'); rp.write_text(s)
-          tp=out/'packages/testing/pyproject.toml'; s=tp.read_text().replace('"trie>=3.1.0,<4",','"sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",').replace('"sila-types>=0.4.1,<0.5",','"sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",').replace('"sila-rlp>=0.1.6,<0.2",','"sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",').replace('"sil-remerkleable==0.1.31",','"sil-remerkleable @ git+https://github.com/sila-chain/remerkleable.git@v0.1.31-sila.1",'); tp.write_text(s)
-          cwd=pathlib.Path.cwd()
+                  else:
+                      raise SystemExit(f'PATH_COLLISION={rel}->{nr}')
+              else:
+                  p.rename(q)
+
+          for rel, target in links:
+              q = out / pathlib.PurePosixPath(path(rel))
+              q.parent.mkdir(parents=True, exist_ok=True)
+              os.symlink(path(target), q)
+
+          rp = out / 'pyproject.toml'
+          s = rp.read_text()
+          s = s.replace('"py-ecc>=8.0.0b2,<9",', '"sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",')
+          s = s.replace('"sila-types>=0.4.1,<0.5",', '"sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",')
+          s = s.replace('"sila-rlp>=0.1.6,<0.2",', '"sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",')
+          rp.write_text(s)
+
+          tp = out / 'packages/testing/pyproject.toml'
+          s = tp.read_text()
+          s = s.replace('"trie>=3.1.0,<4",', '"sila-trie @ git+https://github.com/sila-chain/sila-trie.git@v3.1.0-sila.3",')
+          s = s.replace('"sila-types>=0.4.1,<0.5",', '"sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",')
+          s = s.replace('"sila-rlp>=0.1.6,<0.2",', '"sila-rlp @ git+https://github.com/sila-chain/sila-rlp.git@v0.1.6-sila.1",')
+          s = s.replace('"sil-remerkleable==0.1.31",', '"sil-remerkleable @ git+https://github.com/sila-chain/remerkleable.git@v0.1.31-sila.1",')
+          tp.write_text(s)
+
+          cwd = pathlib.Path.cwd()
           for p in list(cwd.iterdir()):
-              if p.name=='.git': continue
+              if p.name == '.git':
+                  continue
               if p.is_symlink(): p.unlink()
               elif p.is_dir(): shutil.rmtree(p)
               else: p.unlink()
           for p in out.iterdir():
-              d=cwd/p.name
-              if p.is_symlink(): os.symlink(os.readlink(p),d)
-              elif p.is_dir(): shutil.copytree(p,d,symlinks=True)
-              else: shutil.copy2(p,d)
-          print('GENERATED_FROM_AUTHORITY='+AUTH)
+              d = cwd / p.name
+              if p.is_symlink(): os.symlink(os.readlink(p), d)
+              elif p.is_dir(): shutil.copytree(p, d, symlinks=True)
+              else: shutil.copy2(p, d)
+          print('GENERATED_FROM_AUTHORITY=' + AUTH)
+
       - name: Pure Sila identity gate
         shell: python
         run: |
-          import pathlib,re
-          rules=[re.compile(r'ethereum',re.I),re.compile(r'(?<![A-Za-z])eips?(?=[^a-z]|$)',re.I),re.compile(r'(?<![A-Za-z])ercs?(?=[^a-z]|$)',re.I),re.compile(r'(?<![A-Za-z])eth(?=[^a-z]|$)',re.I),re.compile(r'(?<![A-Za-z])ether(?=[^a-z]|$)',re.I),re.compile(r'(?<!Sila)(?<!sila[-_])mainnet',re.I)]
-          hits=[]
+          import pathlib, re
+          rules = [re.compile(r'ethereum', re.I), re.compile(r'(?<![A-Za-z])eips?(?=[^a-z]|$)', re.I), re.compile(r'(?<![A-Za-z])ercs?(?=[^a-z]|$)', re.I), re.compile(r'(?<![A-Za-z])eth(?=[^a-z]|$)', re.I), re.compile(r'(?<![A-Za-z])ether(?=[^a-z]|$)', re.I), re.compile(r'(?<!Sila)(?<!sila[-_])mainnet', re.I)]
+          hits = []
           for p in pathlib.Path('.').rglob('*'):
-              if not p.is_file() or '.git' in p.parts or p.name=='uv.lock': continue
-              try: t=p.read_text(encoding='utf-8')
+              if not p.is_file() or '.git' in p.parts or p.name == 'uv.lock':
+                  continue
+              try: t = p.read_text(encoding='utf-8')
               except Exception: continue
-              # Narrow external dependency allowlist only: ApeWorX eth-abi and upstream Hive Python distribution.
-              t=t.replace('eth-abi','__EXTERNAL_ABI__').replace('eth_abi','__EXTERNAL_ABI__').replace('ethereum-hive','__EXTERNAL_HIVE__')
+              t = t.replace('eth-abi','__EXTERNAL_ABI__').replace('eth_abi','__EXTERNAL_ABI__').replace('ethereum-hive','__EXTERNAL_HIVE__')
               if any(rx.search(t) for rx in rules): hits.append(str(p))
-          print('ACTIONABLE_IDENTITY_RESIDUAL_COUNT='+str(len(hits)))
+          print('ACTIONABLE_IDENTITY_RESIDUAL_COUNT=' + str(len(hits)))
           for x in hits[:200]: print(x)
           if hits: raise SystemExit(1)
+
       - name: Setup uv Python and just
         uses: ./.github/actions/setup-uv
       - name: Regenerate authoritative lockfile
@@ -136,40 +191,28 @@ jobs:
           if-no-files-found: error
           retention-days: 1
       - name: Static - lint-spec
-        shell: bash
         run: just lint-spec
       - name: Static - spellcheck
-        shell: bash
         run: just spellcheck
       - name: Static - deadcode
-        shell: bash
         run: just deadcode
       - name: Static - lint-actions
-        shell: bash
         run: just lint-actions
       - name: Static - lock-check
-        shell: bash
         run: just lock-check
       - name: Static - format-check
-        shell: bash
         run: just format-check
       - name: Static - lint
-        shell: bash
         run: just lint
       - name: Packaging gate
-        shell: bash
         run: just test-packaging
       - name: Execute collect gate
-        shell: bash
         run: just execute-collect
       - name: Consume collect gate
-        shell: bash
         run: just consume-collect
       - name: Spec tools gate
-        shell: bash
         run: just spec-tools
       - name: CI scripts gate
-        shell: bash
         run: just test-ci-scripts
       - name: Publish clean generated branch
         shell: bash
