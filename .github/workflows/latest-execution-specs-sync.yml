@@ -256,7 +256,18 @@ jobs:
       - name: Static - lint
         run: just lint
       - name: Packaging gate
-        run: just test-packaging
+        shell: bash
+        run: |
+          set -o pipefail
+          just test-packaging 2>&1 | tee /tmp/packaging.log
+      - name: Upload packaging failure evidence
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: packaging-failure-log
+          path: /tmp/packaging.log
+          if-no-files-found: warn
+          retention-days: 1
       - name: Execute collect gate
         run: just execute-collect
       - name: Consume collect gate
