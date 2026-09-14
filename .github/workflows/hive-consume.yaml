@@ -63,21 +63,15 @@ concurrency:
   cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
 
 env:
-  # No Sila execution-spec-tests release repository exists yet; consume the
-  # upstream fixture release as external test data while testing Sila clients.
   FIXTURES_URL: https://github.com/ethereum/execution-spec-tests/releases/download/v5.3.0/fixtures_develop.tar.gz
 
 jobs:
   cache-docker-images:
     name: Cache Docker Images
-    # The Sila client is built by Hive from its client configuration below.
-    # Cache only public build images here; there is no public prebuilt
-    # docker.io/sila/client-go image to pull.
     runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
       - name: Cache Docker images
         uses: ./.github/actions/cache-docker-images
         with:
@@ -98,11 +92,6 @@ jobs:
             mode: simulator
             simulator: sila/eels/consume-engine
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
-          # TODO: Enable once eels/consume-enginex simulator is added to Hive
-          # - name: consume-enginex
-          #   mode: simulator
-          #   simulator: sila/eels/consume-enginex
-          #   sim_limit: ".*push0.*(Shanghai|Cancun).*"
           - name: RLP
             mode: simulator
             simulator: sila/eels/consume-rlp
@@ -115,39 +104,27 @@ jobs:
             mode: dev
             cli_command: consume engine
             test_filter: "Osaka and test_block_at_rlp_limit_with_logs"
-          # TODO: Enable once we have a release with the pre-alloc builder format cf #2140
-          # - name: Dev Mode Consume EngineX
-          #   mode: dev
-          #   cli_command: consume enginex
-          #   test_filter: "(fork_shanghai or fork_cancun) and push0"
-          # NOTE: build-block uses testing_buildBlockV1 on the HTTP RPC port
-          # (8545), which has a smaller body cap than the Engine API port
-          # (8551); avoid filters that target near-block-size-limit tests.
           - name: Dev Mode Build Block
             mode: dev
             cli_command: build-block
             test_filter: "Osaka and test_clz_stack_underflow"
-          # TODO: Enable once eels/build-block simulator is added to Hive
-          # - name: Build Block
-          #   mode: simulator
-          #   simulator: sila/eels/build-block
-          #   sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           path: execution-specs
-
       - name: Checkout Hive
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: sila-chain/sila-hive
           ref: main
           path: hive
-
-      # Redirect Go's caches to a per-job temp dir so the setup-go cache
-      # restore doesn't collide with a persistent $GOMODCACHE on
-      # self-hosted runners (see build-benchmark-genesis/action.yaml).
+      - name: Checkout exact go-sila authority
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: sila-chain/go-sila
+          ref: 7a388df6c1afbf78af7b120d7119fe1c363d0a12
+          path: go-sila
       - name: Use ephemeral Go cache dirs
         shell: bash
         run: |
@@ -158,21 +135,18 @@ jobs:
         with:
           go-version: ">=1.24"
           cache-dependency-path: hive/go.sum
-
       - name: Install uv and python
         if: matrix.mode == 'dev'
         uses: ./execution-specs/.github/actions/setup-uv
         with:
           cache-dependency-glob: "execution-specs/uv.lock"
-
       - name: Load cached Docker images
         uses: ./execution-specs/.github/actions/load-docker-images
-
-      - name: Build hive
+      - name: Build hive against exact go-sila authority
         run: |
           cd hive
+          go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
           go build .
-
       - name: Run simulator tests
         if: matrix.mode == 'simulator'
         run: |
@@ -186,7 +160,6 @@ jobs:
             --sim.loglevel=5 \
             --docker.buildoutput \
             --docker.output
-
       - name: Build Hive client images
         if: matrix.mode == 'dev'
         run: |
@@ -196,7 +169,6 @@ jobs:
             --client-file ../execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }} \
             --docker.buildoutput
         timeout-minutes: 10
-
       - name: Start Hive in dev mode
         if: matrix.mode == 'dev'
         id: start-hive
@@ -206,7 +178,6 @@ jobs:
           client-file: execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }}
           hive-path: hive
           timeout: "30"
-
       - name: Run dev mode command
         if: matrix.mode == 'dev'
         working-directory: execution-specs
@@ -215,7 +186,6 @@ jobs:
         run: |
           uv sync --all-extras
           uv run ${{ matrix.cli_command }} --input ${{ env.FIXTURES_URL }} -k "${{ matrix.test_filter }}"
-
       - name: Upload Hive logs
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
