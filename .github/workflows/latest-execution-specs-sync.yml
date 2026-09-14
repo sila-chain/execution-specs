@@ -192,16 +192,19 @@ jobs:
           }
           matched = 0
           for p in pathlib.Path('.').rglob('*.py'):
-              if '.git' in p.parts:
+              if '.git' in p.parts or '.venv' in p.parts:
                   continue
-              s = p.read_text()
+              try:
+                  s = p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
               t = s
               for old, new in replacements.items():
                   if old in t:
                       t = t.replace(old, new)
                       matched += 1
               if t != s:
-                  p.write_text(t)
+                  p.write_text(t, encoding='utf-8')
           print(f'IDENTITY_EXPANDED_LINE_FIX_COUNT={matched}')
           if matched != 8:
               raise SystemExit(f'EXPECTED_8_IDENTITY_LINE_FIXES_GOT_{matched}')
