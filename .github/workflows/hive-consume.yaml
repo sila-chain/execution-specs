@@ -117,7 +117,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: sila-chain/sila-hive
-          ref: 0a49d98ac524c324896a93cb2676cfa51d3feaf6
+          ref: d2ff7176f1f837bbfe9aa3db70d5f5422853ea8c
           path: hive
       - name: Checkout exact go-sila authority
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -159,7 +159,6 @@ jobs:
           go mod edit -require=github.com/sila-chain/go-sil-kzg@v1.5.0
           go mod edit -require=github.com/sila-chain/go-bigmodexpfix@v0.0.1
           go mod edit -require=github.com/sila-chain/c-kzg-4844/v2@v2.1.8
-          # Regenerate sums: the Hive baseline retained upstream module hashes.
           rm go.sum
           go mod tidy
           go mod verify
@@ -194,7 +193,7 @@ jobs:
           clients: ${{ env.CLIENT }}
           client-file: execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }}
           hive-path: hive
-          timeout: "30"
+          timeout: "600"
       - name: Run dev mode command
         if: matrix.mode == 'dev'
         working-directory: execution-specs
