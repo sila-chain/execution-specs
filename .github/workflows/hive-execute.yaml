@@ -88,7 +88,7 @@ jobs:
           rm go.sum
           go mod tidy
           go mod verify
-          go build -mod=readonly .
+          go build -mod=readonly -o hive .
       - name: Start Hive in dev mode
         id: start-hive
         uses: ./execution-specs/.github/actions/start-hive-dev

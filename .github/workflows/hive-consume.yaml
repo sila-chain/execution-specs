@@ -155,7 +155,7 @@ jobs:
           rm go.sum
           go mod tidy
           go mod verify
-          go build -mod=readonly .
+          go build -mod=readonly -o hive .
       - name: Run simulator tests
         if: matrix.mode == 'simulator'
         run: |
