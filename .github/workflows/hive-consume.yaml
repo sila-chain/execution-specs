@@ -147,6 +147,7 @@ jobs:
           cd hive
           go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
           go mod edit -droprequire=github.com/crate-crypto/go-sil-kzg
+          go mod edit -droprequire=github.com/sila-chain/go-verkle
           go mod edit -require=github.com/sila-chain/go-sil-kzg@v1.5.0
           go mod edit -require=github.com/sila-chain/go-bigmodexpfix@v0.0.1
           go mod edit -require=github.com/sila-chain/c-kzg-4844/v2@v2.1.8
