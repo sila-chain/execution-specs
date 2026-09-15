@@ -3,7 +3,7 @@
 # Go-Sila — build directly from the Sila-owned source authority.
 - client: go-sila
   nametag: ""
-  dockerfile: Dockerfile.git
+  dockerfile: git
   build_args:
     github: sila-chain/go-sila
     tag: master
