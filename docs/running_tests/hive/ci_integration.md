@@ -2,5 +2,5 @@
 
 The Sila Foundation maintains continuous testing infrastructure:
 
-- **Production results**: [hive.silpandaops.io](https://hive.silpandaops.io)
-- **GitHub Actions**: [ethpandaops/hive-github-action](https://github.com/silpandaops/hive-github-action)
+- **Production results**: [hive.ethpandaops.io](https://hive.ethpandaops.io)
+- **GitHub Actions**: [ethpandaops/hive-github-action](https://github.com/ethpandaops/hive-github-action)

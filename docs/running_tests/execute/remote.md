@@ -222,7 +222,7 @@ The `execute remote` and `execute hive` commands first creates a random sender a
 The sweep amount can be configured by setting the `--seed-account-sweep-amount` flag:
 
 ```bash
---seed-account-sweep-amount "1000 sil"
+--seed-account-sweep-amount "1000 sila"
 ```
 
 Once the sender account is funded, the command will start executing tests one by one by sending the transactions from this account to the network.

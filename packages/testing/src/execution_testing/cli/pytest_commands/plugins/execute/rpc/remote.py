@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from execution_testing.forks import Fork, TransitionFork
-from execution_testing.rpc import EngineRPC, EthRPC
+from execution_testing.rpc import EngineRPC, SilRPC
 from execution_testing.test_types.chain_config_types import (
     ChainConfigDefaults,
 )
@@ -104,7 +104,7 @@ def pytest_configure(config: pytest.Config) -> None:
             "RPC endpoint must be provided with the --rpc-endpoint flag or "
             "the RPC_ENDPOINT environment variable."
         )
-    sil_rpc = EthRPC(rpc_endpoint)
+    sil_rpc = SilRPC(rpc_endpoint)
     remote_chain_id = sil_rpc.chain_id()
     configured_chain_id = ChainConfigDefaults.chain_id
     if remote_chain_id != configured_chain_id:
@@ -175,9 +175,9 @@ def sil_rpc(
     engine_rpc: EngineRPC | None,
     session_fork: Fork | TransitionFork,
     session_temp_folder: Path,
-    max_transactions_per_batch: int | None,
+    max_batch_size: int | None,
     use_testing_build_block: bool,
-) -> EthRPC:
+) -> SilRPC:
     """Initialize sila RPC client for the execution client under test."""
     tx_wait_timeout = request.config.getoption("tx_wait_timeout")
     if engine_rpc is None:
@@ -186,10 +186,10 @@ def sil_rpc(
                 "--use-testing-build-block requires "
                 "--engine-endpoint to be set"
             )
-        return EthRPC(
+        return SilRPC(
             rpc_endpoint,
             transaction_wait_timeout=tx_wait_timeout,
-            max_transactions_per_batch=max_transactions_per_batch,
+            max_batch_size=max_batch_size,
         )
     get_payload_wait_time = request.config.getoption("get_payload_wait_time")
     testing_rpc = None
@@ -205,6 +205,6 @@ def sil_rpc(
         else session_temp_folder,
         get_payload_wait_time=get_payload_wait_time,
         transaction_wait_timeout=tx_wait_timeout,
-        max_transactions_per_batch=max_transactions_per_batch,
+        max_batch_size=max_batch_size,
         testing_rpc=testing_rpc,
     )

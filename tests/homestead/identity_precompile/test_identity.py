@@ -1,4 +1,4 @@
-"""abstract: SIP-2: Homestead Identity Precompile Test Cases."""
+"""SIP-2: Homestead Identity Precompile Test Cases."""
 
 import pytest
 from execution_testing import (

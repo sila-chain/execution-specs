@@ -28,8 +28,8 @@ from execution_testing.fixtures import (
 from execution_testing.forks import Fork
 
 from ..cli_types import TransitionToolOutput
-from ..sila_cli import SilaCLI
 from ..fixture_consumer_tool import FixtureConsumerTool
+from ..sila_cli import SilaCLI
 from ..transition_tool import (
     Profiler,
     TransitionTool,
@@ -278,7 +278,7 @@ class BesuTransitionTool(TransitionTool):
             dump_files_to_directory(
                 debug_output_path,
                 {
-                    "output/alloc.json": output.alloc.raw,
+                    "output/alloc.json": output.alloc,
                     "output/result.json": output.result.model_dump(
                         mode="json", **model_dump_config
                     ),
@@ -452,6 +452,13 @@ class BesuExceptionMapper(ExceptionMapper):
             r"transaction invalid Transaction gas limit "
             r"must be at most \d+"
         ),
+        TransactionException.INVALID_SIGNATURE_VRS: (
+            r"Failed to decode transactions from block parameter|"
+            r"transaction invalid Signature s value should be less "
+            r"than \d+, but got \d+|"
+            # In-range r that is not an x-coordinate on the curve.
+            r"Cannot recover public key from signature"
+        ),
         TransactionException.TYPE_3_TX_MAX_BLOB_GAS_ALLOWANCE_EXCEEDED: (
             r"Blob transaction 0x[0-9a-f]+ exceeds "
             r"block blob gas limit: \d+ > \d+"
@@ -471,7 +478,8 @@ class BesuExceptionMapper(ExceptionMapper):
         BlockException.INVALID_BLOCK_ACCESS_LIST: (
             r"Block access list hash mismatch, "
             r"calculated:\s*(0x[a-f0-9]+)\s+header:\s*(0x[a-f0-9]+)|"
-            r"Block access list validation failed for block 0x[a-f0-9]+"
+            r"Block access list validation failed for block 0x[a-f0-9]+|"
+            r"Failed to decode block access list payload parameter"
         ),
         BlockException.INCORRECT_BLOCK_FORMAT: (
             r"Block access list hash mismatch, "

@@ -18,7 +18,7 @@ from execution_testing.fixtures.blockchain import (
     FixtureHeader,
 )
 from execution_testing.forks import Fork, TransitionFork
-from execution_testing.rpc import EthRPC
+from execution_testing.rpc import SilRPC
 
 from ..helpers.exceptions import GenesisBlockMismatchExceptionError
 from ..helpers.timing import TimingData
@@ -45,7 +45,7 @@ def _validate_rpc_header_fields(
 
 def test_via_rlp(
     timing_data: TimingData,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     fixture: BlockchainFixture,
 ) -> None:
     """

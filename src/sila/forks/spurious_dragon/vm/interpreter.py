@@ -196,7 +196,7 @@ def process_create_message(message: Message) -> Evm:
 
 def process_message(message: Message) -> Evm:
     """
-    Move sil and execute the relevant code.
+    Move sila and execute the relevant code.
 
     Parameters
     ----------

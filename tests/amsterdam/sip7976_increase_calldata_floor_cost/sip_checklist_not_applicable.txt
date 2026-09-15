@@ -1,0 +1,14 @@
+opcode = SIP does not introduce or modify an opcode
+precompile = SIP does not introduce a new precompile
+removed_precompile = SIP does not remove a precompile
+system_contract = SIP does not introduce a new system contract
+transaction_type = SIP does not introduce a new transaction type
+block_header_field = SIP does not add any new block header fields
+block_body_field = SIP does not add any new block body fields
+gas_cost_changes/test/out_of_gas = The raised floor cannot cause a runtime out-of-gas, it is a validity threshold plus end-of-transaction minimum billing; below-floor gas limits reject as invalid (insufficient_gas arms in test_transaction_validity.py)
+gas_refunds_changes = SIP does not change refund rules, only how the billed floor interacts with refunded execution gas (covered under gas_cost_changes)
+blob_count_changes = SIP does not introduce any blob count changes
+execution_layer_request = SIP does not introduce an execution layer request
+new_transaction_validity_constraint = The floor gas-limit reservation exists since SIP-7623, this SIP modifies the threshold (see modified_transaction_validity_constraint)
+block_level_constraint = Block-level floor accounting is SIP-2780/SIP-8037 scope
+general/code_coverage/second_client = Optional

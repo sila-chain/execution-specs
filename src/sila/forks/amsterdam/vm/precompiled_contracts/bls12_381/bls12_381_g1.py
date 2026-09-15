@@ -11,14 +11,15 @@ Introduction
 Implementation of pre-compiles in G1 (curve over base prime field).
 """
 
-from sila_types.numeric import U256, Uint
 from sila_ecc.bls.hash_to_curve import clear_cofactor_G1, map_to_curve_G1
 from sila_ecc.optimized_bls12_381.optimized_curve import FQ
 from sila_ecc.optimized_bls12_381.optimized_curve import add as bls12_add
 from sila_ecc.optimized_bls12_381.optimized_curve import (
     multiply as bls12_multiply,
 )
+from sila_types.numeric import U256, Uint
 
+from ....fork_types import ExecutionGas
 from ....vm import Evm
 from ....vm.gas import (
     GasCosts,
@@ -53,7 +54,7 @@ def bls12_g1_add(evm: Evm) -> None:
         If the input length is invalid.
 
     """
-    data = evm.message.data
+    data = evm.call_data
     if len(data) != 256:
         raise InvalidParameter("Invalid Input Length")
 
@@ -88,7 +89,7 @@ def bls12_g1_msm(evm: Evm) -> None:
         If the input length is invalid.
 
     """
-    data = evm.message.data
+    data = evm.call_data
     if len(data) == 0 or len(data) % LENGTH_PER_PAIR != 0:
         raise InvalidParameter("Invalid Input Length")
 
@@ -99,7 +100,9 @@ def bls12_g1_msm(evm: Evm) -> None:
     else:
         discount = Uint(G1_MAX_DISCOUNT)
 
-    gas_cost = Uint(k) * GasCosts.PRECOMPILE_BLS_G1MUL * discount // MULTIPLIER
+    gas_cost = ExecutionGas(
+        Uint(k) * GasCosts.PRECOMPILE_BLS_G1MUL * discount // MULTIPLIER
+    )
     charge_gas(evm, gas_cost)
 
     # OPERATION
@@ -133,7 +136,7 @@ def bls12_map_fp_to_g1(evm: Evm) -> None:
         If the input length is invalid.
 
     """
-    data = evm.message.data
+    data = evm.call_data
     if len(data) != 64:
         raise InvalidParameter("Invalid Input Length")
 

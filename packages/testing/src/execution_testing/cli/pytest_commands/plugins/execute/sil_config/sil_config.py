@@ -12,7 +12,7 @@ import requests
 from execution_testing.logging import (
     get_logger,
 )
-from execution_testing.rpc import EthRPC
+from execution_testing.rpc import SilRPC
 
 from .execute_types import Genesis, NetworkConfigFile
 
@@ -188,7 +188,7 @@ def pytest_configure(config: pytest.Config) -> None:
                 pytest.exit(f"Unsupported client was passed: {c}")
         logger.info(f"Provided client list: {clients}")
         # activate majority mode if also URL condition is met
-        if ".silpandaops.io" in rpc_endpoint:
+        if ".ethpandaops.io" in rpc_endpoint:
             logger.info("Ethpandaops RPC detected")
             logger.info("Toggling majority test on")
             config.option.majority_clients = clients  # List[str]
@@ -202,7 +202,7 @@ def pytest_configure(config: pytest.Config) -> None:
         return
 
     # Test out the RPC endpoint to be able to fail fast if it's not working
-    sil_rpc = EthRPC(rpc_endpoint)
+    sil_rpc = SilRPC(rpc_endpoint)
     try:
         logger.debug(
             "Will now perform a connection check (request chain_id).."
@@ -237,7 +237,7 @@ def rpc_endpoint(request: pytest.FixtureRequest) -> str:
     return request.config.getoption("rpc_endpoint")
 
 
-def all_rpc_endpoints(config: pytest.Config) -> Dict[str, List[EthRPC]]:
+def all_rpc_endpoints(config: pytest.Config) -> Dict[str, List[SilRPC]]:
     """
     Derive a mapping of exec clients to the RPC URLs they are reachable at.
     """
@@ -251,12 +251,12 @@ def all_rpc_endpoints(config: pytest.Config) -> Dict[str, List[EthRPC]]:
             endpoint_name = parsed.hostname
         except Exception:
             pass
-        return {endpoint_name: [EthRPC(rpc_endpoint)]}
+        return {endpoint_name: [SilRPC(rpc_endpoint)]}
 
     pattern = r"(.*?@rpc\.)([^-]+)-([^-]+)(-.*)"
-    url_dict: Dict[str, List[EthRPC]] = {
+    url_dict: Dict[str, List[SilRPC]] = {
         exec_client: [
-            EthRPC(
+            SilRPC(
                 re.sub(
                     pattern,
                     f"\\g<1>{consensus}-{exec_client}\\g<4>",
@@ -268,8 +268,8 @@ def all_rpc_endpoints(config: pytest.Config) -> Dict[str, List[EthRPC]]:
         for exec_client in el_clients
     }
     # url_dict looks like this:
-    # { 'besu': [<EthRPC that holds url for grandine+besu>,
-    #            <EthRPC that holds url for lighthouse+besu>, ..],
+    # { 'besu': [<SilRPC that holds url for grandine+besu>,
+    #            <SilRPC that holds url for lighthouse+besu>, ..],
     #   'erigon':  ... ... }
     return url_dict
 

@@ -11,7 +11,7 @@ Introduction
 Types reused throughout the specification, which are specific to Sila.
 """
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes, Bytes20, Bytes256
 
 from sila.crypto.hash import Hash32

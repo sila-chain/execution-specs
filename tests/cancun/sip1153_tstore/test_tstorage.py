@@ -2,7 +2,7 @@
 SIP-1153 Transient Storage opcode tests.
 
 Ports and extends some tests from
-[sila/tests/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/](https://github.com/sila/tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage).
+[sila/tests/src/SIPTestsFiller/StateTests/stEIP1153-transientStorage/](https://github.com/sila/tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/stEIP1153-transientStorage).
 """
 
 from enum import unique
@@ -41,7 +41,7 @@ def test_transient_storage_unset_values(
     [sila/tests/.../01_tloadBeginningTxnFiller.yml]
     (https://github.com/sila/tests/blob/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/
-    stSIP1153-transientStorage/01_tloadBeginningTxnFiller.yml)",
+    stEIP1153-transientStorage/01_tloadBeginningTxnFiller.yml)",
     """
     slots_under_test = [0, 1, 2, 2**128, 2**256 - 1]
     code = sum(Op.SSTORE(slot, Op.TLOAD(slot)) for slot in slots_under_test)
@@ -67,7 +67,7 @@ def test_tload_after_tstore(state_test: StateTestFiller, pre: Alloc) -> None:
     [sila/tests/.../02_tloadAfterTstoreFiller.yml]
     (https://github.com/sila/tests/blob/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/
-    stSIP1153-transientStorage/02_tloadAfterTstoreFiller.yml)",
+    stEIP1153-transientStorage/02_tloadAfterTstoreFiller.yml)",
     """
     slots_under_test = [0, 1, 2, 2**128, 2**256 - 1]
     code = sum(
@@ -99,7 +99,7 @@ def test_tload_after_sstore(state_test: StateTestFiller, pre: Alloc) -> None:
     [sila/tests/.../18_tloadAfterStoreFiller.yml]
     (https://github.com/sila/tests/blob/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/
-    EIPTestsFiller/StateTests/stSIP1153-transientStorage/
+    SIPTestsFiller/StateTests/stEIP1153-transientStorage/
     18_tloadAfterStoreFiller.yml)",
     """
     slots_under_test = [1, 3, 2**128, 2**256 - 1]
@@ -134,8 +134,8 @@ def test_tload_after_tstore_is_zero(
     Based on [sila/tests/.../03_tloadAfterStoreIs0Filler.yml]
     (https://github.com/sila/tests/blob/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/
-    EIPTestsFiller/StateTests/
-    stSIP1153-transientStorage/03_tloadAfterStoreIs0Filler.yml)",
+    SIPTestsFiller/StateTests/
+    stEIP1153-transientStorage/03_tloadAfterStoreIs0Filler.yml)",
     """
     slots_to_write = [1, 4, 2**128, 2**256 - 2]
     slots_to_read = [slot - 1 for slot in slots_to_write] + [
@@ -196,7 +196,7 @@ class GasMeasureTestCases(PytestParameterEnum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stSIP1153-transientStorage/17_tstoreGasFiller.yml",  # noqa: E501
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/17_tstoreGasFiller.yml",  # noqa: E501
     ],
     pr=["https://github.com/sila/execution-specs/pull/2385"],
 )

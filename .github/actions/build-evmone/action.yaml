@@ -4,11 +4,11 @@ inputs:
   repo:
     description: 'Source repository to use to build the EVM binary'
     required: true
-    default: 'sila/evmone'
+    default: 'ipsilon/evmone'
   ref:
     description: 'Reference to branch, commit, or tag to use to build the EVM binary'
     required: true
-    default: 'master'
+    default: '2184b24461ae20398520f0bc5023cb7dcc0e003c' # v0.23.0
   targets:
     description: 'Which targets to build from evmone repo'
     required: false
@@ -45,6 +45,7 @@ runs:
           ${{ github.workspace }}/evmone/build
         key: >
           evmone-build-${{ runner.os }}-${{ runner.arch }}-
+          repo=${{ inputs.repo }}-
           targets=${{ inputs.targets }}-
           ref=${{ inputs.ref }}-
           bucket=${{ env.CACHE_BUCKET }}
@@ -66,10 +67,10 @@ runs:
       with:
         cmake-version: '3.x'
 
-    - name: Install GMP Linux
+    - name: Install build dependencies Linux
       if: runner.os == 'Linux' && steps.cache-restore.outputs.cache-hit != 'true'
       shell: bash
-      run: sudo apt-get -q update && sudo apt-get -qy install libgmp-dev
+      run: sudo apt-get -q update && sudo apt-get -qy install build-essential libgmp-dev
 
     - name: Install GMP macOS
       if: runner.os == 'macOS' && steps.cache-restore.outputs.cache-hit != 'true'
@@ -99,6 +100,7 @@ runs:
           ${{ github.workspace }}/evmone/build
         key: >
           evmone-build-${{ runner.os }}-${{ runner.arch }}-
+          repo=${{ inputs.repo }}-
           targets=${{ inputs.targets }}-
           ref=${{ inputs.ref }}-
           bucket=${{ env.CACHE_BUCKET }}

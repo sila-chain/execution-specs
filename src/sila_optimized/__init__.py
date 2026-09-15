@@ -46,7 +46,7 @@ def monkey_patch_optimized_state_db(
 
 def monkey_patch_optimized_spec(fork: Hardfork) -> None:
     """
-    Replace the silash implementation with one that supports higher
+    Replace the ethash implementation with one that supports higher
     performance.
 
     This function must be called before the spec interface is imported

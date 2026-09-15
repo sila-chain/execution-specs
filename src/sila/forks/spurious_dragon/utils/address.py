@@ -12,7 +12,7 @@ Address specific functions used in this spurious dragon version of
 specification.
 """
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.numeric import U256, Uint
 
 from sila.crypto.hash import keccak256

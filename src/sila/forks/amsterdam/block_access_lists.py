@@ -15,7 +15,7 @@ See [`BlockAccessList`][bal] for more detail.
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set, Tuple, TypeAlias, final
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes, Bytes32
 from sila_types.frozen import slotted_freezable
 from sila_types.numeric import U64, U256, Uint, ulen

@@ -5,21 +5,31 @@
 # Any `<feat>-devnet` input resolves to the shared `devnet` entry but keeps
 # its name in the tag; the devnet number lives in the version (X), not the
 # feature name, so this file needs no edits for new devnets.
+# `tests` is also what the scheduled nightly run of the `release_fixtures`
+# workflow fills: sila-mainnet forks only, so the rotating nightly artifact is a
+# release-ready rehearsal of the next tests@ release.
 tests:
   evm-type: eels
   fill-params: --until=BPO4 --generate-all-formats
 
+# Minimal Sila-native fixture set used only by Hive smoke/consume CI. Keep the
+# full `tests` release profile above unchanged for release and client conformance.
+hive_smoke:
+  evm-type: eels
+  fill-params: --fork=Osaka --generate-all-formats -k "test_block_at_rlp_limit_with_logs or test_clz_stack_underflow"
+  feature_only: true
+
 benchmark:
   evm-type: benchmark
-  fill-params: --fork=Osaka --generate-all-formats --gas-benchmark-values 1,5,10,30,60,100,150 ./tests/benchmark/compute --maxprocesses=30 --dist=worksteal
+  fill-params: --fork=Amsterdam --generate-all-formats --gas-benchmark-values 1,5,10,30,60,100,150 ./tests/benchmark/compute --maxprocesses=30 --dist=worksteal
   feature_only: true
 
 benchmark_fast:
   evm-type: benchmark
-  fill-params: --fork=Osaka --generate-all-formats --gas-benchmark-values 100 ./tests/benchmark/compute
+  fill-params: --fork=Amsterdam --generate-all-formats --gas-benchmark-values 100 ./tests/benchmark/compute
   feature_only: true
 
 # Shared entry for all `<feat>-devnet` releases; matched by `-devnet` suffix.
 devnet:
   evm-type: eels
-  fill-params: --until=Amsterdam
+  fill-params: --until=Amsterdam --generate-all-formats
