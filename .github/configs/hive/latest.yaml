@@ -6,7 +6,7 @@
   dockerfile: git
   build_args:
     github: sila-chain/go-sila
-    tag: master
+    tag: main
 
 # Nethermind
 # Docker Hub: https://hub.docker.com/r/nethermind/nethermind
