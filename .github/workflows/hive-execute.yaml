@@ -124,6 +124,11 @@ jobs:
                 docker inspect "$container" || true
                 docker logs "$container" || true
               done
+              for container in $(docker ps -aq --filter ancestor=hive/hiveproxy:latest); do
+                echo "--- hiveproxy container: $container ---"
+                docker inspect "$container" || true
+                docker logs "$container" || true
+              done
               echo "::endgroup::"
               false
             }
