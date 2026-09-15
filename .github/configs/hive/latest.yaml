@@ -1,12 +1,12 @@
 # Hive client configuration file with latest release images
 
-# Go-Sila — build directly from the Sila-owned source authority.
+# Go-Sila — build directly from the exact Sila-owned source authority.
 - client: go-sila
   nametag: ""
   dockerfile: git
   build_args:
     github: sila-chain/go-sila
-    tag: main
+    ref: 7a388df6c1afbf78af7b120d7119fe1c363d0a12
 
 # Nethermind
 # Docker Hub: https://hub.docker.com/r/nethermind/nethermind
