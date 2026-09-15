@@ -117,7 +117,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: sila-chain/sila-hive
-          ref: main
+          ref: 0a49d98ac524c324896a93cb2676cfa51d3feaf6
           path: hive
       - name: Checkout exact go-sila authority
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -145,6 +145,14 @@ jobs:
       - name: Build hive against exact go-sila authority
         run: |
           cd hive
+          (
+            cd hiveproxy
+            go mod edit -droprequire=github.com/sila-chain/go-sila
+            rm go.sum
+            go get github.com/sila-chain/go-sila@7a388df6c1afbf78af7b120d7119fe1c363d0a12
+            go mod tidy
+            go mod verify
+          )
           go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
           go mod edit -droprequire=github.com/crate-crypto/go-sil-kzg
           go mod edit -droprequire=github.com/sila-chain/go-verkle
