@@ -18,6 +18,7 @@ on:
       - ".github/actions/start-hive-dev/**"
       - ".github/actions/cache-docker-images/**"
       - ".github/actions/load-docker-images/**"
+      - ".github/actions/build-fixtures/**"
       - ".github/configs/hive/**"
       - "packages/testing/src/execution_testing/cli/pytest_commands/consume.py"
       - "packages/testing/src/execution_testing/cli/pytest_commands/build_block.py"
@@ -62,9 +63,6 @@ concurrency:
   group: hive-consume-${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
 
-env:
-  FIXTURES_URL: https://github.com/ethereum/execution-spec-tests/releases/download/v5.3.0/fixtures_develop.tar.gz
-
 jobs:
   cache-docker-images:
     name: Cache Docker Images
@@ -77,9 +75,20 @@ jobs:
         with:
           images: ${{ inputs.docker_images || 'docker.io/alpine:latest docker.io/library/golang:1-alpine' }}
 
+  build-fixtures:
+    name: Build Sila Fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout execution-specs
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build Sila-native fixtures
+        uses: ./.github/actions/build-fixtures
+        with:
+          release_name: tests
+
   test-hive:
     name: ${{ matrix.name }}
-    needs: cache-docker-images
+    needs: [cache-docker-images, build-fixtures]
     runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     env:
       CLIENT: ${{ inputs.client || 'go-sila' }}
@@ -113,6 +122,14 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           path: execution-specs
+      - name: Download Sila-native fixtures
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: fixtures_tests
+          path: execution-specs/.fixtures
+      - name: Resolve Sila fixture path
+        shell: bash
+        run: echo "FIXTURES_PATH=$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_tests.tar.gz" >> "$GITHUB_ENV"
       - name: Checkout Hive
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -171,7 +188,7 @@ jobs:
             --sim.parallelism=1 \
             --client ${{ env.CLIENT }} \
             --client-file ../execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }} \
-            --sim.buildarg fixtures=${{ env.FIXTURES_URL }} \
+            --sim.buildarg fixtures=${{ env.FIXTURES_PATH }} \
             --sim.limit="${{ matrix.sim_limit }}" \
             --sim.loglevel=5 \
             --docker.buildoutput \
@@ -201,7 +218,7 @@ jobs:
           HIVE_SIMULATOR: ${{ steps.start-hive.outputs.hive-url }}
         run: |
           uv sync --all-extras
-          uv run ${{ matrix.cli_command }} --input ${{ env.FIXTURES_URL }} -k "${{ matrix.test_filter }}"
+          uv run ${{ matrix.cli_command }} --input ${{ env.FIXTURES_PATH }} -k "${{ matrix.test_filter }}"
       - name: Upload Hive logs
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
