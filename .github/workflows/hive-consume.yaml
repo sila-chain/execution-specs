@@ -20,6 +20,7 @@ on:
       - ".github/actions/load-docker-images/**"
       - ".github/actions/build-fixtures/**"
       - ".github/configs/hive/**"
+      - ".github/configs/feature.yaml"
       - "packages/testing/src/execution_testing/cli/pytest_commands/consume.py"
       - "packages/testing/src/execution_testing/cli/pytest_commands/build_block.py"
       - "packages/testing/src/execution_testing/cli/pytest_commands/pytest_ini_files/pytest-consume.ini"
@@ -38,7 +39,7 @@ on:
         required: false
         default: "go-sila"
       client_file:
-        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml, master.yaml)"
+        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml)"
         required: false
         default: "latest.yaml"
   workflow_call:
@@ -54,7 +55,7 @@ on:
         type: string
         default: "go-sila"
       client_file:
-        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml, master.yaml)"
+        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml)"
         required: false
         type: string
         default: "latest.yaml"
@@ -78,14 +79,14 @@ jobs:
   build-fixtures:
     name: Build Sila Fixtures
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 20
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Build Sila-native fixtures
+      - name: Build bounded Sila-native Hive fixtures
         uses: ./.github/actions/build-fixtures
         with:
-          release_name: tests
+          release_name: hive_smoke
 
   test-hive:
     name: ${{ matrix.name }}
@@ -126,11 +127,11 @@ jobs:
       - name: Download Sila-native fixtures
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
-          name: fixtures_tests
+          name: fixtures_hive_smoke
           path: execution-specs/.fixtures
       - name: Resolve Sila fixture path
         shell: bash
-        run: echo "FIXTURES_PATH=$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_tests.tar.gz" >> "$GITHUB_ENV"
+        run: echo "FIXTURES_PATH=$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_hive_smoke.tar.gz" >> "$GITHUB_ENV"
       - name: Checkout Hive
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
