@@ -79,7 +79,8 @@ jobs:
         run: |
           cd hive
           go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
-          go build .
+          go mod tidy
+          go build -mod=readonly .
       - name: Start Hive in dev mode
         id: start-hive
         uses: ./execution-specs/.github/actions/start-hive-dev

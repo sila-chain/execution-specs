@@ -146,7 +146,8 @@ jobs:
         run: |
           cd hive
           go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
-          go build .
+          go mod tidy
+          go build -mod=readonly .
       - name: Run simulator tests
         if: matrix.mode == 'simulator'
         run: |
