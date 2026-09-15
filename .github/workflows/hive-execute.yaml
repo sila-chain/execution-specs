@@ -116,4 +116,14 @@ jobs:
             --basetemp="${{ runner.temp }}/pytest" \
             -v \
             -p execution_testing.cli.pytest_commands.plugins.concurrency \
-            src/execution_testing/cli/pytest_commands/plugins/execute/tests/test_execute_remote.py
+            src/execution_testing/cli/pytest_commands/plugins/execute/tests/test_execute_remote.py || {
+              echo "::group::Hive go-sila client diagnostics"
+              docker ps -a --no-trunc
+              for container in $(docker ps -aq --filter ancestor=hive/clients/go-sila:latest); do
+                echo "--- go-sila container: $container ---"
+                docker inspect "$container" || true
+                docker logs "$container" || true
+              done
+              echo "::endgroup::"
+              false
+            }
