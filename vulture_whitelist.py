@@ -7,23 +7,13 @@ imports. Each bare expression tells Vulture to ignore that specific symbol.
 """
 
 from sila.cancun.blocks import Withdrawal
-from sila_spec_tools.evm_tools.t8n.transition_tool import EELST8N
 
-from sila.silash import *
+from sila.ethash import *
 from sila.fork_criteria import Unscheduled
 from sila.trace import EvmTracer
 from sila.utils.hexadecimal import hex_to_bytes256
 from sila_optimized.state_db import State
 from sila_spec_tools.docc import *
-from sila_spec_tools.evm_tools.daemon import _EvmToolHandler
-from sila_spec_tools.evm_tools.loaders.transaction_loader import (
-    TransactionLoad,
-)
-from sila_spec_tools.evm_tools.t8n.env import Ommer
-from sila_spec_tools.evm_tools.t8n.evm_trace.sip3155 import (
-    FinalTrace,
-    Trace,
-)
 from sila_spec_tools.lint.lints.final_decorator import (
     FinalDecoratorHygiene,
 )
@@ -32,6 +22,9 @@ from sila_spec_tools.lint.lints.glacier_forks_hygiene import (
 )
 from sila_spec_tools.lint.lints.import_hygiene import ImportHygiene
 from sila_spec_tools.lint.lints.uint_len import UintLenHygiene
+from sila_spec_tools.loaders.transaction_loader import (
+    TransactionLoad,
+)
 from sila_spec_tools.new_fork.codemod.comment import CommentReplaceCommand
 from sila_spec_tools.new_fork.codemod.constant import SetConstantCommand
 from sila_spec_tools.new_fork.codemod.string_replace import (
@@ -47,8 +40,8 @@ Withdrawal.validator_index
 # src/sila/fork_criteria.py
 Unscheduled
 
-# src/sila/silash.py
-silash.generate_dataset
+# src/sila/ethash.py
+ethash.generate_dataset
 
 # src/sila/trace.py
 EvmTracer.__call__
@@ -77,6 +70,8 @@ docc.FixIndexTransform
 docc.FixIndexTransform.transform
 docc.MinimizeDiffsTransform
 docc.MinimizeDiffsTransform.transform
+docc.PruneReferencesTransform
+docc.PruneReferencesTransform.transform
 docc._FixIndexVisitor.enter
 docc._DoccAdapter.shallow_equals
 docc._DoccAdapter.shallow_hash
@@ -88,17 +83,6 @@ docc._MinimizeDiffsVisitor.enter
 docc.render_diff
 docc.render_before_after
 docc._SilaListingSource.listing_order_key
-
-# src/sila_spec_tools/evm_tools/daemon.py
-_EvmToolHandler.do_POST
-_EvmToolHandler.log_request
-
-# src/sila_spec_tools/evm_tools/transition_tool.py
-EELST8N
-EELST8N._info_metadata
-EELST8N.version
-EELST8N.is_fork_supported
-EELST8N.evaluate
 
 # src/sila_spec_tools/loaders/transaction_loader.py
 TransactionLoad.json_to_authorizations
@@ -118,19 +102,6 @@ TransactionLoad.json_to_v
 TransactionLoad.json_to_y_parity
 TransactionLoad.json_to_r
 TransactionLoad.json_to_s
-
-# src/sila_spec_tools/evm_tools/t8n/env.py
-Ommer.delta
-
-# src/sila_spec_tools/evm_tools/t8n/evm_trace/sip3155.py
-Trace.gasCost
-Trace.memSize
-Trace.returnData
-Trace.refund
-Trace.opName
-Trace.stateGas
-Trace.stateGasCost
-FinalTrace.gasUsed
 
 # src/sila_spec_tools/lint/lints/final_decorator.py
 FinalDecoratorHygiene
@@ -165,8 +136,8 @@ CommentReplaceCommand.transform_module_impl
 
 _children  # unused attribute (src/sila_spec_tools/docc.py:751)
 
-# evm_tools/loaders/fixture_loader.py - abstract methods
-from sila_spec_tools.evm_tools.loaders.fixture_loader import BaseLoad
+# loaders/fixture_loader.py - abstract methods
+from sila_spec_tools.loaders.fixture_loader import BaseLoad
 
 BaseLoad.json_to_header
 BaseLoad.json_to_state
@@ -182,6 +153,7 @@ PatchHygiene
 SetConstantCommand.visit_AnnAssign_target
 SetConstantCommand.leave_AnnAssign_target
 SetConstantCommand.leave_AnnAssign
+SetConstantCommand.leave_Module
 
 # src/sila_spec_tools/new_fork/codemod/remove_docstring.py - codemod class
 from sila_spec_tools.new_fork.codemod.remove_docstring import (
@@ -194,3 +166,26 @@ RemoveDocstringCommand
 _configure_client_manager  # autouse fixture
 test_suite_name  # hive test suite name fixture
 genesis_header  # genesis header fixture
+
+# packages/testing/src/execution_testing/evm_tools/t8n/evm_trace/
+# sip3155.py - SIP-3155 trace output field names, serialized to JSON
+gasCost
+gasUsed
+memSize
+opName
+refund
+returnData
+stateGas
+stateGasCost
+
+# packages/testing/src/execution_testing/evm_tools/daemon.py -
+# overrides `BaseHTTPRequestHandler.log_request`
+log_request
+
+# packages/testing/src/execution_testing/evm_tools/t8n/cli.py - field
+# on the testing `Transaction` model, read by `Transaction.sign`
+protected
+
+# packages/testing/src/execution_testing/evm_tools/tests/ - pytest
+# marker magic variable
+pytestmark

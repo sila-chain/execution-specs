@@ -1,6 +1,6 @@
 """
-abstract: Crafted tests for sila-mainnet of [SIP-6110: Supply validator deposits on chain](https://sips.sila.org/SIPS/sip-6110).
-"""  # noqa: E501
+Crafted tests for sila-mainnet of [SIP-6110: Supply validator deposits on chain](https://sips.sila.org/SIPS/sip-6110).
+"""
 
 from typing import List
 
@@ -9,16 +9,16 @@ from execution_testing import (
     Alloc,
     Block,
     BlockchainTestFiller,
+    DepositRequest,
     SystemContractInteractionTransaction,
 )
 
-from .helpers import DepositRequest
 from .spec import ref_spec_6110
 
 REFERENCE_SPEC_GIT_PATH = ref_spec_6110.git_path
 REFERENCE_SPEC_VERSION = ref_spec_6110.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(
@@ -27,8 +27,6 @@ pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila-mainnet]
         pytest.param(
             [
                 SystemContractInteractionTransaction(
-                    # TODO: Use a real public key to allow recovery of
-                    #  the funds.
                     requests=[
                         DepositRequest(
                             pubkey=0x01,

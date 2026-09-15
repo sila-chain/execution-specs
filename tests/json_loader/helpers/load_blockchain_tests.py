@@ -5,16 +5,16 @@ from typing import Any, Dict, Tuple
 from unittest.mock import call, patch
 
 import pytest
+import sila_rlp as rlp
 from _pytest.config import Config
-from sila_rlp import rlp
-from sila_rlp.exceptions import RLPException
+from sila_rlp.exceptions import SILA_RLPException as RLPException
 from sila_types.numeric import U64
 
 from sila.crypto.hash import keccak256
 from sila.exceptions import SilaException, StateWithEmptyAccount
-from sila.state import close_state
+from sila.state_mpt import close_state
 from sila.utils.hexadecimal import hex_to_bytes
-from sila_spec_tools.evm_tools.loaders.fixture_loader import Load
+from sila_spec_tools.loaders.fixture_loader import Load
 
 from .. import FORKS
 from ..stash_keys import desired_forks_key

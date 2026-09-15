@@ -26,7 +26,7 @@ in this fork.
 [Besu 22.4.3]: https://github.com/besu-sil/besu/releases/tag/22.4.3
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2022.06.03
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/@silajs/vm@5.9.3
-[n]: https://github.com/NethermindSil/nethermind/releases/tag/1.13.3
+[n]: https://github.com/NethermindEth/nethermind/releases/tag/1.13.3
 """  # noqa: E501
 
 from sila.fork_criteria import ByBlockNumber, ForkCriteria

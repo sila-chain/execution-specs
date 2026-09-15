@@ -1,11 +1,11 @@
 """
 The DAO Fork ([SIP-779]) is a response to a smart contract exploit known as the
-2016 DAO Attack where a vulnerable contract was drained of its sil. This fork
+2016 DAO Attack where a vulnerable contract was drained of its sila. This fork
 recovers the stolen funds into a new contract.
 
 ### Changes
 
-- Transfer sil from a [list of accounts][l] into the [Withdraw DAO][r]
+- Transfer sila from a [list of accounts][l] into the [Withdraw DAO][r]
   contract
 
 ### Upgrade Schedule

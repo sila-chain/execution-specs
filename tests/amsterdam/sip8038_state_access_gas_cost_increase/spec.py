@@ -12,5 +12,5 @@ class ReferenceSpec:
 
 
 ref_spec_8038 = ReferenceSpec(
-    "SIPS/sip-8038.md", "a8862ae6653a12a2989b64a50eca5334cfe8b3cb"
+    "SIPS/sip-8038.md", "fc2322854d047ba1fd6e3ae9e61fb7a915535cb7"
 )

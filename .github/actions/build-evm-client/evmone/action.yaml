@@ -4,11 +4,11 @@ inputs:
   repo:
     description: 'Source repository to use to build the EVM binary'
     required: true
-    default: 'sila/evmone'
+    default: 'ipsilon/evmone'
   ref:
     description: 'Reference to branch, commit, or tag to use to build the EVM binary'
     required: true
-    default: 'master'
+    default: '2184b24461ae20398520f0bc5023cb7dcc0e003c' # v0.23.0
   targets:
     description: 'Which targets to build from evmone repo'
     required: false
@@ -20,7 +20,12 @@ runs:
       id: evmone-sha
       shell: bash
       run: |
-        SHA=$(git ls-remote https://github.com/${{ inputs.repo }}.git refs/heads/${{ inputs.ref }} | cut -f1)
+        if [[ "${{ inputs.ref }}" =~ ^[0-9a-f]{40}$ ]]; then
+          SHA="${{ inputs.ref }}"
+        else
+          SHA=$(git ls-remote https://github.com/${{ inputs.repo }}.git refs/heads/${{ inputs.ref }} | cut -f1)
+        fi
+        test -n "$SHA"
         echo "sha=$SHA" >> $GITHUB_OUTPUT
         echo "Latest evmone commit: $SHA"
     - name: Prepare cache target dir
@@ -32,9 +37,7 @@ runs:
       with:
         path: |
           ${{ github.workspace }}/evmone/build
-        key: evmone-build-targets=${{ inputs.targets }}-sha=${{ steps.evmone-sha.outputs.sha }}
-        restore-keys: |
-          evmone-build-targets=${{ inputs.targets }}-
+        key: evmone-build-repo=${{ inputs.repo }}-targets=${{ inputs.targets }}-sha=${{ steps.evmone-sha.outputs.sha }}
     - name: Checkout evmone
       if: steps.cache-restore.outputs.cache-hit != 'true'
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -75,4 +78,4 @@ runs:
       with:
         path: |
           ${{ github.workspace }}/evmone/build
-        key: evmone-build-targets=${{ inputs.targets }}-sha=${{ steps.evmone-sha.outputs.sha }}
+        key: evmone-build-repo=${{ inputs.repo }}-targets=${{ inputs.targets }}-sha=${{ steps.evmone-sha.outputs.sha }}

@@ -120,7 +120,7 @@ def test_use_pre_alloc_groups_forces_single_phase() -> None:
     assert "--generate-all-formats" in executions[0].args
 
 
-def test_use_and_generate_pre_alloc_groups_together_is_rejected() -> None:
+def test_use_and_generate_pre_alloc_groups_togsiler_is_rejected() -> None:
     """
     --use-pre-alloc-groups + --generate-pre-alloc-groups are contradictory:
     the first asserts the groups exist, the second regenerates them.

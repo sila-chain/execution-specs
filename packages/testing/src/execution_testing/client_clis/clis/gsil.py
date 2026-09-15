@@ -23,8 +23,8 @@ from execution_testing.fixtures import (
 )
 from execution_testing.forks import Fork
 
-from ..sila_cli import SilaCLI
 from ..fixture_consumer_tool import FixtureConsumerTool
+from ..sila_cli import SilaCLI
 from ..transition_tool import TransitionTool, dump_files_to_directory
 
 
@@ -55,6 +55,9 @@ class GsilExceptionMapper(ExceptionMapper):
             "max priority fee per gas higher than max fee per gas"
         ),
         TransactionException.INVALID_CHAINID: "invalid chain id for signer",
+        TransactionException.INVALID_SIGNATURE_VRS: (
+            "invalid transaction v, r, s values"
+        ),
         TransactionException.TYPE_1_TX_PRE_FORK: (
             "transaction type not supported"
         ),
@@ -105,6 +108,7 @@ class GsilExceptionMapper(ExceptionMapper):
             "invalid number of versionedHashes"
         ),
         BlockException.INVALID_REQUESTS: "invalid requests hash",
+        BlockException.SYSTEM_CONTRACT_EMPTY: "empty system contract",
         BlockException.SYSTEM_CONTRACT_CALL_FAILED: (
             "system call failed to execute:"
         ),
@@ -126,6 +130,9 @@ class GsilExceptionMapper(ExceptionMapper):
         BlockException.GAS_USED_OVERFLOW: "bal validation failure",
     }
     mapping_regex: ClassVar[Dict[ExceptionBase, str]] = {
+        # In-range r that is not an x-coordinate on the curve: the range
+        # check passes and recovery itself fails.
+        TransactionException.INVALID_SIGNATURE_VRS: r"recovery failed",
         TransactionException.TYPE_3_TX_MAX_BLOB_GAS_ALLOWANCE_EXCEEDED: (
             r"blob gas used \d+ exceeds maximum allowance \d+"
         ),
@@ -134,6 +141,9 @@ class GsilExceptionMapper(ExceptionMapper):
         ),
         BlockException.INVALID_GAS_USED_ABOVE_LIMIT: (
             r"invalid gasUsed: have \d+, gasLimit \d+"
+        ),
+        BlockException.INVALID_GAS_USED: (
+            r"invalid gas used \(remote: \d+ local: \d+\)"
         ),
         BlockException.INVALID_DEPOSIT_EVENT_LAYOUT: (
             r"invalid requests hash|failed to parse deposit logs"
@@ -153,7 +163,10 @@ class GsilExceptionMapper(ExceptionMapper):
         # EELS definition for `is_valid_deposit_event_data`:
         # https://github.com/sila/execution-specs/blob/5ddb904fa7ba27daeff423e78466744c51e8cb6a/src/sila/forks/prague/requests.py#L51
         # BAL Exceptions
-        BlockException.INVALID_BAL_HASH: (r"invalid block access list:"),
+        BlockException.INVALID_BAL_HASH: (
+            r"invalid block access list:|"
+            r"access list hash mismatch"
+        ),
         BlockException.INVALID_BLOCK_ACCESS_LIST: (
             r"difference between computed state diff and "
             r"BAL entry for account|"
@@ -162,11 +175,14 @@ class GsilExceptionMapper(ExceptionMapper):
             r"which weren't reported in BAL|"
             r"BAL change not reported in computed|"
             r"additional mutations compared to BAL|"
+            r"access list hash mismatch|"
+            r"failed to decode BAL|"
             r"[bB][aA][lL] validation fail"
         ),
         BlockException.INCORRECT_BLOCK_FORMAT: (r"invalid block access list:"),
         BlockException.BLOCK_ACCESS_LIST_GAS_LIMIT_EXCEEDED: (
-            r"block access list exceeds gas limit"
+            r"block access list exceeds gas limit|"
+            r"block access list exceeds size constraint"
         ),
         BlockException.GAS_USED_OVERFLOW: (r"gas limit reached"),
         TransactionException.INTRINSIC_GAS_TOO_LOW: (

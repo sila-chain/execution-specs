@@ -10,7 +10,7 @@ not treat the missing immediate as a graceful STOP.
 See:
 - SIP-8024: https://sips.sila.org/SIPS/sip-8024
 - Bounty: https://github.com/sila-bounty/nethermind/issues/12
-- Fix:    https://github.com/NethermindSil/nethermind/pull/11178
+- Fix:    https://github.com/NethermindEth/nethermind/pull/11178
 """
 
 import pytest
@@ -18,6 +18,7 @@ from execution_testing import (
     Account,
     Alloc,
     Op,
+    SIPChecklist,
     StateTestFiller,
     Transaction,
 )
@@ -30,6 +31,7 @@ REFERENCE_SPEC_VERSION = ref_spec_8024.version
 pytestmark = pytest.mark.valid_from("SIP8024")
 
 
+@SIPChecklist.Opcode.Test.StackUnderflow()
 @pytest.mark.parametrize(
     "sip8024_opcode,pushed_items",
     [

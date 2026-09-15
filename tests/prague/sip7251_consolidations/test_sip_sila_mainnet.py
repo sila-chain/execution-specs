@@ -1,6 +1,6 @@
 """
-abstract: Crafted tests for sila-mainnet of [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://sips.sila.org/SIPS/sip-7251).
-"""  # noqa: E501
+Crafted tests for sila-mainnet of [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://sips.sila.org/SIPS/sip-7251).
+"""
 
 from typing import List
 
@@ -9,16 +9,16 @@ from execution_testing import (
     Alloc,
     Block,
     BlockchainTestFiller,
+    ConsolidationRequest,
     SystemContractInteractionTransaction,
 )
 
-from .helpers import ConsolidationRequest
 from .spec import ref_spec_7251
 
 REFERENCE_SPEC_GIT_PATH = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7251.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

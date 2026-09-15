@@ -99,7 +99,7 @@ def test() -> None:
             "Enter the SIP name (spaces ok, only used in docstrings)"
         ).strip()
         directory_name = input_text(
-            "Enter directory name (snake_case, part after eipXXXX_)"
+            "Enter directory name (snake_case, part after sipXXXX_)"
         ).strip()
         dir_name = f"sip{sip_number}_{directory_name}"
         directory_path = base_path / dir_name

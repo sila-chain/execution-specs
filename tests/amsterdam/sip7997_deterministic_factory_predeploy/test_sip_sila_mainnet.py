@@ -1,7 +1,7 @@
 """
-abstract: Crafted tests for sila-mainnet of
+Crafted tests for sila-mainnet of
 [SIP-7997: Deterministic Factory Predeploy](https://sips.sila.org/SIPS/sip-7997).
-"""  # noqa: E501
+"""
 
 import pytest
 from execution_testing import (
@@ -18,7 +18,7 @@ from .spec import Spec, ref_spec_7997
 REFERENCE_SPEC_GIT_PATH = ref_spec_7997.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7997.version
 
-pytestmark = [pytest.mark.valid_at("SIP7997"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7997"), pytest.mark.sila_mainnet]
 
 FACTORY = Spec.FACTORY_ADDRESS
 
