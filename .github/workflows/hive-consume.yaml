@@ -129,9 +129,14 @@ jobs:
         with:
           name: fixtures_hive_smoke
           path: execution-specs/.fixtures
-      - name: Resolve Sila fixture path
+      - name: Extract Sila-native fixtures
         shell: bash
-        run: echo "FIXTURES_PATH=$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_hive_smoke.tar.gz" >> "$GITHUB_ENV"
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/execution-specs/.fixtures/extracted"
+          tar -xzf "$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_hive_smoke.tar.gz" \
+            -C "$GITHUB_WORKSPACE/execution-specs/.fixtures/extracted"
+          echo "FIXTURES_ARCHIVE=$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_hive_smoke.tar.gz" >> "$GITHUB_ENV"
+          echo "FIXTURES_DIR=$GITHUB_WORKSPACE/execution-specs/.fixtures/extracted" >> "$GITHUB_ENV"
       - name: Checkout Hive
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -190,7 +195,7 @@ jobs:
             --sim.parallelism=1 \
             --client ${{ env.CLIENT }} \
             --client-file ../execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }} \
-            --sim.buildarg fixtures=${{ env.FIXTURES_PATH }} \
+            --sim.buildarg fixtures=${{ env.FIXTURES_ARCHIVE }} \
             --sim.limit="${{ matrix.sim_limit }}" \
             --sim.loglevel=5 \
             --docker.buildoutput \
@@ -220,7 +225,7 @@ jobs:
           HIVE_SIMULATOR: ${{ steps.start-hive.outputs.hive-url }}
         run: |
           uv sync --all-extras
-          uv run ${{ matrix.cli_command }} --input ${{ env.FIXTURES_PATH }} -k "${{ matrix.test_filter }}"
+          uv run ${{ matrix.cli_command }} --input ${{ env.FIXTURES_DIR }} -k "${{ matrix.test_filter }}"
       - name: Upload Hive logs
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
