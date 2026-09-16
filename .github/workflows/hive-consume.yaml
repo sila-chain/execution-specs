@@ -187,6 +187,26 @@ jobs:
           go mod tidy
           go mod verify
           go build -mod=readonly -o hive .
+      - name: Stage Sila fixtures in simulator build context
+        if: matrix.mode == 'simulator'
+        shell: bash
+        run: |
+          sim_dir="$GITHUB_WORKSPACE/hive/simulators/${{ matrix.simulator }}"
+          cp "$FIXTURES_ARCHIVE" "$sim_dir/fixtures_hive_smoke.tar.gz"
+          python3 - "$sim_dir/Dockerfile" <<'PY'
+          from pathlib import Path
+          import sys
+
+          path = Path(sys.argv[1])
+          text = path.read_text()
+          old = 'ARG fixtures=stable@latest\nENV FIXTURES=${fixtures}'
+          new = 'COPY fixtures_hive_smoke.tar.gz /sila-fixtures/fixtures_hive_smoke.tar.gz\nENV FIXTURES=/sila-fixtures/fixtures_hive_smoke.tar.gz'
+          if old not in text:
+              raise SystemExit('expected simulator fixture authority block not found')
+          path.write_text(text.replace(old, new, 1))
+          PY
+          test -s "$sim_dir/fixtures_hive_smoke.tar.gz"
+          grep -F 'ENV FIXTURES=/sila-fixtures/fixtures_hive_smoke.tar.gz' "$sim_dir/Dockerfile"
       - name: Run simulator tests
         if: matrix.mode == 'simulator'
         run: |
@@ -195,7 +215,6 @@ jobs:
             --sim.parallelism=1 \
             --client ${{ env.CLIENT }} \
             --client-file ../execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }} \
-            --sim.buildarg fixtures=${{ env.FIXTURES_ARCHIVE }} \
             --sim.limit="${{ matrix.sim_limit }}" \
             --sim.loglevel=5 \
             --docker.buildoutput \
