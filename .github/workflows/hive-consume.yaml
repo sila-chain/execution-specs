@@ -114,7 +114,7 @@ jobs:
           - name: Dev Mode Consume Engine
             mode: dev
             cli_command: consume engine
-            test_filter: "Osaka and test_block_at_rlp_limit_with_logs"
+            test_filter: "test_via_engine"
           - name: Dev Mode Build Block
             mode: dev
             cli_command: build-block
