@@ -111,8 +111,19 @@ jobs:
         run: |
           uv sync --all-extras
           cd packages/testing
+          set +e
           uv run pytest \
             --basetemp="${{ runner.temp }}/pytest" \
             -v \
             -p execution_testing.cli.pytest_commands.plugins.concurrency \
             src/execution_testing/cli/pytest_commands/plugins/execute/tests/test_execute_remote.py
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "===== HIVE CLIENT CONTAINERS ====="
+            docker ps -a --filter 'ancestor=hive/clients/go-sila:latest' --no-trunc || true
+            for id in $(docker ps -aq --filter 'ancestor=hive/clients/go-sila:latest'); do
+              echo "===== GO-SILA CLIENT LOG: $id ====="
+              docker logs "$id" 2>&1 || true
+            done
+          fi
+          exit "$status"
