@@ -118,7 +118,7 @@ jobs:
           - name: Dev Mode Build Block
             mode: dev
             cli_command: build-block
-            test_filter: "Osaka and test_clz_stack_underflow"
+            test_filter: "test_via_build"
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
