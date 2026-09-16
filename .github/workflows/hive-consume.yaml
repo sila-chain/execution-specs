@@ -200,13 +200,16 @@ jobs:
           path = Path(sys.argv[1])
           text = path.read_text()
           old = 'ARG fixtures=stable@latest\nENV FIXTURES=${fixtures}'
-          new = 'COPY fixtures_hive_smoke.tar.gz /sila-fixtures/fixtures_hive_smoke.tar.gz\nENV FIXTURES=/sila-fixtures/fixtures_hive_smoke.tar.gz'
+          new = '''COPY fixtures_hive_smoke.tar.gz /sila-fixtures/fixtures_hive_smoke.tar.gz
+RUN python -c "import tarfile; from pathlib import Path; p=Path('/sila-fixtures/extracted'); p.mkdir(parents=True, exist_ok=True); tarfile.open('/sila-fixtures/fixtures_hive_smoke.tar.gz', 'r:gz').extractall(p, filter='data'); assert any(p.rglob('*.json')), 'no JSON fixtures extracted'"
+ENV FIXTURES=/sila-fixtures/extracted'''
           if old not in text:
               raise SystemExit('expected simulator fixture authority block not found')
           path.write_text(text.replace(old, new, 1))
           PY
           test -s "$sim_dir/fixtures_hive_smoke.tar.gz"
-          grep -F 'ENV FIXTURES=/sila-fixtures/fixtures_hive_smoke.tar.gz' "$sim_dir/Dockerfile"
+          grep -F "ENV FIXTURES=/sila-fixtures/extracted" "$sim_dir/Dockerfile"
+          grep -F "assert any(p.rglob('*.json'))" "$sim_dir/Dockerfile"
       - name: Run simulator tests
         if: matrix.mode == 'simulator'
         run: |
