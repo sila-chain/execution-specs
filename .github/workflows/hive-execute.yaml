@@ -119,6 +119,8 @@ jobs:
             src/execution_testing/cli/pytest_commands/plugins/execute/tests/test_execute_remote.py
           status=$?
           if [ "$status" -ne 0 ]; then
+            echo "===== HIVE CLIENT STARTUP LOG FILES ====="
+            find ../../../hive/workspace/logs -type f -maxdepth 3 -print -exec sh -c 'echo "===== $1 ====="; cat "$1"' _ {} \; 2>/dev/null || true
             echo "===== HIVE CLIENT CONTAINERS ====="
             docker ps -a --filter 'ancestor=hive/clients/go-sila:latest' --no-trunc || true
             for id in $(docker ps -aq --filter 'ancestor=hive/clients/go-sila:latest'); do
