@@ -192,11 +192,34 @@ jobs:
         shell: bash
         run: |
           sim_dir="$GITHUB_WORKSPACE/hive/simulators/${{ matrix.simulator }}"
+          execution_specs_ref="${{ github.event.pull_request.head.sha || github.sha }}"
           cp "$FIXTURES_ARCHIVE" "$sim_dir/fixtures_hive_smoke.tar.gz"
-          python3 -c 'from pathlib import Path; import sys; p=Path(sys.argv[1]); t=p.read_text(); old="ARG fixtures=stable@latest\nENV FIXTURES=${fixtures}"; new="COPY fixtures_hive_smoke.tar.gz /sila-fixtures/fixtures_hive_smoke.tar.gz\nRUN mkdir -p /sila-fixtures/extracted && python -m tarfile -e /sila-fixtures/fixtures_hive_smoke.tar.gz /sila-fixtures/extracted\nENV FIXTURES=/sila-fixtures/extracted"; assert old in t, "expected simulator fixture authority block not found"; p.write_text(t.replace(old, new, 1))' "$sim_dir/Dockerfile"
+          python3 - "$sim_dir/Dockerfile" "$execution_specs_ref" <<'PY'
+          from pathlib import Path
+          import sys
+
+          path = Path(sys.argv[1])
+          ref = sys.argv[2]
+          text = path.read_text()
+          fixture_old = "ARG fixtures=stable@latest\nENV FIXTURES=" + "$" + "{fixtures}"
+          fixture_new = (
+              "COPY fixtures_hive_smoke.tar.gz /sila-fixtures/fixtures_hive_smoke.tar.gz\n"
+              "RUN mkdir -p /sila-fixtures/extracted && python -m tarfile -e "
+              "/sila-fixtures/fixtures_hive_smoke.tar.gz /sila-fixtures/extracted\n"
+              "ENV FIXTURES=/sila-fixtures/extracted"
+          )
+          branch_old = 'ARG branch=""'
+          branch_new = f'ARG branch="{ref}"'
+          assert fixture_old in text, "expected simulator fixture authority block not found"
+          assert branch_old in text, "expected simulator execution-specs branch argument not found"
+          text = text.replace(fixture_old, fixture_new, 1)
+          text = text.replace(branch_old, branch_new, 1)
+          path.write_text(text)
+          PY
           test -s "$sim_dir/fixtures_hive_smoke.tar.gz"
           grep -F "ENV FIXTURES=/sila-fixtures/extracted" "$sim_dir/Dockerfile"
           grep -F "python -m tarfile -e /sila-fixtures/fixtures_hive_smoke.tar.gz /sila-fixtures/extracted" "$sim_dir/Dockerfile"
+          grep -F "ARG branch=\"$execution_specs_ref\"" "$sim_dir/Dockerfile"
       - name: Run simulator tests
         if: matrix.mode == 'simulator'
         run: |
