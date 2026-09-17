@@ -16,7 +16,7 @@ from threading import Thread
 from typing import Any, Dict, Final, List, Optional, TypeVar, Union, cast
 from urllib import request
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes0, Bytes256
 from sila_types.numeric import U64, U256, Uint
 
@@ -616,7 +616,7 @@ class BlockDownloader(ForkTracking):
                         self.module("utils.hexadecimal").hex_to_address(
                             j["address"]
                         ),
-                        hex_to_u256(j["amount"]),
+                        hex_to_u64(j["amount"]),
                     )
                 )
 
@@ -653,7 +653,7 @@ class Sync(ForkTracking):
 
         parser.add_argument(
             "--unoptimized",
-            help="don't use the optimized state/silash (extremely slow)",
+            help="don't use the optimized state/ethash (extremely slow)",
             action="store_true",
         )
 

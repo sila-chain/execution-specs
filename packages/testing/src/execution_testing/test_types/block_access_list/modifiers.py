@@ -6,10 +6,13 @@ Lists in various ways for testing invalid block scenarios. They are composable
 and can be combined to create complex modifications.
 """
 
-from typing import Any, Callable, List, Optional
+from typing import Any, Callable, List, Literal, Optional
+
+import sila_rlp as sil_rlp
 
 from execution_testing.base_types import (
     Address,
+    Bytes,
     ZeroPaddedHexNumber,
 )
 
@@ -19,8 +22,36 @@ from . import (
     BalBalanceChange,
     BalNonceChange,
     BalStorageChange,
+    BalStorageSlot,
     BlockAccessList,
 )
+
+BalScalarField = Literal[
+    "storage_slot",
+    "storage_value",
+    "storage_read",
+    "balance",
+    "block_access_index",
+    "nonce",
+]
+"""
+SIP-7928 integer fields, each RLP-encoded as a minimal scalar.
+
+``block_access_index`` is read from the account's first balance change.
+"""
+
+_STORAGE_CHANGES_INDEX = BalAccountChange.rlp_fields.index("storage_changes")
+_STORAGE_READS_INDEX = BalAccountChange.rlp_fields.index("storage_reads")
+_BALANCE_CHANGES_INDEX = BalAccountChange.rlp_fields.index("balance_changes")
+_NONCE_CHANGES_INDEX = BalAccountChange.rlp_fields.index("nonce_changes")
+_SLOT_INDEX = BalStorageSlot.rlp_fields.index("slot")
+_SLOT_CHANGES_INDEX = BalStorageSlot.rlp_fields.index("slot_changes")
+_POST_VALUE_INDEX = BalStorageChange.rlp_fields.index("post_value")
+_POST_BALANCE_INDEX = BalBalanceChange.rlp_fields.index("post_balance")
+_BLOCK_ACCESS_INDEX_INDEX = BalBalanceChange.rlp_fields.index(
+    "block_access_index"
+)
+_POST_NONCE_INDEX = BalNonceChange.rlp_fields.index("post_nonce")
 
 
 def _remove_field_from_accounts(
@@ -736,6 +767,68 @@ def insert_storage_read(
     return transform
 
 
+def remove_slot_change(
+    address: Address, slot: int, block_access_index: int
+) -> Callable[[BlockAccessList], BlockAccessList]:
+    """
+    Remove a single slot change entry at a given block access index, while
+    keeping any other slot_changes entries for that same slot intact.
+
+    Unlike `remove_storage`, which drops all storage_changes for an
+    account, this targets one entry within one slot's slot_changes list.
+    Useful for testing that a slot's earliest recorded change must match
+    the transaction that actually performed it.
+
+    Removing a slot's only change leaves an empty slot_changes list,
+    which is a different corruption (see `append_empty_slot`); use
+    `remove_storage` to drop a slot entirely.
+    """
+
+    def transform(bal: BlockAccessList) -> BlockAccessList:
+        found_address = False
+        found_slot = False
+        found_index = False
+        new_root = []
+        for account_change in bal.root:
+            if account_change.address == address:
+                found_address = True
+                new_account = account_change.model_copy(deep=True)
+                for storage_slot in new_account.storage_changes:
+                    if storage_slot.slot != slot:
+                        continue
+                    found_slot = True
+                    remaining = [
+                        change
+                        for change in storage_slot.slot_changes
+                        if change.block_access_index != block_access_index
+                    ]
+                    if len(remaining) != len(storage_slot.slot_changes):
+                        found_index = True
+                    storage_slot.slot_changes = remaining
+                new_root.append(new_account)
+            else:
+                new_root.append(account_change)
+
+        if not found_address:
+            raise ValueError(
+                f"Address {address} not found in BAL to remove slot change"
+            )
+        if not found_slot:
+            raise ValueError(
+                f"Storage slot {slot} not found in storage_changes of "
+                f"account {address}"
+            )
+        if not found_index:
+            raise ValueError(
+                f"Block access index {block_access_index} not found in "
+                f"storage slot {slot} of account {address}"
+            )
+
+        return BlockAccessList(root=new_root)
+
+    return transform
+
+
 def reverse_accounts() -> Callable[[BlockAccessList], BlockAccessList]:
     """Reverse the order of accounts in the BAL."""
 
@@ -808,6 +901,71 @@ def keep_only(
     return transform
 
 
+def _scalar_leaf(
+    element: List[Any], field: BalScalarField
+) -> tuple[List[Any], int]:
+    """Return the container and index of the scalar named by ``field``."""
+    if field == "storage_slot":
+        return element[_STORAGE_CHANGES_INDEX][0], _SLOT_INDEX
+    elif field == "storage_value":
+        slot = element[_STORAGE_CHANGES_INDEX][0]
+        return slot[_SLOT_CHANGES_INDEX][0], _POST_VALUE_INDEX
+    elif field == "storage_read":
+        return element[_STORAGE_READS_INDEX], 0
+    elif field == "balance":
+        return element[_BALANCE_CHANGES_INDEX][0], _POST_BALANCE_INDEX
+    elif field == "block_access_index":
+        return element[_BALANCE_CHANGES_INDEX][0], _BLOCK_ACCESS_INDEX_INDEX
+    elif field == "nonce":
+        return element[_NONCE_CHANGES_INDEX][0], _POST_NONCE_INDEX
+    else:
+        raise ValueError(f"Unknown BAL scalar field: {field}")
+
+
+def encode_scalar_non_minimally(
+    address: Address, field: BalScalarField
+) -> Callable[[BlockAccessList], Bytes]:
+    """
+    Re-encode the BAL with the account's first ``field`` scalar carrying a
+    leading zero byte, leaving every other field canonically encoded.
+
+    ``sil_rlp.encode`` emits an integer minimally but a ``bytes`` verbatim,
+    so substituting the leaf recomputes every enclosing length prefix.
+    """
+
+    def transform(bal: BlockAccessList) -> Bytes:
+        elements = bal.to_list()
+        for account_change, element in zip(bal.root, elements, strict=True):
+            if account_change.address != address:
+                continue
+            try:
+                container, index = _scalar_leaf(element, field)
+                scalar = container[index]
+            except IndexError:
+                raise ValueError(
+                    f"No {field} entry for {address} in the BAL"
+                ) from None
+            container[index] = b"\x00" + scalar.to_be_bytes()
+            return Bytes(sil_rlp.encode(elements))
+        raise ValueError(f"Address {address} was not found in the BAL")
+
+    return transform
+
+
+def override_rlp(
+    encoder: Callable[[BlockAccessList], Bytes],
+) -> Callable[[BlockAccessList], BlockAccessList]:
+    """
+    Lift an encoding modifier into a content modifier, so the header commits
+    to the re-encoded bytes instead of the canonical encoding.
+    """
+
+    def transform(bal: BlockAccessList) -> BlockAccessList:
+        return bal.with_rlp_override(encoder(bal))
+
+    return transform
+
+
 __all__ = [
     # Account-level modifiers
     "remove_accounts",
@@ -831,6 +989,7 @@ __all__ = [
     "modify_code",
     # Block access index modifiers
     "swap_bal_indices",
+    "remove_slot_change",
     # Duplicate entry modifiers (uniqueness constraint testing)
     "duplicate_nonce_change",
     "duplicate_balance_change",
@@ -839,4 +998,8 @@ __all__ = [
     "duplicate_storage_read",
     "duplicate_slot_change",
     "insert_storage_read",
+    # Encoding modifiers
+    "BalScalarField",
+    "encode_scalar_non_minimally",
+    "override_rlp",
 ]

@@ -1,6 +1,6 @@
 """
-abstract: Crafted tests for sila-mainnet of [SIP-7981: Increase Access List Cost](https://sips.sila.org/SIPS/sip-7981).
-"""  # noqa: E501
+Crafted tests for sila-mainnet of [SIP-7981: Increase Access List Cost](https://sips.sila.org/SIPS/sip-7981).
+"""
 
 import pytest
 from execution_testing import (
@@ -8,6 +8,7 @@ from execution_testing import (
     Address,
     Alloc,
     Hash,
+    SIPChecklist,
     StateTestFiller,
     Transaction,
 )
@@ -17,9 +18,10 @@ from .spec import ref_spec_7981
 REFERENCE_SPEC_GIT_PATH = ref_spec_7981.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7981.version
 
-pytestmark = [pytest.mark.valid_at("SIP7981"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7981"), pytest.mark.sila_mainnet]
 
 
+@SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
 @pytest.mark.with_all_tx_types(selector=lambda tx_type: tx_type >= 1)
 @pytest.mark.parametrize(
     "access_list",
@@ -92,6 +94,7 @@ def test_access_list_gas_cost(
     )
 
 
+@SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
 @pytest.mark.with_all_tx_types(selector=lambda tx_type: tx_type >= 1)
 @pytest.mark.parametrize(
     "access_list",

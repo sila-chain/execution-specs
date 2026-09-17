@@ -4,11 +4,11 @@ from pathlib import Path
 from typing import Any, Dict, Generator, List, Tuple
 
 import pytest
+import sila_rlp as rlp
 from _pytest.config import Config
 from _pytest.nodes import Item
-from sila_rlp import rlp
-from sila_types.numeric import U64, U256, Uint
 from pytest import Collector
+from sila_types.numeric import U64, U256, Uint
 
 from sila.crypto.hash import keccak256
 from sila.utils.hexadecimal import (
@@ -92,9 +92,9 @@ class VmTestLoader:
         try:
             return self._module("state")
         except ModuleNotFoundError:
-            import sila.state
+            import sila.state_mpt
 
-            return sila.state
+            return sila.state_mpt
 
     def run_test_from_dict(self, json_data: Dict[str, Any]) -> None:
         """

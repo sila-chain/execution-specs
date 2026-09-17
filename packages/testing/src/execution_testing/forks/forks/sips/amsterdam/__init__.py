@@ -11,11 +11,11 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from execution_testing.forks.base_fork import BaseFork
 
-__all__ = ["AmsterdamSIPs"]
+__all__ = ["AmsterdamEIPs"]
 
 if TYPE_CHECKING:
 
-    class AmsterdamSIPs(BaseFork):
+    class AmsterdamEIPs(BaseFork):
         """Typing-only stand-in for Amsterdam SIP mixins."""
 
         pass
@@ -37,7 +37,7 @@ else:
 
     _amsterdam_sips.sort(key=lambda cls: int(cls.__name__[3:]))
 
-    class _AmsterdamSIPsSentinel:
+    class _AmsterdamEIPsSentinel:
         """Expand to the currently available Amsterdam SIP mixins."""
 
         def __mro_entries__(
@@ -47,6 +47,6 @@ else:
             del bases
             return tuple(_amsterdam_sips)
 
-    AmsterdamSIPs = _AmsterdamSIPsSentinel()  # type: ignore[misc]
+    AmsterdamEIPs = _AmsterdamEIPsSentinel()  # type: ignore[misc]
 
     del _importer, _ispkg, _modname, _module, _name, _obj, _prefix

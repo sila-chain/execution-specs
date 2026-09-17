@@ -1,7 +1,7 @@
 """Tests for genesis block creation."""
 
 import pytest
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.numeric import U64
 
 from sila.crypto.hash import keccak256
@@ -15,8 +15,8 @@ from sila.genesis import (
     get_genesis_configuration,
 )
 from sila.merkle_patricia_trie import Trie, root
-from sila.state import (
-    Address,
+from sila.state import Address
+from sila.state_mpt import (
     State,
     set_account,
     set_storage,
@@ -26,7 +26,9 @@ from sila.state import (
 from sila.utils.hexadecimal import hex_to_hash
 from sila_spec_tools.forks import Hardfork
 
-SILA_MAINNET_GENESIS_CONFIGURATION = get_genesis_configuration("sila-mainnet.json")
+SILA_MAINNET_GENESIS_CONFIGURATION = get_genesis_configuration(
+    "sila-mainnet.json"
+)
 
 
 def test_frontier_block_hash() -> None:
@@ -68,11 +70,10 @@ def fork_name(fork: Hardfork) -> str:
 def test_genesis(fork: Hardfork) -> None:
     """Tests genesis block creation for all hardforks."""
     # TODO: remove once the changes have been back-ported
-    from sila.merkle_patricia_trie import Trie
-    from sila.state import (
-        Address,
+    from sila.merkle_patricia_trie import Trie, root
+    from sila.state import Address
+    from sila.state_mpt import (
         State,
-        root,
         set_account,
         set_storage,
         state_root,

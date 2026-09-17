@@ -2,7 +2,7 @@
 Ori Pomerantz qbzzt1@gmail.com.
 
 Ported from:
-state_tests/stPreCompiledContracts/precompsSIP2929CancunFiller.yml
+state_tests/stPreCompiledContracts/precompsEIP2929CancunFiller.yml
 
 @manually-enhanced: Do not overwrite. 87 parametrizations of this
 test measure the regular gas consumed by a CALL with value to an
@@ -30,17 +30,18 @@ from execution_testing import (
     Transaction,
 )
 from execution_testing.forks import Fork
-from execution_testing.specs.static_state.expect_section import (
+from execution_testing.vm import Op
+
+from tests.ported_static.post_state_resolution import (
     resolve_expect_post,
 )
-from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
 REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/stPreCompiledContracts/precompsSIP2929CancunFiller.yml"],
+    ["state_tests/stPreCompiledContracts/precompsEIP2929CancunFiller.yml"],
 )
 @pytest.mark.valid_from("Cancun")
 @pytest.mark.parametrize(

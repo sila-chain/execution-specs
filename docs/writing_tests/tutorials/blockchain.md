@@ -89,7 +89,7 @@ Python uses [`range(n)`](https://www.w3schools.com/python/ref_func_range.asp) to
 range(len)
 ```
 
-The [`map` function](https://www.w3schools.com/python/ref_func_map.asp) runs the function (the first parameter) on every element of the list (the second parameter). Putting together what we know, it means that it runs `next(tx_generator)` `len` times, giving us `len` transactions. We then use [`list`](https://www.w3schools.com/python/python_lists.asp) to turn the transactions into a list that we can provide as the `txs` parameter to the `Block` constructor.
+The [`map` function](https://www.w3schools.com/python/ref_func_map.asp) runs the function (the first parameter) on every element of the list (the second parameter). Putting togsiler what we know, it means that it runs `next(tx_generator)` `len` times, giving us `len` transactions. We then use [`list`](https://www.w3schools.com/python/python_lists.asp) to turn the transactions into a list that we can provide as the `txs` parameter to the `Block` constructor.
 
 ```python
 list(map(lambda x: next(tx_generator), range(len)))

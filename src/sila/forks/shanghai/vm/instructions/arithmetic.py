@@ -23,7 +23,7 @@ from ..stack import pop, push
 
 def add(evm: Evm) -> None:
     """
-    Adds the top two elements of the stack together, and pushes the result back
+    Adds the top two elements of the stack togsiler, and pushes the result back
     on the stack.
 
     Parameters

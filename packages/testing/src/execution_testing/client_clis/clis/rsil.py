@@ -28,6 +28,9 @@ class RsilExceptionMapper(ExceptionMapper):
         TransactionException.TYPE_3_TX_CONTRACT_CREATION: "unexpected length",
         TransactionException.TYPE_3_TX_WITH_FULL_BLOBS: "unexpected list",
         TransactionException.INVALID_CHAINID: "invalid chain ID",
+        TransactionException.INVALID_SIGNATURE_VRS: (
+            "invalid bool value, must be 0 or 1"
+        ),
         TransactionException.TYPE_3_TX_INVALID_BLOB_VERSIONED_HASH: (
             "blob version not supported"
         ),
@@ -116,7 +119,15 @@ class RsilExceptionMapper(ExceptionMapper):
         BlockException.INVALID_BAL_HASH: (r"block access list hash mismatch"),
         BlockException.INVALID_BLOCK_ACCESS_LIST: (
             r"block access list hash mismatch|"
-            r"BAL rejection: FinalHashMismatch"
+            r"BAL rejection: FinalHashMismatch|"
+            r"Bal error: Account .* not found in BAL|"
+            r"Bal error: Slot .* not found in BAL for account .*"
+        ),
+        BlockException.BLOCK_ACCESS_LIST_GAS_LIMIT_EXCEEDED: (
+            r"block access list item cost exceeds gas limit"
+        ),
+        BlockException.SYSTEM_CONTRACT_EMPTY: (
+            r"system contract .* has no code"
         ),
         BlockException.INCORRECT_BLOCK_FORMAT: (
             r"block access list hash mismatch|"

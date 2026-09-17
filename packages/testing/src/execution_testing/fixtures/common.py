@@ -14,10 +14,10 @@ from execution_testing.base_types import (
     Bloom,
     Bytes,
     CamelModel,
-    SilaTestRootModel,
     Hash,
     RLPSerializable,
     SignableRLPSerializable,
+    SilaTestRootModel,
     ZeroPaddedHexNumber,
 )
 from execution_testing.test_types.account_types import Address

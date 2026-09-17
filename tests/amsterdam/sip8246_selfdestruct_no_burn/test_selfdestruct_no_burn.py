@@ -10,24 +10,39 @@ from execution_testing import (
     Account,
     Address,
     Alloc,
+    BalAccountExpectation,
+    BalBalanceChange,
     Block,
+    BlockAccessListExpectation,
     BlockchainTestFiller,
     Bytecode,
+    Conditional,
+    Fork,
     Hash,
     Op,
     StateTestFiller,
     Storage,
     Transaction,
+    TransactionReceipt,
+    compute_create2_address,
     compute_create_address,
     keccak256,
 )
+from execution_testing import (
+    Macros as Om,
+)
+from execution_testing.checklists import SIPChecklist
 
+from ..sip7708_sil_transfer_logs.spec import transfer_log
+from ..sip7997_deterministic_factory_predeploy.spec import Spec
 from .spec import ref_spec_8246
 
 REFERENCE_SPEC_GIT_PATH = ref_spec_8246.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8246.version
 
 pytestmark = pytest.mark.valid_from("SIP8246")
+
+FACTORY = Address(Spec.FACTORY_ADDRESS)
 
 
 @pytest.mark.parametrize("initial_balance", [0, 1])
@@ -63,6 +78,10 @@ pytestmark = pytest.mark.valid_from("SIP8246")
         pytest.param(Op.MSTORE(2**32, 0), False, id="oog"),
     ],
 )
+@SIPChecklist.Opcode.Test.ExecutionContext.Initcode.Behavior()
+@SIPChecklist.Opcode.Test.ExecutionContext.Initcode.Behavior.Opcode()
+@SIPChecklist.Opcode.Test.Terminating.Scenarios.Initcode()
+@SIPChecklist.Opcode.Test.Terminating.Rollback.Balance()
 def test_selfdestructing_initcode_preserves_balance(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -140,7 +159,7 @@ def test_selfdestructing_initcode_preserves_balance(
     )
 
     # Post value sending to the victim
-    # Ensure the sil transfer is not burned after sip-8246.
+    # Ensure the sila transfer is not burned after sip-8246.
     post_send_value = 1
     if post_send_opcode == Op.SELFDESTRUCT:
         donor = pre.deploy_contract(code=Op.SELFDESTRUCT(victim))
@@ -237,6 +256,8 @@ def test_selfdestructing_initcode_preserves_balance(
     "value",
     [pytest.param(1, id="kept"), pytest.param(0, id="removed")],
 )
+@SIPChecklist.Opcode.Test.ExecutionContext.Initcode.Behavior.Tx()
+@SIPChecklist.Opcode.Test.Terminating.Scenarios.TopLevel()
 def test_create_transaction_initcode_selfdestruct(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -267,3 +288,180 @@ def test_create_transaction_initcode_selfdestruct(
         )
     }
     state_test(pre=pre, post=post, tx=tx)
+
+
+@pytest.mark.parametrize(
+    "sweep_on_redeploy",
+    [
+        pytest.param(False, id="selfdestruct_to_self"),
+        pytest.param(True, id="sweep_to_origin"),
+    ],
+)
+@SIPChecklist.Opcode.Test.ExecutionContext.Initcode.Reentry()
+@SIPChecklist.Opcode.Test.Terminating.Scenarios.Initcode()
+def test_create2_redeploy_over_remnant(
+    blockchain_test: BlockchainTestFiller,
+    pre: Alloc,
+    fork: Fork,
+    sweep_on_redeploy: bool,
+) -> None:
+    """
+    Case 17 of the SIP and its third security consideration. Because the
+    account left behind has nonce zero and no storage, the same factory can
+    CREATE2 over it again in a later transaction, and that second deployment
+    can spend the balance the first one left there.
+    """
+    endowment = 5
+    deployer = pre.fund_eoa()
+    redeployer = pre.fund_eoa()
+
+    if sweep_on_redeploy:
+        # Only a redeploy sees a balance above the call value, so the same
+        # initcode bytes sweep to the redeployer the second time.
+        selfdestruct: Bytecode = Conditional(
+            condition=Op.GT(Op.BALANCE(Op.ADDRESS), Op.CALLVALUE),
+            if_true=Op.SELFDESTRUCT(Op.ORIGIN),
+            if_false=Op.SELFDESTRUCT(Op.ADDRESS),
+        )
+        redeploy_value = 0
+    else:
+        selfdestruct = Op.SELFDESTRUCT(Op.ADDRESS)
+        redeploy_value = endowment
+
+    initcode = Op.SSTORE(0, 1) + selfdestruct
+    factory = pre.deploy_contract(
+        code=Om.MSTORE(initcode, 0)
+        + Op.SSTORE(
+            Op.CALLDATALOAD(0),
+            Op.CREATE2(
+                value=Op.CALLVALUE, offset=0, size=len(initcode), salt=0
+            ),
+        )
+        + Op.STOP
+    )
+    created = compute_create_address(
+        address=factory, salt=0, initcode=initcode, opcode=Op.CREATE2
+    )
+
+    tx1 = Transaction(
+        sender=deployer, to=factory, value=endowment, data=Hash(1)
+    )
+    tx2 = Transaction(
+        sender=redeployer, to=factory, value=redeploy_value, data=Hash(2)
+    )
+
+    created_post: Account | None
+    if sweep_on_redeploy:
+        created_post = Account.NONEXISTENT
+        final_balance = 0
+        tx2_logs = [transfer_log(created, redeployer, endowment)]
+    else:
+        final_balance = 2 * endowment
+        created_post = Account(
+            balance=final_balance, nonce=0, code=b"", storage={}
+        )
+        tx2_logs = [
+            transfer_log(redeployer, factory, endowment),
+            transfer_log(factory, created, endowment),
+        ]
+    if fork.is_sip_enabled(7708):
+        tx1.expected_receipt = TransactionReceipt(
+            logs=[
+                transfer_log(deployer, factory, endowment),
+                transfer_log(factory, created, endowment),
+            ]
+        )
+        tx2.expected_receipt = TransactionReceipt(logs=tx2_logs)
+
+    expected_bal = None
+    if fork.is_sip_enabled(7928):
+        expected_bal = BlockAccessListExpectation(
+            account_expectations={
+                created: BalAccountExpectation(
+                    nonce_changes=[],
+                    code_changes=[],
+                    storage_changes=[],
+                    storage_reads=[0],
+                    balance_changes=[
+                        BalBalanceChange(
+                            block_access_index=1, post_balance=endowment
+                        ),
+                        BalBalanceChange(
+                            block_access_index=2, post_balance=final_balance
+                        ),
+                    ],
+                )
+            }
+        )
+
+    blockchain_test(
+        pre=pre,
+        blocks=[
+            Block(txs=[tx1, tx2], expected_block_access_list=expected_bal)
+        ],
+        post={
+            factory: Account(nonce=3, storage={1: created, 2: created}),
+            created: created_post,
+        },
+    )
+
+
+@SIPChecklist.Opcode.Test.ExecutionContext.Initcode.Reentry()
+def test_deterministic_factory_redeploy_takes_balance(
+    blockchain_test: BlockchainTestFiller,
+    pre: Alloc,
+) -> None:
+    """
+    The SIP's third security consideration, using the permissionless
+    SIP-7997 factory. One account deploys a contract through the factory
+    that self-destructs to itself, leaving its balance behind. Anyone else
+    can then call the same factory with the same salt and initcode, land on
+    that balance, and take it.
+    """
+    endowment = 5
+    deployer = pre.fund_eoa()
+    redeployer = pre.fund_eoa()
+    salt = 0x8246
+
+    # Identical bytes both times: the first deployment only funds itself,
+    # while a redeploy finds more than it was sent and sweeps the surplus.
+    initcode = Conditional(
+        condition=Op.GT(Op.BALANCE(Op.ADDRESS), Op.CALLVALUE),
+        if_true=Op.SELFDESTRUCT(Op.ORIGIN),
+        if_false=Op.SELFDESTRUCT(Op.ADDRESS),
+    )
+    created = compute_create2_address(Spec.FACTORY_ADDRESS, salt, initcode)
+    call_data = Hash(salt) + bytes(initcode)
+
+    deploy_tx = Transaction(
+        sender=deployer,
+        to=FACTORY,
+        value=endowment,
+        data=call_data,
+    )
+    deploy_tx.expected_receipt = TransactionReceipt(
+        logs=[
+            transfer_log(deployer, FACTORY, endowment),
+            transfer_log(FACTORY, created, endowment),
+        ]
+    )
+    # The sweep log is what proves the redeployer, not the deployer, ends
+    # up with the balance.
+    redeploy_tx = Transaction(
+        sender=redeployer,
+        to=FACTORY,
+        value=0,
+        data=call_data,
+    )
+    redeploy_tx.expected_receipt = TransactionReceipt(
+        logs=[transfer_log(created, redeployer, endowment)]
+    )
+
+    blockchain_test(
+        pre=pre,
+        blocks=[Block(txs=[deploy_tx, redeploy_tx])],
+        post={
+            FACTORY: Account(balance=0, code=Spec.FACTORY_BYTECODE),
+            created: Account.NONEXISTENT,
+        },
+    )

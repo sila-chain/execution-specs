@@ -119,7 +119,7 @@ def get_ref_spec_from_module(
 
 
 def is_test_for_an_sip(input_string: str) -> bool:
-    """Return True if `input_string` contains an SIP number, i.e., eipNNNN."""
+    """Return True if `input_string` contains an SIP number, i.e., sipNNNN."""
     pattern = re.compile(r".*sip\d{1,4}", re.IGNORECASE)
     if pattern.match(input_string):
         return True

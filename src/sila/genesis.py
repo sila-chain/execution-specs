@@ -18,7 +18,7 @@ import pkgutil
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, Generic, Type, TypeVar, final
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes, Bytes8, Bytes32, FixedBytes
 from sila_types.frozen import slotted_freezable
 from sila_types.numeric import U64, U256, Uint
@@ -41,7 +41,7 @@ class GenesisConfiguration:
     """
     Configuration for the first block of an Sila chain.
 
-    Specifies the allocation of sil set out in the pre-sale, and some of
+    Specifies the allocation of sila set out in the pre-sale, and some of
     the fields of the genesis block.
     """
 
@@ -179,7 +179,7 @@ def add_genesis_block(
     available at <https://github.com/sila/genesis_block_generator>.
 
     The initial state is populated with balances based on the Sila presale
-    that happened on the Bitcoin blockchain. Additional sil worth 1.98% of
+    that happened on the Bitcoin blockchain. Additional sila worth 1.98% of
     the presale was given to the foundation.
 
     The `state_root` is set to the root of the initial state. The `gas_limit`

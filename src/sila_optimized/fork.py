@@ -16,19 +16,18 @@ from typing import Any, Dict, cast
 
 from sila_types.numeric import U256, Uint
 
-from sila.silash import epoch
+from sila.ethash import epoch
 from sila.exceptions import InvalidBlock
 from sila_spec_tools.forks import Hardfork
 
 from .utils import add_item
 
 try:
-    import silash
+    import ethash
 except ImportError as e:
     # Add a message, but keep it an ImportError.
     raise e from Exception(
-        "Install with `pip install 'sila[optimized]'` to enable this "
-        "package"
+        "Install with `pip install 'sila[optimized]'` to enable this package"
     )
 
 Header_ = Any
@@ -59,7 +58,7 @@ def get_optimized_pow_patches(fork: Hardfork) -> Dict[str, Any]:
         header_hash = generate_header_hash_for_pow(header)
 
         limit = Uint(U256.MAX_VALUE) + Uint(1)
-        result = silash.verify(
+        result = ethash.verify(
             int(epoch_number),
             header_hash,
             header.mix_digest,

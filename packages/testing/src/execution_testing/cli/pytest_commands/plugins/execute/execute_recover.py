@@ -3,12 +3,12 @@
 import pytest
 
 from execution_testing.base_types import Address
-from execution_testing.rpc import EthRPC
+from execution_testing.rpc import SilRPC
 from execution_testing.test_types import EOA, Transaction
 
 
 @pytest.fixture(scope="session")
-def gas_price(sil_rpc: EthRPC) -> int:
+def gas_price(sil_rpc: SilRPC) -> int:
     """Get the gas price for the funding transactions."""
     return sil_rpc.gas_price()
 
@@ -18,7 +18,7 @@ def test_recover_funds(
     index: int,
     eoa: EOA,
     gas_price: int,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
 ) -> None:
     """Recover funds from a failed remote execution."""
     del index

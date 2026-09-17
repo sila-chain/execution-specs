@@ -67,7 +67,7 @@ def test_selfdestruct_balance_transfer_reverted(
     sender = pre.fund_eoa()
 
     # Under SIP-7708 the SELFDESTRUCT-triggered Transfer log is emitted inside
-    # the reverted sub-call, so it must be discarded together with the rest of
+    # the reverted sub-call, so it must be discarded togsiler with the rest of
     # the reverted state.
     expected_receipt = (
         TransactionReceipt(logs=[]) if fork.is_sip_enabled(7708) else None

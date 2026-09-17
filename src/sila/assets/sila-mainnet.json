@@ -14,7 +14,7 @@
         "istanbulBlock": 9069000,
         "muirGlacierBlock": 9200000,
         "berlinBlock": 12244000,
-        "silash": {}
+        "ethash": {}
     },
     "nonce": "0x42",
     "timestamp": "0x0",

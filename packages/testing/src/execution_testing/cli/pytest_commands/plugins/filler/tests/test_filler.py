@@ -1181,7 +1181,7 @@ def test_benchmark_conftest_matrix(
 def _mock_execute_rpc(
     monkeypatch: pytest.MonkeyPatch,
 ) -> Generator[None, None, None]:
-    """Mock EthRPC so execute-mode tests can collect without a real endpoint."""
+    """Mock SilRPC so execute-mode tests can collect without a real endpoint."""
     monkeypatch.setenv("RPC_ENDPOINT", "http://localhost:12345")
     with patch(
         "execution_testing.cli.pytest_commands.plugins.execute"

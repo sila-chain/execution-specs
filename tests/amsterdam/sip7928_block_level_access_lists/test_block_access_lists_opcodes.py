@@ -35,11 +35,16 @@ from execution_testing import (
     Bytecode,
     Conditional,
     Fork,
+    GasConsumer,
     Initcode,
     Op,
+    StateTestFiller,
     Transaction,
     compute_create_address,
 )
+from execution_testing import Macros as Om
+
+from tests.frontier.sip2681_limit_account_nonce.spec import Spec as Spec2681
 
 from .spec import ref_spec_7928
 from .test_block_access_lists_sip4788 import SYSTEM_ADDRESS
@@ -58,6 +63,8 @@ class OutOfGasAt(Enum):
 
     SIP_2200_STIPEND = "oog_at_sip2200_stipend"
     SIP_2200_STIPEND_PLUS_1 = "oog_at_sip2200_stipend_plus_1"
+    ABOVE_STIPEND_BELOW_ACCESS = "oog_above_stipend_below_access"
+    ACCESS_COVERED_OOG_ON_WRITE = "access_covered_oog_on_write"
     EXACT_GAS_MINUS_1 = "oog_at_exact_gas_minus_1"
 
 
@@ -96,6 +103,8 @@ class OutOfGasBoundary(Enum):
     [
         OutOfGasAt.SIP_2200_STIPEND,
         OutOfGasAt.SIP_2200_STIPEND_PLUS_1,
+        OutOfGasAt.ABOVE_STIPEND_BELOW_ACCESS,
+        OutOfGasAt.ACCESS_COVERED_OOG_ON_WRITE,
         OutOfGasAt.EXACT_GAS_MINUS_1,
         None,  # no oog, successful sstore
     ],
@@ -110,10 +119,23 @@ def test_bal_sstore_and_oog(
     """
     Test BAL recording with SSTORE at various OOG boundaries and success.
 
-    1. OOG at SIP-2200 stipend check & implicit SLOAD -> no BAL changes
-    2. OOG post SIP-2200 stipend check & implicit SLOAD -> storage read in BAL
-    3. OOG at exact gas minus 1 -> storage read in BAL
-    4. exact gas (success) -> storage write in BAL
+    ``SSTORE`` clears two gates before the write cost: the SIP-2200
+    stipend sentry (``gas_left`` must exceed ``CALL_STIPEND``) and the
+    cold access charge (``COLD_STORAGE_ACCESS``). The slot read is
+    recorded in the BAL only once both are cleared, so the recording
+    gate is the higher of the two — which one dominates depends on the
+    fork's schedule, and the expectations below are derived from that
+    relation rather than assuming it.
+
+    1. OOG at the stipend -> sentry fires, no BAL changes
+    2. OOG at stipend + 1 -> sentry cleared by one; the read is
+       recorded only if this also covers the access cost
+    3. OOG at access cost - 1 -> below one of the two gates, no BAL
+       changes
+    4. OOG at the recording gate, write unaffordable -> storage read in
+       BAL
+    5. OOG at exact gas minus 1 -> storage read in BAL
+    6. exact gas (success) -> storage write in BAL
     """
     alice = pre.fund_eoa()
 
@@ -129,22 +151,35 @@ def test_bal_sstore_and_oog(
     # Full cost: PUSHes + SSTORE (COLD_STORAGE_ACCESS + STORAGE_SET)
     full_cost = storage_contract_code.gas_cost(fork)
 
-    # Push cost for stipend boundary calculations
+    # Push cost for the gas-boundary calculations below.
     push_code = Op.PUSH1(0x42) + Op.PUSH1(0x01)
     push_cost = push_code.gas_cost(fork)
 
-    # CALL_STIPEND is a threshold check, not a gas cost
-    # Keep from gas_costs
+    # CALL_STIPEND is a threshold check, not a gas cost. The read is
+    # recorded once the sentry is cleared and the access cost is
+    # affordable, so the recording gate is the higher of the two.
     stipend = fork.gas_costs().CALL_STIPEND
+    cold_access = fork.gas_costs().COLD_STORAGE_ACCESS
+    read_gate = max(cold_access, stipend + 1)
 
     if out_of_gas_at == OutOfGasAt.SIP_2200_STIPEND:
-        # 2300 after PUSHes (fails stipend check: 2300 <= 2300)
+        # gas_left == stipend: fails the sentry check outright.
         tx_gas_limit = intrinsic_gas_cost + push_cost + stipend
     elif out_of_gas_at == OutOfGasAt.SIP_2200_STIPEND_PLUS_1:
-        # 2301 after PUSHes (passes stipend, does SLOAD, fails charge_gas)
+        # gas_left == stipend + 1: clears the stipend sentry by one;
+        # whether the access is then affordable depends on the schedule.
         tx_gas_limit = intrinsic_gas_cost + push_cost + stipend + 1
+    elif out_of_gas_at == OutOfGasAt.ABOVE_STIPEND_BELOW_ACCESS:
+        # gas_left == access cost - 1: cannot afford the access (when
+        # the stipend dominates, the sentry fires first instead), so
+        # OOG before the read either way.
+        tx_gas_limit = intrinsic_gas_cost + push_cost + cold_access - 1
+    elif out_of_gas_at == OutOfGasAt.ACCESS_COVERED_OOG_ON_WRITE:
+        # gas_left == read gate: sentry cleared and access affordable
+        # (read recorded), then OOG on the write cost.
+        tx_gas_limit = intrinsic_gas_cost + push_cost + read_gate
     elif out_of_gas_at == OutOfGasAt.EXACT_GAS_MINUS_1:
-        # fail at charge_gas() at exact gas - 1 (boundary condition)
+        # fail at the final charge at exact gas - 1 (boundary condition).
         tx_gas_limit = intrinsic_gas_cost + full_cost - 1
     else:
         # exact gas for successful SSTORE
@@ -156,11 +191,14 @@ def test_bal_sstore_and_oog(
         gas_limit=tx_gas_limit,
     )
 
-    # Storage read recorded only if we pass the stipend check and reach
-    # implicit SLOAD (STIPEND_PLUS_1 and EXACT_GAS_MINUS_1)
+    # The read is recorded only once the recording gate is covered: the
+    # frame reaches the implicit SLOAD before any later OOG.
     expect_storage_read = out_of_gas_at in (
-        OutOfGasAt.SIP_2200_STIPEND_PLUS_1,
+        OutOfGasAt.ACCESS_COVERED_OOG_ON_WRITE,
         OutOfGasAt.EXACT_GAS_MINUS_1,
+    ) or (
+        out_of_gas_at == OutOfGasAt.SIP_2200_STIPEND_PLUS_1
+        and stipend + 1 >= cold_access
     )
     expect_storage_write = out_of_gas_at is None
 
@@ -346,7 +384,7 @@ def test_bal_account_touch_system_address(
     access_opcode: Callable[[Address], Bytecode],
 ) -> None:
     """
-    Ensure a regular transaction that explicitly touches SYSTEM_ADDRESS via
+    Ensure a normal transaction that explicitly touches SYSTEM_ADDRESS via
     an account-accessing opcode includes SYSTEM_ADDRESS as an account-only
     BAL entry.
 
@@ -2593,7 +2631,6 @@ def test_bal_create_contract_init_revert(
 def test_bal_call_revert_insufficient_funds(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
-    fork: Fork,
     call_opcode: Op,
     delegated: bool,
     target_is_warm: bool,
@@ -2608,7 +2645,7 @@ def test_bal_call_revert_insufficient_funds(
     failure happens after delegation resolution. Under SIP-8037 the
     call family reads the delegation target's code before the balance
     check fails, so both the target and the delegation target appear in
-    the BAL. Pre-8037 forks defer that read, so only the target appears.
+    the BAL.
 
     Access-list warming does NOT add to BAL on its own — only EVM
     access does — so the BAL is identical across warm/cold variants.
@@ -2675,17 +2712,7 @@ def test_bal_call_revert_insufficient_funds(
 
     if delegated:
         assert delegation_target is not None
-        # Under SIP-8037 the call family reads the delegation target's
-        # code before the balance check fails, so it appears in the
-        # BAL. Pre-8037 forks defer that read and it stays out.
-        # TODO: drop this fork split once #2473 (defer get_code into
-        # generic_call) is consolidated into amsterdam.
-        if fork.is_sip_enabled(8037):
-            account_expectations[delegation_target] = (
-                BalAccountExpectation.empty()
-            )
-        else:
-            account_expectations[delegation_target] = None
+        account_expectations[delegation_target] = BalAccountExpectation.empty()
 
     block = Block(
         txs=[tx],
@@ -3070,7 +3097,7 @@ def test_bal_transient_storage_not_tracked(
     """
     alice = pre.fund_eoa()
 
-    # Contract that uses transient storage then persists to regular storage
+    # Contract that uses transient storage then persists to execution storage
     contract_code = (
         # TSTORE slot 0x01 with value 0x42 (transient storage)
         Op.TSTORE(0x01, 0x42)
@@ -3292,14 +3319,13 @@ def test_bal_create_and_oog(
         offset=32 - len(init_code_bytes),
         size=len(init_code_bytes),
         init_code_size=len(init_code_bytes),
+        account_new=False,
     )
     factory_sstore = Op.SSTORE(0x00, 1)
-    oog_sink_memory_size = 10000 * 32
-    factory_oog_sink = Op.MSTORE(
-        oog_sink_memory_size - 32,
-        0,
-        old_memory_size=32,
-        new_memory_size=oog_sink_memory_size,
+    # A sized burn after the CREATE: far more than a starved frame
+    # can afford, and paid for explicitly in the success budget.
+    factory_oog_sink = GasConsumer(
+        gas=100_000, fork=fork, previous_memory_size=32
     )
     factory_code = (
         factory_mstore + factory_create + factory_oog_sink + factory_sstore
@@ -3317,6 +3343,8 @@ def test_bal_create_and_oog(
         initcode=init_code_bytes,
         opcode=create_opcode,
     )
+    # Pre-fund the address so no new account is created
+    pre.fund_address(created_address, 1)
 
     intrinsic_cost = fork.transaction_intrinsic_cost_calculator()()
     create_static_cost = factory_mstore.gas_cost(
@@ -3366,7 +3394,7 @@ def test_bal_create_and_oog(
         post = {
             alice: Account(nonce=1),
             factory: Account(nonce=1, storage={0x00: 0xDEAD}),
-            created_address: Account.NONEXISTENT,
+            created_address: Account(balance=1, code=b"", nonce=0),
         }
     elif oog_boundary == OutOfGasBoundary.OOG_AFTER_TARGET_ACCESS:
         # Created address IS in BAL (accessed during collision check),
@@ -3384,7 +3412,7 @@ def test_bal_create_and_oog(
         post = {
             alice: Account(nonce=1),
             factory: Account(nonce=1, storage={0x00: 0xDEAD}),
-            created_address: Account.NONEXISTENT,
+            created_address: Account(balance=1, code=b"", nonce=0),
         }
     else:
         # SUCCESS: created address in BAL with nonce and code changes
@@ -3424,7 +3452,7 @@ def test_bal_create_and_oog(
         post = {
             alice: Account(nonce=1),
             factory: Account(nonce=2, storage={0x00: 1}),
-            created_address: Account(code=Op.STOP),
+            created_address: Account(balance=1, code=Op.STOP, nonce=1),
         }
 
     blockchain_test(
@@ -3531,6 +3559,128 @@ def test_bal_create_early_failure(
             ),
             would_be_contract_address: Account.NONEXISTENT,
         },
+    )
+
+
+@pytest.mark.with_all_create_opcodes
+@pytest.mark.parametrize(
+    "factory_nonce",
+    [
+        pytest.param(Spec2681.max_nonce, id="nonce_at_max"),
+        pytest.param(Spec2681.max_nonce - 1, id="nonce_below_max"),
+    ],
+)
+def test_bal_create_nonce_overflow(
+    pre: Alloc,
+    state_test: StateTestFiller,
+    create_opcode: Op,
+    factory_nonce: int,
+) -> None:
+    """
+    Test BAL with the factory's nonce at the SIP-2681 boundary.
+
+    At the maximum nonce the creation fails before the computed address
+    is accessed, so the address MUST NOT appear in the BAL; one below
+    the maximum the creation proceeds and the address appears with its
+    deployed nonce and code.
+    """
+    alice = pre.fund_eoa()
+
+    init_code = Initcode(deploy_code=Op.STOP)
+    init_code_bytes = bytes(init_code)
+
+    factory_code = (
+        Op.MSTORE(0, Op.PUSH32(init_code_bytes))
+        + Op.SSTORE(
+            0x00,
+            Op.GT(
+                create_opcode(
+                    value=0,
+                    offset=32 - len(init_code_bytes),
+                    size=len(init_code_bytes),
+                ),
+                0,
+            ),
+        )
+        + Op.STOP
+    )
+
+    factory = pre.deploy_contract(
+        code=factory_code,
+        nonce=factory_nonce,
+        storage={0x00: 0xDEAD},
+    )
+
+    target = compute_create_address(
+        address=factory,
+        nonce=factory_nonce,
+        salt=0,
+        initcode=init_code_bytes,
+        opcode=create_opcode,
+    )
+
+    tx = Transaction(sender=alice, to=factory)
+
+    factory_nonce_changes: list[BalNonceChange]
+    target_expectation: BalAccountExpectation | None
+    target_post: Account | None
+
+    if factory_nonce == Spec2681.max_nonce:
+        create_result = 0
+        factory_nonce_changes = []
+        target_expectation = None
+        target_post = Account.NONEXISTENT
+    elif factory_nonce == Spec2681.max_nonce - 1:
+        create_result = 1
+        factory_nonce_changes = [
+            BalNonceChange(block_access_index=1, post_nonce=Spec2681.max_nonce)
+        ]
+        target_expectation = BalAccountExpectation(
+            nonce_changes=[BalNonceChange(block_access_index=1, post_nonce=1)],
+            code_changes=[
+                BalCodeChange(block_access_index=1, new_code=bytes(Op.STOP))
+            ],
+        )
+        target_post = Account(nonce=1, code=Op.STOP)
+    else:
+        raise ValueError(f"Invariant: unhandled factory_nonce {factory_nonce}")
+
+    state_test(
+        pre=pre,
+        post={
+            alice: Account(nonce=1),
+            # At the boundary the nonce is unchanged; one below, it is
+            # incremented into it. Both arms end at the maximum.
+            factory: Account(
+                nonce=Spec2681.max_nonce, storage={0x00: create_result}
+            ),
+            target: target_post,
+        },
+        tx=tx,
+        expected_block_access_list=BlockAccessListExpectation(
+            account_expectations={
+                alice: BalAccountExpectation(
+                    nonce_changes=[
+                        BalNonceChange(block_access_index=1, post_nonce=1)
+                    ],
+                ),
+                factory: BalAccountExpectation(
+                    nonce_changes=factory_nonce_changes,
+                    storage_changes=[
+                        BalStorageSlot(
+                            slot=0x00,
+                            slot_changes=[
+                                BalStorageChange(
+                                    block_access_index=1,
+                                    post_value=create_result,
+                                )
+                            ],
+                        )
+                    ],
+                ),
+                target: target_expectation,
+            }
+        ),
     )
 
 
@@ -3889,6 +4039,77 @@ def test_bal_create2_selfdestruct_then_recreate_same_block(
             if pre_balance > 0
             else Account.NONEXISTENT,
             factory: Account(nonce=3, storage={0: target_a, 1: 1}),
+        },
+    )
+
+
+def test_bal_create2_selfdestruct_then_recreate_and_write(
+    pre: Alloc,
+    blockchain_test: BlockchainTestFiller,
+) -> None:
+    """
+    Ensure `storage_reads` unions the wiped `SSTORE`s of an address that two
+    transactions each recreate, write and destroy at the same CREATE2
+    destination.
+
+    Reported in https://github.com/erigontech/erigon/issues/23407.
+    """
+    alice = pre.fund_eoa()
+    beneficiary = pre.fund_eoa(amount=0)
+    salt = 0
+    target_balance = 100
+
+    # The balance names the slot, so the second transaction cannot pick its
+    # own until the first one has drained the account.
+    initcode = bytes(
+        Op.SSTORE(Op.SELFBALANCE, 0xCAFE) + Op.SELFDESTRUCT(beneficiary)
+    )
+    factory = pre.deploy_contract(
+        code=Om.MSTORE(initcode, 0)
+        + Op.POP(Op.CREATE2(offset=0, size=len(initcode), salt=salt))
+    )
+    target = compute_create_address(
+        address=factory,
+        salt=salt,
+        initcode=initcode,
+        opcode=Op.CREATE2,
+    )
+    pre.fund_address(target, target_balance)
+
+    blockchain_test(
+        pre=pre,
+        blocks=[
+            Block(
+                txs=[Transaction(sender=alice, to=factory) for _ in range(2)],
+                expected_block_access_list=BlockAccessListExpectation(
+                    account_expectations={
+                        target: BalAccountExpectation(
+                            balance_changes=[
+                                BalBalanceChange(
+                                    block_access_index=1, post_balance=0
+                                ),
+                            ],
+                            nonce_changes=[],
+                            code_changes=[],
+                            storage_changes=[],
+                            storage_reads=[0, target_balance],
+                        ),
+                        beneficiary: BalAccountExpectation(
+                            balance_changes=[
+                                BalBalanceChange(
+                                    block_access_index=1,
+                                    post_balance=target_balance,
+                                ),
+                            ],
+                        ),
+                    }
+                ),
+            )
+        ],
+        post={
+            target: Account.NONEXISTENT,
+            beneficiary: Account(balance=target_balance),
+            factory: Account(nonce=3),
         },
     )
 
