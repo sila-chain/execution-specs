@@ -73,7 +73,7 @@ jobs:
   build:
     name: fill (${{ matrix.label || matrix.feature }})
     needs: setup
-    runs-on: [self-hosted-ghr, size-gigachungus-x64]
+    runs-on: ubuntu-24.04
     timeout-minutes: 1440
     strategy:
       fail-fast: true
