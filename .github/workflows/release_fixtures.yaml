@@ -1,6 +1,9 @@
 name: Create Fixture Release
 
 on:
+  push:
+    branches:
+      - sila/fixtures-v20-release
   workflow_dispatch:
     inputs:
       feature:
@@ -40,7 +43,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           submodules: false
-          ref: ${{ inputs.branch }}
+          ref: ${{ inputs.branch || github.ref_name }}
       - name: Resolve target SHA
         id: target_sha
         shell: bash
@@ -51,9 +54,9 @@ jobs:
         id: matrix
         shell: bash
         env:
-          INPUT_FEATURE: ${{ inputs.feature }}
-          INPUT_VERSION: ${{ inputs.version }}
-          INPUT_BRANCH: ${{ inputs.branch }}
+          INPUT_FEATURE: ${{ inputs.feature || 'tests' }}
+          INPUT_VERSION: ${{ inputs.version || 'v20.0.0' }}
+          INPUT_BRANCH: ${{ inputs.branch || github.ref_name }}
           INPUT_EVM: ${{ inputs.evm }}
         run: |
           # An `evm` override must name a key in evm.yaml; the feature,
@@ -180,8 +183,8 @@ jobs:
       - name: Draft release
         shell: bash
         env:
-          INPUT_FEATURE: ${{ inputs.feature }}
-          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_FEATURE: ${{ inputs.feature || 'tests' }}
+          INPUT_VERSION: ${{ inputs.version || 'v20.0.0' }}
           TARGET_SHA: ${{ needs.setup.outputs.target_sha }}
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -211,7 +214,6 @@ jobs:
 
           # All fixture releases are drafted as prereleases; publish manually.
           RELEASE_ARGS=(
-            --draft
             --prerelease
             --generate-notes
             --target "$TARGET"
