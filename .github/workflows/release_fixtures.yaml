@@ -85,7 +85,13 @@ jobs:
           submodules: true
           ref: ${{ needs.setup.outputs.target_sha }}
 
+      - name: Pin coincurve build backend compatibility
+        shell: bash
+        run: echo 'scikit-build-core<0.10' > "$RUNNER_TEMP/uv-build-constraints.txt"
+
       - uses: ./.github/actions/build-fixtures
+        env:
+          UV_BUILD_CONSTRAINT: ${{ runner.temp }}/uv-build-constraints.txt
         with:
           release_name: ${{ matrix.feature }}
           from_fork: ${{ matrix.from_fork }}
