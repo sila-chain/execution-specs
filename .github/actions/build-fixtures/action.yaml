@@ -27,6 +27,7 @@ runs:
   steps:
     - uses: ./.github/actions/setup-uv
       with:
+        python-version: "3.12"
         enable-cache: "false"
     - uses: ./.github/actions/setup-env
     - name: Install EEST
