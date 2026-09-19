@@ -18,7 +18,7 @@ from .spec import ref_spec_7843
 REFERENCE_SPEC_GIT_PATH = ref_spec_7843.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7843.version
 
-pytestmark = [pytest.mark.valid_at("SIP7843"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7843"), getattr(pytest.mark, "sila-mainnet")]
 
 
 def test_slotnum_sila_mainnet(

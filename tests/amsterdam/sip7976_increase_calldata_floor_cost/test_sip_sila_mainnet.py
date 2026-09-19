@@ -20,7 +20,7 @@ from .spec import ref_spec_7976
 REFERENCE_SPEC_GIT_PATH = ref_spec_7976.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7976.version
 
-pytestmark = [pytest.mark.valid_at("SIP7976"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7976"), getattr(pytest.mark, "sila-mainnet")]
 
 
 @pytest.mark.parametrize(

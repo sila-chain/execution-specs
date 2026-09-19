@@ -18,7 +18,7 @@ from .spec import ref_spec_8037
 REFERENCE_SPEC_GIT_PATH = ref_spec_8037.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8037.version
 
-pytestmark = [pytest.mark.valid_at("SIP8037"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP8037"), getattr(pytest.mark, "sila-mainnet")]
 
 
 def test_sstore_zero_to_nonzero(

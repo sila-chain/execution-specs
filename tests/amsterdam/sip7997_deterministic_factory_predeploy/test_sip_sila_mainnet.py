@@ -18,7 +18,7 @@ from .spec import Spec, ref_spec_7997
 REFERENCE_SPEC_GIT_PATH = ref_spec_7997.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7997.version
 
-pytestmark = [pytest.mark.valid_at("SIP7997"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7997"), getattr(pytest.mark, "sila-mainnet")]
 
 FACTORY = Spec.FACTORY_ADDRESS
 

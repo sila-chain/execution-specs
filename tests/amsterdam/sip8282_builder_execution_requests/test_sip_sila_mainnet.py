@@ -18,7 +18,7 @@ from .spec import Spec, ref_spec_8282
 REFERENCE_SPEC_GIT_PATH = ref_spec_8282.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8282.version
 
-pytestmark = [pytest.mark.valid_at("Amsterdam"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("Amsterdam"), getattr(pytest.mark, "sila-mainnet")]
 
 MIN_DEPOSIT_GWEI = Spec.BUILDER_MIN_DEPOSIT // 10**9
 

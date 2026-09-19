@@ -17,7 +17,7 @@ from .spec import ref_spec_7981
 REFERENCE_SPEC_GIT_PATH = ref_spec_7981.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7981.version
 
-pytestmark = [pytest.mark.valid_at("SIP7981"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7981"), getattr(pytest.mark, "sila-mainnet")]
 
 
 @pytest.mark.with_all_tx_types(selector=lambda tx_type: tx_type >= 1)
