@@ -33,7 +33,6 @@ jobs:
           else
             gh release create 'tests@v20.0.0' \
               --repo "$GITHUB_REPOSITORY" \
-              --target 'b6956dbe42a64d143569d5e9b20a0e7f7b9d0ac9' \
               --title 'tests@v20.0.0' \
               --notes 'Sila mirror of the canonical tests@v20.0.0 fixture archive used by go-sila v1.17.5 validation. SHA256 verified before publication.' \
               fixtures.tar.gz
