@@ -3,29 +3,32 @@ JSON-RPC methods and helper functions for EEST consume based hive simulators.
 """
 
 from .rpc import (
+    DEFAULT_REQUEST_TIMEOUT,
     AdminRPC,
     BlockNotAvailableError,
     BlockNumberType,
     DebugRPC,
     EngineRPC,
-    EthRPC,
     ForkchoiceUpdateTimeoutError,
     NetRPC,
     NewPayloadTimeoutError,
     PeerConnectionTimeoutError,
     SendTransactionExceptionError,
+    SilRPC,
     TestingRPC,
+    TimeoutType,
     Web3RPC,
 )
 from .rpc_types import (
     BlobAndProofV1,
     BlobAndProofV2,
-    SilConfigResponse,
+    BlobCellsAndProofsV1,
     ForkConfig,
     ForkConfigBlobSchedule,
     JSONRPCRequest,
     JSONRPCResponse,
     RPCCall,
+    SilConfigResponse,
     TransactionProtocol,
 )
 
@@ -33,12 +36,14 @@ __all__ = [
     "AdminRPC",
     "BlobAndProofV1",
     "BlobAndProofV2",
+    "BlobCellsAndProofsV1",
     "BlockNotAvailableError",
     "BlockNumberType",
     "DebugRPC",
+    "DEFAULT_REQUEST_TIMEOUT",
     "EngineRPC",
     "SilConfigResponse",
-    "EthRPC",
+    "SilRPC",
     "ForkConfig",
     "ForkConfigBlobSchedule",
     "ForkchoiceUpdateTimeoutError",
@@ -50,6 +55,7 @@ __all__ = [
     "PeerConnectionTimeoutError",
     "SendTransactionExceptionError",
     "TestingRPC",
+    "TimeoutType",
     "TransactionProtocol",
     "Web3RPC",
 ]

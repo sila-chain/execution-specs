@@ -1,6 +1,6 @@
 """
-abstract: Crafted tests for sila-mainnet of [SIP-7976: Increase calldata floor cost](https://sips.sila.org/SIPS/sip-7976).
-"""  # noqa: E501
+Crafted tests for sila-mainnet of [SIP-7976: Increase calldata floor cost](https://sips.sila.org/SIPS/sip-7976).
+"""
 
 import pytest
 from execution_testing import (
@@ -13,14 +13,14 @@ from execution_testing import (
     add_kzg_version,
 )
 
-from ...osaka.sip7594_sila_peerdas.spec import Spec as SIP_7594_Spec
+from ...osaka.sip7594_peerdas.spec import Spec as SIP_7594_Spec
 from .helpers import DataTestType
 from .spec import ref_spec_7976
 
 REFERENCE_SPEC_GIT_PATH = ref_spec_7976.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7976.version
 
-pytestmark = [pytest.mark.valid_at("SIP7976"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7976"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

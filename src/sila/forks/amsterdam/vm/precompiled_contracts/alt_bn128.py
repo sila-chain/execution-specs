@@ -11,8 +11,6 @@ Introduction
 Implementation of the ALT_BN128 precompiled contracts.
 """
 
-from sila_types.bytes import Bytes
-from sila_types.numeric import U256, Uint, ulen
 from sila_ecc.optimized_bn128.optimized_curve import (
     FQ,
     FQ2,
@@ -29,7 +27,10 @@ from sila_ecc.optimized_bn128.optimized_curve import (
 )
 from sila_ecc.optimized_bn128.optimized_pairing import pairing
 from sila_ecc.typing import Optimized_Point3D as Point3D
+from sila_types.bytes import Bytes
+from sila_types.numeric import U256, Uint, ulen
 
+from ...fork_types import ExecutionGas
 from ...vm import Evm
 from ...vm.gas import GasCosts, charge_gas
 from ...vm.memory import buffer_read
@@ -146,7 +147,7 @@ def alt_bn128_add(evm: Evm) -> None:
         The current EVM frame.
 
     """
-    data = evm.message.data
+    data = evm.call_data
 
     # GAS
     charge_gas(evm, GasCosts.PRECOMPILE_ECADD)
@@ -174,7 +175,7 @@ def alt_bn128_mul(evm: Evm) -> None:
         The current EVM frame.
 
     """
-    data = evm.message.data
+    data = evm.call_data
 
     # GAS
     charge_gas(evm, GasCosts.PRECOMPILE_ECMUL)
@@ -202,13 +203,15 @@ def alt_bn128_pairing_check(evm: Evm) -> None:
         The current EVM frame.
 
     """
-    data = evm.message.data
+    data = evm.call_data
 
     # GAS
     charge_gas(
         evm,
-        GasCosts.PRECOMPILE_ECPAIRING_PER_POINT * (ulen(data) // Uint(192))
-        + GasCosts.PRECOMPILE_ECPAIRING_BASE,
+        ExecutionGas(
+            GasCosts.PRECOMPILE_ECPAIRING_PER_POINT * (ulen(data) // Uint(192))
+            + GasCosts.PRECOMPILE_ECPAIRING_BASE
+        ),
     )
 
     # OPERATION

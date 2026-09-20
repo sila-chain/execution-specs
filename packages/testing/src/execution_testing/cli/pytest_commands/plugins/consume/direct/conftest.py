@@ -17,10 +17,10 @@ from execution_testing.base_types import to_json
 from execution_testing.cli.pytest_commands.plugins.consume.consume import (
     FixturesSource,
 )
-from execution_testing.client_clis.sila_cli import SilaCLI
 from execution_testing.client_clis.fixture_consumer_tool import (
     FixtureConsumerTool,
 )
+from execution_testing.client_clis.sila_cli import SilaCLI
 from execution_testing.fixtures import (
     BaseFixture,
     BlockchainFixture,

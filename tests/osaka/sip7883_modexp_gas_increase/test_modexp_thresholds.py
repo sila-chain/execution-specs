@@ -10,10 +10,10 @@ from typing import Dict, Generator
 import pytest
 from execution_testing import (
     Alloc,
-    SIPChecklist,
     Environment,
     Fork,
     Op,
+    SIPChecklist,
     StateTestFiller,
     Storage,
     Transaction,

@@ -1,7 +1,7 @@
 """
-abstract: Crafted tests for sila-mainnet of
+Crafted tests for sila-mainnet of
 [SIP-2935: Serve historical block hashes from state](https://sips.sila.org/SIPS/sip-2935).
-"""  # noqa: E501
+"""
 
 import pytest
 from execution_testing import (
@@ -18,7 +18,7 @@ from .spec import Spec, ref_spec_2935
 REFERENCE_SPEC_GIT_PATH = ref_spec_2935.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2935.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
 
 
 def test_sip_2935(

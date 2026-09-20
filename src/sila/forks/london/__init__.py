@@ -39,7 +39,7 @@ reserves a contract prefix for future use, and delays the difficulty bomb.
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2021.07.04
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.5.0
 [Gsil 1.10.6]: https://github.com/sila/go-sila/releases/tag/v1.10.6
-[n]: https://github.com/NethermindSil/nethermind/releases/tag/1.10.79
+[n]: https://github.com/NethermindEth/nethermind/releases/tag/1.10.79
 [oe]: https://github.com/opensila/opensila/releases/tag/v3.3.0-rc.4
 """  # noqa: E501
 

@@ -9,7 +9,7 @@ The overarching goal is readability: anyone reading a fork from top to bottom sh
 ### Spelling and naming
 
 - Prefer descriptive English words (or *very common* abbreviations) in documentation and identifiers.
-- Avoid SIP numbers in identifiers; prefer descriptive text (e.g. `FeeMarketTransaction` over `Eip1559Transaction`).
+- Avoid SIP numbers in identifiers; prefer descriptive text (e.g. `FeeMarketTransaction` over `Sip1559Transaction`).
 - Avoid uninformative prefixes in identifiers (like `get_` or `compute_`). They don't add useful meaning and take up valuable real estate.
 - If a term is specific to the domain, there is a custom spell-check dictionary at `whitelist.txt`.
 
@@ -36,7 +36,7 @@ The overarching goal is readability: anyone reading a fork from top to bottom sh
 <!-- Note that the trailing whitespace is necessary to move the copy button in the github UI over so it doesn't obscure the text. -->
 
 ```python
-# SIP-1234: The dingus is the rate of fleep
+# SIP-1234: The dingus is the rate of fleep      
 dingus = a + b
 dingus += c ^ d
 dingus /= fleep(e)
@@ -47,7 +47,7 @@ dingus /= fleep(e)
 <td>
 
 ```python
-# SIP-1234: The dingus is the rate of fleep
+# SIP-1234: The dingus is the rate of fleep      
 dingus = a + b
 
 # SIP-4567: Frobulate the dingus
@@ -161,10 +161,10 @@ The following must be updated manually afterwards:
 
 The sync tool uses an RPC provider to fetch and validate blocks against EELS. The validated state can be stored in a local DB. Because syncing directly with the specs is very slow, the sync tool can also leverage the `sila_optimized` module, which contains alternative implementations of routines in EELS optimized for speed rather than clarity/readability.
 
-Invoke the tool with `sila-spec-sync`. Arguments:
+Invoke the tool with `uv run --group optimized sila-spec-sync` (the `optimized` dependency group provides the `sila_optimized` module). Arguments:
 
 - `rpc-url`: Endpoint providing the Sila RPC API. Defaults to `http://localhost:8545/`.
-- `unoptimized`: Don't use the optimized state/silash (this can be extremely slow).
+- `unoptimized`: Don't use the optimized state/ethash (this can be extremely slow).
 - `persist`: Store state in a database at this file path.
 - `gsil`: Use gsil-specific RPC endpoints while fetching blocks.
 - `reset`: Delete the database and start from scratch.

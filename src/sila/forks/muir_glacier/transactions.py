@@ -7,7 +7,7 @@ transactions are the events that move between states.
 from dataclasses import dataclass
 from typing import final
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes, Bytes0
 from sila_types.frozen import slotted_freezable
 from sila_types.numeric import U64, U256, Uint, ulen
@@ -53,7 +53,7 @@ class Transaction:
 
     value: U256
     """
-    The amount of sil (in wei) to send with this transaction.
+    The amount of sila (in wei) to send with this transaction.
     """
 
     data: Bytes
@@ -117,7 +117,7 @@ def calculate_intrinsic_cost(tx: Transaction) -> Uint:
     begun. Functions/operations in the EVM cost money to execute so this
     intrinsic cost is for the operations that need to be paid for as part of
     the transaction. Data transfer, for example, is part of this intrinsic
-    cost. It costs sil to send data over the wire and that sil is
+    cost. It costs sila to send data over the wire and that sila is
     accounted for in the intrinsic cost calculated in this function. This
     intrinsic cost must be calculated and paid for before execution in order
     for all operations to be implemented.

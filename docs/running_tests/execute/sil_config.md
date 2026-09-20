@@ -36,7 +36,7 @@ uv run execute sil-config --network <NETWORK_NAME> --rpc-endpoint <RPC_URL> [OPT
 
 ### Optional Arguments
 
-- `--network`: Name of the network to verify (e.g., `SilaMainnet`, `Sepolia`, `Holesky`, `Hoodi`) - required when not using genesis config flags
+- `--network`: Name of the network to verify (e.g., `SilaMainnet`, `SilaSepolia`, `SilaHolesky`, `Hoodi`) - required when not using genesis config flags
 - `--network-config-file`: Path to a custom YAML file containing network configurations (defaults to `src/pytest_plugins/execute/sil_config/networks.yml`)
 - `--genesis-config-file`: Path to a genesis JSON file from which a custom network configuration must be derived
 - `--genesis-config-url`: URL to a genesis JSON file from which a custom network configuration must be derived
@@ -51,10 +51,10 @@ uv run execute sil-config --network <NETWORK_NAME> --rpc-endpoint <RPC_URL> [OPT
 uv run execute sil-config --network SilaMainnet --rpc-endpoint http://localhost:8545
 ```
 
-### Testing a Sepolia Client
+### Testing a SilaSepolia Client
 
 ```bash
-uv run execute sil-config --network Sepolia --rpc-endpoint http://localhost:8545
+uv run execute sil-config --network SilaSepolia --rpc-endpoint http://localhost:8545
 ```
 
 ### Using a Custom Network Configuration
@@ -105,9 +105,9 @@ MyCustomNet:
 The default configuration file includes:
 
 - **SilaMainnet**: Sila sila-mainnet.
-- **Sepolia**: Public testnet.
+- **SilaSepolia**: Public testnet.
 - **Hoodi**: Public testnet.
-- **Holesky**: Public testnet.
+- **SilaHolesky**: Public testnet.
 
 ## How It Works
 

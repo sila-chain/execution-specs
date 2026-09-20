@@ -572,7 +572,7 @@ def selfdestruct(evm: Evm) -> None:
     # in the same transaction
     if originator in evm.message.tx_env.state.created_accounts:
         # If beneficiary is the same as originator, then
-        # the sil is burnt.
+        # the sila is burnt.
         set_account_balance(evm.message.tx_env.state, originator, U256(0))
         evm.accounts_to_delete.add(originator)
 

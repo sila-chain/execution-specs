@@ -7,6 +7,7 @@ from execution_testing import (
     Alloc,
     Block,
     BlockException,
+    DepositRequest,
     Fork,
     Header,
     Requests,
@@ -15,8 +16,6 @@ from execution_testing import (
     Transaction,
 )
 from execution_testing.base_types import HexNumber
-
-from .helpers import DepositRequest
 
 
 @pytest.fixture
@@ -72,13 +71,23 @@ def included_requests(
 ) -> List[SystemContractRequest]:
     """
     Return the list of deposit requests that should be included in each block.
+
+    A deposit is included only if it is marked valid and sends at least the
+    minimum deposit value (1 SIL); deposits below the minimum revert in the
+    deposit contract and never emit a log.
     """
-    valid_requests: List[SystemContractRequest] = []
+    min_deposit_value = 10**18  # 1 SIL, the deposit contract's minimum
 
+    included: List[SystemContractRequest] = []
     for d in prepared_requests:
-        valid_requests += d.valid_requests(10**18)
-
-    return valid_requests
+        source = d.request_source_address
+        assert source is not None, "Source address not initialized"
+        included += [
+            r.with_source_address(source)
+            for r in d.requests
+            if r.valid and r.value >= min_deposit_value
+        ]
+    return included
 
 
 @pytest.fixture

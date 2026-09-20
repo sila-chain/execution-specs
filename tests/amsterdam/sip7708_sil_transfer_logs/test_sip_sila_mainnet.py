@@ -13,6 +13,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
     TransactionReceipt,
+    compute_create_address,
 )
 
 from .spec import ref_spec_7708, transfer_log
@@ -20,7 +21,7 @@ from .spec import ref_spec_7708, transfer_log
 REFERENCE_SPEC_GIT_PATH = ref_spec_7708.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7708.version
 
-pytestmark = [pytest.mark.valid_at("SIP7708"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7708"), pytest.mark.sila_mainnet]
 
 
 def test_simple_transfer_sila_mainnet(
@@ -81,6 +82,32 @@ def test_call_with_value_sila_mainnet(
     )
 
     post = {recipient: Account(balance=100)}
+    state_test(pre=pre, post=post, tx=tx)
+
+
+def test_create_endowment_sila_mainnet(
+    state_test: StateTestFiller,
+    pre: Alloc,
+) -> None:
+    """Test that a CREATE endowment emits a transfer log on sila-mainnet."""
+    sender = pre.fund_eoa()
+    create_value = 1
+
+    contract = pre.deploy_contract(
+        Op.CREATE(value=create_value, offset=0, size=0),
+        balance=create_value,
+    )
+    created = compute_create_address(address=contract, nonce=1)
+
+    tx = Transaction(
+        sender=sender,
+        to=contract,
+        expected_receipt=TransactionReceipt(
+            logs=[transfer_log(contract, created, create_value)]
+        ),
+    )
+
+    post = {created: Account(balance=create_value)}
     state_test(pre=pre, post=post, tx=tx)
 
 

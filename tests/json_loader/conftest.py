@@ -5,9 +5,8 @@ from typing import Callable
 
 from _pytest.config.argparsing import Parser
 from _pytest.nodes import Item
+from execution_testing.evm_tools.t8n import ForkCache
 from pytest import Collector, Config, Session, fixture
-
-from sila_spec_tools.evm_tools.t8n import ForkCache
 
 from . import FORKS
 from .helpers import FixturesFile, FixtureTestItem
@@ -38,7 +37,7 @@ def pytest_addoption(parser: Parser) -> None:
         default=False,
         action="store_const",
         const=True,
-        help="Use optimized state and silash",
+        help="Use optimized state and ethash",
     )
 
     parser.addoption(
@@ -119,13 +118,14 @@ def pytest_configure(config: Config) -> None:
         sila_optimized.monkey_patch(None)
 
     if config.getoption("evm_trace"):
-        import sila.trace
-        from sila_spec_tools.evm_tools.t8n.evm_trace.sip3155 import (
-            Eip3155Tracer,
+        from execution_testing.evm_tools.t8n.evm_trace.sip3155 import (
+            Sip3155Tracer,
         )
 
+        import sila.trace
+
         # Replace the function in the module
-        sila.trace.set_evm_trace(Eip3155Tracer())
+        sila.trace.set_evm_trace(Sip3155Tracer())
 
     # Process fork range options
     optimized = config.getoption("optimized")

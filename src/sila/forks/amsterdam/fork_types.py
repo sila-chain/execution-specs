@@ -14,7 +14,7 @@ Types reused throughout the specification, which are specific to Sila.
 from dataclasses import dataclass
 from typing import NewType, final
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes, Bytes256
 from sila_types.frozen import slotted_freezable
 from sila_types.numeric import U8, U32, U64, U256, Uint
@@ -34,7 +34,7 @@ VersionedHash = Hash32
 Bloom = Bytes256
 
 
-RegularGas = NewType("RegularGas", Uint)
+ExecutionGas = NewType("ExecutionGas", Uint)
 
 StateGas = NewType("StateGas", Uint)
 

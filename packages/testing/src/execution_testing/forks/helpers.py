@@ -23,8 +23,10 @@ from pydantic import (
     model_validator,
 )
 
+from execution_testing.base_types.ssz import SSZForkSchema
+
 from .base_fork import BaseFork
-from .forks import sips, forks, transition
+from .forks import forks, sips, transition
 from .transition_base_fork import TransitionBaseClass
 
 
@@ -388,6 +390,27 @@ def get_fork_by_name(fork_name: str) -> Type[BaseFork] | None:
     return None
 
 
+def ssz_schema_fork_key(
+    schema: SSZForkSchema, fork: Type[BaseFork]
+) -> Type[BaseFork]:
+    """
+    Return the newest schema fork at or before ``fork``.
+
+    Schema keys are the fork classes themselves. Transition forks
+    compare as their destination fork.
+    """
+    for key in reversed(schema.forks()):
+        if not (isinstance(key, type) and issubclass(key, BaseFork)):
+            raise ValueError(
+                f"SSZ schema fork key {key!r} is not a fork class"
+            )
+        if fork >= key:
+            return key
+    raise ValueError(
+        f"{fork.name()} predates the SSZ schema base fork {schema.base_fork!r}"
+    )
+
+
 class ForkRangeDescriptor(BaseModel):
     """
     Fork descriptor parsed from string normally contained in sila/tests
@@ -506,11 +529,11 @@ ForkEIP = Annotated[
         )
     ),
 ]
-ForkSIPSet = Annotated[
+ForkEIPSet = Annotated[
     Set[ForkEIP],
     BeforeValidator(set_before_validator),
 ]
-ForkSIPSetAdapter: TypeAdapter = TypeAdapter(ForkSIPSet)
+ForkEIPSetAdapter: TypeAdapter = TypeAdapter(ForkEIPSet)
 
 TransitionFork = Annotated[
     Type[TransitionBaseClass],

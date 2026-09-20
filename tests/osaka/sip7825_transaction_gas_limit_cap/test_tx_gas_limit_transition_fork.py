@@ -11,8 +11,8 @@ from execution_testing import (
     Alloc,
     Block,
     BlockchainTestFiller,
-    SIPChecklist,
     Op,
+    SIPChecklist,
     Transaction,
     TransactionException,
     TransitionFork,
@@ -24,6 +24,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_7825.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7825.version
 
 
+@pytest.mark.inclusion_test
 @SIPChecklist.ModifiedTransactionValidityConstraint.Test.ForkTransition.AcceptedBeforeFork()
 @SIPChecklist.ModifiedTransactionValidityConstraint.Test.ForkTransition.RejectedBeforeFork()
 @SIPChecklist.ModifiedTransactionValidityConstraint.Test.ForkTransition.AcceptedAfterFork()

@@ -301,7 +301,6 @@ coeffs
 cofactor
 cofactors
 coinbase
-coincurve
 collectonly
 commandline
 commonpath
@@ -487,7 +486,7 @@ eoa
 EOAs
 epilog
 eq
-ERC
+SRC
 Erigon
 errlines
 esbenp
@@ -495,7 +494,7 @@ etc
 SIL
 sil
 sil2spec
-silash
+ethash
 sila
 sila's
 SilaCLI
@@ -541,7 +540,7 @@ FD
 fd
 FE
 fe
-femtosil
+femtoether
 FF
 ff
 fg
@@ -782,9 +781,9 @@ merkleize
 metaclass
 metafunc
 metavar
-microsil
+microether
 milli
-millisil
+milliether
 mixhash
 mixin
 mixins
@@ -815,7 +814,7 @@ nagydani
 namespace
 nametag
 nametags
-nanosil
+nanoether
 natively
 nav
 ncheck
@@ -891,14 +890,14 @@ patricialize
 pc
 pdb
 Pectra
-sila_peerdas
+peerdas
 peertdavies
 perf
 permalink
 petersburg
 pformat
 pickler
-Picosil
+Picoether
 PID
 platformdirs
 pluginmanager

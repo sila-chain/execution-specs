@@ -13,7 +13,7 @@ from ..sender import sync_worker_key_nonce
 
 @pytest.fixture
 def mock_sil_rpc() -> MagicMock:
-    """Create a mock EthRPC instance."""
+    """Create a mock SilRPC instance."""
     return MagicMock()
 
 

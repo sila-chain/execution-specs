@@ -16,7 +16,8 @@ It performs no recency-window check, and the opcode handler
 that check to the provider -- it only rejects ``number >= current``. So
 ``BLOCKHASH(0)`` returns ``keccak256("0")`` regardless of how ancient block
 0 is. Nethermind's *production* ``BlockhashProvider`` does enforce the
-window, so this is a state-test tooling bug, not a sila-mainnet consensus bug --
+window, so this is a state-test tooling bug, not a sila-mainnet consensus
+bug --
 but it makes nethermind diverge under differential state-test fuzzing.
 """
 

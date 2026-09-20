@@ -1,14 +1,13 @@
 # Sila Execution Layer Specifications
 
-[![latest version](https://img.shields.io/github/v/release/sila/execution-specs)](https://github.com/sila/execution-specs/releases/latest)
-[![PyPI version](https://img.shields.io/pypi/v/sila-execution)](https://pypi.org/project/sila-execution/)
-[![License](https://img.shields.io/github/license/sila/execution-specs)](https://github.com/sila/execution-specs/blob/main/LICENSE)
+[![PyPI release](https://img.shields.io/pypi/v/sila-execution)](https://pypi.org/project/sila-execution/)
+[![Tests release](https://img.shields.io/github/v/release/sila/execution-specs?filter=tests%40v%2A&label=tests)](https://github.com/sila/execution-specs/releases)
+[![License](https://img.shields.io/github/license/sila/execution-specs)](LICENSE.md)
 [![Python Specification](https://github.com/sila/execution-specs/actions/workflows/test.yaml/badge.svg)](https://github.com/sila/execution-specs/actions/workflows/test.yaml)
 [![codecov](https://codecov.io/gh/sila/execution-specs/graph/badge.svg?token=0LQZO56RTM)](https://codecov.io/gh/sila/execution-specs)
 ![Python Versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![GitPOAP Badge](https://public-api.gitpoap.io/v1/repo/sila/execution-specs/badge)](https://www.gitpoap.io/gh/sila/execution-specs)
 
 The Sila Execution Layer Specifications (EELS) are an executable Python reference implementation of Sila's execution layer, along with the test cases that verify it. It provides a shared, runnable description of consensus-critical behaviour, and the accompanying tests generate fixtures that can be used to validate execution client implementations.
 
@@ -30,6 +29,10 @@ just shell-completions
 ```
 
 Python 3.11–3.14 are supported; 3.12 tends to be the smoothest for local setup (pre-built wheels are available across the dependency set). For alternative `just` installation paths, macOS-specific installation notes, and troubleshooting, see [Installation](docs/getting_started/installation.md).
+
+## Reference EVM CLI
+
+`sila-spec-evm` — a `t8n` transition tool, `b11r` block builder, and state-test runner that execute the spec directly — is provided by the `sila-execution-testing` workspace package rather than by `sila-execution`. Within a checkout it is available as `uv run sila-spec-evm`; for standalone installation (e.g. in client CI or fuzzing setups), see [packages/testing/README.md](packages/testing/README.md).
 
 ## Documentation
 
@@ -62,7 +65,7 @@ For other help, see the [Documentation](#documentation) section above, or reach 
 - [sila/execution-apis](https://github.com/sila/execution-apis): The JSON-RPC API specification, which lives in a separate repository.
 - [sila/consensus-specs](https://github.com/sila/consensus-specs): The consensus-layer counterpart to this repository.
 
-Production execution clients that implement the spec include [besu](https://github.com/besu-sil/besu), [erigon](https://github.com/erigontech/erigon), [silrex](https://github.com/lambdaclass/silrex), [gsil](https://github.com/sila/go-sila), [nethermind](https://github.com/NethermindSil/nethermind), and [rsil](https://github.com/paradigmxyz/rsil).
+Production execution clients that implement the spec include [besu](https://github.com/besu-sil/besu), [erigon](https://github.com/erigontech/erigon), [silrex](https://github.com/lambdaclass/silrex), [gsil](https://github.com/sila/go-sila), [nethermind](https://github.com/NethermindEth/nethermind), and [rsil](https://github.com/paradigmxyz/rsil).
 
 ## Responsible Disclosure of Vulnerabilities
 

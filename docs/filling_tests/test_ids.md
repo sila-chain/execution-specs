@@ -63,7 +63,7 @@ Each Python test case is also typically parametrized by test type, respectively 
 To see all the test cases and their IDs that get generated from London until Shanghai for `test_chainid`, we can execute `fill` with the `--collect-only -q` flags:
 
 ```bash
-fill tests/istanbul/sip1344_chainid/test_chainid.py --from London --until Shanghai --collect-only -q
+fill tests/istanbul/sip1344_chainid/test_chainid.py --from London --until Shanghai --collect-only -q 
 ```
 
 which lists the following test IDs:
