@@ -28,37 +28,37 @@ concurrency:
 jobs:
   cache-docker-images:
     name: Cache Docker Images
-    runs-on: [self-hosted-ghr, size-l-x64]
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
       - name: Cache Docker images
         uses: ./.github/actions/cache-docker-images
         with:
-          images: "docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
+          images: "docker.io/alpine:latest docker.io/library/golang:1-alpine"
 
   test-execute-remote:
     name: Execute Remote E2E
     needs: cache-docker-images
-    runs-on: [self-hosted-ghr, size-l-x64]
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           path: execution-specs
           submodules: recursive
-
       - name: Checkout Hive
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-          repository: sila/hive
-          ref: master
+          repository: sila-chain/sila-hive
+          ref: eeae7090f623ce962877b83de83028fa96f9204a
           path: hive
-
-      # Redirect Go's caches to a per-job temp dir so the setup-go cache
-      # restore doesn't collide with a persistent $GOMODCACHE on
-      # self-hosted runners (see build-benchmark-genesis/action.yaml).
+      - name: Checkout exact go-sila authority
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          repository: sila-chain/go-sila
+          ref: 7a388df6c1afbf78af7b120d7119fe1c363d0a12
+          path: go-sila
       - name: Use ephemeral Go cache dirs
         shell: bash
         run: |
@@ -69,20 +69,33 @@ jobs:
         with:
           go-version: ">=1.24"
           cache-dependency-path: hive/go.sum
-
       - name: Install uv and python
         uses: ./execution-specs/.github/actions/setup-uv
         with:
           cache-dependency-glob: "execution-specs/uv.lock"
-
       - name: Load cached Docker images
         uses: ./execution-specs/.github/actions/load-docker-images
-
-      - name: Build Hive
+      - name: Build Hive against exact go-sila authority
         run: |
           cd hive
-          go build .
-
+          (
+            cd hiveproxy
+            go mod edit -droprequire=github.com/sila-chain/go-sila
+            rm go.sum
+            go get github.com/sila-chain/go-sila@7a388df6c1afbf78af7b120d7119fe1c363d0a12
+            go mod tidy
+            go mod verify
+          )
+          go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
+          go mod edit -droprequire=github.com/crate-crypto/go-sil-kzg
+          go mod edit -droprequire=github.com/sila-chain/go-verkle
+          go mod edit -require=github.com/sila-chain/go-sil-kzg@v1.5.0
+          go mod edit -require=github.com/sila-chain/go-bigmodexpfix@v0.0.1
+          go mod edit -require=github.com/sila-chain/c-kzg-4844/v2@v2.1.8
+          rm go.sum
+          go mod tidy
+          go mod verify
+          go build -mod=readonly -o hive .
       - name: Start Hive in dev mode
         id: start-hive
         uses: ./execution-specs/.github/actions/start-hive-dev
@@ -90,8 +103,7 @@ jobs:
           clients: go-sila
           client-file: execution-specs/.github/configs/hive/latest.yaml
           hive-path: hive
-          timeout: "180"
-
+          timeout: "600"
       - name: Run execute remote E2E tests
         working-directory: execution-specs
         env:
@@ -99,8 +111,21 @@ jobs:
         run: |
           uv sync --all-extras
           cd packages/testing
+          set +e
           uv run pytest \
             --basetemp="${{ runner.temp }}/pytest" \
             -v \
             -p execution_testing.cli.pytest_commands.plugins.concurrency \
             src/execution_testing/cli/pytest_commands/plugins/execute/tests/test_execute_remote.py
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "===== HIVE CLIENT STARTUP LOG FILES ====="
+            find ../../../hive/workspace/logs -type f -maxdepth 3 -print -exec sh -c 'echo "===== $1 ====="; cat "$1"' _ {} \; 2>/dev/null || true
+            echo "===== HIVE CLIENT CONTAINERS ====="
+            docker ps -a --filter 'ancestor=hive/clients/go-sila:latest' --no-trunc || true
+            for id in $(docker ps -aq --filter 'ancestor=hive/clients/go-sila:latest'); do
+              echo "===== GO-SILA CLIENT LOG: $id ====="
+              docker logs "$id" 2>&1 || true
+            done
+          fi
+          exit "$status"
