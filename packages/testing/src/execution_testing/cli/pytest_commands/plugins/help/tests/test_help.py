@@ -34,6 +34,31 @@ def test_local_arguments_present_in_fill_help(
         assert test_arg in "\n".join(result.stdout.lines)
 
 
+CHECK_SIP_VERSIONS_TEST_ARGS = (
+    "--github-token",
+    "<test-path>",
+    "--help",
+)
+
+
+@pytest.mark.parametrize("help_flag", ["--check-sip-versions-help"])
+def test_local_arguments_present_in_check_sip_versions_help(
+    pytester: Any, help_flag: str
+) -> None:
+    """
+    Test that locally defined command-line flags and the test path argument
+    appear in the check_sip_versions help.
+    """
+    pytester.copy_example(
+        name="src/execution_testing/cli/pytest_commands/pytest_ini_files/pytest-check-sip-versions.ini"
+    )
+    result = pytester.runpytest(
+        "-c", "pytest-check-sip-versions.ini", help_flag
+    )
+    for test_arg in CHECK_SIP_VERSIONS_TEST_ARGS:
+        assert test_arg in "\n".join(result.stdout.lines)
+
+
 CONSUME_TEST_ARGS = (
     "--input",
     "--no-html",

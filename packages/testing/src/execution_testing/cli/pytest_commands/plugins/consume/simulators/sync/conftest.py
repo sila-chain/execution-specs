@@ -17,7 +17,7 @@ from hive.testing import HiveTest
 from execution_testing.base_types import to_json
 from execution_testing.exceptions import ExceptionMapper
 from execution_testing.fixtures import BlockchainEngineSyncFixture
-from execution_testing.rpc import AdminRPC, EngineRPC, EthRPC, NetRPC
+from execution_testing.rpc import AdminRPC, EngineRPC, NetRPC, SilRPC
 
 pytest_plugins = (
     "execution_testing.cli.pytest_commands.plugins.pytest_hive.pytest_hive",
@@ -108,9 +108,9 @@ def pytest_collection_modifyitems(
 
 
 @pytest.fixture(scope="function")
-def sil_rpc(client: Client) -> Generator[EthRPC, None, None]:
+def sil_rpc(client: Client) -> Generator[SilRPC, None, None]:
     """Initialize sil RPC client for the execution client under test."""
-    with EthRPC(f"http://{client.ip}:8545") as rpc:
+    with SilRPC(f"http://{client.ip}:8545") as rpc:
         yield rpc
 
 
@@ -290,9 +290,9 @@ def sync_engine_rpc(
 
 
 @pytest.fixture(scope="function")
-def sync_sil_rpc(sync_client: Client) -> Generator[EthRPC, None, None]:
+def sync_sil_rpc(sync_client: Client) -> Generator[SilRPC, None, None]:
     """Initialize sil RPC client for the sync client."""
-    with EthRPC(f"http://{sync_client.ip}:8545") as rpc:
+    with SilRPC(f"http://{sync_client.ip}:8545") as rpc:
         yield rpc
 
 

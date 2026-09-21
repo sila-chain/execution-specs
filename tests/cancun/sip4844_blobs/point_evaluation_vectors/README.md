@@ -29,7 +29,7 @@ The test vectors were generated as following:
     cd tests/cancun/4844_blobs/point_evaluation_vectors/
     pip install -r requirements.txt
     python concat_kzg_vectors_to_json.py \
-        --input /tmp/kzg_4844_output/general/sila_deneb/kzg/verify_kzg_proof/kzg-sila-mainnet/
+        --input /tmp/kzg_4844_output/general/deneb/kzg/verify_kzg_proof/kzg-sila-mainnet/
         --output go_kzg_4844_verify_kzg_proof.json
     ```
 

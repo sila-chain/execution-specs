@@ -18,7 +18,7 @@ bytecode, and deprecates the self-destruct EVM instruction.
 
 | Network | Timestamp    | Date & Time (UTC)   | Fork Hash    | Beacon Chain Epoch |
 | ------- | ------------ | ------------------- | ------------ | ------------------ |
-| Sepolia | `1677557088` | 2023-02-28 04:04:48 | `0xf7f9bc08` |  56,832            |
+| SilaSepolia | `1677557088` | 2023-02-28 04:04:48 | `0xf7f9bc08` |  56,832            |
 | Goerli  | `1678832736` | 2023-03-14 22:25:36 | `0xf9843abf` | 162,304            |
 | SilaMainnet | `1681338455` | 2023-04-12 22:27:35 | `0xdce96c2d` | 194,048            |
 
@@ -37,7 +37,7 @@ bytecode, and deprecates the self-destruct EVM instruction.
 [SIP-4895]: https://sips.sila.org/SIPS/sip-4895
 [Gsil 1.11.5]: https://github.com/sila/go-sila/releases/tag/v1.11.5
 [Besu 23.1.2]: https://github.com/besu-sil/besu/releases/tag/23.1.2
-[n]: https://github.com/NethermindSil/nethermind/releases/tag/1.17.3
+[n]: https://github.com/NethermindEth/nethermind/releases/tag/1.17.3
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2.41.0
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%406.4.0
 """  # noqa: E501

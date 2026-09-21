@@ -41,7 +41,7 @@ class SIP4844(
             0x73EDA753299D7D483339D80809A1D80553BDA402FFFE5BFEFFFFFFFF00000001
         ),
         # https://github.com/sila/consensus-specs/blob/
-        # cc6996c22692d70e41b7a453d925172ee4b719ad/specs/sila_deneb/
+        # cc6996c22692d70e41b7a453d925172ee4b719ad/specs/deneb/
         # polynomial-commitments.md?plain=1#L78
         "BYTES_PER_PROOF": 48,
         "BYTES_PER_COMMITMENT": 48,

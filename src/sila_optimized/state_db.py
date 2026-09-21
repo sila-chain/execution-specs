@@ -23,8 +23,7 @@ try:
 except ImportError as e:
     # Add a message, but keep it an ImportError.
     raise e from Exception(
-        "Install with `pip install 'sila[optimized]'` to enable this "
-        "package"
+        "Install with `pip install 'sila[optimized]'` to enable this package"
     )
 
 from sila_types.bytes import Bytes, Bytes20, Bytes32
@@ -461,20 +460,5 @@ def get_optimized_state_patches(fork: Hardfork) -> Dict[str, Any]:
         See `state`.
         """
         state.created_accounts.add(address)
-
-    @add_item(patches)
-    def account_has_storage(state: State, address: Address) -> bool:
-        """
-        See `state`.
-        """
-        if address in state.dirty_storage:
-            for v in state.dirty_storage[address].values():
-                if v != U256(0):
-                    return True
-
-        if state.destroyed_accounts[address]:
-            return False
-
-        return state.db.has_storage(address)
 
     return patches

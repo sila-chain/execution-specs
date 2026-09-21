@@ -1,5 +1,5 @@
 """
-SIP-7594: SilaPeerDAS - Peer Data Availability Sampling.
+SIP-7594: PeerDAS - Peer Data Availability Sampling.
 
 Introducing simple DAS utilizing gossip distribution and peer requests.
 

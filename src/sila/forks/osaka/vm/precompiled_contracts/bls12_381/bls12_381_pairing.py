@@ -11,9 +11,9 @@ Introduction
 Implementation of the BLS12 381 pairing pre-compile.
 """
 
-from sila_types.numeric import Uint
 from sila_ecc.optimized_bls12_381 import FQ12, curve_order, is_inf, pairing
 from sila_ecc.optimized_bls12_381 import multiply as bls12_multiply
+from sila_types.numeric import Uint
 
 from ....vm import Evm
 from ....vm.gas import charge_gas

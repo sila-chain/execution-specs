@@ -6,10 +6,10 @@ import pytest
 from execution_testing import (
     Address,
     Alloc,
-    SIPChecklist,
     Environment,
     Fork,
     Op,
+    SIPChecklist,
     StateTestFiller,
     Storage,
     Transaction,
