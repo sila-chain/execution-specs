@@ -2,8 +2,8 @@
 #
 # Dual-purpose workflow:
 #   - On PRs: Tests that MkDocs and spec docs build successfully
-#   - On push to allowlisted branches: Builds, uploads artifacts, and triggers
-#     the aggregator workflow in steel-website for deployment
+#   - On push to allowlisted branches: Builds and uploads artifacts.
+#     External deployment remains disabled until a Sila-owned target exists.
 #
 # Site structure at steel.sila.foundation/docs/execution-specs/:
 #   /docs/execution-specs/                         - Default branch docs (deployed at root)
@@ -349,45 +349,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [check-should-publish, combine]
     if: needs.check-should-publish.outputs.should_publish == 'true'
-    env:
-      STEEL_WEBSITE_DISPATCH_TOKEN: ${{ secrets.STEEL_WEBSITE_DISPATCH_TOKEN }}
-      STEEL_WEBSITE_OWNER: ${{ vars.STEEL_WEBSITE_OWNER }}
-      STEEL_WEBSITE_REPO: ${{ vars.STEEL_WEBSITE_REPO }}
 
     steps:
-      - name: Trigger steel-website aggregator workflow
-        if: ${{ env.STEEL_WEBSITE_DISPATCH_TOKEN != '' && env.STEEL_WEBSITE_OWNER != '' && env.STEEL_WEBSITE_REPO != '' }}
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        env:
-          BRANCH: ${{ needs.check-should-publish.outputs.branch }}
-          SHA: ${{ needs.check-should-publish.outputs.commit_sha }}
-          RUN_ID: ${{ github.run_id }}
-        with:
-          github-token: ${{ env.STEEL_WEBSITE_DISPATCH_TOKEN }}
-          script: |
-            await github.rest.repos.createDispatchEvent({
-              owner: process.env.STEEL_WEBSITE_OWNER,
-              repo: process.env.STEEL_WEBSITE_REPO,
-              event_type: 'docs-artifact-ready',
-              client_payload: {
-                branch: process.env.BRANCH,
-                sha: process.env.SHA,
-                run_id: process.env.RUN_ID
-              }
-            });
-
-      - name: Log trigger
-        if: ${{ env.STEEL_WEBSITE_DISPATCH_TOKEN != '' && env.STEEL_WEBSITE_OWNER != '' && env.STEEL_WEBSITE_REPO != '' }}
-        env:
-          BRANCH: ${{ needs.check-should-publish.outputs.branch }}
+      - name: Record external deployment status
         run: |
-          echo "Triggered aggregator workflow in $STEEL_WEBSITE_OWNER/$STEEL_WEBSITE_REPO"
-          echo "  Branch: $BRANCH"
-          echo "  SHA: ${{ github.sha }}"
-          echo "  Run ID: ${{ github.run_id }}"
-
-      - name: Skip unconfigured aggregator
-        if: ${{ env.STEEL_WEBSITE_DISPATCH_TOKEN == '' || env.STEEL_WEBSITE_OWNER == '' || env.STEEL_WEBSITE_REPO == '' }}
-        run: |
-          echo "Steel website dispatch is not configured for this repository."
-          echo "Docs artifacts were built and uploaded successfully; external deployment was skipped."
+          echo "No Sila-owned steel-website deployment target is configured."
+          echo "Docs artifacts were built and uploaded successfully; external deployment is intentionally skipped."
