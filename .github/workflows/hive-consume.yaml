@@ -62,7 +62,7 @@ on:
 
 concurrency:
   group: hive-consume-${{ github.workflow }}-${{ github.ref || github.run_id }}
-  cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
+  cancel-in-progress: true
 
 jobs:
   cache-docker-images:
