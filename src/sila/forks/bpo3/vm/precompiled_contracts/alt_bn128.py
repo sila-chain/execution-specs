@@ -11,8 +11,6 @@ Introduction
 Implementation of the ALT_BN128 precompiled contracts.
 """
 
-from sila_types.bytes import Bytes
-from sila_types.numeric import U256, Uint, ulen
 from sila_ecc.optimized_bn128.optimized_curve import (
     FQ,
     FQ2,
@@ -29,6 +27,8 @@ from sila_ecc.optimized_bn128.optimized_curve import (
 )
 from sila_ecc.optimized_bn128.optimized_pairing import pairing
 from sila_ecc.typing import Optimized_Point3D as Point3D
+from sila_types.bytes import Bytes
+from sila_types.numeric import U256, Uint, ulen
 
 from ...vm import Evm
 from ...vm.gas import GasCosts, charge_gas

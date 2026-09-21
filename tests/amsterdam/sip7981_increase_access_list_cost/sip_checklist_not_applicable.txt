@@ -1,0 +1,25 @@
+general/code_coverage/second_client = Optional item; client-side line coverage is not collected for this suite.
+opcode = SIP does not introduce or modify an opcode
+precompile = SIP does not introduce a precompile
+removed_precompile = SIP does not remove a precompile
+system_contract = SIP does not introduce a system contract
+block_header_field = SIP does not add any new block header fields
+block_body_field = SIP does not add any new block body fields
+gas_refunds_changes = SIP does not change refund amounts, caps, or rollback rules; test_access_list_surcharge_with_refund separately covers interaction with the surcharged floor.
+blob_count_changes = SIP does not introduce any blob count changes
+execution_layer_request = SIP does not introduce an execution layer request
+new_transaction_validity_constraint = SIP modifies the existing intrinsic and floor gas validity constraints rather than introducing a new one
+block_level_constraint = SIP does not introduce a block-level validation constraint
+
+transaction_type/test/intrinsic_validity/max_fee = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/intrinsic_validity/chain_id = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/intrinsic_validity/nonce_minus_one = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/intrinsic_validity/nonce_plus_one = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/intrinsic_validity/nonce_exact = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/signature = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/tx_scoped_attributes = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/encoding = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/out_of_bounds = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/sender_account = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/block_interactions = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.
+transaction_type/test/fork_transition = SIP-7981 reprices existing access-list transactions; it does not introduce a transaction type or change this rule.

@@ -1,6 +1,6 @@
 """Test that decode_transaction handles legacy transactions as bytes."""
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes
 from sila_types.numeric import U256, Uint
 

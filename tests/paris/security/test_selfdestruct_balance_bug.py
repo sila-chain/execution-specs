@@ -2,7 +2,7 @@
 Tests the Consensus Flaw During Block Processing related to SELFDESTRUCT.
 
 Tests the consensus-vulnerability reported in
-[go-sila/security/advisories/GHSA-xw37-57qp-9mm4](https://github.com/silere
+[go-sila/security/advisories/GHSA-xw37-57qp-9mm4](https://github.com/ethere
 um/go-sila/security/advisories/GHSA-xw37-57qp-9mm4).
 
 To reproduce the issue with this test case:

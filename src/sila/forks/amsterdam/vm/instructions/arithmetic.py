@@ -16,6 +16,7 @@ from sila_types.numeric import U256, Uint
 
 from sila.utils.numeric import get_sign
 
+from ...fork_types import ExecutionGas
 from .. import Evm
 from ..gas import (
     GasCosts,
@@ -26,7 +27,7 @@ from ..stack import pop, push
 
 def add(evm: Evm) -> None:
     """
-    Adds the top two elements of the stack together, and pushes the result back
+    Adds the top two elements of the stack togsiler, and pushes the result back
     on the stack.
 
     Parameters
@@ -315,8 +316,10 @@ def exp(evm: Evm) -> None:
     exponent_bytes = (exponent_bits + Uint(7)) // Uint(8)
     charge_gas(
         evm,
-        GasCosts.OPCODE_EXP_BASE
-        + GasCosts.OPCODE_EXP_PER_BYTE * exponent_bytes,
+        ExecutionGas(
+            GasCosts.OPCODE_EXP_BASE
+            + GasCosts.OPCODE_EXP_PER_BYTE * exponent_bytes
+        ),
     )
 
     # OPERATION

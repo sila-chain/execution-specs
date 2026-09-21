@@ -32,7 +32,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = [pytest.mark.valid_at("Amsterdam"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("Amsterdam"), pytest.mark.sila_mainnet]
 
 
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
@@ -180,7 +180,7 @@ def test_selfdestruct_funds_new_account(
     tx = Transaction(
         to=suicidal,
         gas_limit=1_000_000,
-        state_gas_reservoir=fork.gas_costs().NEW_ACCOUNT,
+        state_gas_reservoir=Op.SELFDESTRUCT(account_new=True).state_cost(fork),
         sender=pre.fund_eoa(),
     )
 

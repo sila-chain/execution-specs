@@ -23,8 +23,8 @@ from execution_testing.fixtures.blockchain import (
 from execution_testing.logging import get_logger
 from execution_testing.rpc import (
     EngineRPC,
-    EthRPC,
     ForkchoiceUpdateTimeoutError,
+    SilRPC,
     TestingRPC,
 )
 from execution_testing.rpc.rpc_types import (
@@ -154,7 +154,7 @@ def _validate_built_block(
 
 def _bootstrap_engine_at_genesis(
     engine_rpc: EngineRPC,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     fixture: BlockchainEngineFixture,
     genesis_header: FixtureHeader,
     timing_data: TimingData,
@@ -287,7 +287,7 @@ def _build_validate_and_advance(
 
 def test_blockchain_via_build(
     timing_data: TimingData,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     engine_rpc: EngineRPC,
     testing_rpc: TestingRPC,
     fixture: BlockchainEngineFixture,

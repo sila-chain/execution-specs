@@ -147,7 +147,7 @@ the deposit.
 WITHDRAWAL_CREDENTIALS_SIZE = Uint(32)
 """
 Length of the withdrawal credentials, which determine where the staked
-sil may eventually be withdrawn.
+sila may eventually be withdrawn.
 """
 
 AMOUNT_SIZE = Uint(8)

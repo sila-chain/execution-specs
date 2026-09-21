@@ -15,8 +15,8 @@ from execution_testing import (
     Alloc,
     Block,
     BlockchainTestFiller,
-    SIPChecklist,
     Op,
+    SIPChecklist,
     Transaction,
 )
 from execution_testing.forks import (

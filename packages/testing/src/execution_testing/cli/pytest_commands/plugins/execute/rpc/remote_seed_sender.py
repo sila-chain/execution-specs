@@ -7,7 +7,7 @@ import pytest
 
 from execution_testing.base_types import Number
 from execution_testing.logging import get_logger
-from execution_testing.rpc import EthRPC
+from execution_testing.rpc import SilRPC
 from execution_testing.test_types import EOA
 
 logger = get_logger(__name__)
@@ -38,7 +38,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
 @pytest.fixture(scope="session")
 def seed_key(
-    request: pytest.FixtureRequest, sil_rpc: EthRPC
+    request: pytest.FixtureRequest, sil_rpc: SilRPC
 ) -> Generator[EOA, None, None]:
     """
     Get the seed key from the command flags and create the EOA account object

@@ -10,8 +10,8 @@ blob fee schedule.
 
 | Network | Timestamp    | Date & Time (UTC)       | Fork Hash    | Beacon Chain Epoch |
 |---------|--------------|-------------------------|--------------|--------------------|
-| Holesky | `          ` |                         | `          ` | `      `           |
-| Sepolia | `          ` |                         | `          ` | `      `           |
+| SilaHolesky | `          ` |                         | `          ` | `      `           |
+| SilaSepolia | `          ` |                         | `          ` | `      `           |
 | Hoodi   | `          ` |                         | `          ` |  `     `           |
 | SilaMainnet | `          ` |                         | `          ` | `      `           |
 

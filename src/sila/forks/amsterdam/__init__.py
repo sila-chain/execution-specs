@@ -1,6 +1,6 @@
 """
 The Amsterdam fork ([SIP-7773]) includes block-level access lists and the
-deterministic ``CREATE2`` factory predeploy.
+deterministic ``CREATE2`` factory contract.
 
 ### Changes
 
@@ -12,7 +12,7 @@ deterministic ``CREATE2`` factory predeploy.
 - [SIP-7954: Increase Maximum Contract Size][SIP-7954]
 - [SIP-7976: Increase calldata floor cost][SIP-7976]
 - [SIP-7981: Increase Access List Cost][SIP-7981]
-- [SIP-7997: Deterministic Factory Predeploy][SIP-7997]
+- [SIP-7997: Deterministic Factory Contract][SIP-7997]
 - [SIP-8024: Stack Access Instructions][SIP-8024]
 - [SIP-8037: State Creation Gas Cost Increase][SIP-8037]
 - [SIP-8038: State Access Gas Cost Increase][SIP-8038]

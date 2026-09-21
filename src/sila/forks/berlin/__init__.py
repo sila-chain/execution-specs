@@ -34,7 +34,7 @@ with the first new transaction type—optional access lists.
 [Besu 21.1.2]: https://github.com/besu-sil/besu/releases/tag/21.1.2
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.2.0
 [Gsil 1.10.1]: https://github.com/sila/go-sila/releases/tag/v1.10.1
-[n]: https://github.com/NethermindSil/nethermind/releases/tag/1.10.58
+[n]: https://github.com/NethermindEth/nethermind/releases/tag/1.10.58
 [oe]: https://github.com/opensila/opensila/releases/tag/v3.2.0
 """  # noqa: E501
 

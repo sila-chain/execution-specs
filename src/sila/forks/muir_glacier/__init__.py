@@ -27,9 +27,9 @@ in this fork.
 [Gsil 1.9.9]: https://github.com/sila/go-sila/releases/tag/v1.9.9
 [p]: https://github.com/paritytech/parity-sila/releases/tag/v2.6.8
 [Besu 1.3.7]: https://github.com/besu-sil/besu/releases/tag/1.3.7
-[n]: https://github.com/NethermindSil/nethermind/releases/tag/1.2.6
+[n]: https://github.com/NethermindEth/nethermind/releases/tag/1.2.6
 [js]: https://github.com/silajs/silajs-vm/releases/tag/v4.1.2
-[a]: https://github.com/sila/alsil/releases/tag/v1.8.0
+[a]: https://github.com/sila/aleth/releases/tag/v1.8.0
 [t]: https://github.com/sila/trinity/releases/tag/v0.1.0-alpha.34
 """
 

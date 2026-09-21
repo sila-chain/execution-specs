@@ -2,7 +2,7 @@
 Martin: @tkstanczak requested a state-test regarding selfdestructs in...
 
 Ported from:
-state_tests/stSpecialTest/selfdestructSIP2929Filler.json
+state_tests/stSpecialTest/selfdestructEIP2929Filler.json
 """
 
 import pytest
@@ -22,7 +22,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/stSpecialTest/selfdestructSIP2929Filler.json"],
+    ["state_tests/stSpecialTest/selfdestructEIP2929Filler.json"],
 )
 @pytest.mark.valid_from("Cancun")
 def test_selfdestruct_sip2929(

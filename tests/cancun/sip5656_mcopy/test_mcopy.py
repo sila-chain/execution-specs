@@ -216,7 +216,7 @@ PATTERN = bytes.fromhex(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stSIP5656_MCOPY/MCOPY_memory_hashFiller.yml",  # noqa: E501
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP5656_MCOPY/MCOPY_memory_hashFiller.yml",  # noqa: E501
     ],
     pr=["https://github.com/sila/execution-specs/pull/2490"],
 )

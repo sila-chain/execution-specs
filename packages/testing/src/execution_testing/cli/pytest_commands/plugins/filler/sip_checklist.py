@@ -7,8 +7,9 @@ docs/writing_tests/checklist_templates/sip_testing_checklist_template.md
 """
 
 import logging
+import os
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import ClassVar, Dict, List, Set, Tuple, Type
 
@@ -73,7 +74,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
 
 
 @dataclass(kw_only=True)
-class EIPItem:
+class SIPItem:
     """Represents an SIP checklist item."""
 
     id: str
@@ -86,7 +87,7 @@ class EIPItem:
     @classmethod
     def from_checklist_line(
         cls, *, line: str, line_number: int
-    ) -> "EIPItem | None":
+    ) -> "SIPItem | None":
         """Create an SIP item from a checklist line."""
         match = re.match(r"\|\s*`([^`]+)`\s*\|\s*([^|]+)\s*\|", line)
         if not match:
@@ -133,19 +134,19 @@ class EIPItem:
         return f"| `{self.id}` | {self.description} | {status} | {tests} |"
 
 
-TEMPLATE_ITEMS: Dict[str, EIPItem] = {}
+TEMPLATE_ITEMS: Dict[str, SIPItem] = {}
 # Parse the template to extract checklist item IDs and descriptions
 for i, line in enumerate(TEMPLATE_CONTENT.splitlines()):
     # Match lines that contain checklist items with IDs in backticks
-    if item := EIPItem.from_checklist_line(line=line, line_number=i + 1):
+    if item := SIPItem.from_checklist_line(line=line, line_number=i + 1):
         TEMPLATE_ITEMS[item.id] = item
 
 
-def template_items() -> Dict[str, EIPItem]:
+def template_items() -> Dict[str, SIPItem]:
     """Return a copy of the template items."""
     new_items = {}
     for test_id, item in TEMPLATE_ITEMS.items():
-        new_items[test_id] = EIPItem(
+        new_items[test_id] = SIPItem(
             id=item.id,
             line_number=item.line_number,
             description=item.description,
@@ -191,7 +192,7 @@ class ChecklistWarning:
 
     @classmethod
     def from_items(
-        cls, all_items: Dict[str, EIPItem]
+        cls, all_items: Dict[str, SIPItem]
     ) -> "ChecklistWarning | None":
         """Generate a checklist warning from a list of items."""
         raise NotImplementedError(f"from_items not implemented for {cls}")
@@ -204,7 +205,7 @@ class ConflictingChecklistItemsWarning(ChecklistWarning):
 
     @classmethod
     def from_items(
-        cls, all_items: Dict[str, EIPItem]
+        cls, all_items: Dict[str, SIPItem]
     ) -> ChecklistWarning | None:
         """
         Generate a conflicting checklist items warning from a list of items.
@@ -239,7 +240,7 @@ class SIP:
     """Represents an SIP and its checklist."""
 
     number: int
-    items: Dict[str, EIPItem] = field(default_factory=template_items)
+    items: Dict[str, SIPItem] = field(default_factory=template_items)
     path: Path | None = None
 
     def add_covered_test(self, checklist_id: str, node_id: str) -> None:
@@ -355,9 +356,18 @@ class SIP:
         self.mark_not_applicable()
         self.mark_external_coverage()
 
-        for checklist_item in self.items.values():
-            # Find the line with this item ID
-            lines[checklist_item.line_number - 1] = str(checklist_item)
+        for index, line in enumerate(lines):
+            if template_item := SIPItem.from_checklist_line(
+                line=line, line_number=index + 1
+            ):
+                # An ID can describe several outcomes on separate rows.
+                # Share its coverage while preserving each description.
+                lines[index] = str(
+                    replace(
+                        self.items[template_item.id],
+                        description=template_item.description,
+                    )
+                )
 
         emoji = self.completeness_emoji
         pct = f"{self.percentage:.2f}%"
@@ -397,7 +407,7 @@ def _find_sip_dir(tests_root: Path, sip_number: int) -> Path | None:
     Return the first `sip<N>_*` directory under `tests_root`, if any.
 
     Used as a fallback when an SIP is referenced from a test outside its
-    own `eipNNNN/` directory via the `sip=[N]` kwarg of `sip_checklist`,
+    own `sipNNNN/` directory via the `sip=[N]` kwarg of `sip_checklist`,
     so the checklist doc can still be attached to the SIP's canonical
     location even when none of its primary tests were collected.
     """
@@ -431,7 +441,11 @@ class SIPChecklistCollector:
 
     def get_sip_from_item(self, item: pytest.Item) -> SIP | None:
         """Get the SIP for a test item."""
-        test_path = Path(item.location[0])
+        # The collected module, not `item.location`, which for a test built
+        # by a generator points at the module that defines the wrapper.
+        # `os.path.relpath` rather than `Path.relative_to`, which raises for
+        # a test collected from outside the rootpath.
+        test_path = Path(os.path.relpath(item.path, item.config.rootpath))
         for part_idx, part in enumerate(test_path.parts):
             match = re.match(r"sip(\d+)", part)
             if match:
@@ -484,6 +498,8 @@ class SIPChecklistCollector:
             for item_id in marker.args:
                 item_id = str(item_id)
                 covered_ids = resolve_id(item_id.strip())
+                if marker.kwargs.get("exact", False):
+                    covered_ids &= {item_id.strip()}
                 if not covered_ids:
                     logger.warning(
                         f"Item ID {item_id} not found in checklist template "
@@ -506,13 +522,13 @@ class SIPChecklistCollector:
         """Collect checklist markers during test collection."""
         for item in items:
             sip = self.get_sip_from_item(item)
-            if item.get_closest_marker(
-                "derived_test"
+            if not item.get_closest_marker(
+                "primary_format"
             ) or item.get_closest_marker("skip"):
                 continue
             self.collect_from_item(item, sip)
 
-        # Back-fill the canonical `eipNNNN_*` directory for any SIP added
+        # Back-fill the canonical `sipNNNN_*` directory for any SIP added
         # via the `sip=[N]` kwarg of `sip_checklist` whose primary tests
         # weren't collected (e.g. because of a `-m` filter or `--until`).
         tests_root = Path(config.rootpath) / "tests"

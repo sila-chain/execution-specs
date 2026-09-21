@@ -4,10 +4,6 @@ from typing import Any, List
 
 import click
 
-from execution_testing.config.check_sip_versions import (
-    CheckEipVersionsConfig,
-)
-
 from .base import PytestCommand, common_pytest_options
 from .processors import HelpFlagsProcessor
 
@@ -22,9 +18,4 @@ def check_sip_versions(pytest_args: List[str], **kwargs: Any) -> None:
         config_file="pytest-check-sip-versions.ini",
         argument_processors=[HelpFlagsProcessor("check-sip-versions")],
     )
-
-    args_with_until = [
-        "--until",
-        CheckEipVersionsConfig().UNTIL_FORK,
-    ] + list(pytest_args)
-    command.execute(args_with_until)
+    command.execute(list(pytest_args))

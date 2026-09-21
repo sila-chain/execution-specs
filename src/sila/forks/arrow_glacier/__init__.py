@@ -25,7 +25,7 @@ in this fork.
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2021.11.01
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.6.0
 [Gsil 1.10.12]: https://github.com/sila/go-sila/releases/tag/v1.10.12
-[nm]: https://github.com/NethermindSil/nethermind/releases/tag/1.11.7
+[nm]: https://github.com/NethermindEth/nethermind/releases/tag/1.11.7
 """  # noqa: E501
 
 from sila.fork_criteria import ByBlockNumber, ForkCriteria

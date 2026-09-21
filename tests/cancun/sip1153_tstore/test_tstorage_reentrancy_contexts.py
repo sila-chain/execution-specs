@@ -65,7 +65,7 @@ class DynamicReentrancyTestCases(EnumMeta):
                     "Based on [sila/tests/.../08_revertUndoes"
                     "TransientStoreFiller.yml](https://github.com/sila/"
                     "tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src"
-                    "/SIPTestsFiller/StateTests/stSIP1153-transientStorage/"
+                    "/SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
                     "08_revertUndoesTransientStoreFiller.yml)",
                 ),
                 "bytecode": Conditional(
@@ -93,7 +93,7 @@ class DynamicReentrancyTestCases(EnumMeta):
                     f"TSTORE(x, z + 1) {opcode._name_}, TLOAD(x) returns y."
                     "",
                     "Based on "
-                    "[sila/tests/.../09_revertUndoesAllFiller.yml](https://github.com/sila/tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/09_revertUndoesAllFiller.yml).",
+                    "[sila/tests/.../09_revertUndoesAllFiller.yml](https://github.com/sila/tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/stEIP1153-transientStorage/09_revertUndoesAllFiller.yml).",
                 ),
                 "bytecode": Conditional(
                     condition=SETUP_CONDITION,
@@ -145,7 +145,7 @@ class DynamicReentrancyTestCases(EnumMeta):
                     "10_revertUndoesStoreAfterReturnFiller.yml]"
                     "(https://github.com/sila/tests/blob/"
                     "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
-                    "EIPTestsFiller/StateTests/stSIP1153-transientStorage/"
+                    "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
                     "10_revertUndoesStoreAfterReturnFiller.yml).",
                 ),
                 "bytecode": Switch(
@@ -214,7 +214,7 @@ class ReentrancyTestCases(
             "Based on [sila/tests/.../05_tloadReentrancyFiller.yml]"
             "(https://github.com/sila/tests/tree/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
-            "EIPTestsFiller/StateTests/stSIP1153-transientStorage).",
+            "SIPTestsFiller/StateTests/stEIP1153-transientStorage).",
         ),
         "bytecode": Conditional(
             condition=SETUP_CONDITION,
@@ -239,7 +239,7 @@ class ReentrancyTestCases(
             "07_tloadAfterReentrancyStoreFiller.yml](https://github.com/"
             "sila/tests/blob/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
-            "EIPTestsFiller/StateTests/stSIP1153-transientStorage/"
+            "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
             "07_tloadAfterReentrancyStoreFiller.yml).",
         ),
         "bytecode": Conditional(
@@ -265,7 +265,7 @@ class ReentrancyTestCases(
             "Based on [sila/tests/.../06_tstoreInReentrancyCallFiller.yml]"
             "(https://github.com/sila/tests/blob/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
-            "EIPTestsFiller/StateTests/stSIP1153-transientStorage/"
+            "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
             "06_tstoreInReentrancyCallFiller.yml).",
         ),
         "bytecode": Conditional(
@@ -293,7 +293,7 @@ class ReentrancyTestCases(
             "10_revertUndoesStoreAfterReturnFiller.yml]"
             "(https://github.com/sila/tests/blob/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
-            "EIPTestsFiller/StateTests/stSIP1153-transientStorage/"
+            "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
             "10_revertUndoesStoreAfterReturnFiller.yml).",
         ),
         "bytecode": Switch(

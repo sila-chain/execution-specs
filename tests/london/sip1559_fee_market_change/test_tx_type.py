@@ -36,9 +36,10 @@ def tx_validity(fork: Fork) -> Generator[ParameterSet, None, None]:
     )
 
 
+@pytest.mark.inclusion_test
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/blob/master/Cancun/GeneralStateTests/stSIP1559/typeTwoBerlin.json"
+        "https://github.com/sila/legacytests/blob/master/Cancun/GeneralStateTests/stEIP1559/typeTwoBerlin.json"
     ],
     pr=["https://github.com/sila/execution-specs/pull/1754"],
 )
@@ -74,6 +75,7 @@ def test_sip1559_tx_validity(
     state_test(pre=pre, post=post, tx=tx)
 
 
+@pytest.mark.inclusion_test
 @pytest.mark.valid_from("SpuriousDragon")
 @pytest.mark.exception_test
 @pytest.mark.with_all_tx_types
