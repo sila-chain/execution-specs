@@ -20,14 +20,14 @@ jobs:
         run: |
           git remote remove upstream 2>/dev/null || true
           git remote add upstream https://github.com/ethereum/execution-specs.git
-          git fetch --no-tags upstream d4c28bfe7aa35e91ee0cd50febd316eb90d92a37
-          test "$(git rev-parse FETCH_HEAD)" = "d4c28bfe7aa35e91ee0cd50febd316eb90d92a37"
+          git fetch --no-tags upstream 826c998e175932dcd4a1bbdbb2b14c8ae33fb033
+          test "$(git rev-parse FETCH_HEAD)" = "826c998e175932dcd4a1bbdbb2b14c8ae33fb033"
 
       - name: Generate latest Pure Sila candidate
         shell: python
         run: |
           import os, re, shutil, subprocess, pathlib
-          AUTH = 'd4c28bfe7aa35e91ee0cd50febd316eb90d92a37'
+          AUTH = '826c998e175932dcd4a1bbdbb2b14c8ae33fb033'
           out = pathlib.Path('/tmp/generated')
           shutil.rmtree(out, ignore_errors=True)
           out.mkdir()
@@ -255,8 +255,8 @@ jobs:
             git status --short
             git add -A
             git diff --cached --stat
-            git commit -m 'sync: latest execution specs authority d4c28bfe'
-            git push --force origin HEAD:refs/heads/sila/generated-execution-specs-d4c28bfe
+            git commit -m 'sync: latest execution specs authority 826c998e'
+            git push --force origin HEAD:refs/heads/sila/generated-execution-specs-826c998e
           } 2>&1 | tee /tmp/publish.log
       - name: Upload publish failure evidence
         if: failure()
