@@ -49,7 +49,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     name: "Deploy Documentation"
-    if: ${{ github.event_name == 'push' && github.ref_name == github.event.repository.default_branch }}
+    # Sila Pages deployment is opt-in until GitHub Pages is configured for this repository.
+    if: ${{ github.event_name == 'push' && github.ref_name == github.event.repository.default_branch && vars.SILA_GITHUB_PAGES_ENABLED == 'true' }}
 
     permissions:
       pages: write
