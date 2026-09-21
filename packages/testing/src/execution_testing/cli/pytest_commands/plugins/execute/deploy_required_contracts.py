@@ -5,7 +5,7 @@ from typing import Literal
 import pytest
 
 from execution_testing.forks import Fork, ForkAdapter
-from execution_testing.rpc import EthRPC
+from execution_testing.rpc import SilRPC
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -42,7 +42,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
 
 @pytest.fixture(scope="session")
-def gas_price(request: pytest.FixtureRequest, sil_rpc: EthRPC) -> int:
+def gas_price(request: pytest.FixtureRequest, sil_rpc: SilRPC) -> int:
     """Get the gas price for deployment transactions."""
     gas_price_option = request.config.option.deploy_gas_price
     if gas_price_option is not None:

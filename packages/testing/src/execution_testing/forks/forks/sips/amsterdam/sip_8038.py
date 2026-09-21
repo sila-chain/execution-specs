@@ -42,7 +42,7 @@ class SIP8038(BaseFork):
 
         warm_access = 100
         cold_account_access = 3_000
-        cold_storage_access = 3_000
+        cold_storage_access = 2_100
         storage_write = 10_000
         # The framework models the SSTORE write via the compound
         # COLD_STORAGE_WRITE (access + write), so preserve the invariant
@@ -50,10 +50,10 @@ class SIP8038(BaseFork):
         cold_storage_write = cold_storage_access + storage_write
         # Surcharge for the first write to an account leaf, introduced as a
         # standalone parameter by this repricing.
-        account_write = 8_000
-        create_access = 11_000
+        account_write = 9_000
+        create_access = account_write + cold_account_access
         # ecRecover stays PRECOMPILE_ECRECOVER (3000) until SIP-7904 lands.
-        regular_per_auth_base_cost = (
+        execution_per_auth_base_cost = (
             1_616 + 3_000 + cold_account_access + 2 * warm_access
         )
 
@@ -66,14 +66,16 @@ class SIP8038(BaseFork):
             COLD_STORAGE_WRITE=cold_storage_write,
             ACCOUNT_WRITE=account_write,
             CALL_VALUE=account_write + 2_300,  # ACCOUNT_WRITE + CALL_STIPEND
-            REFUND_STORAGE_CLEAR=12_480,
-            TX_ACCESS_LIST_ADDRESS=3_000,
-            TX_ACCESS_LIST_STORAGE_KEY=3_000,
+            REFUND_STORAGE_CLEAR=11_616,
+            TX_ACCESS_LIST_ADDRESS=cold_account_access - warm_access,
+            TX_ACCESS_LIST_STORAGE_KEY=cold_storage_access - warm_access,
             BLOCK_ACCESS_LIST_ITEM=2000,
             STORAGE_SET=storage_write,
             OPCODE_CREATE_BASE=create_access,
             TX_CREATE=create_access,
-            AUTH_PER_EMPTY_ACCOUNT=account_write + regular_per_auth_base_cost,
+            AUTH_PER_EMPTY_ACCOUNT=account_write
+            + execution_per_auth_base_cost,
+            EXECUTION_PER_AUTH_BASE_COST=execution_per_auth_base_cost,
         )
 
     @classmethod
@@ -108,7 +110,7 @@ class SIP8038(BaseFork):
         cls, opcode: OpcodeBase, gas_costs: GasCosts
     ) -> int:
         """
-        Calculate the regular SELFDESTRUCT gas cost. SIP-8038 adds
+        Calculate the execution SELFDESTRUCT gas cost. SIP-8038 adds
         `ACCOUNT_WRITE` when a positive balance is sent to an empty
         account, on top of the inherited cost (where `NEW_ACCOUNT`
         holds the SIP-8037 state-gas portion).
@@ -125,7 +127,7 @@ class SIP8038(BaseFork):
         cls, opcode: OpcodeBase, gas_costs: GasCosts
     ) -> int:
         """
-        Calculate the regular SSTORE gas cost. The state portion is
+        Calculate the execution SSTORE gas cost. The state portion is
         returned separately by `_calculate_sstore_state_gas`. Under
         SIP-8038 the access cost (`COLD_STORAGE_ACCESS` when cold, else
         `WARM_SLOAD`) is always charged, and a first-time change to the
@@ -158,7 +160,7 @@ class SIP8038(BaseFork):
         cls, opcode: OpcodeBase, gas_costs: GasCosts
     ) -> int:
         """
-        Calculate the regular SSTORE gas refund. The state portion is
+        Calculate the execution SSTORE gas refund. The state portion is
         returned separately by `_calculate_sstore_state_refund`.
         """
         metadata = opcode.metadata

@@ -11,10 +11,11 @@ Introduction
 Implementation of the BLS12 381 pairing pre-compile.
 """
 
-from sila_types.numeric import Uint
 from sila_ecc.optimized_bls12_381 import FQ12, curve_order, is_inf, pairing
 from sila_ecc.optimized_bls12_381 import multiply as bls12_multiply
+from sila_types.numeric import Uint
 
+from ....fork_types import ExecutionGas
 from ....vm import Evm
 from ....vm.gas import charge_gas
 from ...exceptions import InvalidParameter
@@ -36,13 +37,13 @@ def bls12_pairing(evm: Evm) -> None:
         If the input length is invalid or if the subgroup check fails.
 
     """
-    data = evm.message.data
+    data = evm.call_data
     if len(data) == 0 or len(data) % 384 != 0:
         raise InvalidParameter("Invalid Input Length")
 
     # GAS
     k = len(data) // 384
-    gas_cost = Uint(32600 * k + 37700)
+    gas_cost = ExecutionGas(Uint(32600 * k + 37700))
     charge_gas(evm, gas_cost)
 
     # OPERATION

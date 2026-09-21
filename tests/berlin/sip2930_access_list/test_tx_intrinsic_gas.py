@@ -2,7 +2,7 @@
 Tests [SIP-2930: Access list transaction](https://sips.sila.org/SIPS/sip-2930).
 
 Original test by Ori:
-https://github.com/sila/tests/blob/v15.0/src/GeneralStateTestsFiller/stSIP1559/intrinsicGen.js.
+https://github.com/sila/tests/blob/v15.0/src/GeneralStateTestsFiller/stEIP1559/intrinsicGen.js.
 """
 
 from typing import List
@@ -143,10 +143,11 @@ tx_intrinsic_gas_access_list_vectors = [
 ]
 
 
+@pytest.mark.inclusion_test
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSIP1559/intrinsicGen.js",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSIP1559/intrinsicFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stEIP1559/intrinsicGen.js",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stEIP1559/intrinsicFiller.yml",
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/1535"],
 )

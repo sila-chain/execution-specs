@@ -505,7 +505,7 @@ class TestTransactionTracesCompare:
         assert "pc" in diffs[0].current_fields
 
     def test_multiple_fields_diff_on_one_line(self) -> None:
-        """Multiple field diffs on one line are grouped together."""
+        """Multiple field diffs on one line are grouped togsiler."""
         baseline = _make_transaction_traces([_make_trace_line(pc=0, op=0x60)])
         current = _make_transaction_traces([_make_trace_line(pc=5, op=0x61)])
         diffs = baseline.compare(current)

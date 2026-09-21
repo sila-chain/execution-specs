@@ -24,7 +24,7 @@ REFERENCE_SPEC_VERSION = ref_spec_1153.version
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stSIP1153-transientStorage/01_tloadBeginningTxnFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/01_tloadBeginningTxnFiller.yml",
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )
@@ -68,7 +68,7 @@ def test_basic_tload_transaction_begin(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stSIP1153-transientStorage/02_tloadAfterTstoreFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/02_tloadAfterTstoreFiller.yml",
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )
@@ -119,7 +119,7 @@ def test_basic_tload_works(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stSIP1153-transientStorage/03_tloadAfterStoreIs0Filler.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/03_tloadAfterStoreIs0Filler.yml",
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )
@@ -166,7 +166,7 @@ def test_basic_tload_other_after_tstore(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stSIP1153-transientStorage/16_tloadGasFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/16_tloadGasFiller.yml",
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )
@@ -255,7 +255,7 @@ def test_basic_tload_gasprice(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stSIP1153-transientStorage/18_tloadAfterStoreFiller.yml",
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/18_tloadAfterStoreFiller.yml",
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )

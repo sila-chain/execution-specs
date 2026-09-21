@@ -21,7 +21,7 @@ classifiers = [
 ]
 dependencies = [
     "pycryptodome>=3.22,<4",
-    "coincurve>=20,<21",
+    "spec256k1>=0.2.3,<0.3",
     "typing_extensions>=4.4",
     "sila-ecc @ git+https://github.com/sila-chain/sila-ecc.git@v8.0.0-sila.2",
     "sila-types @ git+https://github.com/sila-chain/sila-types.git@v0.4.1-sila.1",
@@ -37,12 +37,7 @@ dependencies = [
 [tool.setuptools]
 packages = [
     "sila_spec_tools",
-    "sila_spec_tools.evm_tools",
-    "sila_spec_tools.evm_tools.t8n",
-    "sila_spec_tools.evm_tools.t8n.evm_trace",
-    "sila_spec_tools.evm_tools.b11r",
-    "sila_spec_tools.evm_tools.statetest",
-    "sila_spec_tools.evm_tools.loaders",
+    "sila_spec_tools.loaders",
     "sila_spec_tools.lint",
     "sila_spec_tools.lint.lints",
     "sila_spec_tools.new_fork",
@@ -197,7 +192,7 @@ packages = [
 [project.optional-dependencies]
 optimized = [
     "rust-pyspec-glue>=0.0.9,<0.1.0",
-    "sil-hash @ git+https://github.com/sila-chain/sil-hash.git@v0.8.0-sila.1",
+    "ethash>=1.1.0,<2",
 ]
 
 [dependency-groups]
@@ -255,8 +250,13 @@ dev = [
     { include-group = "actionlint" },
     { include-group = "doc" },
     { include-group = "mkdocs" },
-    "sila-execution[optimized]",
     "psutil>=7.2.2",
+]
+# Opt-in (not part of dev): native-accelerated state and ethash for the
+# sync tool. ethash has no CPython 3.14 wheels, so installing this group
+# requires a C toolchain on 3.14.
+optimized = [
+    "sila-execution[optimized]",
 ]
 
 [tool.setuptools.dynamic]
@@ -267,8 +267,6 @@ sila-spec-lint = "sila_spec_tools.lint:main"
 sila-spec-sync = "sila_spec_tools.sync:main"
 sila-spec-new-fork = "sila_spec_tools.new_fork.cli:main"
 sila-spec-patch = "sila_spec_tools.patch_tool:main"
-sila-spec-evm = "sila_spec_tools.evm_tools:main"
-whitelist = "sila_spec_tools.whitelist:main"
 
 [project.entry-points."docc.plugins"]
 "sila_spec_tools.docc.listing" = "sila_spec_tools.docc:SilaListingDiscover"
@@ -277,6 +275,7 @@ whitelist = "sila_spec_tools.whitelist:main"
 "sila_spec_tools.docc.build" = "sila_spec_tools.docc:SilaBuilder"
 "sila_spec_tools.docc.fix-indexes" = "sila_spec_tools.docc:FixIndexTransform"
 "sila_spec_tools.docc.minimize-diffs" = "sila_spec_tools.docc:MinimizeDiffsTransform"
+"sila_spec_tools.docc.prune-references" = "sila_spec_tools.docc:PruneReferencesTransform"
 
 [project.entry-points."docc.plugins.html"]
 "sila_spec_tools.docc:DiffNode" = "sila_spec_tools.docc:render_diff"
@@ -287,7 +286,6 @@ whitelist = "sila_spec_tools.whitelist:main"
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "bigmem: marks tests as big memory (deselect with '-m \"not bigmem\"')",
-    "evm_tools: marks tests as evm_tools (deselect with '-m \"not evm_tools\"')",
     "json_blockchain_tests: marks tests as json_blockchain_tests (deselect with '-m \"not json_blockchain_tests\"')",
     "json_state_tests: marks tests as json_state_tests (deselect with '-m \"not json_state_tests\"')",
     "vm_test: marks tests as vm_test (deselect with '-m \"not vm_test\"')",
@@ -341,6 +339,9 @@ transform = [
     "sila_spec_tools.docc.fix-indexes",
     "sila_spec_tools.docc.minimize-diffs",
     "docc.references.index",
+    # prune-references must run after the index is populated and before
+    # any transform that resolves references (search, html).
+    "sila_spec_tools.docc.prune-references",
     "docc.search.transform",
     "docc.html.transform",
 ]
@@ -415,7 +416,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"src/sila_spec_tools/evm_tools/loaders/fork_loader.py" = [
+"src/sila_spec_tools/loaders/fork_loader.py" = [
     "N802"          # Property names do not need to be lowercase
 ]
 "src/sila_spec_tools/lint/*" = [
@@ -425,13 +426,11 @@ ignore = [
     "N806",         # Special crypto code absolved of variable naming reqs
     "N802"          # Special crypto code absolved of function naming reqs
 ]
-"src/sila_spec_tools/evm_tools/t8n/evm_trace/sip3155.py" = [
-    "N815"          # The traces must use camel case in JSON property names
-]
-"src/sila_spec_tools/evm_tools/t8n/evm_trace.py" = [
+"packages/testing/src/execution_testing/evm_tools/t8n/evm_trace/sip3155.py" = [
     "N815"          # The traces must use camel case in JSON property names
 ]
 "tests/*" = ["ARG001"]
+"packages/testing/src/execution_testing/evm_tools/tests/*" = ["ARG001"]
 "vulture_whitelist.py" = [
     "B018",  # Useless expression (intentional for Vulture whitelisting)
     "E402",  # Module-level imports throughout file (needed for whitelisting)
@@ -524,12 +523,18 @@ exclude = [
     "^logs/",
     "^site/",
     "^tests/json_loader/fixtures/",
+    "^packages/testing/build/",
 ]
 plugins = ["pydantic.mypy"]
 
+[[tool.mypy.overrides]]
+# remerkleable ships no type stubs / py.typed marker.
+module = "remerkleable.*"
+ignore_missing_imports = true
+
 [tool.uv]
 required-version = ">=0.7.0"
-extra-build-dependencies = { sil-hash = ["setuptools", "cmake>=4.2.1,<5"] }
+extra-build-dependencies = { ethash = ["setuptools", "cmake>=4.2.1,<5"] }
 
 [tool.uv.workspace]
 members = ["packages/*"]

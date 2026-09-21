@@ -17,9 +17,7 @@ class DocsConfig(BaseModel):
     GENERATE_UNTIL_FORK: str = "Amsterdam"
     """The fork until which documentation should be generated."""
 
-    DOCS_BASE_URL: str = (
-        "https://steel.sila.foundation/docs/execution-specs"
-    )
+    DOCS_BASE_URL: str = "https://steel.sila.foundation/docs/execution-specs"
 
     # Documentation URLs prefixed with `DOCS_URL__` to avoid conflicts with
     # other URLs

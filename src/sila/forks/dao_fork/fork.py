@@ -16,12 +16,12 @@ Entry point for the Sila specification.
 from dataclasses import dataclass
 from typing import List, Set, Tuple, final
 
-from sila_rlp import rlp
+import sila_rlp as rlp
 from sila_types.bytes import Bytes32
 from sila_types.numeric import U64, U256, Uint
 
 from sila.crypto.hash import Hash32, keccak256
-from sila.silash import dataset_size, generate_cache, hashimoto_light
+from sila.ethash import dataset_size, generate_cache, hashimoto_light
 from sila.exceptions import (
     GasUsedExceedsLimitError,
     InsufficientBalanceError,
@@ -31,12 +31,8 @@ from sila.exceptions import (
 )
 from sila.fork_criteria import ByBlockNumber
 from sila.merkle_patricia_trie import root, trie_set
-from sila.state import (
-    EMPTY_CODE_HASH,
-    Address,
-    State,
-    apply_changes_to_state,
-)
+from sila.state import EMPTY_CODE_HASH, Address
+from sila.state_mpt import State, apply_changes_to_state
 
 from . import FORK_CRITERIA, vm
 from .blocks import Block, Header, Log, Receipt
@@ -90,8 +86,8 @@ def apply_fork(old: BlockChain) -> BlockChain:
 
     The DAO-Fork occurred as a result of the `2016 DAO Hacks
     <https://www.gemini.com/cryptopedia/the-dao-hack-makerdao>`_ in which an
-    unknown entity managed to drain more than 3.6 million sil causing the
-    price of sil to drop by nearly 35%. This fork was the solution to the
+    unknown entity managed to drain more than 3.6 million sila causing the
+    price of sila to drop by nearly 35%. This fork was the solution to the
     hacks and manually reset the affected parties' accounts to their state
     prior to the attack. This fork essentially rewrote the history of the
     Sila network.
@@ -133,7 +129,6 @@ def get_last_256_block_hashes(chain: BlockChain) -> List[Hash32]:
 
     """
     recent_blocks = chain.blocks[-255:]
-    # TODO: This function has not been tested rigorously
     if len(recent_blocks) == 0:
         return []
 
@@ -197,11 +192,7 @@ def state_transition(chain: BlockChain, block: Block) -> None:
         ommers=block.ommers,
     )
     block_diff = extract_block_diff(block_state)
-    block_state_root, _ = chain.state.compute_state_root_and_trie_changes(
-        block_diff.account_changes,
-        block_diff.storage_changes,
-        block_diff.storage_clears,
-    )
+    block_state_root = chain.state.compute_state_root(block_diff)
     transactions_root = root(block_output.transactions_trie)
     receipt_root = root(block_output.receipts_trie)
     block_logs_bloom = logs_bloom(block_output.block_logs)
@@ -710,12 +701,8 @@ def process_transaction(
 
     block_state = block_env.state
     block_diff = extract_block_diff(block_state)
-    intermediate_state_root, _ = (
-        block_state.pre_state.compute_state_root_and_trie_changes(
-            block_diff.account_changes,
-            block_diff.storage_changes,
-            block_diff.storage_clears,
-        )
+    intermediate_state_root = block_state.pre_state.compute_state_root(
+        block_diff
     )
 
     receipt = make_receipt(

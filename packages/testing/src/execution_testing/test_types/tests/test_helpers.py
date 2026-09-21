@@ -72,9 +72,9 @@ def test_compute_create_address(
     """
     Test `sila_test.helpers.compute_create_address` with some famous
     contracts:
-    - https://silascan.io/address/0x863df6bfa4469f3ead0be8f9f2aae51c91a907b4
-    - https://silascan.io/address/0x7a250d5630b4cf539739df2c5dacb4c659f2488d
-    - https://silascan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d.
+    - https://etherscan.io/address/0x863df6bfa4469f3ead0be8f9f2aae51c91a907b4
+    - https://etherscan.io/address/0x7a250d5630b4cf539739df2c5dacb4c659f2488d
+    - https://etherscan.io/address/0x06012c8cf97bead5deae237070f9587f8e7a266d.
 
     """
     assert (

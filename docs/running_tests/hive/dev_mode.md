@@ -104,7 +104,7 @@ This dockerfile will be our entry point for running simulator commands.
 2. Start Hive in development mode with your local IP:
 
     ```bash
-    ./hive --dev --dev.addr <LOCAL_IP>:3000 --client go-sila --client-file clients.yaml
+    ./hive --dev --dev.addr <LOCAL_IP>:3000 --client go-sila --client-file clients.yaml 
     ```
 
 3. In a separate terminal session, build the EELS development image:

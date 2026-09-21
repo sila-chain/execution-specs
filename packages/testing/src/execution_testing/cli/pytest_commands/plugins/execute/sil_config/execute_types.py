@@ -13,19 +13,19 @@ from execution_testing.base_types import (
     Address,
     Bytes,
     CamelModel,
-    SilaTestRootModel,
     ForkHash,
     Hash,
     HeaderNonce,
     HexNumber,
     Number,
+    SilaTestRootModel,
 )
 from execution_testing.fixtures.blockchain import FixtureHeader
 from execution_testing.forks import Fork, Frontier
 from execution_testing.rpc import (
-    SilConfigResponse,
     ForkConfig,
     ForkConfigBlobSchedule,
+    SilConfigResponse,
 )
 from execution_testing.test_types import Alloc, Environment
 
@@ -357,6 +357,15 @@ class Genesis(CamelModel):
     parent_hash: Hash
     base_fee_per_gas: HexNumber = HexNumber(10**9)
     number: HexNumber = HexNumber(0)
+
+    def model_post_init(self, __context: Any) -> None:
+        """
+        Seed the alloc's commitment scheme from the genesis fork.
+        """
+        super().model_post_init(__context)
+        self.alloc.migrate_state_commitment(
+            self.config.fork().state_commitment()
+        )
 
     @cached_property
     def hash(self) -> Hash:

@@ -1,15 +1,15 @@
 # This is a Hive client configuration file that uses master/main client builds
-# from the silquokkaops / silpandaops container registry.
+# from the ethquokkaops / ethpandaops container registry.
 #
 # The latest available configurations are here:
-# https://github.com/silpandaops/sil-client-docker-image-builder/blob/master/branches.yaml
+# https://github.com/ethpandaops/sil-client-docker-image-builder/blob/master/branches.yaml
 
 # Besu
 # https://github.com/hyperledger/besu
 - client: besu
   nametag: default
   build_args:
-    baseimage: docker.silquokkaops.io/dh/silpandaops/besu
+    baseimage: docker.ethquokkaops.io/dh/ethpandaops/besu
     tag: main
 
 # Erigon
@@ -17,7 +17,7 @@
 - client: erigon
   nametag: default
   build_args:
-    baseimage: docker.silquokkaops.io/dh/silpandaops/erigon
+    baseimage: docker.ethquokkaops.io/dh/ethpandaops/erigon
     tag: main
 
 # Silrex
@@ -25,7 +25,7 @@
 - client: silrex
   nametag: default
   build_args:
-    baseimage: docker.silquokkaops.io/dh/silpandaops/silrex
+    baseimage: docker.ethquokkaops.io/dh/ethpandaops/silrex
     tag: main
 
 # Gsil (Go-Sila)
@@ -33,15 +33,15 @@
 - client: go-sila
   nametag: default
   build_args:
-    baseimage: docker.silquokkaops.io/dh/silpandaops/gsil
+    baseimage: docker.ethquokkaops.io/dh/ethpandaops/gsil
     tag: master
 
 # Nethermind
-# https://github.com/NethermindSil/nethermind
+# https://github.com/NethermindEth/nethermind
 - client: nethermind
   nametag: default
   build_args:
-    baseimage: docker.silquokkaops.io/dh/silpandaops/nethermind
+    baseimage: docker.ethquokkaops.io/dh/ethpandaops/nethermind
     tag: master
 
 # Nimbus EL
@@ -49,7 +49,7 @@
 - client: nimbus-el
   nametag: default
   build_args:
-    baseimage: docker.silquokkaops.io/dh/silpandaops/nimbus-sil1
+    baseimage: docker.ethquokkaops.io/dh/ethpandaops/nimbus-sil1
     tag: master
 
 # Rsil
@@ -57,5 +57,5 @@
 - client: rsil
   nametag: default
   build_args:
-    baseimage: docker.silquokkaops.io/dh/silpandaops/rsil
+    baseimage: docker.ethquokkaops.io/dh/ethpandaops/rsil
     tag: main

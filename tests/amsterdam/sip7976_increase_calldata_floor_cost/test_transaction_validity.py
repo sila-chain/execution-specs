@@ -14,14 +14,17 @@ from execution_testing import (
     add_kzg_version,
 )
 
-from ...osaka.sip7594_sila_peerdas.spec import Spec as SIP_7594_Spec
+from ...osaka.sip7594_peerdas.spec import Spec as SIP_7594_Spec
 from .helpers import DataTestType
 from .spec import ref_spec_7976
 
 REFERENCE_SPEC_GIT_PATH = ref_spec_7976.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7976.version
 
-pytestmark = [pytest.mark.valid_from("SIP7976")]
+pytestmark = [
+    pytest.mark.valid_from("SIP7976"),
+    pytest.mark.inclusion_test,
+]
 
 
 # All tests in this file are parametrized with the following parameters:

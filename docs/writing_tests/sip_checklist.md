@@ -217,7 +217,7 @@ Example output snippet:
 
       ```python
       from execution_testing.checklists import SIPChecklist
-
+      
       @SIPChecklist.Opcode.Test.GasUsage.Normal()
       def test_opcode_gas_consumption(state_test: StateTestFiller):
          """Test normal gas consumption of the new opcode."""

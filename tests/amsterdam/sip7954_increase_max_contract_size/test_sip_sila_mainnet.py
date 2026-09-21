@@ -24,7 +24,7 @@ from .spec import ref_spec_7954
 REFERENCE_SPEC_GIT_PATH = ref_spec_7954.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7954.version
 
-pytestmark = [pytest.mark.valid_at("SIP7954"), pytest.mark.sila-mainnet]
+pytestmark = [pytest.mark.valid_at("SIP7954"), pytest.mark.sila_mainnet]
 
 
 def test_over_max_code_size_sila_mainnet(
@@ -53,6 +53,7 @@ def test_over_max_code_size_sila_mainnet(
     state_test(pre=pre, tx=tx, post=post)
 
 
+@pytest.mark.inclusion_test
 @pytest.mark.exception_test
 def test_over_max_initcode_size_sila_mainnet(
     state_test: StateTestFiller,

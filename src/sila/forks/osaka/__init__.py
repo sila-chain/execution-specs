@@ -12,7 +12,7 @@ secp256r1 curve.
 
 ### Changes
 
-- [SIP-7594: SilaPeerDAS - Peer Data Availability Sampling][SIP-7594]
+- [SIP-7594: PeerDAS - Peer Data Availability Sampling][SIP-7594]
 - [SIP-7823: Set upper bounds for MODEXP][SIP-7823]
 - [SIP-7825: Transaction Gas Limit Cap][SIP-7825]
 - [SIP-7883: ModExp Gas Cost Increase][SIP-7883]
@@ -28,8 +28,8 @@ secp256r1 curve.
 
 | Network | Timestamp    | Date & Time (UTC)       | Fork Hash    | Beacon Chain Epoch |
 |---------|--------------|-------------------------|--------------|--------------------|
-| Holesky | `1759308480` | 2025-10-01 08:48:00     | `0x783def52` | `165120`           |
-| Sepolia | `1760427360` | 2025-10-14 07:36:00     | `0xe2ae4999` | `272640`           |
+| SilaHolesky | `1759308480` | 2025-10-01 08:48:00     | `0x783def52` | `165120`           |
+| SilaSepolia | `1760427360` | 2025-10-14 07:36:00     | `0xe2ae4999` | `272640`           |
 | Hoodi   | `1761677592` | 2025-10-28 18:53:12     | `0xe7e0e7ff` |  `50688`           |
 | SilaMainnet | `1764798551` | 2025-12-03 21:49:11     | `0x5167e2a6` | `411392`           |
 

@@ -11,13 +11,13 @@ Introduction
 Implementation of pre-compiles in G1 (curve over base prime field).
 """
 
-from sila_types.numeric import U256, Uint
 from sila_ecc.bls.hash_to_curve import clear_cofactor_G1, map_to_curve_G1
 from sila_ecc.optimized_bls12_381.optimized_curve import FQ
 from sila_ecc.optimized_bls12_381.optimized_curve import add as bls12_add
 from sila_ecc.optimized_bls12_381.optimized_curve import (
     multiply as bls12_multiply,
 )
+from sila_types.numeric import U256, Uint
 
 from ....vm import Evm
 from ....vm.gas import GasCosts, charge_gas

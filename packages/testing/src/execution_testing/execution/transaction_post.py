@@ -5,15 +5,16 @@ from typing import ClassVar, Dict, List
 import pytest
 from pytest import FixtureRequest
 
-from execution_testing.base_types import Address, Alloc, Hash
+from execution_testing.base_types import Address, Hash
 from execution_testing.forks import Fork
 from execution_testing.logging import get_logger
 from execution_testing.rpc import (
     EngineRPC,
-    EthRPC,
     SendTransactionExceptionError,
+    SilRPC,
 )
 from execution_testing.test_types import (
+    Alloc,
     Environment,
     NetworkWrappedTransaction,
     TestPhase,
@@ -88,7 +89,7 @@ class TransactionPost(BaseExecute):
     def execute(
         self,
         fork: Fork,
-        sil_rpc: EthRPC,
+        sil_rpc: SilRPC,
         engine_rpc: EngineRPC | None,
         request: FixtureRequest,
     ) -> ExecuteResult:

@@ -329,7 +329,7 @@ def generate_blob_gas_cost_increases_tests(
                 2**64,  # blob gas cost 2^64
                 (
                     120_000_000 * (10**18) // gas_per_blob
-                ),  # Data tx wei is current total Sil supply
+                ),  # Data tx wei is current total Sila supply
             ]
         ]
 
@@ -362,7 +362,7 @@ def test_correct_increasing_blob_gas_costs(
     - At blob gas wei cost increase to `> 2^32`
     - At total transaction data cost increase to `> 2^64`
     - At blob gas wei cost increase to `> 2^64`
-    - At blob gas wei cost increase of around current total Sil supply
+    - At blob gas wei cost increase of around current total Sila supply
     """
     blockchain_test(
         pre=pre,

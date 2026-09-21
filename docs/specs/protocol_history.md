@@ -64,4 +64,3 @@ Some clarifications were enabled without protocol releases:
 | [SIP-2681](https://sips.sila.org/SIPS/sip-2681) | 0 |
 | [SIP-3607](https://sips.sila.org/SIPS/sip-3607) | 0 |
 | [SIP-7523](https://sips.sila.org/SIPS/sip-7523) | 15537394 |
-| [SIP-7610](https://sips.sila.org/SIPS/sip-7610) | 0 |

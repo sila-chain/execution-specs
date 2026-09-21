@@ -5,7 +5,7 @@ import pytest
 from execution_testing.base_types import Bytes
 from execution_testing.forks import Fork, TransitionFork
 from execution_testing.logging import get_logger
-from execution_testing.rpc import EthRPC
+from execution_testing.rpc import SilRPC
 from execution_testing.test_types import (
     DETERMINISTIC_FACTORY_ADDRESS,
     DETERMINISTIC_FACTORY_BYTECODE,
@@ -23,7 +23,7 @@ logger = get_logger(__name__)
 def test_deploy_deterministic_deployment_contract(
     seed_key: EOA,
     gas_price: int,
-    sil_rpc: EthRPC,
+    sil_rpc: SilRPC,
     check_only: bool,
     session_fork: Fork | TransitionFork,
 ) -> None:

@@ -7,7 +7,6 @@ from functools import cached_property
 from typing import Any, ClassVar, Dict, Generic, List, Literal, Self, Sequence
 
 import sila_rlp as sil_rlp
-from coincurve.keys import PrivateKey, PublicKey
 from pydantic import (
     AliasChoices,
     BaseModel,
@@ -17,6 +16,7 @@ from pydantic import (
     model_serializer,
     model_validator,
 )
+from spec256k1 import PrivateKey, PublicKey
 
 from execution_testing.base_types import (
     AccessList,
@@ -120,6 +120,13 @@ class AuthorizationTuple(AuthorizationTupleGeneric[HexNumber]):
 
     signer: EOA | None = None
     secret_key: Hash | None = None
+    creates_account: bool = Field(False, exclude=True)
+    writes_delegation: bool = Field(True, exclude=True)
+    # Whether applying this authorization is the transaction's first
+    # write to the authority's account leaf. False for a self-sponsored
+    # authority (the sender is written at inclusion), for repeated
+    # authorizations on one authority, and for invalid authorizations.
+    first_write: bool = Field(True, exclude=True)
 
     def model_post_init(self, __context: Any) -> None:
         """
@@ -147,8 +154,8 @@ class AuthorizationTuple(AuthorizationTupleGeneric[HexNumber]):
                 signing_key = eoa.key
             assert signing_key is not None, "secret_key or signer must be set"
 
-            signature_bytes = PrivateKey(secret=signing_key).sign_recoverable(
-                rlp_signing_bytes, hasher=keccak256
+            signature_bytes = PrivateKey(signing_key).sign_recoverable(
+                rlp_signing_bytes.keccak256()
             )
             self.v, self.r, self.s = (
                 HexNumber(signature_bytes[64]),
@@ -172,7 +179,7 @@ class AuthorizationTuple(AuthorizationTupleGeneric[HexNumber]):
                         + bytes([self.v])
                     )
                 public_key = PublicKey.from_signature_and_message(
-                    signature_bytes, rlp_signing_bytes.keccak256(), hasher=None
+                    signature_bytes, rlp_signing_bytes.keccak256()
                 )
                 self.signer = EOA(
                     address=Address(
@@ -550,8 +557,8 @@ class Transaction(
                 signing_key = eoa.key
             assert signing_key is not None, "secret_key or signer must be set"
 
-            signature_bytes = PrivateKey(secret=signing_key).sign_recoverable(
-                rlp_signing_bytes, hasher=keccak256
+            signature_bytes = PrivateKey(signing_key).sign_recoverable(
+                rlp_signing_bytes.keccak256()
             )
             v, r, s = (
                 signature_bytes[64],
@@ -583,7 +590,7 @@ class Transaction(
                         + bytes([v])
                     )
                 public_key = PublicKey.from_signature_and_message(
-                    signature_bytes, rlp_signing_bytes.keccak256(), hasher=None
+                    signature_bytes, rlp_signing_bytes.keccak256()
                 )
                 self.sender = EOA(
                     address=Address(
@@ -705,7 +712,6 @@ class Transaction(
             public_key = PublicKey.from_signature_and_message(
                 self.signature_bytes,
                 self.rlp_signing_bytes().keccak256(),
-                hasher=None,
             )
             updated_values["sender"] = Address(
                 keccak256(public_key.format(compressed=False)[1:])[32 - 20 :]
@@ -722,15 +728,22 @@ class Transaction(
         signing_hash = self.rlp_signing_bytes().keccak256()
 
         # Sign the bytes
-        signature_bytes = PrivateKey(secret=self.secret_key).sign_recoverable(
-            signing_hash, hasher=None
-        )
-        public_key = PublicKey.from_signature_and_message(
-            signature_bytes, signing_hash, hasher=None
-        )
+        signing_key = PrivateKey(self.secret_key)
+        signature_bytes = signing_key.sign_recoverable(signing_hash)
 
-        sender = keccak256(public_key.format(compressed=False)[1:])[32 - 20 :]
-        updated_values["sender"] = Address(sender)
+        # The key comparison is what makes reusing `sender` safe: it is
+        # reassignable and `EOA.key` may be `None`, so a sender that does not
+        # hold the signing key would contradict its own signature.
+        if self.sender is not None and self.sender.key == self.secret_key:
+            updated_values["sender"] = self.sender
+        else:
+            # The address the public key recovery would return, since the
+            # signature was produced by this key, but derived with one point
+            # multiplication instead.
+            public_key = signing_key.public_key
+            updated_values["sender"] = Address(
+                keccak256(public_key.format(compressed=False)[1:])[32 - 20 :]
+            )
 
         v, r, s = (
             signature_bytes[64],

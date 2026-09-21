@@ -3,8 +3,8 @@
 from typing import Any, ClassVar, List, Self, Sequence
 
 import sila_rlp as sil_rlp
+from sila_trie import HexarySilaTrie as HexaryTrie
 from sila_types.numeric import Uint
-from sila_trie import HexarySilaTrie
 
 from execution_testing.base_types import Bytes
 
@@ -157,7 +157,7 @@ class RLPSerializable:
     @classmethod
     def list_root(cls, element_list: Sequence[Self]) -> bytes:
         """Return the root of a list of the given type."""
-        t = HexarySilaTrie(db={})
+        t = HexaryTrie(db={})
         for i, e in enumerate(element_list):
             t.set(
                 sil_rlp.encode(Uint(i)),

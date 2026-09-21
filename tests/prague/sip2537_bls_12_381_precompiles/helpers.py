@@ -6,7 +6,6 @@ from typing import Annotated, Any, List, Optional
 
 import pytest
 from joblib import Memory
-from sila_ecc.bls12_381 import FQ, FQ2, add, field_modulus, multiply
 from pydantic import (
     BaseModel,
     BeforeValidator,
@@ -15,6 +14,7 @@ from pydantic import (
     TypeAdapter,
 )
 from pydantic.alias_generators import to_pascal
+from sila_ecc.bls12_381 import FQ, FQ2, add, field_modulus, multiply
 
 from .spec import FP, FP2, PointG1, PointG2, Spec
 
@@ -167,8 +167,14 @@ class BLSPointGenerator:
     # G2 cofactor h₂: (x⁸ - 4x⁷ + 5x⁶ - 4x⁴ + 6x³ - 4x² - 4x + 13)/9
     G2_COFACTOR = 0x5D543A95414E7F1091D50792876A202CD91DE4547085ABAA68A205B2E5A7DDFA628F1CB4D9E82EF21537E293A6691AE1616EC6E786F0C70CF1C38E31C7238E5  # noqa: E501
 
-    # Memory cache for expensive functions
-    memory = Memory(location=".cache", verbose=0)
+    # Memory cache for expensive functions. Give each xdist worker its own
+    # cache dir: joblib's disk cache races on concurrent writes, and these
+    # functions run at collection time in every worker.
+    _xdist_worker = os.environ.get("PYTEST_XDIST_WORKER", "")
+    _cache_location = (
+        f".cache/joblib-{_xdist_worker}" if _xdist_worker else ".cache"
+    )
+    memory = Memory(location=_cache_location, verbose=0)
 
     @staticmethod
     def is_on_curve_g1(x: int, y: int) -> bool:
