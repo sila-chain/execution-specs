@@ -67,7 +67,7 @@ concurrency:
 jobs:
   cache-docker-images:
     name: Cache Docker Images
-    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -91,7 +91,7 @@ jobs:
   test-hive:
     name: ${{ matrix.name }}
     needs: [cache-docker-images, build-fixtures]
-    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
+    runs-on: ubuntu-latest
     env:
       CLIENT: ${{ inputs.client || 'go-sila' }}
       CLIENT_FILE: ${{ inputs.client_file || 'latest.yaml' }}
