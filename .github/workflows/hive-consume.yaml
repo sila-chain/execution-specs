@@ -18,7 +18,9 @@ on:
       - ".github/actions/start-hive-dev/**"
       - ".github/actions/cache-docker-images/**"
       - ".github/actions/load-docker-images/**"
+      - ".github/actions/build-fixtures/**"
       - ".github/configs/hive/**"
+      - ".github/configs/feature.yaml"
       - "packages/testing/src/execution_testing/cli/pytest_commands/consume.py"
       - "packages/testing/src/execution_testing/cli/pytest_commands/build_block.py"
       - "packages/testing/src/execution_testing/cli/pytest_commands/pytest_ini_files/pytest-consume.ini"
@@ -31,13 +33,13 @@ on:
       docker_images:
         description: "Space-separated list of Docker images to cache"
         required: false
-        default: "docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
+        default: "docker.io/alpine:latest docker.io/library/golang:1-alpine"
       client:
         description: "Hive client to test (e.g., go-sila, besu)"
         required: false
         default: "go-sila"
       client_file:
-        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml, master.yaml)"
+        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml)"
         required: false
         default: "latest.yaml"
   workflow_call:
@@ -46,14 +48,14 @@ on:
         description: "Space-separated list of Docker images to cache"
         required: false
         type: string
-        default: "docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine"
+        default: "docker.io/alpine:latest docker.io/library/golang:1-alpine"
       client:
         description: "Hive client to test (e.g., go-sila, besu)"
         required: false
         type: string
         default: "go-sila"
       client_file:
-        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml, master.yaml)"
+        description: "Client config file name under .github/configs/hive/ (e.g., latest.yaml)"
         required: false
         type: string
         default: "latest.yaml"
@@ -62,34 +64,34 @@ concurrency:
   group: hive-consume-${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: ${{ github.ref_name != github.event.repository.default_branch }}
 
-env:
-  # Use direct URL instead of release spec (e.g., develop@v5.3.0) to avoid GitHub API rate limits
-  FIXTURES_URL: https://github.com/sila/execution-spec-tests/releases/download/v5.3.0/fixtures_develop.tar.gz
-
 jobs:
   cache-docker-images:
     name: Cache Docker Images
-    # On PRs this job is normally a pure cache restore (~12s), so run it on a
-    # GitHub-hosted runner instead of paying the ~2.5 min self-hosted
-    # provisioning wait, which would gate every test-hive job. Push and
-    # dispatch runs stay on self-hosted so the weekly cache is populated from
-    # GHR egress IPs, avoiding Docker Hub's per-IP rate limits on the shared
-    # GitHub-hosted IPs. A PR that lands right after the weekly cache-key
-    # rollover pulls the 3 images unauthenticated; that rare miss is accepted.
     runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
       - name: Cache Docker images
         uses: ./.github/actions/cache-docker-images
         with:
-          images: ${{ inputs.docker_images || 'docker.io/sila/client-go:latest docker.io/alpine:latest docker.io/library/golang:1-alpine' }}
+          images: ${{ inputs.docker_images || 'docker.io/alpine:latest docker.io/library/golang:1-alpine' }}
+
+  build-fixtures:
+    name: Build Sila Fixtures
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout execution-specs
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build bounded Sila-native Hive fixtures
+        uses: ./.github/actions/build-fixtures
+        with:
+          release_name: hive_smoke
 
   test-hive:
     name: ${{ matrix.name }}
-    needs: cache-docker-images
-    runs-on: [self-hosted-ghr, size-l-x64]
+    needs: [cache-docker-images, build-fixtures]
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted-ghr", "size-l-x64"]') }}
     env:
       CLIENT: ${{ inputs.client || 'go-sila' }}
       CLIENT_FILE: ${{ inputs.client_file || 'latest.yaml' }}
@@ -101,11 +103,6 @@ jobs:
             mode: simulator
             simulator: sila/eels/consume-engine
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
-          # TODO: Enable once eels/consume-enginex simulator is added to Hive
-          # - name: consume-enginex
-          #   mode: simulator
-          #   simulator: sila/eels/consume-enginex
-          #   sim_limit: ".*push0.*(Shanghai|Cancun).*"
           - name: RLP
             mode: simulator
             simulator: sila/eels/consume-rlp
@@ -117,40 +114,41 @@ jobs:
           - name: Dev Mode Consume Engine
             mode: dev
             cli_command: consume engine
-            test_filter: "Osaka and test_block_at_rlp_limit_with_logs"
-          # TODO: Enable once we have a release with the pre-alloc builder format cf #2140
-          # - name: Dev Mode Consume EngineX
-          #   mode: dev
-          #   cli_command: consume enginex
-          #   test_filter: "(fork_shanghai or fork_cancun) and push0"
-          # NOTE: build-block uses testing_buildBlockV1 on the HTTP RPC port
-          # (8545), which has a smaller body cap than the Engine API port
-          # (8551); avoid filters that target near-block-size-limit tests.
+            test_filter: "test_via_engine"
           - name: Dev Mode Build Block
             mode: dev
             cli_command: build-block
-            test_filter: "Osaka and test_clz_stack_underflow"
-          # TODO: Enable once eels/build-block simulator is added to Hive
-          # - name: Build Block
-          #   mode: simulator
-          #   simulator: sila/eels/build-block
-          #   sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
+            test_filter: "test_via_build"
     steps:
       - name: Checkout execution-specs
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           path: execution-specs
-
+      - name: Download Sila-native fixtures
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: fixtures_hive_smoke
+          path: execution-specs/.fixtures
+      - name: Extract Sila-native fixtures
+        shell: bash
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/execution-specs/.fixtures/extracted"
+          tar -xzf "$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_hive_smoke.tar.gz" \
+            -C "$GITHUB_WORKSPACE/execution-specs/.fixtures/extracted"
+          echo "FIXTURES_ARCHIVE=$GITHUB_WORKSPACE/execution-specs/.fixtures/fixtures_hive_smoke.tar.gz" >> "$GITHUB_ENV"
+          echo "FIXTURES_DIR=$GITHUB_WORKSPACE/execution-specs/.fixtures/extracted" >> "$GITHUB_ENV"
       - name: Checkout Hive
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          repository: sila/hive
-          ref: master
+          repository: sila-chain/sila-hive
+          ref: eeae7090f623ce962877b83de83028fa96f9204a
           path: hive
-
-      # Redirect Go's caches to a per-job temp dir so the setup-go cache
-      # restore doesn't collide with a persistent $GOMODCACHE on
-      # self-hosted runners (see build-benchmark-genesis/action.yaml).
+      - name: Checkout exact go-sila authority
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: sila-chain/go-sila
+          ref: 7a388df6c1afbf78af7b120d7119fe1c363d0a12
+          path: go-sila
       - name: Use ephemeral Go cache dirs
         shell: bash
         run: |
@@ -161,21 +159,67 @@ jobs:
         with:
           go-version: ">=1.24"
           cache-dependency-path: hive/go.sum
-
       - name: Install uv and python
         if: matrix.mode == 'dev'
         uses: ./execution-specs/.github/actions/setup-uv
         with:
           cache-dependency-glob: "execution-specs/uv.lock"
-
       - name: Load cached Docker images
         uses: ./execution-specs/.github/actions/load-docker-images
-
-      - name: Build hive
+      - name: Build hive against exact go-sila authority
         run: |
           cd hive
-          go build .
+          (
+            cd hiveproxy
+            go mod edit -droprequire=github.com/sila-chain/go-sila
+            rm go.sum
+            go get github.com/sila-chain/go-sila@7a388df6c1afbf78af7b120d7119fe1c363d0a12
+            go mod tidy
+            go mod verify
+          )
+          go mod edit -replace=github.com/sila-chain/go-sila=../go-sila
+          go mod edit -droprequire=github.com/crate-crypto/go-sil-kzg
+          go mod edit -droprequire=github.com/sila-chain/go-verkle
+          go mod edit -require=github.com/sila-chain/go-sil-kzg@v1.5.0
+          go mod edit -require=github.com/sila-chain/go-bigmodexpfix@v0.0.1
+          go mod edit -require=github.com/sila-chain/c-kzg-4844/v2@v2.1.8
+          rm go.sum
+          go mod tidy
+          go mod verify
+          go build -mod=readonly -o hive .
+      - name: Stage Sila fixtures in simulator build context
+        if: matrix.mode == 'simulator'
+        shell: bash
+        run: |
+          sim_dir="$GITHUB_WORKSPACE/hive/simulators/${{ matrix.simulator }}"
+          execution_specs_ref="${{ github.event.pull_request.head.sha || github.sha }}"
+          cp "$FIXTURES_ARCHIVE" "$sim_dir/fixtures_hive_smoke.tar.gz"
+          python3 - "$sim_dir/Dockerfile" "$execution_specs_ref" <<'PY'
+          from pathlib import Path
+          import sys
 
+          path = Path(sys.argv[1])
+          ref = sys.argv[2]
+          text = path.read_text()
+          fixture_old = "ARG fixtures=stable@latest\nENV FIXTURES=" + "$" + "{fixtures}"
+          fixture_new = (
+              "COPY fixtures_hive_smoke.tar.gz /sila-fixtures/fixtures_hive_smoke.tar.gz\n"
+              "RUN mkdir -p /sila-fixtures/extracted && python -m tarfile -e "
+              "/sila-fixtures/fixtures_hive_smoke.tar.gz /sila-fixtures/extracted\n"
+              "ENV FIXTURES=/sila-fixtures/extracted"
+          )
+          branch_old = 'ARG branch=""'
+          branch_new = f'ARG branch="{ref}"'
+          assert fixture_old in text, "expected simulator fixture authority block not found"
+          assert branch_old in text, "expected simulator execution-specs branch argument not found"
+          text = text.replace(fixture_old, fixture_new, 1)
+          text = text.replace(branch_old, branch_new, 1)
+          path.write_text(text)
+          PY
+          test -s "$sim_dir/fixtures_hive_smoke.tar.gz"
+          grep -F "ENV FIXTURES=/sila-fixtures/extracted" "$sim_dir/Dockerfile"
+          grep -F "python -m tarfile -e /sila-fixtures/fixtures_hive_smoke.tar.gz /sila-fixtures/extracted" "$sim_dir/Dockerfile"
+          grep -F "ARG branch=\"$execution_specs_ref\"" "$sim_dir/Dockerfile"
       - name: Run simulator tests
         if: matrix.mode == 'simulator'
         run: |
@@ -184,12 +228,10 @@ jobs:
             --sim.parallelism=1 \
             --client ${{ env.CLIENT }} \
             --client-file ../execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }} \
-            --sim.buildarg fixtures=${{ env.FIXTURES_URL }} \
             --sim.limit="${{ matrix.sim_limit }}" \
             --sim.loglevel=5 \
             --docker.buildoutput \
             --docker.output
-
       - name: Build Hive client images
         if: matrix.mode == 'dev'
         run: |
@@ -199,7 +241,6 @@ jobs:
             --client-file ../execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }} \
             --docker.buildoutput
         timeout-minutes: 10
-
       - name: Start Hive in dev mode
         if: matrix.mode == 'dev'
         id: start-hive
@@ -208,8 +249,7 @@ jobs:
           clients: ${{ env.CLIENT }}
           client-file: execution-specs/.github/configs/hive/${{ env.CLIENT_FILE }}
           hive-path: hive
-          timeout: "30"
-
+          timeout: "600"
       - name: Run dev mode command
         if: matrix.mode == 'dev'
         working-directory: execution-specs
@@ -217,8 +257,7 @@ jobs:
           HIVE_SIMULATOR: ${{ steps.start-hive.outputs.hive-url }}
         run: |
           uv sync --all-extras
-          uv run ${{ matrix.cli_command }} --input ${{ env.FIXTURES_URL }} -k "${{ matrix.test_filter }}"
-
+          uv run ${{ matrix.cli_command }} --input ${{ env.FIXTURES_DIR }} -k "${{ matrix.test_filter }}"
       - name: Upload Hive logs
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
