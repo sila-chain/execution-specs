@@ -159,6 +159,9 @@ jobs:
         run: |
           import pathlib
           replacements = {
+              '    sila-mainnet = hardfork.criteria\n': '    sila_mainnet = hardfork.criteria\n',
+              '    assert fork_module.FORK_CRITERIA == sila-mainnet\n': '    assert fork_module.FORK_CRITERIA == sila_mainnet\n',
+              '    assert hardfork.criteria == sila-mainnet\n': '    assert hardfork.criteria == sila_mainnet\n',
               '        # A bare `latest` or `vX.Y.Z` resolves the sila-mainnet `tests` release.\n': '        # A bare `latest` or `vX.Y.Z` resolves the sila-mainnet `tests`\n        # release.\n',
               '        "sila-mainnet: Tests crafted for running on sila-mainnet and sanity checking.",\n': '        "sila-mainnet: Tests crafted for running on sila-mainnet and "\n        "sanity checking.",\n',
               '        Return whether the transitions-to fork has been deployed to sila-mainnet,\n': '        Return whether the transitions-to fork has been deployed to\n        sila-mainnet,\n',
