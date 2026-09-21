@@ -49,7 +49,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     name: "Deploy Documentation"
-    if: ${{ github.event_name == 'push' && github.ref_name == github.event.repository.default_branch }}
+    # This repository has no GitHub Pages site configured; keep the build gate but skip deployment here.
+    if: ${{ github.event_name == 'push' && github.ref_name == github.event.repository.default_branch && github.repository != 'sila-chain/execution-specs' }}
 
     permissions:
       pages: write
