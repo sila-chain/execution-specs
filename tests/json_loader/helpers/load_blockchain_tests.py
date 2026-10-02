@@ -7,13 +7,13 @@ from typing import Any, Dict, Optional, Tuple, Type
 from unittest.mock import call, patch
 
 import pytest
-from _pytest.config import Config
 import sila_rlp as rlp
-from sila_rlp.exceptions import SILA_RLPException as RLPException
-from sila_types.numeric import U64, U256, Uint
+from _pytest.config import Config
 from execution_testing.fixtures.blockchain import FixtureHeader
 from execution_testing.forks import get_forks, get_transition_forks
 from execution_testing.forks.base_fork import BaseFork
+from sila_rlp.exceptions import SILA_RLPException as RLPException
+from sila_types.numeric import U64, U256, Uint
 
 from sila.crypto.hash import keccak256
 from sila.exceptions import SilaException, StateWithEmptyAccount
