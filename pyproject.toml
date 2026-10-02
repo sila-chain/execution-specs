@@ -252,8 +252,8 @@ dev = [
     { include-group = "mkdocs" },
     "psutil>=7.2.2",
 ]
-# Opt-in (not part of dev): native-accelerated state and ethash for the
-# sync tool. ethash has no CPython 3.14 wheels, so installing this group
+# Opt-in (not part of dev): native-accelerated state and Silash for the
+# sync tool. The external ethash package has no CPython 3.14 wheels, so installing this group
 # requires a C toolchain on 3.14.
 optimized = [
     "sila-execution[optimized]",

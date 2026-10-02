@@ -653,7 +653,7 @@ class Sync(ForkTracking):
 
         parser.add_argument(
             "--unoptimized",
-            help="don't use the optimized state/ethash (extremely slow)",
+            help="don't use the optimized state/Silash (extremely slow)",
             action="store_true",
         )
 

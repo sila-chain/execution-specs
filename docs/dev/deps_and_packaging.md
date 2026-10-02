@@ -62,7 +62,7 @@ Groups defined by the specs package:
 
 - `test`, `lint`, `actionlint`, `doc`, `mkdocs`.
 - `dev` includes all of the above.
-- `optimized` pulls in the `optimized` extra for the sync tool. It is not part of `dev` because `ethash` has no CPython 3.14 wheels and would require a C toolchain to install; enable it with `uv sync --group optimized` when needed.
+- `optimized` pulls in the `optimized` extra for the sync tool. It is not part of `dev` because the external `ethash` package has no CPython 3.14 wheels and would require a C toolchain to install; enable it with `uv sync --group optimized` when needed.
 
 Groups defined by the testing package:
 
@@ -83,7 +83,7 @@ Groups defined by the testing package:
 
 ### Adding or modifying optional dependencies
 
-The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and `ethash` for EVM performance.
+The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and the external `ethash` accelerator used by Silash for EVM performance.
 
 !!! example "Updating an optional dependency"
 

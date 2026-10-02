@@ -41,17 +41,17 @@ def b11r_arguments(subparsers: argparse._SubParsersAction) -> None:
     # This should be revisited
     b11r_parser.add_argument("--seal.clique", dest="seal_clique", type=str)
     b11r_parser.add_argument(
-        "--seal.ethash",
-        dest="seal_ethash",
+        "--seal.silash",
+        dest="seal_silash",
         type=bool,
         default=False,
     )
     b11r_parser.add_argument(
-        "--seal.ethash.dir", dest="seal_ethash_dir", type=str, default=None
+        "--seal.silash.dir", dest="seal_silash_dir", type=str, default=None
     )
     b11r_parser.add_argument(
-        "--seal.ethash.mode",
-        dest="seal_ethash_mode",
+        "--seal.silash.mode",
+        dest="seal_silash_mode",
         type=str,
         default="normal",
     )

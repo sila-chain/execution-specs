@@ -30,14 +30,14 @@ Start with a one-line summary, then expand with paragraphs that explain what the
 
 ```python
 """
-Ethash is a proof-of-work algorithm designed to be [ASIC] resistant through
+Silash is a proof-of-work algorithm designed to be [ASIC] resistant through
 [memory hardness][mem-hard].
 
-To achieve memory hardness, computing Ethash requires access to subsets of a
+To achieve memory hardness, computing Silash requires access to subsets of a
 large structure. The particular subsets chosen are based on the nonce and block
 header, while the set itself is changed every [`epoch`].
 
-At a high level, the Ethash algorithm is as follows:
+At a high level, the Silash algorithm is as follows:
 
 1. Create a **seed** value, generated with [`generate_seed`] and based on the
    preceding block numbers.
@@ -48,11 +48,11 @@ At a high level, the Ethash algorithm is as follows:
    hardness is introduced. Verification of the proof-of-work only requires the
    cache to be able to recompute a much smaller subset of the full dataset.
 
-[`DATASET_EPOCH_GROWTH_SIZE`]: ref:sila.ethash.DATASET_EPOCH_GROWTH_SIZE
-[`generate_dataset`]: ref:sila.ethash.generate_dataset
-[`generate_cache`]: ref:sila.ethash.generate_cache
-[`generate_seed`]: ref:sila.ethash.generate_seed
-[`epoch`]: ref:sila.ethash.epoch
+[`DATASET_EPOCH_GROWTH_SIZE`]: ref:sila.silash.DATASET_EPOCH_GROWTH_SIZE
+[`generate_dataset`]: ref:sila.silash.generate_dataset
+[`generate_cache`]: ref:sila.silash.generate_cache
+[`generate_seed`]: ref:sila.silash.generate_seed
+[`epoch`]: ref:sila.silash.epoch
 [ASIC]: https://en.wikipedia.org/wiki/Application-specific_integrated_circuit
 [mem-hard]: https://en.wikipedia.org/wiki/Memory-hard_function
 """
@@ -125,9 +125,9 @@ def cache_size(block_number: Uint) -> Uint:
     unintended cyclic behavior. It is defined as the highest prime number below
     what linear growth would calculate.
 
-    [`INITIAL_CACHE_SIZE`]: ref:sila.ethash.INITIAL_CACHE_SIZE
-    [`CACHE_EPOCH_GROWTH_SIZE`]: ref:sila.ethash.CACHE_EPOCH_GROWTH_SIZE
-    [`generate_cache`]: ref:sila.ethash.generate_cache
+    [`INITIAL_CACHE_SIZE`]: ref:sila.silash.INITIAL_CACHE_SIZE
+    [`CACHE_EPOCH_GROWTH_SIZE`]: ref:sila.silash.CACHE_EPOCH_GROWTH_SIZE
+    [`generate_cache`]: ref:sila.silash.generate_cache
     """
 ```
 
@@ -173,7 +173,7 @@ EPOCH_SIZE = Uint(30000)
 Number of blocks before a dataset needs to be regenerated (known as an
 "epoch".) See [`epoch`].
 
-[`epoch`]: ref:sila.ethash.epoch
+[`epoch`]: ref:sila.silash.epoch
 """
 ```
 
@@ -229,13 +229,13 @@ Use backtick-wrapped names as the link text, with `ref:` pointing to the fully-q
 
 ```
 [`ForkCriteria`]: ref:sila.fork_criteria.ForkCriteria
-[`generate_cache`]: ref:sila.ethash.generate_cache
+[`generate_cache`]: ref:sila.silash.generate_cache
 ```
 
 Short aliases work when the full name is unwieldy:
 
 ```
-[ds]: ref:sila.ethash.DATASET_EPOCH_GROWTH_SIZE
+[ds]: ref:sila.silash.DATASET_EPOCH_GROWTH_SIZE
 ```
 
 ### External URLs
@@ -287,7 +287,7 @@ subclasses of [`ForkCriteria`], like [`ByBlockNumber`] and [`ByTimestamp`].
 
 For examples of well-written docstrings, see:
 
-- `src/sila/ethash.py` — narrative module + function docstrings
+- `src/sila/silash.py` — narrative module + function docstrings
 - `src/sila/genesis.py` — class, attribute, and multi-paragraph function docstrings
 - `src/sila/trace.py` — class, attribute, and protocol docstrings
 - `src/sila/fork_criteria.py` — narrative module docstring with Markdown formatting

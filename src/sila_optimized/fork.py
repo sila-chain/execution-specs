@@ -16,8 +16,8 @@ from typing import Any, Dict, cast
 
 from sila_types.numeric import U256, Uint
 
-from sila.ethash import epoch
 from sila.exceptions import InvalidBlock
+from sila.silash import epoch
 from sila_spec_tools.forks import Hardfork
 
 from .utils import add_item

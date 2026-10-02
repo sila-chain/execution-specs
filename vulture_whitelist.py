@@ -8,8 +8,8 @@ imports. Each bare expression tells Vulture to ignore that specific symbol.
 
 from sila.cancun.blocks import Withdrawal
 
-from sila.ethash import *
 from sila.fork_criteria import Unscheduled
+from sila.silash import *
 from sila.trace import EvmTracer
 from sila.utils.hexadecimal import hex_to_bytes256
 from sila_optimized.state_db import State
@@ -40,8 +40,8 @@ Withdrawal.validator_index
 # src/sila/fork_criteria.py
 Unscheduled
 
-# src/sila/ethash.py
-ethash.generate_dataset
+# src/sila/silash.py
+silash.generate_dataset
 
 # src/sila/trace.py
 EvmTracer.__call__

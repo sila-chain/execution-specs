@@ -15,7 +15,7 @@ deterministic ``CREATE2`` factory contract.
 - [SIP-7997: Deterministic Factory Contract][SIP-7997]
 - [SIP-8024: Stack Access Instructions][SIP-8024]
 - [SIP-8037: State Creation Gas Cost Increase][SIP-8037]
-- [SIP-8038: State Access Gas Cost Increase][SIP-8038]
+- [SIP-8038: State-access gas cost update][SIP-8038]
 - [SIP-8246: Remove SELFDESTRUCT balance burn][SIP-8246]
 - [SIP-8282: Builder Execution Requests][SIP-8282]
 
