@@ -1,0 +1,13 @@
+general/code_coverage/second_client = Optional
+opcode = SIP reprices existing opcodes without altering their semantics, stack behaviour or memory behaviour; the repricing itself is covered under gas_cost_changes
+precompile = SIP does not introduce a precompile
+removed_precompile = SIP does not remove a precompile
+system_contract = SIP does not introduce a system contract
+transaction_type = SIP does not introduce a new transaction type
+block_header_field = SIP does not add any new block header fields
+block_body_field = SIP does not add any new block body fields
+blob_count_changes = SIP does not introduce any blob count changes
+execution_layer_request = SIP does not introduce an execution layer request
+new_transaction_validity_constraint = SIP modifies the existing intrinsic gas validity constraint rather than introducing a new one; the modified constraint is covered under modified_transaction_validity_constraint
+block_level_constraint = SIP introduces no block-level validation constraint; the two-dimensional block gas accounting its state-gas charges feed belongs to SIP-8037
+gas_refunds_changes/test/exceptional_abort/non_revertable = Every SIP-8038 refund is journalled and rolls back with the frame that earned it, so there is no non-revertable refund operation to test; the revertable cases are covered in test_sstore_refunds_revert.py

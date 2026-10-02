@@ -1,0 +1,14 @@
+opcode = SIP does not introduce or modify an opcode
+precompile = SIP does not introduce a precompile
+removed_precompile = SIP does not remove a precompile
+system_contract = SIP does not introduce a system contract
+transaction_type = SIP does not introduce a new transaction type
+block_header_field = SIP does not add any new block header fields
+block_body_field = SIP does not add any new block body fields
+gas_cost_changes = SIP only raises the code and initcode size limits; the initcode word cost and the per-byte code deposit charge keep their existing prices
+gas_refunds_changes = SIP does not change any refund rules
+blob_count_changes = SIP does not introduce any blob count changes
+execution_layer_request = SIP does not introduce an execution layer request
+new_transaction_validity_constraint = The creation-transaction initcode size limit exists since SIP-3860; this SIP only raises its threshold (see modified_transaction_validity_constraint)
+block_level_constraint = The code and initcode size limits apply per account and per transaction, not to a block
+general/code_coverage/second_client = Optional

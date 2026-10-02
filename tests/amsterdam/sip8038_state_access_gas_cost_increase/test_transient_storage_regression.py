@@ -1,5 +1,5 @@
 """
-Tests for [SIP-8038: State Access Gas Cost Increase](https://sips.sila.org/SIPS/sip-8038).
+Tests for [SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
 
 Regression guard: SIP-8038 reprices persistent storage and account
 access but must NOT touch transient storage. ``TLOAD`` and ``TSTORE``
