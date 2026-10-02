@@ -2,7 +2,7 @@
 Ori Pomerantz qbzzt1@gmail.com.
 
 Ported from:
-state_tests/stEIP150singleCodeGasPrices/eip2929-ffFiller.yml
+state_tests/stEIP150singleCodeGasPrices/sip2929-ffFiller.yml
 
 @manually-enhanced: Do not overwrite. The first expect-entry (the
 `simple`/NOP case) measures a `CALL` into a contract that
@@ -36,7 +36,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/stEIP150singleCodeGasPrices/eip2929-ffFiller.yml"],
+    ["state_tests/stEIP150singleCodeGasPrices/sip2929-ffFiller.yml"],
 )
 @pytest.mark.valid_from("Cancun")
 @pytest.mark.parametrize(
