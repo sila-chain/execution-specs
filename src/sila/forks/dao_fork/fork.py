@@ -21,7 +21,7 @@ from sila_types.bytes import Bytes32
 from sila_types.numeric import U64, U256, Uint
 
 from sila.crypto.hash import Hash32, keccak256
-from sila.ethash import dataset_size, generate_cache, hashimoto_light
+from sila.silash import dataset_size, generate_cache, hashimoto_light
 from sila.exceptions import (
     GasUsedExceedsLimitError,
     InsufficientBalanceError,

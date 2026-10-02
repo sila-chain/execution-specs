@@ -1,4 +1,4 @@
-"""General ethash tests."""
+"""General silash tests."""
 
 import json
 import pkgutil
@@ -11,7 +11,7 @@ import pytest
 from sila_types.numeric import Uint
 
 from sila.crypto.hash import keccak256
-from sila.ethash import (
+from sila.silash import (
     EPOCH_SIZE,
     HASH_BYTES,
     MIX_BYTES,
@@ -328,9 +328,9 @@ def test_dataset_generation_random_epoch(tmpdir: str) -> None:
     epoch_number = Uint(randint(0, 100))
     offset = Uint(randint(0, int(EPOCH_SIZE) - 1))
     block_number = epoch_number * EPOCH_SIZE + offset
-    generate_dag_via_gsil(gsil_path, block_number, f"{tmpdir}/.ethash")
+    generate_dag_via_gsil(gsil_path, block_number, f"{tmpdir}/.silash")
     seed = generate_seed(block_number)
-    dag_dataset = fetch_dag_data(f"{tmpdir}/.ethash", seed)
+    dag_dataset = fetch_dag_data(f"{tmpdir}/.silash", seed)
 
     cache = generate_cache(block_number)
     dataset_size_bytes = dataset_size(block_number)

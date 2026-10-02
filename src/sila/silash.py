@@ -1,12 +1,12 @@
 """
-Ethash is a proof-of-work algorithm designed to be [ASIC] resistant through
+Silash is a proof-of-work algorithm designed to be [ASIC] resistant through
 [memory hardness][mem-hard].
 
-To achieve memory hardness, computing Ethash requires access to subsets of a
+To achieve memory hardness, computing Silash requires access to subsets of a
 large structure. The particular subsets chosen are based on the nonce and block
 header, while the set itself is changed every [`epoch`].
 
-At a high level, the Ethash algorithm is as follows:
+At a high level, the Silash algorithm is as follows:
 
 1. Create a **seed** value, generated with [`generate_seed`] and based on the
    preceding block numbers.
@@ -17,11 +17,11 @@ At a high level, the Ethash algorithm is as follows:
    hardness is introduced. Verification of the proof-of-work only requires the
    cache to be able to recompute a much smaller subset of the full dataset.
 
-[`DATASET_EPOCH_GROWTH_SIZE`]: ref:sila.ethash.DATASET_EPOCH_GROWTH_SIZE
-[`generate_dataset`]: ref:sila.ethash.generate_dataset
-[`generate_cache`]: ref:sila.ethash.generate_cache
-[`generate_seed`]: ref:sila.ethash.generate_seed
-[`epoch`]: ref:sila.ethash.epoch
+[`DATASET_EPOCH_GROWTH_SIZE`]: ref:sila.silash.DATASET_EPOCH_GROWTH_SIZE
+[`generate_dataset`]: ref:sila.silash.generate_dataset
+[`generate_cache`]: ref:sila.silash.generate_cache
+[`generate_seed`]: ref:sila.silash.generate_seed
+[`epoch`]: ref:sila.silash.epoch
 [ASIC]: https://en.wikipedia.org/wiki/Application-specific_integrated_circuit
 [mem-hard]: https://en.wikipedia.org/wiki/Memory-hard_function
 """
@@ -44,7 +44,7 @@ EPOCH_SIZE = Uint(30000)
 Number of blocks before a dataset needs to be regenerated (known as an
 "epoch".) See [`epoch`].
 
-[`epoch`]: ref:sila.ethash.epoch
+[`epoch`]: ref:sila.silash.epoch
 """
 
 INITIAL_CACHE_SIZE = Uint(2**24)
@@ -52,8 +52,8 @@ INITIAL_CACHE_SIZE = Uint(2**24)
 Size of the cache (in bytes) during the first epoch. Each subsequent epoch's
 cache roughly grows by [`CACHE_EPOCH_GROWTH_SIZE`] bytes. See [`cache_size`].
 
-[`CACHE_EPOCH_GROWTH_SIZE`]: ref:sila.ethash.CACHE_EPOCH_GROWTH_SIZE
-[`cache_size`]: ref:sila.ethash.cache_size
+[`CACHE_EPOCH_GROWTH_SIZE`]: ref:sila.silash.CACHE_EPOCH_GROWTH_SIZE
+[`cache_size`]: ref:sila.silash.cache_size
 """
 
 CACHE_EPOCH_GROWTH_SIZE = Uint(2**17)
@@ -61,7 +61,7 @@ CACHE_EPOCH_GROWTH_SIZE = Uint(2**17)
 After the first epoch, the cache size grows by roughly this amount. See
 [`cache_size`].
 
-[`cache_size`]: ref:sila.ethash.cache_size
+[`cache_size`]: ref:sila.silash.cache_size
 """
 
 INITIAL_DATASET_SIZE = Uint(2**30)
@@ -70,8 +70,8 @@ Size of the dataset (in bytes) during the first epoch. Each subsequent epoch's
 dataset roughly grows by [`DATASET_EPOCH_GROWTH_SIZE`] bytes. See
 [`dataset_size`].
 
-[`DATASET_EPOCH_GROWTH_SIZE`]: ref:sila.ethash.DATASET_EPOCH_GROWTH_SIZE
-[`dataset_size`]: ref:sila.ethash.dataset_size
+[`DATASET_EPOCH_GROWTH_SIZE`]: ref:sila.silash.DATASET_EPOCH_GROWTH_SIZE
+[`dataset_size`]: ref:sila.silash.dataset_size
 """
 
 DATASET_EPOCH_GROWTH_SIZE = Uint(2**23)
@@ -79,7 +79,7 @@ DATASET_EPOCH_GROWTH_SIZE = Uint(2**23)
 After the first epoch, the dataset size grows by roughly this amount. See
 [`dataset_size`].
 
-[`dataset_size`]: ref:sila.ethash.dataset_size
+[`dataset_size`]: ref:sila.silash.dataset_size
 """
 
 HASH_BYTES = Uint(64)
@@ -91,7 +91,7 @@ MIX_BYTES = Uint(128)
 """
 Width of mix, in bytes. See [`generate_dataset_item`].
 
-[`generate_dataset_item`]: ref:sila.ethash.generate_dataset_item
+[`generate_dataset_item`]: ref:sila.silash.generate_dataset_item
 """
 
 CACHE_ROUNDS = 3
@@ -100,21 +100,21 @@ Number of times to repeat the [`keccak512`] step while generating the hash. See
 [`generate_cache`].
 
 [`keccak512`]: ref:sila.crypto.hash.keccak512
-[`generate_cache`]: ref:sila.ethash.generate_cache
+[`generate_cache`]: ref:sila.silash.generate_cache
 """
 
 DATASET_PARENTS = Uint(256)
 """
 Number of parents of each dataset element. See [`generate_dataset_item`].
 
-[`generate_dataset_item`]: ref:sila.ethash.generate_dataset_item
+[`generate_dataset_item`]: ref:sila.silash.generate_dataset_item
 """
 
 HASHIMOTO_ACCESSES = 64
 """
 Number of accesses in the [`hashimoto`] loop.
 
-[`hashimoto`]: ref:sila.ethash.hashimoto
+[`hashimoto`]: ref:sila.silash.hashimoto
 """
 
 
@@ -123,12 +123,12 @@ def epoch(block_number: Uint) -> Uint:
     Obtain the epoch number to which the block identified by `block_number`
     belongs. The first epoch is numbered zero.
 
-    An Ethash epoch is a fixed number of blocks ([`EPOCH_SIZE`]) long, during
+    An Silash epoch is a fixed number of blocks ([`EPOCH_SIZE`]) long, during
     which the dataset remains constant. At the end of each epoch, the dataset
     is generated anew. See [`generate_dataset`].
 
-    [`EPOCH_SIZE`]: ref:sila.ethash.EPOCH_SIZE
-    [`generate_dataset`]: ref:sila.ethash.generate_dataset
+    [`EPOCH_SIZE`]: ref:sila.silash.EPOCH_SIZE
+    [`generate_dataset`]: ref:sila.silash.generate_dataset
     """
     return block_number // EPOCH_SIZE
 
@@ -147,9 +147,9 @@ def cache_size(block_number: Uint) -> Uint:
     unintended cyclic behavior. It is defined as the highest prime number below
     what linear growth would calculate.
 
-    [`INITIAL_CACHE_SIZE`]: ref:sila.ethash.INITIAL_CACHE_SIZE
-    [`CACHE_EPOCH_GROWTH_SIZE`]: ref:sila.ethash.CACHE_EPOCH_GROWTH_SIZE
-    [`generate_cache`]: ref:sila.ethash.generate_cache
+    [`INITIAL_CACHE_SIZE`]: ref:sila.silash.INITIAL_CACHE_SIZE
+    [`CACHE_EPOCH_GROWTH_SIZE`]: ref:sila.silash.CACHE_EPOCH_GROWTH_SIZE
+    [`generate_cache`]: ref:sila.silash.generate_cache
     """
     size = INITIAL_CACHE_SIZE + (CACHE_EPOCH_GROWTH_SIZE * epoch(block_number))
     size -= HASH_BYTES
@@ -174,10 +174,10 @@ def dataset_size(block_number: Uint) -> Uint:
     unintended cyclic behavior. It is defined as the highest prime number below
     what linear growth would calculate.
 
-    [`INITIAL_DATASET_SIZE`]: ref:sila.ethash.INITIAL_DATASET_SIZE
-    [ds]: ref:sila.ethash.DATASET_EPOCH_GROWTH_SIZE
-    [`generate_dataset`]: ref:sila.ethash.generate_dataset
-    [`generate_dataset_item`]: ref:sila.ethash.generate_dataset_item
+    [`INITIAL_DATASET_SIZE`]: ref:sila.silash.INITIAL_DATASET_SIZE
+    [ds]: ref:sila.silash.DATASET_EPOCH_GROWTH_SIZE
+    [`generate_dataset`]: ref:sila.silash.generate_dataset
+    [`generate_dataset_item`]: ref:sila.silash.generate_dataset_item
     """
     size = INITIAL_DATASET_SIZE + (
         DATASET_EPOCH_GROWTH_SIZE * epoch(block_number)
@@ -194,7 +194,7 @@ def generate_seed(block_number: Uint) -> Hash32:
     Obtain the cache generation seed for the block identified by
     `block_number`. See [`generate_cache`].
 
-    [`generate_cache`]: ref:sila.ethash.generate_cache
+    [`generate_cache`]: ref:sila.silash.generate_cache
     """
     epoch_number = epoch(block_number)
 
@@ -216,7 +216,7 @@ def generate_cache(block_number: Uint) -> Tuple[Tuple[U32, ...], ...]:
     [RandMemoHash] on those bytes.
 
     [`keccak512`]: ref:sila.crypto.hash.keccak512
-    [`generate_dataset`]: ref:sila.ethash.generate_dataset
+    [`generate_dataset`]: ref:sila.silash.generate_dataset
     [RandMemoHash]: http://www.hashcash.org/papers/memohash.pdf
     """
     seed = generate_seed(block_number)
@@ -258,9 +258,9 @@ def fnv(a: Uint | U32, b: Uint | U32) -> U32:
     contrast with the [FNV-1] spec which multiplies the prime with one byte
     (octet) in turn.
 
-    [`hashimoto`]: ref:sila.ethash.hashimoto
-    [`generate_dataset_item`]: ref:sila.ethash.generate_dataset_item
-    [`fnv_hash`]: ref:sila.ethash.fnv_hash
+    [`hashimoto`]: ref:sila.silash.hashimoto
+    [`generate_dataset_item`]: ref:sila.silash.generate_dataset_item
+    [`fnv_hash`]: ref:sila.silash.fnv_hash
     [FNV]: https://w.wiki/XKZ
     [FNV-1]: http://www.isthe.com/chongo/tech/comp/fnv/#FNV-1
     """
@@ -276,9 +276,9 @@ def fnv_hash(
     Combines `data` into `mix_integers` using [`fnv`]. See [`hashimoto`] and
     [`generate_dataset_item`].
 
-    [`hashimoto`]: ref:sila.ethash.hashimoto
-    [`generate_dataset_item`]: ref:sila.ethash.generate_dataset_item
-    [`fnv`]: ref:sila.ethash.fnv
+    [`hashimoto`]: ref:sila.silash.hashimoto
+    [`generate_dataset_item`]: ref:sila.silash.generate_dataset_item
+    [`fnv`]: ref:sila.silash.fnv
     """
     return tuple(
         fnv(mix_integers[i], data[i]) for i in range(len(mix_integers))
@@ -295,10 +295,10 @@ def generate_dataset_item(
     `cache`, and [`generate_dataset`] for the full dataset generation
     algorithm.
 
-    [`fnv`]: ref:sila.ethash.fnv
-    [`fnv_hash`]: ref:sila.ethash.fnv_hash
-    [`generate_dataset`]: ref:sila.ethash.generate_dataset
-    [`generate_cache`]: ref:sila.ethash.generate_cache
+    [`fnv`]: ref:sila.silash.fnv
+    [`fnv_hash`]: ref:sila.silash.fnv_hash
+    [`generate_dataset`]: ref:sila.silash.generate_dataset
+    [`generate_cache`]: ref:sila.silash.generate_cache
     """
     mix = keccak512(
         (
@@ -360,7 +360,7 @@ def hashimoto(
     - The final result obtained which will be checked for leading zeros (in
       byte representation) in correspondence with the block difficulty.
 
-    [`dataset_size`]: ref:sila.ethash.dataset_size
+    [`dataset_size`]: ref:sila.silash.dataset_size
     """
     nonce_le = Bytes(reversed(nonce))
     seed_hash = keccak512(header_hash + nonce_le)
@@ -414,9 +414,9 @@ def hashimoto_light(
     - The final result obtained which will be checked for leading zeros (in
       byte representation) in correspondence with the block difficulty.
 
-    [`dataset_size`]: ref:sila.ethash.dataset_size
-    [`generate_cache`]: ref:sila.ethash.generate_cache
-    [`hashimoto`]: ref:sila.ethash.hashimoto
+    [`dataset_size`]: ref:sila.silash.dataset_size
+    [`generate_cache`]: ref:sila.silash.generate_cache
+    [`hashimoto`]: ref:sila.silash.hashimoto
     """
 
     def fetch_dataset_item(index: Uint) -> Tuple[U32, ...]:

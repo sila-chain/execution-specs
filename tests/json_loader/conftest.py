@@ -37,7 +37,7 @@ def pytest_addoption(parser: Parser) -> None:
         default=False,
         action="store_const",
         const=True,
-        help="Use optimized state and ethash",
+        help="Use optimized state and Silash",
     )
 
     parser.addoption(

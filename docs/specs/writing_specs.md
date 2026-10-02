@@ -164,7 +164,7 @@ The sync tool uses an RPC provider to fetch and validate blocks against EELS. Th
 Invoke the tool with `uv run --group optimized sila-spec-sync` (the `optimized` dependency group provides the `sila_optimized` module). Arguments:
 
 - `rpc-url`: Endpoint providing the Sila RPC API. Defaults to `http://localhost:8545/`.
-- `unoptimized`: Don't use the optimized state/ethash (this can be extremely slow).
+- `unoptimized`: Don't use the optimized state/Silash (this can be extremely slow).
 - `persist`: Store state in a database at this file path.
 - `gsil`: Use gsil-specific RPC endpoints while fetching blocks.
 - `reset`: Delete the database and start from scratch.
