@@ -21,7 +21,6 @@ from sila_types.bytes import Bytes32
 from sila_types.numeric import U64, U256, Uint
 
 from sila.crypto.hash import Hash32, keccak256
-from sila.silash import dataset_size, generate_cache, hashimoto_light
 from sila.exceptions import (
     GasUsedExceedsLimitError,
     InsufficientBalanceError,
@@ -31,6 +30,7 @@ from sila.exceptions import (
 )
 from sila.fork_criteria import ByBlockNumber
 from sila.merkle_patricia_trie import root, trie_set
+from sila.silash import dataset_size, generate_cache, hashimoto_light
 from sila.state import EMPTY_CODE_HASH, Address
 from sila.state_mpt import State, apply_changes_to_state
 
