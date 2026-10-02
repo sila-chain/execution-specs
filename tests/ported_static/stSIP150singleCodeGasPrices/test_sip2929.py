@@ -2,7 +2,7 @@
 Ori Pomerantz qbzzt1@gmail.com.
 
 Ported from:
-state_tests/stEIP150singleCodeGasPrices/eip2929Filler.yml
+state_tests/stEIP150singleCodeGasPrices/sip2929Filler.yml
 
 @manually-enhanced: Do not overwrite. Each parametrization runs three
 operations (`oper1, oper2, oper3` from the calldata) on the same
@@ -47,7 +47,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/stEIP150singleCodeGasPrices/eip2929Filler.yml"],
+    ["state_tests/stEIP150singleCodeGasPrices/sip2929Filler.yml"],
 )
 @pytest.mark.valid_from("Cancun")
 @pytest.mark.parametrize(
