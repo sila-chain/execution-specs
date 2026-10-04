@@ -141,7 +141,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: sila-chain/sila-hive
-          ref: bf124064704110b772aa30c2132dccadcefc12d5
+          ref: c19f6097d7ce66c9994a1352a3977431c41659ec
           path: hive
       - name: Checkout exact go-sila authority
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
