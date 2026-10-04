@@ -97,7 +97,7 @@ def test_transition_forks() -> None:
         SilaParisToSilaShanghaiAtTime15k.fork_at(
             block_number=0, timestamp=14_999
         ).transition_tool_name()
-        == "Merge"
+        == "SilaParis"
     )
     assert (
         SilaParisToSilaShanghaiAtTime15k.fork_at(
@@ -206,9 +206,7 @@ def test_forks() -> None:
         == "SilaParisToSilaShanghaiAtTime15k"
     )
 
-    # Merge name will be changed to paris, but we need to check the inheriting
-    # fork name is still the default
-    assert SilaParis.transition_tool_name() == "Merge"
+    assert SilaParis.transition_tool_name() == "SilaParis"
     assert SilaShanghai.transition_tool_name() == "SilaShanghai"
     assert f"{SilaParis}" == "SilaParis"
     assert f"{SilaShanghai}" == "SilaShanghai"

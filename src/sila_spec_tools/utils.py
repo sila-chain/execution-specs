@@ -54,9 +54,6 @@ EXCEPTION_MAPS = {
     "SIP158": {
         "fork_blocks": [("spurious_dragon", 0)],
     },
-    "Merge": {
-        "fork_blocks": [("sila_paris", 0)],
-    },
     "SilaConstantinopleFix": {
         "fork_blocks": [("sila_constantinople", 0)],
     },
@@ -132,12 +129,10 @@ def find_fork(
 # Map testing ``Fork.transition_tool_name()`` → spec ``Hardfork.short_name``
 # for cases where CamelCase → snake_case does not produce the spec
 # module name:
-# * ``SilaParis`` reports itself as ``"Merge"`` to the t8n protocol.
 # * ``DAOFork`` would snake-case to ``d_a_o_fork``.
 # * ``SilaConstantinopleFix`` is a testing-side distinction that the spec
 #   folds into the ``constantinople`` module.
 _SPEC_SHORT_NAME_OVERRIDES: Dict[str, str] = {
-    "Merge": "sila_paris",
     "DAOFork": "dao_fork",
     "SilaConstantinopleFix": "sila_constantinople",
 }

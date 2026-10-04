@@ -1501,10 +1501,9 @@ class GrayGlacier(
 class SilaParis(
     sips.SIP3675,
     SilaLondon,
-    transition_tool_name="Merge",
     ruleset_name="MERGE",
 ):
-    """SilaParis (Merge) fork."""
+    """SilaParis fork."""
 
     pass
 
