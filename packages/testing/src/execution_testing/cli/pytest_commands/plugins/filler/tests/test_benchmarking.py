@@ -20,7 +20,7 @@ from execution_testing.cli.pytest_commands.plugins.shared.fixture_output import 
 
 # EVM binary for fill tests. Unset (or empty) -> the in-repo EELS t8n
 # (fill's default when --evm-bin is omitted). Set EVM_BIN to fill
-# against a specific binary, e.g. gsil's `evm`.
+# against a specific binary, e.g. gsil's `sivm`.
 BENCHMARK_EVM_T8N = os.environ.get("EVM_BIN") or None
 
 

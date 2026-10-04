@@ -48,7 +48,7 @@ uv run fill ./tests/shanghai --output="fixtures-shanghai"
 ```
 
 !!! note "Test case verification"
-    Note, that the (limited set of) test `post` conditions are tested against the output of the `evm t8n` command during test generation.
+    Note, that the (limited set of) test `post` conditions are tested against the output of the `sivm t8n` command during test generation.
 
 To generate all the test fixtures in the `tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py` module, for example, run:
 

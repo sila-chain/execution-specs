@@ -16,12 +16,12 @@ from .client_backend import ClientBackend, ClientBackendExceptionMapper
 from .clis.besu import BesuFixtureConsumer, BesuTransitionTool
 
 # NOTE: erigon is imported before gsil so it is registered (and thus probed)
-# first. Both expose an `evm` binary printing `evm version ...`; go-sila's
-# detection matches that banner unconditionally, so it would otherwise claim an
-# Erigon binary. ErigonEvm.detect_binary positively fingerprints Erigon (via
-# the `enginextest` subcommand) and declines anything else, so a go-sila
-# binary checked here falls through to GsilEvm — the ordering only gives Erigon
-# first look, it does not by itself decide identity.
+# first. Erigon exposes an `evm` binary printing `evm version ...` and go-sila
+# a `sivm` binary printing `sivm version ...`. ErigonEvm.detect_binary
+# positively fingerprints Erigon (via the `enginextest` subcommand) and
+# declines anything else, so a go-sila binary checked here falls through to
+# GsilSivm — the ordering only gives Erigon first look, it does not by itself
+# decide identity.
 from .clis.erigon import ErigonExceptionMapper, ErigonFixtureConsumer
 from .clis.evmone import (
     EvmOneBlockchainFixtureConsumer,

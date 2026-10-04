@@ -18,7 +18,7 @@ uv run consume direct --bin=<evm-binary> [OPTIONS]
 
 | Client | Binary | State Tests | Block Tests |
 |--------|--------|-------------|-------------|
-| go-sila | `evm` | `statetest` | `blocktest` |
+| go-sila | `sivm` | `statetest` | `blocktest` |
 | Besu | `evmtool` | `state-test` | `block-test` |
 | Nethermind | `nethtest` | `nethtest` | `nethtest --blockTest` |
 | evmone | `evmone-statetest`, `evmone-blockchaintest` | `evmone-statetest` | `evmone-blockchaintest` |

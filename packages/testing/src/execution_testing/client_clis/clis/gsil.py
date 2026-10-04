@@ -191,11 +191,11 @@ class GsilExceptionMapper(ExceptionMapper):
     }
 
 
-class GsilEvm(SilaCLI):
-    """go-sila `evm` base class."""
+class GsilSivm(SilaCLI):
+    """go-sila `sivm` base class."""
 
-    default_binary = Path("evm")
-    detect_binary_pattern = re.compile(r"^evm(.exe)? version\b")
+    default_binary = Path("sivm")
+    detect_binary_pattern = re.compile(r"^sivm(.exe)? version\b")
     cached_version: Optional[str] = None
     trace: bool
 
@@ -204,7 +204,7 @@ class GsilEvm(SilaCLI):
         binary: Optional[Path] = None,
         trace: bool = False,
     ):
-        """Initialize the GsilEvm class."""
+        """Initialize the GsilSivm class."""
         self.binary = binary if binary else self.default_binary
         self.trace = trace
         self._info_metadata: Optional[Dict[str, Any]] = {}
@@ -270,8 +270,8 @@ class GsilEvm(SilaCLI):
         return self._run_command(help_command).stdout
 
 
-class GsilTransitionTool(GsilEvm, TransitionTool):
-    """go-sila `evm` Transition tool interface wrapper class."""
+class GsilTransitionTool(GsilSivm, TransitionTool):
+    """go-sila `sivm` Transition tool interface wrapper class."""
 
     subcommand: Optional[str] = "t8n"
     trace: bool
@@ -288,7 +288,7 @@ class GsilTransitionTool(GsilEvm, TransitionTool):
         """Initialize the GsilTransitionTool class."""
         if not exception_mapper:
             exception_mapper = GsilExceptionMapper()
-        GsilEvm.__init__(self, binary=binary, trace=trace)
+        GsilSivm.__init__(self, binary=binary, trace=trace)
         TransitionTool.__init__(
             self, binary=binary, exception_mapper=exception_mapper, trace=trace
         )
@@ -307,7 +307,7 @@ class GsilTransitionTool(GsilEvm, TransitionTool):
 
 
 class GsilFixtureConsumer(
-    GsilEvm,
+    GsilSivm,
     FixtureConsumerTool,
     fixture_formats=[StateFixture, BlockchainFixture],
 ):
@@ -322,7 +322,7 @@ class GsilFixtureConsumer(
         """
         Consume a single blockchain test.
 
-        The `evm blocktest` command takes the `--run` argument which can be
+        The `sivm blocktest` command takes the `--run` argument which can be
         used to select a specific fixture from the fixture file when executing.
         """
         subcommand = "blocktest"
@@ -379,7 +379,7 @@ class GsilFixtureConsumer(
         """
         Consume an entire state test file.
 
-        The `evm statetest` will always execute all the tests contained in a
+        The `sivm statetest` will always execute all the tests contained in a
         file without the possibility of selecting a single test, so this
         function is cached in order to only call the command once and
         `consume_state_test` can simply select the result that was requested.

@@ -221,7 +221,7 @@ class FuzzerBridge:
     def verify_with_gsil(
         self, fixture: Dict[str, Any], gsil_path: str, test_name: str = "test"
     ) -> Dict[str, Any]:
-        """Verify fixture with go-sila evm tool."""
+        """Verify fixture with go-sila sivm tool."""
         # Write fixture to temp file
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".json", delete=False
@@ -370,7 +370,7 @@ def main() -> int:
         help="Path to fuzzer output JSON file",
     )
     parser.add_argument(
-        "--gsil-path", required=True, help="Path to go-sila evm binary"
+        "--gsil-path", required=True, help="Path to go-sila sivm binary"
     )
     parser.add_argument(
         "--t8n-path", help="Path to transition tool binary (optional)"

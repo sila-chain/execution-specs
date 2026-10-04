@@ -120,7 +120,7 @@ blocktest = bridge.convert(fuzzer_data)
 bridge.save(blocktest, "output.json")
 
 # Verify with a client
-result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/evm")
+result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/sivm")
 print(f"Test passed: {result['pass']}")
 ```
 
@@ -200,7 +200,7 @@ Once you've generated blockchain test fixtures, verify them with Sila clients:
 ### Go-Sila (gsil)
 
 ```bash
-../go-sila/build/bin/evm blocktest generated_test.json
+../go-sila/build/bin/sivm blocktest generated_test.json
 ```
 
 ### Besu

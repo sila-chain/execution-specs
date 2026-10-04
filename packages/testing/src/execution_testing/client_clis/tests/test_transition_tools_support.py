@@ -49,7 +49,7 @@ fork_set = set(get_deployed_forks())
 fork_set.add(SilaPrague)
 
 
-@pytest.mark.xfail(reason="Known issue: gsil evm not built in CI, see #2557")
+@pytest.mark.xfail(reason="Known issue: gsil sivm not built in CI, see #2557")
 def test_ci_multi_t8n_support(
     installed_transition_tool_instances: Dict[str, TransitionTool | Exception],
     running_in_ci: bool,

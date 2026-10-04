@@ -1,12 +1,12 @@
-name: 'Build Go-Sila EVM'
-description: 'Builds the Go-Sila EVM binary'
+name: 'Build Go-Sila Sivm'
+description: 'Builds the Go-Sila Sivm binary'
 inputs:
   repo:
-    description: 'Source repository to use to build the EVM binary'
+    description: 'Source repository to use to build the Sivm binary'
     required: true
     default: 'sila/go-sila'
   ref:
-    description: 'Reference to branch, commit, or tag to use to build the EVM binary'
+    description: 'Reference to branch, commit, or tag to use to build the Sivm binary'
     required: true
     default: 'master'
   golang:
@@ -25,16 +25,16 @@ runs:
         echo "Latest gsil commit: $SHA"
     - name: Prepare cache target dir
       shell: bash
-      run: mkdir -p "$GITHUB_WORKSPACE/go-sila/cmd/evm"
+      run: mkdir -p "$GITHUB_WORKSPACE/go-sila/cmd/sivm"
     - name: Restore build cache
       id: cache-restore
       uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: |
-          ${{ github.workspace }}/go-sila/cmd/evm/evm
-        key: gsil-evm-build-sha=${{ steps.gsil-sha.outputs.sha }}
+          ${{ github.workspace }}/go-sila/cmd/sivm/sivm
+        key: gsil-sivm-build-sha=${{ steps.gsil-sha.outputs.sha }}
         restore-keys: |
-          gsil-evm-build-
+          gsil-sivm-build-
     - name: Checkout go-sila
       if: steps.cache-restore.outputs.cache-hit != 'true'
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -57,19 +57,19 @@ runs:
       with:
         go-version: ${{ inputs.golang }}
         cache-dependency-path: go-sila/go.sum
-    - name: Build evm cmd
+    - name: Build sivm cmd
       if: steps.cache-restore.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        cd $GITHUB_WORKSPACE/go-sila/cmd/evm
+        cd $GITHUB_WORKSPACE/go-sila/cmd/sivm
         go build .
-    - name: Add gsil evm to PATH
+    - name: Add gsil sivm to PATH
       shell: bash
-      run: echo $GITHUB_WORKSPACE/go-sila/cmd/evm >> $GITHUB_PATH
+      run: echo $GITHUB_WORKSPACE/go-sila/cmd/sivm >> $GITHUB_PATH
     - name: Save build cache
       if: steps.cache-restore.outputs.cache-hit != 'true'
       uses: actions/cache/save@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: |
-          ${{ github.workspace }}/go-sila/cmd/evm/evm
-        key: gsil-evm-build-sha=${{ steps.gsil-sha.outputs.sha }}
+          ${{ github.workspace }}/go-sila/cmd/sivm/sivm
+        key: gsil-sivm-build-sha=${{ steps.gsil-sha.outputs.sha }}

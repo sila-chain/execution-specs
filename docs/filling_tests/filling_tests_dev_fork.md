@@ -29,12 +29,12 @@ By default, the execution-testing framework only generates fixtures for forks th
      It is possible to explicitly specify the `evm` binary used to generate fixtures via the `--evm-bin` flag, for example,
 
      ```console
-     uv run fill --fork=SilaCancun --evm-bin=/opt/bin/evm -v
+     uv run fill --fork=SilaCancun --evm-bin=/opt/bin/sivm -v
      ```
 
 ## Further Help
 
-1. [`gsil`/`evm` build documentation](https://gsil.sila.org/docs/getting-started/installing-gsil#build-from-source).
+1. [`gsil`/`sivm` build documentation](https://gsil.sila.org/docs/getting-started/installing-gsil#build-from-source).
 2. [`solc` build documentation](https://docs.soliditylang.org/en/v0.8.20/installing-solidity.html#building-from-source).
 
 !!! note "Verifying `evm` and `solc` versions used"

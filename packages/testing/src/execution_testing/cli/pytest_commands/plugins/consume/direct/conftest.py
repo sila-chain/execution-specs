@@ -2,7 +2,7 @@
 A pytest plugin that configures the consume command to act as a test runner for
 "direct" client fixture consumer interfaces.
 
-For example, via go-sila's `evm blocktest` or `evm statetest` commands.
+For example, via go-sila's `sivm blocktest` or `sivm statetest` commands.
 """
 
 import json
@@ -64,7 +64,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
         type=Path,
         default=[],
         help=(
-            "Path to a gsil evm executable that provides `blocktest` or "
+            "Path to a gsil sivm executable that provides `blocktest` or "
             "`statetest`. Flag can be used multiple times to specify "
             "multiple fixture consumer binaries."
         ),

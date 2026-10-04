@@ -227,7 +227,7 @@ blocktest = bridge.convert(fuzzer_data)
 bridge.save(blocktest, "output.json")
 
 # Or verify with gsil directly
-result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/evm")
+result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/sivm")
 print(f"Test passed: {result['pass']}")
 ```
 
@@ -280,7 +280,7 @@ def test_fuzzer_generated(blockchain_test):
 
 ### Go-Sila (gsil)
 ```bash
-../go-sila/build/bin/evm blocktest generated_test.json
+../go-sila/build/bin/sivm blocktest generated_test.json
 ```
 
 ### Besu

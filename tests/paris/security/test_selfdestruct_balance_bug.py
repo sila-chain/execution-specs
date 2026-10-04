@@ -7,7 +7,7 @@ um/go-sila/security/advisories/GHSA-xw37-57qp-9mm4).
 
 To reproduce the issue with this test case:
 
-1. Fill the test with the most recent gsil evm version.
+1. Fill the test with the most recent gsil sivm version.
 2. Run the fixture output within a vulnerable gsil version:
     v1.9.20 > gsil >= v1.9.4.
 """

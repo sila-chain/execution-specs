@@ -79,7 +79,7 @@ uv run consume rlp --input tests@v20.0.0
 # Feature releases, with or without the tests- tag prefix
 uv run consume cache --input bal-devnet@v7.0.0
 uv run consume cache --input glamsterdam-devnet@latest
-uv run consume direct --input tests-bal@v7.3.2 --bin ../go-sila/build/bin/evm
+uv run consume direct --input tests-bal@v7.3.2 --bin ../go-sila/build/bin/sivm
 ```
 
 Examples using a URL, the target must be a `.tar.gz`:

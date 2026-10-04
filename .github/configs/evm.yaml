@@ -2,7 +2,7 @@ benchmark:
   impl: gsil
   repo: sila/go-sila
   ref: glamsterdam-devnet-8
-  evm-bin: evm
+  evm-bin: sivm
   xdist: auto
 eels:
   impl: eels

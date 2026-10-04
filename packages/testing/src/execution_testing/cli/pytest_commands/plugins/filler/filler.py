@@ -454,9 +454,9 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         dest="verify_fixtures",
         default=False,
         help=(
-            "Verify generated fixture JSON files using gsil's evm "
+            "Verify generated fixture JSON files using gsil's sivm "
             "blocktest command. By default, the same evm binary as for "
-            "the t8n tool is used. A different (gsil) evm binary may be "
+            "the t8n tool is used. A different (gsil) sivm binary may be "
             "specified via --verify-fixtures-bin, this must be specified "
             "if filling with a non-gsil t8n tool that does not support "
             "blocktest."
@@ -470,7 +470,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         default=None,
         help=(
             "Path to an evm executable that provides the `blocktest` command. "
-            "Default: The first (gsil) 'evm' entry in PATH."
+            "Default: The first (gsil) 'sivm' entry in PATH."
         ),
     )
 

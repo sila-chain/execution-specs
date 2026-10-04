@@ -24,7 +24,7 @@ provides a few useful subcommands to facilitate testing
 at the EVM layer.
 
 Please refer to the following link for more information:
-https://github.com/sila/go-sila/blob/master/cmd/evm/README.md
+https://github.com/sila/go-sila/blob/master/cmd/sivm/README.md
 
 You can use this to run the following tools:
     1. t8n: A stateless state transition utility.

@@ -25,7 +25,7 @@ uv run fill --collect-only tests/                      # Dry run: list tests wit
 - `-m "marker"` — filter by pytest marker (e.g. `-m state_test`, `-m blockchain_test`)
 - `-n auto --maxprocesses N` — parallel execution (use `--dist=loadgroup`)
 - `--evm-bin PATH` — t8n tool; defaults to the in-repo EELS Python spec (`src/sila/`)
-- `--verify-fixtures` — run gsil's `evm blocktest` over the generated fixtures. The default EELS t8n has no blocktest, so pass a gsil binary with `--verify-fixtures-bin`. For an EELS-side check use `just validate-blocks <fixtures_dir>`, which is what CI runs.
+- `--verify-fixtures` — run gsil's `sivm blocktest` over the generated fixtures. The default EELS t8n has no blocktest, so pass a gsil binary with `--verify-fixtures-bin`. For an EELS-side check use `just validate-blocks <fixtures_dir>`, which is what CI runs.
 - `--generate-all-formats` — generate all fixture formats (2-phase)
 
 ## Debugging

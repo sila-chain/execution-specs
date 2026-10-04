@@ -41,9 +41,9 @@ def test_default_tool() -> None:
     "binary_path,which_result,read_result,expected_class",
     [
         (
-            Path("evm"),
-            "evm",
-            "evm version 1.12.1-unstable-c7b099b2-20230627",
+            Path("sivm"),
+            "sivm",
+            "sivm version 1.12.1-unstable-c7b099b2-20230627",
             GsilTransitionTool,
         ),
         (
