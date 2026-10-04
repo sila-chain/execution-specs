@@ -146,8 +146,10 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_at_transition_to("SilaShanghai",
-            until="Cantcun") def test_case(state_test):
+            @pytest.mark.valid_at_transition_to(
+                "SilaShanghai", until="Cantcun"
+            )
+            def test_case(state_test):
                 assert 0
             """,
             "Invalid fork 'Cantcun'",
