@@ -4,7 +4,7 @@ Test_call_contract_to_create_contract_which_would_create_contract_if_cal...
 Ported from:
 state_tests/stInitCodeTest/CallContractToCreateContractWhichWouldCreateContractIfCalledFiller.json
 @manually-enhanced: Do not overwrite. tx `gas_limit` and inner-CALL gas
-bumped on Amsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037
+bumped on SilaAmsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037
 unchanged.
 
 """
@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stInitCodeTest/CallContractToCreateContractWhichWouldCreateContractIfCalledFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_contract_to_create_contract_which_would_create_contract_if_called(  # noqa: E501
     state_test: StateTestFiller,

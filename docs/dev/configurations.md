@@ -59,5 +59,5 @@ Application configuration are pydantic classes.
 ```console
 from config import DocsConfig
 DocsConfig().TARGET_FORK
-'Prague'
+'SilaPrague'
 ```

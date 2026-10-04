@@ -6,7 +6,13 @@ from typing import Any, Dict, Set
 
 import pytest
 
-from execution_testing.forks import Amsterdam, Cancun, Fork, Istanbul, Paris
+from execution_testing.forks import (
+    Fork,
+    SilaAmsterdam,
+    SilaCancun,
+    SilaIstanbul,
+    SilaParis,
+)
 
 from ..block_types import Environment
 
@@ -25,8 +31,8 @@ PINS: Dict[str, Any] = {
 }
 
 DROPPED: Dict[Fork, Set[str]] = {
-    Istanbul: set(PINS),
-    Paris: {
+    SilaIstanbul: set(PINS),
+    SilaParis: {
         "withdrawals",
         "excess_blob_gas",
         "parent_excess_blob_gas",
@@ -36,8 +42,8 @@ DROPPED: Dict[Fork, Set[str]] = {
         "slot_number",
         "parent_slot_number",
     },
-    Cancun: {"slot_number", "parent_slot_number"},
-    Amsterdam: set(),
+    SilaCancun: {"slot_number", "parent_slot_number"},
+    SilaAmsterdam: set(),
 }
 
 fork_cases = pytest.mark.parametrize(

@@ -2,7 +2,7 @@
 Revert undoes the transient storage writes after a successful call.
 
 Ported from:
-state_tests/Cancun/stEIP1153_transientStorage/10_revertUndoesStoreAfterReturnFiller.yml
+state_tests/SilaCancun/stEIP1153_transientStorage/10_revertUndoesStoreAfterReturnFiller.yml
 """
 
 import pytest
@@ -23,10 +23,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Cancun/stEIP1153_transientStorage/10_revertUndoesStoreAfterReturnFiller.yml"  # noqa: E501
+        "state_tests/SilaCancun/stEIP1153_transientStorage/10_revertUndoesStoreAfterReturnFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_10_revert_undoes_store_after_return(
     state_test: StateTestFiller,

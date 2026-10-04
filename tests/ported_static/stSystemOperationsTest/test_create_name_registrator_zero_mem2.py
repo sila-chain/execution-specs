@@ -3,7 +3,7 @@ Test_create_name_registrator_zero_mem2.
 
 Ported from:
 state_tests/stSystemOperationsTest/createNameRegistratorZeroMem2Filler.json
-@manually-enhanced: Do not overwrite. tx `gas_limit` bumped on Amsterdam
+@manually-enhanced: Do not overwrite. tx `gas_limit` bumped on SilaAmsterdam
 to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
 
 """
@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stSystemOperationsTest/createNameRegistratorZeroMem2Filler.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_create_name_registrator_zero_mem2(
     state_test: StateTestFiller,
@@ -39,7 +39,7 @@ def test_create_name_registrator_zero_mem2(
     fork: Fork,
 ) -> None:
     """Test_create_name_registrator_zero_mem2."""
-    # SIP-8037 state-gas spill on Amsterdam exceeds 300k tx_gas.
+    # SIP-8037 state-gas spill on SilaAmsterdam exceeds 300k tx_gas.
     tx_gas_limit = 300000
     if fork.is_sip_enabled(8037):
         tx_gas_limit = 1_000_000

@@ -67,7 +67,7 @@ class Withdrawal(SSZModel):
 
 
 class ExecutionPayload(SSZModel):
-    """An Amsterdam-shaped payload exercising every field kind."""
+    """An SilaAmsterdam-shaped payload exercising every field kind."""
 
     parent_hash: Hash
     fee_recipient: Address
@@ -143,11 +143,11 @@ class ForkedPayload(SSZModel):
     ) = None
 
     __ssz_schema__ = SSZForkSchema(
-        base_fork="Paris",
+        base_fork="SilaParis",
         base=("parent_hash", "block_number", "transactions"),
         appended={
-            "Shanghai": ("withdrawals",),
-            "Cancun": ("blob_gas_used",),
+            "SilaShanghai": ("withdrawals",),
+            "SilaCancun": ("blob_gas_used",),
         },
     )
 
@@ -225,7 +225,7 @@ class RefMixedProg(ProgressiveContainer(active_fields=[1, 1])):  # type: ignore[
 
 
 class RefForkedParis(Container):
-    """Hand-written twin of ForkedPayload at Paris."""
+    """Hand-written twin of ForkedPayload at SilaParis."""
 
     parent_hash: ByteVector[32]
     block_number: uint64
@@ -233,7 +233,7 @@ class RefForkedParis(Container):
 
 
 class RefForkedShanghai(Container):
-    """Hand-written twin of ForkedPayload at Shanghai."""
+    """Hand-written twin of ForkedPayload at SilaShanghai."""
 
     parent_hash: ByteVector[32]
     block_number: uint64
@@ -397,7 +397,7 @@ TWIN_CASES: List[
             block_number=100,
             transactions=[b"\x02\xf8"],
         ),
-        "Paris",
+        "SilaParis",
     ),
     (
         "forked-shanghai",
@@ -408,7 +408,7 @@ TWIN_CASES: List[
             transactions=[b"\x02\xf8"],
             withdrawals=[_ref_withdrawal()],
         ),
-        "Shanghai",
+        "SilaShanghai",
     ),
 ]
 
@@ -491,14 +491,14 @@ def test_forked_model_json_omission_unchanged() -> None:
         mode="json", by_alias=True, exclude_none=True
     )
     assert "withdrawals" in dumped
-    assert "blobGasUsed" not in dumped  # pre-Cancun: key simply absent
+    assert "blobGasUsed" not in dumped  # pre-SilaCancun: key simply absent
 
 
 def test_forked_model_decode_fills_none() -> None:
     """Decoding an older fork's bytes restores the one model with None."""
     shanghai = _shanghai_payload()
-    raw = encode(shanghai, fork="Shanghai")
-    restored = decode(ForkedPayload, raw, fork="Shanghai")
+    raw = encode(shanghai, fork="SilaShanghai")
+    restored = decode(ForkedPayload, raw, fork="SilaShanghai")
     assert restored == shanghai
     assert restored.blob_gas_used is None  # beyond-fork field stays None
     assert restored.withdrawals is not None
@@ -533,12 +533,12 @@ def test_fork_propagates_to_nested_containers() -> None:
 
     class Envelope(SSZModel):
         payload: ForkedPayload
-        blob_count: Uint64 | None = None  # Shanghai-era envelope field
+        blob_count: Uint64 | None = None  # SilaShanghai-era envelope field
 
         __ssz_schema__ = SSZForkSchema(
-            base_fork="Paris",
+            base_fork="SilaParis",
             base=("payload",),
-            appended={"Shanghai": ("blob_count",)},
+            appended={"SilaShanghai": ("blob_count",)},
         )
 
     class RefEnvelopeShanghai(Container):
@@ -555,20 +555,22 @@ def test_fork_propagates_to_nested_containers() -> None:
         ),
         blob_count=3,
     )
-    assert_matches_reference(envelope, ref, fork="Shanghai")
+    assert_matches_reference(envelope, ref, fork="SilaShanghai")
     # decode restores both levels, beyond-fork fields None at each level
-    restored = decode(Envelope, encode(envelope, "Shanghai"), fork="Shanghai")
+    restored = decode(
+        Envelope, encode(envelope, "SilaShanghai"), fork="SilaShanghai"
+    )
     assert restored.payload.blob_gas_used is None
     # a nested payload that does not fit the propagated fork still raises
     paris_inside = Envelope(payload=_paris_payload(), blob_count=1)
     with pytest.raises(TypeError, match="missing=\\['withdrawals'\\]"):
-        encode(paris_inside, fork="Shanghai")
+        encode(paris_inside, fork="SilaShanghai")
 
 
 def test_forked_model_describe_schema_per_fork() -> None:
     """describe_schema renders each fork's projection in SSZ order."""
-    paris = describe_schema(ForkedPayload, fork="Paris")
-    cancun = describe_schema(ForkedPayload, fork="Cancun")
+    paris = describe_schema(ForkedPayload, fork="SilaParis")
+    cancun = describe_schema(ForkedPayload, fork="SilaCancun")
     assert "blob_gas_used" not in paris
     assert cancun.splitlines()[-1].strip() == "blob_gas_used: uint64"
     # SSZ order comes from the schema tuples, not the class body: the
@@ -628,9 +630,9 @@ def _bad_schema_field_typo() -> None:
         b: Uint64 | None = None
 
         __ssz_schema__ = SSZForkSchema(
-            base_fork="Paris",
+            base_fork="SilaParis",
             base=("a",),
-            appended={"Shanghai": ("typo",)},
+            appended={"SilaShanghai": ("typo",)},
         )
 
 
@@ -640,9 +642,9 @@ def _bad_required_appended() -> None:
         b: Uint64  # appended but not optional
 
         __ssz_schema__ = SSZForkSchema(
-            base_fork="Paris",
+            base_fork="SilaParis",
             base=("a",),
-            appended={"Shanghai": ("b",)},
+            appended={"SilaShanghai": ("b",)},
         )
 
 
@@ -652,7 +654,7 @@ def _bad_optional_base() -> None:
         b: Uint64 | None = None  # optional but declared in base
 
         __ssz_schema__ = SSZForkSchema(
-            base_fork="Paris",
+            base_fork="SilaParis",
             base=("a", "b"),
             appended={},
         )
@@ -664,9 +666,9 @@ def _bad_appended_no_default() -> None:
         b: Uint64 | None  # optional type but NO None default
 
         __ssz_schema__ = SSZForkSchema(
-            base_fork="Paris",
+            base_fork="SilaParis",
             base=("a",),
-            appended={"Shanghai": ("b",)},
+            appended={"SilaShanghai": ("b",)},
         )
 
 
@@ -676,9 +678,9 @@ def _bad_duplicate_schema_names() -> None:
         b: Uint64 | None = None
 
         __ssz_schema__ = SSZForkSchema(
-            base_fork="Paris",
+            base_fork="SilaParis",
             base=("a", "a"),
-            appended={"Shanghai": ("b",)},
+            appended={"SilaShanghai": ("b",)},
         )
 
 
@@ -693,7 +695,7 @@ def _bad_progressive_with_schema() -> None:
         a: Uint64
 
         __ssz_schema__ = SSZForkSchema(
-            base_fork="Paris", base=("a",), appended={}
+            base_fork="SilaParis", base=("a",), appended={}
         )
 
 
@@ -765,9 +767,9 @@ def test_bad_declaration_fails_at_import(
 
 STRICTNESS: List[Tuple[str, Optional[str], str]] = [
     ("bare-encode", None, "fork-scoped"),
-    ("older-fork", "Paris", "unexpected=\\['withdrawals'\\]"),
-    ("newer-fork", "Cancun", "missing=\\['blob_gas_used'\\]"),
-    ("unknown-fork", "Osaka", "unknown fork"),
+    ("older-fork", "SilaParis", "unexpected=\\['withdrawals'\\]"),
+    ("newer-fork", "SilaCancun", "missing=\\['blob_gas_used'\\]"),
+    ("unknown-fork", "SilaOsaka", "unknown fork"),
 ]
 
 
@@ -776,17 +778,17 @@ STRICTNESS: List[Tuple[str, Optional[str], str]] = [
     [pytest.param(f, m, id=name) for name, f, m in STRICTNESS],
 )
 def test_forked_model_strictness(fork: Optional[str], match: str) -> None:
-    """A Shanghai payload only encodes under the Shanghai schema."""
+    """A SilaShanghai payload only encodes under the SilaShanghai schema."""
     with pytest.raises(TypeError, match=match):
         encode(_shanghai_payload(), fork=fork)
 
 
 NOT_FORK_SCOPED: List[Tuple[str, Callable[[], object]]] = [
-    ("encode", lambda: encode(_withdrawal(), fork="Paris")),
-    ("decode", lambda: decode(Withdrawal, b"", fork="Paris")),
-    ("describe", lambda: describe_schema(Withdrawal, fork="Paris")),
-    ("default", lambda: ssz_default(Withdrawal, "Paris")),
-    ("fields", lambda: ssz_fields(Withdrawal, "Paris")),
+    ("encode", lambda: encode(_withdrawal(), fork="SilaParis")),
+    ("decode", lambda: decode(Withdrawal, b"", fork="SilaParis")),
+    ("describe", lambda: describe_schema(Withdrawal, fork="SilaParis")),
+    ("default", lambda: ssz_default(Withdrawal, "SilaParis")),
+    ("fields", lambda: ssz_fields(Withdrawal, "SilaParis")),
 ]
 
 
@@ -802,10 +804,10 @@ def test_fork_on_complete_model_raises(call: Callable[[], object]) -> None:
 
 def test_ssz_default_per_fork() -> None:
     """ssz_default(fork) zeroes that fork's fields, leaves the rest None."""
-    zero = ssz_default(ForkedPayload, "Shanghai")
+    zero = ssz_default(ForkedPayload, "SilaShanghai")
     assert zero.withdrawals == []
-    assert zero.blob_gas_used is None  # beyond Shanghai: absent, not zero
-    assert encode(zero, "Shanghai") == RefForkedShanghai().encode_bytes()
+    assert zero.blob_gas_used is None  # beyond SilaShanghai: absent, not zero
+    assert encode(zero, "SilaShanghai") == RefForkedShanghai().encode_bytes()
     with pytest.raises(TypeError, match="fork-scoped"):
         ssz_default(ForkedPayload)  # bare default: must name the fork
 
@@ -820,20 +822,20 @@ def test_decode_of_malformed_bytes_raises(mutation: str) -> None:
 
 
 def test_decode_under_wrong_fork_does_not_silently_succeed() -> None:
-    """Shanghai bytes decoded as Cancun raise (schema sizes differ)."""
-    raw = encode(_shanghai_payload(), fork="Shanghai")
+    """SilaShanghai bytes decoded as SilaCancun raise (schema sizes differ)."""
+    raw = encode(_shanghai_payload(), fork="SilaShanghai")
     with pytest.raises(Exception):  # noqa: B017 - remerkleable's error
-        decode(ForkedPayload, raw, fork="Cancun")
+        decode(ForkedPayload, raw, fork="SilaCancun")
 
 
 def test_build_ssz_type_cache_identity() -> None:
     """One cache entry per (class, fork); distinct classes never share."""
     assert build_ssz_type(Withdrawal) is build_ssz_type(Withdrawal, None)
-    assert build_ssz_type(ForkedPayload, "Paris") is build_ssz_type(
-        ForkedPayload, "Paris"
+    assert build_ssz_type(ForkedPayload, "SilaParis") is build_ssz_type(
+        ForkedPayload, "SilaParis"
     )
-    assert build_ssz_type(ForkedPayload, "Paris") is not build_ssz_type(
-        ForkedPayload, "Shanghai"
+    assert build_ssz_type(ForkedPayload, "SilaParis") is not build_ssz_type(
+        ForkedPayload, "SilaShanghai"
     )
 
     def make_dup() -> type:

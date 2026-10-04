@@ -37,7 +37,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stCallCreateCallCodeTest/createFailBalanceTooLowFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -102,7 +102,7 @@ def test_create_fail_balance_too_low(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": -1, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x0000000000000000000000000000000000000000): Account(
                     storage={}
@@ -114,7 +114,7 @@ def test_create_fail_balance_too_low(
         },
         {
             "indexes": {"data": -1, "gas": -1, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(
                     0x0000000000000000000000000000000000000000

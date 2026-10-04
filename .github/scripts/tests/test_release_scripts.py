@@ -821,14 +821,14 @@ class TestMergeIndexFiles:
                 "root_hash": None,
                 "created_at": "2026-01-01T00:00:00",
                 "test_count": 1,
-                "forks": ["Cancun"],
+                "forks": ["SilaCancun"],
                 "fixture_formats": ["state_test"],
                 "test_cases": [
                     {
                         "id": "test_a",
                         "json_path": "state_tests/for_cancun/t.json",
                         "fixture_hash": "0x" + "11" * 32,
-                        "fork": "Cancun",
+                        "fork": "SilaCancun",
                         "format": "state_test",
                     }
                 ],
@@ -840,14 +840,14 @@ class TestMergeIndexFiles:
                 "root_hash": None,
                 "created_at": "2026-01-01T00:00:00",
                 "test_count": 1,
-                "forks": ["Prague"],
+                "forks": ["SilaPrague"],
                 "fixture_formats": ["blockchain_test"],
                 "test_cases": [
                     {
                         "id": "test_b",
                         "json_path": "blockchain_tests/for_prague/t.json",
                         "fixture_hash": "0x" + "22" * 32,
-                        "fork": "Prague",
+                        "fork": "SilaPrague",
                         "format": "blockchain_test",
                     }
                 ],
@@ -881,14 +881,14 @@ class TestMergeIndexFiles:
                 "root_hash": None,
                 "created_at": "2026-01-01T00:00:00",
                 "test_count": 1,
-                "forks": ["Cancun"],
+                "forks": ["SilaCancun"],
                 "fixture_formats": ["state_test"],
                 "test_cases": [
                     {
                         "id": "test_a",
                         "json_path": "state_tests/t.json",
                         "fixture_hash": "0x" + "11" * 32,
-                        "fork": "Cancun",
+                        "fork": "SilaCancun",
                         "format": "state_test",
                     }
                 ],

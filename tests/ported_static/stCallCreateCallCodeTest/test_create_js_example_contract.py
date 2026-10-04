@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stCallCreateCallCodeTest/createJS_ExampleContractFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_create_js_example_contract(
     state_test: StateTestFiller,

@@ -11,7 +11,7 @@ from execution_testing.base_types import Hash
 from execution_testing.cli.pytest_commands.plugins.execute.rpc.chain_builder_sil_rpc import (  # noqa: E501
     ChainBuilderEthRPC,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 from execution_testing.rpc import (
     DEFAULT_REQUEST_TIMEOUT,
     RPCCall,
@@ -139,7 +139,7 @@ def test_chain_builder_accepts_request_timeout(tmp_path: Path) -> None:
     ):
         rpc = ChainBuilderEthRPC(
             rpc_endpoint="http://localhost:8545",
-            fork=Cancun,
+            fork=SilaCancun,
             engine_rpc=engine_rpc,
             session_temp_folder=tmp_path,
             get_payload_wait_time=1,

@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stTransactionTest/SuicidesAndInternalCallSuicidesBonusGasAtCallFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_suicides_and_internal_call_suicides_bonus_gas_at_call(
     state_test: StateTestFiller,

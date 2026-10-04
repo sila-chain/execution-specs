@@ -4,7 +4,7 @@ import sila_rlp as rlp
 from sila_types.bytes import Bytes
 from sila_types.numeric import U256, Uint
 
-from sila.forks.amsterdam.transactions import (
+from sila.forks.sila_amsterdam.transactions import (
     LegacyTransaction,
     decode_transaction,
 )

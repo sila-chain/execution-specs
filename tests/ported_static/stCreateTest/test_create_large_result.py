@@ -32,8 +32,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/createLargeResultFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -255,7 +255,7 @@ def test_create_large_result(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(
                     storage={
@@ -268,7 +268,7 @@ def test_create_large_result(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(
                     storage={
@@ -281,17 +281,17 @@ def test_create_large_result(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 44927, 2: 0})},
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 45001, 2: 0})},
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(
                     storage={
@@ -304,7 +304,7 @@ def test_create_large_result(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(
                     storage={
@@ -317,60 +317,60 @@ def test_create_large_result(
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 48356, 2: 0})},
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 48430, 2: 0})},
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(storage={0: 0, 1: 0x4B16491, 2: 0})
             },
         },
         {
             "indexes": {"data": [9], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(storage={0: 0, 1: 0x4B16492, 2: 0})
             },
         },
         {
             "indexes": {"data": [10], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 48362, 2: 0})},
         },
         {
             "indexes": {"data": [11], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 48436, 2: 0})},
         },
         {
             "indexes": {"data": [12], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(storage={0: 0, 1: 0x4B1649D, 2: 0})
             },
         },
         {
             "indexes": {"data": [13], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_1: Account(storage={0: 0, 1: 0x4B1649E, 2: 0})
             },
         },
         {
             "indexes": {"data": [14], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 54116, 2: 0})},
         },
         {
             "indexes": {"data": [15], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_1: Account(storage={0: 0, 1: 54190, 2: 0})},
         },
     ]

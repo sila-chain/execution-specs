@@ -435,7 +435,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
             "Without the `id:` prefix, the argument is interpreted as a "
             "Python regex pattern. To see which test cases are matched, "
             "without executing them, prefix with `collectonly:`, e.g. "
-            '`--sim.limit "collectonly:.*sip4788.*fork_Prague.*"`. '
+            '`--sim.limit "collectonly:.*sip4788.*fork_SilaPrague.*"`. '
             "To list all available test case IDs, set the value to "
             "`collectonly`."
         ),

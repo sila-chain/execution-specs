@@ -19,7 +19,7 @@ REFERENCE_SPEC_VERSION = ref_spec_1014.version
 
 
 @pytest.mark.parametrize("recreate_on_separate_block", [True, False])
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.valid_before("SIP6780")
 def test_recreate(
     blockchain_test: BlockchainTestFiller,

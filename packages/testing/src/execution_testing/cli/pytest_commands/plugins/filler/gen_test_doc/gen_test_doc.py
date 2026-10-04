@@ -254,8 +254,8 @@ class TestDocsGenerator:
         ]
         # Map each transition fork's name to the base fork it ends at so that
         # cases parametrized as a transition fork (e.g.
-        # `BPO2ToAmsterdamAtTime15k`) count toward the fork they transition
-        # into (`Amsterdam`).
+        # `BPO2ToSilaAmsterdamAtTime15k`) count toward the fork they transition
+        # into (`SilaAmsterdam`).
         self._transition_to_base: Dict[str, str] = {
             fork.name(): fork.transitions_to().name()
             for fork in ALL_TRANSITION_FORKS
@@ -696,9 +696,9 @@ class TestDocsGenerator:
             Nav entries / output files contain special cases such as:
 
             - ("Test Case Reference",) -> tests/index.md
-            - ("Test Case Reference", "Berlin") -> tests/berlin/index.md
-            - ("Test Case Reference", "Shanghai", "SIP-3855 PUSH0", "Spec") ->
-            tests/shanghai/sip3855_push0/spec.py
+            - ("Test Case Reference", "SilaBerlin") -> tests/berlin/index.md
+            - ("Test Case Reference", "SilaShanghai", "SIP-3855 PUSH0", "Spec")
+            -> tests/shanghai/sip3855_push0/spec.py
 
             This function provides and ordering to sort nav men entries as
             follows:

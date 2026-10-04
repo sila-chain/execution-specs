@@ -5,13 +5,13 @@ into EEST tests.
 
 import pytest
 from execution_testing import Alloc, Fork, Op, StateTestFiller, Transaction
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
 REFERENCE_SPEC_VERSION = "N/A"
 
 
-@pytest.mark.valid_from("Homestead")
+@pytest.mark.valid_from("SilaHomestead")
 def test_coverage(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -64,7 +64,7 @@ def test_coverage(
         + Op.RETURN(0, 32),
     )
 
-    if fork >= Cancun:
+    if fork >= SilaCancun:
         tx = Transaction(
             sender=pre.fund_eoa(),
             to=address_to,

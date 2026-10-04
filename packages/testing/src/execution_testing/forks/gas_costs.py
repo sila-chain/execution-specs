@@ -32,7 +32,7 @@ class GasCosts:
     OPCODE_EXTERNAL_BASE: int
     OPCODE_CALL_BASE: int
     OPCODE_SLOAD: int
-    # Introduced by SIP-1052, zero before Constantinople.
+    # Introduced by SIP-1052, zero before SilaConstantinople.
     OPCODE_EXTCODEHASH: int = 0
 
     # Storage

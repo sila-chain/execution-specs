@@ -8,7 +8,7 @@ Ported from:
 state_tests/stCreate2/RevertDepthCreate2OOGFiller.json
 state_tests/stCreate2/RevertDepthCreate2OOGBerlinFiller.json
 
-@manually-enhanced: Do not overwrite. The byte-identical Berlin twin is
+@manually-enhanced: Do not overwrite. The byte-identical SilaBerlin twin is
 folded in and every budget derives from fork composites. The creator
 stores the CREATE2 result so a wrongly failed (or wrongly succeeding)
 creation is visible beyond the created account, and every starved arm
@@ -50,7 +50,7 @@ CREATOR_SPARE = 1_000
         "state_tests/stCreate2/RevertDepthCreate2OOGBerlinFiller.json",
     ],
 )
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.parametrize(
     "creator_covered",
     [

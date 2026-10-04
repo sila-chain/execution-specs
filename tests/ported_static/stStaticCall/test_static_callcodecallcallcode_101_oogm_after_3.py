@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticCall/static_callcodecallcallcode_101_OOGMAfter_3Filler.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -227,12 +227,12 @@ def test_static_callcodecallcallcode_101_oogm_after_3(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 1, 1: 1})},
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 1, 1: 1})},
         },
     ]

@@ -17,7 +17,7 @@ state_tests/stDelegatecallTestHomestead/Delegatecall1024OOGFiller.json
 @manually-enhanced: Do not overwrite. The post state is predicted by an
 exact fork-derived replay of the recursion's gas flow (SIP-150 grants,
 warm/cold and SSTORE pricing via opcode metadata, SIP-8037 state-gas
-spill), validated against the ported Cancun depths; the hardcoded
+spill), validated against the ported SilaCancun depths; the hardcoded
 self-address is replaced by ADDRESS. Four fillers from two legacy
 suites are joined into one opcode parametrization, every budget run
 against every opcode, so the whole scope is visible in one file.
@@ -238,7 +238,7 @@ def predict_recursion_storage(
         "state_tests/stDelegatecallTestHomestead/Delegatecall1024OOGFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "call_opcode",
     [

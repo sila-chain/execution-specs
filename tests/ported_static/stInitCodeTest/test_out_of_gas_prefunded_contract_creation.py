@@ -57,7 +57,7 @@ def minimum_frame_gas(needed: int) -> int:
         "state_tests/stInitCodeTest/OutOfGasPrefundedContractCreationFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "outcome", ["child_succeeds", "outer_oog", "child_oog"]
 )

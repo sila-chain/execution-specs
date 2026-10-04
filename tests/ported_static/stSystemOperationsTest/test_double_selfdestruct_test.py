@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSystemOperationsTest/doubleSelfdestructTestFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -231,7 +231,7 @@ def test_double_selfdestruct_test(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 1, 2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(
                     0x0000000000000000000000000000000000001001
@@ -243,7 +243,7 @@ def test_double_selfdestruct_test(
         },
         {
             "indexes": {"data": [3, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x0000000000000000000000000000000000001001): Account(
                     balance=0xF4241, nonce=0
@@ -256,7 +256,7 @@ def test_double_selfdestruct_test(
         },
         {
             "indexes": {"data": [4, 5, 6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x0000000000000000000000000000000000001001): Account(
                     balance=0xF4241, nonce=0

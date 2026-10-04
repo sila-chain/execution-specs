@@ -31,7 +31,7 @@ CONTRACT_BALANCE = 0x1
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refund600Filler.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_refund600(
     state_test: StateTestFiller, pre: Alloc, fork: Fork
 ) -> None:

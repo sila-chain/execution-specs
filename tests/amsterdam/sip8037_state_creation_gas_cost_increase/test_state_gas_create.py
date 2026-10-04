@@ -180,10 +180,10 @@ def test_create_child_spill_not_double_charged(
     """
     Test CREATE/CREATE2 child state gas paid from `gas_left` is not recharged.
 
-    The factory executes below the Amsterdam tx gas cap, so the CREATE child
-    pays new-account and storage state gas by spilling from `gas_left`. The
-    gas limit covers that bill once, so charging the same state growth again
-    at frame end would run the transaction out of gas.
+    The factory executes below the SilaAmsterdam tx gas cap, so the CREATE
+    child pays new-account and storage state gas by spilling from `gas_left`.
+    The gas limit covers that bill once, so charging the same state growth
+    again at frame end would run the transaction out of gas.
     """
     init_code = sum(Op.SSTORE(i, i + 1) for i in range(6)) + Op.STOP
     mstore_value, initcode_size = init_code_at_high_bytes(init_code)

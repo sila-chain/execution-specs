@@ -88,7 +88,7 @@ def test_forkless_items_pruned_before_filter_combinations(
             lambda refund_type, a, **_: True,
             reason="requires the covariant refund_type param",
         )
-        @pytest.mark.valid_from("Amsterdam")
+        @pytest.mark.valid_from("SilaAmsterdam")
         def test_case(state_test, refund_type, a):
             pass
         """
@@ -98,7 +98,7 @@ def test_forkless_items_pruned_before_filter_combinations(
     ]
     result = pytester.runpytest(
         *plugin_args,
-        "--fork=Osaka",
+        "--fork=SilaOsaka",
         "--collect-only",
         "-q",
     )

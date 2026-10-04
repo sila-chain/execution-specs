@@ -28,11 +28,11 @@ def _get_vm_forks() -> List[TestHardfork]:
     """
     Get the list of forks for which VM tests should run.
 
-    VM tests are only run for legacy forks up to Constantinople.
+    VM tests are only run for legacy forks up to SilaConstantinople.
     """
     all_forks = list(TestHardfork.discover())
     constantinople = next(
-        f for f in all_forks if f.short_name == "constantinople"
+        f for f in all_forks if f.short_name == "sila_constantinople"
     )
     return [f for f in all_forks if f.criteria <= constantinople.criteria]
 

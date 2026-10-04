@@ -773,9 +773,9 @@ def test_tx_total_gas_limit_cap(
     ],
 )
 # Cumulative block-gas inclusion is a pre-existing rule, not an
-# SIP-8037 novelty. Floor is Osaka only because the gas-cap guard
+# SIP-8037 novelty. Floor is SilaOsaka only because the gas-cap guard
 # below relies on SIP-7825's transaction_gas_limit_cap().
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_inclusion_at_execution_gas_block_limit_small(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

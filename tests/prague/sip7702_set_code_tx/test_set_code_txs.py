@@ -63,7 +63,7 @@ from .spec import Spec, ref_spec_7702
 REFERENCE_SPEC_GIT_PATH = ref_spec_7702.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7702.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 auth_account_start_balance = 0
 

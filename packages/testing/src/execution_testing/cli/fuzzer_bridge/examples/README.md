@@ -9,7 +9,7 @@ All examples use fuzzer output format v2.0 with the following structure:
 ```json
 {
   "version": "2.0",
-  "fork": "Osaka",
+  "fork": "SilaOsaka",
   "chainId": "0x01",
   "accounts": { ... },
   "transactions": [ ... ],
@@ -136,7 +136,7 @@ Each example provides test coverage for:
 
 ## Notes
 
-- All examples use Osaka fork
+- All examples use SilaOsaka fork
 - All examples use chain ID 1 (sila-mainnet)
 - All transactions have sufficient gas (16,000,000 gas limit)
 - All sender accounts have private keys for signing

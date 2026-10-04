@@ -25,7 +25,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stMemoryStressTest/mload32bitBound_return2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [

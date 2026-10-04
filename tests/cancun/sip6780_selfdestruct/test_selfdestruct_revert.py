@@ -25,12 +25,12 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-6780.md"
 REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
 
-SELFDESTRUCT_ENABLE_FORK = Cancun
+SELFDESTRUCT_ENABLE_FORK = SilaCancun
 
 
 @pytest.fixture
@@ -336,7 +336,7 @@ def selfdestruct_with_transfer_initcode_copy_from_address(
         "outer_selfdestruct_after_inner_call",
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_selfdestruct_created_in_same_tx_with_revert(  # noqa SC200
     state_test: StateTestFiller,
     sender: EOA,
@@ -546,7 +546,7 @@ def test_selfdestruct_created_in_same_tx_with_revert(  # noqa SC200
         "outer_selfdestruct_after_inner_call",
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_selfdestruct_not_created_in_same_tx_with_revert(
     state_test: StateTestFiller,
     sender: EOA,

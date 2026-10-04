@@ -4,7 +4,7 @@ Puts the base 0, exponent 0 and modulus 0 into the MODEXP precompile,...
 Ported from:
 state_tests/stPreCompiledContracts2/modexp_0_0_0_20500Filler.json
 @manually-enhanced: Do not overwrite. tx_gas values bumped on
-Amsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
+SilaAmsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
 
 """
 
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stPreCompiledContracts2/modexp_0_0_0_20500Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -269,7 +269,7 @@ def test_modexp_0_0_0_20500(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": 0, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(storage={}, code=b"", balance=1, nonce=0),
                 contract_0: Account(
@@ -293,7 +293,7 @@ def test_modexp_0_0_0_20500(
         },
         {
             "indexes": {"data": 0, "gas": [1, 2, 3], "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(storage={}, code=b"", balance=1, nonce=0),
                 contract_0: Account(

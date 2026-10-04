@@ -20,4 +20,4 @@ branches:
   - path: "sila-mainnet"
     label: "SilaMainnet (BPO2)"
   - path: "forks/amsterdam"
-    label: "Amsterdam"
+    label: "SilaAmsterdam"

@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticCall/static_callcallcodecallcode_011_OOGMAfter_2Filler.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",

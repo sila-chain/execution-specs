@@ -11,7 +11,7 @@ from execution_testing.fixtures import (
     LabeledFixtureFormat,
     StateFixture,
 )
-from execution_testing.forks import Istanbul
+from execution_testing.forks import SilaIstanbul
 from execution_testing.test_types import Alloc, Environment, Transaction
 
 from ..base import BaseTest
@@ -195,7 +195,7 @@ def test_state_test_conversion_checks_the_env_first() -> None:
         pre=Alloc(),
         post=Alloc(),
         tx=Transaction(),
-        fork=Istanbul,
+        fork=SilaIstanbul,
     )
     with pytest.raises(ValueError, match="excess_blob_gas"):
         state_test.generate_blockchain_test()

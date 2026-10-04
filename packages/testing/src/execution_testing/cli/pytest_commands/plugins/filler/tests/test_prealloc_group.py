@@ -9,7 +9,7 @@ import pytest
 
 from execution_testing.base_types import Address
 from execution_testing.fixtures import PreAllocGroups
-from execution_testing.forks import Fork, Prague
+from execution_testing.forks import Fork, SilaPrague
 from execution_testing.specs.base import BaseTest, FillResult
 from execution_testing.test_types import Environment
 from execution_testing.vm import Op
@@ -56,8 +56,8 @@ def test_pre_alloc_group_same() -> None:
     """Test that pre_alloc_group("separate") forces unique grouping."""
     # Create mock environment and pre-allocation
     env = Environment()
-    pre_1 = Alloc(fork=Prague, flags=AllocFlags.NONE)
-    pre_2 = Alloc(fork=Prague, flags=AllocFlags.NONE)
+    pre_1 = Alloc(fork=SilaPrague, flags=AllocFlags.NONE)
+    pre_2 = Alloc(fork=SilaPrague, flags=AllocFlags.NONE)
 
     # Deploy different contracts and fund eoas with different amounts,
     # should still result in the same group hash.
@@ -69,10 +69,10 @@ def test_pre_alloc_group_same() -> None:
 
     # Create test without marker
     hash1 = pre_1.compute_pre_alloc_group_hash(
-        fork=Prague, genesis_environment=env, group_salt=None
+        fork=SilaPrague, genesis_environment=env, group_salt=None
     )
     hash2 = pre_1.compute_pre_alloc_group_hash(
-        fork=Prague, genesis_environment=env, group_salt=None
+        fork=SilaPrague, genesis_environment=env, group_salt=None
     )
 
     # Hashes should be equal
@@ -83,8 +83,8 @@ def test_pre_alloc_group_separate() -> None:
     """Test that pre_alloc_group("separate") forces unique grouping."""
     # Create mock environment and pre-allocation
     env = Environment()
-    pre = Alloc(fork=Prague, flags=AllocFlags.NONE)
-    fork = Prague
+    pre = Alloc(fork=SilaPrague, flags=AllocFlags.NONE)
+    fork = SilaPrague
 
     # Create test without marker
     test1 = MockTest(pre=pre, genesis_environment=env, fork=fork)
@@ -126,8 +126,8 @@ def test_pre_alloc_group_separate() -> None:
 def test_pre_alloc_group_custom_salt() -> None:
     """Test that custom group names create consistent grouping."""
     env = Environment()
-    pre = Alloc(fork=Prague, flags=AllocFlags.NONE)
-    fork = Prague
+    pre = Alloc(fork=SilaPrague, flags=AllocFlags.NONE)
+    fork = SilaPrague
 
     # Create test with custom group "sip1234"
     mock_request1 = Mock()
@@ -184,8 +184,8 @@ def test_pre_alloc_group_custom_salt() -> None:
 def test_pre_alloc_group_separate_different_nodeids() -> None:
     """Test that different tests with "separate" get different hashes."""
     env = Environment()
-    pre = Alloc(fork=Prague, flags=AllocFlags.NONE)
-    fork = Prague
+    pre = Alloc(fork=SilaPrague, flags=AllocFlags.NONE)
+    fork = SilaPrague
 
     # Create test with "separate" and nodeid1
     mock_request1 = Mock()
@@ -226,8 +226,8 @@ def test_pre_alloc_group_separate_different_nodeids() -> None:
 def test_no_pre_alloc_group_marker() -> None:
     """Test normal grouping without pre_alloc_group marker."""
     env = Environment()
-    pre = Alloc(fork=Prague, flags=AllocFlags.NONE)
-    fork = Prague
+    pre = Alloc(fork=SilaPrague, flags=AllocFlags.NONE)
+    fork = SilaPrague
 
     # Create test without marker but with request object
     mock_request = Mock()
@@ -255,8 +255,8 @@ def test_no_pre_alloc_group_marker() -> None:
 def test_pre_alloc_group_with_reason() -> None:
     """Test that reason kwarg is accepted but doesn't affect grouping."""
     env = Environment()
-    pre = Alloc(fork=Prague, flags=AllocFlags.NONE)
-    fork = Prague
+    pre = Alloc(fork=SilaPrague, flags=AllocFlags.NONE)
+    fork = SilaPrague
 
     # Create test with custom group and reason
     mock_request1 = Mock()
@@ -301,7 +301,7 @@ def test_pre_alloc_group_with_reason() -> None:
 def test_pre_alloc_group_with_modified_alloc() -> None:
     """Test that modifications to Alloc affect grouping via group_salt()."""
     env = Environment()
-    fork = Prague
+    fork = SilaPrague
 
     # Create unmodified pre-allocation
     pre1 = Alloc(fork=fork, flags=AllocFlags.NONE)
@@ -331,7 +331,7 @@ def test_pre_alloc_explicit_salt_overrides_group_salt() -> None:
     Test that explicit group_salt parameter overrides group_salt() method.
     """
     env = Environment()
-    fork = Prague
+    fork = SilaPrague
 
     # Create pre-allocation with modifications
     pre = Alloc(fork=fork, flags=AllocFlags.NONE)
@@ -359,7 +359,7 @@ def test_pre_alloc_explicit_salt_overrides_group_salt() -> None:
 def test_pre_alloc_group_same_modifications() -> None:
     """Test that identical modifications produce the same hash."""
     env = Environment()
-    fork = Prague
+    fork = SilaPrague
 
     # Create two pre-allocations with same modification
     pre1 = Alloc(fork=fork, flags=AllocFlags.NONE)
@@ -417,7 +417,7 @@ class StateTest(FormattedTest):  # noqa: D101
             Transaction
         )
 
-        @pytest.mark.valid_from("Istanbul")
+        @pytest.mark.valid_from("SilaIstanbul")
         {markers}def test_chainid(state_test: StateTestFiller, pre: Alloc) -> None:
             contract_address = pre.deploy_contract(Op.SSTORE(1, Op.CHAINID) + Op.STOP)
             sender = pre.fund_eoa()
@@ -454,7 +454,7 @@ class BlockchainTest(FormattedTest):  # noqa: D101
             Transaction
         )
 
-        @pytest.mark.valid_from("Istanbul")
+        @pytest.mark.valid_from("SilaIstanbul")
         {markers}def test_chainid_blockchain(blockchain_test: BlockchainTestFiller, pre: Alloc) -> None:
             contract_address = pre.deploy_contract(Op.SSTORE(1, Op.CHAINID) + Op.STOP)
             sender = pre.fund_eoa()
@@ -659,7 +659,7 @@ def test_pre_alloc_grouping_by_test_type(
         "-c",
         "pytest-fill.ini",
         "--generate-pre-alloc-groups",
-        "--fork=Cancun",
+        "--fork=SilaCancun",
     ]
     result = pytester.runpytest(*args)
     result.assert_outcomes(

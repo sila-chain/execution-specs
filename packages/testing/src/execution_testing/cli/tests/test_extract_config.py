@@ -10,16 +10,16 @@ from execution_testing.fixtures.blockchain import FixtureHeader
 from execution_testing.fixtures.pre_alloc_groups import PreAllocGroup
 from execution_testing.forks import (
     Fork,
-    Prague,
+    SilaPrague,
     forks_from_until,
     get_deployed_forks,
 )
 
 
 def forks_from_prague_onward() -> list[Fork]:
-    """Return deployed forks from Prague onward."""
+    """Return deployed forks from SilaPrague onward."""
     all_forks = get_deployed_forks()
-    return list(forks_from_until(Prague, all_forks[-1]))
+    return list(forks_from_until(SilaPrague, all_forks[-1]))
 
 
 @pytest.mark.parametrize("fork", forks_from_prague_onward())

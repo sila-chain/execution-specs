@@ -43,10 +43,10 @@ so a failure is attributable.
 
 ## Verification cadence
 
-- **Iterating:** `--fork=<baseline>` (usually Cancun) — fast.
+- **Iterating:** `--fork=<baseline>` (usually SilaCancun) — fast.
 - **Checkpoint / done:** fill the whole `valid_from` range (omit `--fork`) so all
   deployed forks are exercised.
-- **Probe the future fork:** explicitly `--fork Amsterdam` (or the latest fork
+- **Probe the future fork:** explicitly `--fork SilaAmsterdam` (or the latest fork
   that enables new SIPs). A gas/state-cost change there is the most likely
   future breakage. (Historical note: broken tests used to be parked in a
   `tests/ported_static/amsterdam_skip_list.txt` consumed by a local conftest;
@@ -104,12 +104,12 @@ deviation.
 
 **Expect to re-budget afterwards.** Restoring an elided op adds its cost — a
 zero->non-zero `SSTORE` is ~22.1k pre-SIP-8037 and ~97.9k of *state* gas on
-Amsterdam — so a test with a hardcoded `gas_limit` may now OOG. That is usually
+SilaAmsterdam — so a test with a hardcoded `gas_limit` may now OOG. That is usually
 not a regression you introduced: it reveals that the sibling cases which never
 lost their op were *already* failing on the future fork for the same reason.
 Establish this before re-budgeting by copying the pre-change file aside under a
 different test name, filling both, and diffing the failure sets — in the
-validated case that separated 12 pre-existing Amsterdam failures from the 3 the
+validated case that separated 12 pre-existing SilaAmsterdam failures from the 3 the
 fix added.
 
 **Verify the restoration is observable, not merely green.** Fill before and
@@ -194,9 +194,9 @@ under test.
   (`gas=0xEA60`, `gas=0x186A0`) that was sized for the *old* gas schedule; once
   SIP-8037 inflates the callee's state gas (e.g. a zero→non-zero SSTORE jumps to
   ~97920), that fixed budget no longer covers the callee and the subcall OOGs on
-  Amsterdam — a common reason a pure-behavior test lands on the skip list. Omit
+  SilaAmsterdam — a common reason a pure-behavior test lands on the skip list. Omit
   the operand so it forwards everything. **Caveat:** forwarding all gas via
-  `Op.GAS` misbehaves on **pre-SIP-150 (Homestead)** — the sweep (step 11) fails
+  `Op.GAS` misbehaves on **pre-SIP-150 (SilaHomestead)** — the sweep (step 11) fails
   only there, so such tests floor at **TangerineWhistle**. Keep an explicit `gas`
   operand *only* when the amount forwarded is the subject (an OOG-boundary test).
   **Budget vs. subject:** before dropping the operand, ask *why* the constant
@@ -423,7 +423,7 @@ not drop it.**
   would change the cost.
   - For `CREATE`/`CREATE2`: `new_memory_size` (the init-code window the offset/
     size operands touch, e.g. `size=0x20` → `new_memory_size=0x20`) **and**
-    `init_code_size` (drives the SIP-3860 per-word cost, Shanghai+). Omitting
+    `init_code_size` (drives the SIP-3860 per-word cost, SilaShanghai+). Omitting
     `init_code_size` silently under-predicts by `CODE_INIT_PER_WORD *
     ceil(size/32)` (2/word) — a small, easily-missed miss. `CREATE` leaves the
     created address on the stack → `extra_stack_items=1`.
@@ -453,11 +453,11 @@ keep `gas_limit` omitted **and** add an explicit `state_gas_reservoir=0` to the
 gas is charged and measurable, and is a no-op on pre-SIP-8037 forks (a *positive*
 reservoir there raises; `0` does not, and it must be set explicitly — the default
 is treated as "unset"). This keeps a `CodeGasMeasure` test clean (no magic
-`gas_limit`) yet correct on Amsterdam.
+`gas_limit`) yet correct on SilaAmsterdam.
 
 **Absolute `GAS` readings are unsalvageable — convert to a delta.** A test that
 stores a *raw* `GAS` value (not a `SUB(before, GAS)` delta) — e.g. `SSTORE(0,
-GAS)` right after entry — pins `gas_limit - intrinsic - overhead`. Amsterdam
+GAS)` right after entry — pins `gas_limit - intrinsic - overhead`. SilaAmsterdam
 re-priced the **intrinsic transaction cost** (SIP-2780: base 21000 → 15000), so
 that stored value shifts by a fixed amount (observed 578998 → 584998, a 6000
 jump) *independent of any state gas* — `state_gas_reservoir=0` does **not** fix
@@ -490,7 +490,7 @@ on exactly the measured bytecode.
 **Reservoir-less sub-calls pay state gas from their regular grant.** With
 the tx reservoir at 0, a sub-frame's state charges spill from its own
 `gas_left` — a delegate that does one first-set SSTORE needs its *whole*
-~111k inside the forwarded grant on Amsterdam, not just the ~13k regular
+~111k inside the forwarded grant on SilaAmsterdam, not just the ~13k regular
 part. Size derived sub-call budgets from the callee composite's full
 `gas_cost(fork)`. Corollaries: (a) a *failed* sub-frame contributes its
 entire forfeited grant to the parent's measured window, not its "cost";
@@ -531,7 +531,7 @@ caller OOG `sentinel`) are all distinct. Validated on
 `test_static_execute_call_that_ask_fore_gas_then_trabsaction_has`.
 **Caveat — SIP-2200's stipend rule caps this trick.** Any SSTORE (even a
 100-gas dirty-warm one) exceptionally halts unless `gas_left > 2300`
-(Istanbul+), so the 1/64 retention must exceed ~2400, i.e. the pre-call
+(SilaIstanbul+), so the 1/64 retention must exceed ~2400, i.e. the pre-call
 budget must exceed ~154k. When the scenario *requires* a smaller budget
 (e.g. a starved arm whose forwarded gas must undercut the callee's cost),
 no post-call SSTORE is possible at all: write the sentinel *before* the
@@ -566,14 +566,14 @@ fixed named budget with per-gas-schedule-era pinned depth counts, each
 shift explained (±1 frame ≈ 64·ln(cost ratio)). Validated on
 `test_loop_calls_depth_then_revert`.
 
-**The SSTORE dirty-rewrite composite tracks the pre-Berlin schedules.**
+**The SSTORE dirty-rewrite composite tracks the pre-SilaBerlin schedules.**
 `Op.SSTORE(key_warm=True, original_value=0, current_value=0xFF,
-new_value=1).gas_cost(fork)` prices 5,006 on ConstantinopleFix, 806 on
-Istanbul and 106 from Berlin, so a derived budget needs no extra
+new_value=1).gas_cost(fork)` prices 5,006 on SilaConstantinopleFix, 806 on
+SilaIstanbul and 106 from SilaBerlin, so a derived budget needs no extra
 headroom constant for those forks (an earlier note here claimed
 otherwise; the padding it prescribed also masked a wrongful new-account
-charge on Amsterdam). Checked on
-`test_revert_depth_create_address_collision`'s ConstantinopleFix sweep.
+charge on SilaAmsterdam). Checked on
+`test_revert_depth_create_address_collision`'s SilaConstantinopleFix sweep.
 
 **A starved arm must still reach the opcode under test.** When a
 "RevertDepth" style filler proves that a completed nested CREATE is
@@ -602,7 +602,7 @@ On 8037 forks the deposit charges only the keccak word cost
 `len * 1530` state; `fork.gas_costs().CODE_DEPOSIT_PER_BYTE` (200) is the
 *pre-8037* constant. Using 200/byte in a *sufficiency* budget merely
 overshoots (safe); using it in a one-gas-short *boundary* silently funds
-the deposit on Amsterdam. Branch on `fork.is_sip_enabled(8037)` for exact
+the deposit on SilaAmsterdam. Branch on `fork.is_sip_enabled(8037)` for exact
 deposit boundaries. Validated on
 `test_create_oo_gafter_init_code_returndata_size`.
 
@@ -610,7 +610,7 @@ deposit boundaries. Validated on
 `fork.transaction_intrinsic_cost_calculator()()` defaults to
 `sends_value=False`; under SIP-2780 a value-bearing transaction's intrinsic
 includes the folded value-transfer cost (~5.9k), so a derived budget or
-GAS-observation formula silently skews by that amount on Amsterdam only.
+GAS-observation formula silently skews by that amount on SilaAmsterdam only.
 Pass `sends_value=True` when the tx carries value — or drop an incidental
 tx `value` entirely (step 5) so the default holds. Validated on
 `test_store_gas_on_create`.
@@ -620,7 +620,7 @@ tx `value` entirely (step 5) so the default holds. Validated on
 budget, the intrinsic calculator does not include the created account's
 state gas — add
 `fork.transaction_top_frame_state_gas(contract_creation=True)` (183,600 on
-Amsterdam, 0 before) or the whole creation silently OOGs only on the
+SilaAmsterdam, 0 before) or the whole creation silently OOGs only on the
 future fork. Exception: `prepare_dispatch` charges it only when the
 target's *pre-state* account is `EMPTY_ACCOUNT` — a prefunded create
 address pays nothing (validated on
@@ -650,7 +650,7 @@ where `stipend = fork.gas_costs().CALL_STIPEND` for a value-bearing call (0
 otherwise). **The `// 64` form is the trap:** `available - available // 64` and
 `available * 63 // 64` differ by exactly 1 whenever `available % 64 != 0` (the
 EVM uses the former). One parametrize over `(opcode, value, memory)` covers the
-whole CALL/CALLCODE/DELEGATECALL family; floor **Berlin** (the call metadata).
+whole CALL/CALLCODE/DELEGATECALL family; floor **SilaBerlin** (the call metadata).
 Validated on `test_raw_call_gas_ask` (10 RawCall*GasAsk fillers).
 
 **Error paths charge regular gas only — assert `regular_cost(fork)`.** A failed
@@ -666,7 +666,7 @@ address is then `Account.NONEXISTENT`. Validated end-to-end on
 `test_raw_create_gas` (6 RawCreate*Gas fillers consolidated).
 
 ### 11. Lower `valid_from` to extend coverage
-The ported `valid_from` (often `Cancun`) is usually higher than necessary — lower
+The ported `valid_from` (often `SilaCancun`) is usually higher than necessary — lower
 it to widen coverage. Find the true floor empirically: temporarily delete the
 `valid_from` marker and fill with no `--fork` (the framework then runs from
 Frontier up); the earliest fork that *passes* is your floor. Set
@@ -674,23 +674,23 @@ Frontier up); the earliest fork that *passes* is your floor. Set
 lowering, never a true removal.
 - **Gas tests floor at the SIP that introduced their metadata.** A test using
   `address_warm` / cold-access metadata + `gas_cost(fork)` is only valid from
-  **Berlin (SIP-2929)**: earlier forks have no warm/cold distinction, so
+  **SilaBerlin (SIP-2929)**: earlier forks have no warm/cold distinction, so
   `gas_cost` over-predicts by `cold − flat` (2600 − 700 = 1900) and every
-  pre-Berlin fork fails the measurement. Same shape elsewhere — SIP-3860
-  init-code metering floors at Shanghai, etc. The floor is whichever SIP the
+  pre-SilaBerlin fork fails the measurement. Same shape elsewhere — SIP-3860
+  init-code metering floors at SilaShanghai, etc. The floor is whichever SIP the
   test's behavior/metadata depends on, which the empirical sweep reveals directly.
 - **Behavioral floors show up as non-gas mismatches in the sweep.** A CREATE
   test asserting the created account has `nonce=1` floors at **SpuriousDragon
-  (SIP-161)** — earlier forks start contract nonces at 0, so Frontier/Homestead/
+  (SIP-161)** — earlier forks start contract nonces at 0, so Frontier/SilaHomestead/
   TangerineWhistle fail on the nonce, not the gas. Read *what* the sweep's
   earliest-passing fork is gated on; it is not always a gas-schedule change.
 - **A `bad v` / `INVALID_SIGNATURE_VRS` failure is a signature floor, not a
   real one — don't raise `valid_from` for it.** The default `Transaction` is
   SIP-155-protected, which pre-SpuriousDragon forks reject. Instead set
   `protected=fork.supports_protected_txs()` (add `fork: Fork`): it goes
-  unprotected on Frontier/Homestead/TangerineWhistle and protected from
+  unprotected on Frontier/SilaHomestead/TangerineWhistle and protected from
   SpuriousDragon on. This keeps the floor at the *behavior's* real SIP (e.g.
-  Homestead for `DELEGATECALL`) instead of masking it at SpuriousDragon.
+  SilaHomestead for `DELEGATECALL`) instead of masking it at SpuriousDragon.
   Validated on `test_delegatecall_emptycontract`.
 
 ## Re-pinning expected values

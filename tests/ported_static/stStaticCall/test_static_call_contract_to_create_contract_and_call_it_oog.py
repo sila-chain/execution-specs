@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticCall/static_CallContractToCreateContractAndCallItOOGFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -106,7 +106,7 @@ def test_static_call_contract_to_create_contract_and_call_it_oog(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -122,7 +122,7 @@ def test_static_call_contract_to_create_contract_and_call_it_oog(
         },
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={0: 0, 2: 0}, nonce=0),
                 sender: Account(nonce=1),

@@ -87,7 +87,7 @@ NESTED = (Refund.CREATE, Refund.CREATE2)
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/Create2OOGFromCallRefundsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "outcome", list(Outcome), ids=lambda o: o.name.lower()
 )
@@ -253,7 +253,7 @@ def test_create2_oog_from_call_refunds(
     # (restored here). On top of it, SIP-8037 charges state gas: the
     # deepest arm (create inside create2) makes three fresh sets and two
     # new accounts and deposits one byte at each depth. All state terms
-    # are zero before Amsterdam.
+    # are zero before SilaAmsterdam.
     fresh_set = Op.SSTORE(
         key=0x0, value=0x1, key_warm=False, original_value=0, new_value=1
     )

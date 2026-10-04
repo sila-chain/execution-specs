@@ -31,8 +31,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/costRevertFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -475,7 +475,7 @@ def test_cost_revert(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 21, 14, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_7: Account(storage={0: 2609})},
         },
         {
@@ -509,7 +509,7 @@ def test_cost_revert(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_7: Account(storage={0: 0xFFFFFF})},
         },
     ]

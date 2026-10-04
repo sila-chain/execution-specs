@@ -29,7 +29,7 @@ The folder `src/sila/forks/` contains the specifications for the different execu
 
 At any given time, there is a single fork under development. Any new SIP is implemented in the folder for that fork (`src/sila/forks/<FORK_NAME>/`).
 
-For example, if Amsterdam is under development and Prague is live on sila-mainnet, the `src/sila/forks/amsterdam/` folder starts as a copy of Prague with values updated to reflect Amsterdam and its under-development status. This folder serves as the baseline for further development and all new SIPs are implemented in it.
+For example, if SilaAmsterdam is under development and SilaPrague is live on sila-mainnet, the `src/sila/forks/sila_amsterdam/` folder starts as a copy of SilaPrague with values updated to reflect SilaAmsterdam and its under-development status. This folder serves as the baseline for further development and all new SIPs are implemented in it.
 
 ## Branch structure
 
@@ -41,19 +41,19 @@ The final stable specification for all forks that are currently live on sila-mai
 
 At any given time there is exactly one fork under active development. The branch structure for the fork under development is:
 
-- `forks/<FORK_NAME>`: The main branch for the fork under development. For example, `forks/amsterdam` is the branch for the Amsterdam fork. This branch will be merged into `sila-mainnet` after the fork has gone live.
-- `sips/<FORK_NAME>/<SIP_NUMBER>`: Branches for each SIP within the fork under development. For example, `sips/amsterdam/sip-7928` is the branch for SIP-7928 for the Amsterdam fork. This branch will be merged into `forks/amsterdam` after the SIP has been confirmed for release in the fork.
+- `forks/<FORK_NAME>`: The main branch for the fork under development. For example, `forks/amsterdam` is the branch for the SilaAmsterdam fork. This branch will be merged into `sila-mainnet` after the fork has gone live.
+- `sips/<FORK_NAME>/<SIP_NUMBER>`: Branches for each SIP within the fork under development. For example, `sips/amsterdam/sip-7928` is the branch for SIP-7928 for the SilaAmsterdam fork. This branch will be merged into `forks/amsterdam` after the SIP has been confirmed for release in the fork.
 
 ## Writing a new SIP
 
 Implementing a new SIP in this repository involves the following steps:
 
-1. **Create a new branch.** Create a branch for the SIP under the appropriate fork. For example, if you are implementing an SIP for the Amsterdam fork, create a branch `sips/amsterdam/sip-<SIP_NUMBER>`.
+1. **Create a new branch.** Create a branch for the SIP under the appropriate fork. For example, if you are implementing an SIP for the SilaAmsterdam fork, create a branch `sips/amsterdam/sip-<SIP_NUMBER>`.
 2. **Implement the SIP.** Implement the SIP in the `src/sila/forks/<FORK_NAME>/` folder. See [Writing Specs](writing_specs.md) for style rules and the `sila_spec_tools` CLI utilities (the *New Fork Tool* in particular).
 3. **Basic sanity checks.** Run `just static` to run formatting, linting, and spec-specific lints.
-4. **Raise a PR.** Raise a PR against the appropriate fork branch. For example, if you are implementing an SIP for Amsterdam, raise a PR against `forks/amsterdam`.
+4. **Raise a PR.** Raise a PR against the appropriate fork branch. For example, if you are implementing an SIP for SilaAmsterdam, raise a PR against `forks/amsterdam`.
 
-An SIP can only be CFI'd (Considered For Inclusion) if it has a reference EELS implementation. The SIP author is responsible for keeping their SIP up to date with the latest changes. For example, if an author had written their SIP for Prague under `sips/prague/sip-x`, but for some reason it didn't make it into Prague, they would need to rebase their SIP to reflect the changes in Amsterdam under `sips/amsterdam/sip-x`.
+An SIP can only be CFI'd (Considered For Inclusion) if it has a reference EELS implementation. The SIP author is responsible for keeping their SIP up to date with the latest changes. For example, if an author had written their SIP for SilaPrague under `sips/prague/sip-x`, but for some reason it didn't make it into SilaPrague, they would need to rebase their SIP to reflect the changes in SilaAmsterdam under `sips/amsterdam/sip-x`.
 
 A sample tutorial that walks through adding a new opcode to the specification is available on YouTube: [EELS tutorial](https://www.youtube.com/watch?v=QIcw_DGSy3s).
 

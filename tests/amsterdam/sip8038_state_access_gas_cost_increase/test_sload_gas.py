@@ -28,7 +28,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 def _measure_sload(slot: int, fork: Fork) -> CodeGasMeasure:

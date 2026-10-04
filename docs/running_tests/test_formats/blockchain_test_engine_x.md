@@ -31,7 +31,7 @@ Each file in the `pre_alloc` folder corresponds to a pre-allocation group identi
    "testCount": 88,
    "preAccountCount": 174,
    "testIds": ["test1", "test2", ...],
-   "network": "Prague",
+   "network": "SilaPrague",
    "chainId": "0x01",
    "groupHash": "0xb664b0d847df2cf7",
    "genesis": { ... },
@@ -44,7 +44,7 @@ Each file in the `pre_alloc` folder corresponds to a pre-allocation group identi
 - **`testCount`**: Number of tests in this pre-allocation group
 - **`preAccountCount`**: Number of accounts in the pre-allocation group
 - **`testIds`**: Array of test identifiers that belong to this group
-- **`network`**: Fork name (e.g., "Prague", "Cancun")
+- **`network`**: Fork name (e.g., "SilaPrague", "SilaCancun")
 - **`chainId`**: Chain id the group's genesis is configured for
 - **`groupHash`**: The group's own hash; matches the file name and the [`preHash`](#-prehash-string) of every test in the group
 - **`groupSalt`**: Optional isolation salt; only present for groups that were explicitly isolated
@@ -128,7 +128,7 @@ Fork configuration for the test. It is guaranteed that this field contains the s
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
+Optional; present from SilaCancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
 
 ### `FixtureEngineNewPayload`
 
@@ -141,4 +141,4 @@ Engine API payload structure identical to the one defined in [Blockchain Engine 
     - `--generate-all-formats` flag (automatically triggers 2-phase execution, generates all fixture formats)
 - The `pre_alloc` folder is essential and must be distributed with the test fixtures
 - Tests are grouped by identical (fork + environment + pre-allocation) combinations
-- The format is optimized for Engine API testing (post-Paris forks)
+- The format is optimized for Engine API testing (post-SilaParis forks)

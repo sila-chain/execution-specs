@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCodeSizeLimit/create2CodeSizeLimitFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 # Kept before SIP-7954: the fixed 15M gas transaction cannot fund the
 # SIP-8037 code-deposit state gas of a max-size contract (about 100M at
 # 64KiB). tests/amsterdam/sip7954_increase_max_contract_size covers the
@@ -120,7 +120,7 @@ def test_create2_code_size_limit(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_0: Account(
@@ -134,7 +134,7 @@ def test_create2_code_size_limit(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_0: Account(storage={0: 0, 1: 1}),

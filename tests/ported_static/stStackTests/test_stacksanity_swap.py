@@ -24,7 +24,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStackTests/stacksanitySWAPFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_stacksanity_swap(
     state_test: StateTestFiller,
     pre: Alloc,

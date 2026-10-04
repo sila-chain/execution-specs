@@ -17,7 +17,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRandom2/randomStatetest406Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_random_statetest406(
     state_test: StateTestFiller,
@@ -94,7 +94,7 @@ def test_random_statetest406(
         data=Bytes(
             "7f00000000000000000000000000000000000000000000000000000000000000007f000000000000000000000000945304eb96065b2a98b57a48a06ae28d285a71b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7f000000000000000000000000945304eb96065b2a98b57a48a06ae28d285a71b57ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7e7f000000000000000000000000945304eb96065b2a98b57a48a06ae28d285a71b58b8e99f33c647165337e389f7b9c909cba"  # noqa: E501
         ),
-        gas_limit=2100000 if fork >= Amsterdam else 100000,
+        gas_limit=2100000 if fork >= SilaAmsterdam else 100000,
         value=0x4527B6AD,
     )
 

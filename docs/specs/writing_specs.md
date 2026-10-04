@@ -188,7 +188,7 @@ Positional and flag arguments:
 - `optimized`: Patch the optimized code instead.
 - `tests`: Patch the tests instead.
 
-Example: apply changes made in `Frontier` to `Homestead` and `Tangerine Whistle`:
+Example: apply changes made in `Frontier` to `SilaHomestead` and `Tangerine Whistle`:
 
 ```bash
 uv run python src/sila_spec_tools/patch_tool.py frontier homestead tangerine_whistle

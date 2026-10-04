@@ -26,7 +26,7 @@ class SIP7516(BaseFork):
         # Get parent fork's opcode gas map
         base_map = super(SIP7516, cls).opcode_gas_map()
 
-        # Add Cancun-specific opcodes
+        # Add SilaCancun-specific opcodes
         return {
             **base_map,
             Opcodes.BLOBBASEFEE: gas_costs.BASE,

@@ -16,7 +16,7 @@ state_tests/stSystemOperationsTest/CallRecursiveBomb3Filler.json
 exact fork-derived replay of the recursion's gas flow (SIP-150 grants,
 returned-leftover propagation, warm/cold and SSTORE pricing via opcode
 metadata, SIP-8037 state-gas spill), validated against the ported
-Cancun depth. Under Amsterdam's revised storage-growth pricing even the
+SilaCancun depth. Under SilaAmsterdam's revised storage-growth pricing even the
 top level cannot afford its zero-to-one flag store at the ported
 budget, so the whole transaction reverts and the post pins empty
 storage.
@@ -197,7 +197,7 @@ def predict_recursion_storage(fork: Fork, tx_gas_limit: int) -> dict[int, int]:
 @pytest.mark.ported_from(
     ["state_tests/stSystemOperationsTest/CallRecursiveBomb3Filler.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_call_recursive_bomb3(
     state_test: StateTestFiller,
     pre: Alloc,

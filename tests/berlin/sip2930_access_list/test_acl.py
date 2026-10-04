@@ -21,7 +21,7 @@ from execution_testing import (
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2930.md"
 REFERENCE_SPEC_VERSION = "c9db53a936c5c9cbe2db32ba0d1b86c4c6e73534"
 
-pytestmark = pytest.mark.valid_from("Berlin")
+pytestmark = pytest.mark.valid_from("SilaBerlin")
 
 
 @pytest.mark.parametrize(

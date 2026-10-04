@@ -42,7 +42,7 @@ There is a special type of blockchain test that is used to test a fork transitio
 ```python
 from execution_testing.forks import TransitionFork
 
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_blob_type_tx_pre_fork(
     blockchain_test: BlockchainTestFiller,
     fork: TransitionFork,

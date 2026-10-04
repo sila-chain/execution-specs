@@ -563,7 +563,8 @@ def strip_fixture_format_from_node(
     (e.g., blockchain_test and blockchain_test_engine) share the same key.
 
     Example:
-        'test.py::test[fork_Osaka-state_test]' -> 'test.py::test[fork_Osaka]'
+        'test.py::test[fork_SilaOsaka-state_test]' ->
+        'test.py::test[fork_SilaOsaka]'
 
     """
     fixture_format_id_marker = item.get_closest_marker("fixture_format_id")

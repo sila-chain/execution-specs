@@ -17,7 +17,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stReturnDataTest/returndatacopy_following_revert_in_createFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_returndatacopy_following_revert_in_create(
     state_test: StateTestFiller,
@@ -77,7 +77,7 @@ def test_returndatacopy_following_revert_in_create(
         sender=sender,
         to=target,
         data=Bytes(""),
-        gas_limit=2100000 if fork >= Amsterdam else 100000,
+        gas_limit=2100000 if fork >= SilaAmsterdam else 100000,
     )
 
     post = {

@@ -20,7 +20,7 @@ from execution_testing import (
     compute_create_address,
     keccak256,
 )
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 
 from ...byzantium.sip198_modexp_precompile.helpers import ModExpInput
 from .helpers import vectors_from_file
@@ -38,7 +38,7 @@ REFERENCE_SPEC_VERSION = ref_spec_7883.version
 @SIPChecklist.Precompile.Test.Inputs.Valid()
 @SIPChecklist.Precompile.Test.InputLengths.Dynamic.Valid()
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.slow()
 def test_vectors_from_sip(
     state_test: StateTestFiller,
@@ -60,7 +60,7 @@ def test_vectors_from_sip(
     ids=lambda v: v.name,
 )
 @SIPChecklist.Precompile.Test.Inputs.Invalid()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_vectors_from_legacy_tests(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -102,7 +102,7 @@ def test_vectors_from_legacy_tests(
     ids=[""],
 )
 @SIPChecklist.Precompile.Test.Inputs.AllZeros
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_modexp_invalid_inputs(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -186,7 +186,7 @@ def test_modexp_invalid_inputs(
     ids=[""],
 )
 @SIPChecklist.Precompile.Test.Inputs.Invalid()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_modexp_legacy_oversized_inputs(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -254,7 +254,7 @@ def test_modexp_legacy_oversized_inputs(
 @SIPChecklist.Precompile.Test.Inputs.Invalid.Corrupted()
 @SIPChecklist.Precompile.Test.Inputs.Invalid()
 @SIPChecklist.Precompile.Test.InputLengths.Dynamic.TooLong()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_modexp_boundary_inputs(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -288,7 +288,7 @@ def test_modexp_boundary_inputs(
 @SIPChecklist.Precompile.Test.CallContexts.Delegate()
 @SIPChecklist.Precompile.Test.CallContexts.Callcode()
 @SIPChecklist.Precompile.Test.CallContexts.Normal()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_modexp_call_operations(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -338,7 +338,7 @@ def test_modexp_call_operations(
 )
 @SIPChecklist.Precompile.Test.GasUsage.Dynamic()
 @SIPChecklist.Precompile.Test.ExcessiveGasUsage()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_modexp_gas_usage_contract_wrapper(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -391,7 +391,7 @@ def test_modexp_gas_usage_contract_wrapper(
 )
 @SIPChecklist.Precompile.Test.CallContexts.TxEntry()
 @SIPChecklist.Precompile.Test.ValueTransfer.NoFee()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.eels_base_coverage
 def test_modexp_used_in_transaction_entry_points(
     state_test: StateTestFiller,
@@ -424,7 +424,7 @@ def test_modexp_used_in_transaction_entry_points(
     ],
 )
 @SIPChecklist.Precompile.Test.CallContexts.Initcode()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_contract_creation_transaction(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -493,7 +493,7 @@ def test_contract_creation_transaction(
 )
 @pytest.mark.parametrize("opcode", [Op.CREATE, Op.CREATE2])
 @SIPChecklist.Precompile.Test.CallContexts.Initcode.CREATE()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_contract_initcode(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -780,7 +780,7 @@ def create_modexp_variable_gas_test_cases() -> Generator:
 )
 @SIPChecklist.Precompile.Test.InputLengths.Zero()
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.eels_base_coverage
 def test_modexp_variable_gas_cost(
     state_test: StateTestFiller,
@@ -792,7 +792,7 @@ def test_modexp_variable_gas_cost(
     post: Dict,
 ) -> None:
     """Test ModExp variable gas cost."""
-    if fork >= Osaka:  # Check that gas used defined in table is accurate
+    if fork >= SilaOsaka:  # Check that gas used defined in table is accurate
         assert (gas_usage is None) or (precompile_gas >= gas_usage), (
             "inconsistent gas usage"
         )
@@ -812,7 +812,7 @@ def test_modexp_variable_gas_cost(
         ),
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_modexp_variable_gas_cost_exceed_tx_gas_cap(
     state_test: StateTestFiller, pre: Alloc, tx: Transaction, post: Dict
 ) -> None:

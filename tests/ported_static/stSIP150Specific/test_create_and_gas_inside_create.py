@@ -52,7 +52,7 @@ MEM_EXPANSION_BYTES = 0x20
         "state_tests/stMemExpandingEIP150Calls/CreateAndGasInsideCreateWithMemExpandingCallsFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "memory_expansion", [False, True], ids=["flat", "mem_expansion"]
 )

@@ -50,7 +50,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_8282.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8282.version
 
 pytestmark = [
-    pytest.mark.valid_from("Amsterdam"),
+    pytest.mark.valid_from("SilaAmsterdam"),
     pytest.mark.with_all_system_contract_request_types(
         selector=lambda cls: issubclass(cls, FeeSystemContractRequest)
     ),

@@ -181,7 +181,7 @@ The `consume sync` command:
 | Simulator      | `eels/build-block`       |
 | Fixture format | `blockchain_test_engine` |
 
-The block-building method tests the **producer-side** of an execution client: rather than asking the client to validate and import a pre-built block, it asks the client to build a block from inputs (parent, payload attributes, transactions) and then validates the resulting block field-by-field against the fixture's expected block. This exercises tx ordering, gas accounting, payload assembly, and (for fork ≥ Prague) `executionRequests` derivation.
+The block-building method tests the **producer-side** of an execution client: rather than asking the client to validate and import a pre-built block, it asks the client to build a block from inputs (parent, payload attributes, transactions) and then validates the resulting block field-by-field against the fixture's expected block. This exercises tx ordering, gas accounting, payload assembly, and (for fork ≥ SilaPrague) `executionRequests` derivation.
 
 The endpoint used is `testing_buildBlockV1`, an engine-API testing-namespace method exposed by `ethpandaops/<client>:master` (and similar performance builds). It is not part of the standard Engine API — the testing namespace is opt-in and intended for fixture-driven block-building verification.
 
@@ -189,7 +189,7 @@ The `build-block` command, for each valid payload in the fixture:
 
 1. **Builds the block** via `testing_buildBlockV1(parent_hash, payload_attributes, transactions, extra_data)`. The client returns its own constructed `ExecutionPayload`.
 2. **Validates execution-dependent fields** of the built payload against the fixture's expected payload (everything except `gas_limit` and `block_hash`, which depend on client-side SIP-1559 elasticity and are validated via a range check separately).
-3. **Validates `executionRequests`** for fork ≥ Prague (`engine_newPayloadV4+`).
+3. **Validates `executionRequests`** for fork ≥ SilaPrague (`engine_newPayloadV4+`).
 4. **Imports the fixture block** (not the client-built one) via `engine_newPayloadVX` so the chain advances with the fixture's expected gas limit and block hash.
 5. **Advances the chain** via `engine_forkchoiceUpdatedVX`.
 
@@ -208,7 +208,7 @@ Clients consume fixtures in the `eels/consume-engine` simulator via the Engine A
 |                         | `eels/consume-rlp`                                    | `eels/consume-engine`                                              |
 | ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------------ |
 | **Fixture Format Used** | [`BlockchainTest`](./test_formats/blockchain_test.md) | [`BlockchainTestEngine`](./test_formats/blockchain_test_engine.md) |
-| **Fork support**        | All forks (including pre-merge)                       | Post-merge forks only (Paris+)                                     |
+| **Fork support**        | All forks (including pre-merge)                       | Post-merge forks only (SilaParis+)                                     |
 | **Client code path**    | Historical sync / block import pipeline               | Engine API / consensus integration                                 |
 | **Real-world analogy**  | Blocks received during sync                           | Blocks received from consensus client                              |
 | **Interface**           | Block import upon start-up via RLP files              | Engine API calls (`newPayload`, `forkchoiceUpdated`)               |

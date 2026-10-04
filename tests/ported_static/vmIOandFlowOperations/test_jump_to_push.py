@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmIOandFlowOperations/jumpToPushFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -1680,7 +1680,7 @@ def test_jump_to_push(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_95: Account(storage={0: 0})},
         },
         {
@@ -1716,7 +1716,7 @@ def test_jump_to_push(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_95: Account(storage={0: 1})},
         },
     ]

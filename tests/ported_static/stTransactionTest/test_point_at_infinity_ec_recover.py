@@ -24,7 +24,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/PointAtInfinityECRecoverFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_point_at_infinity_ec_recover(
     state_test: StateTestFiller,

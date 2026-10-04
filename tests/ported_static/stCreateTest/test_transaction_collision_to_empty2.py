@@ -31,7 +31,7 @@ PREFUND = 10
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/TransactionCollisionToEmpty2Filler.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize("oog", [False, True], ids=["enough-gas", "oog"])
 @pytest.mark.parametrize("tx_value", [0, 1], ids=["v0", "v1"])
 def test_transaction_collision_to_empty2(

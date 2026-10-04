@@ -2,7 +2,7 @@
 Test SIP-7702 SetCode authorization state gas under the SIP-2780
 top-frame charge model.
 
-Under SIP-2780 (Amsterdam) an authorization's intrinsic cost is only the
+Under SIP-2780 (SilaAmsterdam) an authorization's intrinsic cost is only the
 state-independent ``EXECUTION_PER_AUTH_BASE_COST``; there is no intrinsic
 auth state gas and there are no auth refunds. The state-dependent costs
 are charged lazily at the top frame in ``set_delegation``, keyed on each
@@ -27,7 +27,7 @@ For a value-free type-4 transaction whose recipient runs code ``code``:
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
 (https://sips.sila.org/SIPS/sip-8037); the ``valid_from("SIP8037")``
-markers resolve to Amsterdam, where SIP-2780 governs the charge model.
+markers resolve to SilaAmsterdam, where SIP-2780 governs the charge model.
 """
 
 import pytest

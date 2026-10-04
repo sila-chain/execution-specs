@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStaticCall/static_callcall_00_OOGEFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -194,7 +194,7 @@ def test_static_callcall_00_ooge(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr: Account(storage={0: 1, 1: 0, 2: 0}),
                 addr_2: Account(storage={1: 0, 2: 0}),
@@ -204,7 +204,7 @@ def test_static_callcall_00_ooge(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_4: Account(storage={0: 1, 1: 0, 2: 0}),
                 addr_5: Account(storage={1: 0, 2: 0}),

@@ -10,7 +10,7 @@ intrinsic and lowers it for this non-self, non-value tx, so the balance
 is derived from the fork: ``intrinsic_delta`` subtracts the pre-SIP-2780
 baseline intrinsic 21_000 from the fork's intrinsic calculator (the
 literal 21_000 is the old TX_BASE), making the delta 0 pre-SIP-2780 and
-negative on Amsterdam. The sender balance is then adjusted by
+negative on SilaAmsterdam. The sender balance is then adjusted by
 ``gas_price * intrinsic_delta`` (base fee 10). Do not hardcode it.
 """
 
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refund_singleSuicideFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_refund_single_suicide(
     state_test: StateTestFiller,
@@ -138,7 +138,7 @@ def test_refund_single_suicide(
     )
 
     # SIP-2780 lowers the intrinsic for non-self non-value txs; the
-    # delta is negative on Amsterdam and raises the sender balance by
+    # delta is negative on SilaAmsterdam and raises the sender balance by
     # ``gas_price * |delta|``.
     intrinsic_delta = fork.transaction_intrinsic_cost_calculator()() - 21_000
     post = {

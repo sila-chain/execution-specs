@@ -39,12 +39,12 @@ export HIVE_SIMULATOR=http://127.0.0.1:3000
 and running:
 
 ```bash
-uv run execute hive --fork=Cancun
+uv run execute hive --fork=SilaCancun
 ```
 
 If the command above leads to errors such as `ImportError: Error importing plugin "pytest_plugins.execute.rpc.hive": No module named 'hive.client'` run the following to fix it: `uv run eest clean --all`.
 
-This will execute all available tests in the `tests` directory on the `Cancun` fork by connecting to the hive server running on `http://127.0.0.1:3000` and launching a single client with the appropriate genesis file.
+This will execute all available tests in the `tests` directory on the `SilaCancun` fork by connecting to the hive server running on `http://127.0.0.1:3000` and launching a single client with the appropriate genesis file.
 
 The genesis file is passed to the client with the appropriate configuration for the fork schedule, system contracts and pre-allocated seed account.
 
@@ -59,14 +59,14 @@ Clients that implement the `testing_buildBlockV1` endpoint can use it as an alte
 To enable this route, pass the `--use-testing-build-block` flag:
 
 ```bash
-uv run execute hive --fork=Prague --use-testing-build-block
+uv run execute hive --fork=SilaPrague --use-testing-build-block
 ```
 
 Or in dev mode:
 
 ```bash
 ./hive --dev --client go-sila
-uv run execute hive --fork=Prague --use-testing-build-block
+uv run execute hive --fork=SilaPrague --use-testing-build-block
 ```
 
 This is useful when:

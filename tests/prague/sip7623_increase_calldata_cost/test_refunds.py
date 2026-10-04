@@ -19,7 +19,7 @@ from execution_testing import (
     Transaction,
     TransactionReceipt,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 
 from .helpers import DataTestType
 from .spec import ref_spec_7623
@@ -27,7 +27,7 @@ from .spec import ref_spec_7623
 REFERENCE_SPEC_GIT_PATH = ref_spec_7623.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7623.version
 
-ENABLE_FORK = Prague
+ENABLE_FORK = SilaPrague
 pytestmark = [pytest.mark.valid_from(str(ENABLE_FORK))]
 
 

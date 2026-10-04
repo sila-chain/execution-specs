@@ -16,7 +16,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stInitCodeTest/StackUnderFlowContractCreationFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_stack_under_flow_contract_creation(
     state_test: StateTestFiller,
@@ -51,7 +51,7 @@ def test_stack_under_flow_contract_creation(
         sender=sender,
         to=None,
         data=Op.PUSH1[0x0] + Op.CALL,
-        gas_limit=2072000 if fork >= Amsterdam else 72000,
+        gas_limit=2072000 if fork >= SilaAmsterdam else 72000,
     )
 
     post = {

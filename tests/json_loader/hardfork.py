@@ -25,7 +25,7 @@ class TestHardfork(Hardfork):
             return "SIP150"
         elif self.title_case_name == "Spurious Dragon":
             return "SIP158"
-        elif self.title_case_name == "Constantinople":
-            return "ConstantinopleFix"
+        elif self.title_case_name == "Sila Constantinople":
+            return "SilaConstantinopleFix"
         else:
-            return self.title_case_name
+            return self.title_case_name.replace(" ", "")

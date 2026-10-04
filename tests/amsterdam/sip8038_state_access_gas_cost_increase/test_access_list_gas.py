@@ -6,7 +6,7 @@ Covers the SIP-8038 access-list repricing:
 * The intrinsic surcharge per access-list entry is
   ``TX_ACCESS_LIST_ADDRESS`` per address and
   ``TX_ACCESS_LIST_STORAGE_KEY`` per storage key, isolated from
-  the SIP-7981 calldata-floor tokens that the Amsterdam intrinsic
+  the SIP-7981 calldata-floor tokens that the SilaAmsterdam intrinsic
   calculator also charges on access-list bytes.
 * A storage slot named in the access list is *warm* on its first runtime
   access (``SLOAD``/``SSTORE`` pays ``WARM_SLOAD`` rather than the cold
@@ -39,7 +39,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 def _make_access_list(
@@ -80,7 +80,7 @@ def test_access_list_intrinsic_surcharge(
     The transaction is handed a ``gas_limit`` equal to its intrinsic and
     sent to a codeless recipient, so it runs nothing and the receipt
     accounts for the intrinsic alone — including the per-entry surcharge
-    and the SIP-7981 floor tokens the Amsterdam calculator charges on
+    and the SIP-7981 floor tokens the SilaAmsterdam calculator charges on
     access-list bytes. Pinning every shape pins the per-entry increments
     as the differences between them, duplicate entries included: the
     ``duplicate_addr`` shape lists one address twice and is billed twice.

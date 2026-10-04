@@ -41,7 +41,7 @@ REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2929.md"
 REFERENCE_SPEC_VERSION = "0e11417265a623adb680c527b15d0cb6701b870b"
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "create_opcode",
     [
@@ -176,7 +176,7 @@ def test_create_insufficient_balance(
     )
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "create_opcode",
     [

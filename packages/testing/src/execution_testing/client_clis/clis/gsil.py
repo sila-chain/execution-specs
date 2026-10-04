@@ -161,7 +161,7 @@ class GsilExceptionMapper(ExceptionMapper):
         # https://sips.sila.org/SIPS/sip-6110#block-validity
         #
         # EELS definition for `is_valid_deposit_event_data`:
-        # https://github.com/sila/execution-specs/blob/5ddb904fa7ba27daeff423e78466744c51e8cb6a/src/sila/forks/prague/requests.py#L51
+        # https://github.com/sila/execution-specs/blob/5ddb904fa7ba27daeff423e78466744c51e8cb6a/src/sila/forks/sila_prague/requests.py#L51
         # BAL Exceptions
         BlockException.INVALID_BAL_HASH: (
             r"invalid block access list:|"

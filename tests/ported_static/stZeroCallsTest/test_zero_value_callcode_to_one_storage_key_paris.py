@@ -38,7 +38,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stZeroCallsTest/ZeroValue_CALLCODE_ToOneStorageKey_ParisFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_zero_value_callcode_to_one_storage_key_paris(
     state_test: StateTestFiller,
@@ -85,7 +85,7 @@ def test_zero_value_callcode_to_one_storage_key_paris(
         address=Address(0xA93AE635B4FA4D618045C019AC32ED9ADC8F54EA),  # noqa: E501
     )
 
-    # Preserve Cancun's post-intrinsic execution budget across
+    # Preserve SilaCancun's post-intrinsic execution budget across
     # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.

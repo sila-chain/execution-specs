@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmIOandFlowOperations/mloadFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -146,7 +146,7 @@ def test_mload(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(
                     storage={
@@ -157,7 +157,7 @@ def test_mload(
         },
         {
             "indexes": {"data": [1, 2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={0: 2989})},
         },
     ]

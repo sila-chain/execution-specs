@@ -207,8 +207,8 @@ def get_bpo_sibling_forks(
 
     BPO (Blob Parameter Only) forks form a chain hanging off the fork
     they extend (e.g. the `BPO3`/`BPO4`/`BPO5` chain branches off `BPO2`).
-    A later fork such as `Amsterdam` descends from that same `BPO2` on a
-    parallel branch, so an ancestry-based `--until=Amsterdam` range never
+    A later fork such as `SilaAmsterdam` descends from that same `BPO2` on a
+    parallel branch, so an ancestry-based `--until=SilaAmsterdam` range never
     reaches the BPO chain. Return those siblings, bounded below by
     `forks_from`, so filling until such a fork still exercises the
     blob-parameter paths the BPO forks cover.
@@ -355,9 +355,10 @@ def get_relative_fork_markers(
     """
     Return a list of marker names for a given fork.
 
-    For a base fork (e.g. `Shanghai`), return [ `Shanghai` ]. For a transition
-    fork (e.g. `ShanghaiToCancunAtTime15k` which transitions to `Cancun`),
-    return [ `ShanghaiToCancunAtTime15k`, `Cancun` ].
+    For a base fork (e.g. `SilaShanghai`), return [ `SilaShanghai` ]. For a
+    transition fork (e.g. `SilaShanghaiToSilaCancunAtTime15k` which transitions
+    to `SilaCancun`), return [ `SilaShanghaiToSilaCancunAtTime15k`,
+    `SilaCancun` ].
 
     If `strict_mode` is set to `True`, raise an `InvalidForkError` if the fork
     is not found, otherwise, simply return the provided (str) `fork_identifier`
@@ -438,10 +439,11 @@ class ForkRangeDescriptor(BaseModel):
         Validate the fork range descriptor from a string.
 
         Examples:
-          - ">=Osaka" validates to {greater_equal=Osaka, less_than=None}
+          - ">=SilaOsaka" validates to {greater_equal=SilaOsaka,
+          less_than=None}
 
-          - ">=Prague<Osaka" validates to {greater_equal=Prague,
-                                           less_than=Osaka}
+          - ">=SilaPrague<SilaOsaka" validates to {greater_equal=SilaPrague,
+                                           less_than=SilaOsaka}
 
         """
         if isinstance(v, str):

@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stReturnDataTest/returndatasize_initial_zero_readFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [

@@ -3,7 +3,7 @@
 import pytest
 
 from execution_testing.base_types import Address
-from execution_testing.forks.forks.forks import Prague
+from execution_testing.forks.forks.forks import SilaPrague
 
 from ..opcodes import Bytecode
 from ..opcodes import Macros as Om
@@ -576,7 +576,7 @@ def test_placeholder_bytes_guard() -> None:
     # Length and gas cost remain available, which is what makes the
     # measure-then-substitute pattern possible
     assert len(code) == len(reference)
-    assert code.gas_cost(Prague) == reference.gas_cost(Prague)
+    assert code.gas_cost(SilaPrague) == reference.gas_cost(SilaPrague)
 
     # Once every slot is filled the conversion succeeds
     code.substitute(value=0x1234)

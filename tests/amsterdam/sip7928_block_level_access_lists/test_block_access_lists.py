@@ -46,7 +46,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 SYSTEM_ADDRESS = Address(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE)
 
 
@@ -635,7 +635,7 @@ def test_bal_selfdestruct_to_coinbase(
     """
     Ensure BAL records SELFDESTRUCT when the beneficiary is the coinbase.
 
-    Post-Cancun (SIP-6780) the contract is only actually destroyed when
+    Post-SilaCancun (SIP-6780) the contract is only actually destroyed when
     created in the same tx; the pre-deployed path only transfers balance
     and preserves the contract. Both shapes must appear in BAL.
     """
@@ -693,7 +693,7 @@ def test_bal_selfdestruct_to_coinbase(
     else:
         victim = pre.deploy_contract(code=victim_code, balance=victim_balance)
         tx_target = victim
-        # Pre-deployed and not same-tx: post-Cancun preserves the contract.
+        # Pre-deployed and not same-tx: post-SilaCancun preserves the contract.
         post = {
             victim: Account(balance=0, code=victim_code),
             coinbase: Account(balance=victim_balance),

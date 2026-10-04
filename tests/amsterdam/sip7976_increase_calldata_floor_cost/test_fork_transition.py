@@ -1,7 +1,7 @@
 """
 Fork-transition tests for SIP-7976.
 
-SIP-7976 raises the calldata floor price at the Amsterdam fork
+SIP-7976 raises the calldata floor price at the SilaAmsterdam fork
 boundary: the SIP-7623 floor of 10 gas per token (10/40 per zero or
 non-zero byte) becomes 16 gas per floor token with floor tokens counted
 uniformly as four per calldata byte (64/64). These tests send identical
@@ -94,7 +94,7 @@ def test_floor_cost_across_amsterdam_transition(
     data: bytes,
 ) -> None:
     """
-    Pin the SIP-7976 floor increase across the Amsterdam boundary.
+    Pin the SIP-7976 floor increase across the SilaAmsterdam boundary.
 
     The same data-heavy transaction to an existing EOA (no EVM
     execution) is sent in a pre-fork block and a post-fork block with

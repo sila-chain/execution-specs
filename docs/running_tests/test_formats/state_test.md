@@ -66,11 +66,11 @@ Chain configuration object.
 
 ### `FixtureConfig`
 
-At the moment this object can contain only the `blobSchedule` that is necessary to apply the correct cap to the maximum amount of blobs that a transaction can have. Otherwise, in forks prior to Cancun for example, it will be an empty JSON object.
+At the moment this object can contain only the `blobSchedule` that is necessary to apply the correct cap to the maximum amount of blobs that a transaction can have. Otherwise, in forks prior to SilaCancun for example, it will be an empty JSON object.
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
+Optional; present from SilaCancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
 
 ### `FixtureEnvironment`
 
@@ -94,15 +94,15 @@ Difficulty of the block where the transaction is executed.
 
 Timestamp of the block where the transaction is executed.
 
-#### - `currentBaseFee`: [`ZeroPaddedHexNumber`](./common_types.md#zeropaddedhexnumber) `(fork: London)`
+#### - `currentBaseFee`: [`ZeroPaddedHexNumber`](./common_types.md#zeropaddedhexnumber) `(fork: SilaLondon)`
 
 Base fee of the block where the transaction is executed.
 
-#### - `currentRandom`: [`Hash`](./common_types.md#hash) `(fork: Paris)`
+#### - `currentRandom`: [`Hash`](./common_types.md#hash) `(fork: SilaParis)`
 
 Randao value of the block where the transaction is executed.
 
-#### - `currentExcessBlobGas`: [`ZeroPaddedHexNumber`](./common_types.md#zeropaddedhexnumber) `(fork: Cancun)`
+#### - `currentExcessBlobGas`: [`ZeroPaddedHexNumber`](./common_types.md#zeropaddedhexnumber) `(fork: SilaCancun)`
 
 Excess blob gas of the block where the transaction is executed.
 
@@ -144,15 +144,15 @@ List of values used on each indexed test combination
 
 List of data bytes used on each indexed test combination
 
-#### - `accessLists`: [`List`](./common_types.md#list)`[`[`List`](./common_types.md#list)`[`[`Mapping`](./common_types.md#mapping)`[`[`Address`](./common_types.md#address)`,`[`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]]]]` `(fork: Berlin)`
+#### - `accessLists`: [`List`](./common_types.md#list)`[`[`List`](./common_types.md#list)`[`[`Mapping`](./common_types.md#mapping)`[`[`Address`](./common_types.md#address)`,`[`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]]]]` `(fork: SilaBerlin)`
 
 List of account access lists used on each indexed test combination (Transaction types 1, 2 & 3)
 
-#### - `maxFeePerBlobGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: Cancun)`
+#### - `maxFeePerBlobGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: SilaCancun)`
 
 Max fee per blob gas to pay (Transaction type 3)
 
-#### - `blobVersionedHashes`: [`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]` `(fork: Cancun)`
+#### - `blobVersionedHashes`: [`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]` `(fork: SilaCancun)`
 
 List of blob versioned hashes the transaction includes (Transaction type 3)
 

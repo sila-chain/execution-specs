@@ -18,14 +18,14 @@ from execution_testing import (
     compute_create2_address,
     keccak256,
 )
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 
 from tests.benchmark.helper.account_verification import (
     AccountExpectation,
     register_target_range,
 )
 
-DEFAULT_CODE_SIZE = Osaka.max_code_size()
+DEFAULT_CODE_SIZE = SilaOsaka.max_code_size()
 
 ADDRESS_MASK = (1 << 160) - 1
 
@@ -94,7 +94,7 @@ class StopJumpdestInitcode(ContractInitcode):
     """
     Initcode for a JUMPDEST-filled runtime contract starting with STOP.
 
-    If `code_size` is not supplied, Osaka max code size will
+    If `code_size` is not supplied, SilaOsaka max code size will
     be used, resulting in:
 
         offset    size   contents

@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStaticCall/static_CallEcrecover0_0inputFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -142,17 +142,17 @@ def test_static_call_ecrecover0_0input(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 8, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={2: 0})},
         },
         {
             "indexes": {"data": [0, 1, 4, 5, 6, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={2: 1})},
         },
         {
             "indexes": {"data": 2, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -164,7 +164,7 @@ def test_static_call_ecrecover0_0input(
         },
         {
             "indexes": {"data": 3, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={

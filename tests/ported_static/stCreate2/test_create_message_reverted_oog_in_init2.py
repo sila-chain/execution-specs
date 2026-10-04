@@ -40,7 +40,7 @@ STORE_SPARE = 1_000
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/CreateMessageRevertedOOGInInit2Filler.json"],
 )
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.parametrize(
     "child_covered",
     [

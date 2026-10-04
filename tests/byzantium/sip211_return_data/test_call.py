@@ -16,7 +16,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_211.git_path
 REFERENCE_SPEC_VERSION = ref_spec_211.version
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_call_clears_return_data_on_insufficient_balance(
     pre: Alloc,
     state_test: StateTestFiller,

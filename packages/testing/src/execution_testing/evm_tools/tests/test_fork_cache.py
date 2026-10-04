@@ -36,8 +36,8 @@ class DummyTemporaryFork:
 
 
 def _template() -> Hardfork:
-    """Return the Amsterdam fork template."""
-    return Hardfork(importlib.import_module("sila.forks.amsterdam"))
+    """Return the SilaAmsterdam fork template."""
+    return Hardfork(importlib.import_module("sila.forks.sila_amsterdam"))
 
 
 def _seen_overrides(seen: dict[str, Any]) -> ForkOverrides:

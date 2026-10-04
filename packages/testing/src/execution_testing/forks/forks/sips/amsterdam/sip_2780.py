@@ -244,7 +244,7 @@ class SIP2780(BaseFork):
 
         SIP-2780 charges each authorization's state-dependent cost at the
         top frame, keyed on the authority's pre-transaction state, with no
-        refund. The Prague-era ``AUTHORIZATION_EXISTING_AUTHORITY`` refund
+        refund. The SilaPrague-era ``AUTHORIZATION_EXISTING_AUTHORITY`` refund
         therefore no longer applies.
         """
         return [

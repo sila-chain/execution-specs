@@ -3,7 +3,7 @@ Measure the gas cost of PUSH0 and of PUSH1 0x00: each case asserts its own
 fork-derived cost, which togsiler demonstrate PUSH0 is the cheaper encoding.
 
 Ported from:
-state_tests/Shanghai/stEIP3855_push0/push0Gas2Filler.yml
+state_tests/SilaShanghai/stEIP3855_push0/push0Gas2Filler.yml
 
 @manually-enhanced: Do not overwrite. Opcode gas via CodeGasMeasure.
 """
@@ -25,9 +25,9 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/Shanghai/stEIP3855_push0/push0Gas2Filler.yml"],
+    ["state_tests/SilaShanghai/stEIP3855_push0/push0Gas2Filler.yml"],
 )
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 @pytest.mark.parametrize(
     "opcode",
     [Op.PUSH0, Op.PUSH1[0x00]],

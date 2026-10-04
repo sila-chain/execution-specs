@@ -2,7 +2,7 @@
 
 This guide describes how to get started with `fill` and commonly-used command-line options.
 
-1. Explore test cases via `--collect-only` and search for test cases that combine `PUSH0` and `DELEGATECALL` in the EVM functionality introduced in the Shanghai hard fork:
+1. Explore test cases via `--collect-only` and search for test cases that combine `PUSH0` and `DELEGATECALL` in the EVM functionality introduced in the SilaShanghai hard fork:
 
     ```console
     uv run fill --collect-only -k "push0 and delegatecall" tests/shanghai/

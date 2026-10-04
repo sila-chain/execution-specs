@@ -27,7 +27,7 @@ from .spec import (
 REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Prague")
+pytestmark = pytest.mark.valid_at_transition_to("SilaPrague")
 
 
 @pytest.fixture
@@ -99,7 +99,7 @@ def test_precompile_before_fork(
     tx: Transaction,
 ) -> None:
     """
-    Test all BLS12 precompiles before the Prague hard fork is active.
+    Test all BLS12 precompiles before the SilaPrague hard fork is active.
 
     The call must succeed but the output must be empty.
     """

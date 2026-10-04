@@ -76,9 +76,9 @@ class ForkedPayload(SSZModel):
     ) = None
 
     __ssz_schema__ = SSZForkSchema(
-        base_fork="Paris",
+        base_fork="SilaParis",
         base=("parent_hash", "block_number"),
-        appended={"Shanghai": ("withdrawals",)},
+        appended={"SilaShanghai": ("withdrawals",)},
     )
 
 
@@ -268,17 +268,19 @@ def test_write_vectors_emits_consensus_tree(tmp_path: Path) -> None:
 def test_fork_scoped_vectors(tmp_path: Path) -> None:
     """(model, fork) entries emit per-fork projections under fork dirs."""
     written = write_vectors(
-        [(ForkedPayload, "Paris"), (ForkedPayload, "Shanghai")],
+        [(ForkedPayload, "SilaParis"), (ForkedPayload, "SilaShanghai")],
         tmp_path,
         count=1,
     )
     assert written == 2 * 7  # all 7 suites x 1 case, per fork entry
-    paris_zero = tmp_path / "ForkedPayload" / "Paris" / "ssz_zero" / "case_0"
+    paris_zero = (
+        tmp_path / "ForkedPayload" / "SilaParis" / "ssz_zero" / "case_0"
+    )
     raw = (paris_zero / "serialized.ssz").read_bytes()
-    restored = decode(ForkedPayload, raw, fork="Paris")
+    restored = decode(ForkedPayload, raw, fork="SilaParis")
     assert restored.withdrawals is None  # beyond-fork field absent
     shanghai_zero = (
-        tmp_path / "ForkedPayload" / "Shanghai" / "ssz_zero" / "case_0"
+        tmp_path / "ForkedPayload" / "SilaShanghai" / "ssz_zero" / "case_0"
     )
     assert (shanghai_zero / "roots.yaml").is_file()
 

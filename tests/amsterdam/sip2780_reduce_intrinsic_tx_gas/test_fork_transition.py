@@ -1,7 +1,7 @@
 """
 Fork-transition tests for SIP-2780.
 
-SIP-2780 reshapes the intrinsic transaction cost at the Amsterdam fork
+SIP-2780 reshapes the intrinsic transaction cost at the SilaAmsterdam fork
 boundary. These tests send identical transactions in a pre-fork block
 and a post-fork block (straddling the transition timestamp) and assert
 that the per-transaction gas paid changes by the SIP-2780 amount only
@@ -47,7 +47,7 @@ from .spec import ref_spec_2780
 REFERENCE_SPEC_GIT_PATH = ref_spec_2780.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2780.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Amsterdam")
+pytestmark = pytest.mark.valid_at_transition_to("SilaAmsterdam")
 
 # Transition forks switch at timestamp 15_000.
 PRE_FORK_TIMESTAMP = 14_999
@@ -78,10 +78,10 @@ def test_intrinsic_reduction_across_amsterdam_transition(
     value: int,
 ) -> None:
     """
-    Pin the SIP-2780 intrinsic change across the Amsterdam boundary.
+    Pin the SIP-2780 intrinsic change across the SilaAmsterdam boundary.
 
-    The same transaction shape is sent in a pre-fork block (Osaka
-    rules, flat 21_000 intrinsic) and a post-fork block (Amsterdam
+    The same transaction shape is sent in a pre-fork block (SilaOsaka
+    rules, flat 21_000 intrinsic) and a post-fork block (SilaAmsterdam
     rules, decomposed intrinsic). Each block uses a distinct sender so
     its post-tx balance pins the fork-appropriate intrinsic; the
     recipient is an existing EOA (or the sender itself for
@@ -180,7 +180,7 @@ def test_creation_tx_intrinsic_across_amsterdam_transition(
     value: int,
 ) -> None:
     """
-    Pin the SIP-2780 creation-transaction change across the Amsterdam
+    Pin the SIP-2780 creation-transaction change across the SilaAmsterdam
     boundary.
 
     The same creation transaction (``to=None``, ``STOP`` init code that
@@ -288,7 +288,7 @@ def test_setcode_tx_across_amsterdam_transition(
     fork: TransitionFork,
 ) -> None:
     """
-    Pin the SIP-2780 authorization repricing across the Amsterdam
+    Pin the SIP-2780 authorization repricing across the SilaAmsterdam
     boundary.
     """
     gas_price = 1_000_000_000
@@ -397,7 +397,7 @@ def test_intrinsic_validity_across_amsterdam_transition(
     recipient_type: RecipientType,
 ) -> None:
     """
-    Pin the intrinsic-validity flip across the Amsterdam boundary.
+    Pin the intrinsic-validity flip across the SilaAmsterdam boundary.
 
     A zero-value call to an existing EOA needs the flat pre-fork
     ``TX_BASE`` but only the decomposed ``TX_BASE + COLD_ACCOUNT_ACCESS``

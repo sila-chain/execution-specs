@@ -36,7 +36,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stTransactionTest/TransactionToAddressh160minusOneFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_transaction_to_addressh160minus_one(
     state_test: StateTestFiller,

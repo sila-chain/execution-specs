@@ -30,8 +30,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stPreCompiledContracts/modexpTestsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -956,7 +956,7 @@ def test_modexp_tests(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 0, 1: 1})},
         },
         {
@@ -1013,72 +1013,72 @@ def test_modexp_tests(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 1, 1: 1})},
         },
         {
             "indexes": {"data": [113], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 43, 1: 1})},
         },
         {
             "indexes": {"data": [114], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 26625, 1: 1})},
         },
         {
             "indexes": {"data": [115], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 27, 1: 1})},
         },
         {
             "indexes": {"data": [117], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 34325, 1: 1})},
         },
         {
             "indexes": {"data": [116], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 7227, 1: 1})},
         },
         {
             "indexes": {"data": [118], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 0, 1: 1})},
         },
         {
             "indexes": {"data": [119], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 16000, 1: 1})},
         },
         {
             "indexes": {"data": [120, 121], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 0, 1: 1})},
         },
         {
             "indexes": {"data": [122], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 7227, 1: 1})},
         },
         {
             "indexes": {"data": [123], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 80, 1: 1})},
         },
         {
             "indexes": {"data": [124], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 95, 1: 1})},
         },
         {
             "indexes": {"data": [125], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 39936, 1: 1})},
         },
         {
             "indexes": {"data": [126], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 34410, 1: 1})},
         },
     ]

@@ -299,7 +299,7 @@ def test_blockchain_via_build(
     For each valid payload in the fixture:
     1. Build a block via ``testing_buildBlockV1``
     2. Validate execution-dependent fields + gas limit range
-    3. Validate execution_requests for fork >= Prague (V4+)
+    3. Validate execution_requests for fork >= SilaPrague (V4+)
     4. Import the fixture block via ``engine_newPayloadVX``
     5. Advance the chain via ``engine_forkchoiceUpdatedVX``
     """

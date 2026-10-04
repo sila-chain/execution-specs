@@ -960,10 +960,10 @@ class ValidityMarker(ABC):
         For example:
 
         >>> first = ValidFrom("Frontier")
-        >>> second = ValidFrom("Osaka")
+        >>> second = ValidFrom("SilaOsaka")
         >>> first.update(second)
         >>> print(first)
-        ValidFrom("Osaka")
+        ValidFrom("SilaOsaka")
 
         If `self` cannot be updated (no merging is possible/implemented),
         raises an exception.
@@ -984,7 +984,7 @@ class ValidFrom(ValidityMarker):
 
     from execution_testing import  Alloc, StateTestFiller
 
-    @pytest.mark.valid_from("London")
+    @pytest.mark.valid_from("SilaLondon")
     def test_something_only_valid_after_london(
         state_test: StateTestFiller,
         pre: Alloc
@@ -992,8 +992,8 @@ class ValidFrom(ValidityMarker):
         pass
     ```
 
-    In this example, the test will only be filled for the London fork and
-    after, e.g. London, Paris, Shanghai, Cancun, etc.
+    In this example, the test will only be filled for the SilaLondon fork and
+    after, e.g. SilaLondon, SilaParis, SilaShanghai, SilaCancun, etc.
     """
 
     def _process_with_marker_args(
@@ -1034,7 +1034,7 @@ class ValidUntil(ValidityMarker):
 
     from execution_testing import  Alloc, StateTestFiller
 
-    @pytest.mark.valid_until("London")
+    @pytest.mark.valid_until("SilaLondon")
     def test_something_only_valid_until_london(
         state_test: StateTestFiller,
         pre: Alloc
@@ -1042,8 +1042,8 @@ class ValidUntil(ValidityMarker):
         pass
     ```
 
-    In this example, the test will only be filled for the London fork and
-    before, e.g. London, Berlin, Istanbul, etc.
+    In this example, the test will only be filled for the SilaLondon fork and
+    before, e.g. SilaLondon, SilaBerlin, SilaIstanbul, etc.
     """
 
     def _process_with_marker_args(
@@ -1068,7 +1068,7 @@ class ValidBefore(ValidityMarker, mutually_exclusive=[ValidUntil]):
 
     ``valid_before`` vs ``valid_until``:
 
-    - ``valid_until("Prague")`` — inclusive: runs *through* Prague.
+    - ``valid_until("SilaPrague")`` — inclusive: runs *through* SilaPrague.
     - ``valid_before("SIP7825")`` — exclusive: runs up to but *not at*
       the point where SIP-7825 activates.
 
@@ -1111,7 +1111,7 @@ class ValidAt(ValidityMarker):
 
     from execution_testing import  Alloc, StateTestFiller
 
-    @pytest.mark.valid_at("London", "Cancun")
+    @pytest.mark.valid_at("SilaLondon", "SilaCancun")
     def test_something_only_valid_at_london_and_cancun(
         state_test: StateTestFiller,
         pre: Alloc
@@ -1119,8 +1119,8 @@ class ValidAt(ValidityMarker):
         pass
     ```
 
-    In this example, the test will only be filled for the London and Cancun
-    forks.
+    In this example, the test will only be filled for the SilaLondon and
+    SilaCancun forks.
     """
 
     def _process_with_marker_args(
@@ -1147,7 +1147,7 @@ class ValidAtTransitionTo(
 
     from execution_testing import  Alloc, BlockchainTestFiller
 
-    @pytest.mark.valid_at_transition_to("London")
+    @pytest.mark.valid_at_transition_to("SilaLondon")
     def test_something_that_happens_during_the_fork_transition_to_london(
         blockchain_test: BlockchainTestFiller,
         pre: Alloc
@@ -1156,7 +1156,8 @@ class ValidAtTransitionTo(
     ```
 
     In this example, the test will only be filled for the fork that transitions
-    to London at block number 5, `BerlinToLondonAt5`, and no other forks.
+    to SilaLondon at block number 5, `SilaBerlinToSilaLondonAt5`, and no other
+    forks.
 
     To see or add a new transition fork, see the
     `execution_testing.forks.forks.transition` module.
@@ -1175,20 +1176,21 @@ class ValidAtTransitionTo(
 
     For example:
     ```python
-    @pytest.mark.valid_at_transition_to("Cancun", subsequent_transitions=True)
+    @pytest.mark.valid_at_transition_to("SilaCancun",
+    subsequent_transitions=True)
     ```
 
-    produces tests on `ShanghaiToCancunAtTime15k` and
-    `CancunToPragueAtTime15k`, and any transition fork after that.
+    produces tests on `SilaShanghaiToSilaCancunAtTime15k` and
+    `SilaCancunToSilaPragueAtTime15k`, and any transition fork after that.
 
     And:
     ```python
-    @pytest.mark.valid_at_transition_to("Cancun",
-    subsequent_transitions=True, until="Prague")
+    @pytest.mark.valid_at_transition_to("SilaCancun",
+    subsequent_transitions=True, until="SilaPrague")
     ```
 
-    produces tests on `ShanghaiToCancunAtTime15k` and
-    `CancunToPragueAtTime15k`, but no forks after Prague.
+    produces tests on `SilaShanghaiToSilaCancunAtTime15k` and
+    `SilaCancunToSilaPragueAtTime15k`, but no forks after SilaPrague.
     """
 
     def _process_with_marker_args(

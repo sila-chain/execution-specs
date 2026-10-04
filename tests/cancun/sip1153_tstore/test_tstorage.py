@@ -25,7 +25,7 @@ from .spec import ref_spec_1153
 REFERENCE_SPEC_GIT_PATH = ref_spec_1153.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1153.version
 
-pytestmark = [pytest.mark.valid_from("Cancun")]
+pytestmark = [pytest.mark.valid_from("SilaCancun")]
 
 code_address = 0x100
 
@@ -196,7 +196,7 @@ class GasMeasureTestCases(PytestParameterEnum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/17_tstoreGasFiller.yml",  # noqa: E501
+        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/SilaCancun/stEIP1153-transientStorage/17_tstoreGasFiller.yml",  # noqa: E501
     ],
     pr=["https://github.com/sila/execution-specs/pull/2385"],
 )

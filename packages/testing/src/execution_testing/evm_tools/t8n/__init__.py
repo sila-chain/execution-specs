@@ -154,7 +154,7 @@ class T8N(Load):
     ) -> None:
         # ``resolve_fork`` only maps the testing fork name to a spec
         # ``Hardfork`` module — CLI exception aliases like
-        # ``HomesteadToDaoAt5`` are unfolded by ``find_fork`` in
+        # ``SilaHomesteadToDaoAt5`` are unfolded by ``find_fork`` in
         # :mod:`.cli` before the testing ``Fork`` is constructed. For
         # those transition-fork tests the CLI also reports the block
         # number at which the resolved fork activates via
@@ -169,8 +169,8 @@ class T8N(Load):
         #
         # Only forward overrides for BPO forks. BPO forks share their
         # non-BPO ancestor's spec module and rely on the override to
-        # differentiate their blob schedule. Non-BPO forks (Cancun,
-        # Prague, Amsterdam, …) carry the correct schedule built into
+        # differentiate their blob schedule. Non-BPO forks (SilaCancun,
+        # SilaPrague, SilaAmsterdam, …) carry the correct schedule built into
         # their spec module — overriding here would force ``ForkCache``
         # to clone the fork into a temporary directory whenever the
         # override values don't byte-match the constants, attributing
@@ -266,7 +266,8 @@ class T8N(Load):
         TODO: Replace with ``self.fork.decode_transaction(tx.rlp())``
         once two pieces land in a follow-up PR:
 
-        1. Pre-Berlin forks gain a ``decode_transaction``. Pre-Berlin forks
+        1. Pre-SilaBerlin forks gain a ``decode_transaction``. Pre-SilaBerlin
+        forks
            predate typed txs and currently expose no decode entry
            point — block decoding produces the legacy class directly.
         2. The testing exception_mapper learns to surface

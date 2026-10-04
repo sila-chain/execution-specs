@@ -96,21 +96,21 @@ fixtures from every prior fork whose tests are still valid at that fork.
 ```text
 fixtures/
 └── blockchain_tests/
-    ├── for_prague/                   # filled targeting Prague
-    │   ├── istanbul/                 # tests introduced in Istanbul
+    ├── for_prague/                   # filled targeting SilaPrague
+    │   ├── istanbul/                 # tests introduced in SilaIstanbul
     │   │   └── sip1344_chainid/...
-    │   ├── cancun/                   # tests introduced in Cancun
+    │   ├── cancun/                   # tests introduced in SilaCancun
     │   │   └── sip4844_blobs/...
-    │   └── prague/                   # tests introduced in Prague
+    │   └── prague/                   # tests introduced in SilaPrague
     │       └── sip7702_set_code_tx/...
-    └── for_osaka/                    # filled targeting Osaka
+    └── for_osaka/                    # filled targeting SilaOsaka
         ├── istanbul/
         │   └── sip1344_chainid/...
         ├── cancun/
         │   └── sip4844_blobs/...
         ├── prague/
         │   └── sip7702_set_code_tx/...
-        └── osaka/                    # tests introduced in Osaka
+        └── osaka/                    # tests introduced in SilaOsaka
             └── sip7692_eof_v1/...
 ```
 

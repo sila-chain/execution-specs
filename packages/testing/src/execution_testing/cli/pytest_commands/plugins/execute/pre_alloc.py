@@ -298,7 +298,7 @@ def _compute_deploy_gas_limit(
     gas portion bound by the SIP 7825 cap and the total execution plus
     state gas used as the transaction gas field. Under SIP 8037 the cap
     binds only the execution portion while state gas comes from the block
-    reservoir and may push the total above the cap, and before Amsterdam
+    reservoir and may push the total above the cap, and before SilaAmsterdam
     the state gas is zero so the total equals the execution gas. The execution
     portion is doubled as a safety buffer since gas estimation is
     approximate while the state portion is exact.

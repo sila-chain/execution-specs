@@ -28,7 +28,7 @@ from execution_testing import (
     compute_create_address,
 )
 
-pytestmark = pytest.mark.valid_from("Cancun")
+pytestmark = pytest.mark.valid_from("SilaCancun")
 
 
 class OogScenario(Enum):

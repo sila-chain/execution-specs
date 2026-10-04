@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/CREATE2_FirstByte_loopFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -139,7 +139,7 @@ def test_create2_first_byte_loop(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(storage={256: 1}, nonce=239),
@@ -153,7 +153,7 @@ def test_create2_first_byte_loop(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(storage={256: 1}, nonce=16),
@@ -167,7 +167,7 @@ def test_create2_first_byte_loop(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(storage={239: 1, 256: 1}, nonce=1),

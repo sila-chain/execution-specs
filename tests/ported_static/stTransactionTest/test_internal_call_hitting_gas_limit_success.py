@@ -4,7 +4,7 @@ Test_internal_call_hitting_gas_limit_success.
 Ported from:
 state_tests/stTransactionTest/InternalCallHittingGasLimitSuccessFiller.json
 @manually-enhanced: Do not overwrite. Inner-CALL gas and outer tx gas
-bumped on Amsterdam to cover SIP-8037 SSTORE-set state-gas spill;
+bumped on SilaAmsterdam to cover SIP-8037 SSTORE-set state-gas spill;
 pre-SIP-8037 unchanged.
 
 """
@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stTransactionTest/InternalCallHittingGasLimitSuccessFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_internal_call_hitting_gas_limit_success(
     state_test: StateTestFiller,

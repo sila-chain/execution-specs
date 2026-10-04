@@ -271,8 +271,9 @@ class OpcodeCountsConfig(BaseModel, BenchmarkParametrizer):
             {"test_dup": [10], "test_dup.*": [1], "test_dup.*DUP1.*": [5]}
 
         - "test_dup" -> [10] (exact match)
-        - "test_dup[fork_Prague-opcode_DUP1]" -> [5] (longest pattern matches)
-        - "test_dup[fork_Prague-opcode_DUP2]" -> [1] (matches "test_dup.*")
+        - "test_dup[fork_SilaPrague-opcode_DUP1]" -> [5] (longest pattern
+        matches)
+        - "test_dup[fork_SilaPrague-opcode_DUP2]" -> [1] (matches "test_dup.*")
         - "test_other" -> default_counts (no match)
 
         Note: In config file mode, test names don't have opcount yet when this

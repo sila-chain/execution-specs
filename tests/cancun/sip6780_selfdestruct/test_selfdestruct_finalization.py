@@ -45,7 +45,7 @@ from tests.amsterdam.sip7708_sil_transfer_logs.spec import transfer_log
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-6780.md"
 REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
 
-pytestmark = pytest.mark.valid_from("Cancun")
+pytestmark = pytest.mark.valid_from("SilaCancun")
 
 OTHER_BALANCE = 1
 SEND_AMOUNT = 1

@@ -10,7 +10,7 @@ test_module_dummy = textwrap.dedent(
 
     from execution_testing import Environment
 
-    @pytest.mark.valid_at("Istanbul")
+    @pytest.mark.valid_at("SilaIstanbul")
     def test_dummy_collect_only_test(state_test) -> None:
         state_test(env=Environment(), pre={}, post={}, tx=None)
     """
@@ -35,7 +35,7 @@ def test_collect_only_output(pytester: pytest.Pytester) -> None:
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Istanbul",
+        "SilaIstanbul",
         "tests/istanbul/dummy_test_module/",
         "--collect-only",
         "-q",
@@ -44,12 +44,12 @@ def test_collect_only_output(pytester: pytest.Pytester) -> None:
     assert result.ret == 0, f"Fill command failed:\n{result.outlines}"
 
     assert any(
-        "tests/istanbul/dummy_test_module/test_dummy_collect.py::test_dummy_collect_only_test[fork_Istanbul-state_test]"
+        "tests/istanbul/dummy_test_module/test_dummy_collect.py::test_dummy_collect_only_test[fork_SilaIstanbul-state_test]"
         in line
         for line in result.outlines
     ), f"Expected test output: {result.outlines}"
     assert any(
-        "tests/istanbul/dummy_test_module/test_dummy_collect.py::test_dummy_collect_only_test[fork_Istanbul-blockchain_test_from_state_test]"
+        "tests/istanbul/dummy_test_module/test_dummy_collect.py::test_dummy_collect_only_test[fork_SilaIstanbul-blockchain_test_from_state_test]"
         in line
         for line in result.outlines
     ), f"Expected test output: {result.outlines}"

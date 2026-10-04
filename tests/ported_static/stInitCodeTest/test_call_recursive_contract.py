@@ -42,7 +42,7 @@ def recursive_create_calculator(
 @pytest.mark.ported_from(
     ["state_tests/stInitCodeTest/CallRecursiveContractFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_call_recursive_contract(
     state_test: StateTestFiller,
     pre: Alloc,

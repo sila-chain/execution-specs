@@ -9,7 +9,7 @@ that a single cold `EXTCODECOPY` (with memory expansion) consumes via
 `Op.GAS`. SIP-8038 raises the cold account access
 (`COLD_ACCOUNT_ACCESS`) and charges an extra `WARM_ACCESS` for the
 opcode's second read (the code). The stored cost therefore shifts by
-the opcode's own cold cost on the fork less its cost on Cancun, taken
+the opcode's own cold cost on the fork less its cost on SilaCancun, taken
 from `Op.EXTCODECOPY` metadata so the delta is exactly 0 on earlier
 forks. Do not hardcode it.
 """
@@ -24,7 +24,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -36,7 +36,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stEIP150singleCodeGasPrices/RawExtCodeCopyMemoryGasFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_raw_ext_code_copy_memory_gas(
     state_test: StateTestFiller,
@@ -48,7 +48,7 @@ def test_raw_ext_code_copy_memory_gas(
     # second WARM_ACCESS for the code read, both carried by the opcode's
     # cost metadata.
     cold_extcodecopy = Op.EXTCODECOPY.with_metadata(address_warm=False)
-    cancun_extcodecopy_cost = cold_extcodecopy.gas_cost(Cancun)
+    cancun_extcodecopy_cost = cold_extcodecopy.gas_cost(SilaCancun)
     code_read_delta = cold_extcodecopy.gas_cost(fork) - cancun_extcodecopy_cost
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)
     sender = pre.fund_eoa(amount=0xE8D4A51000)

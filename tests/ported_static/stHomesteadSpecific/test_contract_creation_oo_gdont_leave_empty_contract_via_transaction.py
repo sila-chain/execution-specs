@@ -1,6 +1,6 @@
 """
 Verify an out-of-gas contract creation leaves no account behind (the
-Homestead-era bug left empty shells), while a sufficient budget creates a
+SilaHomestead-era bug left empty shells), while a sufficient budget creates a
 codeless account whose init code called out to a storage writer.
 
 Ported from:
@@ -35,7 +35,9 @@ RETENTION_MARGIN = 64
         "state_tests/stHomesteadSpecific/contractCreationOOGdontLeaveEmptyContractViaTransactionFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")  # Istanbul and before require SIP-2929
+@pytest.mark.valid_from(
+    "SilaBerlin"
+)  # SilaIstanbul and before require SIP-2929
 @pytest.mark.parametrize(
     "enough_gas",
     [

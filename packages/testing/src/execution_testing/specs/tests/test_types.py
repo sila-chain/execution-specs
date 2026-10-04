@@ -18,7 +18,7 @@ from execution_testing.fixtures.blockchain import (
     FixtureExecutionPayloadModifier,
     FixtureHeader,
 )
-from execution_testing.forks import Amsterdam, Fork, Osaka
+from execution_testing.forks import Fork, SilaAmsterdam, SilaOsaka
 from execution_testing.test_types import Alloc, Environment
 from execution_testing.test_types.block_access_list import (
     BlockAccessList,
@@ -166,7 +166,7 @@ def test_fixture_header_join(
 
 def built_block(
     *,
-    fork: Fork = Amsterdam,
+    fork: Fork = SilaAmsterdam,
     rlp_modifier: Header | None = None,
     block_access_list: BlockAccessList | None = None,
     engine_new_payload_block_access_list: Bytes | None = None,
@@ -236,7 +236,7 @@ class TestDeriveEnginePayloadModifier:
         """
         assert (
             built_block(
-                fork=Osaka,
+                fork=SilaOsaka,
                 rlp_modifier=Header(block_access_list_hash=Hash(0)),
                 block_access_list=None,
             ).engine_payload_modifier()
@@ -257,7 +257,7 @@ class TestDeriveEnginePayloadModifier:
             is None
         )
 
-    @pytest.mark.parametrize("fork", [Osaka, Amsterdam])
+    @pytest.mark.parametrize("fork", [SilaOsaka, SilaAmsterdam])
     def test_empty_bytes_override_sends_raw_body(self, fork: Fork) -> None:
         """Raw `Bytes` (e.g. the invalid `0x`) are sent verbatim."""
         modifier = built_block(
@@ -319,7 +319,7 @@ class TestEnginePayloadOnlyOverrides:
     def test_make_fixture_refuses_payload_only_override(self) -> None:
         """The RLP fixture builder fails before it touches the t8n."""
         test = BlockchainTest(
-            fork=Amsterdam,
+            fork=SilaAmsterdam,
             pre=Alloc(),
             post=Alloc(),
             blocks=[Block(engine_new_payload_slot_number=0)],
@@ -369,7 +369,7 @@ class TestBalModifierRequiresException:
         """The check runs at construction, before any t8n call."""
         with pytest.raises(Exception, match="declares no `exception`"):
             BlockchainTest(
-                fork=Amsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
+                fork=SilaAmsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
             )
 
     @pytest.mark.parametrize(
@@ -402,7 +402,7 @@ class TestBalModifierRequiresException:
     def test_declared_failure_is_accepted(self, block: Block) -> None:
         """Modifiers paired with a declared failure construct normally."""
         BlockchainTest(
-            fork=Amsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
+            fork=SilaAmsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
         )
 
 
@@ -423,7 +423,7 @@ class TestConflictingPayloadOverrides:
         )
         with pytest.raises(Exception, match="discard the re-encoding"):
             BlockchainTest(
-                fork=Amsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
+                fork=SilaAmsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
             )
 
     @pytest.mark.parametrize(
@@ -462,5 +462,5 @@ class TestConflictingPayloadOverrides:
     def test_single_payload_path_is_accepted(self, block: Block) -> None:
         """One payload path at a time, or a content modifier, is fine."""
         BlockchainTest(
-            fork=Amsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
+            fork=SilaAmsterdam, pre=Alloc(), post=Alloc(), blocks=[block]
         )

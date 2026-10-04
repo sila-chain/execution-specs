@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmArithmeticTest/sdivFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -526,7 +526,7 @@ def test_sdiv(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [2, 6, 7, 10, 11, 16], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={0: 0}),
                 contract_6: Account(storage={0: 0}),
@@ -538,7 +538,7 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -549,7 +549,7 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={
@@ -560,7 +560,7 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(
                     storage={
@@ -571,7 +571,7 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_4: Account(
                     storage={
@@ -582,7 +582,7 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_5: Account(
                     storage={
@@ -593,12 +593,12 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_8: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [9], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_9: Account(
                     storage={
@@ -609,12 +609,12 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [12], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_12: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [13], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_13: Account(
                     storage={
@@ -625,7 +625,7 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [15], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_14: Account(
                     storage={
@@ -636,7 +636,7 @@ def test_sdiv(
         },
         {
             "indexes": {"data": [14], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_15: Account(
                     storage={

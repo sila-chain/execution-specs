@@ -28,8 +28,8 @@ markers on either the test function, test class or test module level:
     ```python
     import pytest
 
-    @pytest.mark.valid_from("Berlin")
-    @pytest.mark.valid_until("London")
+    @pytest.mark.valid_from("SilaBerlin")
+    @pytest.mark.valid_until("SilaLondon")
     def test_access_list(state_test: StateTestFiller, fork: Fork):
     ```
 
@@ -39,7 +39,7 @@ markers on either the test function, test class or test module level:
     import pytest
 
 
-    @pytest.mark.valid_from("Shanghai")
+    @pytest.mark.valid_from("SilaShanghai")
     class TestMultipleWithdrawalsSameAddress:
     ```
 
@@ -48,7 +48,7 @@ markers on either the test function, test class or test module level:
     ```python
     import pytest
 
-    pytestmark = pytest.mark.valid_from("Shanghai")
+    pytestmark = pytest.mark.valid_from("SilaShanghai")
     ```
 
 The [`execution_testing.forks`](../library/execution_testing_forks.md) package defines the available forks and provides the following helpers that return all forks within the specified range:
@@ -66,7 +66,7 @@ import pytest
 from execution_testing.forks import TransitionFork
 from execution_testing.tools import Alloc, BlockchainTestFiller
 
-@pytest.mark.valid_at_transition_to("London")
+@pytest.mark.valid_at_transition_to("SilaLondon")
 def test_something_at_transition(
     blockchain_test: BlockchainTestFiller,
     fork: TransitionFork,
@@ -77,16 +77,16 @@ def test_something_at_transition(
 
 The `TransitionFork` type represents a fork that transitions from one fork to another at a specific block number or timestamp. It provides methods not available on regular `Fork`:
 
-- `fork.transitions_from()` — returns the fork before the transition (e.g. `Berlin`)
-- `fork.transitions_to()` — returns the fork after the transition (e.g. `London`)
+- `fork.transitions_from()` — returns the fork before the transition (e.g. `SilaBerlin`)
+- `fork.transitions_to()` — returns the fork after the transition (e.g. `SilaLondon`)
 - `fork.fork_at(block_number=N, timestamp=T)` — returns the active fork at the given block/timestamp
 
-Transition forks support comparison operators that compare based on the `transitions_to()` fork. For example, given a transition `Berlin -> London`:
+Transition forks support comparison operators that compare based on the `transitions_to()` fork. For example, given a transition `SilaBerlin -> SilaLondon`:
 
-- `BerlinToLondonAt5 >= Berlin` is `True` (the transition encompasses Berlin)
-- `BerlinToLondonAt5 <= Berlin` is `False` (the transition goes beyond Berlin)
-- `BerlinToLondonAt5 >= London` is `True`
-- `BerlinToLondonAt5 <= London` is `True`
+- `SilaBerlinToSilaLondonAt5 >= SilaBerlin` is `True` (the transition encompasses SilaBerlin)
+- `SilaBerlinToSilaLondonAt5 <= SilaBerlin` is `False` (the transition goes beyond SilaBerlin)
+- `SilaBerlinToSilaLondonAt5 >= SilaLondon` is `True`
+- `SilaBerlinToSilaLondonAt5 <= SilaLondon` is `True`
 
 ### The `state_test` and `blockchain_test` Test Function Arguments
 

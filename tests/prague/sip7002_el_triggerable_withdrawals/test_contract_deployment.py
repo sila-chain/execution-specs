@@ -17,7 +17,7 @@ from execution_testing import (
     WithdrawalRequest,
     generate_system_contract_deploy_test,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 
 from .spec import ref_spec_7002
 
@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = ref_spec_7002.version
 
 @pytest.mark.eels_base_coverage
 @generate_system_contract_deploy_test(
-    fork=Prague,
+    fork=SilaPrague,
     tx_json_path=Path(realpath(__file__)).parent / "contract_deploy_tx.json",
     expected_deploy_address=WithdrawalRequest.system_contract_address,
     fail_on_empty_code=True,

@@ -10,7 +10,7 @@ state_tests/stSStoreTest/sstoreGasFiller.yml
 metadata, so repricings track automatically. Each figure is the whole
 measured window (SSTORE plus its two operand pushes), not the bare
 opcode the filler stored. Keep `state_gas_reservoir=0`, or SIP-8037
-state gas is hidden from `Op.GAS`. Berlin floor: no cold/warm before
+state gas is hidden from `Op.GAS`. SilaBerlin floor: no cold/warm before
 SIP-2929.
 """
 
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSStoreTest/sstoreGasFiller.yml"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_sstore_gas(
     state_test: StateTestFiller,
     pre: Alloc,

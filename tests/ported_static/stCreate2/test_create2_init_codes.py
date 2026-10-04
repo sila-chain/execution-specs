@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2InitCodesFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -119,7 +119,7 @@ def test_create2_init_codes(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x9CCB06046C674D1A423C968D7998235BC33D40C1): Account(
                     nonce=1
@@ -132,7 +132,7 @@ def test_create2_init_codes(
         },
         {
             "indexes": {"data": [1, 2, 3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     balance=1, nonce=2
@@ -142,7 +142,7 @@ def test_create2_init_codes(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xD46F8D2A93844FB23D8A2803A615F3D00849B8AB): Account(
                     storage={1: 1, 2: 1}
@@ -152,7 +152,7 @@ def test_create2_init_codes(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(
                     0xADF52AAFB61364F699F9B15EE605EF82DCA7F53D
@@ -165,7 +165,7 @@ def test_create2_init_codes(
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(
                     0xADF52AAFB61364F699F9B15EE605EF82DCA7F53D
@@ -181,7 +181,7 @@ def test_create2_init_codes(
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x52B620D9A3FD03486496061138825A08B4DA501F): Account(
                     nonce=1
@@ -194,7 +194,7 @@ def test_create2_init_codes(
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x5210981AE8161A02A1B7E37452AE142AEDC66EA3): Account(
                     balance=1, nonce=1

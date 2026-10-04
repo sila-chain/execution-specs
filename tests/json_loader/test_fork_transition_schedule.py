@@ -10,7 +10,7 @@ from .helpers.load_blockchain_tests import BlockchainTestFixture
 
 def test_schedule_fork_patches_the_fork_module_binding() -> None:
     """Patch the fork module's own `FORK_CRITERIA` binding and restore it."""
-    load = Load("london")
+    load = Load("sila_london")
     hardfork = load.fork.hardfork
     fork_module = hardfork.module("fork")
     sila_mainnet = hardfork.criteria
@@ -28,7 +28,7 @@ def test_schedule_fork_patches_the_fork_module_binding() -> None:
 
 def test_schedule_fork_patches_the_package_without_module_binding() -> None:
     """Patch the fork package when the fork module does not bind the name."""
-    load = Load("cancun")
+    load = Load("sila_cancun")
     hardfork = load.fork.hardfork
     sila_mainnet = hardfork.criteria
     criteria = ByTimestamp(15_000)

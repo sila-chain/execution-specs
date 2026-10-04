@@ -98,7 +98,7 @@ Because transactions are included directly in the built block (rather than pulle
 
 ```bash
 # Enable the testing_buildBlockV1 route
-execute hive --fork=Prague --use-testing-build-block
+execute hive --fork=SilaPrague --use-testing-build-block
 ```
 
 This flag is available for both `execute hive` and `execute remote` (when an engine endpoint is configured). See [Execute Hive](./hive.md) and [Execute Remote](./remote.md) for mode-specific details.

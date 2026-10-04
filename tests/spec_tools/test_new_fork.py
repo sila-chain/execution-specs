@@ -20,7 +20,7 @@ from sila_spec_tools.new_fork.codemod.remove_docstring import (
     "template_fork",
     [
         Hardfork.discover()[-1].short_name,
-        "osaka",
+        "sila_osaka",
     ],
     ids=lambda tf: f"{tf}",
 )
@@ -87,7 +87,7 @@ def test_end_to_end(template_fork: str) -> None:
                 assert needle in source
 
         # TODO: Assert on `vm/gas.py` alone once every fork usable as a
-        # template defines the constant there (i.e. once the pre-Amsterdam
+        # template defines the constant there (i.e. once the pre-SilaAmsterdam
         # forks, which define it in `fork.py`, are gone).
         blob_gas_ceiling = "MAX_BLOB_GAS_PER_BLOCK: Final[U64] = U64(99)"
         assert any(

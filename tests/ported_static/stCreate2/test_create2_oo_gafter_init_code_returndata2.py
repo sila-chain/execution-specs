@@ -4,7 +4,7 @@ Call RETURNDATASIZE and RETURNDATACOPY after CREATE2 deploy a contract....
 Ported from:
 state_tests/stCreate2/Create2OOGafterInitCodeReturndata2Filler.json
 @manually-enhanced: Do not overwrite. tx_gas[1] is tuned to barely
-finish CREATE2 + two post-deploy SSTOREs on Cancun; on Amsterdam the
+finish CREATE2 + two post-deploy SSTOREs on SilaCancun; on SilaAmsterdam the
 NEW_ACCOUNT and SSTORE-set state-gas spills, so lift the budget by
 Fork.oog_budget_lift.
 """
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/Create2OOGafterInitCodeReturndata2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -95,7 +95,7 @@ def test_create2_oo_gafter_init_code_returndata2(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={1: 2, 2: 0}),
                 compute_create_address(
@@ -105,7 +105,7 @@ def test_create2_oo_gafter_init_code_returndata2(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={1: 0, 2: 0x6460016001556000526005601BF3}

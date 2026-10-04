@@ -4,7 +4,7 @@ Puts the base 0, exponent 0 and modulus 0 into the MODEXP precompile,...
 Ported from:
 state_tests/stPreCompiledContracts2/modexp_0_0_0_25000Filler.json
 @manually-enhanced: Do not overwrite. tx_gas values bumped on
-Amsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
+SilaAmsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
 
 """
 
@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stPreCompiledContracts2/modexp_0_0_0_25000Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [

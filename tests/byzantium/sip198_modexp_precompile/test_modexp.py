@@ -26,7 +26,7 @@ REFERENCE_SPEC_GIT_PATH = "SIPS/sip-198.md"
 REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize(
     ["mod_exp_input", "output"],
     [
@@ -294,7 +294,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             marks=pytest.mark.skip(
                 reason=(
                     "EELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before Osaka - see "
+                    "before SilaOsaka - see "
                     "github.com/sila/execution-specs/issues/1465"
                 )
             ),
@@ -312,7 +312,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             marks=pytest.mark.skip(
                 reason=(
                     "EELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before Osaka - see "
+                    "before SilaOsaka - see "
                     "github.com/sila/execution-specs/issues/1465"
                 )
             ),
@@ -479,8 +479,8 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
 @pytest.mark.eels_base_coverage
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/Constantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_37120_37111_37111_1000000Filler.json",
-        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/Constantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_9_37111_37111_1000000Filler.json",
+        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_37120_37111_37111_1000000Filler.json",
+        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_9_37111_37111_1000000Filler.json",
     ],
 )
 def test_modexp(

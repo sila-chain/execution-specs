@@ -52,8 +52,8 @@ from .spec import Spec, SpecHelpers, ref_spec_4844
 REFERENCE_SPEC_GIT_PATH = ref_spec_4844.git_path
 REFERENCE_SPEC_VERSION = ref_spec_4844.version
 
-# All tests run from Cancun fork
-pytestmark = pytest.mark.valid_from("Cancun")
+# All tests run from SilaCancun fork
+pytestmark = pytest.mark.valid_from("SilaCancun")
 
 
 @pytest.fixture

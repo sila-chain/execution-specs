@@ -274,7 +274,7 @@ def subject_code(operation: str, pre: Alloc, fork: Fork) -> Bytecode:
 @pytest.mark.ported_from(
     ["state_tests/stMemoryTest/oogFiller.yml"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize("succeeds", [True, False], ids=["enough", "oog"])
 @pytest.mark.parametrize_by_fork("operation", operations_by_fork)
 def test_oog(
@@ -303,7 +303,7 @@ def test_oog(
 @pytest.mark.ported_from(
     ["state_tests/stMemoryTest/oogFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize("succeeds", [True, False], ids=["enough", "oog"])
 def test_oog_returndatacopy_expansion(
     state_test: StateTestFiller,
@@ -396,7 +396,7 @@ def test_oog_returndatacopy_expansion(
 @pytest.mark.ported_from(
     ["state_tests/stMemoryTest/oogFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize("succeeds", [True, False], ids=["enough", "oog"])
 def test_oog_revert(
     state_test: StateTestFiller,

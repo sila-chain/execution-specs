@@ -207,7 +207,8 @@ def test_create_opcode_collision(
     """
     assert len(initcode) <= 32
     contract_creator_code = (
-        # Reverts if and only if contract creation fails. In Frontier/Homestead
+        # Reverts if and only if contract creation fails. In
+        # Frontier/SilaHomestead
         # this runs out of gas, and every other fork jumps to a non-JUMPDEST.
         Op.MSTORE(0, Op.PUSH32(bytes(initcode).ljust(32, b"\0")))
         + Op.JUMPI(

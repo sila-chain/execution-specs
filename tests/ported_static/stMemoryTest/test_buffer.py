@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stMemoryTest/bufferFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -2829,7 +2829,7 @@ def test_buffer(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={256: 0})},
         },
         {
@@ -3074,12 +3074,12 @@ def test_buffer(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={256: 24743})},
         },
         {
             "indexes": {"data": [318, 319, 321, 322], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={0: 0})},
         },
         {
@@ -3100,12 +3100,12 @@ def test_buffer(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={0: 24743})},
         },
         {
             "indexes": {"data": [333, 336], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={0: 10})},
         },
         {
@@ -3128,7 +3128,7 @@ def test_buffer(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={0: 0})},
         },
     ]

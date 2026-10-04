@@ -16,7 +16,7 @@ from typing import Final, List, Tuple, final
 
 from sila_types.numeric import U64, U256, Uint, ulen
 
-from sila.forks.osaka.blocks import Header as PreviousHeader
+from sila.forks.sila_osaka.blocks import Header as PreviousHeader
 from sila.trace import GasAndRefund, evm_trace
 from sila.utils.numeric import ceil32, taylor_exponential
 

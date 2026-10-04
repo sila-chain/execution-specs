@@ -41,7 +41,7 @@ Conventions and patterns for writing consensus tests. Run this skill before writ
 
 ## Block Access Lists
 
-Every Amsterdam+ fixture carries a BAL whether or not the test asserts one. An `expected_block_access_list=` is a fill-time check that the spec built the BAL you predicted, so write one when the access pattern is the point of the test or a known edge (a revert, a system call, a withdrawal, a self-destruct), not by default. When you do write one, pair it with a `post` witness: the BAL records access, not outcome, so a transaction that ran and failed still merges its touches and satisfies the expectation, and only `post` tells the two apart.
+Every SilaAmsterdam+ fixture carries a BAL whether or not the test asserts one. An `expected_block_access_list=` is a fill-time check that the spec built the BAL you predicted, so write one when the access pattern is the point of the test or a known edge (a revert, a system call, a withdrawal, a self-destruct), not by default. When you do write one, pair it with a `post` witness: the BAL records access, not outcome, so a transaction that ran and failed still merges its touches and satisfies the expectation, and only `post` tells the two apart.
 
 - Field semantics: a field left unset is not checked, `[]` asserts empty, and a non-empty list matches as an **ordered subsequence** (extra actual entries are skipped; yours must appear in order). `BalAccountExpectation()` with no field set raises; use `.empty()` for an account with no changes and `{address: None}` to assert an address is absent.
 - To learn what a scenario puts in the BAL (a revert, a system call, a withdrawal), find the closest row in `tests/amsterdam/sip7928_block_level_access_lists/test_cases.md` and read that test. A scenario with no row is a coverage gap worth reporting.
@@ -59,7 +59,7 @@ Every Amsterdam+ fixture carries a BAL whether or not the test asserts one. An `
 
 ## Fork-Aware Logic
 
-- Branch on `fork.is_sip_enabled(N)` for behaviour an SIP introduces; SIPs move between forks, so `fork >= Cancun` is only for facts about the fork itself
+- Branch on `fork.is_sip_enabled(N)` for behaviour an SIP introduces; SIPs move between forks, so `fork >= SilaCancun` is only for facts about the fork itself
 - `fork.fork_at(timestamp=...)` gives the fork active before/after a transition boundary
 - For gas amounts, see **Gas Cost Expectations** below — prefer framework cost constructs over reading `fork.gas_costs()` constants directly
 

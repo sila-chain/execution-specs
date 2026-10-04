@@ -943,7 +943,7 @@ class Frontier(BaseFork):
 
     @classmethod
     def empty_block_bal_item_count(cls) -> int:
-        """Pre-Amsterdam forks have no block access list."""
+        """Pre-SilaAmsterdam forks have no block access list."""
         return 0
 
     @classmethod
@@ -1122,7 +1122,7 @@ class Frontier(BaseFork):
         """
         At genesis, there is no upper bound for initcode size.
 
-        However, the default is set to the limit of SIP-3860 (Shanghai).
+        However, the default is set to the limit of SIP-3860 (SilaShanghai).
         """
         return 0xC000
 
@@ -1355,18 +1355,18 @@ class Frontier(BaseFork):
         return FixtureHeader(**defaults)
 
 
-class Homestead(
+class SilaHomestead(
     sips.SIP7,
     sips.SIP2,
     Frontier,
 ):
-    """Homestead fork."""
+    """SilaHomestead fork."""
 
     pass
 
 
 class DAOFork(
-    Homestead,
+    SilaHomestead,
     ignore=True,
     ruleset_name="",
 ):
@@ -1398,7 +1398,7 @@ class SpuriousDragon(
     pass
 
 
-class Byzantium(
+class SilaByzantium(
     sips.SIP649,
     sips.SIP214,
     sips.SIP211,
@@ -1408,49 +1408,49 @@ class Byzantium(
     sips.SIP197,
     SpuriousDragon,
 ):
-    """Byzantium fork."""
+    """SilaByzantium fork."""
 
     pass
 
 
-class Constantinople(
+class SilaConstantinople(
     sips.SIP1234,
     sips.SIP1052,
     sips.SIP1014,
     sips.SIP145,
-    Byzantium,
+    SilaByzantium,
 ):
-    """Constantinople fork."""
+    """SilaConstantinople fork."""
 
     pass
 
 
-class ConstantinopleFix(
-    Constantinople,
+class SilaConstantinopleFix(
+    SilaConstantinople,
     ruleset_name="PETERSBURG",
 ):
-    """Constantinople Fix fork."""
+    """SilaConstantinople Fix fork."""
 
     pass
 
 
-class Istanbul(
+class SilaIstanbul(
     sips.SIP2200,
     sips.SIP2028,
     sips.SIP1884,
     sips.SIP1344,
     sips.SIP1108,
     sips.SIP152,
-    ConstantinopleFix,
+    SilaConstantinopleFix,
 ):
-    """Istanbul fork."""
+    """SilaIstanbul fork."""
 
     pass
 
 
 # Glacier forks skipped, unless explicitly specified
 class MuirGlacier(
-    Istanbul,
+    SilaIstanbul,
     ignore=True,
 ):
     """Muir Glacier fork."""
@@ -1458,30 +1458,30 @@ class MuirGlacier(
     pass
 
 
-class Berlin(
+class SilaBerlin(
     sips.SIP2930,
     sips.SIP2929,
-    Istanbul,
+    SilaIstanbul,
 ):
-    """Berlin fork."""
+    """SilaBerlin fork."""
 
     pass
 
 
-class London(
+class SilaLondon(
     sips.SIP3529,
     sips.SIP3198,
     sips.SIP1559,
-    Berlin,
+    SilaBerlin,
 ):
-    """London fork."""
+    """SilaLondon fork."""
 
     pass
 
 
 # Glacier forks skipped, unless explicitly specified
 class ArrowGlacier(
-    London,
+    SilaLondon,
     ignore=True,
 ):
     """Arrow Glacier fork."""
@@ -1498,44 +1498,44 @@ class GrayGlacier(
     pass
 
 
-class Paris(
+class SilaParis(
     sips.SIP3675,
-    London,
+    SilaLondon,
     transition_tool_name="Merge",
     ruleset_name="MERGE",
 ):
-    """Paris (Merge) fork."""
+    """SilaParis (Merge) fork."""
 
     pass
 
 
-class Shanghai(
+class SilaShanghai(
     sips.SIP3855,
     sips.SIP3860,
     sips.SIP4895,
-    Paris,
+    SilaParis,
     fork_by_timestamp=True,
 ):
-    """Shanghai fork."""
+    """SilaShanghai fork."""
 
     pass
 
 
-class Cancun(
+class SilaCancun(
     sips.SIP5656,
     sips.SIP1153,
     sips.SIP4788,
     sips.SIP4844,
     sips.SIP7516,
     sips.SIP6780,
-    Shanghai,
+    SilaShanghai,
 ):
-    """Cancun fork."""
+    """SilaCancun fork."""
 
     pass
 
 
-class Prague(
+class SilaPrague(
     sips.SIP7691,
     sips.SIP7685,
     sips.SIP2935,
@@ -1545,14 +1545,14 @@ class Prague(
     sips.SIP7623,
     sips.SIP7702,
     sips.SIP2537,
-    Cancun,
+    SilaCancun,
 ):
-    """Prague fork."""
+    """SilaPrague fork."""
 
     pass
 
 
-class Osaka(
+class SilaOsaka(
     sips.SIP7939,
     sips.SIP7934,
     sips.SIP7825,
@@ -1560,15 +1560,15 @@ class Osaka(
     sips.SIP7594,
     sips.SIP7951,
     sips.SIP7883,
-    Prague,
+    SilaPrague,
 ):
-    """Osaka fork."""
+    """SilaOsaka fork."""
 
     pass
 
 
 class BPO1(
-    Osaka,
+    SilaOsaka,
     bpo_fork=True,
     update_blob_constants={
         "BLOB_BASE_FEE_UPDATE_FRACTION": 8346193,
@@ -1642,21 +1642,21 @@ class BPO5(
     pass
 
 
-class Amsterdam(
+class SilaAmsterdam(
     AmsterdamEIPs,
     BPO2,
     deployed=False,
 ):
-    """Amsterdam fork."""
+    """SilaAmsterdam fork."""
 
-    # TODO: We may need to adjust which BPO Amsterdam inherits from as the
-    #  related Amsterdam specs change over time, and before Amsterdam is
+    # TODO: We may need to adjust which BPO SilaAmsterdam inherits from as the
+    # related SilaAmsterdam specs change over time, and before SilaAmsterdam is
     #  live on sila-mainnet.
 
     @classmethod
     def engine_payload_attribute_target_gas_limit(cls) -> bool:
         """
-        Starting from Amsterdam, payload attributes now include the target gas
-        limit.
+        Starting from SilaAmsterdam, payload attributes now include the target
+        gas limit.
         """
         return True

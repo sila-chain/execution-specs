@@ -25,7 +25,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stReturnDataTest/subcallReturnMoreThenExpectedFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_subcall_return_more_then_expected(
     state_test: StateTestFiller,

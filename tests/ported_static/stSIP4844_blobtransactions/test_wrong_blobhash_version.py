@@ -2,7 +2,7 @@
 BLOB001.
 
 Ported from:
-state_tests/Cancun/stEIP4844_blobtransactions/wrongBlobhashVersionFiller.yml
+state_tests/SilaCancun/stEIP4844_blobtransactions/wrongBlobhashVersionFiller.yml
 """
 
 import pytest
@@ -26,10 +26,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Cancun/stEIP4844_blobtransactions/wrongBlobhashVersionFiller.yml"  # noqa: E501
+        "state_tests/SilaCancun/stEIP4844_blobtransactions/wrongBlobhashVersionFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.exception_test
 @pytest.mark.pre_alloc_mutable
 def test_wrong_blobhash_version(

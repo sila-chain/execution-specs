@@ -29,8 +29,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stMemoryStressTest/MSTORE_Bounds2aFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -82,12 +82,12 @@ def test_mstore_bounds2a(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(balance=1)},
         },
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(balance=0)},
         },
     ]

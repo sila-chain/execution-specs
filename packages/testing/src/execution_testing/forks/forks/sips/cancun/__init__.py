@@ -1,1 +1,1 @@
-"""Listings of all SIPs for Cancun fork."""
+"""Listings of all SIPs for SilaCancun fork."""

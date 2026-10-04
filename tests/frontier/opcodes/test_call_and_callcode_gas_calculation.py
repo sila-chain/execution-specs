@@ -52,9 +52,9 @@ from execution_testing import (
     Transaction,
 )
 from execution_testing.forks.forks.forks import (
-    Berlin,
-    Byzantium,
-    Homestead,
+    SilaBerlin,
+    SilaByzantium,
+    SilaHomestead,
 )
 from execution_testing.forks.helpers import Fork
 
@@ -64,7 +64,7 @@ def callee_init_stack_gas(callee_opcode: Op, fork: Fork) -> int:
     """
     Calculate the initial stack gas for the callee opcode.
     """
-    if fork < Byzantium:
+    if fork < SilaByzantium:
         # all *CALL arguments handled with PUSHes
         return (Op.PUSH1(0) * len(callee_opcode.kwargs)).gas_cost(fork)
     else:
@@ -84,21 +84,21 @@ def sufficient_gas(
     """
     is_value_call = callee_opcode in [Op.CALL, Op.CALLCODE]
 
-    if fork >= Berlin:
+    if fork >= SilaBerlin:
         metadata: dict = {"address_warm": False}
         if is_value_call:
             metadata["value_transfer"] = True
             metadata["account_new"] = callee_opcode == Op.CALL
         cost = callee_opcode(**metadata).gas_cost(fork)
-    elif Byzantium <= fork < Berlin:
-        cost = 700  # Pre-Berlin call cost
+    elif SilaByzantium <= fork < SilaBerlin:
+        cost = 700  # Pre-SilaBerlin call cost
         gas_costs = fork.gas_costs()
         if is_value_call:
             cost += gas_costs.CALL_VALUE
         if callee_opcode == Op.CALL:
             cost += gas_costs.NEW_ACCOUNT
-    elif fork == Homestead:
-        cost = 40  # Homestead call cost
+    elif fork == SilaHomestead:
+        cost = 40  # SilaHomestead call cost
         cost += 1  # mandatory callee gas allowance
         gas_costs = fork.gas_costs()
         if is_value_call:
@@ -106,7 +106,9 @@ def sufficient_gas(
         if callee_opcode == Op.CALL:
             cost += gas_costs.NEW_ACCOUNT
     else:
-        raise Exception("Only forks Homestead and >=Byzantium supported")
+        raise Exception(
+            "Only forks SilaHomestead and >=SilaByzantium supported"
+        )
 
     return callee_init_stack_gas + cost
 
@@ -127,7 +129,8 @@ def callee_code(
       PUSH1 0x01 <- for positive value transfer, if applies
       PUSH2 Contract.nonexistent
       PUSH1 0x00 or GAS <- value doesn't matter:
-        - PUSH1 0x01: pre Byzantium tests, as they require `gas_left` to be at
+        - PUSH1 0x01: pre SilaByzantium tests, as they require `gas_left` to be
+        at
           least `gas`. In these cases we want non-zero `gas`, so that that
           condition check can also be triggered - see `gas_shortage` parameter
           values.
@@ -141,7 +144,7 @@ def callee_code(
 
     return callee_opcode(
         unchecked=False,
-        gas=1 if fork < Byzantium else Op.GAS,
+        gas=1 if fork < SilaByzantium else Op.GAS,
         address=nonexistent_account,
         args_offset=0,
         args_size=0,
@@ -233,7 +236,7 @@ def expected_block_access_list(
     nonexistent_account: Account,
     gas_shortage: int,
 ) -> None | BlockAccessListExpectation:
-    """The expected block access list for >=Amsterdam cases."""
+    """The expected block access list for >=SilaAmsterdam cases."""
     if fork.is_sip_enabled(7928):
         if callee_opcode == Op.CALL:
             if gas_shortage:
@@ -295,7 +298,7 @@ def expected_block_access_list(
     "callee_opcode", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]
 )
 @pytest.mark.parametrize("gas_shortage", [0, 1])
-@pytest.mark.valid_from("London")
+@pytest.mark.valid_from("SilaLondon")
 def test_value_transfer_gas_calculation(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -320,8 +323,8 @@ def test_value_transfer_gas_calculation(
     "callee_opcode", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]
 )
 @pytest.mark.parametrize("gas_shortage", [0, 1])
-@pytest.mark.valid_from("Byzantium")
-@pytest.mark.valid_until("Berlin")
+@pytest.mark.valid_from("SilaByzantium")
+@pytest.mark.valid_until("SilaBerlin")
 @pytest.mark.eels_base_coverage
 def test_value_transfer_gas_calculation_byzantium(
     state_test: StateTestFiller,
@@ -331,7 +334,7 @@ def test_value_transfer_gas_calculation_byzantium(
 ) -> None:
     """
     Test nested CALL/CALLCODE/DELEGATECALL/STATICCALL gas consumption with
-    value transfer from Byzantium onward.
+    value transfer from SilaByzantium onward.
     """
     state_test(env=Environment(), pre=pre, post=post, tx=caller_tx)
 
@@ -339,12 +342,12 @@ def test_value_transfer_gas_calculation_byzantium(
 @pytest.mark.parametrize(
     "callee_opcode", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL]
 )
-# pre-Byzantium rules have one more condition to fail on:
+# pre-SilaByzantium rules have one more condition to fail on:
 # the check for `gas_left` to be at least `gas` allowance specified
 # in the CALL. We will be setting that allowance to `1` and either
 # making the call miss that amount or fail on the earlier gas check.
 @pytest.mark.parametrize("gas_shortage", [0, 1, 2])
-@pytest.mark.valid_at("Homestead")
+@pytest.mark.valid_at("SilaHomestead")
 def test_value_transfer_gas_calculation_homestead(
     state_test: StateTestFiller,
     pre: Alloc,

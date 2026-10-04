@@ -13,7 +13,7 @@ from execution_testing.fixtures import (
     PreAllocGroupBuilders,
     PreAllocGroups,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 from execution_testing.test_types import AllocGroupHash, Environment
 
 from ..filler import FillingSession
@@ -88,9 +88,9 @@ class TestFillingSession:
         test_group_builder = PreAllocGroupBuilder(
             pre=Alloc().model_dump(mode="json"),
             environment=Environment()
-            .set_fork_requirements(Prague)
+            .set_fork_requirements(SilaPrague)
             .model_dump(mode="json", exclude={"parent_hash"}),
-            fork=Prague.name(),
+            fork=SilaPrague.name(),
             group_hash=group_hash,
         )
         test_group = test_group_builder.build()
@@ -184,9 +184,9 @@ class TestFillingSession:
         test_group_builder = PreAllocGroupBuilder(
             pre=Alloc().model_dump(mode="json"),
             environment=Environment()
-            .set_fork_requirements(Prague)
+            .set_fork_requirements(SilaPrague)
             .model_dump(mode="json", exclude={"parent_hash"}),
-            fork=Prague.name(),
+            fork=SilaPrague.name(),
             group_hash=group_hash,
         )
         test_group = test_group_builder.build()
@@ -269,9 +269,9 @@ class TestFillingSession:
             PreAllocGroupBuilder(
                 pre=Alloc().model_dump(mode="json"),
                 environment=Environment()
-                .set_fork_requirements(Prague)
+                .set_fork_requirements(SilaPrague)
                 .model_dump(mode="json", exclude={"parent_hash"}),
-                fork=Prague.name(),
+                fork=SilaPrague.name(),
                 group_hash=group_hash,
             )
         )

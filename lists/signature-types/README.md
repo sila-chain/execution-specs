@@ -13,10 +13,10 @@ Reserved or Tentative.
 | Prefix byte | Specs or Purpose |
 |-------------|------------------|
 | 0x00  | Reserved: indicates legacy (untyped) transactions |
-| 0x01  | Reserved: [SIP-2930](https://sips.sila.org/SIPS/sip-2930) *(available in Berlin)* |
-| 0x02  | Reserved: [SIP-1559](https://sips.sila.org/SIPS/sip-1559) *(available in London)* |
-| 0x03  | Reserved: [SIP-4844](https://sips.sila.org/SIPS/sip-4844) *(available in Cancun)* |
-| 0x04  | Reserved: [SIP-7702](https://sips.sila.org/SIPS/sip-7702) *(available in Prague)* |
+| 0x01  | Reserved: [SIP-2930](https://sips.sila.org/SIPS/sip-2930) *(available in SilaBerlin)* |
+| 0x02  | Reserved: [SIP-1559](https://sips.sila.org/SIPS/sip-1559) *(available in SilaLondon)* |
+| 0x03  | Reserved: [SIP-4844](https://sips.sila.org/SIPS/sip-4844) *(available in SilaCancun)* |
+| 0x04  | Reserved: [SIP-7702](https://sips.sila.org/SIPS/sip-7702) *(available in SilaPrague)* |
 | 0x05  | Reserved: prevents collision with [SIP-7702](https://sips.sila.org/SIPS/sip-7702) authorizations |
 | 0x19  | Reserved: prevents collision with [SIP-191](https://sips.sila.org/SIPS/sip-191) |
 | 0xc0 - 0xff  | Invalid; collides with the initial byte of valid RLP encoded transactions |

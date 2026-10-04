@@ -2,7 +2,7 @@
 Test_coinbase_warm_account_call_gas.
 
 Ported from:
-state_tests/Shanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFiller.yml
+state_tests/SilaShanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFiller.yml
 @manually-enhanced: Do not overwrite. When SIP-8038 is enabled,
 EXTCODESIZE and EXTCODECOPY charge an extra warm code-read.
 """
@@ -28,10 +28,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Shanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFiller.yml"  # noqa: E501
+        "state_tests/SilaShanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [

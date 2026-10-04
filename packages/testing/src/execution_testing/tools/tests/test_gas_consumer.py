@@ -3,10 +3,10 @@
 import pytest
 
 from execution_testing.forks import (
-    Amsterdam,
     Fork,
-    Osaka,
-    Shanghai,
+    SilaAmsterdam,
+    SilaOsaka,
+    SilaShanghai,
     get_forks,
 )
 from execution_testing.forks.base_fork import (
@@ -30,9 +30,9 @@ def test_gas_consumer_exact_cost(fork: Fork, gas: int) -> None:
 @pytest.mark.parametrize("gas", GAS_TARGETS)
 def test_gas_consumer_leaves_no_state_gas(gas: int) -> None:
     """Verify the whole target lands on the execution dimension."""
-    consumer = GasConsumer(gas=gas, fork=Amsterdam)
-    assert consumer.state_cost(Amsterdam) == 0
-    assert consumer.execution_cost(Amsterdam) == gas
+    consumer = GasConsumer(gas=gas, fork=SilaAmsterdam)
+    assert consumer.state_cost(SilaAmsterdam) == 0
+    assert consumer.execution_cost(SilaAmsterdam) == gas
 
 
 @pytest.mark.parametrize(
@@ -48,19 +48,19 @@ def test_gas_consumer_small_targets(gas: int, expected_length: int) -> None:
     """
     Verify targets too small for a memory expansion fall back to `JUMPDEST`.
 
-    One word of expansion costs 12 gas at `Shanghai`: three each for the
+    One word of expansion costs 12 gas at `SilaShanghai`: three each for the
     two pushes and the `MSTORE8`, and three for the word.
     """
-    consumer = GasConsumer(gas=gas, fork=Shanghai)
+    consumer = GasConsumer(gas=gas, fork=SilaShanghai)
     assert len(consumer) == expected_length
-    assert consumer.gas_cost(Shanghai) == gas
+    assert consumer.gas_cost(SilaShanghai) == gas
     if gas < 12:
         assert bytes(consumer) == bytes(Op.JUMPDEST) * gas
 
 
 def test_gas_consumer_is_compact() -> None:
     """Verify a block-sized target does not make a block-sized contract."""
-    consumer = GasConsumer(gas=30_000_000, fork=Osaka)
+    consumer = GasConsumer(gas=30_000_000, fork=SilaOsaka)
     assert len(consumer) < 1_000
 
 
@@ -76,12 +76,12 @@ def test_gas_consumer_previous_memory_size(previous_memory_size: int) -> None:
         previous_memory_size - 1, 0, new_memory_size=previous_memory_size
     )
     consumer = GasConsumer(
-        gas=100_000, fork=Osaka, previous_memory_size=previous_memory_size
+        gas=100_000, fork=SilaOsaka, previous_memory_size=previous_memory_size
     )
-    assert (prefix + consumer).gas_cost(Osaka) == (
-        prefix.gas_cost(Osaka) + 100_000
+    assert (prefix + consumer).gas_cost(SilaOsaka) == (
+        prefix.gas_cost(SilaOsaka) + 100_000
     )
-    assert bytes(consumer) != bytes(GasConsumer(gas=100_000, fork=Osaka))
+    assert bytes(consumer) != bytes(GasConsumer(gas=100_000, fork=SilaOsaka))
 
 
 @pytest.mark.parametrize(
@@ -99,20 +99,22 @@ def test_gas_consumer_memory_size(gas: int, expands: bool) -> None:
     A second consumer handed the size as its `previous_memory_size` is
     charged only for the words it adds, so the two targets add up.
     """
-    consumer = GasConsumer(gas=gas, fork=Shanghai)
+    consumer = GasConsumer(gas=gas, fork=SilaShanghai)
     assert (consumer.memory_size > 0) == expands
     follow_on = GasConsumer(
-        gas=100_000, fork=Shanghai, previous_memory_size=consumer.memory_size
+        gas=100_000,
+        fork=SilaShanghai,
+        previous_memory_size=consumer.memory_size,
     )
-    assert (consumer + follow_on).gas_cost(Shanghai) == gas + 100_000
+    assert (consumer + follow_on).gas_cost(SilaShanghai) == gas + 100_000
 
 
 def test_gas_consumer_composes() -> None:
     """Verify a consumer appended to other code still costs its target."""
     prefix = Op.SSTORE(0, 1)
-    consumer = GasConsumer(gas=70_000, fork=Osaka)
-    assert (prefix + consumer).gas_cost(Osaka) == (
-        prefix.gas_cost(Osaka) + 70_000
+    consumer = GasConsumer(gas=70_000, fork=SilaOsaka)
+    assert (prefix + consumer).gas_cost(SilaOsaka) == (
+        prefix.gas_cost(SilaOsaka) + 70_000
     )
 
 
@@ -138,7 +140,7 @@ def test_gas_consumer_out_of_gas_needs_an_unpayable_expansion() -> None:
     completion.
     """
 
-    class CappedMemory(Osaka):
+    class CappedMemory(SilaOsaka):
         """A fork that caps the expansion charge at one word."""
 
         @classmethod
@@ -146,7 +148,7 @@ def test_gas_consumer_out_of_gas_needs_an_unpayable_expansion() -> None:
             cls,
         ) -> MemoryExpansionGasCalculator:
             """Return the capped calculator."""
-            uncapped = Osaka.memory_expansion_gas_calculator()
+            uncapped = SilaOsaka.memory_expansion_gas_calculator()
 
             def fn(*, new_bytes: int, previous_bytes: int = 0) -> int:
                 return min(
@@ -165,4 +167,4 @@ def test_gas_consumer_out_of_gas_needs_an_unpayable_expansion() -> None:
 def test_gas_consumer_negative_gas() -> None:
     """Verify a negative gas target is rejected."""
     with pytest.raises(ValueError, match="negative gas target"):
-        GasConsumer(gas=-1, fork=Osaka)
+        GasConsumer(gas=-1, fork=SilaOsaka)

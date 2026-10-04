@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stEIP150Specific/Transaction64Rule_integerBoundariesFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [

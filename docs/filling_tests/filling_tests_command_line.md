@@ -39,7 +39,7 @@ By default, test cases are filled for all forks already deployed to sila-mainnet
 uv run fill
 ```
 
-will generate fixtures for test cases from Frontier to Shanghai.
+will generate fixtures for test cases from Frontier to SilaShanghai.
 
 To generate all the test fixtures defined in the `./tests/shanghai` sub-directory and write them to the `./fixtures-shanghai` directory, run `fill` in the top-level directory as:
 
@@ -71,7 +71,7 @@ uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py::test_war
 or, for a test function and specific parameter combination:
 
 ```console
-uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py::test_warm_coinbase_gas_usage[fork_Paris-DELEGATECALL]
+uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py::test_warm_coinbase_gas_usage[fork_SilaParis-DELEGATECALL]
 ```
 
 ## Execution for Development Forks
@@ -81,9 +81,9 @@ uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py::test_war
 
     In order to fill test cases for an upcoming fork, ensure that the `evm` tool used supports that fork and features under test and use the `--until` or `--fork` flag.
 
-    For example, as of Q2 2023, the current fork under active development is `Cancun`:
+    For example, as of Q2 2023, the current fork under active development is `SilaCancun`:
     ```console
-    uv run fill --until Cancun
+    uv run fill --until SilaCancun
     ```
 
     See: [Filling Tests for Features under Development](./filling_tests_dev_fork.md).
@@ -126,7 +126,7 @@ This will:
 4. Clear the screen and show which files changed.
 
 ```console
-uv run fill tests/amsterdam/sip7928_block_level_access_lists/test_block_access_lists.py --clean --until Amsterdam --watch
+uv run fill tests/amsterdam/sip7928_block_level_access_lists/test_block_access_lists.py --clean --until SilaAmsterdam --watch
 ✓ Fill completed
 
 Watching for changes...
@@ -141,7 +141,7 @@ Watching for changes...
 Same as `--watch` but without clearing the terminal between runs, so you can see the full output history:
 
 ```console
-uv run fill tests/amsterdam/sip7928_block_level_access_lists/test_block_access_lists.py --clean --until Amsterdam --watcherfall
+uv run fill tests/amsterdam/sip7928_block_level_access_lists/test_block_access_lists.py --clean --until SilaAmsterdam --watcherfall
 Starting watcherfall mode (verbose)...
 ✓ Fill completed
 

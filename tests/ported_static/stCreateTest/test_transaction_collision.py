@@ -43,7 +43,7 @@ COLLIDING_CODE = bytes.fromhex("1122334455")
         "state_tests/stCreateTest/TransactionCollisionToEmptyButNonceFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize("collision", ["code", "nonce"])
 @pytest.mark.parametrize(
     "full_budget", [True, False], ids=["full-budget", "intrinsic-only"]

@@ -39,9 +39,9 @@ was filled for.
 TRANSITION_FORKS = {fork.name(): fork for fork in get_transition_forks()}
 """
 Transition forks of the testing framework by name. The network of a
-fork-transition fixture, such as `BPO2ToAmsterdamAtTime15k` or
-`BerlinToLondonAt5`, is the name of the transition fork it was filled for:
-the chain starts on the first fork and the second fork activates at the
+fork-transition fixture, such as `BPO2ToSilaAmsterdamAtTime15k` or
+`SilaBerlinToSilaLondonAt5`, is the name of the transition fork it was filled
+for: the chain starts on the first fork and the second fork activates at the
 transition fork's timestamp or block number.
 """
 

@@ -36,25 +36,25 @@ def minimal_test_path(pytester: pytest.Pytester) -> Path:
 def consume_test_case_ids() -> list[str]:
     """Hard-coded expected output of `consume direct --collectonly -q`."""
     return [
-        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_Cancun-blockchain_test_from_state_test]]",
-        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_Paris-blockchain_test_from_state_test]]",
-        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_Shanghai-blockchain_test_from_state_test]]",
-        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_Cancun-state_test]]",
-        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_Paris-state_test]]",
-        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_Shanghai-state_test]]",
+        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_SilaCancun-blockchain_test_from_state_test]]",
+        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_SilaParis-blockchain_test_from_state_test]]",
+        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_SilaShanghai-blockchain_test_from_state_test]]",
+        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_SilaCancun-state_test]]",
+        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_SilaParis-state_test]]",
+        f"src/execution_testing/cli/pytest_commands/plugins/consume/direct/test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/{MINIMAL_TEST_FILE_NAME}::test_function[fork_SilaShanghai-state_test]]",
     ]
 
 
 @pytest.fixture(scope="module")
 def fill_fork_from() -> str:
     """Specify the value for `fill`'s `--from` argument."""
-    return "Paris"
+    return "SilaParis"
 
 
 @pytest.fixture(scope="module")
 def fill_fork_until() -> str:
     """Specify the value for `fill`'s `--until` argument."""
-    return "Cancun"
+    return "SilaCancun"
 
 
 @pytest.fixture(scope="module")
@@ -148,7 +148,7 @@ def copy_consume_test_paths(pytester: Pytester) -> None:
 single_test_id = (
     "src/execution_testing/cli/pytest_commands/plugins/consume/direct/"
     "test_via_direct.py::test_fixture[CollectOnlyFixtureConsumer-tests/"
-    f"{MINIMAL_TEST_FILE_NAME}::test_function[fork_Shanghai-state_test]]"
+    f"{MINIMAL_TEST_FILE_NAME}::test_function[fork_SilaShanghai-state_test]]"
 )
 
 
@@ -161,13 +161,13 @@ single_test_id = (
             id="no_extra_args",
         ),
         pytest.param(
-            ["--collect-only", "-q", "--sim.limit", ".*fork_Cancun.*"],
-            re.compile(".*Cancun.*"),
+            ["--collect-only", "-q", "--sim.limit", ".*fork_SilaCancun.*"],
+            re.compile(".*SilaCancun.*"),
             id="sim_limit_regex",
         ),
         pytest.param(
-            ["--sim.limit", "collectonly:.*fork_Cancun.*"],
-            re.compile(".*Cancun.*"),
+            ["--sim.limit", "collectonly:.*fork_SilaCancun.*"],
+            re.compile(".*SilaCancun.*"),
             id="sim_limit_collect_only_regex",
         ),
         pytest.param(

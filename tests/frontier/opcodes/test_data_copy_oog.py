@@ -15,7 +15,7 @@ from execution_testing import (
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-211.md"
 REFERENCE_SPEC_VERSION = "1.0.0"
 
-pytestmark = pytest.mark.valid_from("Byzantium")
+pytestmark = pytest.mark.valid_from("SilaByzantium")
 
 # Gas costs for data copy operations:
 # - Static cost: 3 gas

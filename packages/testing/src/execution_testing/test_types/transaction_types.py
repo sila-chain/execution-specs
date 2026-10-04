@@ -1139,9 +1139,9 @@ class NetworkWrappedTransaction(CamelModel, RLPSerializable):
     Network wrapped transaction as defined in
     [SIP-4844](https://sips.sila.org/SIPS/sip-4844#networking).
 
-    < Osaka: rlp([tx_payload_body, blobs, commitments, proofs])
+    < SilaOsaka: rlp([tx_payload_body, blobs, commitments, proofs])
 
-    >= Osaka: rlp([tx_payload_body, wrapper_version,  blobs, commitments,
+    >= SilaOsaka: rlp([tx_payload_body, wrapper_version,  blobs, commitments,
                    cell_proofs])
     """
 
@@ -1164,7 +1164,7 @@ class NetworkWrappedTransaction(CamelModel, RLPSerializable):
     @computed_field  # type: ignore[prop-decorator]
     @property
     def proofs(self) -> Sequence[Bytes] | None:
-        """Return a list of kzg proofs (returns None >= Osaka)."""
+        """Return a list of kzg proofs (returns None >= SilaOsaka)."""
         if self.wrapper_version is not None:
             return None
 
@@ -1178,7 +1178,7 @@ class NetworkWrappedTransaction(CamelModel, RLPSerializable):
     @computed_field  # type: ignore[prop-decorator]
     @property
     def cell_proofs(self) -> Sequence[Bytes] | None:
-        """Return a list of cells (returns None < Osaka)."""
+        """Return a list of cells (returns None < SilaOsaka)."""
         if self.wrapper_version is None:
             return None
 

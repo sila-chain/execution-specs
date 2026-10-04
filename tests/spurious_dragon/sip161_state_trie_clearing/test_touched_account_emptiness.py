@@ -68,7 +68,7 @@ def touch_code(precompile: Address, touch: str, storage: Storage) -> Bytecode:
         raise ValueError(f"Unknown touch: {touch}")
 
 
-@pytest.mark.valid_from("ConstantinopleFix")
+@pytest.mark.valid_from("SilaConstantinopleFix")
 @pytest.mark.with_all_precompiles
 @pytest.mark.parametrize("touch", ["zero_value_call", "failed_value_call"])
 @pytest.mark.parametrize("funded", [False, True])
@@ -147,7 +147,7 @@ def test_call_new_account_charge_after_precompile_touch(
     earlier in the transaction.
 
     The measured call forwards zero gas, so the callee runs on the value
-    stipend alone and halts. From Amsterdam the new-account charge is
+    stipend alone and halts. From SilaAmsterdam the new-account charge is
     state gas and is refunded when the callee halts, so a second call
     creates the account for real and is measured too.
     """
@@ -239,7 +239,7 @@ def test_selfdestruct_beneficiary_charge_after_precompile_touch(
     transaction.
 
     The measured cost covers the outer call plus the destroyer frame.
-    From Amsterdam the beneficiary creation charge splits into execution
+    From SilaAmsterdam the beneficiary creation charge splits into execution
     gas, which the GAS delta still sees, and state gas, which the sender
     balance pins in the state root.
     """

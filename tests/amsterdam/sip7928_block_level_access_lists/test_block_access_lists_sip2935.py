@@ -26,7 +26,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 HISTORY_STORAGE_ADDRESS = Address(Spec.HISTORY_STORAGE_ADDRESS)
 SYSTEM_ADDRESS = Address(Spec4788.SYSTEM_ADDRESS)

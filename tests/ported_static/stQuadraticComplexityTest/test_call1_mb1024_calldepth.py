@@ -29,8 +29,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stQuadraticComplexityTest/Call1MB1024CalldepthFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -102,7 +102,7 @@ def test_call1_mb1024_calldepth(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 sender: Account(storage={}, code=b"", nonce=1),
                 addr: Account(storage={}, code=b"", nonce=0),
@@ -111,7 +111,7 @@ def test_call1_mb1024_calldepth(
         },
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 sender: Account(storage={}, code=b"", nonce=1),
                 addr: Account(storage={}, code=b"", nonce=0),

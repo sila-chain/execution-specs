@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCallCreateCallCodeTest/createInitOOGforCREATEFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -84,12 +84,12 @@ def test_create_init_oo_gfor_create(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_0: Account(nonce=0)},
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(balance=0, nonce=1),
                 compute_create_address(address=contract_0, nonce=0): Account(

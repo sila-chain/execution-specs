@@ -28,12 +28,12 @@ def test_sip_checklist_collection(testdir: Any) -> None:
             REFERENCE_SPEC_GIT_PATH = "N/A"
             REFERENCE_SPEC_VERSION = "N/A"
 
-            @pytest.mark.valid_at("Prague")
+            @pytest.mark.valid_at("SilaPrague")
             @SIPChecklist.TransactionType.Test.IntrinsicValidity.GasLimit.Exact()
             def test_exact_gas(state_test: StateTestFiller) -> None:
                 pass
 
-            @pytest.mark.valid_at("Prague")
+            @pytest.mark.valid_at("SilaPrague")
             @SIPChecklist.TransactionType.Test.Signature.Invalid.V.Two(sip=[2930])
             def test_invalid_v(state_test: StateTestFiller) -> None:
                 pass
@@ -63,7 +63,7 @@ def test_sip_checklist_collection(testdir: Any) -> None:
             REFERENCE_SPEC_GIT_PATH = "N/A"
             REFERENCE_SPEC_VERSION = "N/A"
 
-            @pytest.mark.valid_at("Berlin")
+            @pytest.mark.valid_at("SilaBerlin")
             def test_berlin_one(state_test: StateTestFiller) -> None:
                 pass
             """
@@ -162,7 +162,7 @@ def test_generator_built_test_is_credited_to_its_directory(
             REFERENCE_SPEC_GIT_PATH = "N/A"
             REFERENCE_SPEC_VERSION = "N/A"
 
-            @pytest.mark.valid_at("Prague")
+            @pytest.mark.valid_at("SilaPrague")
             @SIPChecklist.TransactionType.Test.IntrinsicValidity.GasLimit.Exact()
             @build
             def test_generated(state_test: StateTestFiller) -> None:

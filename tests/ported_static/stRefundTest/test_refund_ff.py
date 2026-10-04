@@ -11,8 +11,8 @@ existing beneficiary; SIP-8038 raises the `COLD_ACCOUNT_ACCESS`
 surcharge. No positive balance is moved, so no `ACCOUNT_WRITE`
 applies and there is no refund, so `gas_used` rises by exactly the
 SELFDESTRUCT charge delta. Derive that delta from the fork gas model
-(0 pre-SIP-8037) and subtract `gas_price * delta` from the Cancun
-balance; do not hardcode the Amsterdam value.
+(0 pre-SIP-8037) and subtract `gas_price * delta` from the SilaCancun
+balance; do not hardcode the SilaAmsterdam value.
 """
 
 import pytest
@@ -25,7 +25,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refundFFFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_refund_ff(
     state_test: StateTestFiller,
@@ -82,14 +82,14 @@ def test_refund_ff(
     selfdestruct = Op.SELFDESTRUCT.with_metadata(
         address_warm=False, account_new=False
     )
-    cancun_selfdestruct = selfdestruct.gas_cost(Cancun)
+    cancun_selfdestruct = selfdestruct.gas_cost(SilaCancun)
     selfdestruct_delta = selfdestruct.gas_cost(fork) - cancun_selfdestruct
     # SIP-2780 lowers the intrinsic for non-self non-value txs; the
-    # delta is negative on Amsterdam, so it reduces ``gas_used`` and
+    # delta is negative on SilaAmsterdam, so it reduces ``gas_used`` and
     # raises the sender balance correspondingly.
     intrinsic_delta = (
         fork.transaction_intrinsic_cost_calculator()()
-        - Cancun.transaction_intrinsic_cost_calculator()()
+        - SilaCancun.transaction_intrinsic_cost_calculator()()
     )
     gas_used_delta = selfdestruct_delta + intrinsic_delta
 

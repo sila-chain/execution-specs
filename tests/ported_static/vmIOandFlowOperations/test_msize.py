@@ -30,8 +30,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmIOandFlowOperations/msizeFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -231,27 +231,27 @@ def test_msize(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 1], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_6: Account(storage={0: 32})},
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_6: Account(storage={0: 64})},
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_6: Account(storage={0: 128})},
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_6: Account(storage={0: 32, 1: 64, 2: 64})},
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {contract_6: Account(storage={0: 0xB00020})},
         },
     ]

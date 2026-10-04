@@ -98,7 +98,9 @@ def test_bpo_fork_validates_with_the_framework_blob_schedule(
     assert derived_blob_constants(load) == spec_derived
 
 
-@pytest.mark.parametrize("network", ["Cancun", "Osaka", "Amsterdam"])
+@pytest.mark.parametrize(
+    "network", ["SilaCancun", "SilaOsaka", "SilaAmsterdam"]
+)
 def test_non_bpo_fork_is_left_alone(network: str) -> None:
     """Patch nothing for a fork that is not a BPO fork."""
     load = Load(FORKS[network].short_name)

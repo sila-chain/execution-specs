@@ -28,7 +28,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stEIP3607/transactionCollidingWithNonEmptyAccount_send_ParisFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.exception_test
 @pytest.mark.pre_alloc_mutable
 def test_transaction_colliding_with_non_empty_account_send_paris(

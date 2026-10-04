@@ -7,7 +7,7 @@ from typing import Any, Generator, Literal
 import pytest
 
 from execution_testing.base_types import Address, HexNumber
-from execution_testing.forks import Paris
+from execution_testing.forks import SilaParis
 from execution_testing.forks.helpers import Fork
 from execution_testing.test_types import EOA
 
@@ -74,7 +74,7 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
 @pytest.fixture(scope="session")
 def session_fork() -> Fork:
     """Return a default fork for the recover command."""
-    return Paris
+    return SilaParis
 
 
 @pytest.fixture(scope="session")

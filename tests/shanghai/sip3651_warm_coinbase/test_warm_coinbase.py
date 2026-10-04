@@ -18,7 +18,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Shanghai
+from execution_testing.forks import SilaShanghai
 
 from .spec import ref_spec_3651
 
@@ -26,7 +26,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_3651.git_path
 REFERENCE_SPEC_VERSION = ref_spec_3651.version
 
 
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 @pytest.mark.parametrize(
     "use_sufficient_gas",
     [True, False],
@@ -96,7 +96,7 @@ def test_warm_coinbase_call_out_of_gas(
         sender=sender,
     )
 
-    if use_sufficient_gas and fork >= Shanghai:
+    if use_sufficient_gas and fork >= SilaShanghai:
         post[caller_address] = Account(
             storage={
                 # On shanghai and beyond, calls with only 100 gas to
@@ -135,7 +135,9 @@ gas_measured_opcodes = [
 ]
 
 
-@pytest.mark.valid_from("Berlin")  # these tests fill for fork >= Berlin
+@pytest.mark.valid_from(
+    "SilaBerlin"
+)  # these tests fill for fork >= SilaBerlin
 @pytest.mark.parametrize(
     "opcode,measured_code,extra_stack_items",
     gas_measured_opcodes,
@@ -181,8 +183,10 @@ def test_warm_coinbase_gas_usage(
         code=code_gas_measure,
     )
 
-    # Coinbase is warm after SIP-3651 (Shanghai+), cold before
-    expected_gas = Op.BALANCE(address_warm=(fork >= Shanghai)).gas_cost(fork)
+    # Coinbase is warm after SIP-3651 (SilaShanghai+), cold before
+    expected_gas = Op.BALANCE(address_warm=(fork >= SilaShanghai)).gas_cost(
+        fork
+    )
 
     tx = Transaction(
         to=measure_address,

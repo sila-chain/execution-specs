@@ -16,7 +16,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CREATE_ContractSSTOREDuringInitFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_create_contract_sstore_during_init(
     state_test: StateTestFiller,
     fork: Fork,
@@ -49,7 +49,7 @@ def test_create_contract_sstore_during_init(
         sender=sender,
         to=None,
         data=Op.SSTORE(key=0x0, value=0xFF),
-        gas_limit=2150000 if fork >= Amsterdam else 150000,
+        gas_limit=2150000 if fork >= SilaAmsterdam else 150000,
     )
 
     post = {

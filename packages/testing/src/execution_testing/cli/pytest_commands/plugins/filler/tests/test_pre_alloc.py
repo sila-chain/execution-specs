@@ -3,7 +3,7 @@
 import pytest
 
 from execution_testing.base_types import Account, Address
-from execution_testing.forks import Fork, Prague
+from execution_testing.forks import Fork, SilaPrague
 from execution_testing.vm import Op
 
 from ...shared.pre_alloc import AllocFlags
@@ -12,7 +12,7 @@ from ..pre_alloc import Alloc
 
 def create_test_alloc(
     flags: AllocFlags = AllocFlags.MUTABLE,
-    fork: Fork = Prague,
+    fork: Fork = SilaPrague,
 ) -> Alloc:
     """Create a test Alloc instance with default iterators."""
     return Alloc(

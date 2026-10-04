@@ -24,11 +24,11 @@ from execution_testing.exceptions import (
     TransactionException,
 )
 from execution_testing.forks import (
-    Amsterdam,
     ConsolidationRequest,
     DepositRequest,
-    Prague,
     Requests,
+    SilaAmsterdam,
+    SilaPrague,
     WithdrawalRequest,
 )
 from execution_testing.test_types import (
@@ -690,7 +690,7 @@ fixture_header_ones = FixtureHeader(
         pytest.param(
             True,
             FixtureEngineNewPayload.from_fixture_header(
-                fork=Prague,
+                fork=SilaPrague,
                 header=FixtureHeader(
                     parent_hash=Hash(0),
                     ommers_hash=Hash(1),
@@ -851,9 +851,9 @@ fixture_header_ones = FixtureHeader(
         pytest.param(
             True,
             FixtureEngineNewPayload.from_fixture_header(
-                fork=Prague,
+                fork=SilaPrague,
                 header=FixtureHeader(
-                    fork=Prague,
+                    fork=SilaPrague,
                     parent_hash=Hash(0),
                     ommers_hash=Hash(1),
                     fee_recipient=Address(2),
@@ -1011,17 +1011,17 @@ fixture_header_ones = FixtureHeader(
         pytest.param(
             True,
             BlockchainEngineStatefulFixture(
-                fork=Prague,
+                fork=SilaPrague,
                 last_block_hash=Hash(1),
                 post_state_hash=Hash(2),
-                config=FixtureConfig(fork=Prague),
+                config=FixtureConfig(fork=SilaPrague),
                 snapshot_block_number=100,
                 snapshot_block_hash=Hash(99),
                 start_block_number=100,
                 start_block_hash=Hash(99),
                 setup_payloads=[
                     FixtureEngineNewPayload.from_fixture_header(
-                        fork=Prague,
+                        fork=SilaPrague,
                         header=FixtureHeader(
                             parent_hash=Hash(0),
                             ommers_hash=Hash(1),
@@ -1052,7 +1052,7 @@ fixture_header_ones = FixtureHeader(
                 ],
                 payloads=[
                     FixtureEngineNewPayload.from_fixture_header(
-                        fork=Prague,
+                        fork=SilaPrague,
                         header=FixtureHeader(
                             parent_hash=Hash(0),
                             ommers_hash=Hash(1),
@@ -1086,11 +1086,11 @@ fixture_header_ones = FixtureHeader(
                 "_info": {
                     "fixture-format": "blockchain_test_stateful_engine",
                 },
-                "network": "Prague",
+                "network": "SilaPrague",
                 "postStateHash": Hash(2).hex(),
                 "lastblockhash": Hash(1).hex(),
                 "config": {
-                    "network": "Prague",
+                    "network": "SilaPrague",
                     "chainid": "0x01",
                 },
                 "snapshotBlockNumber": "0x64",
@@ -1100,7 +1100,7 @@ fixture_header_ones = FixtureHeader(
                 "setupEngineNewPayloads": [
                     to_json(
                         FixtureEngineNewPayload.from_fixture_header(
-                            fork=Prague,
+                            fork=SilaPrague,
                             header=FixtureHeader(
                                 parent_hash=Hash(0),
                                 ommers_hash=Hash(1),
@@ -1133,7 +1133,7 @@ fixture_header_ones = FixtureHeader(
                 "engineNewPayloads": [
                     to_json(
                         FixtureEngineNewPayload.from_fixture_header(
-                            fork=Prague,
+                            fork=SilaPrague,
                             header=FixtureHeader(
                                 parent_hash=Hash(0),
                                 ommers_hash=Hash(1),
@@ -1602,7 +1602,9 @@ class TestPydanticAdaptersConversion:
 
 
 def _amsterdam_payload_header() -> FixtureHeader:
-    """Build a fully-populated header suitable for an Amsterdam V5 payload."""
+    """
+    Build a fully-populated header suitable for an SilaAmsterdam V5 payload.
+    """
     return FixtureHeader(
         parent_hash=Hash(0),
         ommers_hash=Hash(1),
@@ -1674,7 +1676,7 @@ class TestFixtureExecutionPayloadModifier:
     def test_from_fixture_header_injects_body_on_pre_bal_fork(self) -> None:
         """Modifier can inject a BAL body into a fork that doesn't carry it."""
         payload = FixtureEngineNewPayload.from_fixture_header(
-            fork=Prague,
+            fork=SilaPrague,
             header=FixtureHeader(
                 parent_hash=Hash(0),
                 ommers_hash=Hash(1),
@@ -1711,7 +1713,7 @@ class TestFixtureExecutionPayloadModifier:
     def test_from_fixture_header_removes_body_on_post_bal_fork(self) -> None:
         """REMOVE_FIELD bypasses the fork-required check and omits the body."""
         payload = FixtureEngineNewPayload.from_fixture_header(
-            fork=Amsterdam,
+            fork=SilaAmsterdam,
             header=_amsterdam_payload_header(),
             transactions=[],
             withdrawals=[],
@@ -1727,10 +1729,12 @@ class TestFixtureExecutionPayloadModifier:
         assert "blockAccessList" not in to_json(payload.params[0])
 
     def test_from_fixture_header_requires_bal_on_post_bal_fork(self) -> None:
-        """Without a modifier override, Amsterdam still requires a BAL body."""
+        """
+        Without a modifier override, SilaAmsterdam still requires a BAL body.
+        """
         with pytest.raises(ValueError, match="block_access_list"):
             FixtureEngineNewPayload.from_fixture_header(
-                fork=Amsterdam,
+                fork=SilaAmsterdam,
                 header=_amsterdam_payload_header(),
                 transactions=[],
                 withdrawals=[],
@@ -1741,7 +1745,7 @@ class TestFixtureExecutionPayloadModifier:
     def test_from_fixture_header_passthrough_without_modifier(self) -> None:
         """No modifier leaves the payload's BAL body unchanged."""
         payload = FixtureEngineNewPayload.from_fixture_header(
-            fork=Amsterdam,
+            fork=SilaAmsterdam,
             header=_amsterdam_payload_header(),
             transactions=[],
             withdrawals=[],

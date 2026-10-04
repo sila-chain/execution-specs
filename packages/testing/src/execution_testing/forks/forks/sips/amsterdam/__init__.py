@@ -1,4 +1,4 @@
-"""Listings of all SIPs for Amsterdam fork."""
+"""Listings of all SIPs for SilaAmsterdam fork."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ __all__ = ["AmsterdamEIPs"]
 if TYPE_CHECKING:
 
     class AmsterdamEIPs(BaseFork):
-        """Typing-only stand-in for Amsterdam SIP mixins."""
+        """Typing-only stand-in for SilaAmsterdam SIP mixins."""
 
         pass
 else:
@@ -38,7 +38,7 @@ else:
     _amsterdam_sips.sort(key=lambda cls: int(cls.__name__[3:]))
 
     class _AmsterdamEIPsSentinel:
-        """Expand to the currently available Amsterdam SIP mixins."""
+        """Expand to the currently available SilaAmsterdam SIP mixins."""
 
         def __mro_entries__(
             self,

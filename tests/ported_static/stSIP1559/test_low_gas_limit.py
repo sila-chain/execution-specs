@@ -37,7 +37,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP1559/lowGasLimitFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -106,28 +106,28 @@ def test_low_gas_limit(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.GAS_ALLOWANCE_EXCEEDED
+                ">=SilaCancun": TransactionException.GAS_ALLOWANCE_EXCEEDED
             },
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 2})},
         },
         {
             "indexes": {"data": -1, "gas": 2, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 24743})},
         },
         {
             "indexes": {"data": -1, "gas": 3, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INTRINSIC_GAS_TOO_LOW
+                ">=SilaCancun": TransactionException.INTRINSIC_GAS_TOO_LOW
             },
         },
     ]

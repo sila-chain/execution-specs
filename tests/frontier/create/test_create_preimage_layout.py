@@ -22,7 +22,7 @@ from execution_testing import (
     "nonce",
     [1, 2, 127, 128, 255, 256, 3515, 65535, 16777215],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_create_preimage_layout_address(
     state_test: StateTestFiller,
     fork: Fork,
@@ -65,7 +65,7 @@ def test_create_preimage_layout_address(
 DYNAMIC_NONCE_COUNT = 16
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_create_preimage_layout_increment_nonce(
     state_test: StateTestFiller,
     fork: Fork,
@@ -111,7 +111,7 @@ def test_create_preimage_layout_increment_nonce(
     state_test(env=Environment(), pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_create_address_dynamic_nonce(
     pre: Alloc,
     state_test: StateTestFiller,
@@ -195,7 +195,7 @@ BOUNDARY_ITERATIONS = 10
     ],
 )
 @pytest.mark.pre_alloc_mutable
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_create_address_nonce_boundary(
     pre: Alloc,
     state_test: StateTestFiller,

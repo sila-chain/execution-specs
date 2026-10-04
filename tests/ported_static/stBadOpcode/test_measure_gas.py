@@ -140,7 +140,7 @@ def probe_code(opcode: Opcodes, pre: Alloc) -> Bytecode:
         "state_tests/stBadOpcode/opcodeDiffGasFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "sufficient", [True, False], ids=["sufficient", "insufficient"]
 )

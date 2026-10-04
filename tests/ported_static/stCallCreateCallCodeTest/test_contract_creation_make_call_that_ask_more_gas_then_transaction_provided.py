@@ -42,7 +42,7 @@ OVERSIZED_GAS_ASK = 2**61
         "state_tests/stCallCreateCallCodeTest/contractCreationMakeCallThatAskMoreGasThenTransactionProvidedFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "call_covered",
     [
@@ -101,7 +101,7 @@ def test_contract_creation_make_call_that_ask_more_gas_then_transaction_provided
             return_cost_deducted_prior_execution=True,
         )
         # SIP-8037 charges the created account's state gas to the
-        # creation transaction's top frame (zero before Amsterdam).
+        # creation transaction's top frame (zero before SilaAmsterdam).
         + fork.transaction_top_frame_state_gas(contract_creation=True)
         + initcode.gas_cost(fork)
     )

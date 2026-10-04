@@ -24,8 +24,8 @@ def test_case(state_test):
         pytest.param(
             """
 import pytest
-@pytest.mark.valid_from("Paris")
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaParis")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.state_test_only
 def test_case(state_test):
     pass
@@ -36,30 +36,31 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_until='"Cancun"',
+                valid_until='"SilaCancun"',
             ),
             [],
-            # All deployed forks from Frontier through Cancun, except
-            # Constantinople (filled as ConstantinopleFix): Frontier,
-            # Homestead, TangerineWhistle, SpuriousDragon, Byzantium,
-            # ConstantinopleFix, Istanbul, Berlin, London, Paris, Shanghai,
-            # Cancun = 12 forks.
+            # All deployed forks from Frontier through SilaCancun, except
+            # SilaConstantinople (filled as SilaConstantinopleFix): Frontier,
+            # SilaHomestead, TangerineWhistle, SpuriousDragon, SilaByzantium,
+            # SilaConstantinopleFix, SilaIstanbul, SilaBerlin, SilaLondon,
+            # SilaParis, SilaShanghai,
+            # SilaCancun = 12 forks.
             {"passed": 12, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_until",
         ),
         pytest.param(
             generate_test(
-                valid_until='"Cancun"',
+                valid_until='"SilaCancun"',
             ),
-            ["--from=Berlin"],
+            ["--from=SilaBerlin"],
             {"passed": 5, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_until,--from",
         ),
         pytest.param(
             generate_test(
-                valid_from='"Paris"',
+                valid_from='"SilaParis"',
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_from",
         ),
@@ -67,14 +68,14 @@ def test_case(state_test):
             generate_test(
                 valid_from='"SIP3675"',
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_from_sip",
         ),
         pytest.param(
             generate_test(
-                valid_from='"Paris"',
-                valid_until='"Cancun"',
+                valid_from='"SilaParis"',
+                valid_until='"SilaCancun"',
             ),
             [],
             {"passed": 3, "failed": 0, "skipped": 0, "errors": 0},
@@ -91,7 +92,7 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_from='"Paris"',
+                valid_from='"SilaParis"',
                 valid_until='"SIP4844"',
             ),
             [],
@@ -101,7 +102,7 @@ def test_case(state_test):
         pytest.param(
             generate_test(
                 valid_from='"SIP3675"',
-                valid_until='"Cancun"',
+                valid_until='"SilaCancun"',
             ),
             [],
             {"passed": 3, "failed": 0, "skipped": 0, "errors": 0},
@@ -109,25 +110,25 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_from='"Paris"',
-                valid_until='"Cancun"',
+                valid_from='"SilaParis"',
+                valid_until='"SilaCancun"',
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 3, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_from_until,--until=Prague",
+            id="valid_from_until,--until=SilaPrague",
         ),
         pytest.param(
             generate_test(
-                valid_from='"Paris"',
-                valid_until='"Cancun"',
+                valid_from='"SilaParis"',
+                valid_until='"SilaCancun"',
             ),
-            ["--until=Shanghai"],
+            ["--until=SilaShanghai"],
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_from_until,--until=Shanghai",
+            id="valid_from_until,--until=SilaShanghai",
         ),
         pytest.param(
             generate_test(
-                valid_at_transition_to='"Shanghai"',
+                valid_at_transition_to='"SilaShanghai"',
             ),
             [],
             {"passed": 1, "failed": 0, "skipped": 0, "errors": 0},
@@ -135,60 +136,60 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_at_transition_to='"Shanghai"',
+                valid_at_transition_to='"SilaShanghai"',
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 1, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_at_transition_to,--until=Prague",
+            id="valid_at_transition_to,--until=SilaPrague",
         ),
         pytest.param(
             generate_test(
-                valid_at_transition_to='"Shanghai"',
+                valid_at_transition_to='"SilaShanghai"',
             ),
-            ["--until=Berlin"],
+            ["--until=SilaBerlin"],
             {"passed": 0, "failed": 0, "skipped": 0, "errors": 0},
-            id="valid_at_transition_to,--until=Berlin",
+            id="valid_at_transition_to,--until=SilaBerlin",
         ),
         pytest.param(
             generate_test(
-                valid_at_transition_to='"Paris", subsequent_forks=True',
+                valid_at_transition_to='"SilaParis", subsequent_forks=True',
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 3, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_at_transition_to,subsequent_forks=True",
         ),
         pytest.param(
             generate_test(
                 valid_at_transition_to=(
-                    '"Paris", subsequent_forks=True, until="Cancun"'
+                    '"SilaParis", subsequent_forks=True, until="SilaCancun"'
                 ),
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_at_transition_to,subsequent_forks=True,until",
         ),
         pytest.param(
             generate_test(
-                valid_at_transition_to='"Cancun"',
+                valid_at_transition_to='"SilaCancun"',
             ),
-            ["--fork=ShanghaiToCancunAtTime15k"],
+            ["--fork=SilaShanghaiToSilaCancunAtTime15k"],
             {"passed": 1, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_at_transition_to,--fork=transition_fork_only",
         ),
         pytest.param(
             generate_test(
-                valid_before='"Cancun"',
+                valid_before='"SilaCancun"',
             ),
-            ["--from=Berlin", "--until=Prague"],
+            ["--from=SilaBerlin", "--until=SilaPrague"],
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_before",
         ),
         pytest.param(
             generate_test(
-                valid_from='"Paris"',
-                valid_before='"Cancun"',
+                valid_from='"SilaParis"',
+                valid_before='"SilaCancun"',
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_from_before",
         ),
@@ -196,7 +197,7 @@ def test_case(state_test):
             generate_test(
                 valid_before='"SIP4844"',
             ),
-            ["--from=Berlin", "--until=Prague"],
+            ["--from=SilaBerlin", "--until=SilaPrague"],
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_before_sip",
         ),
@@ -205,13 +206,13 @@ def test_case(state_test):
                 valid_from='"SIP3675"',
                 valid_before='"SIP4844"',
             ),
-            ["--until=Prague"],
+            ["--until=SilaPrague"],
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_from_sip_before_sip",
         ),
         pytest.param(
             generate_test(
-                valid_from='"Osaka"',
+                valid_from='"SilaOsaka"',
                 valid_until='"BPO1"',
             ),
             ["--until=BPO1"],
@@ -221,7 +222,7 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_from='"Osaka"',
+                valid_from='"SilaOsaka"',
                 valid_until='"BPO1"',
                 valid_for_bpo_forks="",
             ),
@@ -233,7 +234,7 @@ def test_case(state_test):
         pytest.param(
             generate_test(
                 valid_at_transition_to=(
-                    '"Osaka", subsequent_forks=True, until="BPO1"'
+                    '"SilaOsaka", subsequent_forks=True, until="BPO1"'
                 ),
             ),
             ["--until=BPO1"],
@@ -244,7 +245,7 @@ def test_case(state_test):
         pytest.param(
             generate_test(
                 valid_at_transition_to=(
-                    '"Osaka", subsequent_forks=True, until="BPO1"'
+                    '"SilaOsaka", subsequent_forks=True, until="BPO1"'
                 ),
                 valid_for_bpo_forks="",
             ),
@@ -255,17 +256,17 @@ def test_case(state_test):
         ),
         pytest.param(
             generate_test(
-                valid_at_transition_to='"Cancun"',
+                valid_at_transition_to='"SilaCancun"',
             ),
-            ["--fork=Cancun"],
+            ["--fork=SilaCancun"],
             {"passed": 1, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_at_transition_to_with_exact_fork",
         ),
         pytest.param(
             generate_test(
-                valid_at_transition_to='"Cancun"',
+                valid_at_transition_to='"SilaCancun"',
             ),
-            ["--from=Cancun", "--until=Prague"],
+            ["--from=SilaCancun", "--until=SilaPrague"],
             {"passed": 1, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_at_transition_to_from_fork_until_later_fork",
         ),
@@ -274,7 +275,7 @@ def test_case(state_test):
                 valid_at_transition_to='"BPO1"',
                 valid_for_bpo_forks="",
             ),
-            ["--fork=Osaka"],
+            ["--fork=SilaOsaka"],
             {"passed": 0, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_at_transition_with_bpo_test_marker_fork_parent",
             marks=pytest.mark.skip(reason="BPO tests are not supported yet"),
@@ -284,7 +285,7 @@ def test_case(state_test):
                 valid_at_transition_to='"BPO1"',
                 valid_for_bpo_forks="",
             ),
-            ["--from=Osaka", "--until=Osaka"],
+            ["--from=SilaOsaka", "--until=SilaOsaka"],
             {"passed": 0, "failed": 0, "skipped": 0, "errors": 0},
             id="valid_at_transition_with_bpo_test_marker_from_parent",
             marks=pytest.mark.skip(reason="BPO tests are not supported yet"),
@@ -336,7 +337,7 @@ import pytest
         pytest.param(
             False,
             id="from_paris",
-            marks=pytest.mark.valid_from("Paris"),
+            marks=pytest.mark.valid_from("SilaParis"),
         ),
     ],
 )
@@ -357,12 +358,12 @@ import pytest
         pytest.param(
             True,
             id="until_cancun",
-            marks=pytest.mark.valid_until("Cancun"),
+            marks=pytest.mark.valid_until("SilaCancun"),
         ),
         pytest.param(
             False,
             id="until_paris",
-            marks=pytest.mark.valid_until("Paris"),
+            marks=pytest.mark.valid_until("SilaParis"),
         ),
     ],
 )
@@ -383,12 +384,12 @@ import pytest
         pytest.param(
             True,
             id="before_cancun",
-            marks=pytest.mark.valid_before("Cancun"),
+            marks=pytest.mark.valid_before("SilaCancun"),
         ),
         pytest.param(
             False,
             id="before_paris",
-            marks=pytest.mark.valid_before("Paris"),
+            marks=pytest.mark.valid_before("SilaParis"),
         ),
     ],
 )
@@ -414,11 +415,11 @@ import pytest
         pytest.param(
             False,
             id="paris_only",
-            marks=pytest.mark.valid_from("Paris"),
+            marks=pytest.mark.valid_from("SilaParis"),
         ),
     ],
 )
-@pytest.mark.valid_until("Cancun")
+@pytest.mark.valid_until("SilaCancun")
 @pytest.mark.state_test_only
 def test_mixed_function_and_param_markers(state_test, value):
     pass
@@ -430,85 +431,90 @@ def test_mixed_function_and_param_markers(state_test, value):
     [
         pytest.param(
             generate_param_level_marker_test(),
-            ["--from=Paris", "--until=Cancun"],
-            # from_tangerine: Paris, Shanghai, Cancun = 3 forks
-            # from_paris: Paris, Shanghai, Cancun = 3 forks
+            ["--from=SilaParis", "--until=SilaCancun"],
+            # from_tangerine: SilaParis, SilaShanghai, SilaCancun = 3 forks
+            # from_paris: SilaParis, SilaShanghai, SilaCancun = 3 forks
             # Total: 6 tests
             {"passed": 6, "failed": 0, "skipped": 0, "errors": 0},
             id="param_level_valid_from_paris_to_cancun",
         ),
         pytest.param(
             generate_param_level_marker_test(),
-            ["--from=Berlin", "--until=Shanghai"],
-            # from_tangerine: Berlin, London, Paris, Shanghai = 4 forks
-            # from_paris: Paris, Shanghai = 2 forks
+            ["--from=SilaBerlin", "--until=SilaShanghai"],
+            # from_tangerine: SilaBerlin, SilaLondon, SilaParis, SilaShanghai =
+            # 4 forks
+            # from_paris: SilaParis, SilaShanghai = 2 forks
             # Total: 6 tests
             {"passed": 6, "failed": 0, "skipped": 0, "errors": 0},
             id="param_level_valid_from_berlin_to_shanghai",
         ),
         pytest.param(
             generate_param_level_marker_test(),
-            ["--from=Berlin", "--until=London"],
-            # from_tangerine: Berlin, London = 2 forks
-            # from_paris: none (Paris > London)
+            ["--from=SilaBerlin", "--until=SilaLondon"],
+            # from_tangerine: SilaBerlin, SilaLondon = 2 forks
+            # from_paris: none (SilaParis > SilaLondon)
             # Total: 2 tests
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
             id="param_level_valid_from_berlin_to_london",
         ),
         pytest.param(
             generate_param_level_valid_until_test(),
-            ["--from=Paris", "--until=Prague"],
-            # until_cancun: Paris, Shanghai, Cancun = 3 forks
-            # until_paris: Paris = 1 fork
+            ["--from=SilaParis", "--until=SilaPrague"],
+            # until_cancun: SilaParis, SilaShanghai, SilaCancun = 3 forks
+            # until_paris: SilaParis = 1 fork
             # Total: 4 tests
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
             id="param_level_valid_until_paris_to_prague",
         ),
         pytest.param(
             generate_param_level_valid_until_test(),
-            ["--from=Shanghai", "--until=Prague"],
-            # until_cancun: Shanghai, Cancun = 2 forks
-            # until_paris: none (Shanghai > Paris)
+            ["--from=SilaShanghai", "--until=SilaPrague"],
+            # until_cancun: SilaShanghai, SilaCancun = 2 forks
+            # until_paris: none (SilaShanghai > SilaParis)
             # Total: 2 tests
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
             id="param_level_valid_until_shanghai_to_prague",
         ),
         pytest.param(
             generate_param_level_mixed_test(),
-            ["--from=Berlin", "--until=Prague"],
-            # Function marker: valid_until("Cancun") limits to <= Cancun
+            ["--from=SilaBerlin", "--until=SilaPrague"],
+            # Function marker: valid_until("SilaCancun") limits to <=
+            # SilaCancun
             # all_forks (TangerineWhistle):
-            #   Berlin, London, Paris, Shanghai, Cancun = 5
-            # paris_only: Paris, Shanghai, Cancun = 3
+            #   SilaBerlin, SilaLondon, SilaParis, SilaShanghai, SilaCancun = 5
+            # paris_only: SilaParis, SilaShanghai, SilaCancun = 3
             # Total: 8 tests
             {"passed": 8, "failed": 0, "skipped": 0, "errors": 0},
             id="mixed_markers_berlin_to_prague",
         ),
         pytest.param(
             generate_param_level_mixed_test(),
-            ["--from=Paris", "--until=Shanghai"],
-            # Function marker: valid_until("Cancun") limits to <= Cancun
-            # Command line: --until=Shanghai further limits to <= Shanghai
-            # all_forks: Paris, Shanghai = 2 forks
-            # paris_only: Paris, Shanghai = 2 forks
+            ["--from=SilaParis", "--until=SilaShanghai"],
+            # Function marker: valid_until("SilaCancun") limits to <=
+            # SilaCancun
+            # Command line: --until=SilaShanghai further limits to <=
+            # SilaShanghai
+            # all_forks: SilaParis, SilaShanghai = 2 forks
+            # paris_only: SilaParis, SilaShanghai = 2 forks
             # Total: 4 tests
             {"passed": 4, "failed": 0, "skipped": 0, "errors": 0},
             id="mixed_markers_paris_to_shanghai",
         ),
         pytest.param(
             generate_param_level_valid_before_test(),
-            ["--from=Paris", "--until=Prague"],
-            # before_cancun: Paris, Shanghai = 2 forks
-            # before_paris: none (Paris is not < Paris)
+            ["--from=SilaParis", "--until=SilaPrague"],
+            # before_cancun: SilaParis, SilaShanghai = 2 forks
+            # before_paris: none (SilaParis is not < SilaParis)
             # Total: 2 tests
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
             id="param_level_valid_before_paris_to_prague",
         ),
         pytest.param(
             generate_param_level_valid_before_test(),
-            ["--from=Berlin", "--until=Prague"],
-            # before_cancun: Berlin, London, Paris, Shanghai = 4
-            # before_paris: Berlin, London = 2
+            ["--from=SilaBerlin", "--until=SilaPrague"],
+            # before_cancun: SilaBerlin, SilaLondon, SilaParis, SilaShanghai =
+            # 4
+            # before_paris: SilaBerlin, SilaLondon = 2
             # Total: 6 tests
             {"passed": 6, "failed": 0, "skipped": 0, "errors": 0},
             id="param_level_valid_before_berlin_to_prague",

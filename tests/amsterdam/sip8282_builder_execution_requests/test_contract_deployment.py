@@ -19,7 +19,7 @@ from execution_testing import (
     generate_system_contract_deploy_test,
 )
 from execution_testing.checklists import SIPChecklist
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 
 from .spec import ref_spec_8282
 
@@ -33,7 +33,7 @@ MIN_DEPOSIT_GWEI = BuilderDepositRequest.min_deposit_wei // 10**9
 @SIPChecklist.SystemContract.Test.Deployment.Address()
 @SIPChecklist.SystemContract.Test.Deployment.Missing()
 @generate_system_contract_deploy_test(
-    fork=Amsterdam,
+    fork=SilaAmsterdam,
     factory_json_path=Path(realpath(__file__)).parent
     / "builder_deposit_factory_deploy.json",
     expected_deploy_address=BuilderDepositRequest.system_contract_address,
@@ -72,7 +72,7 @@ def test_builder_deposit_contract_deployment(
 @SIPChecklist.SystemContract.Test.Deployment.Address()
 @SIPChecklist.SystemContract.Test.Deployment.Missing()
 @generate_system_contract_deploy_test(
-    fork=Amsterdam,
+    fork=SilaAmsterdam,
     factory_json_path=Path(realpath(__file__)).parent
     / "builder_exit_factory_deploy.json",
     expected_deploy_address=BuilderExitRequest.system_contract_address,

@@ -62,17 +62,19 @@ class SIP4844(
 
     @classmethod
     def header_excess_blob_gas_required(cls) -> bool:
-        """Excess blob gas is required starting from Cancun."""
+        """Excess blob gas is required starting from SilaCancun."""
         return True
 
     @classmethod
     def header_blob_gas_used_required(cls) -> bool:
-        """Blob gas used is required starting from Cancun."""
+        """Blob gas used is required starting from SilaCancun."""
         return True
 
     @classmethod
     def blob_gas_price_calculator(cls) -> BlobGasPriceCalculator:
-        """Return a callable that calculates the blob gas price at Cancun."""
+        """
+        Return a callable that calculates the blob gas price at SilaCancun.
+        """
         min_base_fee_per_blob_gas = cls.min_base_fee_per_blob_gas()
         blob_base_fee_update_fraction = cls.blob_base_fee_update_fraction()
 
@@ -89,7 +91,7 @@ class SIP4844(
     def excess_blob_gas_calculator(cls) -> ExcessBlobGasCalculator:
         """
         Return a callable that calculates the excess blob gas for a block at
-        Cancun.
+        SilaCancun.
         """
         target_blobs_per_block = cls.target_blobs_per_block()
         blob_gas_per_blob = cls.blob_gas_per_blob()
@@ -101,7 +103,7 @@ class SIP4844(
             parent_excess_blobs: int | None = None,
             parent_blob_gas_used: int | None = None,
             parent_blob_count: int | None = None,
-            # Required for Osaka as using this as base
+            # Required for SilaOsaka as using this as base
             parent_base_fee_per_gas: int,
         ) -> int:
             del parent_base_fee_per_gas
@@ -134,18 +136,18 @@ class SIP4844(
 
     @classmethod
     def supports_blobs(cls) -> bool:
-        """At Cancun, blobs support is enabled."""
+        """At SilaCancun, blobs support is enabled."""
         return True
 
     @classmethod
     def blob_reserve_price_active(cls) -> bool:
-        """Blob reserve price is not supported in Cancun."""
+        """Blob reserve price is not supported in SilaCancun."""
         return False
 
     @classmethod
     def full_blob_tx_wrapper_version(cls) -> int | None:
         """
-        Pre-Osaka forks don't use tx wrapper versions for full blob
+        Pre-SilaOsaka forks don't use tx wrapper versions for full blob
         transactions.
         """
         return None
@@ -153,8 +155,8 @@ class SIP4844(
     @classmethod
     def blob_schedule(cls) -> BlobSchedule | None:
         """
-        At Cancun, the fork object runs this routine to get the updated blob
-        schedule.
+        At SilaCancun, the fork object runs this routine to get the updated
+        blob schedule.
         """
         parent_fork = cls.parent()
         assert parent_fork is not None, "Parent fork must be defined"
@@ -169,24 +171,26 @@ class SIP4844(
 
     @classmethod
     def tx_types(cls) -> List[int]:
-        """At Cancun, blob type transactions are introduced."""
+        """At SilaCancun, blob type transactions are introduced."""
         return [3] + super(SIP4844, cls).tx_types()
 
     @classmethod
     def precompiles(cls) -> List[Address]:
-        """At Cancun, a precompile for kzg point evaluation is introduced."""
+        """
+        At SilaCancun, a precompile for kzg point evaluation is introduced.
+        """
         return [
             Address(10, label="KZG_POINT_EVALUATION"),
         ] + super(SIP4844, cls).precompiles()
 
     @classmethod
     def engine_new_payload_blob_hashes(cls) -> bool:
-        """From Cancun, payloads must have blob hashes."""
+        """From SilaCancun, payloads must have blob hashes."""
         return True
 
     @classmethod
     def gas_costs(cls) -> GasCosts:
-        """On Cancun, the point evaluation precompile gas cost is set."""
+        """On SilaCancun, the point evaluation precompile gas cost is set."""
         return replace(
             super(SIP4844, cls).gas_costs(),
             PRECOMPILE_POINT_EVALUATION=50_000,
@@ -197,9 +201,9 @@ class SIP4844(
         cls,
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
         """
-        Return a mapping of opcodes to their gas costs for Cancun.
+        Return a mapping of opcodes to their gas costs for SilaCancun.
 
-        Adds Cancun-specific opcodes: BLOBHASH, BLOBBASEFEE, TLOAD, TSTORE,
+        Adds SilaCancun-specific opcodes: BLOBHASH, BLOBBASEFEE, TLOAD, TSTORE,
         MCOPY.
         """
         gas_costs = cls.gas_costs()
@@ -207,7 +211,7 @@ class SIP4844(
         # Get parent fork's opcode gas map
         base_map = super(SIP4844, cls).opcode_gas_map()
 
-        # Add Cancun-specific opcodes
+        # Add SilaCancun-specific opcodes
         return {**base_map, Opcodes.BLOBHASH: gas_costs.VERY_LOW}
 
     @classmethod

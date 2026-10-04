@@ -39,7 +39,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertOpcodeCallsFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -262,7 +262,7 @@ def test_revert_opcode_calls(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 target: Account(storage={10: 1}),
@@ -271,7 +271,7 @@ def test_revert_opcode_calls(
         },
         {
             "indexes": {"data": 0, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 addr: Account(storage={}),
@@ -279,7 +279,7 @@ def test_revert_opcode_calls(
         },
         {
             "indexes": {"data": 1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 target: Account(storage={10: 1}),
@@ -288,7 +288,7 @@ def test_revert_opcode_calls(
         },
         {
             "indexes": {"data": 1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 addr_2: Account(storage={}),
@@ -296,7 +296,7 @@ def test_revert_opcode_calls(
         },
         {
             "indexes": {"data": 2, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 target: Account(storage={10: 1}),
@@ -305,7 +305,7 @@ def test_revert_opcode_calls(
         },
         {
             "indexes": {"data": 2, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 addr_3: Account(storage={}),
@@ -313,7 +313,7 @@ def test_revert_opcode_calls(
         },
         {
             "indexes": {"data": 3, "gas": [0], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 target: Account(storage={10: 1}),
@@ -323,7 +323,7 @@ def test_revert_opcode_calls(
         },
         {
             "indexes": {"data": 3, "gas": [1], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_6: Account(storage={}),
                 target: Account(storage={10: 0}),
@@ -344,7 +344,7 @@ def test_revert_opcode_calls(
     # The g=0 success path bottoms out on a fresh SSTORE-set in the
     # transaction frame whose SIP-8037 state gas spills (empty
     # reservoir). Lift the outer budget by that spilled state cost so
-    # the chain still completes on Amsterdam; 0 pre-SIP-8037.
+    # the chain still completes on SilaAmsterdam; 0 pre-SIP-8037.
     g0_lift = fork.oog_budget_lift(sstores_before_oog=1)
     tx_gas = [460000 + g0_lift, 83622]
 

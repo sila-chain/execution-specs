@@ -2,7 +2,7 @@
 Test_creation_tx_init_code_size_limit.
 
 Ported from:
-state_tests/Shanghai/stEIP3860_limitmeterinitcode/creationTxInitCodeSizeLimitFiller.yml
+state_tests/SilaShanghai/stEIP3860_limitmeterinitcode/creationTxInitCodeSizeLimitFiller.yml
 """
 
 import pytest
@@ -30,10 +30,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Shanghai/stEIP3860_limitmeterinitcode/creationTxInitCodeSizeLimitFiller.yml"  # noqa: E501
+        "state_tests/SilaShanghai/stEIP3860_limitmeterinitcode/creationTxInitCodeSizeLimitFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 # Kept before SIP-7954: the 0xC000 / 0xC001 initcode sizes are baked into
 # the vectors. The raised limit is covered with fork-derived sizes by
 # tests/shanghai/sip3860_initcode and
@@ -81,7 +81,7 @@ def test_creation_tx_init_code_size_limit(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": ["Cancun"],
+            "network": ["SilaCancun"],
             "result": {
                 sender: Account(balance=0xBA82720, nonce=1),
                 compute_create_address(address=sender, nonce=0): Account(
@@ -94,7 +94,7 @@ def test_creation_tx_init_code_size_limit(
         },
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Prague"],
+            "network": [">=SilaPrague"],
             "result": {
                 sender: Account(balance=0xB562920, nonce=1),
                 compute_create_address(address=sender, nonce=0): Account(
@@ -107,7 +107,7 @@ def test_creation_tx_init_code_size_limit(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=0),
                 compute_create_address(
@@ -115,7 +115,7 @@ def test_creation_tx_init_code_size_limit(
                 ): Account.NONEXISTENT,
             },
             "expect_exception": {
-                ">=Cancun": TransactionException.INITCODE_SIZE_EXCEEDED
+                ">=SilaCancun": TransactionException.INITCODE_SIZE_EXCEEDED
             },
         },
     ]

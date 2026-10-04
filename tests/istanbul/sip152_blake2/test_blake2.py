@@ -32,14 +32,14 @@ pytestmark = pytest.mark.ported_from(
     ],
     coverage_missed_reason=(
         "No longer used opcodes, SUB, GT, ISZERO, AND, CODESIZE, JUMP, some "
-        "PUSH opcodes. Original test calls Blake2b in ConstantinopleFix "
+        "PUSH opcodes. Original test calls Blake2b in SilaConstantinopleFix "
         "(activation test), which results in empty account code being "
         "triggered."
     ),
 )
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL])
 @pytest.mark.parametrize(
     ["data", "output"],
@@ -315,7 +315,7 @@ def test_blake2b(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     ["data"],
@@ -396,7 +396,7 @@ def test_blake2b_invalid_input(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     ["data", "output"],
@@ -496,7 +496,7 @@ def test_blake2b_gas(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     ["data", "output"],

@@ -1810,8 +1810,8 @@ def pytest_collection_modifyitems(
     config: pytest.Config, items: List[pytest.Item | pytest.Function]
 ) -> None:
     """
-    Remove pre-Paris tests parametrized to generate hive type fixtures; these
-    can't be used in the Hive Pyspec Simulator.
+    Remove pre-SilaParis tests parametrized to generate hive type fixtures;
+    these can't be used in the Hive Pyspec Simulator.
 
     Replaces the test ID for state tests that use a transition fork with the
     base fork.

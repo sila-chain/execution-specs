@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSStoreTest/sstore_XtoYtoYFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -243,7 +243,7 @@ def test_sstore_xto_yto_y(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={1: 1}),
                 contract_2: Account(storage={1: 1}),
@@ -254,7 +254,7 @@ def test_sstore_xto_yto_y(
         },
         {
             "indexes": {"data": [1, 2], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={1: 2}),
                 contract_2: Account(storage={1: 1}),
@@ -265,12 +265,12 @@ def test_sstore_xto_yto_y(
         },
         {
             "indexes": {"data": 3, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_2: Account(storage={1: 1})},
         },
         {
             "indexes": {"data": 4, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xA84440891DDEC0F3A6FA2423D55E437383AD272B): Account(
                     storage={0: 1, 1: 1}
@@ -280,12 +280,12 @@ def test_sstore_xto_yto_y(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_2: Account(storage={1: 0})},
         },
         {
             "indexes": {"data": [5, 6, 7, 8, 9], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_2: Account(storage={1: 0})},
         },
     ]

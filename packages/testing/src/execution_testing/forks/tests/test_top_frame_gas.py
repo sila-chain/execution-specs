@@ -5,10 +5,10 @@ from typing import Any
 import pytest
 
 from execution_testing import AuthorizationTuple, RecipientType
-from execution_testing.forks import Amsterdam, Fork, Osaka
+from execution_testing.forks import Fork, SilaAmsterdam, SilaOsaka
 
 
-@pytest.mark.parametrize("fork", [Osaka, Amsterdam])
+@pytest.mark.parametrize("fork", [SilaOsaka, SilaAmsterdam])
 @pytest.mark.parametrize("contract_creation", [False, True])
 def test_top_frame_account_creation(
     fork: Fork, contract_creation: bool
@@ -19,7 +19,9 @@ def test_top_frame_account_creation(
         "sends_value": True,
         "recipient_type": RecipientType.EMPTY_ACCOUNT,
     }
-    expected_state = fork.gas_costs().NEW_ACCOUNT if fork == Amsterdam else 0
+    expected_state = (
+        fork.gas_costs().NEW_ACCOUNT if fork == SilaAmsterdam else 0
+    )
 
     assert fork.transaction_top_frame_execution_gas(**kwargs) == 0
     assert fork.transaction_top_frame_state_gas(**kwargs) == expected_state
@@ -34,7 +36,7 @@ def test_top_frame_authorization_and_delegation(
     delegation_warm: bool, first_write: bool
 ) -> None:
     """Include authorization state growth alongside delegated access costs."""
-    fork = Amsterdam
+    fork = SilaAmsterdam
     costs = fork.gas_costs()
     authorizations = [
         AuthorizationTuple(

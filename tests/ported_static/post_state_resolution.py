@@ -38,7 +38,7 @@ class ForkConstraint(BaseModel):
     def parse_fork_synonyms(cls, value: Any) -> Any:
         """Resolve fork synonyms."""
         if value == "SIP158":
-            value = "Byzantium"
+            value = "SilaByzantium"
         return value
 
     @model_validator(mode="before")
@@ -84,7 +84,10 @@ class ForkSet(SilaTestRootModel):
     @model_validator(mode="before")
     @classmethod
     def parse_from_list_or_string(cls, value: Any) -> Set[Fork]:
-        """Parse fork_with_operand `>=Cancun` into {Cancun, Prague, ...}."""
+        """
+        Parse fork_with_operand `>=SilaCancun` into
+        {SilaCancun, SilaPrague, ...}.
+        """
         fork_set: Set[Fork] = set()
         if not isinstance(value, list):
             value = [value]

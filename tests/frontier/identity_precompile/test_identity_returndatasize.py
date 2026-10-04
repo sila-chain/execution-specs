@@ -20,7 +20,7 @@ from .common import Constants
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/1344"],
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize(
     ["args_size", "output_size", "expected_returndatasize"],
     [

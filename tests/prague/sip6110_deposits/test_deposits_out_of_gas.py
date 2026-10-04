@@ -32,7 +32,7 @@ from .spec import ref_spec_6110
 REFERENCE_SPEC_GIT_PATH = ref_spec_6110.git_path
 REFERENCE_SPEC_VERSION = ref_spec_6110.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 
 @pytest.mark.parametrize(

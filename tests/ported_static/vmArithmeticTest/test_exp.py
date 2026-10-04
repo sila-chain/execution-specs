@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmArithmeticTest/expFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -286,7 +286,7 @@ def test_exp(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [9, 3, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(storage={0: 0}),
                 contract_7: Account(storage={0: 0}),
@@ -295,17 +295,17 @@ def test_exp(
         },
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_0: Account(storage={0: 4})},
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(
                     storage={
@@ -316,27 +316,27 @@ def test_exp(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_4: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_5: Account(storage={0: 257})},
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_6: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_8: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_10: Account(storage={0: 32768})},
         },
     ]

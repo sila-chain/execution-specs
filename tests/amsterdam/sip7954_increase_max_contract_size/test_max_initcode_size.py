@@ -23,7 +23,7 @@ from execution_testing import (
     keccak256,
 )
 from execution_testing import Macros as Om
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 
 from .spec import ref_spec_7954
 
@@ -37,7 +37,7 @@ SENTINEL = 0xFF
 
 INITCODE_SIZE_PARAMS = [
     pytest.param(
-        lambda _: Osaka.max_initcode_size() + 1, id="over_previous_max"
+        lambda _: SilaOsaka.max_initcode_size() + 1, id="over_previous_max"
     ),
     pytest.param(lambda f: f.max_initcode_size() - 1, id="under_max"),
     pytest.param(lambda f: f.max_initcode_size(), id="at_max"),
@@ -46,7 +46,7 @@ INITCODE_SIZE_PARAMS = [
 
 TX_INITCODE_SIZE_PARAMS = [
     pytest.param(
-        lambda _: Osaka.max_initcode_size() + 1, id="over_previous_max"
+        lambda _: SilaOsaka.max_initcode_size() + 1, id="over_previous_max"
     ),
     pytest.param(lambda f: f.max_initcode_size() - 1, id="under_max"),
     pytest.param(lambda f: f.max_initcode_size(), id="at_max"),

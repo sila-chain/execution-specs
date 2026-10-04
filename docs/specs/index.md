@@ -36,11 +36,11 @@ The third principle is where EELS departs most sharply from production code. In 
 
 ## The fork-as-a-copy model
 
-Each hardfork under `src/sila/forks/` is a **complete copy** of the previous fork's code, edited in place. There is no shared base class, no feature-flag plumbing, no framework. When a reader wants to know what changed between, say, Cancun and Prague, they read the diff between `src/sila/forks/cancun/` and `src/sila/forks/prague/`.
+Each hardfork under `src/sila/forks/` is a **complete copy** of the previous fork's code, edited in place. There is no shared base class, no feature-flag plumbing, no framework. When a reader wants to know what changed between, say, SilaCancun and SilaPrague, they read the diff between `src/sila/forks/sila_cancun/` and `src/sila/forks/sila_prague/`.
 
 This has two concrete benefits:
 
-- Every fork is self-contained. Paris is Paris, forever; nothing a future fork does can change it.
+- Every fork is self-contained. SilaParis is SilaParis, forever; nothing a future fork does can change it.
 - Changes are reviewable as diffs. The cost of an SIP, in terms of spec surface area, is immediately visible.
 
 The trade-off is that a bug fix that applies to every fork must be applied to every fork, by hand or with the patch tool. That cost is paid deliberately.

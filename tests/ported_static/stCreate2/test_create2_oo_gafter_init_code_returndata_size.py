@@ -17,7 +17,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/Create2OOGafterInitCodeReturndataSizeFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_create2_oo_gafter_init_code_returndata_size(
     state_test: StateTestFiller,
@@ -64,7 +64,7 @@ def test_create2_oo_gafter_init_code_returndata_size(
         sender=sender,
         to=contract_0,
         data=Bytes(""),
-        gas_limit=2055054 if fork >= Amsterdam else 55054,
+        gas_limit=2055054 if fork >= SilaAmsterdam else 55054,
         value=1,
     )
 

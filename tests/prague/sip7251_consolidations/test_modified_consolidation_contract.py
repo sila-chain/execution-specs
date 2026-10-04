@@ -27,7 +27,7 @@ REFERENCE_SPEC_GIT_PATH: str = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_7251.version
 
 pytestmark: List[pytest.MarkDecorator] = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.pre_alloc_mutable(),
 ]
 

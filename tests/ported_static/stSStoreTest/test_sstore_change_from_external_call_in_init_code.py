@@ -40,7 +40,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stSStoreTest/sstore_changeFromExternalCallInInitCodeFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -223,7 +223,7 @@ def test_sstore_change_from_external_call_in_init_code(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 1, 3], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_0: Account(storage={0: 1, 1: 1}, nonce=0)},
         },
         {
@@ -232,7 +232,7 @@ def test_sstore_change_from_external_call_in_init_code(
                 "gas": 0,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={0: 0, 1: 1}, nonce=0),
                 Address(
@@ -242,7 +242,7 @@ def test_sstore_change_from_external_call_in_init_code(
         },
         {
             "indexes": {"data": [4], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={0: 0, 1: 1}, nonce=0),
                 compute_create_address(address=sender, nonce=0): Account(
@@ -252,7 +252,7 @@ def test_sstore_change_from_external_call_in_init_code(
         },
         {
             "indexes": {"data": [5, 7], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={0: 0, 1: 1}, nonce=0),
                 Address(0x0F446E1BD7A5DA68B5E3A305C7030E3AA8EFC293): Account(

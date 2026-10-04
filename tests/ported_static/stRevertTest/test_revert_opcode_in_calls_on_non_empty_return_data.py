@@ -49,7 +49,7 @@ STARVE_MARGIN = 1_000
         "state_tests/stRevertTest/RevertOpcodeInCallsOnNonEmptyReturnDataFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "call_op",
     [Op.CALL, Op.CALLCODE, Op.DELEGATECALL, None],

@@ -5,7 +5,7 @@ Ported from:
 state_tests/stRevertTest/RevertOpcodeInInitFiller.json
 
 @manually-enhanced: Do not overwrite. tx gas budget bumped
-for SIP-8037 NEW_ACCOUNT state-gas headroom on Amsterdam (post-state
+for SIP-8037 NEW_ACCOUNT state-gas headroom on SilaAmsterdam (post-state
 expectations are unchanged on all forks). SIP-7928 block access list
 expectations added for the reverted creation.
 """
@@ -33,7 +33,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertOpcodeInInitFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -77,7 +77,7 @@ def test_revert_opcode_in_init(
         + Op.REVERT(offset=0x0, size=0x1)
         + Op.SSTORE(key=0x1, value=0x11),
     ]
-    # SIP-8037 NEW_ACCOUNT + init-code state-gas spill on Amsterdam;
+    # SIP-8037 NEW_ACCOUNT + init-code state-gas spill on SilaAmsterdam;
     # pre-SIP-8037 keeps the original 160 000 budget.
     outer_tx_gas = 160_000
     if fork.is_sip_enabled(8037):

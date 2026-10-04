@@ -35,7 +35,7 @@ The fuzzer must output JSON in the v2 format. Here's the structure:
 ```json
 {
   "version": "2.0",
-  "fork": "Prague",
+  "fork": "SilaPrague",
   "chainId": 1,
   "accounts": {
     "0x7e5f4552091a69125d5dfcb7b8c2659029395bdf": {
@@ -75,7 +75,7 @@ The fuzzer must output JSON in the v2 format. Here's the structure:
 2. **Address-Key Match**: Private keys must generate the corresponding addresses.
 3. **Environment**: Describes the environment for block 1 (genesis is automatically derived).
 4. **Version**: Must be "2.0" for this format.
-5. **Fork Name**: Use the standard fork name (e.g., "Prague", "Shanghai", "Cancun").
+5. **Fork Name**: Use the standard fork name (e.g., "SilaPrague", "SilaShanghai", "SilaCancun").
 
 ## Usage
 
@@ -88,7 +88,7 @@ Convert fuzzer output to blockchain test fixtures:
 uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json
 
 # Specify a different fork
-uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --fork Shanghai
+uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --fork SilaShanghai
 
 # Pretty print output
 uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --pretty
@@ -190,7 +190,7 @@ All transactions are automatically signed using the provided private keys. The f
 
 #### "Transaction type not supported in fork"
 
-- **Cause**: Using SIP-1559 transactions in pre-London forks
+- **Cause**: Using SIP-1559 transactions in pre-SilaLondon forks
 - **Solution**: Ensure transaction types match the specified fork
 
 ## Testing with Clients
@@ -228,7 +228,7 @@ from cli.fuzzer_bridge.cli import process_directory_parallel
 process_directory_parallel(
     input_dir="fuzzer_outputs/",
     output_dir="fixtures/",
-    fork="Prague",
+    fork="SilaPrague",
     workers=8
 )
 ```
@@ -240,7 +240,7 @@ Override default fork parameters:
 ```python
 from cli.fuzzer_bridge import BlocktestBuilder
 
-builder = BlocktestBuilder(fork="Prague")
+builder = BlocktestBuilder(fork="SilaPrague")
 # Custom configuration
 builder.env_overrides = {
     "currentRandom": "0x1234...",

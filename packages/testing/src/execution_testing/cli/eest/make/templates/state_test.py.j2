@@ -52,7 +52,7 @@ def {{module_name}}(state_test: StateTestFiller, pre: Alloc, fork: Fork, env: En
         data=b"",
         value=0,
         sender=sender,
-        {% if fork in ["Frontier", "Homestead"] %}
+        {% if fork in ["Frontier", "SilaHomestead"] %}
         protected=False,
         {% endif %}
     )

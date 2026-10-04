@@ -38,7 +38,7 @@ Other benchmark tests do not require any pre-state configuration. These benchmar
 
 These tests are located under `./tests/benchmark/compute`.
 
-**Note:** Benchmark tests are now only available starting from the `Prague` fork. Tests targeting earlier forks (`Cancun` or prior) are not supported in benchmark mode.
+**Note:** Benchmark tests are now only available starting from the `SilaPrague` fork. Tests targeting earlier forks (`SilaCancun` or prior) are not supported in benchmark mode.
 
 ## Benchmark Modes
 
@@ -144,7 +144,7 @@ def test_benchmark(
 
 #### Referencing Transaction Gas Limit
 
-Since the Osaka fork, SIP-7825 introduces a transaction gas limit cap (approximately 16M). Instead of hardcoding this value in the test, use `fork.transaction_gas_limit_cap()` for a cleaner, fork-aware approach.
+Since the SilaOsaka fork, SIP-7825 introduces a transaction gas limit cap (approximately 16M). Instead of hardcoding this value in the test, use `fork.transaction_gas_limit_cap()` for a cleaner, fork-aware approach.
 
 This helper fixture could simplify the logic of determine the transaction gas limit cap, it returns the value if available, otherwise falls back to the block gas limit:
 
@@ -350,7 +350,7 @@ In benchmark mode, set the expected gas consumption using the `expected_benchmar
 This feature is primarily used in `worst-case` benchmark mode.
 
 ```python
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_empty_block(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

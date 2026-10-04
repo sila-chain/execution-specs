@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmLogTest/log0Filler.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -286,12 +286,12 @@ def test_log0(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 3, 4, 5, 6, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_8: Account(storage={0: 24589})},
         },
         {
             "indexes": {"data": [1, 2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_8: Account(storage={0: 2989})},
         },
     ]

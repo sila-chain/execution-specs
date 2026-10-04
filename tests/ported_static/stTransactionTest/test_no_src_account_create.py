@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/NoSrcAccountCreateFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -280,10 +280,10 @@ def test_no_src_account_create(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Homestead": [
+                ">=SilaHomestead": [
                     TransactionException.INSUFFICIENT_ACCOUNT_FUNDS,
                     TransactionException.INTRINSIC_GAS_TOO_LOW,
                 ],
@@ -292,7 +292,7 @@ def test_no_src_account_create(
         },
         {
             "indexes": {"data": 1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
                 ">=Frontier": [
@@ -303,7 +303,7 @@ def test_no_src_account_create(
         },
         {
             "indexes": {"data": [0, 1], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
                 ">=Frontier": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
@@ -311,7 +311,7 @@ def test_no_src_account_create(
         },
         {
             "indexes": {"data": [0, 1], "gas": 2, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
                 ">=Frontier": [
@@ -322,7 +322,7 @@ def test_no_src_account_create(
         },
         {
             "indexes": {"data": [0, 1], "gas": 2, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
                 ">=Frontier": TransactionException.INTRINSIC_GAS_TOO_LOW
@@ -330,10 +330,10 @@ def test_no_src_account_create(
         },
         {
             "indexes": {"data": [2, 3, 4], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": [
+                ">=SilaCancun": [
                     TransactionException.INSUFFICIENT_ACCOUNT_FUNDS,
                     TransactionException.INTRINSIC_GAS_TOO_LOW,
                 ],
@@ -342,19 +342,21 @@ def test_no_src_account_create(
         },
         {
             "indexes": {"data": [2, 3, 4], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS,
+                ">=SilaCancun": (
+                    TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
+                ),
                 ">=Frontier<MuirGlacier": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
             },
         },
         {
             "indexes": {"data": [2, 3, 4], "gas": 2, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": [
+                ">=SilaCancun": [
                     TransactionException.INSUFFICIENT_ACCOUNT_FUNDS,
                     TransactionException.INTRINSIC_GAS_TOO_LOW,
                 ],
@@ -363,10 +365,10 @@ def test_no_src_account_create(
         },
         {
             "indexes": {"data": [2, 3, 4], "gas": 2, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INTRINSIC_GAS_TOO_LOW,
+                ">=SilaCancun": TransactionException.INTRINSIC_GAS_TOO_LOW,
                 ">=Frontier<MuirGlacier": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
             },
         },
@@ -383,7 +385,7 @@ def test_no_src_account_create(
     ]
     # SIP-8037 raises the creation intrinsic gas above 210000, which
     # rejects the transaction for gas before the intended insufficient
-    # funds check. Leave the gas limit unset on Amsterdam.
+    # funds check. Leave the gas limit unset on SilaAmsterdam.
     tx_gas = [21000, None if fork.is_sip_enabled(8037) else 210000, 0]
     tx_value = [0, 1]
     tx_access_lists: dict[int, list] = {

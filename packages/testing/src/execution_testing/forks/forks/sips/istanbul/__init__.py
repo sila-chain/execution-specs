@@ -1,1 +1,1 @@
-"""Listings of all SIPs for Istanbul fork."""
+"""Listings of all SIPs for SilaIstanbul fork."""

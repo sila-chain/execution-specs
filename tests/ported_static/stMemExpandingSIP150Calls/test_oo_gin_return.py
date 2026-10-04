@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stMemExpandingEIP150Calls/OOGinReturnFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -177,14 +177,14 @@ def test_oo_gin_return(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 1], "gas": 0, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 0xDEAD60A7, 1: 0xDEAD60A7})
             },
         },
         {
             "indexes": {"data": [2, 3, 4, 5], "gas": 0, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 0x60A760A7})},
         },
     ]

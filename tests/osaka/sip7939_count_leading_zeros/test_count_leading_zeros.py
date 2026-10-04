@@ -80,7 +80,7 @@ def clz_parameters() -> list:
     return test_cases
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize(
     "test_id,value,expected_clz",
     clz_parameters(),
@@ -124,7 +124,7 @@ def test_clz_opcode_scenarios(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_gas_cost(
     state_test: StateTestFiller, pre: Alloc, fork: Fork
 ) -> None:
@@ -150,7 +150,7 @@ def test_clz_gas_cost(
 @SIPChecklist.Opcode.Test.GasUsage.Normal()
 @SIPChecklist.Opcode.Test.GasUsage.OutOfGasExecution()
 @SIPChecklist.Opcode.Test.GasUsage.ExtraGas()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize("bits", [0, 64, 128, 255])
 @pytest.mark.parametrize("gas_cost_delta", [-2, -1, 0, 1, 2])
 def test_clz_gas_cost_boundary(
@@ -188,7 +188,7 @@ def test_clz_gas_cost_boundary(
 
 @SIPChecklist.Opcode.Test.StackUnderflow()
 @SIPChecklist.Opcode.Test.StackComplexOperations.StackHeights.Zero()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_stack_underflow(state_test: StateTestFiller, pre: Alloc) -> None:
     """
     Test CLZ opcode with empty stack (should revert due to stack underflow).
@@ -212,7 +212,7 @@ def test_clz_stack_underflow(state_test: StateTestFiller, pre: Alloc) -> None:
 
 @SIPChecklist.Opcode.Test.StackComplexOperations.StackHeights.Odd()
 @SIPChecklist.Opcode.Test.StackComplexOperations.StackHeights.Even()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_stack_not_overflow(
     state_test: StateTestFiller, pre: Alloc, fork: Fork
 ) -> None:
@@ -239,7 +239,7 @@ def test_clz_stack_not_overflow(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_push_operation_same_value(
     state_test: StateTestFiller, pre: Alloc
 ) -> None:
@@ -271,7 +271,7 @@ def test_clz_push_operation_same_value(
 
 @SIPChecklist.Opcode.Test.ForkTransition.Invalid()
 @SIPChecklist.Opcode.Test.ForkTransition.At()
-@pytest.mark.valid_at_transition_to("Osaka")
+@pytest.mark.valid_at_transition_to("SilaOsaka")
 def test_clz_fork_transition(
     blockchain_test: BlockchainTestFiller, pre: Alloc
 ) -> None:
@@ -325,7 +325,8 @@ def test_clz_fork_transition(
         post={
             caller_address: Account(
                 storage={
-                    14_999: 0,  # Call fails as opcode not valid before Osaka
+                    # Call fails as opcode not valid before SilaOsaka
+                    14_999: 0,
                     15_000: 1,  # Call succeeds on fork transition block
                     15_001: 1,  # Call continues to succeed after transition
                 }
@@ -344,7 +345,7 @@ def test_clz_fork_transition(
     )
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize(
     "opcode,jumpi_condition",
     [
@@ -409,7 +410,7 @@ auth_account_start_balance = 0
 
 
 @SIPChecklist.Opcode.Test.ExecutionContext.SetCode()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_from_set_code(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -456,7 +457,7 @@ def test_clz_from_set_code(
     )
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize("bits", [0, 64, 255])
 @pytest.mark.parametrize("opcode", [Op.CODECOPY, Op.EXTCODECOPY])
 def test_clz_code_copy_operation(
@@ -507,7 +508,7 @@ def test_clz_code_copy_operation(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize("bits", [0, 64, 255])
 @pytest.mark.parametrize("opcode", [Op.CODECOPY, Op.EXTCODECOPY])
 def test_clz_with_memory_operation(
@@ -567,7 +568,7 @@ def test_clz_with_memory_operation(
 
 
 @SIPChecklist.Opcode.Test.ExecutionContext.Initcode.Behavior.Tx()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_initcode_context(state_test: StateTestFiller, pre: Alloc) -> None:
     """Test CLZ opcode behavior when creating a contract."""
     bits = [0, 1, 64, 128, 255]
@@ -592,7 +593,7 @@ def test_clz_initcode_context(state_test: StateTestFiller, pre: Alloc) -> None:
 
 
 @SIPChecklist.Opcode.Test.ExecutionContext.Initcode.Behavior.Opcode()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize("opcode", [Op.CREATE, Op.CREATE2])
 def test_clz_initcode_create(
     state_test: StateTestFiller, pre: Alloc, opcode: Op
@@ -650,7 +651,7 @@ class CallingContext:
 @SIPChecklist.Opcode.Test.ExecutionContext.Delegatecall()
 @SIPChecklist.Opcode.Test.ExecutionContext.Callcode()
 @SIPChecklist.Opcode.Test.ExecutionContext.Staticcall()
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize(
     "opcode,context",
     [

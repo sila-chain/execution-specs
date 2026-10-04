@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/CREATE2_HighNonceDelegatecallFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -457,7 +457,7 @@ def test_create2_high_nonce_delegatecall(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [8, 9, 6, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -485,7 +485,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -522,7 +522,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [11], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -550,7 +550,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [0, 1, 2, 3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -585,7 +585,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -622,7 +622,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -650,7 +650,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [18, 19, 20, 21], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -678,7 +678,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [22], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -715,7 +715,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [23], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -743,7 +743,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [12, 13, 14, 15], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -778,7 +778,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [16], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(
@@ -815,7 +815,7 @@ def test_create2_high_nonce_delegatecall(
         },
         {
             "indexes": {"data": [17], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 entry: Account(

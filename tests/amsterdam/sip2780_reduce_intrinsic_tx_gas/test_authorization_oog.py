@@ -69,7 +69,7 @@ from .spec import ref_spec_2780
 REFERENCE_SPEC_GIT_PATH = ref_spec_2780.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2780.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 def _auth_top_frame_charges(fork: Fork, authorizations: list) -> int:

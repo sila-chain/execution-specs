@@ -32,7 +32,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = [pytest.mark.valid_at("Amsterdam"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaAmsterdam"), pytest.mark.sila_mainnet]
 
 
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()

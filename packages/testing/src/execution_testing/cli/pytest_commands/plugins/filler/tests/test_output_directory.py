@@ -35,13 +35,13 @@ def minimal_test_path(pytester: pytest.Pytester) -> Path:
 @pytest.fixture(scope="module")
 def fill_fork_from() -> str:
     """Specify the value for `fill`'s `--from` argument."""
-    return "Paris"
+    return "SilaParis"
 
 
 @pytest.fixture(scope="module")
 def fill_fork_until() -> str:
     """Specify the value for `fill`'s `--until` argument."""
-    return "Cancun"
+    return "SilaCancun"
 
 
 @pytest.fixture
@@ -232,7 +232,7 @@ def test_fill_stdout_always_works(
     )
 
     assert any(
-        "test_example.py::test_function[fork_Cancun-state_test]" in line
+        "test_example.py::test_function[fork_SilaCancun-state_test]" in line
         for line in result.outlines
     ), f"Expected JSON output for state test: {result.outlines}"
     assert not any(stdout_path.glob("*.json")), (
@@ -278,8 +278,8 @@ def test_fill_single_fork_range(
         "pytest-fill.ini",
         "-m",
         "(not blockchain_test_engine) and (not sip_version_check)",
-        "--from=Cancun",
-        "--until=Cancun",
+        "--from=SilaCancun",
+        "--until=SilaCancun",
         str(minimal_test_path),
     ]
 

@@ -1,4 +1,4 @@
-"""Test the validations applying after London."""
+"""Test the validations applying after SilaLondon."""
 
 import pytest
 from execution_testing.base_types.composite_types import Alloc
@@ -10,7 +10,7 @@ from execution_testing.specs.blockchain import (
 )
 
 
-@pytest.mark.valid_from("London")
+@pytest.mark.valid_from("SilaLondon")
 @pytest.mark.exception_test
 @pytest.mark.parametrize(
     "field,invalid_value,exception",

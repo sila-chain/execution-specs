@@ -5,7 +5,7 @@ import sila_rlp as rlp
 from sila_rlp.exceptions import SILA_RLPException as RLPException
 from sila_types.numeric import U64, U256
 
-from sila.forks.amsterdam.blocks import Withdrawal
+from sila.forks.sila_amsterdam.blocks import Withdrawal
 from sila.state import Address
 
 

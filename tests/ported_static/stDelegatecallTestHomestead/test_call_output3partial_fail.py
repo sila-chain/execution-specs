@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stDelegatecallTestHomestead/callOutput3partialFailFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_output3partial_fail(
     state_test: StateTestFiller,

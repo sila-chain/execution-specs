@@ -269,16 +269,16 @@ class Hardfork:
         c = json["config"]
         config = {
             ByBlockNumber(0): "frontier",
-            ByBlockNumber(c["homesteadBlock"]): "homestead",
+            ByBlockNumber(c["homesteadBlock"]): "sila_homestead",
             ByBlockNumber(c["sip150Block"]): "tangerine_whistle",
             ByBlockNumber(c["sip155Block"]): "spurious_dragon",
-            ByBlockNumber(c["byzantiumBlock"]): "byzantium",
-            ByBlockNumber(c["constantinopleBlock"]): "constantinople",
-            ByBlockNumber(c["istanbulBlock"]): "istanbul",
-            ByBlockNumber(c["berlinBlock"]): "berlin",
-            ByBlockNumber(c["londonBlock"]): "london",
-            ByBlockNumber(c["mergeForkBlock"]): "paris",
-            ByTimestamp(c["shanghaiTime"]): "shanghai",
+            ByBlockNumber(c["byzantiumBlock"]): "sila_byzantium",
+            ByBlockNumber(c["constantinopleBlock"]): "sila_constantinople",
+            ByBlockNumber(c["istanbulBlock"]): "sila_istanbul",
+            ByBlockNumber(c["berlinBlock"]): "sila_berlin",
+            ByBlockNumber(c["londonBlock"]): "sila_london",
+            ByBlockNumber(c["mergeForkBlock"]): "sila_paris",
+            ByTimestamp(c["shanghaiTime"]): "sila_shanghai",
         }
 
         if "daoForkBlock" in c:

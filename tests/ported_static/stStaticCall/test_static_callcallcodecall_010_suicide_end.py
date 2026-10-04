@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticCall/static_callcallcodecall_010_SuicideEndFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.pre_alloc_mutable
 def test_static_callcallcodecall_010_suicide_end(

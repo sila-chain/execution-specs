@@ -52,8 +52,8 @@ class Blob(CamelModel):
 
     data: Bytes
     commitment: Bytes
-    proof: List[Bytes] | Bytes  # Bytes < Osaka, List[Bytes] >= Osaka
-    # None (in json: null) < Osaka, List[Bytes] >= Osaka
+    proof: List[Bytes] | Bytes  # Bytes < SilaOsaka, List[Bytes] >= SilaOsaka
+    # None (in json: null) < SilaOsaka, List[Bytes] >= SilaOsaka
     cells: List[Bytes] | None
 
     versioned_hash: Hash
@@ -441,8 +441,8 @@ class Blob(CamelModel):
         """
         Define what the proof corruption modes do.
 
-        For Osaka and later each Bytes object in the list is manipulated this
-        way.
+        For SilaOsaka and later each Bytes object in the list is manipulated
+        this way.
         """
 
         CORRUPT_FIRST_BYTE = 1  # corrupts a single byte (index 0)

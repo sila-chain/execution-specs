@@ -15,7 +15,7 @@ from execution_testing import (
     Transaction,
     WhileGas,
 )
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 
 from tests.benchmark.helper.precompile import Precompile
 from tests.byzantium.sip198_modexp_precompile.helpers import ModExpInput
@@ -514,7 +514,7 @@ def test_modexp(
     )
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize(
     "base_length,exponent_length,modulus_length",
     [
@@ -603,7 +603,7 @@ def test_modexp_uncachable(
 
     base_calldata = bytes(mod_exp_input).rstrip(b"\x00")
     calldata_len = len(base_calldata)
-    if fork >= Osaka:
+    if fork >= SilaOsaka:
         precompile_cost = Spec7883.calculate_gas_cost(mod_exp_input)
     else:
         precompile_cost = Spec.calculate_gas_cost(mod_exp_input)

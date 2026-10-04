@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmIOandFlowOperations/jumpiFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -590,7 +590,7 @@ def test_jumpi(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_26: Account(storage={0: 2989})},
         },
         {
@@ -599,7 +599,7 @@ def test_jumpi(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_26: Account(storage={0: 24589})},
         },
     ]

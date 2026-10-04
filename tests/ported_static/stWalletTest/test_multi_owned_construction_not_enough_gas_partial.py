@@ -4,7 +4,7 @@ Test_multi_owned_construction_not_enough_gas_partial.
 Ported from:
 state_tests/stWalletTest/multiOwnedConstructionNotEnoughGasPartialFiller.json
 @manually-enhanced: Do not overwrite. tx_gas[1] is tuned for the
-multi-owned-wallet construction success path on Cancun; on Amsterdam
+multi-owned-wallet construction success path on SilaCancun; on SilaAmsterdam
 the NEW_ACCOUNT, 3 init-code SSTOREs, and 2314-byte code deposit
 spill state-gas, so lift the budget by Fork.oog_budget_lift.
 """
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stWalletTest/multiOwnedConstructionNotEnoughGasPartialFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -76,7 +76,7 @@ def test_multi_owned_construction_not_enough_gas_partial(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(
                     address=sender, nonce=0
@@ -86,7 +86,7 @@ def test_multi_owned_construction_not_enough_gas_partial(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=1

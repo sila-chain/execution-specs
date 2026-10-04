@@ -31,8 +31,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateOOGafterMaxCodesizeFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -318,7 +318,7 @@ def test_create_oo_gafter_max_codesize(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_3: Account(storage={1: 1}, nonce=1),
                 contract_2: Account(storage={}, nonce=1),
@@ -332,7 +332,7 @@ def test_create_oo_gafter_max_codesize(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_3: Account(storage={1: 1}, nonce=11),
                 contract_2: Account(storage={}, nonce=1),
@@ -352,7 +352,7 @@ def test_create_oo_gafter_max_codesize(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_3: Account(storage={1: 1}, nonce=11),
                 contract_2: Account(storage={1: 1}, nonce=11),
@@ -390,7 +390,7 @@ def test_create_oo_gafter_max_codesize(
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_3: Account(storage={1: 1}, nonce=1),
                 contract_2: Account(storage={}, nonce=1),
@@ -404,7 +404,7 @@ def test_create_oo_gafter_max_codesize(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_3: Account(storage={1: 1}, nonce=251),
                 contract_2: Account(storage={}, nonce=1),
@@ -424,7 +424,7 @@ def test_create_oo_gafter_max_codesize(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 contract_3: Account(storage={1: 1}, nonce=251),
                 contract_2: Account(storage={1: 1}, nonce=251),

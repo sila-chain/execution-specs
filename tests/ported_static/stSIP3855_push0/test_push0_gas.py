@@ -2,7 +2,7 @@
 Measure the gas cost of the PUSH0 instruction.
 
 Ported from:
-state_tests/Shanghai/stEIP3855_push0/push0GasFiller.yml
+state_tests/SilaShanghai/stEIP3855_push0/push0GasFiller.yml
 
 @manually-enhanced: Do not overwrite. PUSH0 gas via CodeGasMeasure.
 """
@@ -23,9 +23,9 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/Shanghai/stEIP3855_push0/push0GasFiller.yml"],
+    ["state_tests/SilaShanghai/stEIP3855_push0/push0GasFiller.yml"],
 )
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_push0_gas(
     state_test: StateTestFiller,
     pre: Alloc,

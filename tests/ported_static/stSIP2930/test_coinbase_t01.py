@@ -8,9 +8,9 @@ state_tests/stEIP2930/coinbaseT01Filler.yml
 `Op.GAS`, the regular gas of a `CALL` that transfers value to the warm,
 already-existing coinbase. SIP-8038 raises the value-transfer
 component `CALL_VALUE`, so the measurement grows by the `CALL_VALUE`
-delta versus Cancun. That delta is derived from the fork's own gas
+delta versus SilaCancun. That delta is derived from the fork's own gas
 model, so it is exactly 0 before SIP-8038 and tracks future parameter
-changes; do not hardcode the Amsterdam number.
+changes; do not hardcode the SilaAmsterdam number.
 """
 
 import pytest
@@ -25,7 +25,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -39,7 +39,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP2930/coinbaseT01Filler.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -125,18 +125,18 @@ def test_coinbase_t01(
     # `CALL_VALUE` reprice alone. Derived from the fork gas model so it
     # is 0 before SIP-8038.
     call_value_delta = (
-        fork.gas_costs().CALL_VALUE - Cancun.gas_costs().CALL_VALUE
+        fork.gas_costs().CALL_VALUE - SilaCancun.gas_costs().CALL_VALUE
     )
 
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 6800 + call_value_delta})},
         },
         {
             "indexes": {"data": [0, 2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 6800 + call_value_delta})},
         },
     ]

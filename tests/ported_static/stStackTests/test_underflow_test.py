@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStackTests/underflowTestFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -2768,7 +2768,7 @@ def test_underflow_test(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr: Account(storage={1: 24743}),
@@ -2776,7 +2776,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_2: Account(storage={1: 1}),
@@ -2784,7 +2784,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_3: Account(storage={1: 24743}),
@@ -2792,7 +2792,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_4: Account(storage={1: 1}),
@@ -2800,7 +2800,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_5: Account(storage={1: 24743}),
@@ -2808,7 +2808,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_6: Account(storage={1: 1}),
@@ -2816,7 +2816,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_7: Account(storage={1: 24743}),
@@ -2824,7 +2824,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_8: Account(storage={1: 1}),
@@ -2832,7 +2832,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_9: Account(storage={1: 24743}),
@@ -2840,7 +2840,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [9], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_10: Account(storage={1: 1}),
@@ -2848,7 +2848,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_11: Account(storage={1: 24743}),
@@ -2856,7 +2856,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [11], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_12: Account(storage={1: 1}),
@@ -2864,7 +2864,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [12], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_13: Account(storage={1: 24743}),
@@ -2872,7 +2872,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [13], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_14: Account(storage={1: 1}),
@@ -2880,7 +2880,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [14], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_15: Account(storage={1: 24743}),
@@ -2888,7 +2888,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [15], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_16: Account(storage={1: 1}),
@@ -2896,7 +2896,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [16], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_17: Account(storage={1: 24743}),
@@ -2904,7 +2904,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [17], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_18: Account(storage={1: 1}),
@@ -2912,7 +2912,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [18], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_19: Account(storage={1: 24743}),
@@ -2920,7 +2920,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [19], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_20: Account(storage={1: 1}),
@@ -2928,7 +2928,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [20], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_21: Account(storage={1: 24743}),
@@ -2936,7 +2936,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [21], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_22: Account(storage={1: 1}),
@@ -2944,7 +2944,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [22], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_23: Account(storage={1: 24743}),
@@ -2952,7 +2952,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [23], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_24: Account(storage={1: 1}),
@@ -2960,7 +2960,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [24], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_25: Account(storage={1: 24743}),
@@ -2968,7 +2968,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [25], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_26: Account(storage={1: 1}),
@@ -2976,7 +2976,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [26], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_27: Account(storage={1: 24743}),
@@ -2984,7 +2984,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [27], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_28: Account(storage={1: 1}),
@@ -2992,7 +2992,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [28], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_29: Account(storage={1: 24743}),
@@ -3000,7 +3000,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [29], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_30: Account(storage={1: 1}),
@@ -3008,7 +3008,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [30], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_31: Account(storage={1: 24743}),
@@ -3016,7 +3016,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [31], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_32: Account(storage={1: 1}),
@@ -3024,7 +3024,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [32], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_33: Account(storage={1: 24743}),
@@ -3032,7 +3032,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [33], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_34: Account(storage={1: 1}),
@@ -3040,7 +3040,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [34], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_35: Account(storage={1: 24743}),
@@ -3048,7 +3048,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [35], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_36: Account(storage={1: 1}),
@@ -3056,7 +3056,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [36], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_37: Account(storage={1: 24743}),
@@ -3064,7 +3064,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [37], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_38: Account(storage={1: 1}),
@@ -3072,7 +3072,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [38], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_39: Account(storage={1: 24743}),
@@ -3080,7 +3080,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [39], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_40: Account(storage={1: 1}),
@@ -3088,7 +3088,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [40], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_41: Account(storage={1: 24743}),
@@ -3096,7 +3096,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [41], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_42: Account(storage={1: 1}),
@@ -3104,7 +3104,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [42], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_43: Account(storage={1: 24743}),
@@ -3112,7 +3112,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [43], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_44: Account(storage={1: 1}),
@@ -3120,7 +3120,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [44], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_45: Account(storage={1: 24743}),
@@ -3128,7 +3128,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [45], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_46: Account(storage={1: 1}),
@@ -3136,7 +3136,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [46], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_47: Account(storage={1: 24743}),
@@ -3144,7 +3144,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [47], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_48: Account(storage={1: 1}),
@@ -3152,7 +3152,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [48], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_49: Account(storage={1: 24743}),
@@ -3160,7 +3160,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [49], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_50: Account(storage={1: 1}),
@@ -3168,7 +3168,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [50], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_51: Account(storage={1: 24743}),
@@ -3176,7 +3176,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [51], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_52: Account(storage={1: 1}),
@@ -3184,7 +3184,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [52], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_53: Account(storage={1: 24743}),
@@ -3192,7 +3192,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [53], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_54: Account(storage={1: 1}),
@@ -3200,7 +3200,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [54], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_55: Account(storage={1: 24743}),
@@ -3208,7 +3208,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [55], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_56: Account(storage={1: 1}),
@@ -3216,7 +3216,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [56], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_57: Account(storage={1: 24743}),
@@ -3224,7 +3224,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [57], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_58: Account(storage={1: 1}),
@@ -3232,7 +3232,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [58], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_59: Account(storage={1: 24743}),
@@ -3240,7 +3240,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [59], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_60: Account(storage={1: 1}),
@@ -3248,7 +3248,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [60], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_61: Account(storage={1: 24743}),
@@ -3256,7 +3256,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [61], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_62: Account(storage={1: 1}),
@@ -3264,7 +3264,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [62], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_63: Account(storage={1: 24743}),
@@ -3272,7 +3272,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [63], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_64: Account(storage={1: 1}),
@@ -3280,7 +3280,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [64], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_65: Account(storage={1: 24743}),
@@ -3288,7 +3288,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [65], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_66: Account(storage={1: 1}),
@@ -3296,7 +3296,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [66], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_67: Account(storage={1: 24743}),
@@ -3304,7 +3304,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [67], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_68: Account(storage={1: 1}),
@@ -3312,7 +3312,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [68], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_69: Account(storage={1: 24743}),
@@ -3320,7 +3320,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [69], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_70: Account(storage={1: 1}),
@@ -3328,7 +3328,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [70], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_71: Account(storage={1: 24743}),
@@ -3336,7 +3336,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [71], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_72: Account(storage={1: 1}),
@@ -3344,7 +3344,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [72], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_73: Account(storage={1: 24743}),
@@ -3352,7 +3352,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [73], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_74: Account(storage={1: 1}),
@@ -3360,7 +3360,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [74], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_75: Account(storage={1: 24743}),
@@ -3368,7 +3368,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [75], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_76: Account(storage={1: 1}),
@@ -3376,7 +3376,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [76], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_77: Account(storage={1: 24743}),
@@ -3384,7 +3384,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [77], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_78: Account(storage={1: 1}),
@@ -3392,7 +3392,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [78], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_79: Account(storage={1: 24743}),
@@ -3400,7 +3400,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [79], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_80: Account(storage={1: 1}),
@@ -3408,7 +3408,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [80], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_81: Account(storage={1: 24743}),
@@ -3416,7 +3416,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [81], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_82: Account(storage={1: 1}),
@@ -3424,7 +3424,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [82], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_83: Account(storage={1: 24743}),
@@ -3432,7 +3432,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [83], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_84: Account(storage={1: 1}),
@@ -3440,7 +3440,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [84], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_85: Account(storage={1: 24743}),
@@ -3448,7 +3448,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [85], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_86: Account(storage={1: 1}),
@@ -3456,7 +3456,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [86], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_87: Account(storage={1: 24743}),
@@ -3464,7 +3464,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [87], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_88: Account(storage={1: 1}),
@@ -3472,7 +3472,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [88], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_89: Account(storage={1: 24743}),
@@ -3480,7 +3480,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [89], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_90: Account(storage={1: 1}),
@@ -3488,7 +3488,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [90], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_91: Account(storage={1: 24743}),
@@ -3496,7 +3496,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [91], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_92: Account(storage={1: 1}),
@@ -3504,7 +3504,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [92], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_93: Account(storage={1: 24743}),
@@ -3512,7 +3512,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [93], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_94: Account(storage={1: 1}),
@@ -3520,7 +3520,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [94], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_95: Account(storage={1: 24743}),
@@ -3528,7 +3528,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [95], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_96: Account(storage={1: 1}),
@@ -3536,7 +3536,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [96], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_97: Account(storage={1: 24743}),
@@ -3544,7 +3544,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [97], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_98: Account(storage={1: 1}),
@@ -3552,7 +3552,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [98], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_99: Account(storage={1: 24743}),
@@ -3560,7 +3560,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [99], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_100: Account(storage={1: 1}),
@@ -3568,7 +3568,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [100], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_101: Account(storage={1: 24743}),
@@ -3576,7 +3576,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [101], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_102: Account(storage={1: 1}),
@@ -3584,7 +3584,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [102], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_103: Account(storage={1: 24743}),
@@ -3592,7 +3592,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [103], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_104: Account(storage={1: 1}),
@@ -3600,7 +3600,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [104], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_105: Account(storage={1: 24743}),
@@ -3608,7 +3608,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [105], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_106: Account(storage={1: 1}),
@@ -3616,7 +3616,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [106], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_107: Account(storage={1: 24743}),
@@ -3624,7 +3624,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [107], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_108: Account(storage={1: 1}),
@@ -3632,7 +3632,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [108], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_109: Account(storage={1: 24743}),
@@ -3640,7 +3640,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [109], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_110: Account(storage={1: 1}),
@@ -3648,7 +3648,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [110], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_111: Account(storage={1: 24743}),
@@ -3656,7 +3656,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [111], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_112: Account(storage={1: 1}),
@@ -3664,7 +3664,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [112], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_113: Account(storage={1: 24743}),
@@ -3672,7 +3672,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [113], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_114: Account(storage={1: 1}),
@@ -3680,7 +3680,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [114], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_115: Account(storage={1: 24743}),
@@ -3688,7 +3688,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [115], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_116: Account(storage={1: 1}),
@@ -3696,7 +3696,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [116], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_117: Account(storage={1: 24743}),
@@ -3704,7 +3704,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [117], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_118: Account(storage={1: 1}),
@@ -3712,7 +3712,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [118], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_119: Account(storage={1: 24743}),
@@ -3720,7 +3720,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [119], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_120: Account(storage={1: 1}),
@@ -3728,7 +3728,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [120], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_121: Account(storage={1: 24743}),
@@ -3736,7 +3736,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [121], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_122: Account(storage={1: 1}),
@@ -3744,7 +3744,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [122], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_123: Account(storage={1: 24743}),
@@ -3752,7 +3752,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [123], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_124: Account(storage={1: 1}),
@@ -3760,7 +3760,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [124], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_125: Account(storage={1: 24743}),
@@ -3768,7 +3768,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [125], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_126: Account(storage={1: 1}),
@@ -3776,7 +3776,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [126], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_127: Account(storage={1: 24743}),
@@ -3784,7 +3784,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [127], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_128: Account(storage={1: 1}),
@@ -3792,7 +3792,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [128], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_129: Account(storage={1: 24743}),
@@ -3800,7 +3800,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [129], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_130: Account(storage={1: 1}),
@@ -3808,7 +3808,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [130], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_131: Account(storage={1: 24743}),
@@ -3816,7 +3816,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [131], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_132: Account(storage={1: 1}),
@@ -3824,7 +3824,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [132], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_133: Account(storage={1: 24743}),
@@ -3832,7 +3832,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [133], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_134: Account(storage={1: 1}),
@@ -3840,7 +3840,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [134], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_135: Account(storage={1: 24743}),
@@ -3848,7 +3848,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [135], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_136: Account(storage={1: 1}),
@@ -3856,7 +3856,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [136], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_137: Account(storage={1: 24743}),
@@ -3864,7 +3864,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [137], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_138: Account(storage={1: 1}),
@@ -3872,7 +3872,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [138], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_139: Account(storage={1: 24743}),
@@ -3880,7 +3880,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [139], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_140: Account(storage={1: 1}),
@@ -3888,7 +3888,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [140], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_141: Account(storage={1: 24743}),
@@ -3896,7 +3896,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [141], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_142: Account(storage={1: 1}),
@@ -3904,7 +3904,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [142], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_143: Account(storage={1: 24743}),
@@ -3912,7 +3912,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [143], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_144: Account(storage={1: 1}),
@@ -3920,7 +3920,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [144], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_145: Account(storage={1: 24743}),
@@ -3928,7 +3928,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [145], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_146: Account(storage={1: 1}),
@@ -3936,7 +3936,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [146], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_147: Account(storage={1: 24743}),
@@ -3944,7 +3944,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [147], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_148: Account(storage={1: 1}),
@@ -3952,7 +3952,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [148], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_149: Account(storage={1: 24743}),
@@ -3960,7 +3960,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [149], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_150: Account(storage={1: 1}),
@@ -3968,7 +3968,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [150], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_151: Account(storage={1: 24743}),
@@ -3976,7 +3976,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [151], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_152: Account(storage={1: 1}),
@@ -3984,7 +3984,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [152], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_153: Account(storage={1: 24743}),
@@ -3992,7 +3992,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [153], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_154: Account(storage={1: 1}),
@@ -4000,7 +4000,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [154], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_155: Account(storage={1: 24743}),
@@ -4008,7 +4008,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [155], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_156: Account(storage={1: 1}),
@@ -4016,7 +4016,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [156], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_157: Account(storage={1: 24743}),
@@ -4024,7 +4024,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [157], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_158: Account(storage={1: 1}),
@@ -4032,7 +4032,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [158], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_159: Account(storage={1: 24743}),
@@ -4040,7 +4040,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [159], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_160: Account(storage={1: 1}),
@@ -4048,7 +4048,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [160], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_161: Account(storage={1: 24743}),
@@ -4056,7 +4056,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [161], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_162: Account(storage={1: 1}),
@@ -4064,7 +4064,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [162], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_163: Account(storage={1: 24743}),
@@ -4072,7 +4072,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [163], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_164: Account(storage={1: 1}),
@@ -4080,7 +4080,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [164], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_165: Account(storage={1: 24743}),
@@ -4088,7 +4088,7 @@ def test_underflow_test(
         },
         {
             "indexes": {"data": [165], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 24743, 1: 24743}),
                 addr_166: Account(storage={1: 1}),

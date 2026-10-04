@@ -39,7 +39,7 @@ from execution_testing.cli.pytest_commands.plugins.consume.simulators.helpers.ru
     ruleset,
 )
 from execution_testing.fixtures.blockchain import FixtureHeader
-from execution_testing.forks import Osaka, Requests
+from execution_testing.forks import Requests, SilaOsaka
 from execution_testing.rpc import EngineRPC, SilRPC
 from execution_testing.test_types import (
     DETERMINISTIC_FACTORY_ADDRESS,
@@ -64,7 +64,7 @@ SEED_KEY_COUNT = 100
 SEED_KEY_BALANCE = 10**26
 
 # The fork to test with
-TEST_FORK = Osaka
+TEST_FORK = SilaOsaka
 
 
 pytestmark = pytest.mark.skipif(

@@ -3,7 +3,7 @@ Test_revert_opcode_return.
 
 Ported from:
 state_tests/stRevertTest/RevertOpcodeReturnFiller.json
-@manually-enhanced: Do not overwrite. tx_gas[1] bumped on Amsterdam to
+@manually-enhanced: Do not overwrite. tx_gas[1] bumped on SilaAmsterdam to
 cover SIP-8037 state-gas spill from target's two SSTORE-sets;
 pre-SIP-8037 unchanged.
 
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertOpcodeReturnFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -221,7 +221,7 @@ def test_revert_opcode_return(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 target: Account(
@@ -232,7 +232,7 @@ def test_revert_opcode_return(
         },
         {
             "indexes": {"data": [1, 2, 3, 4, 5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 target: Account(storage={1: 0, 2: 0}),

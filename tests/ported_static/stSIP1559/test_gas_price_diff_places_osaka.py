@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP1559/gasPriceDiffPlacesOsakaFiller.yml"],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize(
     "d, g, v",
     [

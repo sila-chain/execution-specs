@@ -43,7 +43,7 @@ COPY_OFFSET = 18
         "state_tests/stCallCreateCallCodeTest/createNameRegistratorPreStore1NotEnoughGasFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.with_all_create_opcodes
 @pytest.mark.parametrize(
     "enough_gas",

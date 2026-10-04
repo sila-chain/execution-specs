@@ -22,7 +22,7 @@ from execution_testing import (
     Withdrawal,
 )
 from execution_testing.exceptions.exceptions import BlockException
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 from execution_testing.specs.blockchain import Header
 
 from .spec import ref_spec_4895
@@ -30,7 +30,7 @@ from .spec import ref_spec_4895
 REFERENCE_SPEC_GIT_PATH = ref_spec_4895.git_path
 REFERENCE_SPEC_VERSION = ref_spec_4895.version
 
-pytestmark = pytest.mark.valid_from("Shanghai")
+pytestmark = pytest.mark.valid_from("SilaShanghai")
 
 ONE_GWEI = 10**9
 
@@ -455,7 +455,7 @@ def test_self_destructing_account(
 
     post = {
         self_destruct_contract_address: Account(
-            code=self_destruct_code if fork >= Cancun else b"",
+            code=self_destruct_code if fork >= SilaCancun else b"",
             balance=(99 * ONE_GWEI),
         ),
         recipient: Account(

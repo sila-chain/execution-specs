@@ -58,7 +58,8 @@ class TransactionReceipt(CamelModel):
             root = data.get("root")
             root_is_empty = root in (None, "", "0x", b"", bytearray())
             if not root_is_empty:
-                # gsil's t8n JSON uses `root` for pre-Byzantium receipts while
+                # gsil's t8n JSON uses `root` for pre-SilaByzantium receipts
+                # while
                 # also populating `status`. For fixture re-encoding, a
                 # non-empty root must take precedence over status.
                 data.setdefault("post_state", root)

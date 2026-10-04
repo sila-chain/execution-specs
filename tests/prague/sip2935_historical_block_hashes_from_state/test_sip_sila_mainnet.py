@@ -18,7 +18,7 @@ from .spec import Spec, ref_spec_2935
 REFERENCE_SPEC_GIT_PATH = ref_spec_2935.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2935.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaPrague"), pytest.mark.sila_mainnet]
 
 
 def test_sip_2935(

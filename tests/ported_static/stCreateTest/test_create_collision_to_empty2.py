@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateCollisionToEmpty2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -195,7 +195,7 @@ def test_create_collision_to_empty2(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_1: Account(storage={}, nonce=0),
@@ -204,7 +204,7 @@ def test_create_collision_to_empty2(
         },
         {
             "indexes": {"data": 0, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_1: Account(storage={1: contract_4}, nonce=1),
@@ -215,7 +215,7 @@ def test_create_collision_to_empty2(
         },
         {
             "indexes": {"data": [1, 2], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_2: Account(storage={1: 0}, nonce=0),
@@ -224,7 +224,7 @@ def test_create_collision_to_empty2(
         },
         {
             "indexes": {"data": 1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_2: Account(storage={1: 0}, nonce=0),
@@ -233,7 +233,7 @@ def test_create_collision_to_empty2(
         },
         {
             "indexes": {"data": 2, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_3: Account(storage={1: 0}, nonce=0),

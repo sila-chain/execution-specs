@@ -473,8 +473,8 @@ Transaction types that include an [SIP-2930]-style access list.
 See [`has_access_list`][hal] and [`Access`][a] for more details.
 
 [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
-[hal]: ref:sila.forks.amsterdam.transactions.has_access_list
-[a]: ref:sila.forks.amsterdam.transactions.Access
+[hal]: ref:sila.forks.sila_amsterdam.transactions.has_access_list
+[a]: ref:sila.forks.sila_amsterdam.transactions.Access
 """
 
 

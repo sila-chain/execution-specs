@@ -16,7 +16,7 @@ def _write_group(
     group_hash: str,
     *,
     test_ids: list[str],
-    network: str = "Prague",
+    network: str = "SilaPrague",
     chain_id: int = 1,
     environment: dict[str, str] | None = None,
     pre_accounts: int = 1,
@@ -48,7 +48,7 @@ def _write_genesis_format_group(
     group_hash: str,
     *,
     test_ids: list[str],
-    network: str = "Prague",
+    network: str = "SilaPrague",
     timestamp: str = "0x00",
     state_root: str = "0x00",
     pre_accounts: int = 1,
@@ -89,14 +89,18 @@ def test_analyze_pre_alloc_folder_reports_low_count_candidate_buckets(
     _write_group(
         tmp_path,
         "0xaaa",
-        test_ids=["tests/prague/foo/test_bar.py::test_case[fork_Prague-a]"],
+        test_ids=[
+            "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-a]"
+        ],
         environment=shared_environment,
         pre_accounts=3,
     )
     _write_group(
         tmp_path,
         "0xbbb",
-        test_ids=["tests/prague/foo/test_bar.py::test_case[fork_Prague-b]"],
+        test_ids=[
+            "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-b]"
+        ],
         environment=shared_environment,
         pre_accounts=2,
     )
@@ -104,9 +108,9 @@ def test_analyze_pre_alloc_folder_reports_low_count_candidate_buckets(
         tmp_path,
         "0xccc",
         test_ids=[
-            "tests/prague/foo/test_other.py::test_other[fork_Prague-a]",
-            "tests/prague/foo/test_other.py::test_other[fork_Prague-b]",
-            "tests/prague/foo/test_other.py::test_other[fork_Prague-c]",
+            "tests/prague/foo/test_other.py::test_other[fork_SilaPrague-a]",
+            "tests/prague/foo/test_other.py::test_other[fork_SilaPrague-b]",
+            "tests/prague/foo/test_other.py::test_other[fork_SilaPrague-c]",
         ],
         environment={"currentNumber": "0x02"},
         pre_accounts=1,
@@ -127,8 +131,8 @@ def test_analyze_pre_alloc_folder_reports_low_count_candidate_buckets(
     assert candidate["low_group_hashes"] == ["0xaaa", "0xbbb"]
     assert candidate["singleton_groups"] == 2
     assert candidate["test_ids"] == [
-        "tests/prague/foo/test_bar.py::test_case[fork_Prague-a]",
-        "tests/prague/foo/test_bar.py::test_case[fork_Prague-b]",
+        "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-a]",
+        "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-b]",
     ]
 
 
@@ -142,19 +146,25 @@ def test_analyze_pre_alloc_folder_buckets_genesis_format_groups(
     _write_genesis_format_group(
         tmp_path,
         "0xaaa",
-        test_ids=["tests/prague/foo/test_bar.py::test_case[fork_Prague-a]"],
+        test_ids=[
+            "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-a]"
+        ],
         state_root="0x01",
     )
     _write_genesis_format_group(
         tmp_path,
         "0xbbb",
-        test_ids=["tests/prague/foo/test_bar.py::test_case[fork_Prague-b]"],
+        test_ids=[
+            "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-b]"
+        ],
         state_root="0x02",
     )
     _write_genesis_format_group(
         tmp_path,
         "0xccc",
-        test_ids=["tests/prague/foo/test_other.py::test_other[fork_Prague]"],
+        test_ids=[
+            "tests/prague/foo/test_other.py::test_other[fork_SilaPrague]"
+        ],
         timestamp="0x0c",
         state_root="0x03",
     )
@@ -173,7 +183,9 @@ def test_groupstats_json_output_is_machine_readable(tmp_path: Path) -> None:
     _write_group(
         tmp_path,
         "0xaaa",
-        test_ids=["tests/prague/foo/test_bar.py::test_case[fork_Prague-a]"],
+        test_ids=[
+            "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-a]"
+        ],
     )
 
     result = CliRunner().invoke(
@@ -195,7 +207,7 @@ def test_groupstats_json_output_is_machine_readable(tmp_path: Path) -> None:
     assert payload["parameters"]["compact"] is True
     assert payload["group_details"] == []
     assert payload["optimization"]["low_groups"][0]["test_ids"] == [
-        "tests/prague/foo/test_bar.py::test_case[fork_Prague-a]"
+        "tests/prague/foo/test_bar.py::test_case[fork_SilaPrague-a]"
     ]
     assert "[bold" not in result.output
 
@@ -208,8 +220,8 @@ def test_analyze_pre_alloc_folder_excludes_test_id_substrings(
         tmp_path,
         "0xaaa",
         test_ids=[
-            "tests/prague/foo/test_bar.py::test_keep[fork_Prague]",
-            "tests/prague/foo/test_bar.py::test_drop[fork_Prague]",
+            "tests/prague/foo/test_bar.py::test_keep[fork_SilaPrague]",
+            "tests/prague/foo/test_bar.py::test_drop[fork_SilaPrague]",
         ],
     )
 
@@ -234,8 +246,8 @@ def test_analyze_pre_alloc_folder_matches_test_id_substrings(
         tmp_path,
         "0xaaa",
         test_ids=[
-            "tests/ported_static/foo/test_bar.py::test_keep[fork_Prague]",
-            "tests/prague/foo/test_bar.py::test_drop[fork_Prague]",
+            "tests/ported_static/foo/test_bar.py::test_keep[fork_SilaPrague]",
+            "tests/prague/foo/test_bar.py::test_drop[fork_SilaPrague]",
         ],
     )
 
@@ -263,20 +275,20 @@ def test_groupstats_rich_output_reports_regex_exclusions(
         tmp_path,
         "0xaaa",
         test_ids=[
-            "tests/ported_static/foo/test_bar.py::test_drop[fork_Prague]"
+            "tests/ported_static/foo/test_bar.py::test_drop[fork_SilaPrague]"
         ],
     )
     _write_group(
         tmp_path,
         "0xbbb",
         test_ids=[
-            "tests/ported_static/foo/test_bar.py::test_keep[fork_Prague]"
+            "tests/ported_static/foo/test_bar.py::test_keep[fork_SilaPrague]"
         ],
     )
     _write_group(
         tmp_path,
         "0xccc",
-        test_ids=["tests/prague/foo/test_bar.py::test_other[fork_Prague]"],
+        test_ids=["tests/prague/foo/test_bar.py::test_other[fork_SilaPrague]"],
     )
 
     result = CliRunner().invoke(

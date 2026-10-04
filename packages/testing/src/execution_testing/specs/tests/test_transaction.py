@@ -8,7 +8,7 @@ import pytest
 
 from execution_testing import TestAddress
 from execution_testing.fixtures import TransactionFixture
-from execution_testing.forks import Amsterdam, Fork, Shanghai
+from execution_testing.forks import Fork, SilaAmsterdam, SilaShanghai
 from execution_testing.test_types import Transaction
 
 from ..transaction import TransactionTest
@@ -21,7 +21,9 @@ FIXTURES_FOLDER = CURRENT_FOLDER / "fixtures"
 @pytest.mark.parametrize(
     "name, tx, fork",
     [
-        pytest.param("simple_type_0", Transaction(gas_limit=0x5208), Shanghai),
+        pytest.param(
+            "simple_type_0", Transaction(gas_limit=0x5208), SilaShanghai
+        ),
     ],
 )
 def test_transaction_test_filling(
@@ -78,11 +80,11 @@ def test_amsterdam_transaction_fixture_intrinsic_gas(
     tx: Transaction,
     expected_intrinsic_gas: int,
 ) -> None:
-    """Calculate Amsterdam intrinsic gas from transaction context."""
+    """Calculate SilaAmsterdam intrinsic gas from transaction context."""
     fixture = (
         TransactionTest(
             tx=tx.with_signature_and_sender(),
-            fork=Amsterdam,
+            fork=SilaAmsterdam,
         )
         .generate(
             t8n=None,  # type: ignore

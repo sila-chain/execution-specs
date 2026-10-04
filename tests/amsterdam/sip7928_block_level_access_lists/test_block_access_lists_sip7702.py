@@ -41,7 +41,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 @pytest.mark.parametrize(
@@ -1428,7 +1428,7 @@ def test_bal_selfdestruct_to_7702_delegation(
             balance_changes=[
                 BalBalanceChange(block_access_index=2, post_balance=0)
             ],
-            code_changes=[],  # Code unchanged (post-Cancun SELFDESTRUCT)
+            code_changes=[],  # Code unchanged (post-SilaCancun SELFDESTRUCT)
             storage_changes=[],  # No storage changes
             storage_reads=[],  # No storage reads
         ),
@@ -1452,7 +1452,7 @@ def test_bal_selfdestruct_to_7702_delegation(
         ),
         bob: Account(balance=10),
         relayer: Account(nonce=2),
-        # Victim still exists but with 0 balance (post-Cancun SELFDESTRUCT)
+        # Victim still exists but with 0 balance (post-SilaCancun SELFDESTRUCT)
         victim: Account(balance=0),
     }
 

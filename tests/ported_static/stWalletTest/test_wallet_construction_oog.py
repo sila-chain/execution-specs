@@ -4,7 +4,7 @@ Test_wallet_construction_oog.
 Ported from:
 state_tests/stWalletTest/walletConstructionOOGFiller.json
 @manually-enhanced: Do not overwrite. tx_gas[1] is tuned for the
-contract-creation success path on Cancun; on Amsterdam the
+contract-creation success path on SilaCancun; on SilaAmsterdam the
 NEW_ACCOUNT plus the 4 fresh storage slots in the deployed wallet
 spill state-gas, so lift the budget by Fork.oog_budget_lift.
 """
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stWalletTest/walletConstructionOOGFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -80,7 +80,7 @@ def test_wallet_construction_oog(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(storage={}, code=b"", nonce=2),
                 compute_create_address(
@@ -90,7 +90,7 @@ def test_wallet_construction_oog(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(storage={}, code=b"", nonce=2),
                 compute_create_address(address=sender, nonce=1): Account(

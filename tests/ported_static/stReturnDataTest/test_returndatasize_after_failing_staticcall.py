@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stReturnDataTest/returndatasize_after_failing_staticcallFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_returndatasize_after_failing_staticcall(
     state_test: StateTestFiller,

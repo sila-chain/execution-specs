@@ -34,7 +34,7 @@ def _test_case(
         path="test.json",
         key="test_case",
         index=0,
-        fork_name="Shanghai",
+        fork_name="SilaShanghai",
         post={
             "hash": post_hash,
             "indexes": {"data": 0, "gas": 0, "value": 0},
@@ -123,7 +123,7 @@ def test_run_one_formats_state_root_once(
         out_file,
         StringIO(),
     )
-    state_test.supported_forks = ("shanghai",)
+    state_test.supported_forks = ("silashanghai",)
 
     def fake_read_test_cases(_path: str) -> list[StateTestCase]:
         return [test_case]
@@ -150,7 +150,7 @@ def test_run_one_formats_state_root_once(
     assert json.loads(out_file.getvalue()) == [
         {
             "stateRoot": state_root.hex(),
-            "fork": "Shanghai",
+            "fork": "SilaShanghai",
             "name": "test_case",
             "pass": False,
             "error": (

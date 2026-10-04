@@ -57,7 +57,7 @@ MEMORY_SIZE = 0x1F40  # 8000-byte args/ret buffer for the memory variants
         "state_tests/stEIP150singleCodeGasPrices/RawDelegateCallGasMemoryAskFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "opcode, value, memory",
     [

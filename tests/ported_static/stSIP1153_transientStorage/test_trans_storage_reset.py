@@ -2,7 +2,7 @@
 Ori Pomerantz qbzzt1@gmail.com.
 
 Ported from:
-state_tests/Cancun/stEIP1153_transientStorage/transStorageResetFiller.yml
+state_tests/SilaCancun/stEIP1153_transientStorage/transStorageResetFiller.yml
 """
 
 import pytest
@@ -29,10 +29,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Cancun/stEIP1153_transientStorage/transStorageResetFiller.yml"  # noqa: E501
+        "state_tests/SilaCancun/stEIP1153_transientStorage/transStorageResetFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -529,7 +529,7 @@ def test_trans_storage_reset(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: reverter, 1: 1}),
                 reverter: Account(storage={0: 48879, 1: 1}),
@@ -538,7 +538,7 @@ def test_trans_storage_reset(
         },
         {
             "indexes": {"data": [3, 6, 9, 12, 15, 18], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: reverter, 1: 1}),
                 reverter: Account(storage={0: 48879, 1: 1, 16: 1}),
@@ -546,7 +546,7 @@ def test_trans_storage_reset(
         },
         {
             "indexes": {"data": [24, 27], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: reverter, 1: 1}),
                 reverter: Account(storage={0: 0xBAD0BEEF, 1: 1, 16: 32343}),
@@ -579,7 +579,7 @@ def test_trans_storage_reset(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: reverter, 1: 1}),
                 reverter: Account(storage={0: 24743, 1: 0}),
@@ -588,7 +588,7 @@ def test_trans_storage_reset(
         },
         {
             "indexes": {"data": [21], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: reverter, 1: 1}),
                 reverter: Account(storage={0: 24743, 1: 1}),

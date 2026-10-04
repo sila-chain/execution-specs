@@ -22,7 +22,7 @@ from execution_testing import Macros as Om
 from .spec import Spec, ref_spec_6110
 
 pytestmark = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.pre_alloc_mutable(),
 ]
 

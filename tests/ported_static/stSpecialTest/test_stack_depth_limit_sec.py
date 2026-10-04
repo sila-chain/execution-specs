@@ -24,7 +24,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSpecialTest/StackDepthLimitSECFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_stack_depth_limit_sec(
     state_test: StateTestFiller,
     pre: Alloc,

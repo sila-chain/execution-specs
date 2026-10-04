@@ -1,5 +1,6 @@
 """
-Test cases for EVM functionality introduced in Prague, [SIP-7600: Hardfork Meta
+Test cases for EVM functionality introduced in SilaPrague, [SIP-7600: Hardfork
+Meta
 - Pectra](https://sip.directory/sips/sip-7600).
 
 Devnet Specifications:

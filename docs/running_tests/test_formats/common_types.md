@@ -114,168 +114,168 @@ Fork type is represented as a JSON string that can be set to one of the followin
 
 - Chain ID: `0x00`
 
-### `"Homestead"`
+### `"SilaHomestead"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 
-### `"Byzantium"`
+### `"SilaByzantium"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
+- SilaByzantium Block: `0x00`
 
-### `"Constantinople"`
+### `"SilaConstantinople"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
 
-### `"ConstantinopleFix"`
+### `"SilaConstantinopleFix"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
 
-### `"Istanbul"`
+### `"SilaIstanbul"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 
 ### `"MuirGlacier"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
 
-### `"Berlin"`
+### `"SilaBerlin"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
+- SilaBerlin Block: `0x00`
 
-### `"BerlinToLondonAt5"`
+### `"SilaBerlinToSilaLondonAt5"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x05`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x05`
 
-### `"London"`
+### `"SilaLondon"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 
 ### `"ArrowGlacier"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 - Arrow Glacier Block: `0x00`
 
 ### `"GrayGlacier"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 - Arrow Glacier Block: `0x00`
 - Gray Glacier Block: `0x00`
 
 ### `"Merge"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 - Arrow Glacier Block: `0x00`
 - Gray Glacier Block: `0x00`
 - Terminal Total Difficulty: `0x00`
@@ -283,81 +283,81 @@ Fork type is represented as a JSON string that can be set to one of the followin
 ### `"MergeToShanghaiAtTime15k"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 - Arrow Glacier Block: `0x00`
 - Gray Glacier Block: `0x00`
 - Terminal Total Difficulty: `0x00`
-- Shanghai Time: `0x3a98`
+- SilaShanghai Time: `0x3a98`
 
-### `"Shanghai"`
+### `"SilaShanghai"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 - Arrow Glacier Block: `0x00`
 - Gray Glacier Block: `0x00`
 - Terminal Total Difficulty: `0x00`
-- Shanghai Time: `0x00`
+- SilaShanghai Time: `0x00`
 
-### `"ShanghaiToCancunAtTime15k"`
+### `"SilaShanghaiToSilaCancunAtTime15k"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 - Arrow Glacier Block: `0x00`
 - Gray Glacier Block: `0x00`
 - Terminal Total Difficulty: `0x00`
-- Shanghai Time: `0x0`
-- Cancun Time: `0x3a98`
+- SilaShanghai Time: `0x0`
+- SilaCancun Time: `0x3a98`
 
-### `"Cancun"`
+### `"SilaCancun"`
 
 - Chain ID: `0x01`
-- Homestead Block: `0x00`
+- SilaHomestead Block: `0x00`
 - SIP150 Block: `0x00`
 - SIP155 Block: `0x00`
 - SIP158 Block: `0x00`
 - DAO Fork Block: `0x00`
-- Byzantium Block: `0x00`
-- Constantinople Block: `0x00`
-- Constantinople Fix Block: `0x00`
-- Istanbul Block: `0x00`
+- SilaByzantium Block: `0x00`
+- SilaConstantinople Block: `0x00`
+- SilaConstantinople Fix Block: `0x00`
+- SilaIstanbul Block: `0x00`
 - Muir Glacier Block: `0x00`
-- Berlin Block: `0x00`
-- London Block: `0x00`
+- SilaBerlin Block: `0x00`
+- SilaLondon Block: `0x00`
 - Arrow Glacier Block: `0x00`
 - Gray Glacier Block: `0x00`
 - Terminal Total Difficulty: `0x00`
-- Shanghai Time: `0x00`
-- Cancun Time: `0x00`
+- SilaShanghai Time: `0x00`
+- SilaCancun Time: `0x00`

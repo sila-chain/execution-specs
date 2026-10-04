@@ -2,7 +2,7 @@
 MCOPY memory copy test cases.
 
 Ported from:
-state_tests/Cancun/stEIP5656_MCOPY/MCOPYFiller.yml
+state_tests/SilaCancun/stEIP5656_MCOPY/MCOPYFiller.yml
 """
 
 import pytest
@@ -28,9 +28,9 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/Cancun/stEIP5656_MCOPY/MCOPYFiller.yml"],
+    ["state_tests/SilaCancun/stEIP5656_MCOPY/MCOPYFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -229,7 +229,7 @@ def test_mcopy(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -242,7 +242,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -255,7 +255,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -268,7 +268,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -281,7 +281,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [9], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -294,7 +294,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -307,7 +307,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [11], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -320,7 +320,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [12], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -333,7 +333,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [13], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -346,7 +346,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [14], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -359,7 +359,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [15], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -372,7 +372,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [16], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -385,7 +385,7 @@ def test_mcopy(
         },
         {
             "indexes": {"data": [17], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={

@@ -5,13 +5,13 @@ Ported from:
 state_tests/stEIP2930/transactionCostsFiller.yml
 
 @manually-enhanced: Do not overwrite. The post-state asserts the sender
-balance after a STOP-only call. For Amsterdam+ it is derived from
+balance after a STOP-only call. For SilaAmsterdam+ it is derived from
 `fork.transaction_intrinsic_cost_calculator()` (over calldata,
 access_list, and sends_value) as `pre_balance - tx.value -
 intrinsic_gas * gas_price`, instead of a hardcoded literal, so the
 access-list-heavy cases stay correct across the SIP-2780 intrinsic
-decomposition and SIP-7981/SIP-8038 access-list repricing. Pre-Amsterdam
-forks (Cancun/Prague) keep their original hardcoded balances. No
+decomposition and SIP-7981/SIP-8038 access-list repricing. Pre-SilaAmsterdam
+forks (SilaCancun/SilaPrague) keep their original hardcoded balances. No
 21_000 baseline or SSTORE-clear constants are subtracted here.
 """
 
@@ -27,7 +27,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Amsterdam, Fork
+from execution_testing.forks import Fork, SilaAmsterdam
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -41,7 +41,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP2930/transactionCostsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -150,48 +150,48 @@ def test_transaction_costs(
     )
 
     expect_entries: list[dict] = [
-        # SIP-7981 changes access list costs in Amsterdam+. Balance is a
+        # SIP-7981 changes access list costs in SilaAmsterdam+. Balance is a
         # placeholder; the expected value is computed dynamically below.
-        # Ordered first so Amsterdam+ forks match here instead of the
+        # Ordered first so SilaAmsterdam+ forks match here instead of the
         # entries below.
         {
             "indexes": {"data": -1, "gas": -1, "value": -1},
-            "network": [">=Amsterdam"],
+            "network": [">=SilaAmsterdam"],
             "result": {sender: Account(balance=0)},
         },
         {
             "indexes": {"data": [0, 1], "gas": -1, "value": -1},
-            "network": ["Cancun"],
+            "network": ["SilaCancun"],
             "result": {sender: Account(balance=0x5F5E100)},
         },
         {
             "indexes": {"data": [0, 1], "gas": -1, "value": -1},
-            "network": [">=Prague"],
+            "network": [">=SilaPrague"],
             "result": {sender: Account(balance=0x5F5E0C4)},
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {sender: Account(balance=0x5F58340)},
         },
         {
             "indexes": {"data": [3, 4, 5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {sender: Account(balance=0x5F53908)},
         },
         {
             "indexes": {"data": [6, 10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {sender: Account(balance=0x5F4EED0)},
         },
         {
             "indexes": {"data": [7, 8, 9], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {sender: Account(balance=0x5F49110)},
         },
         {
             "indexes": {"data": [11], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {sender: Account(balance=0x5EAF808)},
         },
     ]
@@ -470,11 +470,11 @@ def test_transaction_costs(
         error=_exc,
     )
 
-    # SIP-7981 (access list repricing) activates in Amsterdam. Compute the
+    # SIP-7981 (access list repricing) activates in SilaAmsterdam. Compute the
     # expected balance dynamically from the fork's intrinsic cost calculator
     # rather than hardcoding values that change as SIP-7981 evolves. Past
     # forks keep their original hardcoded values above.
-    if _exc is None and fork >= Amsterdam:
+    if _exc is None and fork >= SilaAmsterdam:
         sender_pre = pre[sender]
         assert sender_pre is not None
         gas_price = int(tx.gas_price or tx.max_fee_per_gas or 0)

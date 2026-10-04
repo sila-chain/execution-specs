@@ -3,7 +3,7 @@ Test_transaction_create_stop_in_initcode.
 
 Ported from:
 state_tests/stInitCodeTest/TransactionCreateStopInInitcodeFiller.json
-@manually-enhanced: Do not overwrite. tx `gas_limit` bumped on Amsterdam
+@manually-enhanced: Do not overwrite. tx `gas_limit` bumped on SilaAmsterdam
 above intrinsic+state-gas; pre-SIP-8037 unchanged.
 
 """
@@ -28,7 +28,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stInitCodeTest/TransactionCreateStopInInitcodeFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_transaction_create_stop_in_initcode(
     state_test: StateTestFiller,
     pre: Alloc,

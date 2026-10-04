@@ -311,7 +311,7 @@ class BaseForkMeta(ABCMeta):
     @abstractmethod
     def name(cls) -> str:
         """
-        Return the name of the fork (e.g., Berlin), must be implemented by
+        Return the name of the fork (e.g., SilaBerlin), must be implemented by
         subclasses.
         """
         pass

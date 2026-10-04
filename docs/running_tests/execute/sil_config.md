@@ -84,9 +84,9 @@ MyCustomNet:
   chainId: 0xabcd                 # Chain ID in hex
   genesisHash: 0xd4e5674...       # Genesis block hash
   forkActivationTimes:            # Fork activation block numbers/times
-    0: Cancun                     # Genesis fork, it must be the latest fork activated in the genesis
-    1742999832: Prague
-    1742999833: Osaka
+    0: SilaCancun                     # Genesis fork, it must be the latest fork activated in the genesis
+    1742999832: SilaPrague
+    1742999833: SilaOsaka
   bpoForkActivationTimes:         # Optional: Blob parameter only fork definitions
     1742999834:
         target: 9

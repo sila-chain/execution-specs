@@ -29,8 +29,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStaticCall/static_Call1024BalanceTooLow2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -136,7 +136,7 @@ def test_static_call1024_balance_too_low2(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 addr_2: Account(storage={0: 1, 1: 0}),
                 target: Account(storage={0: 1, 1: 1}),
@@ -144,7 +144,7 @@ def test_static_call1024_balance_too_low2(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 addr_2: Account(storage={0: 0, 1: 0}),
                 target: Account(storage={0: 1, 1: 1}),

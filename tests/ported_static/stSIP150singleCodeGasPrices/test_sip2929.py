@@ -8,7 +8,7 @@ state_tests/stEIP150singleCodeGasPrices/sip2929Filler.yml
 operations (`oper1, oper2, oper3` from the calldata) on the same
 measurement contract and stores each one's `Op.GAS` cost in slots 0,
 1, 2. SIP-8038 reprices state access, so the cost of every measured
-operation shifts by the (Amsterdam - Cancun) repricing of whatever
+operation shifts by the (SilaAmsterdam - SilaCancun) repricing of whatever
 cold/warm account or storage access it performs. The access pattern,
 and hence the delta, depends on what the two preceding operations
 already warmed, so the deltas are computed by a small simulator
@@ -21,7 +21,7 @@ every delta is exactly 0 pre-SIP-8037 and tracks future parameter
 changes. The `far*` operations call contract-1 (which does
 `BALANCE(contract-0)`) or contract-2 (which does `SLOAD(0x100)`), so
 they contribute the inner access's delta. Do not hardcode the
-Amsterdam numbers.
+SilaAmsterdam numbers.
 """
 
 import pytest
@@ -35,7 +35,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -49,7 +49,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP150singleCodeGasPrices/sip2929Filler.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -860,10 +860,12 @@ def test_sip2929(
     gas_costs = fork.gas_costs()
     sip_active = fork.is_sip_enabled(8037)
     cold_account_delta = (
-        gas_costs.COLD_ACCOUNT_ACCESS - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        gas_costs.COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
     cold_storage_delta = (
-        gas_costs.COLD_STORAGE_ACCESS - Cancun.gas_costs().COLD_STORAGE_ACCESS
+        gas_costs.COLD_STORAGE_ACCESS
+        - SilaCancun.gas_costs().COLD_STORAGE_ACCESS
     )
     # SIP-8038 charges an extra warm access for an EXTCODE* code read,
     # on every access (cold adds it on top of the cold account cost,
@@ -874,7 +876,7 @@ def test_sip2929(
 
     def _sstore_delta(**metadata: int) -> int:
         sstore = Op.SSTORE.with_metadata(**metadata)
-        return sstore.gas_cost(fork) - sstore.gas_cost(Cancun)
+        return sstore.gas_cost(fork) - sstore.gas_cost(SilaCancun)
 
     # SSTORE 24743 -> 5 (existing nonzero slot changed to a new nonzero
     # value): cold first write vs warm subsequent write.
@@ -948,7 +950,7 @@ def test_sip2929(
 
         Walk the operation triple, tracking the warm state of the
         contract-0 account and storage slot 0x100 (pre-value 24743),
-        and accumulate the (Amsterdam - Cancun) repricing each measured
+        and accumulate the (SilaAmsterdam - SilaCancun) repricing each measured
         operation incurs. The `far*` calls reach a pre-warmed contract
         whose body performs the inner access, so they contribute that
         inner access's delta.
@@ -993,9 +995,9 @@ def test_sip2929(
         deltas = _slot_deltas(index)
         return {i: base[i] + deltas[i] for i in range(3)}
 
-    # Cancun-era base value of each measured slot, per data index. The
+    # SilaCancun-era base value of each measured slot, per data index. The
     # per-index SIP-8038 delta is added by `_expect`, so each entry is a
-    # single data index (grouped entries with identical Cancun bases can
+    # single data index (grouped entries with identical SilaCancun bases can
     # still need different deltas once the access pattern differs).
     base_values: dict[int, tuple[int, int, int]] = {
         1: (2090, 90, 90),
@@ -1040,7 +1042,7 @@ def test_sip2929(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={0: 0})},
         },
     ]
@@ -1048,7 +1050,7 @@ def test_sip2929(
         expect_entries_.append(
             {
                 "indexes": {"data": [index], "gas": -1, "value": -1},
-                "network": [">=Cancun"],
+                "network": [">=SilaCancun"],
                 "result": {
                     contract_3: Account(
                         storage=_expect(index, base_values[index])

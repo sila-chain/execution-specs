@@ -776,7 +776,7 @@ class CreatePreimageLayout(Bytecode):
     - MEM[offset + 64: offset + 96] = preimage_size
     - MEM[offset + 96: offset + 128] = raw nonce (scratch)
 
-    Supported nonce range: 1 to 2^64 - 1. Requires Osaka
+    Supported nonce range: 1 to 2^64 - 1. Requires SilaOsaka
     (CLZ opcode).
 
     To compute the CREATE address, use `.address_op()`.

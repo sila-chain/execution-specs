@@ -44,7 +44,7 @@ from .spec import Spec, ref_spec_7702
 REFERENCE_SPEC_GIT_PATH = ref_spec_7702.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7702.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 # Enum classes used to parametrize the tests
 
@@ -1065,7 +1065,8 @@ def test_gas_cost(
         )
         authorization_list = annotated_auths
     else:
-        # Prague / Osaka: charge full empty-account auth cost in intrinsic,
+        # SilaPrague / SilaOsaka: charge full empty-account auth cost in
+        # intrinsic,
         # refund existing authorities via refund_counter (SIP-3529 cap).
         intrinsic_gas = fork.transaction_intrinsic_cost_calculator()(
             calldata=data,

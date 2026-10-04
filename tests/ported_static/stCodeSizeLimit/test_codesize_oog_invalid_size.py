@@ -25,7 +25,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCodeSizeLimit/codesizeOOGInvalidSizeFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -68,7 +68,7 @@ def test_codesize_oog_invalid_size(
     # Return sizes are fork.max_code_size() + 13 and + 1 so CREATE
     # always overflows the code-size limit. On pre-7954 forks this
     # yields the original 0x600D / 0x6001 (max_code_size = 0x6000);
-    # on Amsterdam+ it scales with the raised limit.
+    # on SilaAmsterdam+ it scales with the raised limit.
     max_code_size = fork.max_code_size()
     size_d0 = max_code_size + 13
     size_d1 = max_code_size + 1

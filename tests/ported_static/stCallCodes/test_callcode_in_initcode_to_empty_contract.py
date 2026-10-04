@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCallCodes/callcodeInInitcodeToEmptyContractFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -163,7 +163,7 @@ def test_callcode_in_initcode_to_empty_contract(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_1, nonce=0): Account(
                     storage={2: 1}
@@ -172,7 +172,7 @@ def test_callcode_in_initcode_to_empty_contract(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x9F9F2F99F78BFEDCD1F32D936203BD1C0CB00853): Account(
                     storage={2: 1}

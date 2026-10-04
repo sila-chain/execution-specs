@@ -61,10 +61,10 @@ or evmone:
 uv run consume direct --input ./fixtures --bin=evmone-statetest --bin=evmone-blockchaintest
 ```
 
-Run fixtures in the blockchain test format for the Prague fork:
+Run fixtures in the blockchain test format for the SilaPrague fork:
 
 ```bash
-uv run consume direct --input ./fixtures -m "blockchain_test and Prague" --bin=evm
+uv run consume direct --input ./fixtures -m "blockchain_test and SilaPrague" --bin=evm
 ```
 
 Test selection via a regular expression match on collected fixture IDs:
@@ -76,11 +76,11 @@ uv run consume direct --input ./fixtures --sim.limit ".*push0.*"
 Test selection via [pytest keyword expression match](https://docs.pytest.org/en/8.3.x/how-to/usage.html):
 
 ```bash
-uv run consume direct --input ./fixtures -k "sip3855 or Prague"
+uv run consume direct --input ./fixtures -k "sip3855 or SilaPrague"
 ```
 
 Use `--collect-only -q` to get a list of available test fixture IDs:
 
 ```bash
-uv run consume direct --input ./fixtures -k "sip3855 or Prague" --collect-only -q
+uv run consume direct --input ./fixtures -k "sip3855 or SilaPrague" --collect-only -q
 ```

@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stDelegatecallTestHomestead/delegatecallInInitcodeToEmptyContractFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_delegatecall_in_initcode_to_empty_contract(
     state_test: StateTestFiller,

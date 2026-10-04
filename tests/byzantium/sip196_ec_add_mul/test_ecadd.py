@@ -9,7 +9,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_196.git_path
 REFERENCE_SPEC_VERSION = ref_spec_196.version
 
 pytestmark = [
-    pytest.mark.valid_from("Byzantium"),
+    pytest.mark.valid_from("SilaByzantium"),
     pytest.mark.parametrize("precompile_address", [Spec.ECADD], ids=["ecadd"]),
 ]
 

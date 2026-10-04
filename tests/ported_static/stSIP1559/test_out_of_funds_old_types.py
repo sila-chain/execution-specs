@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP1559/outOfFundsOldTypesFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -124,23 +124,23 @@ def test_out_of_funds_old_types(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
+                ">=SilaCancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
             },
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
+                ">=SilaCancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
             },
         },
     ]

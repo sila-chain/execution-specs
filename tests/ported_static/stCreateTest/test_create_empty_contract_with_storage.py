@@ -49,7 +49,7 @@ FORWARDED_GAS = 0xEA60
         "state_tests/stCreateTest/CREATE_EmptyContractWithStorageAndCallIt_1weiFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "call_created, call_value",
     [

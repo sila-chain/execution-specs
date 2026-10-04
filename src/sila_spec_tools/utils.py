@@ -25,28 +25,28 @@ W = TypeVar("W", Uint, U64, U256)
 
 EXCEPTION_MAPS = {
     "BPO4": {
-        "fork_blocks": [("osaka", 0)],
+        "fork_blocks": [("sila_osaka", 0)],
     },
-    "FrontierToHomesteadAt5": {
-        "fork_blocks": [("frontier", 0), ("homestead", 5)],
+    "FrontierToSilaHomesteadAt5": {
+        "fork_blocks": [("frontier", 0), ("sila_homestead", 5)],
     },
-    "HomesteadToDaoAt5": {
-        "fork_blocks": [("homestead", 0), ("dao_fork", 5)],
+    "SilaHomesteadToDaoAt5": {
+        "fork_blocks": [("sila_homestead", 0), ("dao_fork", 5)],
     },
-    "HomesteadToEIP150At5": {
-        "fork_blocks": [("homestead", 0), ("tangerine_whistle", 5)],
+    "SilaHomesteadToSIP150At5": {
+        "fork_blocks": [("sila_homestead", 0), ("tangerine_whistle", 5)],
     },
     "SIP158ToByzantiumAt5": {
-        "fork_blocks": [("spurious_dragon", 0), ("byzantium", 5)],
+        "fork_blocks": [("spurious_dragon", 0), ("sila_byzantium", 5)],
     },
-    "ByzantiumToConstantinopleAt5": {
-        "fork_blocks": [("byzantium", 0), ("constantinople", 5)],
+    "SilaByzantiumToSilaConstantinopleAt5": {
+        "fork_blocks": [("sila_byzantium", 0), ("sila_constantinople", 5)],
     },
     "ConstantinopleToIstanbulAt5": {
-        "fork_blocks": [("constantinople", 0), ("istanbul", 5)],
+        "fork_blocks": [("sila_constantinople", 0), ("sila_istanbul", 5)],
     },
-    "BerlinToLondonAt5": {
-        "fork_blocks": [("berlin", 0), ("london", 5)],
+    "SilaBerlinToSilaLondonAt5": {
+        "fork_blocks": [("sila_berlin", 0), ("sila_london", 5)],
     },
     "SIP150": {
         "fork_blocks": [("tangerine_whistle", 0)],
@@ -55,14 +55,14 @@ EXCEPTION_MAPS = {
         "fork_blocks": [("spurious_dragon", 0)],
     },
     "Merge": {
-        "fork_blocks": [("paris", 0)],
+        "fork_blocks": [("sila_paris", 0)],
     },
-    "ConstantinopleFix": {
-        "fork_blocks": [("constantinople", 0)],
+    "SilaConstantinopleFix": {
+        "fork_blocks": [("sila_constantinople", 0)],
     },
 }
 
-UNSUPPORTED_FORKS = ("constantinople",)
+UNSUPPORTED_FORKS = ("silaconstantinople",)
 
 
 def parse_hex_or_int(value: str, to_type: Callable[[int], W]) -> W:
@@ -132,14 +132,14 @@ def find_fork(
 # Map testing ``Fork.transition_tool_name()`` → spec ``Hardfork.short_name``
 # for cases where CamelCase → snake_case does not produce the spec
 # module name:
-# * ``Paris`` reports itself as ``"Merge"`` to the t8n protocol.
+# * ``SilaParis`` reports itself as ``"Merge"`` to the t8n protocol.
 # * ``DAOFork`` would snake-case to ``d_a_o_fork``.
-# * ``ConstantinopleFix`` is a testing-side distinction that the spec
+# * ``SilaConstantinopleFix`` is a testing-side distinction that the spec
 #   folds into the ``constantinople`` module.
 _SPEC_SHORT_NAME_OVERRIDES: Dict[str, str] = {
-    "Merge": "paris",
+    "Merge": "sila_paris",
     "DAOFork": "dao_fork",
-    "ConstantinopleFix": "constantinople",
+    "SilaConstantinopleFix": "sila_constantinople",
 }
 
 
@@ -148,7 +148,7 @@ def resolve_fork(fork_name: str) -> Hardfork:
     Resolve a testing ``Fork.transition_tool_name()`` to its matching
     spec ``Hardfork``.
 
-    CLI exception aliases like ``HomesteadToDaoAt5`` are resolved by
+    CLI exception aliases like ``SilaHomesteadToDaoAt5`` are resolved by
     :func:`find_fork` before the testing ``Fork`` is built, so the name
     reaching this function is always post-alias-resolution.
     """

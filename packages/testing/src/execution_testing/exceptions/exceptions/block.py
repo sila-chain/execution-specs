@@ -146,7 +146,7 @@ class BlockException(ExceptionBase):
     IMPORT_IMPOSSIBLE_PARIS_OVER_SHANGHAI = auto()
     """Trying to import paris block on top of shanghai block."""
     IMPORT_IMPOSSIBLE_SHANGHAI = auto()
-    """Shanghai block import is impossible in this chain configuration."""
+    """SilaShanghai block import is impossible in this chain configuration."""
     IMPORT_IMPOSSIBLE_UNCLES_OVER_PARIS = auto()
     """
     Trying to import a block after paris fork that has not empty uncles hash.

@@ -7,7 +7,7 @@ state_tests/stMemExpandingEIP150Calls/DelegateCallOnEIPWithMemExpandingCallsFill
 @manually-enhanced: Do not overwrite. The post-state asserts the GAS
 opcode value stored at target slot 8 (0x8D5B6), which depends on the
 execution budget left after the intrinsic charge. The original test
-hardcoded `gas_limit` against Cancun's `TX_BASE` of 21_000; SIP-2780
+hardcoded `gas_limit` against SilaCancun's `TX_BASE` of 21_000; SIP-2780
 lowers the intrinsic for non-self non-value txs, so `gas_limit` is
 derived from the fork as `600_000 + (intrinsic - 21_000)`, subtracting
 the pre-SIP-2780 baseline 21_000 so the budget is invariant across the
@@ -37,7 +37,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stMemExpandingEIP150Calls/DelegateCallOnEIPWithMemExpandingCallsFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_delegate_call_on_sip_with_mem_expanding_calls(
     state_test: StateTestFiller,
@@ -81,7 +81,7 @@ def test_delegate_call_on_sip_with_mem_expanding_calls(
         nonce=0,
     )
 
-    # The original test was built against Cancun's ``TX_BASE`` of
+    # The original test was built against SilaCancun's ``TX_BASE`` of
     # 21_000. SIP-2780 lowers the intrinsic for non-self non-value
     # txs, so shift ``gas_limit`` by the intrinsic delta to preserve
     # the post-intrinsic execution budget the Op.GAS storage

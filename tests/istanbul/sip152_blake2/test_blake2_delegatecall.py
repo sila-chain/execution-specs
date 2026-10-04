@@ -11,7 +11,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks.forks.forks import Istanbul
+from execution_testing.forks.forks.forks import SilaIstanbul
 
 from .spec import Spec
 
@@ -19,7 +19,7 @@ REFERENCE_SPEC_GIT_PATH = "SIPS/sip-152.md"
 REFERENCE_SPEC_VERSION = "2762bfcff3e549ef263342e5239ef03ac2b07400"
 
 
-@pytest.mark.valid_from("ConstantinopleFix")
+@pytest.mark.valid_from("SilaConstantinopleFix")
 def test_blake2_precompile_delegatecall(
     state_test: StateTestFiller, pre: Alloc, fork: Fork
 ) -> None:
@@ -46,7 +46,7 @@ def test_blake2_precompile_delegatecall(
     post = {
         account: Account(
             storage={
-                0: "0x00" if fork >= Istanbul else "0x01",
+                0: "0x00" if fork >= SilaIstanbul else "0x01",
             }
         )
     }

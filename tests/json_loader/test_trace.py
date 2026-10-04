@@ -30,8 +30,8 @@ def test_modify_evm_trace() -> None:
 
     sila.trace.set_evm_trace(tracer1)
 
-    from sila.forks.prague.vm import Evm, Message
-    from sila.forks.prague.vm.gas import charge_gas
+    from sila.forks.sila_prague.vm import Evm, Message
+    from sila.forks.sila_prague.vm.gas import charge_gas
 
     evm = Evm(
         pc=Uint(1),

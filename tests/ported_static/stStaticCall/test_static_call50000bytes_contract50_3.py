@@ -29,8 +29,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStaticCall/static_Call50000bytesContract50_3Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -173,7 +173,7 @@ def test_static_call50000bytes_contract50_3(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 sender: Account(storage={}, nonce=1),
                 addr: Account(storage={0: 0}),
@@ -183,7 +183,7 @@ def test_static_call50000bytes_contract50_3(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 sender: Account(storage={}, nonce=1),
                 addr: Account(storage={0: 0}),

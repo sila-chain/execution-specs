@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSelfBalance/selfBalanceCallTypesFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -205,7 +205,7 @@ def test_self_balance_call_types(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr: Account(storage={17: 1}),
                 addr_2: Account(storage={33: 4352}),
@@ -215,7 +215,7 @@ def test_self_balance_call_types(
         },
         {
             "indexes": {"data": [1, 2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={

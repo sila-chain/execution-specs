@@ -37,7 +37,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
 REFERENCE_SPEC_VERSION = "N/A"
@@ -161,13 +161,13 @@ def test_callcallcallcode_001_suicide_end(
 
     tx = Transaction(sender=sender, to=target)
 
-    # Before SIP-6780 the destroyed account is gone outright; from Cancun
+    # Before SIP-6780 the destroyed account is gone outright; from SilaCancun
     # on it keeps its code and storage and only surrenders its balance.
     post: dict[Address, Account | None] = {}
     for account in (target, middle, suicider, leaf):
         post[account] = (
             Account(storage=written.get(account, {}), balance=balance[account])
-            if account is not destroyed or fork >= Cancun
+            if account is not destroyed or fork >= SilaCancun
             else Account.NONEXISTENT
         )
 

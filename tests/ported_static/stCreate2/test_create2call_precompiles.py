@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2callPrecompilesFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -186,7 +186,7 @@ def test_create2call_precompiles(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0xF68E26002DB0F9CA9B54367C57C25E474C581622): Account(
@@ -196,7 +196,7 @@ def test_create2call_precompiles(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0x3B9EA59B92545BEB727022289665CF38FA462BAE): Account(
@@ -209,7 +209,7 @@ def test_create2call_precompiles(
         },
         {
             "indexes": {"data": 2, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0x7525F19E2970539FD2897357777A4C275175BCF5): Account(
@@ -222,7 +222,7 @@ def test_create2call_precompiles(
         },
         {
             "indexes": {"data": 3, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0x0EE431DB7C48FC10A9A56C909BFEFA87661442FB): Account(
@@ -232,7 +232,7 @@ def test_create2call_precompiles(
         },
         {
             "indexes": {"data": 4, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0xBBD394930B408DA783EE071CED240ECE997BC8B2): Account(
@@ -245,7 +245,7 @@ def test_create2call_precompiles(
         },
         {
             "indexes": {"data": 5, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0x2E3EC33A50ED32C2FCBEF07A1BAB8643DB4DC670): Account(
@@ -255,7 +255,7 @@ def test_create2call_precompiles(
         },
         {
             "indexes": {"data": 6, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0xAA0AB87AA0E27E22E21671040C11F3537CDC7B3E): Account(
@@ -269,7 +269,7 @@ def test_create2call_precompiles(
         },
         {
             "indexes": {"data": 7, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0xAB7CF4E4980432E892FA512EC2B9E8532C23AC15): Account(

@@ -10,9 +10,9 @@ hardcoded value, the balance shift is derived from the fork intrinsic
 calculator: ``intrinsic(recipient_type=SELF, sends_value=True) - 21_000``
 is the delta versus the pre-SIP-2780 baseline intrinsic 21_000. SIP-2780
 carves out the recipient and value-transfer surcharges for self-sends,
-dropping the intrinsic to ``TX_BASE`` (12_000 on Amsterdam), so the delta
-is 0 at Cancun and negative afterward. The balance moves by
-``gas_price * intrinsic_delta``. Do not hardcode the Amsterdam value.
+dropping the intrinsic to ``TX_BASE`` (12_000 on SilaAmsterdam), so the delta
+is 0 at SilaCancun and negative afterward. The balance moves by
+``gas_price * intrinsic_delta``. Do not hardcode the SilaAmsterdam value.
 """
 
 import pytest
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/TransactionToItselfFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_transaction_to_itself(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -64,7 +64,7 @@ def test_transaction_to_itself(
 
     # SIP-2780 carves out self-transfers from the recipient and
     # value-transfer surcharges, leaving only ``TX_BASE`` (12_000 on
-    # Amsterdam vs 21_000 on Cancun). Shift the sender balance by
+    # SilaAmsterdam vs 21_000 on SilaCancun). Shift the sender balance by
     # ``gas_price * delta``.
     intrinsic_delta = (
         fork.transaction_intrinsic_cost_calculator()(

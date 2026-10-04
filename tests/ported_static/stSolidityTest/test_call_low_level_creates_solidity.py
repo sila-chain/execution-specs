@@ -16,7 +16,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSolidityTest/CallLowLevelCreatesSolidityFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_low_level_creates_solidity(
     state_test: StateTestFiller,
@@ -161,7 +161,7 @@ def test_call_low_level_creates_solidity(
         sender=sender,
         to=target,
         data=Bytes("c0406226"),
-        gas_limit=2350000 if fork >= Amsterdam else 350000,
+        gas_limit=2350000 if fork >= SilaAmsterdam else 350000,
         value=1,
     )
 

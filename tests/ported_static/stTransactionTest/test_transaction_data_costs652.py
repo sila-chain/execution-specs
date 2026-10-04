@@ -15,7 +15,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Fork, Prague
+from execution_testing.forks import Fork, SilaPrague
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
 REFERENCE_SPEC_VERSION = "N/A"
@@ -24,7 +24,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/TransactionDataCosts652Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -66,14 +66,14 @@ def test_transaction_data_costs652(
     tx_data = [
         Bytes("00000000000000000000112233445566778f32"),
     ]
-    # SIP-7976 (enabled with SIP-8037 on Amsterdam) increases the
+    # SIP-7976 (enabled with SIP-8037 on SilaAmsterdam) increases the
     # calldata floor cost per byte, pushing the g0 budget below the
     # new intrinsic. Shift gas_limits by the intrinsic delta versus
     # the pre-7976 baseline so the tight / loose budgets still hold.
     current_intrinsic = fork.transaction_intrinsic_cost_calculator()(
         calldata=tx_data[d]
     )
-    baseline_intrinsic = Prague.transaction_intrinsic_cost_calculator()(
+    baseline_intrinsic = SilaPrague.transaction_intrinsic_cost_calculator()(
         calldata=tx_data[d]
     )
     intrinsic_delta = current_intrinsic - baseline_intrinsic

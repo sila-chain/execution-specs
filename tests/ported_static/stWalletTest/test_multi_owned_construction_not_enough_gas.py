@@ -23,7 +23,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stWalletTest/multiOwnedConstructionNotEnoughGasFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_multi_owned_construction_not_enough_gas(
     state_test: StateTestFiller,
     pre: Alloc,

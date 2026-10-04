@@ -16,7 +16,7 @@ REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2929.md"
 REFERENCE_SPEC_VERSION = "0e11417265a623adb680c527b15d0cb6701b870b"
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.eels_base_coverage
 def test_call_insufficient_balance(
     state_test: StateTestFiller, pre: Alloc, env: Environment, fork: Fork

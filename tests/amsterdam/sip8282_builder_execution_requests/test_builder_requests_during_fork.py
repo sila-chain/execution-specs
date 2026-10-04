@@ -52,7 +52,7 @@ def slot_changes(slot: int, *changes: Tuple[int, int]) -> BalStorageSlot:
     )
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.pre_alloc_mutable
 @SIPChecklist.SystemContract.Test.ForkTransition.CallBeforeFork()
 @SIPChecklist.SystemContract.Test.Deployment.Address()

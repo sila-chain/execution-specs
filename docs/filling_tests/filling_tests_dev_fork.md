@@ -10,26 +10,26 @@ By default, the execution-testing framework only generates fixtures for forks th
     === "via the `--fork` flag"
 
           ```console
-          uv run fill -k 4844 --fork=Cancun -v
+          uv run fill -k 4844 --fork=SilaCancun -v
           ```
 
     === "via the `--from` flag"
 
           ```console
-          uv run fill -k 4844 --from=Cancun -v
+          uv run fill -k 4844 --from=SilaCancun -v
           ```
 
     === "via the `--until` flag"
 
           ```console
-          uv run fill -k 4844 --until=Cancun -v
+          uv run fill -k 4844 --until=SilaCancun -v
           ```
 
 !!! note "Specifying the `evm` binary via `evm-bin`"
      It is possible to explicitly specify the `evm` binary used to generate fixtures via the `--evm-bin` flag, for example,
 
      ```console
-     uv run fill --fork=Cancun --evm-bin=/opt/bin/evm -v
+     uv run fill --fork=SilaCancun --evm-bin=/opt/bin/evm -v
      ```
 
 ## Further Help

@@ -1,1 +1,1 @@
-"""Listings of all SIPs for Byzantium fork."""
+"""Listings of all SIPs for SilaByzantium fork."""

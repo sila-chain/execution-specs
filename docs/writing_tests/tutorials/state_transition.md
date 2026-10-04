@@ -38,12 +38,12 @@ from execution_testing.vm import Opcodes as Op
 In this snippet the required constants, types and helper functions are imported from `execution_testing.tools`. The `Opcodes` class (aliased as `Op`) provides the Python minilang for writing EVM bytecode. We will go over these as we come across them.
 
 ```python
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 ```
 
 In Python this kind of definition is called a [*decorator*](https://docs.python.org/3/search.html?q=decorator).
 It modifies the action of the function after it.
-In this case, the decorator is a custom [pytest mark](https://docs.pytest.org/en/latest/how-to/mark.html) defined by the execution-specs-test framework that specifies that the test is valid for the [Istanbul fork](https://sila.org/en/history/#istanbul) and all forks after it. The framework will then fill this test case for all forks in the fork range specified by the command-line arguments.
+In this case, the decorator is a custom [pytest mark](https://docs.pytest.org/en/latest/how-to/mark.html) defined by the execution-specs-test framework that specifies that the test is valid for the [SilaIstanbul fork](https://sila.org/en/history/#istanbul) and all forks after it. The framework will then fill this test case for all forks in the fork range specified by the command-line arguments.
 
 For more information about test markers and fork validity, see [Test Markers](../../writing_tests/test_markers.md).
 
@@ -57,7 +57,7 @@ For more information about test markers and fork validity, see [Test Markers](..
     and to fill it for a specific fork range, we can provide the `--from` and `--until` command-line arguments:
 
     ```console
-    fill -k test_state_test_example --from London --until Paris
+    fill -k test_state_test_example --from SilaLondon --until SilaParis
     ```
 
 ```python

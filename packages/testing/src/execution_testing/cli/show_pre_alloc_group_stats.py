@@ -17,7 +17,7 @@ def extract_test_module(test_id: str) -> str:
     """Extract test module path from test ID."""
     # Example:
     # tests/cancun/sip4788_beacon_root/test_beacon_root_contract.py::
-    #     test_beacon_root_contract_calls[fork_Cancun]
+    #     test_beacon_root_contract_calls[fork_SilaCancun]
     if "::" in test_id:
         return test_id.split("::")[0]
     return "unknown"
@@ -27,7 +27,7 @@ def extract_test_function(test_id: str) -> str:
     """Extract test function name from test ID (without parameters)."""
     # Example:
     # tests/cancun/sip4788_beacon_root/test_beacon_root_contract.py::
-    #     test_beacon_root_contract_calls[fork_Cancun]
+    #     test_beacon_root_contract_calls[fork_SilaCancun]
     #  Returns:
     # tests/cancun/sip4788_beacon_root/test_beacon_root_contract.py::
     #     test_beacon_root_contract_calls

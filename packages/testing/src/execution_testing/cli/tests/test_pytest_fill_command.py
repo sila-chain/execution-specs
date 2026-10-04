@@ -111,7 +111,7 @@ class TestFillPytester:
         """Default fill arguments."""
         return [
             "--fork",
-            "Cancun",
+            "SilaCancun",
             str(minimal_test_path),
         ]
 

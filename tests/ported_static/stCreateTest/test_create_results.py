@@ -59,7 +59,7 @@ REVERT_WORD = 0x60A7
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateResultsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.with_all_create_opcodes
 @pytest.mark.with_all_call_opcodes
 def test_create_results_with_call(
@@ -137,7 +137,7 @@ def test_create_results_with_call(
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateResultsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.with_all_create_opcodes
 def test_returndatacopy_after_successful_create_aborts(
     state_test: StateTestFiller,
@@ -194,7 +194,7 @@ def test_returndatacopy_after_successful_create_aborts(
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateResultsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.with_all_create_opcodes
 @pytest.mark.parametrize(
     "constructor",

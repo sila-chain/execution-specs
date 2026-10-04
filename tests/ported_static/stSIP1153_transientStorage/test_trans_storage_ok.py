@@ -2,7 +2,7 @@
 Ori Pomerantz qbzzt1@gmail.com.
 
 Ported from:
-state_tests/Cancun/stEIP1153_transientStorage/transStorageOKFiller.yml
+state_tests/SilaCancun/stEIP1153_transientStorage/transStorageOKFiller.yml
 """
 
 import pytest
@@ -29,9 +29,11 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/Cancun/stEIP1153_transientStorage/transStorageOKFiller.yml"],
+    [
+        "state_tests/SilaCancun/stEIP1153_transientStorage/transStorageOKFiller.yml"
+    ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -1317,7 +1319,7 @@ def test_trans_storage_ok(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_0, 1: 1}),
                 contract_0: Account(storage={1: 16, 2: 1, 3: 136}),
@@ -1325,7 +1327,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_1, 1: 1}),
                 contract_1: Account(storage={1: 16, 2: 1, 3: 136}),
@@ -1333,7 +1335,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_2, 1: 1}),
                 contract_2: Account(storage={1: 16, 2: 1, 3: 136}),
@@ -1341,7 +1343,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_0, 1: 1}),
                 contract_0: Account(storage={1: 256, 2: 1, 3: 32896}),
@@ -1349,7 +1351,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_4, 1: 1}),
                 contract_4: Account(storage={1: 10, 2: 1, 3: 55}),
@@ -1358,7 +1360,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_4, 1: 1}),
                 contract_4: Account(storage={1: 50, 2: 1, 3: 1275}),
@@ -1367,7 +1369,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_5, 1: 1}),
                 contract_5: Account(storage={1: 6, 2: 1, 3: 63}),
@@ -1375,7 +1377,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_6, 1: 1}),
                 contract_6: Account(storage={1: 6, 2: 1, 3: 63}),
@@ -1383,7 +1385,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_8, 1: 1}),
                 contract_8: Account(
@@ -1397,7 +1399,7 @@ def test_trans_storage_ok(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_9, 1: 1}),
                 contract_9: Account(storage={0: 2}),
@@ -1405,7 +1407,7 @@ def test_trans_storage_ok(
         },
         {
             "indexes": {"data": [15], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: contract_11, 1: 1}),
                 contract_11: Account(

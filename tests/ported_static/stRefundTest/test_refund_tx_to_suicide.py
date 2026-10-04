@@ -8,7 +8,7 @@ state_tests/stRefundTest/refund_TxToSuicideFiller.json
 
 @manually-enhanced: Do not overwrite. Beneficiary and budget are derived
 (nonexistent account, `code.gas_cost` composite) and the post branches on
-SIP-6780 (pre-Cancun the contract is deleted, after it persists).
+SIP-6780 (pre-SilaCancun the contract is deleted, after it persists).
 """
 
 import pytest
@@ -33,7 +33,7 @@ TX_VALUE = 10
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refund_TxToSuicideFiller.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_refund_tx_to_suicide(
     state_test: StateTestFiller,
     pre: Alloc,

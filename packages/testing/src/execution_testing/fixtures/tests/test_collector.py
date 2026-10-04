@@ -15,7 +15,7 @@ def _make_fixture(nonce: int = 0) -> TransactionFixture:
     """Create a minimal TransactionFixture for testing."""
     fixture = TransactionFixture(
         transaction=f"0x{nonce:04x}",
-        result={"Paris": FixtureResult(intrinsic_gas=nonce)},
+        result={"SilaParis": FixtureResult(intrinsic_gas=nonce)},
     )
     fixture.fill_info(
         "t8n-test",
@@ -30,8 +30,8 @@ def _make_fixture(nonce: int = 0) -> TransactionFixture:
 def _make_info(test_id: str, module_path: Path) -> TestInfo:
     """Create a TestInfo for testing."""
     return TestInfo(
-        name=f"test_func[fork_Paris-{test_id}]",
-        id=f"{module_path}::test_func[fork_Paris-{test_id}]",
+        name=f"test_func[fork_SilaParis-{test_id}]",
+        id=f"{module_path}::test_func[fork_SilaParis-{test_id}]",
         original_name="test_func",
         module_path=module_path,
     )
@@ -388,8 +388,8 @@ class TestLegacyCompatibility:
         fixtures_dict: dict[str, BaseFixture] = {}
         infos = []
         complex_ids = [
-            "param[fork_Paris-state_test]",
-            "param[fork_Shanghai-blockchain_test]",
+            "param[fork_SilaParis-state_test]",
+            "param[fork_SilaShanghai-blockchain_test]",
             'param[value="quoted"]',
             "param[path/with/slashes]",
         ]

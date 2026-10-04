@@ -83,7 +83,7 @@ def test_blockhash(
 
 
 @pytest.mark.repricing
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 def test_slotnum(benchmark_test: BenchmarkTestFiller) -> None:
     """Benchmark SLOTNUM instruction."""
     benchmark_test(

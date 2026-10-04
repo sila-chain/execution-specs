@@ -16,7 +16,7 @@ from execution_testing.fixtures.blockchain import (
     FixtureExecutionPayload,
     FixtureHeader,
 )
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 from execution_testing.rpc.rpc_types import GetPayloadResponse
 from execution_testing.test_types import (
     Alloc,
@@ -29,7 +29,7 @@ from execution_testing.test_types.receipt_types import TransactionReceipt
 from ..base import FillResult
 from ..blockchain import Block, BlockchainTest, TestingBuildBlock
 
-FORK = Osaka
+FORK = SilaOsaka
 START_BLOCK_NUMBER = 1
 
 

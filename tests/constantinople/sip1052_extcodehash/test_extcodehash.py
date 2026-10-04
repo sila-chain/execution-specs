@@ -20,7 +20,7 @@ from execution_testing import (
 from execution_testing import (
     Macros as Om,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 from execution_testing.forks.helpers import Fork
 
 from sila.crypto.hash import keccak256
@@ -29,7 +29,7 @@ REFERENCE_SPEC_GIT_PATH = "SIPS/sip-1052.md"
 REFERENCE_SPEC_VERSION = "2dcbc7ce1563e9624e137e9d447374600af876fa"
 
 pytestmark = [
-    pytest.mark.valid_from("ConstantinopleFix"),
+    pytest.mark.valid_from("SilaConstantinopleFix"),
 ]
 
 
@@ -726,7 +726,7 @@ def test_extcodehash_after_selfdestruct(
 
     Verifies that code hash, size, and copied code remain unchanged
     within the transaction after SELFDESTRUCT is triggered.
-    Pre-Cancun, all selfdestructed accounts are deleted. From Cancun
+    Pre-SilaCancun, all selfdestructed accounts are deleted. From SilaCancun
     (SIP-6780), only accounts created in the same transaction are
     deleted; pre-existing accounts persist with balance drained.
     """
@@ -791,7 +791,7 @@ def test_extcodehash_after_selfdestruct(
     post: dict[Address, Account | None] = {
         code_address: Account(storage=storage),
     }
-    if create_opcode is None and fork >= Cancun:
+    if create_opcode is None and fork >= SilaCancun:
         # SIP-6780: pre-existing account persists after SELFDESTRUCT.
         post[target_address] = Account(balance=0, code=target_runtime)
     else:
@@ -1206,7 +1206,7 @@ def test_extcodehash_call_to_selfdestruct(
     Call a contract containing SELFDESTRUCT using each call type, then
     check EXTCODEHASH. The hash is always returned because the check
     happens within the same transaction. STATICCALL fails because
-    SELFDESTRUCT modifies state. Pre-Cancun, CALLCODE/DELEGATECALL
+    SELFDESTRUCT modifies state. Pre-SilaCancun, CALLCODE/DELEGATECALL
     execute SELFDESTRUCT in the caller's context, destroying the test
     contract at end of transaction.
     """
@@ -1229,9 +1229,9 @@ def test_extcodehash_call_to_selfdestruct(
 
     tx = Transaction(sender=pre.fund_eoa(), to=code_address)
 
-    # Pre-Cancun, CALLCODE/DELEGATECALL execute SELFDESTRUCT in the
+    # Pre-SilaCancun, CALLCODE/DELEGATECALL execute SELFDESTRUCT in the
     # caller's context, destroying the test contract at end of tx.
-    caller_destroyed = fork < Cancun and call_opcode in (
+    caller_destroyed = fork < SilaCancun and call_opcode in (
         Op.CALLCODE,
         Op.DELEGATECALL,
     )
@@ -1472,8 +1472,8 @@ def test_extcodehash_subcall_selfdestruct(
     B calls A, which uses CALLCODE or DELEGATECALL to invoke a contract C
     containing SELFDESTRUCT, executing it in A's context. B checks
     EXTCODEHASH, EXTCODESIZE, and EXTCODECOPY of A before and after.
-    Within the transaction, A's code properties are unchanged. Pre-Cancun,
-    A is deleted at end of transaction. In Cancun, A survives only if
+    Within the transaction, A's code properties are unchanged. Pre-SilaCancun,
+    A is deleted at end of transaction. In SilaCancun, A survives only if
     pre-existing; a dynamically created A is still deleted (SIP-6780).
     """
     storage = Storage()
@@ -1539,13 +1539,13 @@ def test_extcodehash_subcall_selfdestruct(
 
     tx = Transaction(sender=pre.fund_eoa(), to=code_address)
 
-    # Pre-Cancun, CALLCODE/DELEGATECALL executes SELFDESTRUCT in A's
+    # Pre-SilaCancun, CALLCODE/DELEGATECALL executes SELFDESTRUCT in A's
     # context, deleting A at end of transaction.
-    # In Cancun, pre-existing A survives (SIP-6780); dynamic A is deleted.
+    # In SilaCancun, pre-existing A survives (SIP-6780); dynamic A is deleted.
     post: dict[Address, Account | None] = {
         code_address: Account(storage=storage),
     }
-    if fork >= Cancun and not dynamic_a:
+    if fork >= SilaCancun and not dynamic_a:
         post[a] = Account(code=a_code, balance=0)
     else:
         post[a] = Account.NONEXISTENT
@@ -1681,7 +1681,7 @@ def test_extcodecopy_zero_code(
 
     TODO: The original test also intended to cover empty accounts
     (zero nonce, zero balance, no code), but such accounts cannot
-    exist in post-Paris forks due to SIP-161 cleanup.
+    exist in post-SilaParis forks due to SIP-161 cleanup.
     """
     storage = Storage()
 

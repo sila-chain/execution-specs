@@ -51,7 +51,7 @@ combinations = list(itertools.product(list_of_args, repeat=2))
         pytest.param(Op.SHR, Spec.shr, id="shr"),
     ],
 )
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.ported_from(
     [
         "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stShift/shiftCombinationsFiller.yml",

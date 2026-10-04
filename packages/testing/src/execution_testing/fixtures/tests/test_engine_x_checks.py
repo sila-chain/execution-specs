@@ -24,7 +24,7 @@ from execution_testing.fixtures.engine_x_checks import (
     verify_engine_x_execution,
 )
 from execution_testing.fixtures.pre_alloc_groups import PreAllocGroupBuilder
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 from execution_testing.forks.forks.sips.prague.sip_2935 import (
     HISTORY_STORAGE_ADDRESS,
 )
@@ -38,10 +38,12 @@ from execution_testing.test_types.block_access_list import (
 )
 
 ENGINE_X_ID = (
-    "tests/a.py::test_a[fork_Prague-blockchain_test_engine_x_from_state_test]"
+    "tests/a.py::test_a"
+    "[fork_SilaPrague-blockchain_test_engine_x_from_state_test]"
 )
 SIBLING_ID = (
-    "tests/a.py::test_a[fork_Prague-blockchain_test_engine_from_state_test]"
+    "tests/a.py::test_a"
+    "[fork_SilaPrague-blockchain_test_engine_from_state_test]"
 )
 ENGINE_X_ID_B = ENGINE_X_ID.replace("test_a[", "test_b[")
 SIBLING_ID_B = SIBLING_ID.replace("test_a[", "test_b[")
@@ -59,9 +61,9 @@ TEST_CONTRACT = Address(0xC0DE)
 
 
 def _genesis_header() -> FixtureHeader:
-    """Build a minimal valid Prague genesis header."""
+    """Build a minimal valid SilaPrague genesis header."""
     return FixtureHeader(
-        fork=Prague,
+        fork=SilaPrague,
         fee_recipient=Address(0),
         state_root=Hash(0),
         number=0,
@@ -166,9 +168,9 @@ def _write_sibling(
 ) -> None:
     """Write a sibling engine fixture into its format tree."""
     fixture = BlockchainEngineFixture(
-        fork=Prague,
+        fork=SilaPrague,
         last_block_hash=Hash(0),
-        config=FixtureConfig(fork=Prague),
+        config=FixtureConfig(fork=SilaPrague),
         pre=pre if pre is not None else Alloc({SENDER: Account(balance=1)}),
         post_state=Alloc({SENDER: Account(balance=1)}),
         genesis=_genesis_header(),
@@ -190,9 +192,9 @@ def _write_engine_x(
 ) -> None:
     """Write an Engine X fixture into its format tree."""
     fixture = BlockchainEngineXFixture(
-        fork=Prague,
+        fork=SilaPrague,
         last_block_hash=Hash(0),
-        config=FixtureConfig(fork=Prague),
+        config=FixtureConfig(fork=SilaPrague),
         pre_hash=pre_hash,
         post_state_diff=Alloc({}),
         payloads=payloads,
@@ -222,7 +224,7 @@ def _write_group(
             withdrawals=[],
             parent_beacon_block_root=Hash(0),
         ),
-        fork=Prague,
+        fork=SilaPrague,
         pre=Alloc(accounts),
         group_hash=AllocGroupHash(pre_hash),
     )
@@ -368,7 +370,7 @@ def test_bal_leak_is_attributed_to_the_group(tmp_path: Path) -> None:
             SENDER: Account(balance=1),
             UNDECLARED_ACCOUNT: Account(balance=1),
         },
-        test_ids=["tests/b.py::test_leaker[fork_Prague-foo]"],
+        test_ids=["tests/b.py::test_leaker[fork_SilaPrague-foo]"],
     )
 
     with pytest.raises(EngineXExecutionDriftError) as exc_info:
@@ -537,14 +539,14 @@ def test_single_fixture_per_file_sibling_lookup(tmp_path: Path) -> None:
         tmp_path,
         [_sibling_payload()],
         file_name=(
-            "a__fork_Prague_blockchain_test_engine_from_state_test.json"
+            "a__fork_SilaPrague_blockchain_test_engine_from_state_test.json"
         ),
     )
     _write_engine_x(
         tmp_path,
         [_engine_x_payload()],
         file_name=(
-            "a__fork_Prague_blockchain_test_engine_x_from_state_test.json"
+            "a__fork_SilaPrague_blockchain_test_engine_x_from_state_test.json"
         ),
     )
 

@@ -104,7 +104,7 @@ def bal_expectation_for_contract_with_markers(
     "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/"
     "stStaticFlagEnabled/StaticcallForPrecompilesIssue683Filler.yml"
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.eels_base_coverage
 def test_staticcall_reentrant_call_to_precompile(
     pre: Alloc,
@@ -215,7 +215,7 @@ def test_staticcall_reentrant_call_to_precompile(
         "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromTransactionFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_staticcall_call_to_precompile(
     pre: Alloc,
     state_test: StateTestFiller,
@@ -340,7 +340,7 @@ def test_staticcall_call_to_precompile(
         "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromCalledContractFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_staticcall_nested_call_to_precompile(
     pre: Alloc,
     state_test: StateTestFiller,
@@ -485,9 +485,9 @@ def test_staticcall_nested_call_to_precompile(
 @pytest.mark.parametrize(
     "create_opcode",
     [
-        pytest.param(Op.CREATE, marks=pytest.mark.valid_from("Byzantium")),
+        pytest.param(Op.CREATE, marks=pytest.mark.valid_from("SilaByzantium")),
         pytest.param(
-            Op.CREATE2, marks=pytest.mark.valid_from("Constantinople")
+            Op.CREATE2, marks=pytest.mark.valid_from("SilaConstantinople")
         ),
     ],
 )

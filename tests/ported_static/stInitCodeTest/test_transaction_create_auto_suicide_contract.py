@@ -4,7 +4,7 @@ Test_transaction_create_auto_suicide_contract.
 Ported from:
 state_tests/stInitCodeTest/TransactionCreateAutoSuicideContractFiller.json
 @manually-enhanced: Do not overwrite. tx `gas_limit` and sender balance
-bumped on Amsterdam to cover SIP-8037 TX_CREATE intrinsic (new-account
+bumped on SilaAmsterdam to cover SIP-8037 TX_CREATE intrinsic (new-account
 state-gas folded in); pre-SIP-8037 unchanged.
 
 """
@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stInitCodeTest/TransactionCreateAutoSuicideContractFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_transaction_create_auto_suicide_contract(
     state_test: StateTestFiller,

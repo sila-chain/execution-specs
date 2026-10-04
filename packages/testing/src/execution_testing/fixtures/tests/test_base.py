@@ -11,7 +11,7 @@ from execution_testing.base_types import (
     Hash,
     HeaderNonce,
 )
-from execution_testing.forks import Fork, Prague, TransitionFork
+from execution_testing.forks import Fork, SilaPrague, TransitionFork
 from execution_testing.test_types import Transaction
 
 from ..base import BaseFixture, LabeledFixtureFormat
@@ -32,7 +32,7 @@ def test_json_dict() -> None:
     """Test that the json_dict property does not include the info field."""
     fixture = TransactionFixture(
         transaction="0x1234",
-        result={"Paris": FixtureResult(intrinsic_gas=0)},
+        result={"SilaParis": FixtureResult(intrinsic_gas=0)},
     )
     assert "_info" not in fixture.json_dict, (
         "json_dict should exclude the 'info' field"
@@ -60,23 +60,23 @@ def test_json_dict() -> None:
         pytest.param(
             TransactionFixture(
                 transaction="0x1234",
-                result={"Paris": FixtureResult(intrinsic_gas=0)},
+                result={"SilaParis": FixtureResult(intrinsic_gas=0)},
             ),
             id="TransactionFixture",
         ),
         pytest.param(
             BlockchainEngineStatefulFixture(
-                fork=Prague,
+                fork=SilaPrague,
                 last_block_hash=Hash(1),
                 post_state_hash=Hash(2),
-                config=FixtureConfig(fork=Prague),
+                config=FixtureConfig(fork=SilaPrague),
                 snapshot_block_number=0,
                 snapshot_block_hash=Hash(0),
                 start_block_number=0,
                 start_block_hash=Hash(0),
                 setup_payloads=[
                     FixtureEngineNewPayload.from_fixture_header(
-                        fork=Prague,
+                        fork=SilaPrague,
                         header=FixtureHeader(
                             parent_hash=Hash(0),
                             ommers_hash=Hash(1),
@@ -112,7 +112,7 @@ def test_json_dict() -> None:
                 ],
                 payloads=[
                     FixtureEngineNewPayload.from_fixture_header(
-                        fork=Prague,
+                        fork=SilaPrague,
                         header=FixtureHeader(
                             parent_hash=Hash(10),
                             ommers_hash=Hash(1),
@@ -298,8 +298,8 @@ def test_with_label_suffix_keeps_vetoes() -> None:
     derived = veto.with_label_suffix("from_state_test")
 
     assert derived.base is veto
-    assert not derived.supports_fork(Prague)
-    assert derived.discard_fixture_format_by_marks(Prague, [])
+    assert not derived.supports_fork(SilaPrague)
+    assert derived.discard_fixture_format_by_marks(SilaPrague, [])
 
 
 def mark_names(

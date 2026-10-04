@@ -2,7 +2,7 @@
 Test_create2_init_code_size_limit.
 
 Ported from:
-state_tests/Shanghai/stEIP3860_limitmeterinitcode/create2InitCodeSizeLimitFiller.yml
+state_tests/SilaShanghai/stEIP3860_limitmeterinitcode/create2InitCodeSizeLimitFiller.yml
 """
 
 import pytest
@@ -29,10 +29,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Shanghai/stEIP3860_limitmeterinitcode/create2InitCodeSizeLimitFiller.yml"  # noqa: E501
+        "state_tests/SilaShanghai/stEIP3860_limitmeterinitcode/create2InitCodeSizeLimitFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 # Kept before SIP-7954: the 0xC000 / 0xC001 initcode sizes are baked into
 # the vectors. The raised limit is covered with fork-derived sizes by
 # tests/shanghai/sip3860_initcode and
@@ -148,7 +148,7 @@ def test_create2_init_code_size_limit(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_0: Account(storage={0: 1, 1: 1}),
@@ -168,7 +168,7 @@ def test_create2_init_code_size_limit(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_0: Account(storage={0: 0, 1: 1}, nonce=0),

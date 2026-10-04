@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertOpcodeMultipleSubCallsFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -475,7 +475,7 @@ def test_revert_opcode_multiple_sub_calls(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr: Account(
@@ -489,7 +489,7 @@ def test_revert_opcode_multiple_sub_calls(
         },
         {
             "indexes": {"data": 1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_2: Account(
@@ -503,7 +503,7 @@ def test_revert_opcode_multiple_sub_calls(
         },
         {
             "indexes": {"data": 2, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_3: Account(
@@ -517,7 +517,7 @@ def test_revert_opcode_multiple_sub_calls(
         },
         {
             "indexes": {"data": 3, "gas": [0, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_4: Account(
@@ -531,7 +531,7 @@ def test_revert_opcode_multiple_sub_calls(
         },
         {
             "indexes": {"data": [1, 2], "gas": 2, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_4: Account(
@@ -544,7 +544,7 @@ def test_revert_opcode_multiple_sub_calls(
         },
         {
             "indexes": {"data": 0, "gas": [2], "value": [0, 1]},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr: Account(
@@ -561,7 +561,7 @@ def test_revert_opcode_multiple_sub_calls(
         },
         {
             "indexes": {"data": -1, "gas": [1, 3], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr: Account(

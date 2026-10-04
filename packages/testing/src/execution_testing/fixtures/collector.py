@@ -112,7 +112,8 @@ class TestInfo:
 
     __test__ = False  # stop pytest from collecting this class as a test
 
-    name: str  # pytest: Item.name, e.g. test_paris_one[fork_Paris-state_test]
+    # pytest: Item.name, e.g. test_paris_one[fork_SilaParis-state_test]
+    name: str
     id: str  # pytest: Item.nodeid, e.g.
     # tests/paris/test_module_paris.py::test_paris_one[...]
     original_name: str  # pytest: Item.originalname, e.g. test_paris_one
@@ -136,8 +137,8 @@ class TestInfo:
         Convert test name to a tuple containing the test name and test
         parameters.
 
-        Example: test_push0_key_sstore[fork_Shanghai] -> test_push0_key_sstore,
-        fork_Shanghai
+        Example: test_push0_key_sstore[fork_SilaShanghai] ->
+        test_push0_key_sstore, fork_SilaShanghai
         """
         test_name, parameters = self.name.split("[")
         return test_name, re.sub(r"[\[\-]", "_", parameters).replace("]", "")

@@ -41,13 +41,13 @@ FORK_TIMESTAMP = 15_000
 
 
 @SIPChecklist.BlockHeaderField.Test.ForkTransition.Initial()
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 def test_bal_fork_transition_happy_path(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
 ) -> None:
     """
-    Verify that a BAL is produced at the Amsterdam activation block.
+    Verify that a BAL is produced at the SilaAmsterdam activation block.
 
     - Pre-fork block (timestamp < 15_000): no BAL hash, no BAL body.
     - Activation block (timestamp == 15_000): BAL hash and body are present
@@ -97,14 +97,14 @@ def test_bal_fork_transition_happy_path(
 
 
 @SIPChecklist.BlockHeaderField.Test.ForkTransition.Before()
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_invalid_pre_fork_block_with_bal_hash_field(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
 ) -> None:
     """
-    Reject a pre-Amsterdam block whose header carries
+    Reject a pre-SilaAmsterdam block whose header carries
     `block_access_list_hash`.
 
     The engine fixture omits `blockAccessList`, keeping the pre-fork API
@@ -130,7 +130,7 @@ def test_invalid_pre_fork_block_with_bal_hash_field(
     )
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.blockchain_test_engine_only
 @pytest.mark.exception_test
 def test_bal_invalid_engine_payload_field_before_fork(
@@ -140,8 +140,8 @@ def test_bal_invalid_engine_payload_field_before_fork(
     """
     Reject an extra BAL field under the inherited strict-field API rule.
 
-    Prague's newPayloadV4 inherits Cancun's newPayloadV3 parameter checks
-    and accepts ExecutionPayloadV3, which has no blockAccessList field.
+    SilaPrague's newPayloadV4 inherits SilaCancun's newPayloadV3 parameter
+    checks and accepts ExecutionPayloadV3, which has no blockAccessList field.
     The otherwise-valid block isolates the required Invalid params error.
     """
     sender = pre.fund_eoa()
@@ -166,14 +166,14 @@ def test_bal_invalid_engine_payload_field_before_fork(
 
 
 @SIPChecklist.BlockHeaderField.Test.ForkTransition.After()
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_invalid_post_fork_block_without_bal_hash_field(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
 ) -> None:
     """
-    Reject an Amsterdam activation block whose header is missing
+    Reject an SilaAmsterdam activation block whose header is missing
     `block_access_list_hash`.
 
     The engine fixture sends `newPayloadV5` with the `blockAccessList`
@@ -204,7 +204,7 @@ def test_invalid_post_fork_block_without_bal_hash_field(
 @SIPChecklist.BlockLevelConstraint.Test.ForkTransition.AcceptedBeforeFork()
 @SIPChecklist.BlockLevelConstraint.Test.ForkTransition.AcceptedAfterFork()
 @SIPChecklist.BlockLevelConstraint.Test.ForkTransition.RejectedAfterFork()
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.parametrize(
     "exceeds_limit_at_fork",
     [
@@ -223,7 +223,7 @@ def test_fork_transition_bal_size_constraint(
     exceeds_limit_at_fork: bool,
 ) -> None:
     """
-    Verify the BAL size constraint applies only on/after Amsterdam.
+    Verify the BAL size constraint applies only on/after SilaAmsterdam.
 
     - Pre-fork block at a `gas_limit` that *would* fail the post-fork
       constraint is accepted (the constraint is not yet enforced).
@@ -305,7 +305,7 @@ def _single_request_queue_expectation(
     )
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 def test_bal_fork_transition_builder_requests(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -314,7 +314,7 @@ def test_bal_fork_transition_builder_requests(
     Verify the BAL of an activation block that dequeues SIP-8282 builder
     requests.
 
-    The first Amsterdam block carries the chain's first builder deposit
+    The first SilaAmsterdam block carries the chain's first builder deposit
     and exit requests: the BAL must record both predeploys' request queue
     slots, the enqueuing transaction indices, and the clean-sweep dequeue
     by the post-execution system calls.
@@ -404,7 +404,7 @@ def test_bal_fork_transition_builder_requests(
     )
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 def test_bal_fork_transition_transfers_and_storage(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -413,7 +413,7 @@ def test_bal_fork_transition_transfers_and_storage(
     Verify the BAL of an activation block with ordinary transfers,
     storage writes and Transfer logs.
 
-    The first Amsterdam block mixes a plain EOA transfer with a contract
+    The first SilaAmsterdam block mixes a plain EOA transfer with a contract
     call that writes storage and forwards value: the BAL must carry the
     balance and storage changes while the receipts carry the SIP-7708
     Transfer logs.

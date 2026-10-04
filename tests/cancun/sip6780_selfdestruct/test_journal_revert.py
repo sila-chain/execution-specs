@@ -20,7 +20,7 @@ REFERENCE_SPEC_GIT_PATH = "SIPS/sip-6780.md"
 REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
 
 
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_selfdestruct_balance_transfer_reverted(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -29,7 +29,7 @@ def test_selfdestruct_balance_transfer_reverted(
     """
     Test that SELFDESTRUCT balance transfer is reverted on sub-call revert.
 
-    Post-Cancun, SELFDESTRUCT does not destroy the contract but still
+    Post-SilaCancun, SELFDESTRUCT does not destroy the contract but still
     transfers balance. When the sub-call containing SELFDESTRUCT reverts,
     the balance transfer must also be reverted.
     """

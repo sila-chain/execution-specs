@@ -163,7 +163,7 @@ def post(  # noqa: D103
 
 
 @pytest.mark.with_all_call_opcodes
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_no_memory_corruption_on_upper_call_stack_levels(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -184,7 +184,7 @@ def test_no_memory_corruption_on_upper_call_stack_levels(
         Op.CREATE2,
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_no_memory_corruption_on_upper_create_stack_levels(
     state_test: StateTestFiller,
     pre: Alloc,

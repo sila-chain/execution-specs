@@ -5,7 +5,7 @@ Ported from:
 state_tests/stWalletTest/dayLimitConstructionFiller.json
 
 @manually-enhanced: Do not overwrite. Both `tx_gas` values bumped for
-SIP-8037 NEW_ACCOUNT state-gas headroom on Amsterdam (the test has the
+SIP-8037 NEW_ACCOUNT state-gas headroom on SilaAmsterdam (the test has the
 same post-state for both g indexes — both are 'should succeed' paths).
 """
 
@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stWalletTest/dayLimitConstructionFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -81,7 +81,7 @@ def test_day_limit_construction(
     ]
     # The deployed wallet contract does ~14 fresh SSTOREs during
     # construction; SIP-8037 per-storage state-gas spills into regular
-    # gas on Amsterdam, exceeding the original 817 083 / 1 217 083
+    # gas on SilaAmsterdam, exceeding the original 817 083 / 1 217 083
     # budgets. Pre-SIP-8037 keeps the original values.
     construction_tx_gas = [817_083, 1_217_083]
     if fork.is_sip_enabled(8037):

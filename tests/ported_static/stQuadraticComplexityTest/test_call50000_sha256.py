@@ -30,8 +30,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stQuadraticComplexityTest/Call50000_sha256Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -108,7 +108,7 @@ def test_call50000_sha256(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 Address(
                     0x0000000000000000000000000000000000000002
@@ -125,7 +125,7 @@ def test_call50000_sha256(
         },
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 Address(
                     0x0000000000000000000000000000000000000002

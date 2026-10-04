@@ -8,9 +8,9 @@ state_tests/stEIP150singleCodeGasPrices/gasCostMemoryFiller.yml
 36-48) stores the regular gas of a measured window that includes one
 extra cold `CALL` to a previously untouched contract relative to its
 baseline. SIP-8038 raises `COLD_ACCOUNT_ACCESS`, so that net cost
-shifts by the fork's `COLD_ACCOUNT_ACCESS` less Cancun's, exactly 0
+shifts by the fork's `COLD_ACCOUNT_ACCESS` less SilaCancun's, exactly 0
 pre-SIP-8038. The first entry measures a difference of two equal-cost
-operations and is unchanged. Do not hardcode the Amsterdam number.
+operations and is unchanged. Do not hardcode the SilaAmsterdam number.
 """
 
 import pytest
@@ -24,7 +24,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -38,7 +38,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP150singleCodeGasPrices/gasCostMemoryFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -507,7 +507,7 @@ def test_gas_cost_memory(
     # SIP-8038 raises COLD_ACCOUNT_ACCESS, 0 on earlier forks.
     cold_account_delta = (
         fork.gas_costs().COLD_ACCOUNT_ACCESS
-        - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)
     contract_0 = Address(0x000000000000000000000000000000000000BA5E)
@@ -850,7 +850,7 @@ def test_gas_cost_memory(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={0: 0})},
         },
         {
@@ -859,7 +859,7 @@ def test_gas_cost_memory(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(storage={0: 1900 + cold_account_delta})
             },

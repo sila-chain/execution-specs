@@ -22,7 +22,7 @@ In particular, a script `t8n.sh` is generated for each call to the `t8n` command
 For example, running:
 
 ```console
-fill tests/berlin/sip2930_access_list/ --fork Berlin -m blockchain_test \
+fill tests/berlin/sip2930_access_list/ --fork SilaBerlin -m blockchain_test \
     --evm-dump-dir=/tmp/evm-dump --traces
 ```
 
@@ -31,7 +31,7 @@ will produce the directory structure:
 ```text
 📂 /tmp/evm-dump
 └── 📂 berlin__sip2930_access_list__test_acl__test_access_list
-    └── 📂 fork_Berlin_blockchain_test
+    └── 📂 fork_SilaBerlin_blockchain_test
         └── 📂 0
             ├── 📄 args.py
             ├── 📂 input
@@ -61,7 +61,7 @@ Each directory contains files containing information corresponding to the call, 
 The `t8n.sh` script written to the debug directory can be used to reproduce a specific call made to the `t8n` command during the test session. For example, if a Besu `t8n-server` has been started on port `3001`, the request made by the test for first block can be reproduced as:
 
 ```console
-/tmp/besu/test_access_list_fork_Berlin/0/t8n.sh 3001
+/tmp/besu/test_access_list_fork_SilaBerlin/0/t8n.sh 3001
 ```
 
 which writes the response the from the `t8n-server` to the console output:
@@ -100,7 +100,7 @@ The `--verify-fixtures` flag can be used to run go-sila's `evm blocktest` comman
 For example, running:
 
 ```console
-fill tests/berlin/sip2930_access_list/ --fork Berlin -m blockchain_test \
+fill tests/berlin/sip2930_access_list/ --fork SilaBerlin -m blockchain_test \
     --evm-dump-dir==/tmp/evm-dump \
     --evm-bin=../evmone/build/bin/evmone \
     --verify-fixtures-bin=../go-sila/build/bin/evm \
@@ -113,7 +113,7 @@ will additionally run the `evm blocktest` command on every JSON fixture file and
 📂 /tmp/evm-dump
 └── 📂 berlin__sip2930_access_list__test_acl__test_access_list
     ├── 📄 fixtures.json
-    ├── 📂 fork_Berlin_blockchain_test
+    ├── 📂 fork_SilaBerlin_blockchain_test
     │   ├── 📂 0
     │   │   ├── 📄 args.py
     │   │   ├── 📂 input

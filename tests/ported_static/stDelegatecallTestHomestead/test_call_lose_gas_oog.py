@@ -16,7 +16,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stDelegatecallTestHomestead/CallLoseGasOOGFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_lose_gas_oog(
     state_test: StateTestFiller,
@@ -74,7 +74,7 @@ def test_call_lose_gas_oog(
         sender=sender,
         to=target,
         data=Bytes(""),
-        gas_limit=2200000 if fork >= Amsterdam else 200000,
+        gas_limit=2200000 if fork >= SilaAmsterdam else 200000,
         value=10,
     )
 

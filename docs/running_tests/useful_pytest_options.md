@@ -39,14 +39,14 @@ JSON, HTML and XML reports can be generated with:
 In addition to Hive's regex-based `--sim.limit` option, running in dev mode supports pytest's `-k` syntax:
 
 ```bash
-uv run consume rlp -k "test_chainid and fork_London"
+uv run consume rlp -k "test_chainid and fork_SilaLondon"
 uv run consume engine -k "sip1559 or sip4844" -m cancun
 ```
 
 Use `--collect-only -q` to see which tests would run without executing them:
 
 ```bash
-uv run consume engine --collect-only -q -k "fork_Prague"
+uv run consume engine --collect-only -q -k "fork_SilaPrague"
 ```
 
 ## Test Case Selection using Marks

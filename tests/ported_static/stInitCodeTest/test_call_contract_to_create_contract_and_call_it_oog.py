@@ -17,7 +17,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stInitCodeTest/CallContractToCreateContractAndCallItOOGFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_contract_to_create_contract_and_call_it_oog(
     state_test: StateTestFiller,
@@ -76,7 +76,7 @@ def test_call_contract_to_create_contract_and_call_it_oog(
         sender=sender,
         to=contract_0,
         data=Bytes("00"),
-        gas_limit=2203000 if fork >= Amsterdam else 203000,
+        gas_limit=2203000 if fork >= SilaAmsterdam else 203000,
     )
 
     post = {

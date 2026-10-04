@@ -95,7 +95,7 @@ def tx(pre: Alloc, caller_address: Address) -> Transaction:
         pytest.param(Op.BLOBBASEFEE * 1025, True, id="stack_overflow"),
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_blobbasefee_stack_overflow(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -130,7 +130,7 @@ def test_blobbasefee_stack_overflow(
         pytest.param(True, id="out_of_gas"),
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_blobbasefee_out_of_gas(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -168,7 +168,7 @@ def test_blobbasefee_out_of_gas(
 
 
 @pytest.mark.parametrize("caller_pre_storage", [{1: 1}], ids=[""])
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_blobbasefee_before_fork(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -213,7 +213,7 @@ timestamps = [7_500, 14_999, 15_000]
     ],
     ids=[""],
 )
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_blobbasefee_during_fork(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

@@ -16,7 +16,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -28,7 +28,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stTransitionTest/createNameRegistratorPerTxsBeforeFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_create_name_registrator_per_txs_before(
     state_test: StateTestFiller,
     fork: Fork,
@@ -64,7 +64,7 @@ def test_create_name_registrator_per_txs_before(
         + Op.SSTORE(
             key=Op.CALLDATALOAD(offset=0x0), value=Op.CALLDATALOAD(offset=0x20)
         ),
-        gas_limit=2200000 if fork >= Amsterdam else 200000,
+        gas_limit=2200000 if fork >= SilaAmsterdam else 200000,
         value=0x186A0,
     )
 

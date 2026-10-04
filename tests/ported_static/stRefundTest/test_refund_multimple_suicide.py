@@ -10,8 +10,8 @@ decomposes the intrinsic cost and lowers it for non-self, non-value
 txs, so the balance is derived from the fork model instead: take
 `fork.transaction_intrinsic_cost_calculator()()` minus the pre-SIP-2780
 baseline 21_000, then add `gas_price (10) * |delta|` back to the sender
-(the delta is negative on Amsterdam). This keeps the adjustment exactly
-0 pre-SIP-2780. Do not hardcode the Amsterdam value.
+(the delta is negative on SilaAmsterdam). This keeps the adjustment exactly
+0 pre-SIP-2780. Do not hardcode the SilaAmsterdam value.
 """
 
 import pytest
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refund_multimpleSuicideFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_refund_multimple_suicide(
     state_test: StateTestFiller,
@@ -163,7 +163,7 @@ def test_refund_multimple_suicide(
     )
 
     # SIP-2780 lowers the intrinsic for non-self non-value txs; the
-    # delta is negative on Amsterdam and raises the sender balance by
+    # delta is negative on SilaAmsterdam and raises the sender balance by
     # ``gas_price * |delta|``.
     intrinsic_delta = fork.transaction_intrinsic_cost_calculator()() - 21_000
     post = {

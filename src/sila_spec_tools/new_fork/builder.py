@@ -226,7 +226,7 @@ class SetMaxBlobGasPerBlock(ReplaceValue):
 
     # TODO: Replace this class with a plain `SetConstant` targeting
     # `vm.gas.MAX_BLOB_GAS_PER_BLOCK` once every fork usable as a template
-    # defines the constant there (i.e. once the pre-Amsterdam forks, which
+    # defines the constant there (i.e. once the pre-SilaAmsterdam forks, which
     # define it in `fork`, are gone).
     candidates: ClassVar[tuple[str, ...]] = (
         "vm.gas.MAX_BLOB_GAS_PER_BLOCK",

@@ -27,7 +27,7 @@ def input_data() -> bytes:
     return b""
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize("enough_gas", [True, False])
 def test_gas_costs(
     state_test: StateTestFiller,
@@ -61,7 +61,7 @@ def test_gas_costs(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize(
     "input_data",
     [
@@ -105,7 +105,7 @@ def test_invalid_gas_consumption(
         address_warm=False
     ).gas_cost(fork)
 
-    # Precompiles are warm from Berlin, flat call cost before.
+    # Precompiles are warm from SilaBerlin, flat call cost before.
     staticcall_base = Op.STATICCALL(address_warm=True).gas_cost(fork)
 
     account = pre.deploy_contract(

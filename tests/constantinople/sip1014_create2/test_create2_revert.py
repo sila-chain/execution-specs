@@ -21,7 +21,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_1014.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1014.version
 
 
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.pre_alloc_mutable
 def test_create2_revert_preserves_balance(
     state_test: StateTestFiller,
@@ -82,7 +82,7 @@ def test_create2_revert_preserves_balance(
     )
 
 
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 def test_create2_succeeds_after_reverted_create2(
     state_test: StateTestFiller,
     pre: Alloc,

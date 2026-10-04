@@ -35,7 +35,7 @@ from .spec import ref_spec_3860
 REFERENCE_SPEC_GIT_PATH = ref_spec_3860.git_path
 REFERENCE_SPEC_VERSION = ref_spec_3860.version
 
-pytestmark = pytest.mark.valid_from("Shanghai")
+pytestmark = pytest.mark.valid_from("SilaShanghai")
 
 
 @pytest.fixture
@@ -351,7 +351,7 @@ class TestContractCreationGasUsage:
 
     # Gated off under SIP-8037: state gas breaks the single-dimension
     # intrinsic-gas equivalence asserted in `exact_intrinsic_gas`. The
-    # 2D-aware creation-gas metering is covered on Amsterdam by
+    # 2D-aware creation-gas metering is covered on SilaAmsterdam by
     # `test_create_tx_intrinsic_gas_boundary` and
     # `test_max_initcode_size_gas_metering_via_create` in
     # `sip8037_state_creation_gas_cost_increase/test_state_gas_create.py`.

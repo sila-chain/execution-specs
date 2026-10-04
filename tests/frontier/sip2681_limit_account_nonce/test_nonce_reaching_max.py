@@ -87,7 +87,7 @@ def test_tx_at_nonce_max_minus_one_create(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.pre_alloc_mutable
 def test_set_code_self_authorization_reaching_nonce_max(
     state_test: StateTestFiller,

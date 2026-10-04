@@ -35,7 +35,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 # Room for two blocks' worth of every request type in one enqueue block.
 BLOCK_GAS_LIMIT = 100_000_000

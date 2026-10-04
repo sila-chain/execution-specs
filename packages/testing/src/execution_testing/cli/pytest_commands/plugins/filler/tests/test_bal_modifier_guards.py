@@ -25,8 +25,8 @@ from execution_testing.base_types import Bytes, EmptyTrieRoot
 from execution_testing.fixtures.blockchain import FixtureHeader
 from execution_testing.test_types.block_access_list import BlockAccessList
 
-# BALs exist from Amsterdam; the fill needs a fork that emits one.
-FORK = "Amsterdam"
+# BALs exist from SilaAmsterdam; the fill needs a fork that emits one.
+FORK = "SilaAmsterdam"
 
 TEST_MODULE_DIR = "tests/amsterdam/dummy_test_module"
 

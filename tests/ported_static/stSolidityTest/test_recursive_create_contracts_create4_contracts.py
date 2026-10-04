@@ -18,7 +18,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stSolidityTest/RecursiveCreateContractsCreate4ContractsFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_recursive_create_contracts_create4_contracts(
     state_test: StateTestFiller,
@@ -255,7 +255,7 @@ def test_recursive_create_contracts_create4_contracts(
         sender=sender,
         to=contract_0,
         data=Bytes("a444f5e9") + Hash(0x4),
-        gas_limit=2300000 if fork >= Amsterdam else 300000,
+        gas_limit=2300000 if fork >= SilaAmsterdam else 300000,
         value=1,
     )
 

@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stCallDelegateCodesHomestead/callcallcallcode_001_OOGMBeforeFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_callcallcallcode_001_oogm_before(
     state_test: StateTestFiller,

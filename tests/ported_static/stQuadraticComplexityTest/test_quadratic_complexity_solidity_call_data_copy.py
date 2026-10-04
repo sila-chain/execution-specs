@@ -31,8 +31,8 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stQuadraticComplexityTest/QuadraticComplexitySolidity_CallDataCopyFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",

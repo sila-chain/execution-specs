@@ -52,7 +52,7 @@ CALLER_BALANCE = 100
         "state_tests/stEIP150singleCodeGasPrices/RawDelegateCallGasMemoryFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "opcode, value, memory",
     [

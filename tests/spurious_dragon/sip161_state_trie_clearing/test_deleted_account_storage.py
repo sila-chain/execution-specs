@@ -32,7 +32,7 @@ STORAGE_ONLY_ACCOUNT_SKIP = pytest.mark.skip(
 
 
 @STORAGE_ONLY_ACCOUNT_SKIP
-@pytest.mark.valid_from("London")
+@pytest.mark.valid_from("SilaLondon")
 @pytest.mark.pre_alloc_mutable
 def test_zero_tip_deletes_coinbase_storage(
     blockchain_test: BlockchainTestFiller,

@@ -42,7 +42,7 @@ OVERSIZED_GAS_ASK = 2**61
         "state_tests/stEIP150Specific/Transaction64Rule_d64p1Filler.json",
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "residue",
     [

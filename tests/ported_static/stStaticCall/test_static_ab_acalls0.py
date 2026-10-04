@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStaticCall/static_ABAcalls0Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -170,7 +170,7 @@ def test_static_ab_acalls0(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr: Account(storage={36: 0}, balance=0xDE0B6B3A76586A0),
                 addr_2: Account(storage={38: 0}),
@@ -179,7 +179,7 @@ def test_static_ab_acalls0(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_3: Account(storage={36: 0}, balance=0xDE0B6B3A76586A0),
                 addr_4: Account(storage={38: 0}),

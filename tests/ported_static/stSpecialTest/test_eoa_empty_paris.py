@@ -26,7 +26,7 @@ from execution_testing import (
     Transaction,
     TransactionException,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -40,7 +40,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSpecialTest/eoaEmptyParisFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -111,9 +111,10 @@ def test_eoa_empty_paris(
     # 0xFF's value-0 CALL to a cold contract gains the cold account
     # reprice.
     gas_costs = fork.gas_costs()
-    call_value_delta = gas_costs.CALL_VALUE - Cancun.gas_costs().CALL_VALUE
+    call_value_delta = gas_costs.CALL_VALUE - SilaCancun.gas_costs().CALL_VALUE
     cold_account_delta = (
-        gas_costs.COLD_ACCOUNT_ACCESS - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        gas_costs.COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)
     contract_0 = Address(0x000000000000000000000000000000000000BAD1)
@@ -252,7 +253,7 @@ def test_eoa_empty_paris(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": 0, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_5: Account(
@@ -274,7 +275,7 @@ def test_eoa_empty_paris(
         },
         {
             "indexes": {"data": 1, "gas": 0, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_5: Account(
@@ -296,15 +297,15 @@ def test_eoa_empty_paris(
         },
         {
             "indexes": {"data": -1, "gas": 0, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
+                ">=SilaCancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
             },
         },
         {
             "indexes": {"data": 0, "gas": 1, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_5: Account(
@@ -326,7 +327,7 @@ def test_eoa_empty_paris(
         },
         {
             "indexes": {"data": 1, "gas": 1, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_5: Account(
@@ -348,7 +349,7 @@ def test_eoa_empty_paris(
         },
         {
             "indexes": {"data": 0, "gas": 1, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_5: Account(
@@ -370,7 +371,7 @@ def test_eoa_empty_paris(
         },
         {
             "indexes": {"data": 1, "gas": 1, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 contract_5: Account(

@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stReturnDataTest/call_ecrec_success_empty_then_returndatasizeFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_ecrec_success_empty_then_returndatasize(
     state_test: StateTestFiller,

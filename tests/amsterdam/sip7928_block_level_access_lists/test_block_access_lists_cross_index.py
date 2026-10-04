@@ -44,7 +44,7 @@ from .test_block_access_lists_sip4788 import (
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 WITHDRAWAL_REQUEST_ADDRESS = WithdrawalRequest.system_contract_address
 CONSOLIDATION_REQUEST_ADDRESS = ConsolidationRequest.system_contract_address

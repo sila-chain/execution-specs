@@ -41,7 +41,7 @@ from .spec import ref_spec_7685
 REFERENCE_SPEC_GIT_PATH: str = ref_spec_7685.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_7685.version
 
-pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("Prague")
+pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("SilaPrague")
 
 SAME_BLOCK_DEPLOYMENT_CASES = [
     pytest.param(
@@ -457,8 +457,8 @@ def test_invalid_multi_type_requests_engine(
 )
 @pytest.mark.pre_alloc_mutable
 # The pre-signed deployment transactions carry a fixed gas limit that no
-# longer covers contract creation under Amsterdam's state gas pricing.
-@pytest.mark.valid_until("Osaka")
+# longer covers contract creation under SilaAmsterdam's state gas pricing.
+@pytest.mark.valid_until("SilaOsaka")
 def test_system_contract_deployed_and_called_in_same_block(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

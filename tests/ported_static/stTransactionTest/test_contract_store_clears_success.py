@@ -11,8 +11,8 @@ SIP-8038 raises the cold SSTORE-clear charge, so the 10 clears no
 longer fit in the original gas limit and the contract runs out of gas
 before clearing the storage or keeping the transfer. Bump the
 gas limit by the per-clear charge delta times the 10 clears so every
-clear still lands at Amsterdam. The delta is derived from the fork gas
-model and is exactly 0 pre-SIP-8037; do not hardcode the Amsterdam
+clear still lands at SilaAmsterdam. The delta is derived from the fork gas
+model and is exactly 0 pre-SIP-8037; do not hardcode the SilaAmsterdam
 value. The post asserts only the target account (cleared storage and the
 received value), which holds at every fork once the gas fits.
 """
@@ -27,7 +27,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -37,7 +37,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/ContractStoreClearsSuccessFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_contract_store_clears_success(
     state_test: StateTestFiller,
@@ -92,7 +92,9 @@ def test_contract_store_clears_success(
     cold_clear = Op.SSTORE.with_metadata(
         key_warm=False, original_value=1, current_value=1, new_value=0
     )
-    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(Cancun)
+    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(
+        SilaCancun
+    )
 
     tx = Transaction(
         sender=sender,

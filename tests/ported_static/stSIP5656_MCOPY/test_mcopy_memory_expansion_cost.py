@@ -2,7 +2,7 @@
 Test cases for the memory expansion cost in the MCOPY instruction.
 
 Ported from:
-state_tests/Cancun/stEIP5656_MCOPY/MCOPY_memory_expansion_costFiller.yml
+state_tests/SilaCancun/stEIP5656_MCOPY/MCOPY_memory_expansion_costFiller.yml
 """
 
 import pytest
@@ -28,10 +28,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Cancun/stEIP5656_MCOPY/MCOPY_memory_expansion_costFiller.yml"  # noqa: E501
+        "state_tests/SilaCancun/stEIP5656_MCOPY/MCOPY_memory_expansion_costFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -217,12 +217,12 @@ def test_mcopy_memory_expansion_cost(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 14], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 0})},
         },
         {
             "indexes": {"data": [1, 2, 3, 4, 5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 768})},
         },
         {
@@ -231,7 +231,7 @@ def test_mcopy_memory_expansion_cost(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 1408})},
         },
         {
@@ -240,7 +240,7 @@ def test_mcopy_memory_expansion_cost(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 0xFA11ED})},
         },
     ]

@@ -25,7 +25,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stNonZeroCallsTest/NonZeroValue_TransactionCALL_ToNonNonZeroBalanceFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_non_zero_value_transaction_call_to_non_non_zero_balance(
     state_test: StateTestFiller,
     pre: Alloc,

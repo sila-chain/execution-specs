@@ -1,6 +1,6 @@
 """
-Test cases for EVM functionality introduced in Cancun.
+Test cases for EVM functionality introduced in SilaCancun.
 
 See [SIP-7659: Hardfork Meta - Dencun](https://sips.sila.org/SIPS/sip-7569)
-for a list of SIPS included in Dencun (Deneb/Cancun).
+for a list of SIPS included in Dencun (Deneb/SilaCancun).
 """
