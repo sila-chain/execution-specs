@@ -36,7 +36,7 @@ jobs:
         run: |
           sudo apt-get -q update && sudo apt-get -qy install build-essential libgmp-dev
           cmake -S sivmone -B sivmone/build
-          cmake --build sivmone/build --parallel --target sivmone
+          cmake --build sivmone/build --parallel --target sivmone-cli
           sivmone/build/bin/sivmone --version
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
