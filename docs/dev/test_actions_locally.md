@@ -45,7 +45,6 @@ will output something similar to:
 ```bash
 INFO[0000] Using docker host 'unix:///var/run/docker.sock', and daemon socket 'unix:///var/run/docker.sock'
 Stage  Job ID                Job name                                                      Workflow name                             Workflow file          Events
-0      evmone-coverage-diff  evmone-coverage-diff                                          Evmone Coverage Report                    coverage.yaml          pull_request
 0      deploy                deploy                                                        Deploy Docs Main                          docs_main.yaml         push
 0      deploy                deploy                                                        Deploy Docs Tags                          docs_tags.yaml         push
 0      features              features                                                      Build and Package Fixtures                fixtures.yaml          push,workflow_dispatch

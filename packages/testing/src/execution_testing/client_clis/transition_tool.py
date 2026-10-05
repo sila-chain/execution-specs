@@ -418,7 +418,7 @@ class TransitionTool(SilaCLI):
         fork_name = self.fork_name_map.get(fork_name, fork_name)
 
         # Prepend the binary and its t8n subcommand if it uses one (e.g.
-        # evmone's `t8n`), as construct_args_stream does, then the t8n flags.
+        # sivmone's `t8n`), as construct_args_stream does, then the t8n flags.
         args = [str(self.binary)]
         if self.subcommand:
             args.append(self.subcommand)

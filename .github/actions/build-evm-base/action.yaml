@@ -67,9 +67,9 @@ runs:
       with:
         repo: ${{ steps.resolved.outputs.repo }}
         ref: ${{ steps.resolved.outputs.ref }}
-    - name: Build the EVM using EVMONE action
-      if: steps.config-evm-reader.outputs.impl == 'evmone'
-      uses: ./.github/actions/build-evm-client/evmone
+    - name: Build the EVM using sivmone action
+      if: steps.config-evm-reader.outputs.impl == 'sivmone'
+      uses: ./.github/actions/build-evm-client/sivmone
       with:
         repo: ${{ steps.resolved.outputs.repo }}
         ref: ${{ steps.resolved.outputs.ref }}

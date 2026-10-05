@@ -13,8 +13,8 @@ from execution_testing.base_types import (
     TestPrivateKey,
 )
 from execution_testing.client_clis import (
-    EvmOneTransitionTool,
     ExecutionSpecsTransitionTool,
+    SivmoneTransitionTool,
     TransitionTool,
 )
 from execution_testing.fixtures import BlockchainFixture
@@ -61,7 +61,7 @@ def test_ci_multi_t8n_support(
     expected_names = {"ExecutionSpecsTransitionTool"}
     if running_in_ci:
         expected_names.add("GsilTransitionTool")
-        expected_names.add("EvmOneTransitionTool")
+        expected_names.add("SivmoneTransitionTool")
     assert expected_names.issubset(names), (
         f"Missing expected transition tools: {expected_names - names}"
     )
@@ -76,7 +76,7 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
     if fork in [MuirGlacier, ArrowGlacier, GrayGlacier]:
         return
     if isinstance(
-        installed_t8n, (ExecutionSpecsTransitionTool, EvmOneTransitionTool)
+        installed_t8n, (ExecutionSpecsTransitionTool, SivmoneTransitionTool)
     ) and fork in [SilaConstantinople]:
         return
     env = Environment()

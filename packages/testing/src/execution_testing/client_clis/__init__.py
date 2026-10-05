@@ -23,17 +23,12 @@ from .clis.besu import BesuFixtureConsumer, BesuTransitionTool
 # GsilSivm — the ordering only gives Erigon first look, it does not by itself
 # decide identity.
 from .clis.erigon import ErigonExceptionMapper, ErigonFixtureConsumer
-from .clis.evmone import (
-    EvmOneBlockchainFixtureConsumer,
-    EvmoneExceptionMapper,
-    EvmOneStateFixtureConsumer,
-    EvmOneTransitionTool,
-)
 from .clis.execution_specs import ExecutionSpecsTransitionTool
 from .clis.gsil import GsilFixtureConsumer, GsilTransitionTool
 from .clis.nethermind import Nethtest, NethtestFixtureConsumer
 from .clis.nimbus import NimbusTransitionTool
 from .clis.silajs import SilaJSTransitionTool
+from .clis.sivmone import SivmoneExceptionMapper, SivmoneTransitionTool
 from .filler_backend import FillerBackend
 from .fixture_consumer_tool import FixtureConsumerTool
 from .sila_cli import CLINotFoundInPathError, UnknownCLIError
@@ -62,10 +57,8 @@ __all__ = (
     "ErigonExceptionMapper",
     "ErigonFixtureConsumer",
     "SilaJSTransitionTool",
-    "EvmoneExceptionMapper",
-    "EvmOneTransitionTool",
-    "EvmOneStateFixtureConsumer",
-    "EvmOneBlockchainFixtureConsumer",
+    "SivmoneExceptionMapper",
+    "SivmoneTransitionTool",
     "ExecutionSpecsTransitionTool",
     "FieldExclusionTraceComparator",
     "FillerBackend",

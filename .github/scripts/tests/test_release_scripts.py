@@ -220,7 +220,7 @@ class TestValidateInputs:
     def test_known_evm_passes(self):
         """Verify an evm override that is a key in evm.yaml passes."""
         result = run_script(
-            BUILD_MATRIX_SCRIPT, "tests", "v24.0.0", "", "evmone"
+            BUILD_MATRIX_SCRIPT, "tests", "v24.0.0", "", "sivmone"
         )
         assert result.returncode == 0
 

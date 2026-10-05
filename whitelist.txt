@@ -500,8 +500,8 @@ sila's
 SilaCLI
 SilaJS
 evm
-Evmone
-evmone
+Sivmone
+sivmone
 exc
 executables
 exitstatus

@@ -4,7 +4,7 @@ State-test regression for the BLOCKHASH (0x40) opcode recency window.
 In a *state test*, nethermind returns a non-zero hash for
 ``BLOCKHASH(0)`` even when block 0 lies far outside the recency window (256
 blocks pre-SilaPrague, 8191 via SIP-2935 from SilaPrague). sels (the
-reference), go-sila, besu, erigon, evmone and rsil all correctly return 0.
+reference), go-sila, besu, erigon, sivmone and rsil all correctly return 0.
 
 Root cause (nethermind, state-test only):
 ``src/Nethermind/Sila.Test.Base/TestBlockhashProvider.cs`` implements::

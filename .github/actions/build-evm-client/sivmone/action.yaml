@@ -1,47 +1,51 @@
-name: 'Build evmone EVM'
-description: 'Builds the evmone EVM binary'
+name: 'Build sivmone Sivm'
+description: 'Builds the sivmone Sivm binary'
 inputs:
   repo:
-    description: 'Source repository to use to build the EVM binary'
+    description: 'Source repository to use to build the Sivm binary'
     required: true
-    default: 'sila/evmone'
+    default: 'sila-chain/sivmone'
   ref:
-    description: 'Reference to branch, commit, or tag to use to build the EVM binary'
+    description: 'Reference to branch, commit, or tag to use to build the Sivm binary'
     required: true
-    default: 'master'
+    default: '8f53f09fa95cfeddd5081de2e2756b3326718f23'
   targets:
-    description: 'Which targets to build from evmone repo'
+    description: 'Which targets to build from sivmone repo'
     required: false
     default: 'all'
 runs:
   using: "composite"
   steps:
-    - name: Get latest evmone commit
-      id: evmone-sha
+    - name: Resolve sivmone commit
+      id: sivmone-sha
       shell: bash
       run: |
-        SHA=$(git ls-remote https://github.com/${{ inputs.repo }}.git refs/heads/${{ inputs.ref }} | cut -f1)
+        if [[ "${{ inputs.ref }}" =~ ^[0-9a-f]{40}$ ]]; then
+          SHA="${{ inputs.ref }}"
+        else
+          SHA=$(git ls-remote https://github.com/${{ inputs.repo }}.git refs/heads/${{ inputs.ref }} | cut -f1)
+        fi
         echo "sha=$SHA" >> $GITHUB_OUTPUT
-        echo "Latest evmone commit: $SHA"
+        echo "Resolved sivmone commit: $SHA"
     - name: Prepare cache target dir
       shell: bash
-      run: mkdir -p "$GITHUB_WORKSPACE/evmone/build"
+      run: mkdir -p "$GITHUB_WORKSPACE/sivmone/build"
     - name: Restore build cache
       id: cache-restore
       uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: |
-          ${{ github.workspace }}/evmone/build
-        key: evmone-build-targets=${{ inputs.targets }}-sha=${{ steps.evmone-sha.outputs.sha }}
+          ${{ github.workspace }}/sivmone/build
+        key: sivmone-build-targets=${{ inputs.targets }}-sha=${{ steps.sivmone-sha.outputs.sha }}
         restore-keys: |
-          evmone-build-targets=${{ inputs.targets }}-
-    - name: Checkout evmone
+          sivmone-build-targets=${{ inputs.targets }}-
+    - name: Checkout sivmone
       if: steps.cache-restore.outputs.cache-hit != 'true'
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         repository: ${{ inputs.repo }}
-        ref: ${{ steps.evmone-sha.outputs.sha }}
-        path: evmone
+        ref: ${{ steps.sivmone-sha.outputs.sha }}
+        path: sivmone
         submodules: true
     - name: Setup cmake
       if: steps.cache-restore.outputs.cache-hit != 'true'
@@ -58,21 +62,21 @@ runs:
       shell: bash
       run: |
         brew update && brew install gmp
-    - name: Build evmone binary
+    - name: Build sivmone binary
       if: steps.cache-restore.outputs.cache-hit != 'true'
       shell: bash
       run: |
         mkdir -p $GITHUB_WORKSPACE/bin
-        cd $GITHUB_WORKSPACE/evmone
+        cd $GITHUB_WORKSPACE/sivmone
         cmake -S . -B build
         cmake --build build --parallel --target ${{ inputs.targets }}
-    - name: Add evmone bin to PATH
+    - name: Add sivmone bin to PATH
       shell: bash
-      run: echo $GITHUB_WORKSPACE/evmone/build/bin/ >> $GITHUB_PATH
+      run: echo $GITHUB_WORKSPACE/sivmone/build/bin/ >> $GITHUB_PATH
     - name: Save build cache
       if: steps.cache-restore.outputs.cache-hit != 'true'
       uses: actions/cache/save@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: |
-          ${{ github.workspace }}/evmone/build
-        key: evmone-build-targets=${{ inputs.targets }}-sha=${{ steps.evmone-sha.outputs.sha }}
+          ${{ github.workspace }}/sivmone/build
+        key: sivmone-build-targets=${{ inputs.targets }}-sha=${{ steps.sivmone-sha.outputs.sha }}

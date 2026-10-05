@@ -15,7 +15,7 @@ gh workflow run release_fixtures.yaml -f feature=<feature> -f version=vX.Y.Z [-f
 | `feature`  | yes               | Feature name, e.g. `tests`, `benchmark`, or a `<feat>-devnet` name.                                   |
 | `version`  | yes               | Release version `vX.Y.Z` (validated against `^v[0-9]+\.[0-9]+\.[0-9]+$`). Tagged as `tests-<feature>@<version>` (the `tests` feature tags as `tests@<version>`). |
 | `branch`   | for `*-devnet`    | Branch to build and release from (any branch). Defaults to the dispatch ref for other fresh fills; must be empty for [cached releases](#cached-releases). |
-| `evm`      | no                | Override the evm impl (e.g. `gsil`, `evmone`). Defaults to the feature's `evm-type` in `feature.yaml`. |
+| `evm`      | no                | Override the evm impl (e.g. `gsil`, `sivmone`). Defaults to the feature's `evm-type` in `feature.yaml`. |
 | `evm_repo` | no                | Override the t8n tool repo (e.g. `sila-chain/go-sila`).                                              |
 | `evm_ref`  | no                | Override the t8n tool branch / tag / commit.                                                          |
 | `cached`   | no                | Draft from the newest nightly artifact instead of refilling (`tests` only): `build` and `combine` are skipped and the tag targets the nightly's commit. See [Cached releases](#cached-releases). |

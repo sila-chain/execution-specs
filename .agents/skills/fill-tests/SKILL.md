@@ -44,7 +44,7 @@ uv run fill --collect-only tests/                      # Dry run: list tests wit
 
 - Excluded from a broad `tests/` run: include them by targeting a `tests/benchmark/...` path, or add `--include-benchmark` when also collecting `tests/`.
 - Pick a mode (mutually exclusive): `--gas-benchmark-values 1,10,100` (millions of gas) or `--fixed-opcode-count 1,10,100` (thousands). These parametrize the tests, e.g. `...[fork_SilaPrague-blockchain_test-benchmark-gas-value_1M]`.
-- Backend is optional: omitting `--evm-bin` runs the slow in-repo SELS Python spec; `--evm-bin=evmone` or `--evm-bin=evm` (gsil, used by `just bench-gas`) are faster.
+- Backend is optional: omitting `--evm-bin` runs the slow in-repo SELS Python spec; `--evm-bin=sivmone` or `--evm-bin=evm` (gsil, used by `just bench-gas`) are faster.
 - Stateful benchmarks (`tests/benchmark/stateful/`) are filled by the separate `fill-stateful` command against a live client snapshot and produce `BlockchainEngineStatefulFixture`; see `docs/filling_tests/fill_stateful.md`.
 
 ## Fixture Formats

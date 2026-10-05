@@ -1,16 +1,16 @@
-name: 'Build evmone EVM'
-description: 'Builds the evmone EVM binary'
+name: 'Build sivmone Sivm'
+description: 'Builds the sivmone Sivm binary'
 inputs:
   repo:
-    description: 'Source repository to use to build the EVM binary'
+    description: 'Source repository to use to build the Sivm binary'
     required: true
-    default: 'ethereum/evmone'
+    default: 'sila-chain/sivmone'
   ref:
-    description: 'Reference to branch, commit, or tag to use to build the EVM binary'
+    description: 'Reference to branch, commit, or tag to use to build the Sivm binary'
     required: true
-    default: 'master'
+    default: '8f53f09fa95cfeddd5081de2e2756b3326718f23'
   targets:
-    description: 'Which targets to build from evmone repo'
+    description: 'Which targets to build from sivmone repo'
     required: false
     default: 'all'
   cache_ttl_days:
@@ -34,7 +34,7 @@ runs:
       
     - name: Prepare cache target dir
       shell: bash
-      run: mkdir -p "$GITHUB_WORKSPACE/evmone/build"
+      run: mkdir -p "$GITHUB_WORKSPACE/sivmone/build"
 
     # Restore previously built binaries if cache hit
     - name: Restore build cache
@@ -42,21 +42,21 @@ runs:
       uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: |
-          ${{ github.workspace }}/evmone/build
+          ${{ github.workspace }}/sivmone/build
         key: >
-          evmone-build-${{ runner.os }}-${{ runner.arch }}-
+          sivmone-build-${{ runner.os }}-${{ runner.arch }}-
           targets=${{ inputs.targets }}-
           ref=${{ inputs.ref }}-
           bucket=${{ env.CACHE_BUCKET }}
     
-    # Checkout and build evmone if cache miss
-    - name: Checkout evmone
+    # Checkout and build sivmone if cache miss
+    - name: Checkout sivmone
       if: steps.cache-restore.outputs.cache-hit != 'true'
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         repository: ${{ inputs.repo }}
         ref: ${{ inputs.ref }}
-        path: evmone
+        path: sivmone
         submodules: true
 
     - name: Setup cmake
@@ -77,18 +77,18 @@ runs:
       run: |
         brew update && brew install gmp
 
-    - name: Build evmone binary (skips when cache hit)
+    - name: Build sivmone binary (skips when cache hit)
       if: steps.cache-restore.outputs.cache-hit != 'true'
       shell: bash
       run: |
         mkdir -p "$GITHUB_WORKSPACE/bin"
-        cd "$GITHUB_WORKSPACE/evmone"
-        cmake -S . -B build -DEVMONE_TESTING=ON -DEVMONE_PRECOMPILES_SILKPRE=1
+        cd "$GITHUB_WORKSPACE/sivmone"
+        cmake -S . -B build
         cmake --build build --parallel --target ${{ inputs.targets }}
 
-    - name: Add evmone bin to PATH
+    - name: Add sivmone bin to PATH
       shell: bash
-      run: echo "$GITHUB_WORKSPACE/evmone/build/bin" >> "$GITHUB_PATH"
+      run: echo "$GITHUB_WORKSPACE/sivmone/build/bin" >> "$GITHUB_PATH"
 
     # Save cache only when we actually built
     - name: Save build cache
@@ -96,9 +96,9 @@ runs:
       uses: actions/cache/save@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         path: |
-          ${{ github.workspace }}/evmone/build
+          ${{ github.workspace }}/sivmone/build
         key: >
-          evmone-build-${{ runner.os }}-${{ runner.arch }}-
+          sivmone-build-${{ runner.os }}-${{ runner.arch }}-
           targets=${{ inputs.targets }}-
           ref=${{ inputs.ref }}-
           bucket=${{ env.CACHE_BUCKET }}

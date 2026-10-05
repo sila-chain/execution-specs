@@ -10,13 +10,13 @@ sels:
   ref: null
   evm-bin: null
   xdist: auto
-evmone:
-  impl: evmone
-  repo: sila/evmone
-  ref: master
-  evm-bin: evmone
+sivmone:
+  impl: sivmone
+  repo: sila-chain/sivmone
+  ref: 8f53f09fa95cfeddd5081de2e2756b3326718f23
+  evm-bin: sivmone
   xdist: auto
-  targets: ["evmone-cli"]
+  targets: ["sivmone-cli"]
 besu:
   impl: besu
   repo: hyperledger/besu

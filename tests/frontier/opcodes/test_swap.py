@@ -26,7 +26,7 @@ from execution_testing import (
         "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/VMTests/vmTests/swapFiller.yml"
     ],
     coverage_missed_reason=(
-        "Test isolation (1 contract per execution) reduces evmone state "
+        "Test isolation (1 contract per execution) reduces sivmone state "
         "comparisons vs old dispatcher pattern (16 contracts per execution)"
     ),
 )

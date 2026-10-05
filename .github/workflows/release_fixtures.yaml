@@ -31,7 +31,7 @@ on:
         required: false
         type: string
       evm:
-        description: "Override the evm impl (e.g. gsil, evmone). Defaults to the feature's evm-type."
+        description: "Override the evm impl (e.g. gsil, sivmone). Defaults to the feature's evm-type."
         required: false
         type: string
       evm_repo:

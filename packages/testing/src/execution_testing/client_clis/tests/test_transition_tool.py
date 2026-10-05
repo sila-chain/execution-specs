@@ -13,10 +13,10 @@ from tenacity import retry, retry_if_exception_type, stop_after_attempt
 from execution_testing.base_types import StateCommitment
 from execution_testing.client_clis import (
     CLINotFoundInPathError,
-    EvmOneTransitionTool,
     ExecutionSpecsTransitionTool,
     GsilTransitionTool,
     NimbusTransitionTool,
+    SivmoneTransitionTool,
     TransitionTool,
 )
 from execution_testing.client_clis.cli_types import (
@@ -47,10 +47,10 @@ def test_default_tool() -> None:
             GsilTransitionTool,
         ),
         (
-            Path("evmone"),
-            "evmone",
-            "evmone 0.22.0",
-            EvmOneTransitionTool,
+            Path("sivmone"),
+            "sivmone",
+            "sivmone 0.24.0",
+            SivmoneTransitionTool,
         ),
         pytest.param(
             Path("sila-spec-evm"),

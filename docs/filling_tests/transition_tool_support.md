@@ -4,7 +4,7 @@ The following transition tools are supported by the framework:
 
 | Client | `t8n` Tool | Tracing Support |
 | -------| ---------- | --------------- |
-| [sila-chain/sivmone](https://github.com/sila-chain/sivmone) | `evmone t8n` | Yes |
+| [sila-chain/sivmone](https://github.com/sila-chain/sivmone) | `sivmone t8n` | Yes |
 | [sila-chain/execution-specs](https://github.com/sila-chain/execution-specs) | [`sila-spec-evm t8n`](https://github.com/sila-chain/execution-specs/tree/forks/amsterdam/packages/testing/src/execution_testing/evm_tools/t8n) | Yes |
 | [silajs](https://github.com/silajs/silajs-monorepo) | [`silajs-t8ntool.sh`](https://github.com/silajs/silajs-monorepo/tree/master/packages/vm/test/t8n) | No |
 | [sila-chain/go-sila](https://github.com/sila-chain/go-sila) | [`sivm t8n`](https://github.com/sila/go-sila/tree/master/cmd/sivm) | Yes |
