@@ -38,7 +38,7 @@ jobs:
           cmake -S sivmone -B sivmone/build -DBUILD_SHARED_LIBS=OFF
           cmake --build sivmone/build --parallel --target sivmone-cli
           sivmone/build/bin/sivmone --version
-          ldd sivmone/build/bin/sivmone | grep -v -q libsivmone
+          ! ldd sivmone/build/bin/sivmone | grep -q libsivmone
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: sivmone
