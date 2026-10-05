@@ -47,8 +47,6 @@ class AssetNotFoundError(Exception):
 
 TESTS_FEATURE_NAME = "tests"
 
-BARE_VERSION_RE = re.compile(r"^v\d+\.\d+\.\d+$")
-
 
 @dataclass(kw_only=True)
 class ReleaseTag:
@@ -63,20 +61,13 @@ class ReleaseTag:
         Create a release descriptor from a string.
 
         The release source can be in the format `tag_name@version` or just
-        `tag_name`. A bare `latest` or `vX.Y.Z` resolves to the sila-mainnet
-        `tests` release.
+        `tag_name`.
         """
         version: str | None
         if "@" in release_string:
             tag_name, version = release_string.split("@")
             if version == "" or version.lower() == "latest":
                 version = None
-        elif release_string.lower() == "latest":
-            tag_name = TESTS_FEATURE_NAME
-            version = None
-        elif BARE_VERSION_RE.match(release_string):
-            tag_name = TESTS_FEATURE_NAME
-            version = release_string
         else:
             tag_name = release_string
             version = None
@@ -85,11 +76,7 @@ class ReleaseTag:
     @staticmethod
     def is_release_string(release_string: str) -> bool:
         """Check if the release string is in the correct format."""
-        return (
-            "@" in release_string
-            or release_string.lower() == "latest"
-            or BARE_VERSION_RE.match(release_string) is not None
-        )
+        return "@" in release_string
 
     @property
     def feature_name(self) -> str:

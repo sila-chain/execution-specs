@@ -22,7 +22,7 @@ Releases can be downloaded without (manually) cloning and installing the @sila-c
 
     ```console
     uvx --from "git+https://github.com/sila-chain/execution-specs.git#subdirectory=packages/testing" \
-        consume cache --input=latest
+        consume cache --input=tests@latest
     ```
 
     <!-- TODO: Re-capture this example output; the transcript below is constructed. -->
@@ -52,7 +52,7 @@ A release specification has the format `<release_name>@<version>`.
 
 **Supported release names:**
 
-- `tests`: The stable release for client CI, all tests for all forks up to and including the fork clients' master branches implement (see [Test Release Types](../releases.md#test-release-types)). A bare `latest` or `vX.Y.Z` input is shorthand for `tests@latest`, respectively `tests@vX.Y.Z`.
+- `tests`: The stable release for client CI, all tests for all forks up to and including the fork clients' master branches implement (see [Test Release Types](../releases.md#test-release-types)).
 - `<feat>-devnet`: Devnet releases, e.g. `bal-devnet`, `glamsterdam-devnet`.
 - Other features: e.g. `benchmark`, `zkevm`.
 
@@ -69,12 +69,10 @@ Examples using a release specification:
 
 ```bash
 # Latest sila-mainnet (tests) release
-uv run consume engine --input latest
-uv run consume rlp --input tests@latest
+uv run consume engine --input tests@latest
 
 # SilaMainnet release by version
-uv run consume engine --input v20.0.0
-uv run consume rlp --input tests@v20.0.0
+uv run consume engine --input tests@v20.0.0
 
 # Feature releases, with or without the tests- tag prefix
 uv run consume cache --input bal-devnet@v7.0.0
@@ -107,7 +105,7 @@ All remote fixture sources are automatically cached to avoid repeated downloads:
 You can override this location with the `--cache-folder` flag:
 
 ```bash
-uv run consume cache --input latest --cache-folder /path/to/custom/cache
+uv run consume cache --input tests@latest --cache-folder /path/to/custom/cache
 ```
 
 Or extract directly to a specific directory (bypasses cache structure):
@@ -158,5 +156,5 @@ Examples:
 consume cache --input=https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
 
 # API calls required - version resolution
-consume cache --input=latest
+consume cache --input=tests@latest
 ```

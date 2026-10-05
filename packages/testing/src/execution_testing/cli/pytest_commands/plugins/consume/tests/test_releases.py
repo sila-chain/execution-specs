@@ -50,9 +50,6 @@ RELEASES_DOWNLOAD = (
         ("tests@v20.0.0", "tests%40v20.0.0/fixtures.tar.gz"),
         ("tests@v21.0.0", "tests%40v21.0.0/fixtures.tar.gz"),
         ("tests@latest", "tests%40v21.0.0/fixtures.tar.gz"),
-        # A bare `latest` or `vX.Y.Z` resolves the `tests` release.
-        ("latest", "tests%40v21.0.0/fixtures.tar.gz"),
-        ("v20.0.0", "tests%40v20.0.0/fixtures.tar.gz"),
     ],
 )
 def test_sels_release_parsing(
@@ -80,9 +77,8 @@ def test_sels_release_parsing(
         ("bal@latest", "tests-bal-devnet@v8.0.0", False),
         ("benchmark@latest", "tests-benchmark@v0.0.9", True),
         ("tests@latest", "tests-benchmark@v0.0.9", False),
-        # A bare `vX.Y.Z` is shorthand for `tests@vX.Y.Z` and never matches
-        # a spec-package release tagged plain `vX.Y.Z`.
-        ("v2.20.0", "v2.20.0", False),
+        # A fixture release never matches a spec-package release tagged
+        # plain `vX.Y.Z`.
         ("tests@v2.20.0", "v2.20.0", False),
     ],
 )
@@ -97,7 +93,6 @@ def test_release_tag_matching(
     "release_name,asset_name",
     [
         ("tests@latest", "fixtures.tar.gz"),
-        ("latest", "fixtures.tar.gz"),
         ("bal@latest", "fixtures_bal.tar.gz"),
         ("tests-benchmark@v0.0.9", "fixtures_benchmark.tar.gz"),
     ],
@@ -133,7 +128,10 @@ def test_latest_resolves_highest_version(
     "release_name",
     [
         "tests@v2.20.0",
-        "v2.20.0",
+        # A release is named `tests@latest` or `tests@vX.Y.Z`, never a
+        # bare `latest` or `vX.Y.Z`.
+        "latest",
+        "v21.0.0",
         # There are no `stable`/`develop` releases.
         "stable@latest",
         "develop@latest",
@@ -148,6 +146,20 @@ def test_unknown_releases_do_not_resolve(
         get_release_url_from_release_information(
             release_name, release_information
         )
+
+
+@pytest.mark.parametrize(
+    "release_name,is_release",
+    [
+        ("tests@latest", True),
+        ("tests@v21.0.0", True),
+        ("latest", False),
+        ("v21.0.0", False),
+    ],
+)
+def test_is_release_string(release_name: str, is_release: bool) -> None:
+    """Test that only `NAME@version` descriptors are release strings."""
+    assert ReleaseTag.is_release_string(release_name) is is_release
 
 
 def test_is_release_url_covers_supported_repos(

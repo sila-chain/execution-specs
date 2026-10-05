@@ -168,7 +168,6 @@ The [`consume cache`](./consume/cache.md) command resolves SELS release and pre-
 to release URLs and downloads them. For example:
 
 ```bash
-uv run consume cache --input=latest  # shorthand for tests@latest
 uv run consume cache --input=tests@latest
 uv run consume cache --input=bal-devnet@v7.0.0
 ```

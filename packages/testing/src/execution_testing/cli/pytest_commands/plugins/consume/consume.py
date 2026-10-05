@@ -381,8 +381,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
             "release name and version in the form of `NAME@v1.2.3` "
             "(e.g. `tests@v20.0.0` or `bal-devnet@v7.0.0`, with or "
             "without the `tests-` tag prefix, and `latest` is a valid "
-            "version), a bare `latest` or `vX.Y.Z` which resolves the "
-            "sila-mainnet `tests` release, or the special keyword 'stdin'. "
+            "version), or the special keyword 'stdin'. "
             f"Defaults to the following local directory: '{default_input()}'."
         ),
     )
