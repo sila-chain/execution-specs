@@ -15,8 +15,8 @@ changes to the blob fee schedule.
 | Hoodi   | `1762955544` | 2025-11-12 13:52:24     | `0x23aa1351` |  `54016`           |
 | SilaMainnet | `1767747671` | 2026-01-07 01:01:11     | `0x07c9462e` | `419072`           |
 
-[SIP-8135]: https://sips.sila.org/SIPS/sip-8135
-[SIP-7892]: https://sips.sila.org/SIPS/sip-7892
+[SIP-8135]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8135.md
+[SIP-7892]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7892.md
 """  # noqa: E501
 
 from sila.fork_criteria import ByTimestamp, ForkCriteria

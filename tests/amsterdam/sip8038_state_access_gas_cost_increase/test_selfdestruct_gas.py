@@ -1,5 +1,5 @@
 """
-Tests for the SIP-8038 [State-access gas cost update](https://sips.sila.org/SIPS/sip-8038)
+Tests for the SIP-8038 [State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md)
 ``SELFDESTRUCT`` execution-gas dimension.
 
 Under SIP-8038 ``SELFDESTRUCT`` is charged, in its *execution* gas

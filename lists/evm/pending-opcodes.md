@@ -6,33 +6,33 @@ next or subsequent hard fork.
 
 |  Opcode  | Name            | Description                                     | SIP                                                                          |
 |:--------:|-----------------|-------------------------------------------------|------------------------------------------------------------------------------|
-|   0x49   | BLOBHASH        | Returns hashes of blobs in the transaction      | [SIP-4844](https://sips.sila.org/SIPS/sip-4844)                          |
-| ~~0x4A~~ | ~~BEACON_ROOT~~ | ~~Exposes the Beacon Chain Root~~               | [SIP-4788](https://sips.sila.org/SIPS/sip-4788)                          |
-|   0x5C   | TLOAD           | Transient data load                             | [SIP-1153](https://sips.sila.org/SIPS/sip-1153)                          |
-|   0x5D   | TSTORE          | Transient data store                            | [SIP-1153](https://sips.sila.org/SIPS/sip-1153)                          |
-|   0x5E   | MCOPY           | Memory copy                                     | [SIP-5656](https://sips.sila.org/SIPS/sip-5656)                          |
-|   0xD0   | DATALOAD        | Loads data from EOF data section, via stack     | [SIP-7480](https://sips.sila.org/SIPS/sip-7480) |
-|   0xD1   | DATALOADN       | Loads data from EOF data section, via immediate | [SIP-7480](https://sips.sila.org/SIPS/sip-7480) |
-|   0xD2   | DATASIZE        | Size of the EOF data section                    | [SIP-7480](https://sips.sila.org/SIPS/sip-7480) |
-|   0xD3   | DATACOPY        | Bulk EOF data copy                              | [SIP-7480](https://sips.sila.org/SIPS/sip-7480) |
-|   0xE0   | RJUMP           | relative jump                                   | [SIP-4200](https://sips.sila.org/SIPS/sip-4200)                          |
-|   0xE1   | RJUMPI          | relative conditional jump                       | [SIP-4200](https://sips.sila.org/SIPS/sip-4200)                          |
-|   0xE2   | RJUMV           | relative jump table                             | [SIP-4200](https://sips.sila.org/SIPS/sip-4200)                          |
-|   0xE3   | CALLF           | EOF Subroutine Call                             | [SIP-4750](https://sips.sila.org/SIPS/sip-4750)                          |
-|   0xE4   | RETF            | EOF Subroutine return                           | [SIP-4750](https://sips.sila.org/SIPS/sip-4750)                          |
-|   0xE5   | JUMPF           | EOF Function Jump                               | [SIP-6206](https://sips.sila.org/SIPS/sip-6206)                          |
-|   0xE6   | DUPN            | Unlimited dup                                   | [SIP-663](https://sips.sila.org/SIPS/sip-663)                            |
-|   0xE7   | SWAPN           | Unlimited swap                                  | [SIP-663](https://sips.sila.org/SIPS/sip-663)                            |
-|   0xE8   | EXCHANGE        | Deep swap                                       | [SIP-663](https://sips.sila.org/SIPS/sip-663)                            |
-|   0xEC   | EOFCREATE       | Create from EOF contained initcode              | [SIP-7620](https://sips.sila.org/SIPS/sip-7620)                          |
-|   0xEE   | RETURNCONTRACT  | Contract to be created, references EOF data     | [SIP-7620](https://sips.sila.org/SIPS/sip-7620)                          |
-|   0xEF   | -               | Reserved for EOF compatibility                  | [SIP-3540](https://sips.sila.org/SIPS/sip-3540)                          |
-|   0xF6   | PAY             | transfers value from caller to target           | [SIP-5920](https://sips.sila.org/SIPS/sip-5920)                          |
-|   0xF7   | RETURNDATALOAD  | Loads data returned from a call to the stack    | [SIP-7069](https://sips.sila.org/SIPS/sip-7069)                          |
-|   0xF8   | EXTCALL         | CALL without gas and output memory              | [SIP-7069](https://sips.sila.org/SIPS/sip-7069)                          |
-|   0xF9   | EXTDELEGATECALL | DELEGATECALL without gas and output memory      | [SIP-7069](https://sips.sila.org/SIPS/sip-7069)                          |
-|   0xFB   | EXTSTATICCALL   | STATICCALL without gas and output memory        | [SIP-7069](https://sips.sila.org/SIPS/sip-7069)                          |
-|   0xFC   | SETCODE         | Change the code for the current contract        | [SIP-6913](https://sips.sila.org/SIPS/sip-6913)                          |
+|   0x49   | BLOBHASH        | Returns hashes of blobs in the transaction      | [SIP-4844](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md)                          |
+| ~~0x4A~~ | ~~BEACON_ROOT~~ | ~~Exposes the Beacon Chain Root~~               | [SIP-4788](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4788.md)                          |
+|   0x5C   | TLOAD           | Transient data load                             | [SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md)                          |
+|   0x5D   | TSTORE          | Transient data store                            | [SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md)                          |
+|   0x5E   | MCOPY           | Memory copy                                     | [SIP-5656](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md)                          |
+|   0xD0   | DATALOAD        | Loads data from EOF data section, via stack     | [SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md) |
+|   0xD1   | DATALOADN       | Loads data from EOF data section, via immediate | [SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md) |
+|   0xD2   | DATASIZE        | Size of the EOF data section                    | [SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md) |
+|   0xD3   | DATACOPY        | Bulk EOF data copy                              | [SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md) |
+|   0xE0   | RJUMP           | relative jump                                   | [SIP-4200](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4200.md)                          |
+|   0xE1   | RJUMPI          | relative conditional jump                       | [SIP-4200](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4200.md)                          |
+|   0xE2   | RJUMV           | relative jump table                             | [SIP-4200](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4200.md)                          |
+|   0xE3   | CALLF           | EOF Subroutine Call                             | [SIP-4750](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4750.md)                          |
+|   0xE4   | RETF            | EOF Subroutine return                           | [SIP-4750](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4750.md)                          |
+|   0xE5   | JUMPF           | EOF Function Jump                               | [SIP-6206](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6206.md)                          |
+|   0xE6   | DUPN            | Unlimited dup                                   | [SIP-663](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-663.md)                            |
+|   0xE7   | SWAPN           | Unlimited swap                                  | [SIP-663](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-663.md)                            |
+|   0xE8   | EXCHANGE        | Deep swap                                       | [SIP-663](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-663.md)                            |
+|   0xEC   | EOFCREATE       | Create from EOF contained initcode              | [SIP-7620](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7620.md)                          |
+|   0xEE   | RETURNCONTRACT  | Contract to be created, references EOF data     | [SIP-7620](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7620.md)                          |
+|   0xEF   | -               | Reserved for EOF compatibility                  | [SIP-3540](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3540.md)                          |
+|   0xF6   | PAY             | transfers value from caller to target           | [SIP-5920](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5920.md)                          |
+|   0xF7   | RETURNDATALOAD  | Loads data returned from a call to the stack    | [SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)                          |
+|   0xF8   | EXTCALL         | CALL without gas and output memory              | [SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)                          |
+|   0xF9   | EXTDELEGATECALL | DELEGATECALL without gas and output memory      | [SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)                          |
+|   0xFB   | EXTSTATICCALL   | STATICCALL without gas and output memory        | [SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)                          |
+|   0xFC   | SETCODE         | Change the code for the current contract        | [SIP-6913](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6913.md)                          |
 
 Pending Opcode Table
 --------------------
@@ -74,9 +74,9 @@ scheduled or accepted) are in *italics*.
 | 0x18   | XOR              | Bitwise                 |                  |                                                                                |
 | 0x19   | NOT              | Bitwise                 |                  |                                                                                |
 | 0x1A   | BYTE             | Bitwise                 |                  |                                                                                |
-| 0x1B   | SHL              | Bitwise                 | SilaConstantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)                              |
-| 0x1C   | SHR              | Bitwise                 | SilaConstantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)                              |
-| 0x1D   | SAR              | Bitwise                 | SilaConstantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)                              |
+| 0x1B   | SHL              | Bitwise                 | SilaConstantinople   | [SIP-145](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md)                              |
+| 0x1C   | SHR              | Bitwise                 | SilaConstantinople   | [SIP-145](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md)                              |
+| 0x1D   | SAR              | Bitwise                 | SilaConstantinople   | [SIP-145](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md)                              |
 | 0x1E   |                  |                         |                  |                                                                                |
 | 0x1F   |                  |                         |                  |                                                                                |
 | 0x20   | KECCAK           | Keccak                  |                  |                                                                                |
@@ -108,20 +108,20 @@ scheduled or accepted) are in *italics*.
 | 0x3A   | GASPRICE         | Environmental           |                  |                                                                                |
 | 0x3B   | EXTCODESIZE      | Environmental           |                  |                                                                                |
 | 0x3C   | EXTCODECOPY      | Environmental           |                  |                                                                                |
-| 0x3D   | RETURNDATASIZE   | Environmental           | SilaByzantium        | [SIP-211](https://sips.sila.org/SIPS/sip-211)                              |
-| 0x3E   | RETURNDATACOPY   | Environmental           | SilaByzantium        | [SIP-211](https://sips.sila.org/SIPS/sip-211)                              |
-| 0x3F   | EXTCODEHASH      | Environmental           | SilaConstantinople   | [SIP-1052](https://sips.sila.org/SIPS/sip-1052)                            |
+| 0x3D   | RETURNDATASIZE   | Environmental           | SilaByzantium        | [SIP-211](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-211.md)                              |
+| 0x3E   | RETURNDATACOPY   | Environmental           | SilaByzantium        | [SIP-211](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-211.md)                              |
+| 0x3F   | EXTCODEHASH      | Environmental           | SilaConstantinople   | [SIP-1052](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1052.md)                            |
 | 0x40   | BLOCKHASH        | Block                   |                  |                                                                                |
 | 0x41   | COINBASE         | Block                   |                  |                                                                                |
 | 0x42   | TIMESTAMP        | Block                   |                  |                                                                                |
 | 0x43   | NUMBER           | Block                   |                  |                                                                                |
 | 0x44   | DIFFICULTY       | Block                   | Frontier->SilaLondon |                                                                                |
-| 0x44   | PREVRANDAO       | Block                   | SilaParis            | [SIP-4399](https://sips.sila.org/SIPS/sip-4399)                            |
+| 0x44   | PREVRANDAO       | Block                   | SilaParis            | [SIP-4399](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4399.md)                            |
 | 0x45   | GASLIMIT         | Block                   |                  |                                                                                |
-| 0x46   | CHAINID          | Block                   | SilaIstanbul         | [SIP-1344](https://sips.sila.org/SIPS/sip-1344)                            |
-| 0x47   | SELFBALANCE      | Block                   | SilaIstanbul         | [SIP-1884](https://sips.sila.org/SIPS/sip-1884)                            |
-| 0x48   | BASEFEE          | Block                   | SilaLondon           | [SIP-3198](https://sips.sila.org/SIPS/sip-3198)                            |
-| *0x49* | *BLOBHASH*       | *Block*                 | *SilaCancun*         | *[SIP-4844](https://sips.sila.org/SIPS/sip-4844)*                          |
+| 0x46   | CHAINID          | Block                   | SilaIstanbul         | [SIP-1344](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1344.md)                            |
+| 0x47   | SELFBALANCE      | Block                   | SilaIstanbul         | [SIP-1884](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1884.md)                            |
+| 0x48   | BASEFEE          | Block                   | SilaLondon           | [SIP-3198](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3198.md)                            |
+| *0x49* | *BLOBHASH*       | *Block*                 | *SilaCancun*         | *[SIP-4844](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md)*                          |
 | 0x4A   |                  |                         |                  |                                                                                |
 | 0x4B   |                  |                         |                  |                                                                                |
 | 0x4C   |                  |                         |                  |                                                                                |
@@ -140,10 +140,10 @@ scheduled or accepted) are in *italics*.
 | 0x59   | MSIZE            | Memory                  |                  |                                                                                |
 | 0x5A   | GAS              | Control Flow            |                  |                                                                                |
 | 0x5B   | JUMPDEST         | Control Flow            |                  |                                                                                |
-| *0x5C* | *TLOAD*          | *Transient Storage*     | *SilaCancun*         | *[SIP-1153](https://sips.sila.org/SIPS/sip-1153)*                          |
-| *0x5D* | *TSTORE*         | *Transient Storage*     | *SilaCancun*         | *[SIP-1153](https://sips.sila.org/SIPS/sip-1153)*                          |
-| *0x5E* | *MCOPY*          | *Memory*                | *SilaCancun*         | *[SIP-5656](https://sips.sila.org/SIPS/sip-5656)*                          |
-| 0x5F   | PUSH0            | Push                    | SilaShanghai         | [SIP-3855](https://sips.sila.org/SIPS/sip-3855)                            |
+| *0x5C* | *TLOAD*          | *Transient Storage*     | *SilaCancun*         | *[SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md)*                          |
+| *0x5D* | *TSTORE*         | *Transient Storage*     | *SilaCancun*         | *[SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md)*                          |
+| *0x5E* | *MCOPY*          | *Memory*                | *SilaCancun*         | *[SIP-5656](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md)*                          |
+| 0x5F   | PUSH0            | Push                    | SilaShanghai         | [SIP-3855](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3855.md)                            |
 | 0x60   | PUSH1            | Push                    |                  |                                                                                |
 | 0x61   | PUSH2            | Push                    |                  |                                                                                |
 | 0x62   | PUSH3            | Push                    |                  |                                                                                |
@@ -256,10 +256,10 @@ scheduled or accepted) are in *italics*.
 | 0XCD   |                  |                         |                  |                                                                                |
 | 0XCE   |                  |                         |                  |                                                                                |
 | 0XCF   |                  |                         |                  |                                                                                |
-| *0xD0* | *DATALOAD*       | *EOF*                   | *????*           | *[SIP-7480](https://sips.sila.org/SIPS/sip-7480)* |
-| *0xD1* | *DATALOADN*      | *EOF*                   | *????*           | *[SIP-7480](https://sips.sila.org/SIPS/sip-7480)* |
-| *0xD2* | *DATASIZE*       | *EOF*                   | *????*           | *[SIP-7480](https://sips.sila.org/SIPS/sip-7480)* |
-| *0xD3* | *DATACOPY*       | *EOF*                   | *????*           | *[SIP-7480](https://sips.sila.org/SIPS/sip-7480)* |
+| *0xD0* | *DATALOAD*       | *EOF*                   | *????*           | *[SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md)* |
+| *0xD1* | *DATALOADN*      | *EOF*                   | *????*           | *[SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md)* |
+| *0xD2* | *DATASIZE*       | *EOF*                   | *????*           | *[SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md)* |
+| *0xD3* | *DATACOPY*       | *EOF*                   | *????*           | *[SIP-7480](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7480.md)* |
 | 0XD4   |                  |                         |                  |                                                                                |
 | 0XD5   |                  |                         |                  |                                                                                |
 | 0XD6   |                  |                         |                  |                                                                                |
@@ -272,35 +272,35 @@ scheduled or accepted) are in *italics*.
 | 0XDD   |                  |                         |                  |                                                                                |
 | 0XDE   |                  |                         |                  |                                                                                |
 | 0XDF   |                  |                         |                  |                                                                                |
-| *0xE0* | *RJUMP*          | *EOF*                   | *????*           | *[SIP-4200](https://sips.sila.org/SIPS/sip-4200)*                          |
-| *0xE1* | *RJUMPI*         | *EOF*                   | *????*           | *[SIP-4200](https://sips.sila.org/SIPS/sip-4200)*                          |
-| *0xE2* | *RJUMPV*         | *EOF*                   | *????*           | *[SIP-4200](https://sips.sila.org/SIPS/sip-4200)*                          |
-| *0xE3* | *CALLF*          | *EOF*                   | *????*           | *[SIP-4750](https://sips.sila.org/SIPS/sip-4750)*                          |
-| *0xE4* | *RETF*           | *EOF*                   | *????*           | *[SIP-4750](https://sips.sila.org/SIPS/sip-4750)*                          |
-| *0xE5* | *JUMPF*          | *EOF*                   | *????*           | *[SIP-6206](https://sips.sila.org/SIPS/sip-6206)*                          |
-| *0xE6* | *DUPN*           | *EOF*                   | *????*           | *[SIP-663](https://sips.sila.org/SIPS/sip-663)*                            |
-| *0xE7* | *SWAPN*          | *EOF*                   | *????*           | *[SIP-663](https://sips.sila.org/SIPS/sip-663)*                            |
-| *0xE8* | *EXCHANGE*       | *EOF*                   | *????*           | *[SIP-663](https://sips.sila.org/SIPS/sip-663)*                            |
+| *0xE0* | *RJUMP*          | *EOF*                   | *????*           | *[SIP-4200](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4200.md)*                          |
+| *0xE1* | *RJUMPI*         | *EOF*                   | *????*           | *[SIP-4200](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4200.md)*                          |
+| *0xE2* | *RJUMPV*         | *EOF*                   | *????*           | *[SIP-4200](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4200.md)*                          |
+| *0xE3* | *CALLF*          | *EOF*                   | *????*           | *[SIP-4750](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4750.md)*                          |
+| *0xE4* | *RETF*           | *EOF*                   | *????*           | *[SIP-4750](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4750.md)*                          |
+| *0xE5* | *JUMPF*          | *EOF*                   | *????*           | *[SIP-6206](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6206.md)*                          |
+| *0xE6* | *DUPN*           | *EOF*                   | *????*           | *[SIP-663](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-663.md)*                            |
+| *0xE7* | *SWAPN*          | *EOF*                   | *????*           | *[SIP-663](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-663.md)*                            |
+| *0xE8* | *EXCHANGE*       | *EOF*                   | *????*           | *[SIP-663](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-663.md)*                            |
 | 0xE9   |                  |                         |                  |                                                                                |
 | 0xEA   |                  |                         |                  |                                                                                |
 | 0xEB   |                  |                         |                  |                                                                                |
-| *0xEC* | *EOFCREATE*      | *EOF*                   | *????*           | *[SIP-7620](https://sips.sila.org/SIPS/sip-7620)*                          |
+| *0xEC* | *EOFCREATE*      | *EOF*                   | *????*           | *[SIP-7620](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7620.md)*                          |
 | 0xED   |                  |                         |                  |                                                                                |
-| *0xEE* | *RETURNCONTRACT* | *EOF*                   | *????*           | *[SIP-7620](https://sips.sila.org/SIPS/sip-7620)*                          |
-| *0xEF* | *-RESERVED-*     | *EOF*                   | *????*           | *[SIP-3540](https://sips.sila.org/SIPS/sip-3540)*                          |
+| *0xEE* | *RETURNCONTRACT* | *EOF*                   | *????*           | *[SIP-7620](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7620.md)*                          |
+| *0xEF* | *-RESERVED-*     | *EOF*                   | *????*           | *[SIP-3540](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3540.md)*                          |
 | 0xF0   | CREATE           | System                  |                  |                                                                                |
 | 0xF1   | CALL             | System                  |                  |                                                                                |
 | 0xF2   | CALLCODE         | System                  |                  |                                                                                |
 | 0xF3   | RETURN           | System                  |                  |                                                                                |
-| 0xF4   | DELEGATECALL     | System                  | SilaHomestead        | [SIP-7](https://sips.sila.org/SIPS/sip-7)                                  |
-| 0xF5   | CREATE2          | System                  | SilaConstantinople   | [SIP-1014](https://sips.sila.org/SIPS/sip-1014)                            |
-| *0xF6* | *PAY*            | *System*                | *????*           | *[SIP-5920](https://sips.sila.org/SIPS/sip-5920)*                          |
-| *0xF7* | *RETURNDATALOAD* | *Environmental*         | *????*           | *[SIP-7069](https://sips.sila.org/SIPS/sip-7069)*                          |
-| *0xF8* | *EXTCALL*        | *System*                | *????*           | *[SIP-7069](https://sips.sila.org/SIPS/sip-7069)*                          |
-| *0xF9* | *EXTDELEGATECALL*| *System*                | *????*           | *[SIP-7069](https://sips.sila.org/SIPS/sip-7069)*                          |
-| 0xFA   | STATICCALL       | System                  | SilaByzantium        | [SIP-214](https://sips.sila.org/SIPS/sip-214)                              |
-| *0xFB* | *EXTSTATICCALL*  | *System*                | *????*           | *[SIP-7069](https://sips.sila.org/SIPS/sip-7069)*                          |
-| *0xFC* | *SETCODE*        | *System*                | *????*           | *[SIP-6913](https://sips.sila.org/SIPS/sip-6913)*                          |
-| 0xFD   | REVERT           | System                  | SilaByzantium        | [SIP-140](https://sips.sila.org/SIPS/sip-140)                              |
-| 0xFE   | INVALID/ABORT    | System                  | (unofficial)     | [SIP-141](https://sips.sila.org/SIPS/sip-141)                              |
+| 0xF4   | DELEGATECALL     | System                  | SilaHomestead        | [SIP-7](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7.md)                                  |
+| 0xF5   | CREATE2          | System                  | SilaConstantinople   | [SIP-1014](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1014.md)                            |
+| *0xF6* | *PAY*            | *System*                | *????*           | *[SIP-5920](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5920.md)*                          |
+| *0xF7* | *RETURNDATALOAD* | *Environmental*         | *????*           | *[SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)*                          |
+| *0xF8* | *EXTCALL*        | *System*                | *????*           | *[SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)*                          |
+| *0xF9* | *EXTDELEGATECALL*| *System*                | *????*           | *[SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)*                          |
+| 0xFA   | STATICCALL       | System                  | SilaByzantium        | [SIP-214](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-214.md)                              |
+| *0xFB* | *EXTSTATICCALL*  | *System*                | *????*           | *[SIP-7069](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7069.md)*                          |
+| *0xFC* | *SETCODE*        | *System*                | *????*           | *[SIP-6913](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6913.md)*                          |
+| 0xFD   | REVERT           | System                  | SilaByzantium        | [SIP-140](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-140.md)                              |
+| 0xFE   | INVALID/ABORT    | System                  | (unofficial)     | [SIP-141](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-141.md)                              |
 | 0xFF   | SELFDESTRUCT     | System                  |                  |                                                                                |

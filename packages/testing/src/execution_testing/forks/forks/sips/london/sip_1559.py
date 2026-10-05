@@ -5,7 +5,7 @@ A transaction pricing mechanism that includes fixed-per-block network fee
 that is burned and dynamically expands/contracts block sizes to deal with
 transient congestion.
 
-https://sips.sila.org/SIPS/sip-1559
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
 """
 
 from typing import List

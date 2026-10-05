@@ -973,7 +973,7 @@ Verify a block where the new transaction type is the last transaction contained 
 
 ##### SIP-7825
 
-Verify a transaction of the new type is rejected if its gas limit exceeds the [SIP-7825](https://sips.sila.org/SIPS/sip-7825) gas limit for the current fork.
+Verify a transaction of the new type is rejected if its gas limit exceeds the [SIP-7825](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md) gas limit for the current fork.
 
 | ID                                                             | Description                                  | Status | Tests |
 | -------------------------------------------------------------- | -------------------------------------------- | ------ | ----- |
@@ -1115,7 +1115,7 @@ Verify gas costs are updated at the fork transition boundary.
 
 #### Refund calculation
 
-Verify that the refund does not exceed `gas_used // MAX_REFUND_QUOTIENT` (`MAX_REFUND_QUOTIENT==5` in [SIP-3529](https://sips.sila.org/SIPS/sip-3529)) in the following scenarios.
+Verify that the refund does not exceed `gas_used // MAX_REFUND_QUOTIENT` (`MAX_REFUND_QUOTIENT==5` in [SIP-3529](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3529.md)) in the following scenarios.
 
 | ID                                                  | Description                                      | Status | Tests |
 | --------------------------------------------------- | ------------------------------------------------ | ------ | ----- |

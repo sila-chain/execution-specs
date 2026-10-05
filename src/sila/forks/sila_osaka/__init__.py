@@ -35,19 +35,19 @@ secp256r1 curve.
 
 ### Releases
 
-[SIP-7607]: https://sips.sila.org/SIPS/sip-7607
-[SIP-7594]: https://sips.sila.org/SIPS/sip-7594
-[SIP-7823]: https://sips.sila.org/SIPS/sip-7823
-[SIP-7825]: https://sips.sila.org/SIPS/sip-7825
-[SIP-7883]: https://sips.sila.org/SIPS/sip-7883
-[SIP-7918]: https://sips.sila.org/SIPS/sip-7918
-[SIP-7934]: https://sips.sila.org/SIPS/sip-7934
-[SIP-7935]: https://sips.sila.org/SIPS/sip-7935
-[SIP-7939]: https://sips.sila.org/SIPS/sip-7939
-[SIP-7951]: https://sips.sila.org/SIPS/sip-7951
-[SIP-7892]: https://sips.sila.org/SIPS/sip-7892
-[SIP-7642]: https://sips.sila.org/SIPS/sip-7642
-[SIP-7910]: https://sips.sila.org/SIPS/sip-7910
+[SIP-7607]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7607.md
+[SIP-7594]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7594.md
+[SIP-7823]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7823.md
+[SIP-7825]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md
+[SIP-7883]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7883.md
+[SIP-7918]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7918.md
+[SIP-7934]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7934.md
+[SIP-7935]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7935.md
+[SIP-7939]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7939.md
+[SIP-7951]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md
+[SIP-7892]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7892.md
+[SIP-7642]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7642.md
+[SIP-7910]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7910.md
 """  # noqa: E501
 
 from sila.fork_criteria import ByTimestamp, ForkCriteria

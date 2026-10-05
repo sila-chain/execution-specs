@@ -32,13 +32,13 @@ instruction to fetch the current chain identifier.
 - [Parity 2.5.11-stable][p]
 - Trinity 0.1.0-alpha.31
 
-[SIP-1679]: https://sips.sila.org/SIPS/sip-1679
-[SIP-152]: https://sips.sila.org/SIPS/sip-152
-[SIP-1108]: https://sips.sila.org/SIPS/sip-1108
-[SIP-1344]: https://sips.sila.org/SIPS/sip-1344
-[SIP-1884]: https://sips.sila.org/SIPS/sip-1884
-[SIP-2028]: https://sips.sila.org/SIPS/sip-2028
-[SIP-2200]: https://sips.sila.org/SIPS/sip-2200
+[SIP-1679]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1679.md
+[SIP-152]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-152.md
+[SIP-1108]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1108.md
+[SIP-1344]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1344.md
+[SIP-1884]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1884.md
+[SIP-2028]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2028.md
+[SIP-2200]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2200.md
 [Besu 1.3.6]: https://github.com/besu-sil/besu/releases/tag/1.3.6
 [js]: https://github.com/silajs/silajs-blockchain/releases/tag/v4.0.2
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.2.3

@@ -50,7 +50,7 @@ class StateGasPerByte:
     a gas amount is meaningless. Multiplying it by a byte count, in either
     operand order, yields a `StateGas`.
 
-    [SIP-8037]: https://sips.sila.org/SIPS/sip-8037
+    [SIP-8037]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md
     """
 
     rate: Uint

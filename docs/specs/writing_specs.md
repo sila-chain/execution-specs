@@ -99,7 +99,7 @@ The marked lines (`<-`) are now incorrectly attributed to SIP-4567 in Fork+1. In
   """
   Minimum gas cost per byte of calldata as per [SIP-7976].
 
-  [SIP-7976]: https://sips.sila.org/SIPS/sip-7976
+  [SIP-7976]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md
   """
   ```
 
@@ -119,7 +119,7 @@ The marked lines (`<-`) are now incorrectly attributed to SIP-4567 in Fork+1. In
 
 ## Changes across multiple forks
 
-Many contributions require changes across multiple forks, organized under `src/sila/forks/`. When making such changes, ensure that differences between the forks are minimal and consist only of necessary differences. This produces cleaner [diff outputs](https://steel.sila.foundation/docs/execution-specs/specs/reference/diffs/index.html).
+Many contributions require changes across multiple forks, organized under `src/sila/forks/`. When making such changes, ensure that differences between the forks are minimal and consist only of necessary differences. This produces cleaner diff outputs.
 
 When creating pull requests affecting multiple forks, we recommend submitting your PR in two steps:
 

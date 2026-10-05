@@ -1,5 +1,5 @@
 """
-Tests for [SIP-8246: Remove SELFDESTRUCT balance burn](https://sips.sila.org/SIPS/sip-8246).
+Tests for [SIP-8246: Remove SELFDESTRUCT balance burn](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8246.md).
 
 Further fork-aware SIP-8246 coverage lives in the SIP-6780 selfdestruct
 tests (``tests/cancun/sip6780_selfdestruct``).

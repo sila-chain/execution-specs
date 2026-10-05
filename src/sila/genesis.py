@@ -200,7 +200,7 @@ def add_genesis_block(
     `0x00` to `0xFF` to avoid edge cases around precompiles being created or
     cleared (by [SIP-161]).
 
-    [SIP-161]: https://sips.sila.org/SIPS/sip-161
+    [SIP-161]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-161.md
     """
     Address: Type[FixedBytes] = hardfork.Address  # noqa N806
     assert issubclass(Address, FixedBytes)

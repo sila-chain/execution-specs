@@ -1,6 +1,6 @@
 """
 Tests for floor-boundary rejection with exact-balance funding in
-[SIP-7976: Increase Calldata Floor Cost](https://sips.sila.org/SIPS/sip-7976).
+[SIP-7976: Increase Calldata Floor Cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md).
 """
 
 import pytest

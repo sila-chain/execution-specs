@@ -23,7 +23,7 @@ in this fork.
 - Aleth 1.8.0
 - Trinity 0.1.0-alpha.34
 
-[SIP-2384]: https://sips.sila.org/SIPS/sip-2384
+[SIP-2384]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2384.md
 [p]: https://github.com/paritytech/parity-sila/releases/tag/v2.6.8
 [Besu 1.3.7]: https://github.com/besu-sil/besu/releases/tag/1.3.7
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.2.6

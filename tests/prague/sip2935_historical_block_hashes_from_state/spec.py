@@ -19,7 +19,7 @@ ref_spec_2935 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-2935 specifications as defined at
-    https://sips.sila.org/SIPS/sip-2935.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2935.md.
     """
 
     FORK_TIMESTAMP = 15_000

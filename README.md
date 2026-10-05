@@ -36,7 +36,7 @@ Python 3.11–3.14 are supported; 3.12 tends to be the smoothest for local setup
 
 ## Documentation
 
-- **Repo documentation (default branch/fork)**: <https://steel.sila.foundation/docs/execution-specs/>
+- **Repo documentation (default branch/fork)**: <https://github.com/sila-chain/execution-specs/tree/forks/amsterdam/docs>
 - **Protocol history**: [docs/specs/protocol_history.md](docs/specs/protocol_history.md)
 - **Versioning scheme**: [docs/specs/spec_releases.md](docs/specs/spec_releases.md) (PEP 440 compatible; hardfork encoded in the minor version, `rcN` marks devnets).
 
@@ -49,7 +49,7 @@ Earnest contributions are welcome; drive-by contributions are not. See [CONTRIBU
 - [Writing Specs](docs/specs/writing_specs.md): Style rules and `sila_spec_tools` utilities for changes under `src/sila/`.
 - [Writing Tests](docs/writing_tests/index.md): For guidance on adding consensus tests under `./tests/`.
 
-This repository is maintained by the [STEEL Team](https://steel.sila.foundation/) at the Sila Foundation.
+This repository is maintained by the STEEL Team at the Sila Foundation.
 
 ## Community and Support
 
@@ -57,7 +57,7 @@ Discussion around the initial specification of protocol changes happens on [Sila
 
 For tracking the status of upcoming Sila upgrades, see [Forkcast](https://forkcast.org/): SIP inclusion, client implementation progress, and ACD call summaries.
 
-For other help, see the [Documentation](#documentation) section above, or reach out to one of the [STEEL team members](https://steel.sila.foundation/team/) in the Sila R&D Discord.
+For other help, see the [Documentation](#documentation) section above, or reach out to one of the STEEL team members in the Sila R&D Discord.
 
 ### Related projects
 
@@ -70,7 +70,7 @@ Production execution clients that implement the spec include [besu](https://gith
 ## Responsible Disclosure of Vulnerabilities
 
 > [!CAUTION]
-> Care is required when filing issues or PRs for functionality that is live on Sila sila-mainnet. Please report vulnerabilities and verify bounty eligibility via the [bug bounty program](https://bounty.sila.org); see [SECURITY.md](SECURITY.md) for details.
+> Care is required when filing issues or PRs for functionality that is live on Sila sila-mainnet. Please report vulnerabilities and verify bounty eligibility via the bug bounty program; see [SECURITY.md](SECURITY.md) for details.
 >
 > - **Please do not create a PR with a vulnerability visible.**
 > - **Please do not file a public ticket mentioning the vulnerability.**

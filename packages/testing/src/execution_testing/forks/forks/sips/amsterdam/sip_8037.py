@@ -11,7 +11,7 @@ returns the SIP-8038 schedule and this mixin folds its state-creation gas
 into the shared `STORAGE_SET`, `TX_CREATE`, and `AUTH_PER_EMPTY_ACCOUNT`
 totals on top of it.
 
-https://sips.sila.org/SIPS/sip-8037
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md
 """
 
 from dataclasses import replace

@@ -1,6 +1,6 @@
 """
 Disable-switch tests for
-[SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+[SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 
 The builder deposit predeploy carries a reversible kill switch: while
 `EXCESS_INHIBITOR` sits in the excess slot, deposits revert, and the next

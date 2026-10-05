@@ -20,8 +20,8 @@ empty accounts.
 - Gsil 1.4.18
 - [Parity 1.3.8][p]
 
-[SIP-150]: https://sips.sila.org/SIPS/sip-150
-[SIP-608]: https://sips.sila.org/SIPS/sip-608
+[SIP-150]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-150.md
+[SIP-608]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-608.md
 [p]: https://github.com/opensila/parity-sila/releases/tag/v1.3.8
 """
 

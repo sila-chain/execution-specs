@@ -1,5 +1,5 @@
 """
-Tests [SIP-1344: CHAINID opcode](https://sips.sila.org/SIPS/sip-1344).
+Tests [SIP-1344: CHAINID opcode](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1344.md).
 """
 
 import pytest

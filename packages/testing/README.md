@@ -34,4 +34,4 @@ pipx inject --include-apps sila-execution ./execution-specs/packages/testing
 
 ## Documentation
 
-Repository documentation, including this framework's reference documentation: <https://steel.sila.foundation/docs/execution-specs/>
+Repository documentation, including this framework's reference documentation: <https://github.com/sila-chain/execution-specs/tree/forks/amsterdam/docs>

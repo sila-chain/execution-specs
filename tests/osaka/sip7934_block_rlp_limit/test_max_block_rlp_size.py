@@ -1,5 +1,5 @@
 """
-Tests for [SIP-7934: RLP Execution Block Size Limit](https://sips.sila.org/SIPS/sip-7934).
+Tests for [SIP-7934: RLP Execution Block Size Limit](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7934.md).
 """
 
 from functools import lru_cache

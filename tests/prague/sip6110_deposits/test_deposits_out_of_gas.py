@@ -3,7 +3,7 @@ Out-of-gas deposit tests.
 
 Tests that deposit requests whose triggering call runs out of gas are not
 included in the block, for
-[SIP-6110: Supply validator deposits on chain](https://sips.sila.org/SIPS/sip-6110).
+[SIP-6110: Supply validator deposits on chain](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md).
 
 The gas limits are supplied via the interaction helpers (per-request
 `gas_limits` or directly on the prepared transaction) rather than being baked

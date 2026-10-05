@@ -4,7 +4,7 @@ SIP-8282: Builder Execution Requests.
 Predeploy builder deposit and exit request contracts for SIP-7732 builders,
 queuing their requests for SIP-7685.
 
-https://sips.sila.org/SIPS/sip-8282
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md
 """
 
 from typing import ClassVar, List, Literal, Mapping, Self, Type

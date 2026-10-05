@@ -4,7 +4,7 @@ SIP-3198: BASEFEE opcode.
 Add an opcode that returns the value of the base fee of the current
 block.
 
-https://sips.sila.org/SIPS/sip-3198
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3198.md
 """
 
 from typing import Callable, Dict, List

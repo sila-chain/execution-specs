@@ -134,7 +134,7 @@ def test_something_with_all_precompiles(
     pass
 ```
 
-In this example, the test will be parameterized for parameter `precompile` with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` for fork SilaShanghai, but with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` for fork SilaCancun which introduced the [point evaluation precompile](https://sips.sila.org/SIPS/sip-4844#point-evaluation-precompile) defined in SIP-4844.
+In this example, the test will be parameterized for parameter `precompile` with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` for fork SilaShanghai, but with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` for fork SilaCancun which introduced the [point evaluation precompile](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md#point-evaluation-precompile) defined in SIP-4844.
 
 ### `@pytest.mark.with_all_call_opcodes`
 

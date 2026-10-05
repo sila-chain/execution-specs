@@ -1,6 +1,6 @@
 """
 SilaMainnet-marked tests for
-[SIP-2780: Resource-based intrinsic transaction gas](https://sips.sila.org/SIPS/sip-2780).
+[SIP-2780: Resource-based intrinsic transaction gas](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2780.md).
 
 One case per row of the SIP's transaction reference table. This SIP only
 reprices, so the pinned ``cumulative_gas_used`` is the sole observable

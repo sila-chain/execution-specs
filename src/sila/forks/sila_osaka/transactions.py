@@ -42,7 +42,7 @@ class IntrinsicGasCost:
     """
     Minimum gas cost based on calldata size per [SIP-7623].
 
-    [SIP-7623]: https://sips.sila.org/SIPS/sip-7623
+    [SIP-7623]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7623.md
     """
 
 
@@ -55,10 +55,10 @@ class LegacyTransaction:
     transaction format used before [SIP-1559], [SIP-2930], [SIP-4844],
     and [SIP-7702].
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
-    [SIP-4844]: https://sips.sila.org/SIPS/sip-4844
-    [SIP-7702]: https://sips.sila.org/SIPS/sip-7702
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
+    [SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
+    [SIP-7702]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md
     """
 
     nonce: U256
@@ -140,7 +140,7 @@ class AccessListTransaction:
     and chain ID. The access list specifies which addresses and storage slots
     the transaction will access.
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
 
     chain_id: U64
@@ -212,7 +212,7 @@ class FeeMarketTransaction:
     This transaction type introduces a new fee market mechanism with two gas
     price parameters: max_priority_fee_per_gas and max_fee_per_gas.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     chain_id: U64
@@ -290,7 +290,7 @@ class BlobTransaction:
     This transaction type extends the fee market transaction to support
     blob-carrying transactions.
 
-    [SIP-4844]: https://sips.sila.org/SIPS/sip-4844
+    [SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
     """
 
     chain_id: U64
@@ -379,7 +379,7 @@ class SetCodeTransaction:
     This transaction type allows Sila Externally Owned Accounts (EOAs)
     to set code on their account, enabling them to act as smart contracts.
 
-    [SIP-7702]: https://sips.sila.org/SIPS/sip-7702
+    [SIP-7702]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md
     """
 
     chain_id: U64
@@ -476,7 +476,7 @@ Transaction types that include an [SIP-2930]-style access list.
 
 See [`has_access_list`][hal] and [`Access`][a] for more details.
 
-[SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+[SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
 [hal]: ref:sila.forks.sila_amsterdam.transactions.has_access_list
 [a]: ref:sila.forks.sila_amsterdam.transactions.Access
 """
@@ -490,7 +490,7 @@ Transaction types that include the [SIP-1559]-style fee structure.
 
 See [`FeeMarketTransaction`][fmt] for more details.
 
-[SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+[SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
 [fmt]: ref:sila.forks.sila_osaka.transactions.FeeMarketTransaction
 """
 
@@ -568,8 +568,8 @@ def validate_transaction(tx: Transaction) -> IntrinsicGasCost:
     `PriorityFeeGreaterThanMaxFeeError` if the maximum priority fee per gas
     of a fee market transaction exceeds its maximum fee per gas.
 
-    [SIP-2681]: https://sips.sila.org/SIPS/sip-2681
-    [SIP-7623]: https://sips.sila.org/SIPS/sip-7623
+    [SIP-2681]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2681.md
+    [SIP-7623]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7623.md
     """
     from .vm.gas import GasCosts
     from .vm.interpreter import MAX_INIT_CODE_SIZE
@@ -665,7 +665,7 @@ def chain_id(tx: Transaction) -> None | U64:
     """
     Extract the chain identifier from a transaction. See [SIP-155].
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     if isinstance(tx, LegacyTransaction):
         if tx.v == 27 or tx.v == 28:
@@ -751,7 +751,7 @@ def signing_hash_pre155(tx: LegacyTransaction) -> Hash32:
     This function takes a legacy transaction as a parameter and returns the
     signing hash of the transaction.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(
@@ -774,7 +774,7 @@ def signing_hash_155(tx: LegacyTransaction, chain_id: U64) -> Hash32:
     This function takes a legacy transaction and a chain ID as parameters
     and returns the hash of the transaction used in an [SIP-155] signature.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(
@@ -800,7 +800,7 @@ def signing_hash_2930(tx: AccessListTransaction) -> Hash32:
     This function takes an access list transaction as a parameter
     and returns the hash of the transaction used in an [SIP-2930] signature.
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
     return keccak256(
         b"\x01"
@@ -826,7 +826,7 @@ def signing_hash_1559(tx: FeeMarketTransaction) -> Hash32:
     This function takes a fee market transaction as a parameter
     and returns the hash of the transaction used in an [SIP-1559] signature.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
     return keccak256(
         b"\x02"
@@ -853,7 +853,7 @@ def signing_hash_4844(tx: BlobTransaction) -> Hash32:
     This function takes a transaction as a parameter and returns the
     signing hash of the transaction used in an [SIP-4844] signature.
 
-    [SIP-4844]: https://sips.sila.org/SIPS/sip-4844
+    [SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
     """
     return keccak256(
         b"\x03"
@@ -882,7 +882,7 @@ def signing_hash_7702(tx: SetCodeTransaction) -> Hash32:
     This function takes a transaction as a parameter and returns the
     signing hash of the transaction used in a [SIP-7702] signature.
 
-    [SIP-7702]: https://sips.sila.org/SIPS/sip-7702
+    [SIP-7702]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md
     """
     return keccak256(
         b"\x04"
@@ -925,7 +925,7 @@ def has_access_list(
     """
     Return whether the transaction has an [SIP-2930]-style access list.
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
     return isinstance(
         tx,

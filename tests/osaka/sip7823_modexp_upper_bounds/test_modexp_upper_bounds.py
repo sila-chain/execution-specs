@@ -1,5 +1,5 @@
 """
-Test [SIP-7823: Set upper bounds for MODEXP](https://sips.sila.org/SIPS/sip-7823).
+Test [SIP-7823: Set upper bounds for MODEXP](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7823.md).
 """
 
 from typing import Dict

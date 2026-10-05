@@ -4,7 +4,7 @@ SIP-7002: Execution layer triggerable withdrawals.
 Allow validators to trigger exits and partial withdrawals via their execution
 layer (0x01) withdrawal credentials.
 
-https://sips.sila.org/SIPS/sip-7002
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md
 """
 
 from typing import ClassVar, List, Literal, Mapping, Self, Type

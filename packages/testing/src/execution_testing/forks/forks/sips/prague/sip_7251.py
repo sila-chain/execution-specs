@@ -3,7 +3,7 @@ SIP-7251: Increase the MAX_EFFECTIVE_BALANCE.
 
 Allow validators to consolidate via execution layer requests.
 
-https://sips.sila.org/SIPS/sip-7251
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md
 """
 
 from typing import ClassVar, List, Literal, Mapping, Self, Type

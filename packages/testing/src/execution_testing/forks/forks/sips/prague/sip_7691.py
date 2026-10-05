@@ -4,7 +4,7 @@ SIP-7691: Blob throughput increase.
 Increase the number of blobs to reach a new target and max of 6 and 9
 blobs per block respectively.
 
-https://sips.sila.org/SIPS/sip-7691
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7691.md
 """
 
 from ....base_fork import BaseFork

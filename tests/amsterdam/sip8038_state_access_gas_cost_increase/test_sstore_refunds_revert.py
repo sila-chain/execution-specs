@@ -1,5 +1,5 @@
 """
-Tests for [SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+Tests for [SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 Covers ``SSTORE`` refund and charge accounting across frames that fail.
 A frame's refund-counter adjustments are discarded when the frame

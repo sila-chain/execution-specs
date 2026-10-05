@@ -4,7 +4,7 @@ SIP-140: REVERT instruction.
 Provide a way to stop execution and revert state changes without consuming
 all provided gas.
 
-https://sips.sila.org/SIPS/sip-140
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-140.md
 """
 
 from typing import Callable, Dict, List

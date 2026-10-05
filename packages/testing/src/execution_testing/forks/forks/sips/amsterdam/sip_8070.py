@@ -4,7 +4,7 @@ SIP-8070: sil/72 - Sparse Blobpool.
 Custody-aligned sampling of the blobpool, adding the `engine_getBlobsV4`
 endpoint to retrieve a partial cell matrix of a blob.
 
-https://sips.sila.org/SIPS/sip-8070
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8070.md
 """
 
 from ....base_fork import BaseFork

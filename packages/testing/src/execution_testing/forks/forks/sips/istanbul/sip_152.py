@@ -1,7 +1,7 @@
 """
 SIP-152: Add BLAKE2 compression function F precompile.
 
-https://sips.sila.org/SIPS/sip-152
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-152.md
 """
 
 from dataclasses import replace

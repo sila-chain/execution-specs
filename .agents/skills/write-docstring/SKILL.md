@@ -104,7 +104,7 @@ def add_genesis_block(
     `0x00` to `0xFF` to avoid edge cases around precompiles being created or
     cleared (by [SIP-161]).
 
-    [SIP-161]: https://sips.sila.org/SIPS/sip-161
+    [SIP-161]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-161.md
     """
 ```
 
@@ -244,7 +244,7 @@ Standard Markdown reference links:
 
 ```
 [ASIC]: https://en.wikipedia.org/wiki/Application-specific_integrated_circuit
-[SIP-3155]: https://sips.sila.org/SIPS/sip-3155
+[SIP-3155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3155.md
 ```
 
 Bare URLs in angle brackets for inline use:

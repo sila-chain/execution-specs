@@ -1,6 +1,6 @@
 """
 Transaction-type coverage for
-[SIP-7778 Block Gas Accounting without Refunds](https://sips.sila.org/SIPS/sip-7778).
+[SIP-7778 Block Gas Accounting without Refunds](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7778.md).
 
 Block gas accounting is transaction-type agnostic: whatever envelope
 carries the refunding call, the block counts its pre-refund gas while the

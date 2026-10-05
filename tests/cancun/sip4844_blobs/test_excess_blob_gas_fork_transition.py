@@ -1,7 +1,7 @@
 """
 Test `excessBlobGas` & `blobGasUsed` block fields at fork transition.
 
-Tests for [SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+Tests for [SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 """
 
 from typing import List, Mapping

@@ -11,7 +11,7 @@ State gas charges draw from the reservoir first, then spill into gas_left.
 Execution gas charges draw only from gas_left.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

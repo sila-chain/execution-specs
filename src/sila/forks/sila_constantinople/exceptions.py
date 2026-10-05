@@ -12,7 +12,7 @@ class WrongChainIdError(InvalidTransaction):
     Chain identifier from a transaction does not match the executing chain. See
     [SIP-155].
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
 
     def __init__(self, expected: U64, actual: U64):

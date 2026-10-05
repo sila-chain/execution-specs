@@ -1,5 +1,5 @@
 """
-Tests [SIP-7002: Execution layer triggerable withdrawals](https://sips.sila.org/SIPS/sip-7002).
+Tests [SIP-7002: Execution layer triggerable withdrawals](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md).
 """
 
 from os.path import realpath

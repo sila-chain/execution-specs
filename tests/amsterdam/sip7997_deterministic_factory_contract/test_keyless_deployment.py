@@ -1,7 +1,7 @@
 """
 Verify keyless deployment of the Deterministic Factory Contract.
 
-<https://sips.sila.org/SIPS/sip-7997>
+<https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md>
 
 Verify the fixed keyless creation transaction before and after the
 creation state-gas increase. Chains may also allocate the factory at

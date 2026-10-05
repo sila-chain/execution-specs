@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-7702: Set EOA account code for one transaction](https://sips.sila.org/SIPS/sip-7702).
+Crafted tests for sila-mainnet of [SIP-7702: Set EOA account code for one transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 import pytest

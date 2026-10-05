@@ -8,7 +8,7 @@ required depth, execution must halt with stack underflow — clients must
 not treat the missing immediate as a graceful STOP.
 
 See:
-- SIP-8024: https://sips.sila.org/SIPS/sip-8024
+- SIP-8024: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8024.md
 - Bounty: https://github.com/sila-bounty/nethermind/issues/12
 - Fix:    https://github.com/NethermindEth/nethermind/pull/11178
 """

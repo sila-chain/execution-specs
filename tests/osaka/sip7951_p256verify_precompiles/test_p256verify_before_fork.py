@@ -1,11 +1,11 @@
 """
 Tests P256VERIFY precompiles of [SIP-7951: Precompile for secp256r1
-Curve Support](https://sips.sila.org/SIPS/sip-7951).
+Curve Support](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md).
 
 Tests P256VERIFY
 precompiles of [SIP-7951: Precompile for secp256r1 Curve
-Support](https://sips.sila.org/SIPS/sip-7951) before the SilaOsaka hard fork is
-active.
+Support](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md)
+before the SilaOsaka hard fork is active.
 """
 
 import pytest

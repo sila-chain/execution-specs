@@ -2,7 +2,7 @@
 MAX_BLOBS_PER_TX limit tests.
 
 Tests for `MAX_BLOBS_PER_TX` limit in [SIP-7594: PeerDAS - Peer Data
-Availability Sampling](https://sips.sila.org/SIPS/sip-7594).
+Availability Sampling](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7594.md).
 """
 
 import pytest

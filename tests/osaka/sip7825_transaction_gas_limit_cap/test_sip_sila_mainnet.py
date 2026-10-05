@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7825: Transaction Gas Limit Cap](https://sips.sila.org/SIPS/sip-7825).
+[SIP-7825: Transaction Gas Limit Cap](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md).
 """
 
 import pytest

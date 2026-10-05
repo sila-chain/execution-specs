@@ -101,7 +101,7 @@ class Header:
     from included transactions. Base fees (introduced in [SIP-1559]) are burned
     and do not go to the coinbase.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     state_root: Root
@@ -165,12 +165,10 @@ class Header:
     gas that could be consumed by all transactions in the block. Post
     [SIP-1559], this is still the maximum gas limit, but the base fee per gas
     is also considered when calculating the effective gas limit. This can be
-    [adjusted by a factor of 1/1024] from the previous block's gas limit, up
+    adjusted by a factor of 1/1024 from the previous block's gas limit, up
     until a maximum of 30 million gas.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
-    [adjusted by a factor of 1/1024]:
-    https://sila.org/en/developers/docs/blocks/
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     gas_used: Uint
@@ -204,7 +202,7 @@ class Header:
     [SIP-1559]. This is the minimum fee per gas that must be paid for a
     transaction to be included in this block.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     withdrawals_root: Root
@@ -218,7 +216,7 @@ class Header:
     Total blob gas consumed by the transactions within this block. Introduced
     in [SIP-4844].
 
-    [SIP-4844]: https://sips.sila.org/SIPS/sip-4844
+    [SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
     """
 
     excess_blob_gas: U64
@@ -228,7 +226,7 @@ class Header:
     while blocks with below-target blob gas consumption decrease it (to a
     minimum of zero). Introduced in [SIP-4844].
 
-    [SIP-4844]: https://sips.sila.org/SIPS/sip-4844
+    [SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
     """
 
     parent_beacon_block_root: Root
@@ -241,7 +239,7 @@ class Header:
     [SHA2-256] hash of all the collected requests in this block. Introduced in
     [SIP-7685]. See [`compute_requests_hash`][crh] for more details.
 
-    [SIP-7685]: https://sips.sila.org/SIPS/sip-7685
+    [SIP-7685]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md
     [crh]: ref:sila.forks.bpo3.requests.compute_requests_hash
     [SHA2-256]: https://en.wikipedia.org/wiki/SHA-2
     """

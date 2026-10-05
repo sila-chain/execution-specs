@@ -676,7 +676,7 @@ class BLSPointGenerator:
         step process, where an input t value is mapped to a point on the
         auxiliary curve via a SWU map, and then that point is mapped to the BLS
         curve via an 11-isogeny. For reference:
-        https://sips.sila.org/assets/sip-2537/field_to_curve
+        https://github.com/sila-chain/SIPs/blob/main/assets/sip-2537/field_to_curve.md
 
         Note we cannot use sage math directly within SEST as it is not a pure
         python library and requires an external dependency to be installed on
@@ -810,7 +810,7 @@ class BLSPointGenerator:
         step process, where an input t value is mapped to a point on the
         auxiliary curve via a SWU map, and then that point is mapped to the
         BLS curve via a 3-isogeny. For reference:
-        - https://sips.sila.org/assets/sip-2537/field_to_curve
+        - https://github.com/sila-chain/SIPs/blob/main/assets/sip-2537/field_to_curve.md
 
         Note we cannot use sage math directly within SEST as it is not a pure
         python library and requires an external dependency to be installed on

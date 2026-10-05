@@ -1,7 +1,7 @@
 """
 Reference spec and constants for [SIP-8282: Builder Execution Requests][8282].
 
-[8282]: https://sips.sila.org/SIPS/sip-8282
+[8282]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md
 """
 
 from dataclasses import dataclass

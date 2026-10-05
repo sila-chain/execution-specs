@@ -1,5 +1,5 @@
 """
-Tests [SIP-3651: Warm COINBASE](https://sips.sila.org/SIPS/sip-3651).
+Tests [SIP-3651: Warm COINBASE](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3651.md).
 
 Tests ported from:
 sila-chain/sila-tests/pull/1082.

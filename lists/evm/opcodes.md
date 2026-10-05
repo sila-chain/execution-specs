@@ -28,9 +28,9 @@ Current up to SilaShanghai
 | 0x18   | XOR            | Bitwise                 |                  |                                                     |
 | 0x19   | NOT            | Bitwise                 |                  |                                                     |
 | 0x1A   | BYTE           | Bitwise                 |                  |                                                     |
-| 0x1B   | SHL            | Bitwise                 | SilaConstantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)   |
-| 0x1C   | SHR            | Bitwise                 | SilaConstantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)   |
-| 0x1D   | SAR            | Bitwise                 | SilaConstantinople   | [SIP-145](https://sips.sila.org/SIPS/sip-145)   |
+| 0x1B   | SHL            | Bitwise                 | SilaConstantinople   | [SIP-145](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md)   |
+| 0x1C   | SHR            | Bitwise                 | SilaConstantinople   | [SIP-145](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md)   |
+| 0x1D   | SAR            | Bitwise                 | SilaConstantinople   | [SIP-145](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md)   |
 | 0x20   | KECCAK         | Keccak                  |                  |                                                     |
 | 0x30   | ADDRESS        | Environmental           |                  |                                                     |
 | 0x31   | BALANCE        | Environmental           |                  |                                                     |
@@ -45,19 +45,19 @@ Current up to SilaShanghai
 | 0x3A   | GASPRICE       | Environmental           |                  |                                                     |
 | 0x3B   | EXTCODESIZE    | Environmental           |                  |                                                     |
 | 0x3C   | EXTCODECOPY    | Environmental           |                  |                                                     |
-| 0x3D   | RETURNDATASIZE | Environmental           | SilaByzantium        | [SIP-211](https://sips.sila.org/SIPS/sip-211)   |
-| 0x3E   | RETURNDATACOPY | Environmental           | SilaByzantium        | [SIP-211](https://sips.sila.org/SIPS/sip-211)   |
-| 0x3F   | EXTCODEHASH    | Environmental           | SilaConstantinople   | [SIP-1052](https://sips.sila.org/SIPS/sip-1052) |
+| 0x3D   | RETURNDATASIZE | Environmental           | SilaByzantium        | [SIP-211](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-211.md)   |
+| 0x3E   | RETURNDATACOPY | Environmental           | SilaByzantium        | [SIP-211](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-211.md)   |
+| 0x3F   | EXTCODEHASH    | Environmental           | SilaConstantinople   | [SIP-1052](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1052.md) |
 | 0x40   | BLOCKHASH      | Block                   |                  |                                                     |
 | 0x41   | COINBASE       | Block                   |                  |                                                     |
 | 0x42   | TIMESTAMP      | Block                   |                  |                                                     |
 | 0x43   | NUMBER         | Block                   |                  |                                                     |
 | 0x44   | DIFFICULTY     | Block                   | Frontier->SilaLondon |                                                     |
-| 0x44   | PREVRANDAO     | Block                   | SilaParis            | [SIP-4399](https://sips.sila.org/SIPS/sip-4399) |
+| 0x44   | PREVRANDAO     | Block                   | SilaParis            | [SIP-4399](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4399.md) |
 | 0x45   | GASLIMIT       | Block                   |                  |                                                     |
-| 0x46   | CHAINID        | Block                   | SilaIstanbul         | [SIP-1344](https://sips.sila.org/SIPS/sip-1344) |
-| 0x47   | SELFBALANCE    | Block                   | SilaIstanbul         | [SIP-1884](https://sips.sila.org/SIPS/sip-1884) |
-| 0x48   | BASEFEE        | Block                   | SilaLondon           | [SIP-3198](https://sips.sila.org/SIPS/sip-3198) |
+| 0x46   | CHAINID        | Block                   | SilaIstanbul         | [SIP-1344](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1344.md) |
+| 0x47   | SELFBALANCE    | Block                   | SilaIstanbul         | [SIP-1884](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1884.md) |
+| 0x48   | BASEFEE        | Block                   | SilaLondon           | [SIP-3198](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3198.md) |
 | 0x50   | POP            | Pop                     |                  |                                                     |
 | 0x51   | MLOAD          | Memory                  |                  |                                                     |
 | 0x52   | MSTORE         | Memory                  |                  |                                                     |
@@ -70,7 +70,7 @@ Current up to SilaShanghai
 | 0x59   | MSIZE          | Memory                  |                  |                                                     |
 | 0x5A   | GAS            | Control Flow            |                  |                                                     |
 | 0x5B   | JUMPDEST       | Control Flow            |                  |                                                     |
-| 0x5F   | PUSH0          | Push                    | SilaShanghai         | [SIP-3855](https://sips.sila.org/SIPS/sip-3855) |
+| 0x5F   | PUSH0          | Push                    | SilaShanghai         | [SIP-3855](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3855.md) |
 | 0x60   | PUSH1          | Push                    |                  |                                                     |
 | 0x61   | PUSH2          | Push                    |                  |                                                     |
 | 0x62   | PUSH3          | Push                    |                  |                                                     |
@@ -144,9 +144,9 @@ Current up to SilaShanghai
 | 0xF1   | CALL           | System                  |                  |                                                     |
 | 0xF2   | CALLCODE       | System                  |                  |                                                     |
 | 0xF3   | RETURN         | System                  |                  |                                                     |
-| 0xF4   | DELEGATECALL   | System                  | SilaHomestead        | [SIP-7](https://sips.sila.org/SIPS/sip-7)       |
-| 0xF5   | CREATE2        | System                  | SilaConstantinople   | [SIP-1014](https://sips.sila.org/SIPS/sip-1014) |
-| 0xFA   | STATICCALL     | System                  | SilaByzantium        | [SIP-214](https://sips.sila.org/SIPS/sip-214)   |
-| 0xFD   | REVERT         | System                  | SilaByzantium        | [SIP-140](https://sips.sila.org/SIPS/sip-140)   |
-| 0xFE   | INVALID/ABORT  | System                  | (unofficial)     | [SIP-141](https://sips.sila.org/SIPS/sip-141)   |
+| 0xF4   | DELEGATECALL   | System                  | SilaHomestead        | [SIP-7](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7.md)       |
+| 0xF5   | CREATE2        | System                  | SilaConstantinople   | [SIP-1014](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1014.md) |
+| 0xFA   | STATICCALL     | System                  | SilaByzantium        | [SIP-214](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-214.md)   |
+| 0xFD   | REVERT         | System                  | SilaByzantium        | [SIP-140](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-140.md)   |
+| 0xFE   | INVALID/ABORT  | System                  | (unofficial)     | [SIP-141](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-141.md)   |
 | 0xFF   | SELFDESTRUCT   | System                  |                  |                                                     |

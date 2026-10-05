@@ -19,7 +19,7 @@ ref_spec_7594 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7594 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7594.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7594.md.
     """
 
     MAX_BLOBS_PER_TX = 6

@@ -4,7 +4,7 @@ SIP-7951: Precompile for secp256r1 curve support.
 Add precompiled contract for secp256r1 ECDSA signature verification with proper
 security checks.
 
-https://sips.sila.org/SIPS/sip-7951
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md
 """
 
 from dataclasses import replace

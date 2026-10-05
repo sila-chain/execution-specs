@@ -13,7 +13,7 @@ Any disagreement in `receipt_gas_used` between clients causes the
 coinbase balance to diverge, producing a different state root.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import math

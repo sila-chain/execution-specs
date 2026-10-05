@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-6110: Supply validator deposits on chain](https://sips.sila.org/SIPS/sip-6110).
+Crafted tests for sila-mainnet of [SIP-6110: Supply validator deposits on chain](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md).
 """
 
 from typing import List

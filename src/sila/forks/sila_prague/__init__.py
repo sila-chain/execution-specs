@@ -36,17 +36,17 @@ contract][b].
 [c]: ref:sila.forks.sila_prague.requests.CONSOLIDATION_REQUEST_TYPE
 [w]: ref:sila.forks.sila_prague.requests.WITHDRAWAL_REQUEST_TYPE
 [b]: ref:sila.forks.sila_prague.fork.HISTORY_STORAGE_ADDRESS
-[SIP-7702]: https://sips.sila.org/SIPS/sip-7702
-[SIP-7691]: https://sips.sila.org/SIPS/sip-7691
-[SIP-7623]: https://sips.sila.org/SIPS/sip-7623
-[SIP-7840]: https://sips.sila.org/SIPS/sip-7840
-[SIP-7251]: https://sips.sila.org/SIPS/sip-7251
-[SIP-7002]: https://sips.sila.org/SIPS/sip-7002
-[SIP-7685]: https://sips.sila.org/SIPS/sip-7685
-[SIP-6110]: https://sips.sila.org/SIPS/sip-6110
-[SIP-2537]: https://sips.sila.org/SIPS/sip-2537
-[SIP-2935]: https://sips.sila.org/SIPS/sip-2935
-[SIP-7549]: https://sips.sila.org/SIPS/sip-7549
+[SIP-7702]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md
+[SIP-7691]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7691.md
+[SIP-7623]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7623.md
+[SIP-7840]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7840.md
+[SIP-7251]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md
+[SIP-7002]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md
+[SIP-7685]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md
+[SIP-6110]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md
+[SIP-2537]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md
+[SIP-2935]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2935.md
+[SIP-7549]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7549.md
 """  # noqa: E501
 
 from sila.fork_criteria import ByTimestamp, ForkCriteria

@@ -13,7 +13,7 @@ All CALL-family opcodes (CALL, DELEGATECALL, STATICCALL) pass the
 full reservoir to child frames.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

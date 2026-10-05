@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-## [SIP-<sip-number>](https://sips.sila.org/SIPS/sip-<sip-number>)
+## [SIP-<sip-number>](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-<sip-number>.md)
 
 ### Target Fork
 
@@ -20,7 +20,7 @@ assignees: ''
 > [!IMPORTANT]
 > A specifications specialist and a testing specialist should ideally share ownership of the SIP.
 
-- [ ] Add the issue to the target fork milestone if applicable (i.e., the SIP is at least in the [CFI stage](https://sips.sila.org/SIPS/sip-7723#considered-for-inclusion)).
+- [ ] Add the issue to the target fork milestone if applicable (i.e., the SIP is at least in the [CFI stage](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7723.md#considered-for-inclusion)).
 
 #### Guidance for Marking Items Complete
 

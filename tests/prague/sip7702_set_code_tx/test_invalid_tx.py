@@ -2,7 +2,7 @@
 Tests invalid set-code transactions from SIP-7702.
 
 Tests invalid set-code transactions from
-[SIP-7702: Set EOA account code for one transaction](https://sips.sila.org/SIPS/sip-7702).
+[SIP-7702: Set EOA account code for one transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 from enum import Enum, auto

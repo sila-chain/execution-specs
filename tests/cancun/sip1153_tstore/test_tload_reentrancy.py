@@ -1,5 +1,6 @@
 """
-[SIP-1153](https://sips.sila.org/SIPS/sip-1153) Transient Storage tests.
+Transient Storage tests for
+[SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md).
 """
 
 from enum import Enum

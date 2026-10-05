@@ -27,10 +27,10 @@ with the first new transaction type—optional access lists.
 - [Nethermind 1.10.58][n]
 - [OpenSila 3.2.0][oe]
 
-[SIP-2565]: https://sips.sila.org/SIPS/sip-2565
-[SIP-2929]: https://sips.sila.org/SIPS/sip-2929
-[SIP-2718]: https://sips.sila.org/SIPS/sip-2718
-[SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+[SIP-2565]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2565.md
+[SIP-2929]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2929.md
+[SIP-2718]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2718.md
+[SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
 [Besu 21.1.2]: https://github.com/besu-sil/besu/releases/tag/21.1.2
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.2.0
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.10.58

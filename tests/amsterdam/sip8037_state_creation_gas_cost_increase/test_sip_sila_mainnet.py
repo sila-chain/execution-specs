@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-8037: State Creation Gas Cost Increase](https://sips.sila.org/SIPS/sip-8037).
+[SIP-8037: State Creation Gas Cost Increase](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

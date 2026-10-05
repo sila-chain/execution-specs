@@ -21,21 +21,21 @@ deterministic ``CREATE2`` factory contract.
 
 ### Releases
 
-[SIP-7773]: https://sips.sila.org/SIPS/sip-7773
-[SIP-2780]: https://sips.sila.org/SIPS/sip-2780
-[SIP-7708]: https://sips.sila.org/SIPS/sip-7708
-[SIP-7778]: https://sips.sila.org/SIPS/sip-7778
-[SIP-7843]: https://sips.sila.org/SIPS/sip-7843
-[SIP-7928]: https://sips.sila.org/SIPS/sip-7928
-[SIP-7954]: https://sips.sila.org/SIPS/sip-7954
-[SIP-7976]: https://sips.sila.org/SIPS/sip-7976
-[SIP-7981]: https://sips.sila.org/SIPS/sip-7981
-[SIP-7997]: https://sips.sila.org/SIPS/sip-7997
-[SIP-8024]: https://sips.sila.org/SIPS/sip-8024
-[SIP-8037]: https://sips.sila.org/SIPS/sip-8037
-[SIP-8038]: https://sips.sila.org/SIPS/sip-8038
-[SIP-8246]: https://sips.sila.org/SIPS/sip-8246
-[SIP-8282]: https://sips.sila.org/SIPS/sip-8282
+[SIP-7773]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7773.md
+[SIP-2780]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2780.md
+[SIP-7708]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7708.md
+[SIP-7778]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7778.md
+[SIP-7843]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7843.md
+[SIP-7928]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7928.md
+[SIP-7954]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7954.md
+[SIP-7976]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md
+[SIP-7981]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7981.md
+[SIP-7997]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md
+[SIP-8024]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8024.md
+[SIP-8037]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md
+[SIP-8038]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md
+[SIP-8246]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8246.md
+[SIP-8282]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md
 """
 
 from sila.fork_criteria import ForkCriteria, Unscheduled

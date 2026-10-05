@@ -18,9 +18,9 @@ See [`parse_deposit_requests`][pd] for how deposit logs become request data,
 header, and [`process_general_purpose_requests`][pgpr] for how the requests are
 processed.
 
-[SIP-4895]: https://sips.sila.org/SIPS/sip-4895
-[SIP-7685]: https://sips.sila.org/SIPS/sip-7685
-[SIP-8282]: https://sips.sila.org/SIPS/sip-8282
+[SIP-4895]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4895.md
+[SIP-7685]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md
+[SIP-8282]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md
 [rh]: ref:sila.forks.sila_amsterdam.blocks.Header.requests_hash
 [dt]: ref:sila.forks.sila_amsterdam.requests.DEPOSIT_REQUEST_TYPE
 [wt]: ref:sila.forks.sila_amsterdam.requests.WITHDRAWAL_REQUEST_TYPE
@@ -54,7 +54,7 @@ SilaMainnet address of the beacon chain deposit contract. Scanning block
 receipts for logs emitted by this address is how the execution layer
 discovers validator deposits, per [SIP-6110].
 
-[SIP-6110]: https://sips.sila.org/SIPS/sip-6110
+[SIP-6110]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md
 """
 
 DEPOSIT_EVENT_SIGNATURE_HASH = hex_to_bytes32(
@@ -72,7 +72,7 @@ DEPOSIT_REQUEST_TYPE = b"\x00"
 """
 Request type byte identifying a deposit request, per [SIP-6110].
 
-[SIP-6110]: https://sips.sila.org/SIPS/sip-6110
+[SIP-6110]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md
 """
 
 WITHDRAWAL_REQUEST_TYPE = b"\x01"
@@ -80,28 +80,28 @@ WITHDRAWAL_REQUEST_TYPE = b"\x01"
 Request type byte identifying an execution-triggered withdrawal request,
 per [SIP-7002].
 
-[SIP-7002]: https://sips.sila.org/SIPS/sip-7002
+[SIP-7002]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md
 """
 
 CONSOLIDATION_REQUEST_TYPE = b"\x02"
 """
 Request type byte identifying a consolidation request, per [SIP-7251].
 
-[SIP-7251]: https://sips.sila.org/SIPS/sip-7251
+[SIP-7251]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md
 """
 
 BUILDER_DEPOSIT_REQUEST_TYPE = b"\x03"
 """
 Request type byte identifying a builder deposit request, per [SIP-8282].
 
-[SIP-8282]: https://sips.sila.org/SIPS/sip-8282
+[SIP-8282]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md
 """
 
 BUILDER_EXIT_REQUEST_TYPE = b"\x04"
 """
 Request type byte identifying a builder exit request, per [SIP-8282].
 
-[SIP-8282]: https://sips.sila.org/SIPS/sip-8282
+[SIP-8282]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md
 """
 
 
@@ -315,7 +315,7 @@ def compute_requests_hash(requests: List[Bytes]) -> Bytes:
     consensus layer re-derives to validate that both layers observed the
     same set of requests.
 
-    [SIP-7685]: https://sips.sila.org/SIPS/sip-7685
+    [SIP-7685]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md
     [SHA2-256]: https://en.wikipedia.org/wiki/SHA-2
     [rh]: ref:sila.forks.sila_amsterdam.blocks.Header.requests_hash
     """

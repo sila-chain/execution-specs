@@ -26,8 +26,8 @@ marks the integration of the [consensus layer] with the execution layer
 - [Nethermind 1.14.1][nm]
 
 [consensus layer]: https://github.com/sila-chain/consensus-specs
-[SIP-3675]: https://sips.sila.org/SIPS/sip-3675
-[SIP-4399]: https://sips.sila.org/SIPS/sip-4399
+[SIP-3675]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3675.md
+[SIP-4399]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4399.md
 [Besu 22.7.2]: https://github.com/besu-sil/besu/releases/tag/22.7.2
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2022.09.01
 [nm]: https://github.com/NethermindEth/nethermind/releases/tag/1.14.1

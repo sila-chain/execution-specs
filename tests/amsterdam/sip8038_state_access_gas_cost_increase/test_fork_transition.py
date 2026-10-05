@@ -1,6 +1,6 @@
 """
 Fork-transition tests for
-[SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+[SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 "Same operation, different gas" across the SilaAmsterdam boundary. A block
 at ``timestamp=14_999`` runs under the pre-fork (parent) schedule; a

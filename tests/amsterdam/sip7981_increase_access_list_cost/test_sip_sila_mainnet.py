@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-7981: Increase Access List Cost](https://sips.sila.org/SIPS/sip-7981).
+Crafted tests for sila-mainnet of [SIP-7981: Increase Access List Cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7981.md).
 """
 
 import pytest

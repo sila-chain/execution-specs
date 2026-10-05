@@ -18,7 +18,7 @@ Pull requests should have reasonable substance and context. In particular, we do
 
 ## Code of Conduct
 
-All contributors are expected to be excellent to each other; other behavior is not tolerated. To report a concern, contact one of the [STEEL team members](https://steel.sila.foundation/team/).
+All contributors are expected to be excellent to each other; other behavior is not tolerated. To report a concern, contact one of the STEEL team members.
 
 ## Principles
 

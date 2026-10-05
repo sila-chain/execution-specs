@@ -1,5 +1,5 @@
 """
-A state test for [SIP-7702 SetCodeTX](https://sips.sila.org/SIPS/sip-7702).
+A state test for [SIP-7702 SetCodeTX](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 from enum import Enum, IntEnum

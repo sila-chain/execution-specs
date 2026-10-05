@@ -1,8 +1,8 @@
 """
-[SIP-7918: Blob base fee bounded by execution cost](https://sips.sila.org/SIPS/sip-7918).
+[SIP-7918: Blob base fee bounded by execution cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7918.md).
 
 Test the blob base fee reserve price mechanism for
-[SIP-7918: Blob base fee bounded by execution cost](https://sips.sila.org/SIPS/sip-7918).
+[SIP-7918: Blob base fee bounded by execution cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7918.md).
 """
 
 from typing import Any, Dict, Iterator, List

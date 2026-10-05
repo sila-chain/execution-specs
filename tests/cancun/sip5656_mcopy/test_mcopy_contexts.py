@@ -1,7 +1,7 @@
 """
 Test memory copy under different call contexts.
 
-Tests for [SIP-5656: MCOPY - Memory copying instruction](https://sips.sila.org/SIPS/sip-5656).
+Tests for [SIP-5656: MCOPY - Memory copying instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md).
 """
 
 from itertools import cycle, islice

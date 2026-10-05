@@ -4,7 +4,7 @@ SIP-4844: Shard Blob Transactions.
 Shard Blob Transactions scale data-availability of Sila in a simple,
 forwards-compatible manner.
 
-https://sips.sila.org/SIPS/sip-4844
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
 """
 
 from dataclasses import replace

@@ -1,6 +1,6 @@
 """
 Crafted tests for sila-mainnet of
-[SIP-2935: Serve historical block hashes from state](https://sips.sila.org/SIPS/sip-2935).
+[SIP-2935: Serve historical block hashes from state](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2935.md).
 """
 
 import pytest

@@ -2,7 +2,7 @@
 What is left of a contract that self-destructs in the transaction that
 created it.
 
-Tests for [SIP-6780: SELFDESTRUCT only in same transaction](https://sips.sila.org/SIPS/sip-6780).
+Tests for [SIP-6780: SELFDESTRUCT only in same transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6780.md).
 
 Such a contract may self-destruct more than once, and may receive more
 value afterwards. At the end of the transaction, before SIP-8246 the

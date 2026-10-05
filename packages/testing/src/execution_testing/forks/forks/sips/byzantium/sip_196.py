@@ -2,7 +2,7 @@
 SIP-196: Precompiled contracts for addition and scalar multiplication on
 the elliptic curve alt_bn128.
 
-https://sips.sila.org/SIPS/sip-196
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-196.md
 """
 
 from dataclasses import replace

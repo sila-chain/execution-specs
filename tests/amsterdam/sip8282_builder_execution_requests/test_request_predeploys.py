@@ -1,6 +1,6 @@
 """
 Request predeploy tests for
-[SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+[SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 
 The builder deposit and exit contracts reuse the queue design of the
 SIP-7002 withdrawal and SIP-7251 consolidation contracts, so every test

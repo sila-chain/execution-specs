@@ -22,9 +22,9 @@ difficulty bomb, and adds an improved delegate call EVM instruction.
 - CPP Sila 1.2.0
 - Gsil 1.3.5
 
-[SIP-2]: https://sips.sila.org/SIPS/sip-2
-[SIP-7]: https://sips.sila.org/SIPS/sip-7
-[SIP-8]: https://sips.sila.org/SIPS/sip-8
+[SIP-2]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2.md
+[SIP-7]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7.md
+[SIP-8]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8.md
 """
 
 from sila.fork_criteria import ByBlockNumber, ForkCriteria

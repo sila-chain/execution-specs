@@ -1,6 +1,6 @@
 """
 SilaMainnet-marked happy-path smoke tests for
-[SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+[SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 One minimal success per repriced dimension (no boundaries, no exact
 magnitudes): a state slot is written, a value-bearing cold ``CALL``

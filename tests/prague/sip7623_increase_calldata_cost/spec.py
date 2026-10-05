@@ -20,7 +20,7 @@ ref_spec_7623 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7623 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7623.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7623.md.
     """
 
     TX_DATA_TOKEN_STANDARD = 4

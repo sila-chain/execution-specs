@@ -2,9 +2,9 @@
 Tests that reaching the maximum account nonce (`2**64 - 1`) during execution
 is valid.
 
-Per [SIP-2681](https://sips.sila.org/SIPS/sip-2681) only a transaction
-whose nonce is `2**64 - 1` is invalid; merely incrementing an account to that
-value while executing a transaction is permitted.
+Per [SIP-2681](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2681.md)
+only a transaction whose nonce is `2**64 - 1` is invalid; merely incrementing
+an account to that value while executing a transaction is permitted.
 """
 
 import pytest

@@ -56,7 +56,7 @@ ref_spec_4844 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-4844 specifications as defined at
-    https://sips.sila.org/SIPS/sip-4844#parameters.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md#parameters.
 
     If the parameter is not currently used within the tests, it is commented
     out.

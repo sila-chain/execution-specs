@@ -98,7 +98,7 @@ class Scalar(BytesConcatenation):
 class Spec:
     """
     Parameters from the SIP-2537 specifications as defined at
-    https://sips.sila.org/SIPS/sip-2537.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md.
     """
 
     # Addresses

@@ -22,7 +22,7 @@ ref_spec_4788 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-4788 specifications as defined at
-    https://sips.sila.org/SIPS/sip-4788#specification.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4788.md#specification.
     """
 
     BEACON_ROOTS_ADDRESS = 0x000F3DF6D732807EF1319FB7B8BB8522D0BEAC02

@@ -1,7 +1,7 @@
 """
 Common procedures to test
 [SIP-7685: General purpose execution
-layer requests](https://sips.sila.org/SIPS/sip-7685).
+layer requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md).
 """
 
 from dataclasses import dataclass

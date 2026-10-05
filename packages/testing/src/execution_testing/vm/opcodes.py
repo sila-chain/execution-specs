@@ -2358,7 +2358,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [SIP-4844](https://sips.sila.org/SIPS/sip-4844)
+    Source: [SIP-4844](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md)
     """
 
     BLOBBASEFEE = Opcode(0x4A, popped_stack_items=0, pushed_stack_items=1)
@@ -2386,7 +2386,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [SIP-7516](https://sips.sila.org/SIPS/sip-7516)
+    Source: [SIP-7516](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7516.md)
     """
 
     SLOTNUM = Opcode(0x4B, popped_stack_items=0, pushed_stack_items=1)
@@ -2416,7 +2416,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [SIP-7843](https://sips.sila.org/SIPS/sip-7843)
+    Source: [SIP-7843](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7843.md)
     """
 
     POP = Opcode(0x50, popped_stack_items=1)
@@ -2896,7 +2896,7 @@ class Opcodes(Opcode, Enum):
     ----
     100
 
-    Source: [sips.sila.org/SIPS/sip-1153](https://sips.sila.org/SIPS/sip-1153)
+    Source: [SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md)
     """
 
     TSTORE = Opcode(0x5D, popped_stack_items=2, kwargs=["key", "value"])
@@ -2921,7 +2921,7 @@ class Opcodes(Opcode, Enum):
     ----
     100
 
-    Source: [SIP-1153](https://sips.sila.org/SIPS/sip-1153)
+    Source: [SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md)
     """
 
     MCOPY = Opcode(
@@ -2964,7 +2964,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [SIP-5656](https://sips.sila.org/SIPS/sip-5656)
+    Source: [SIP-5656](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md)
     """
 
     PUSH0 = Opcode(0x5F, pushed_stack_items=1)

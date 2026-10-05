@@ -2,7 +2,7 @@
 Get blobs engine endpoint tests.
 
 Tests for get blobs engine endpoint in [SIP-7594: PeerDAS - Peer Data
-Availability Sampling](https://sips.sila.org/SIPS/sip-7594).
+Availability Sampling](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7594.md).
 """
 
 from hashlib import sha256

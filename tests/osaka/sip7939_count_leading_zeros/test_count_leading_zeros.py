@@ -1,5 +1,5 @@
 """
-Tests [SIP-7939: Count leading zeros (CLZ)](https://sips.sila.org/SIPS/sip-7939).
+Tests [SIP-7939: Count leading zeros (CLZ)](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7939.md).
 """
 
 import pytest

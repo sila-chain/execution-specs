@@ -4,7 +4,7 @@ SIP-3855: PUSH0 instruction.
 Introduce a new instruction which pushes the constant value 0 onto the
 stack.
 
-https://sips.sila.org/SIPS/sip-3855
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3855.md
 """
 
 from typing import Callable, Dict, List

@@ -1,6 +1,6 @@
 """
 Builder exit request tests for
-[SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+[SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 """
 
 from typing import List

@@ -34,7 +34,7 @@ By default, the execution-testing framework only generates fixtures for forks th
 
 ## Further Help
 
-1. [`gsil`/`sivm` build documentation](https://gsil.sila.org/docs/getting-started/installing-gsil#build-from-source).
+1. [`gsil`/`sivm` build documentation](https://github.com/sila-chain/go-sila#building-the-source).
 2. [`solc` build documentation](https://docs.soliditylang.org/en/v0.8.20/installing-solidity.html#building-from-source).
 
 !!! note "Verifying `evm` and `solc` versions used"

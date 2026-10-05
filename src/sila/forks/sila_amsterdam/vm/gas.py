@@ -314,7 +314,7 @@ class GasMeter:
     quantity `state_gas_from_gas_left`.
 
     [repay]: ref:sila.forks.sila_amsterdam.vm.gas.repay_state_gas_spill
-    [SIP-8037]: https://sips.sila.org/SIPS/sip-8037
+    [SIP-8037]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md
     """
 
     state_gas_committed_spill: StateGas = StateGas(Uint(0))
@@ -1217,7 +1217,7 @@ def settle_transaction_gas(
     settlement : `TransactionGasSettlement`
         The settled gas amounts.
 
-    [SIP-7778]: https://sips.sila.org/SIPS/sip-7778
+    [SIP-7778]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7778.md
 
     """
     gas_used_before_refund = tx_gas - gas_left - state_gas_left

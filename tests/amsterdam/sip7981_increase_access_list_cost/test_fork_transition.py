@@ -1,5 +1,5 @@
 """
-Fork-transition tests for [SIP-7981: Increase Access List Cost](https://sips.sila.org/SIPS/sip-7981).
+Fork-transition tests for [SIP-7981: Increase Access List Cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7981.md).
 
 SIP-7981 adds a data-footprint surcharge for access list bytes at the
 SilaAmsterdam fork boundary. These tests send identical access-list

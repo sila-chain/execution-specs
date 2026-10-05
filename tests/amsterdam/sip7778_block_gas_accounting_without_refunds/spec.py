@@ -19,5 +19,5 @@ ref_spec_7778 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7778 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7778.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7778.md.
     """

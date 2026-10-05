@@ -1,7 +1,7 @@
 """
 SIP-8246: Remove SELFDESTRUCT balance burn.
 
-https://sips.sila.org/SIPS/sip-8246
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8246.md
 """
 
 from ....base_fork import BaseFork

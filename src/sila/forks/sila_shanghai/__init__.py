@@ -31,10 +31,10 @@ bytecode, and deprecates the self-destruct EVM instruction.
 - [SilaJS 6.4.0][js]
 - [Nethermind 1.17.3][n]
 
-[SIP-3651]: https://sips.sila.org/SIPS/sip-3651
-[SIP-3855]: https://sips.sila.org/SIPS/sip-3855
-[SIP-3860]: https://sips.sila.org/SIPS/sip-3860
-[SIP-4895]: https://sips.sila.org/SIPS/sip-4895
+[SIP-3651]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3651.md
+[SIP-3855]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3855.md
+[SIP-3860]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3860.md
+[SIP-4895]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4895.md
 [Besu 23.1.2]: https://github.com/besu-sil/besu/releases/tag/23.1.2
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.17.3
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2.41.0

@@ -3,7 +3,7 @@ SIP-3529: Reduction in refunds.
 
 Remove gas refunds for SELFDESTRUCT and reduce refunds for SSTORE.
 
-https://sips.sila.org/SIPS/sip-3529
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3529.md
 """
 
 from dataclasses import replace

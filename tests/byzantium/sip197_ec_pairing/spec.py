@@ -28,7 +28,7 @@ class PointG2(BytesConcatenation):
 class Spec:
     """
     Parameters from the SIP-197 specification
-    (https://sips.sila.org/SIPS/sip-197).
+    (https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-197.md).
     """
 
     # The prime modulus of the BN254 prime field Fp (from SIP-196)

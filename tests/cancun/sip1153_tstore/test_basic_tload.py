@@ -1,6 +1,6 @@
 """
 Sila Transient Storage SIP Tests
-https://sips.sila.org/SIPS/sip-1153.
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md.
 """
 
 from typing import Dict, Union

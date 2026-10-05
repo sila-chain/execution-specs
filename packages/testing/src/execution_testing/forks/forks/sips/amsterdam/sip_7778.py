@@ -4,7 +4,7 @@ SIP-7778: Block Gas Accounting without Refunds.
 Prevent Block Gas Limit Circumvention by Excluding Refunds from Block Gas
 Accounting.
 
-https://sips.sila.org/SIPS/sip-7778
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7778.md
 """
 
 from ....base_fork import BaseFork

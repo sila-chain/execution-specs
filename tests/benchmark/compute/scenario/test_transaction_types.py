@@ -320,7 +320,7 @@ def calldata_generator(
     fork: Fork,
 ) -> bytes:
     """Calculate the calldata based on the gas amount and zero byte."""
-    # Gas cost calculation based on SIP-7683: (https://sips.sila.org/SIPS/sip-7683)
+    # Gas cost calculation based on SIP-7683:
     #
     #   tx.gasUsed = 21000 + max(
     #       TX_DATA_TOKEN_STANDARD * tokens_in_calldata

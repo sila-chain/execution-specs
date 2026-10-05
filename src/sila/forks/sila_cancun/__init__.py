@@ -30,13 +30,13 @@ same transaction, and adds an instruction to read the blob base fee.
 - [Nethermind 1.25.4][n]
 - [Rsil 0.1.0-alpha.19][r]
 
-[SIP-7569]: https://sips.sila.org/SIPS/sip-7569
-[SIP-1153]: https://sips.sila.org/SIPS/sip-1153
-[SIP-4788]: https://sips.sila.org/SIPS/sip-4788
-[SIP-4844]: https://sips.sila.org/SIPS/sip-4844
-[SIP-5656]: https://sips.sila.org/SIPS/sip-5656
-[SIP-6780]: https://sips.sila.org/SIPS/sip-6780
-[SIP-7516]: https://sips.sila.org/SIPS/sip-7516
+[SIP-7569]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7569.md
+[SIP-1153]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md
+[SIP-4788]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4788.md
+[SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
+[SIP-5656]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md
+[SIP-6780]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6780.md
+[SIP-7516]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7516.md
 [Besu 24.1.2]: https://github.com/besu-sil/besu/releases/tag/24.1.2
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2.58.1
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.25.4

@@ -1,5 +1,5 @@
 """
-Test [SIP-198: MODEXP Precompile](https://sips.sila.org/SIPS/sip-198).
+Test [SIP-198: MODEXP Precompile](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-198.md).
 
 Tests the MODEXP precompile, located at address 0x0000..0005. Test cases
 from the SIP are labelled with `SIP-198-caseX` in the test id.

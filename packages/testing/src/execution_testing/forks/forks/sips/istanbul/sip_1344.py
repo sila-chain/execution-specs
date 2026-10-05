@@ -4,7 +4,7 @@ SIP-1344: ChainID opcode.
 Add a new opcode that returns the current chain's SIP-155 unique
 identifier.
 
-https://sips.sila.org/SIPS/sip-1344
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1344.md
 """
 
 from typing import Callable, Dict, List

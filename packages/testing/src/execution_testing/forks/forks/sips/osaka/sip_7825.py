@@ -4,7 +4,7 @@ SIP-7825: Transaction gas limit cap.
 Introduce a protocol-level cap on the maximum gas used by a transaction to
 16,777,216 (2^24).
 
-https://sips.sila.org/SIPS/sip-7825
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md
 """
 
 from ....base_fork import BaseFork

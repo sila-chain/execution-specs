@@ -1,7 +1,7 @@
 """
 Reference spec for SIP-7928: Block-level Access Lists.
 
-https://sips.sila.org/SIPS/sip-7928
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7928.md
 """
 
 from dataclasses import dataclass

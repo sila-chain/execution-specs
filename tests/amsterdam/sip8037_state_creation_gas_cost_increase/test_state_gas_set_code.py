@@ -26,8 +26,9 @@ For a value-free type-4 transaction whose recipient runs code ``code``:
   evm_state``.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037); the ``valid_from("SIP8037")``
-markers resolve to SilaAmsterdam, where SIP-2780 governs the charge model.
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md); the
+``valid_from("SIP8037")`` markers resolve to SilaAmsterdam, where SIP-2780
+governs the charge model.
 """
 
 import pytest

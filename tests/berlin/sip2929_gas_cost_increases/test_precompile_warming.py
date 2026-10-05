@@ -3,7 +3,7 @@ Tests SIP-2929 precompile warming behavior.
 
 Tests precompile warming behavior across fork transitions from
 [SIP-2929: Gas cost increases for state access opcodes]
-    (https://sips.sila.org/SIPS/sip-2929).
+    (https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2929.md).
 """
 
 from typing import Iterator, Tuple

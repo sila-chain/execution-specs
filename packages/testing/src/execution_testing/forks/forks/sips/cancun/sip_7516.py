@@ -3,7 +3,7 @@ SIP-7516: BLOBBASEFEE instruction.
 
 Instruction that returns the current data-blob base-fee.
 
-https://sips.sila.org/SIPS/sip-7516
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7516.md
 """
 
 from typing import Callable, Dict, List

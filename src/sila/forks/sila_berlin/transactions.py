@@ -32,7 +32,7 @@ class LegacyTransaction:
     Atomic operation performed on the block chain. This represents the original
     transaction format used before [SIP-2930].
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
 
     nonce: U256
@@ -114,7 +114,7 @@ class AccessListTransaction:
     and chain ID. The access list specifies which addresses and storage slots
     the transaction will access.
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
 
     chain_id: U64
@@ -235,7 +235,7 @@ def validate_transaction(tx: Transaction) -> Uint:
     provide enough gas to cover the intrinsic cost, and a `NonceOverflowError`
     exception if the nonce is greater than `2**64 - 2`.
 
-    [SIP-2681]: https://sips.sila.org/SIPS/sip-2681
+    [SIP-2681]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2681.md
     """
     intrinsic_gas = calculate_intrinsic_cost(tx)
     if intrinsic_gas > tx.gas:
@@ -296,7 +296,7 @@ def chain_id(tx: Transaction) -> None | U64:
     """
     Extract the chain identifier from a transaction. See [SIP-155].
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     if isinstance(tx, LegacyTransaction):
         if tx.v == 27 or tx.v == 28:
@@ -364,7 +364,7 @@ def signing_hash_pre155(tx: Transaction) -> Hash32:
     This function takes a transaction as a parameter and returns the
     hash of the transaction used in a legacy signature.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(
@@ -387,7 +387,7 @@ def signing_hash_155(tx: Transaction, chain_id: U64) -> Hash32:
     This function takes a transaction and chain ID as parameters and returns
     the hash of the transaction used in a [SIP-155] signature.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(
@@ -413,7 +413,7 @@ def signing_hash_2930(tx: AccessListTransaction) -> Hash32:
     This function takes an access list transaction as a parameter
     and returns the hash of the transaction used in an [SIP-2930] signature.
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
     return keccak256(
         b"\x01"

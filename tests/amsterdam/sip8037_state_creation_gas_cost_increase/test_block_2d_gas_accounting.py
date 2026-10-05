@@ -6,7 +6,7 @@ max(block_execution_gas_used, block_state_gas_used) across
 single-block, multi-block, and mixed-transaction scenarios.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

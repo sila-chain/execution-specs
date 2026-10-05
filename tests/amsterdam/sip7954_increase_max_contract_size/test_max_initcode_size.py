@@ -1,5 +1,5 @@
 """
-Test [SIP-7954: Increase Maximum Contract Size](https://sips.sila.org/SIPS/sip-7954).
+Test [SIP-7954: Increase Maximum Contract Size](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7954.md).
 
 Tests for the increased maximum initcode size (128 KiB).
 """

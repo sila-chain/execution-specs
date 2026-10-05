@@ -2,7 +2,7 @@
 SIP-7883 ModExp gas cost increase tests.
 
 Tests for ModExp gas cost increase in
-[SIP-7883: ModExp Gas Cost Increase](https://sips.sila.org/SIPS/sip-7883).
+[SIP-7883: ModExp Gas Cost Increase](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7883.md).
 """
 
 from typing import Dict, Generator
@@ -674,7 +674,7 @@ def create_modexp_variable_gas_test_cases() -> Generator:
     #
     # Please refer to SIP-7883 for details of each function in the gas
     # calculation.
-    # Link: https://sips.sila.org/SIPS/sip-7883
+    # Link: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7883.md
     #
     # - calculate_multiplication_complexity:
     #   - Comp: if max_length <= 32 bytes, it is Small (S), otherwise it is

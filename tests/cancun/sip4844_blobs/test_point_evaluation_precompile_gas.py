@@ -2,7 +2,7 @@
 Tests gas usage on point evaluation precompile for SIP-4844.
 
 Tests gas usage on point evaluation precompile for
-[SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+[SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 """
 
 from typing import Dict, Literal

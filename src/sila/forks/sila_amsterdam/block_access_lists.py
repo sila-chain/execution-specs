@@ -8,7 +8,7 @@ state root computation, and applying state updates without executing bytecode.
 
 See [`BlockAccessList`][bal] for more detail.
 
-[SIP-7928]: https://sips.sila.org/SIPS/sip-7928
+[SIP-7928]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7928.md
 [bal]: ref:sila.forks.sila_amsterdam.block_access_lists.BlockAccessList
 """
 

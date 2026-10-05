@@ -2,8 +2,8 @@
 Test MCOPY with memory expansion and potential OOG errors.
 
 Test copy operations of [SIP-5656: MCOPY - Memory copying
-instruction](https://sips.sila.org/SIPS/sip-5656) that produce
-a memory expansion, and potentially an out-of-gas error.
+instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md)
+that produce a memory expansion, and potentially an out-of-gas error.
 """
 
 import itertools

@@ -2,7 +2,7 @@
 Transaction gas limit cap tests.
 
 Tests for transaction gas limit cap in [SIP-7825: Transaction Gas Limit
-Cap](https://sips.sila.org/SIPS/sip-7825).
+Cap](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md).
 
 Note: Most tests are limited to SilaOsaka (valid_at/valid_until) because
 SIP-8037 allows tx.gas_limit > TX_MAX_GAS_LIMIT with excess going to

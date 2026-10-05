@@ -1,7 +1,7 @@
 """
 SIP-170: Contract code size limit.
 
-https://sips.sila.org/SIPS/sip-170
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-170.md
 """
 
 from ....base_fork import BaseFork

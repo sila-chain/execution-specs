@@ -19,7 +19,7 @@ ref_spec_6110 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-6110 specifications as defined at
-    https://sips.sila.org/SIPS/sip-6110.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md.
     """
 
     DEPOSIT_EVENT_SIGNATURE_HASH = (

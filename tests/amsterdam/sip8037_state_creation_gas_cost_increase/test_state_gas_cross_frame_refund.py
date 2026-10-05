@@ -16,7 +16,7 @@ a local refill can already make the second of two `GAS` readings larger
 than the first. Merge-time repayment extends it across a frame boundary.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

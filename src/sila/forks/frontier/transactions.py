@@ -99,7 +99,7 @@ def validate_transaction(tx: Transaction) -> Uint:
     provide enough gas to cover the intrinsic cost, and a `NonceOverflowError`
     exception if the nonce is greater than `2**64 - 2`.
 
-    [SIP-2681]: https://sips.sila.org/SIPS/sip-2681
+    [SIP-2681]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2681.md
     """
     intrinsic_gas = calculate_intrinsic_cost(tx)
     if intrinsic_gas > tx.gas:

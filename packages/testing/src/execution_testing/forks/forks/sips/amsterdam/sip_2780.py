@@ -5,7 +5,7 @@ Decompose the intrinsic transaction gas into explicit recipient-access
 and value-transfer primitives so that the cost paid before execution
 reflects the actual work the transaction will perform.
 
-https://sips.sila.org/SIPS/sip-2780
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2780.md
 """
 
 from dataclasses import replace

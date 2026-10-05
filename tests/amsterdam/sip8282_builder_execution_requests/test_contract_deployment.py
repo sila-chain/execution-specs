@@ -1,5 +1,5 @@
 """
-Tests [SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+Tests [SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 """  # noqa: E501
 
 from os.path import realpath

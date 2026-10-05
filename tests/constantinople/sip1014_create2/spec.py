@@ -19,5 +19,5 @@ ref_spec_1014 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-1014 specifications as defined at
-    https://sips.sila.org/SIPS/sip-1014.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1014.md.
     """

@@ -3,7 +3,7 @@ Tests BLS12 precompiles before fork activation.
 
 Tests the BLS12 precompiles behavior before fork activation from
 [SIP-2537: Precompile for BLS12-381 curve operations]
-(https://sips.sila.org/SIPS/sip-2537).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 import pytest

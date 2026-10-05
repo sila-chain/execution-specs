@@ -30,11 +30,11 @@ reserves a contract prefix for future use, and delays the difficulty bomb.
 - [Nethermind 1.10.79][n]
 - [OpenSila 3.3.0-rc.4][oe]
 
-[SIP-1559]: https://sips.sila.org/SIPS/sip-1559
-[SIP-3198]: https://sips.sila.org/SIPS/sip-3198
-[SIP-3529]: https://sips.sila.org/SIPS/sip-3529
-[SIP-3541]: https://sips.sila.org/SIPS/sip-3541
-[SIP-3554]: https://sips.sila.org/SIPS/sip-3554
+[SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
+[SIP-3198]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3198.md
+[SIP-3529]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3529.md
+[SIP-3541]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3541.md
+[SIP-3554]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3554.md
 [Besu 21.7.2]: https://github.com/besu-sil/besu/releases/tag/21.7.2
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2021.07.04
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.5.0

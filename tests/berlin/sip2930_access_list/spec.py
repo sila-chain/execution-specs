@@ -20,7 +20,7 @@ ref_spec_2930 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-2930 specifications as defined at
-    https://sips.sila.org/SIPS/sip-2930#specification.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md#specification.
     """
 
     ACCESS_LIST_ADDRESS_COST = 2400

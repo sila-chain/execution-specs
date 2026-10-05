@@ -128,7 +128,7 @@ Fork configuration for the test. It is guaranteed that this field contains the s
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from SilaCancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
+Optional; present from SilaCancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7840.md).
 
 ### `FixtureEngineNewPayload`
 

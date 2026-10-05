@@ -4,7 +4,7 @@ Tests minimum gas and input length for BLS12 precompiles.
 Tests minimum gas and input length requirements for BLS12_G1MSM,
 BLS12_G2MSM, and BLS12_PAIRING precompiles from [SIP-2537: Precompile
 for BLS12-381 curve operations]
-(https://sips.sila.org/SIPS/sip-2537).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 from typing import Callable, List, SupportsBytes

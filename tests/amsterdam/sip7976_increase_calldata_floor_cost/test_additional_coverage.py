@@ -1,5 +1,5 @@
 """
-Additional test coverage for [SIP-7976: Increase calldata floor cost](https://sips.sila.org/SIPS/sip-7976).
+Additional test coverage for [SIP-7976: Increase calldata floor cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md).
 
 This module tests:
 1. Token calculation verification with different byte compositions

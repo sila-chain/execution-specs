@@ -4,7 +4,7 @@ SIP-6110: Supply validator deposits on chain.
 Provides validator deposits as a list of deposit operations added to the
 Execution Layer block.
 
-https://sips.sila.org/SIPS/sip-6110
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md
 """
 
 from functools import cached_property

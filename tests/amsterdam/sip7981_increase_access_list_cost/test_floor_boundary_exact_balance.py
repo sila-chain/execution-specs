@@ -1,6 +1,6 @@
 """
 Tests for the calldata floor boundary with exact-balance funding in
-[SIP-7981: Increase Access List Cost](https://sips.sila.org/SIPS/sip-7981).
+[SIP-7981: Increase Access List Cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7981.md).
 """
 
 import pytest

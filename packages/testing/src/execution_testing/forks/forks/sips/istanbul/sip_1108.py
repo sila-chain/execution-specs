@@ -1,7 +1,7 @@
 """
 SIP-1108: Reduce alt_bn128 precompile gas costs.
 
-https://sips.sila.org/SIPS/sip-1108
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1108.md
 """
 
 from dataclasses import replace

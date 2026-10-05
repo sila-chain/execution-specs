@@ -1,4 +1,4 @@
-"""Reference spec for [SIP-8024: Stack Access Instructions](https://sips.sila.org/SIPS/sip-8024)."""
+"""Reference spec for [SIP-8024: Stack Access Instructions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8024.md)."""
 
 from dataclasses import dataclass
 from typing import Tuple

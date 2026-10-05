@@ -3,7 +3,7 @@ SIP-7843: SLOTNUM opcode.
 
 Opcode to get the current slot number.
 
-https://sips.sila.org/SIPS/sip-7843
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7843.md
 """
 
 from typing import Callable, Dict, List

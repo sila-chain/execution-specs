@@ -99,7 +99,7 @@ class Header:
     from included transactions. Base fees (introduced in [SIP-1559]) are burned
     and do not go to the coinbase.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     state_root: Root
@@ -163,12 +163,10 @@ class Header:
     gas that could be consumed by all transactions in the block. Post
     [SIP-1559], this is still the maximum gas limit, but the base fee per gas
     is also considered when calculating the effective gas limit. This can be
-    [adjusted by a factor of 1/1024] from the previous block's gas limit, up
+    adjusted by a factor of 1/1024 from the previous block's gas limit, up
     until a maximum of 30 million gas.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
-    [adjusted by a factor of 1/1024]:
-    https://sila.org/en/developers/docs/blocks/
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     gas_used: Uint
@@ -202,7 +200,7 @@ class Header:
     [SIP-1559]. This is the minimum fee per gas that must be paid for a
     transaction to be included in this block.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     withdrawals_root: Root

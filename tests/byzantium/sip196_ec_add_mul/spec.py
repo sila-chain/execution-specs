@@ -47,7 +47,7 @@ class PointG1(BytesConcatenation):
 
 class Spec:
     """
-    Parameters from the SIP-196 specification (https://sips.sila.org/SIPS/sip-196)
+    Parameters from the SIP-196 specification (https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-196.md)
     with some modifications for readability.
     """
 

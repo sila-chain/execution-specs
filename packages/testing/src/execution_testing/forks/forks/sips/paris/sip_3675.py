@@ -4,7 +4,7 @@ SIP-3675: Upgrade consensus to Proof-of-Stake.
 Deprecate Proof-of-Work and upgrade the consensus mechanism to
 Proof-of-Stake.
 
-https://sips.sila.org/SIPS/sip-3675
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3675.md
 """
 
 from ....base_fork import BaseFork

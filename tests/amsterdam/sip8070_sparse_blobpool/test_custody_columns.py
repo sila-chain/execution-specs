@@ -3,7 +3,7 @@ Custody columns forkchoice tests.
 
 Tests for the `custodyColumns` parameter of `engine_forkchoiceUpdatedV4`
 in [SIP-8070: sil/72 - Sparse Blobpool](
-https://sips.sila.org/SIPS/sip-8070).
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8070.md).
 
 `custodyColumns` is an optional 16-byte bitmap informing the execution
 client of the blob columns it must custody. A well-formed bitmap must be

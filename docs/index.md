@@ -72,7 +72,7 @@ SELS is a collaborative effort between Sila Improvement Proposals (SIP) authors,
 
 !!! bug "Reporting a Vulnerability"
 
-    Care is required when adding PRs or issues for functionality that is live on Sila sila-mainnet. Please report vulnerabilities and verify bounty eligibility via the [bug bounty program](https://bounty.sila.org).
+    Care is required when adding PRs or issues for functionality that is live on Sila sila-mainnet. Please report vulnerabilities and verify bounty eligibility via the bug bounty program.
 
     - **Please do not create a PR with a vulnerability visible.**
     - **Please do not file a public ticket mentioning the vulnerability.**

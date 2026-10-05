@@ -99,7 +99,7 @@ def validate_transaction(tx: Transaction) -> Uint:
     provide enough gas to cover the intrinsic cost, and a `NonceOverflowError`
     exception if the nonce is greater than `2**64 - 2`.
 
-    [SIP-2681]: https://sips.sila.org/SIPS/sip-2681
+    [SIP-2681]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2681.md
     """
     intrinsic_gas = calculate_intrinsic_cost(tx)
     if intrinsic_gas > tx.gas:
@@ -151,7 +151,7 @@ def chain_id(tx: Transaction) -> None | U64:
     """
     Extract the chain identifier from a transaction. See [SIP-155].
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     if tx.v == 27 or tx.v == 28:
         return None
@@ -203,7 +203,7 @@ def signing_hash_pre155(tx: Transaction) -> Hash32:
     This function takes a transaction as a parameter and returns the
     signing hash of the transaction.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(
@@ -226,7 +226,7 @@ def signing_hash_155(tx: Transaction, chain_id: U64) -> Hash32:
     This function takes a transaction and chain ID as parameters and returns
     the hash of the transaction used in a [SIP-155] signature.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(

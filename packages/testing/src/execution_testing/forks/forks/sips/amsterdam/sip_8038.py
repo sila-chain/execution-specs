@@ -12,7 +12,7 @@ reads these values via `super().gas_costs()` and adds its state-byte
 portions to the shared `STORAGE_SET`, `TX_CREATE`, and
 `AUTH_PER_EMPTY_ACCOUNT` totals.
 
-https://sips.sila.org/SIPS/sip-8038
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md
 """
 
 from dataclasses import replace

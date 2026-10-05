@@ -14,7 +14,7 @@ class WrongChainIdError(InvalidTransaction):
     Chain identifier from a transaction does not match the executing chain. See
     [SIP-155].
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
 
     def __init__(self, expected: U64, actual: U64):
@@ -27,7 +27,7 @@ class TransactionTypeError(InvalidTransaction):
     """
     Unknown [SIP-2718] transaction type byte.
 
-    [SIP-2718]: https://sips.sila.org/SIPS/sip-2718
+    [SIP-2718]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2718.md
     """
 
     transaction_type: Final[int]

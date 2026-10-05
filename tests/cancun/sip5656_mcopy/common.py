@@ -1,6 +1,6 @@
 """
 Common procedures to test [SIP-5656: MCOPY - Memory copying
-instruction](https://sips.sila.org/SIPS/sip-5656).
+instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md).
 """
 
 from copy import copy

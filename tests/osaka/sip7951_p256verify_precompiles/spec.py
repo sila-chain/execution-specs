@@ -68,7 +68,7 @@ class H(FieldElement):
 class Spec:
     """
     Parameters from the SIP-7951 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7951.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md.
     """
 
     # Address

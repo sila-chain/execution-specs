@@ -4,7 +4,7 @@ SIP-2930: Optional access lists.
 Add a transaction type which contains an access list, a list of addresses
 and storage keys that the transaction plans to access.
 
-https://sips.sila.org/SIPS/sip-2930
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
 """
 
 from typing import List, Sized

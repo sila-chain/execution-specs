@@ -1,5 +1,5 @@
 """
-Tests for [SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+Tests for [SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 Covers the SIP-8038 ``SLOAD`` repricing: a cold storage slot read costs
 ``COLD_STORAGE_ACCESS`` and a warm read costs ``WARM_SLOAD``.

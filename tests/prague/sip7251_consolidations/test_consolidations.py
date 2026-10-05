@@ -1,5 +1,5 @@
 """
-Tests [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://sips.sila.org/SIPS/sip-7251).
+Tests [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md).
 """
 
 from typing import List

@@ -30,16 +30,16 @@ contracts, and adds cryptographic primitives for layer 2 scaling.
 - Gsil 1.7.2
 - [Parity 1.7.6][p]
 
-[SIP-100]: https://sips.sila.org/SIPS/sip-100
-[SIP-140]: https://sips.sila.org/SIPS/sip-140
-[SIP-196]: https://sips.sila.org/SIPS/sip-196
-[SIP-197]: https://sips.sila.org/SIPS/sip-197
-[SIP-198]: https://sips.sila.org/SIPS/sip-198
-[SIP-211]: https://sips.sila.org/SIPS/sip-211
-[SIP-214]: https://sips.sila.org/SIPS/sip-214
-[SIP-609]: https://sips.sila.org/SIPS/sip-609
-[SIP-649]: https://sips.sila.org/SIPS/sip-649
-[SIP-658]: https://sips.sila.org/SIPS/sip-658
+[SIP-100]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-100.md
+[SIP-140]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-140.md
+[SIP-196]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-196.md
+[SIP-197]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-197.md
+[SIP-198]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-198.md
+[SIP-211]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-211.md
+[SIP-214]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-214.md
+[SIP-609]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-609.md
+[SIP-649]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-649.md
+[SIP-658]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-658.md
 [h]: https://github.com/sila-camp/sila-harmony/releases/tag/v2.1b56
 [p]: https://github.com/paritytech/parity/releases/tag/v1.7.6
 """

@@ -1,5 +1,5 @@
 """
-Tests point evaluation precompile for [SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+Tests point evaluation precompile for [SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 
 Note: To add a new test, add a function that is named `test_<test_name>` and
 takes at least the following arguments.

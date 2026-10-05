@@ -13,7 +13,7 @@ See [SIP-3155] for more details on EVM traces.
 
 [`EvmTracer`]: ref:sila.trace.EvmTracer
 [`TraceEvent`]: ref:sila.trace.TraceEvent
-[SIP-3155]: https://sips.sila.org/SIPS/sip-3155
+[SIP-3155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3155.md
 """
 
 import enum

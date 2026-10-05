@@ -1,7 +1,7 @@
 """
 Verify SIP-7997: Deterministic Factory Contract.
 
-<https://sips.sila.org/SIPS/sip-7997>
+<https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md>
 
 The factory (the Arachnid deterministic deployment proxy) interprets
 calldata as `salt (32) || initcode` and invokes `CREATE2` with the call

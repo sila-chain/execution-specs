@@ -2,7 +2,7 @@
 Tests SIP-7685 General purpose execution layer requests.
 
 Cross testing for withdrawal and deposit request for
-[SIP-7685: General purpose execution layer requests](https://sips.sila.org/SIPS/sip-7685).
+[SIP-7685: General purpose execution layer requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md).
 """
 
 from itertools import permutations

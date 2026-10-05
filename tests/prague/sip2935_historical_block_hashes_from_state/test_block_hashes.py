@@ -1,5 +1,5 @@
 """
-Tests [SIP-2935: Serve historical block hashes from state](https://sips.sila.org/SIPS/sip-2935).
+Tests [SIP-2935: Serve historical block hashes from state](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2935.md).
 """
 
 from typing import Dict, List

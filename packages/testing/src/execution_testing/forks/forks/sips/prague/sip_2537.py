@@ -4,7 +4,7 @@ SIP-2537: Precompile for BLS12-381 curve operations.
 Adds operations on BLS12-381 curve as precompiles in a set necessary to
 efficiently perform operations such as BLS signature verification.
 
-https://sips.sila.org/SIPS/sip-2537
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md
 """
 
 from dataclasses import replace

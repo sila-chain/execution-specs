@@ -21,7 +21,7 @@ class Spec:
     Define parameters from the SIP-3860 specifications.
 
     These are the parameters defined at
-    https://sips.sila.org/SIPS/sip-3860#parameters.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3860.md#parameters.
     """
 
     MAX_INITCODE_SIZE = 49152

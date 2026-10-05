@@ -13,7 +13,7 @@ The depth check shares the same `if` block as the balance and nonce checks,
 so it is implicitly covered.
 
 Tests for [SIP-2929: Gas cost increases for state access opcodes]
-    (https://sips.sila.org/SIPS/sip-2929).
+    (https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2929.md).
 """
 
 import pytest

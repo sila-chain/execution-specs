@@ -21,7 +21,7 @@ ref_spec_7708 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7708 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7708.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7708.md.
     """
 
     SYSTEM_ADDRESS: Address = Address(

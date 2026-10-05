@@ -20,7 +20,7 @@ recovers the stolen funds into a new contract.
 
 [l]: ref:sila.forks.dao_fork.dao.DAO_ACCOUNTS
 [r]: ref:sila.forks.dao_fork.dao.DAO_RECOVERY
-[SIP-779]: https://sips.sila.org/SIPS/sip-779
+[SIP-779]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-779.md
 """
 
 from sila.fork_criteria import ByBlockNumber, ForkCriteria

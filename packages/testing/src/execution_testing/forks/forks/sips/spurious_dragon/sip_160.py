@@ -3,7 +3,7 @@ SIP-160: EXP cost increase.
 
 Raise the per-byte charge for EXP's exponent operand from 10 to 50.
 
-https://sips.sila.org/SIPS/sip-160
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-160.md
 """
 
 from dataclasses import replace

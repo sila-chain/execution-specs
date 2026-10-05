@@ -21,7 +21,7 @@ in this fork.
 - [Nethermind 1.13.3][n]
 
 
-[SIP-5133]: https://sips.sila.org/SIPS/sip-5133
+[SIP-5133]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5133.md
 [Besu 22.4.3]: https://github.com/besu-sil/besu/releases/tag/22.4.3
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2022.06.03
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/@silajs/vm@5.9.3

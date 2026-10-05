@@ -24,10 +24,10 @@ empty accounts.
 - [Parity 1.4.4][p]
 - [ruby-sila 0.11.0][rb]
 
-[SIP-155]: https://sips.sila.org/SIPS/sip-155
-[SIP-160]: https://sips.sila.org/SIPS/sip-160
-[SIP-161]: https://sips.sila.org/SIPS/sip-161
-[SIP-170]: https://sips.sila.org/SIPS/sip-170
+[SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
+[SIP-160]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-160.md
+[SIP-161]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-161.md
+[SIP-170]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-170.md
 [p]: https://github.com/paritytech/parity/releases/tag/v1.4.4
 [rb]: https://github.com/cryptape/ruby-sila/releases/tag/v0.11.0
 """

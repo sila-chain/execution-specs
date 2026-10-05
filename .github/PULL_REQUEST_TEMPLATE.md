@@ -9,7 +9,7 @@ N/A.
 ### Checklist
 <!-- Please check off all items before marking the PR ready for review. -->
 
-- [ ] Ran fast static checks to avoid CI fails, see [Code Standards](https://steel.sila.foundation/docs/execution-specs/getting_started/code_standards/) & [Verifying Changes](https://steel.sila.foundation/docs/execution-specs/getting_started/verifying_changes/): `just static`
+- [ ] Ran fast static checks to avoid CI fails, see [Code Standards](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/docs/getting_started/code_standards.md) & [Verifying Changes](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/docs/getting_started/verifying_changes.md): `just static`
 - [ ] PR title has the form `<type>(<area>): <title>`, where `<type>` and `<area>` come from an appropriate `C-<type>`, respectively `A-<area>`, label. The title should match the target squash commit message.
 
 ### Cute Animal Picture

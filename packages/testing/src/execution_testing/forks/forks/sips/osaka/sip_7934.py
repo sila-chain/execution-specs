@@ -4,7 +4,7 @@ SIP-7934: RLP encoded block size limit.
 Introduce a protocol-level cap on the maximum RLP-encoded block size to 10 MiB,
 including a 2 MiB margin for beacon block size.
 
-https://sips.sila.org/SIPS/sip-7934
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7934.md
 """
 
 from ....base_fork import BaseFork

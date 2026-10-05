@@ -101,7 +101,7 @@ class Header:
     from included transactions. Base fees (introduced in [SIP-1559]) are burned
     and do not go to the coinbase.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     state_root: Root
@@ -166,13 +166,11 @@ class Header:
     [SIP-1559], this is still the maximum gas limit, but the base fee per gas
     is adjusted so that effective block gas utilization targets 50% of
     that limit. The gas_limit is a voted parameter that can be
-    [adjusted by a factor of 1/1024] from the previous block's limit by the
+    adjusted by a factor of 1/1024 from the previous block's limit by the
     block proposer, allowing the network to coordinate on capacity
     increases (e.g. the 60M limit proposed in SIP-7935).
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
-    [adjusted by a factor of 1/1024]:
-    https://sila.org/en/developers/docs/blocks/
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     gas_used: Uint
@@ -206,7 +204,7 @@ class Header:
     [SIP-1559]. This is the minimum fee per gas that must be paid for a
     transaction to be included in this block.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     withdrawals_root: Root
@@ -220,7 +218,7 @@ class Header:
     Total blob gas consumed by the transactions within this block. Introduced
     in [SIP-4844].
 
-    [SIP-4844]: https://sips.sila.org/SIPS/sip-4844
+    [SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
     """
 
     excess_blob_gas: U64
@@ -230,7 +228,7 @@ class Header:
     while blocks with below-target blob gas consumption decrease it (to a
     minimum of zero). Introduced in [SIP-4844].
 
-    [SIP-4844]: https://sips.sila.org/SIPS/sip-4844
+    [SIP-4844]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
     """
 
     parent_beacon_block_root: Root
@@ -243,7 +241,7 @@ class Header:
     [SHA2-256] hash of all the collected requests in this block. Introduced in
     [SIP-7685]. See [`compute_requests_hash`][crh] for more details.
 
-    [SIP-7685]: https://sips.sila.org/SIPS/sip-7685
+    [SIP-7685]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md
     [crh]: ref:sila.forks.sila_amsterdam.requests.compute_requests_hash
     [SHA2-256]: https://en.wikipedia.org/wiki/SHA-2
     """
@@ -256,7 +254,7 @@ class Header:
     details.
 
     [`keccak256`]: ref:sila.crypto.hash.keccak256
-    [SIP-7928]: https://sips.sila.org/SIPS/sip-7928
+    [SIP-7928]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7928.md
     [cbalh]: ref:sila.forks.sila_amsterdam.block_access_lists.hash_block_access_list
     """  # noqa: E501
 
@@ -265,7 +263,7 @@ class Header:
     The slot number of this block as provided by the consensus layer.
     Introduced in [SIP-7843].
 
-    [SIP-7843]: https://sips.sila.org/SIPS/sip-7843
+    [SIP-7843]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7843.md
     """
 
 

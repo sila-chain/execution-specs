@@ -1,7 +1,7 @@
 """
 Verify fork transitions for the Deterministic Factory Contract.
 
-<https://sips.sila.org/SIPS/sip-7997>
+<https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md>
 """
 
 import pytest

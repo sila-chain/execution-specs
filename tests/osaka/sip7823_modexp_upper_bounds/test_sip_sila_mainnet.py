@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7823: ModExp Upper Bound](https://sips.sila.org/SIPS/sip-7823).
+[SIP-7823: ModExp Upper Bound](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7823.md).
 """
 
 from typing import Dict

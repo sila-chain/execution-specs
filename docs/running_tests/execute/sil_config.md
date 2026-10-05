@@ -1,6 +1,6 @@
 # Execute sil-config Command
 
-The `execute sil-config` command is a specialized testing tool that validates an Sila client's configuration against expected network parameters using the `sil_config` RPC endpoint as specified by [SIP-7910](https://sips.sila.org/SIPS/sip-7910).
+The `execute sil-config` command is a specialized testing tool that validates an Sila client's configuration against expected network parameters using the `sil_config` RPC endpoint as specified by [SIP-7910](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7910.md).
 
 The goal is to test baked-in configurations primarily but it can be used to test that genesis and config files were successfully parsed, in devnets for example.
 
@@ -121,4 +121,4 @@ The default configuration file includes:
 
 ## `sil_config` Expected Response Details
 
-See [SIP-7910](https://sips.sila.org/SIPS/sip-7910) for the expected response description.
+See [SIP-7910](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7910.md) for the expected response description.

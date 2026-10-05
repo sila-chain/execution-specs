@@ -84,7 +84,7 @@ State allocation represented as a JSON object, where the keys are the addresses 
 
 ### `BlobSchedule`: [`Mapping`](#mapping)`[`[`Fork`](#fork)`,`[`ForkBlobSchedule`](#forkblobschedule)`]`
 
-Maps forks to blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
+Maps forks to blob schedule configurations as defined by [SIP-7840](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7840.md).
 
 ### `Environment`
 
@@ -92,7 +92,7 @@ Contains blockchain-related configuration that provides the context in which a t
 
 ### `ForkBlobSchedule`
 
-A fork blob schedule as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840) as a JSON dictionary with the following entries:
+A fork blob schedule as defined by [SIP-7840](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7840.md) as a JSON dictionary with the following entries:
 
 #### - `target`: [`ZeroPaddedHexNumber`](#zeropaddedhexnumber)
 

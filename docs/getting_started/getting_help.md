@@ -6,7 +6,7 @@ We encourage contributions and recognize that Python is not everyone's  primary 
 
 ## Contact STEEL
 
-Feel free to contact any [STEEL team member](https://steel.sila.foundation/team/):
+Feel free to contact any STEEL team member:
 
 - Dan on [Discord](https://discordapp.com/users/danceratopz) or [Telegram](https://t.me/danceratopz) (`danceratopz`).
 - Spencer on [Discord](https://discordapp.com/users/spencertaylorbrown) or [Telegram](https://t.me/spencertb) (`spencertaylorbrown`/`@techbro_ccoli`).

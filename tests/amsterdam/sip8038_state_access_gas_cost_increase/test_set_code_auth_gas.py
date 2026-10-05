@@ -1,6 +1,6 @@
 """
 Tests for the SIP-7702 authorization *execution*-gas repricing under
-[SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+[SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 Under SIP-2780 each SIP-7702 authorization is charged in two parts: a
 state-independent *execution* base cost paid in the intrinsic, and

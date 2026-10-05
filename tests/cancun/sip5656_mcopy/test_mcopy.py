@@ -1,5 +1,5 @@
 """
-Tests [SIP-5656: MCOPY - Memory copying instruction](https://sips.sila.org/SIPS/sip-5656).
+Tests [SIP-5656: MCOPY - Memory copying instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md).
 """
 
 from typing import Mapping

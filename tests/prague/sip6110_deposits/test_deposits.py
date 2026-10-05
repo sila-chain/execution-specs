@@ -2,7 +2,7 @@
 Tests validator deposit functionality.
 
 Tests the validator deposit functionality implementation from
-[SIP-6110: Supply validator deposits on chain](https://sips.sila.org/SIPS/sip-6110).
+[SIP-6110: Supply validator deposits on chain](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md).
 """
 
 from typing import List

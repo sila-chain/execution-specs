@@ -19,7 +19,7 @@ ref_spec_7934 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7934 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7934#specification.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7934.md#specification.
     """
 
     MAX_BLOCK_SIZE = 10_485_760  # 10 MiB

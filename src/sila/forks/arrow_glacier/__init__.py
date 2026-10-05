@@ -20,7 +20,7 @@ in this fork.
 - Gsil 1.10.12
 - [Nethermind 1.11.7][nm]
 
-[SIP-4345]: https://sips.sila.org/SIPS/sip-4345
+[SIP-4345]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4345.md
 [Besu 21.10.0]: https://github.com/besu-sil/besu/releases/tag/21.10.0
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2021.11.01
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.6.0

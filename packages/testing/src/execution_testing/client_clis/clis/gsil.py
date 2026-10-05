@@ -158,7 +158,7 @@ class GsilExceptionMapper(ExceptionMapper):
         #
         # The offsets are checked second and the sizes are checked
         # third within the `is_valid_deposit_event_data` function:
-        # https://sips.sila.org/SIPS/sip-6110#block-validity
+        # https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md#block-validity
         #
         # SELS definition for `is_valid_deposit_event_data`:
         # https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/src/sila/forks/prague/requests.py

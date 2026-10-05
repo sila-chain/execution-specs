@@ -3,7 +3,7 @@ SIP-7702: Set EOA account code.
 
 Add a new tx type that permanently sets the code for an EOA.
 
-https://sips.sila.org/SIPS/sip-7702
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md
 """
 
 from dataclasses import replace

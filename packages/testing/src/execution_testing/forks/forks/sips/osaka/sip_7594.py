@@ -3,7 +3,7 @@ SIP-7594: PeerDAS - Peer Data Availability Sampling.
 
 Introducing simple DAS utilizing gossip distribution and peer requests.
 
-https://sips.sila.org/SIPS/sip-7594
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7594.md
 """
 
 from ....base_fork import BaseFork

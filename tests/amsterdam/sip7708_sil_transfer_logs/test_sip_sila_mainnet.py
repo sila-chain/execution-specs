@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7708: SIL transfers emit a log](https://sips.sila.org/SIPS/sip-7708).
+[SIP-7708: SIL transfers emit a log](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7708.md).
 """
 
 import pytest

@@ -1,6 +1,6 @@
 """
 Fork transition tests for
-[SIP-7954: Increase Maximum Contract Size](https://sips.sila.org/SIPS/sip-7954).
+[SIP-7954: Increase Maximum Contract Size](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7954.md).
 
 Tests that the new max code size and initcode size limits activate
 exactly at the SIP7954 fork boundary (timestamp 15,000).

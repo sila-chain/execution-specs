@@ -1,5 +1,5 @@
 """
-Tests [SIP-2930: Access list transaction](https://sips.sila.org/SIPS/sip-2930).
+Tests [SIP-2930: Access list transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md).
 
 Original test by Ori:
 https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSIP1559/intrinsicGen.js.

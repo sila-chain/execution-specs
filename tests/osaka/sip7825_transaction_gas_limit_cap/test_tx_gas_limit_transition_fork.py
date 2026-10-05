@@ -2,7 +2,7 @@
 Transaction gas limit cap fork transition tests.
 
 Tests for fork transition behavior in [SIP-7825: Transaction Gas Limit
-Cap](https://sips.sila.org/SIPS/sip-7825).
+Cap](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md).
 """
 
 import pytest

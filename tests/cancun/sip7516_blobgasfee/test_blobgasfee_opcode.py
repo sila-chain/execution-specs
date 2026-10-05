@@ -1,7 +1,7 @@
 """
 BLOBBASEFEE opcode tests.
 
-Tests for [SIP-7516: BLOBBASEFEE opcode](https://sips.sila.org/SIPS/sip-7516).
+Tests for [SIP-7516: BLOBBASEFEE opcode](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7516.md).
 """
 
 from itertools import count

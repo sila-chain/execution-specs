@@ -124,7 +124,7 @@ class Header:
     Maximum gas allowed in this block. Pre [SIP-1559], this is the maximum
     gas that could be consumed by all transactions in the block.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     gas_used: Uint
