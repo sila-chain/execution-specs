@@ -1,0 +1,249 @@
+# SilaOsaka benchmark fixtures from the historical 35f83db2 framework.
+#
+# Fills `--fork=SilaOsaka --gas-benchmark-values 1,5,10,30,60,100,150
+# -m benchmark ./tests/benchmark` with all fixture formats, as the
+# benchmark@v0.0.7 release did, sharded by module group and gas value. Both
+# phases are the executions the `fill` command builds; the shard results
+# are merged with the framework's own partial-file merges. The result is a
+# workflow artifact only: no tag, no release.
+name: SilaOsaka benchmark fixtures (evidence)
+
+on:
+  push:
+    branches:
+      - sila/benchmark-silaosaka-historical
+
+permissions:
+  contents: read
+
+env:
+  SIVMONE_REPO: sila-chain/sivmone
+  SIVMONE_REF: 8f53f09fa95cfeddd5081de2e2756b3326718f23
+  FORK: SilaOsaka
+  GAS_VALUES: 1,5,10,30,60,100,150
+
+jobs:
+  sivmone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: ${{ env.SIVMONE_REPO }}
+          ref: ${{ env.SIVMONE_REF }}
+          path: sivmone
+          submodules: true
+      - name: Build sivmone
+        run: |
+          sudo apt-get -q update && sudo apt-get -qy install build-essential libgmp-dev
+          cmake -S sivmone -B sivmone/build
+          cmake --build sivmone/build --parallel --target sivmone
+          sivmone/build/bin/sivmone --version
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: sivmone
+          path: sivmone/build/bin/sivmone
+
+  coverage:
+    # Every module collected for the fill must be in exactly one group.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.11"
+      - name: Check the module groups
+        run: |
+          uv run fill --collect-only -q --fork="$FORK" \
+            --gas-benchmark-values "$GAS_VALUES" -m benchmark \
+            ./tests/benchmark > collected.txt
+          grep -c "::" collected.txt
+          grep "::" collected.txt | cut -d: -f1 | sort -u > collected_modules.txt
+          uv run python - <<'EOF'
+          import yaml
+          wf = yaml.safe_load(open(".github/workflows/sila-benchmark-silaosaka.yaml"))
+          groups = wf["jobs"]["phase1"]["strategy"]["matrix"]["include"]
+          modules = [m for g in groups for m in g["modules"].split()]
+          assert len(modules) == len(set(modules)), "module in two groups"
+          collected = set(open("collected_modules.txt").read().split())
+          assert set(modules) == collected, (
+              sorted(collected - set(modules)), sorted(set(modules) - collected)
+          )
+          print(len(modules), "modules covered")
+          EOF
+
+  phase1:
+    needs: [sivmone, coverage]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: true
+      matrix:
+        gas: [1, 5, 10, 30, 60, 100, 150]
+        group: ["0", "1", "2", "3"]
+        include: &groups
+          - group: "0"
+            modules: >-
+              tests/benchmark/compute/instruction/test_call_context.py
+              tests/benchmark/compute/instruction/test_storage.py
+              tests/benchmark/compute/instruction/test_arithmetic.py
+              tests/benchmark/compute/scenario/test_transaction_types.py
+              tests/benchmark/compute/instruction/test_comparison.py
+              tests/benchmark/compute/precompile/test_ripemd160.py
+              tests/benchmark/compute/precompile/test_ecrecover.py
+          - group: "1"
+            modules: >-
+              tests/benchmark/compute/instruction/test_memory.py
+              tests/benchmark/compute/instruction/test_system.py
+              tests/benchmark/compute/instruction/test_keccak.py
+              tests/benchmark/compute/instruction/test_block_context.py
+              tests/benchmark/compute/instruction/test_control_flow.py
+              tests/benchmark/compute/precompile/test_blake2f.py
+              tests/benchmark/compute/instruction/test_tx_context.py
+              tests/benchmark/compute/precompile/test_point_evaluation.py
+          - group: "2"
+            modules: >-
+              tests/benchmark/compute/instruction/test_log.py
+              tests/benchmark/compute/instruction/test_stack.py
+              tests/benchmark/compute/precompile/test_bls12_381.py
+              tests/benchmark/compute/scenario/test_mix_operations.py
+              tests/benchmark/compute/precompile/test_sha256.py
+          - group: "3"
+            modules: >-
+              tests/benchmark/compute/instruction/test_account_query.py
+              tests/benchmark/compute/precompile/test_modexp.py
+              tests/benchmark/compute/precompile/test_alt_bn128.py
+              tests/benchmark/compute/instruction/test_bitwise.py
+              tests/benchmark/compute/scenario/test_unchunkified_bytecode.py
+              tests/benchmark/compute/precompile/test_identity.py
+              tests/benchmark/compute/precompile/test_p256verify.py
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: sivmone
+          path: bin
+      - name: Phase 1 (pre-allocation groups)
+        run: |
+          chmod +x bin/sivmone
+          uv run python .github/scripts/sila_benchmark_phase.py 1 \
+            --evm-bin="$PWD/bin/sivmone" --fork="$FORK" \
+            --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
+            --generate-all-formats -n auto --output=out ${{ matrix.modules }}
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: phase1-${{ matrix.group }}-${{ matrix.gas }}
+          path: out/blockchain_tests_engine_x/pre_alloc
+          if-no-files-found: error
+
+  groups:
+    needs: phase1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: phase1-*
+          path: phase1
+      - name: Merge the pre-allocation groups
+        run: |
+          for d in phase1/*; do
+            mkdir -p "shards/$(basename "$d")/blockchain_tests_engine_x"
+            mv "$d" "shards/$(basename "$d")/blockchain_tests_engine_x/pre_alloc"
+          done
+          uv run python .github/scripts/sila_benchmark_merge.py groups merged shards/*
+          ls merged/blockchain_tests_engine_x/pre_alloc
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: merged/blockchain_tests_engine_x/pre_alloc
+          if-no-files-found: error
+
+  phase2:
+    needs: groups
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: true
+      matrix:
+        gas: [1, 5, 10, 30, 60, 100, 150]
+        group: ["0", "1", "2", "3"]
+        include: *groups
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: sivmone
+          path: bin
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: out/blockchain_tests_engine_x/pre_alloc
+      - name: Phase 2 (fixtures)
+        run: |
+          chmod +x bin/sivmone
+          uv run python .github/scripts/sila_benchmark_phase.py 2 \
+            --evm-bin="$PWD/bin/sivmone" --fork="$FORK" \
+            --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
+            --generate-all-formats -n auto --output=out ${{ matrix.modules }}
+          rm -rf out/blockchain_tests_engine_x/pre_alloc
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: phase2-${{ matrix.group }}-${{ matrix.gas }}
+          path: out
+          include-hidden-files: true
+          if-no-files-found: error
+
+  combine:
+    needs: phase2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: phase2-*
+          path: phase2
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: pre_alloc
+      - name: Merge the fixtures and build the archive
+        run: |
+          uv run python .github/scripts/sila_benchmark_merge.py fixtures fixtures phase2/*
+          mkdir -p fixtures/.meta fixtures/blockchain_tests_engine_x
+          cp "$(ls -d phase2/* | head -1)/.meta/fixtures.ini" fixtures/.meta/
+          cp -r pre_alloc fixtures/blockchain_tests_engine_x/pre_alloc
+          uv run genindex --input fixtures --quiet
+          for f in blockchain_tests blockchain_tests_engine blockchain_tests_engine_x; do
+            printf '%s: ' "$f"
+            find "fixtures/$f" -name '*.json' -not -path '*/pre_alloc/*' \
+              -exec python3 -c 'import json,sys; print(sum(len(json.load(open(p))) for p in sys.argv[1:]))' {} + \
+              | awk '{s+=$1} END {print s}'
+          done | tee counts.txt
+          tar -czf fixtures_benchmark.tar.gz fixtures
+          sha256sum fixtures_benchmark.tar.gz | tee fixtures_benchmark.tar.gz.sha256
+          {
+            echo "source: $GITHUB_SHA"
+            echo "sivmone: $SIVMONE_REPO@$SIVMONE_REF"
+            cat counts.txt fixtures_benchmark.tar.gz.sha256
+          } > provenance.txt
+          cat provenance.txt >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: fixtures_benchmark-silaosaka
+          path: |
+            fixtures_benchmark.tar.gz
+            fixtures_benchmark.tar.gz.sha256
+            provenance.txt
+          if-no-files-found: error
