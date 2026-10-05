@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           repository: sila-chain/sila-hive
-          ref: c19f6097d7ce66c9994a1352a3977431c41659ec
+          ref: aa764322b402932b1e0c6eec4c3b20c6d114a7ca
           path: hive
       - name: Checkout exact go-sila authority
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
