@@ -29,7 +29,7 @@
     tag: main
 
 # Gsil (Go-Sila)
-# https://github.com/sila/go-sila
+# https://github.com/sila-chain/go-sila
 - client: go-sila
   nametag: default
   build_args:

@@ -414,8 +414,8 @@ def ssz_schema_fork_key(
 
 class ForkRangeDescriptor(BaseModel):
     """
-    Fork descriptor parsed from string normally contained in sila/tests
-    fillers.
+    Fork descriptor parsed from string normally contained in
+    sila-chain/sila-tests fillers.
     """
 
     greater_equal: Type[BaseFork] | None = None

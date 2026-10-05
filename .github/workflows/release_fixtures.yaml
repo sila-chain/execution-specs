@@ -35,7 +35,7 @@ on:
         required: false
         type: string
       evm_repo:
-        description: "Override the t8n tool repo (e.g. sila/go-sila)"
+        description: "Override the t8n tool repo (e.g. sila-chain/go-sila)"
         required: false
         type: string
       evm_ref:

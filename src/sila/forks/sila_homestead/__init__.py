@@ -19,14 +19,12 @@ difficulty bomb, and adds an improved delegate call EVM instruction.
 
 ### Releases
 
-- [CPP Sila 1.2.0][cpp]
-- [Gsil 1.3.5]
+- CPP Sila 1.2.0
+- Gsil 1.3.5
 
 [SIP-2]: https://sips.sila.org/SIPS/sip-2
 [SIP-7]: https://sips.sila.org/SIPS/sip-7
 [SIP-8]: https://sips.sila.org/SIPS/sip-8
-[cpp]: https://github.com/sila/webthree-umbrella/releases/tag/v1.2.0
-[Gsil 1.3.5]: https://github.com/sila/go-sila/releases/tag/v1.3.5
 """
 
 from sila.fork_criteria import ByBlockNumber, ForkCriteria

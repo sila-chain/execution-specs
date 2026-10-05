@@ -1,5 +1,5 @@
 """
-Bug discovered on ropsten https://github.com/sila/go-sila/pull/2...
+Bug discovered on ropsten.
 
 Ported from:
 state_tests/stEIP1559/transactionIntinsicBug_ParisFiller.yml

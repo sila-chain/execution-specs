@@ -19,10 +19,9 @@ REFERENCE_SPEC_VERSION = "1eb863b534a5a3e19e9c196ab2a7f3db4bb9da17"
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/SilaCancun/stEIP1153-transientStorage/04_tloadAfterCallFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/SilaCancun/stEIP1153-transientStorage/12_tloadDelegateCallFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/04_tloadAfterCallFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/12_tloadDelegateCallFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )
 @pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize("call_type", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL])

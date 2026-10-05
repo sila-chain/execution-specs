@@ -32,9 +32,8 @@ class CallDestType(Enum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/SilaCancun/stEIP1153-transientStorage/05_tloadReentrancyFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/05_tloadReentrancyFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )
 @pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(

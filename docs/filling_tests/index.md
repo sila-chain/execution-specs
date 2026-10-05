@@ -17,7 +17,7 @@ The `fill` command requires an EVM `t8n` tool provided by most clients in order 
 
 ## Sila Execution Layer Specification (SELS)
 
-By default, the [Sila Execution Layer Specification](https://github.com/sila/execution-specs) (SELS) reference implementation of the `t8n` tool is used to generate test fixtures for all forks that have been deployed to Sila sila-mainnet. We strong encourage SIP authors to provide a reference implementation of their SIP in SELS, so that it can be used to generate test fixtures for features under active development.
+By default, the [Sila Execution Layer Specification](https://github.com/sila-chain/execution-specs) (SELS) reference implementation of the `t8n` tool is used to generate test fixtures for all forks that have been deployed to Sila sila-mainnet. We strong encourage SIP authors to provide a reference implementation of their SIP in SELS, so that it can be used to generate test fixtures for features under active development.
 
 ## Limitations of Filling
 

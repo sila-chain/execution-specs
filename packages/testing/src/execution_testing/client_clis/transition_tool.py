@@ -60,8 +60,8 @@ from .sila_cli import SilaCLI
 
 model_dump_config: Mapping = {"by_alias": True, "exclude_none": True}
 
-# TODO: reduce NORMAL_SERVER_TIMEOUT back down to 20 once BLS timeout issue is
-# resolved: https://github.com/sila/execution-spec-tests/issues/1894
+# TODO: reduce NORMAL_SERVER_TIMEOUT back down to 20 once the BLS timeout
+# issue is resolved.
 NORMAL_SERVER_TIMEOUT = 600
 SLOW_REQUEST_TIMEOUT = 600
 

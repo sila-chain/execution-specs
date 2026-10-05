@@ -18,10 +18,10 @@ This command verifies that a client is correctly configured for a specific netwo
 
 ### Standalone, Direct Usage
 
-The `sil-config` sub-command can be ran directly, without cloning @sila/execution-specs, by [installing uv](https://docs.astral.sh/uv/getting-started/installation/) and running:
+The `sil-config` sub-command can be ran directly, without cloning @sila-chain/execution-specs, by [installing uv](https://docs.astral.sh/uv/getting-started/installation/) and running:
 
 ```bash
-uv run --with "git+https://github.com/sila/execution-specs.git#subdirectory=packages/testing" execute sil-config --network SilaMainnet --rpc-endpoint http://<SIL_RPC_ENDPOINT>
+uv run --with "git+https://github.com/sila-chain/execution-specs.git#subdirectory=packages/testing" execute sil-config --network SilaMainnet --rpc-endpoint http://<SIL_RPC_ENDPOINT>
 ```
 
 ### From within the `execution-specs` Repository

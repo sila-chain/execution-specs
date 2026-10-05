@@ -35,9 +35,8 @@ pytestmark = pytest.mark.valid_from("SilaBerlin")
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSLoadTest/sloadGasCostFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSLoadTest/sloadGasCostFiller.json",
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2489"],
 )
 def test_account_storage_warm_cold_state(
     state_test: StateTestFiller,

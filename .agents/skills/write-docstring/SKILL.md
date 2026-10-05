@@ -250,7 +250,7 @@ Standard Markdown reference links:
 Bare URLs in angle brackets for inline use:
 
 ```
-Available at <https://github.com/sila/genesis_block_generator>.
+It is long since defunct.
 ```
 
 If a URL is too long to include because of the line length limit, you can add `# noqa: E501` after the trailing `"""` to squelch the warning (but this should be a last resort).

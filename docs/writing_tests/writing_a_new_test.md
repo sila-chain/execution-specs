@@ -178,7 +178,7 @@ which allows checking for an exact `gas_used` value.
 
 ## Writing code for the accounts in the test
 
-Account bytecode can be "deployed" in a test's pre-state using the `pre` pytest fixture. The @sila/execution-specs Python [`Opcodes`][execution_testing.vm.Opcodes] minilang can be used to help write the bytecode in a readable form.
+Account bytecode can be "deployed" in a test's pre-state using the `pre` pytest fixture. The @sila-chain/execution-specs Python [`Opcodes`][execution_testing.vm.Opcodes] minilang can be used to help write the bytecode in a readable form.
 
 ### Using the Python Opcode Minilang
 
@@ -237,7 +237,7 @@ uv run evm_bytes hex-string 0x604260005260206000F3
 
 #### Restrictions: No Yul in Python Test Cases
 
-As of [PR #1779](https://github.com/sila/execution-specs/pull/1779), the use of Yul source in Python test cases is forbidden. All new tests must use the Python opcode minilang as shown above.
+As of PR #1779, the use of Yul source in Python test cases is forbidden. All new tests must use the Python opcode minilang as shown above.
 
 ## Verifying the Accounts' Post States
 
@@ -267,7 +267,7 @@ Within the `post` dictionary object, an account address can be:
 The `Account` object is used to specify the properties of an account to be
 verified in the post state.
 
-The python representation can be found in [packages/testing/src/execution_testing/test_types/account_types.py](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/src/execution_testing/test_types/account_types.py).
+The python representation can be found in [packages/testing/src/execution_testing/test_types/account_types.py](https://github.com/sila-chain/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/src/execution_testing/test_types/account_types.py).
 
 It can verify the following properties of an account:
 

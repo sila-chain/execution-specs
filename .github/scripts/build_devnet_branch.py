@@ -19,8 +19,8 @@ import click
 
 SIP_PATTERN = re.compile(r"^[0-9]+(?:\+[0-9]+)*$")
 CANONICAL_REMOTE_SUFFIXES = (
-    "sila/execution-specs",
-    "sila/execution-specs.git",
+    "sila-chain/execution-specs",
+    "sila-chain/execution-specs.git",
 )
 
 
@@ -136,7 +136,7 @@ def merge_in_progress() -> bool:
 
 
 def detect_canonical_remote() -> str:
-    """Find the remote pointing to sila/execution-specs."""
+    """Find the remote pointing to sila-chain/execution-specs."""
     remote_names = get_git_output(["remote"]).splitlines()
     matching_remotes: list[str] = []
 
@@ -148,14 +148,14 @@ def detect_canonical_remote() -> str:
 
     if not matching_remotes:
         raise RuntimeError(
-            "Could not find a git remote for sila/execution-specs. "
+            "Could not find a git remote for sila-chain/execution-specs. "
             "Pass --remote explicitly."
         )
 
     if len(matching_remotes) > 1:
         matches = ", ".join(sorted(matching_remotes))
         raise RuntimeError(
-            "Found multiple git remotes for sila/execution-specs: "
+            "Found multiple git remotes for sila-chain/execution-specs: "
             f"{matches}. Pass --remote explicitly."
         )
 
@@ -292,7 +292,7 @@ def push_branch(remote: str, devnet_branch: str) -> None:
     help=(
         "Git remote containing the fork, SIP, and devnet branches. "
         "Defaults to the remote whose URL points to "
-        "sila/execution-specs."
+        "sila-chain/execution-specs."
     ),
 )
 @click.option(

@@ -1,1 +1,1 @@
-"""Ported static tests from sila/tests."""
+"""Ported static tests from sila-chain/sila-tests."""

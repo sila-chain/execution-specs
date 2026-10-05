@@ -29,5 +29,5 @@ class Spec:
     MAX_DEPOSIT_REQUESTS_PER_PAYLOAD = 8192
     """
     Maximum deposit requests a consensus layer payload can carry:
-    https://github.com/sila/consensus-specs/blob/721cc37193d0321fef6519119c9dc9d34a79dd57/presets/sila-mainnet/electra.yaml#L36
+    https://github.com/sila-chain/consensus-specs/blob/main/presets/sila-mainnet/electra.yaml
     """

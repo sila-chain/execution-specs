@@ -113,10 +113,9 @@ def collision_params(fork: Fork) -> List[ParameterSet]:
 
 PORTED_FROM = pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionNonZeroNonceFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionNonZeroNonceFiller.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/636"],
 )
 
 

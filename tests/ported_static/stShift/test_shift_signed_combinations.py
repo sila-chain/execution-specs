@@ -1,5 +1,5 @@
 """
-Https://github.com/sila/tests/issues/564.
+Signed shift combinations.
 
 Ported from:
 state_tests/stShift/shiftSignedCombinationsFiller.yml

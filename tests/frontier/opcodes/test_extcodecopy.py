@@ -15,9 +15,8 @@ from execution_testing import (
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeCopyBoundsFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeCopyBoundsFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2417"],
 )
 def test_extcodecopy_bounds(
     state_test: StateTestFiller,

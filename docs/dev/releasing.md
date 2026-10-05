@@ -73,7 +73,7 @@ git push origin v1.15.0 # Replace the tag name here too.
 Go to the [release page][release], choose the newly created tag, and
 generate release notes.
 
-[release]: https://github.com/sila/execution-specs/releases/new
+[release]: https://github.com/sila-chain/execution-specs/releases/new
 
 ## Publishing to PyPI
 

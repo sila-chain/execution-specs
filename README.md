@@ -1,9 +1,9 @@
 # Sila Execution Layer Specifications
 
 [![PyPI release](https://img.shields.io/pypi/v/sila-execution)](https://pypi.org/project/sila-execution/)
-[![Tests release](https://img.shields.io/github/v/release/sila/execution-specs?filter=tests%40v%2A&label=tests)](https://github.com/sila/execution-specs/releases)
+[![Tests release](https://img.shields.io/github/v/release/sila/execution-specs?filter=tests%40v%2A&label=tests)](https://github.com/sila-chain/execution-specs/releases)
 [![License](https://img.shields.io/github/license/sila/execution-specs)](LICENSE.md)
-[![Python Specification](https://github.com/sila/execution-specs/actions/workflows/test.yaml/badge.svg)](https://github.com/sila/execution-specs/actions/workflows/test.yaml)
+[![Python Specification](https://github.com/sila-chain/execution-specs/actions/workflows/test.yaml/badge.svg)](https://github.com/sila-chain/execution-specs/actions/workflows/test.yaml)
 [![codecov](https://codecov.io/gh/sila/execution-specs/graph/badge.svg?token=0LQZO56RTM)](https://codecov.io/gh/sila/execution-specs)
 ![Python Versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -18,7 +18,7 @@ execution-specs uses [`uv`](https://docs.astral.sh/uv/) to manage the Python env
 Requires a Unix-like shell. All platforms:
 
 ```console
-git clone https://github.com/sila/execution-specs
+git clone https://github.com/sila-chain/execution-specs
 cd execution-specs
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv python install 3.12
@@ -53,7 +53,7 @@ This repository is maintained by the [STEEL Team](https://steel.sila.foundation/
 
 ## Community and Support
 
-Discussion around the initial specification of protocol changes happens on [Sila Magicians](https://sila-magicians.org/), in pull requests on [sila/SIPs](https://github.com/sila/SIPs), on the [Sila R&D Discord](https://discord.com/invite/qGpsxSA) (one of the channels in the *Execution R&D* category; for testing use `#el-testing`), and in the AllCoreDevs calls.
+Discussion around the initial specification of protocol changes happens on [Sila Magicians](https://sila-magicians.org/), in pull requests on [sila-chain/SIPs](https://github.com/sila-chain/SIPs), on the [Sila R&D Discord](https://discord.com/invite/qGpsxSA) (one of the channels in the *Execution R&D* category; for testing use `#el-testing`), and in the AllCoreDevs calls.
 
 For tracking the status of upcoming Sila upgrades, see [Forkcast](https://forkcast.org/): SIP inclusion, client implementation progress, and ACD call summaries.
 
@@ -61,11 +61,11 @@ For other help, see the [Documentation](#documentation) section above, or reach 
 
 ### Related projects
 
-- [sila/SIPs](https://github.com/sila/SIPs): The prose SIP documents that SELS implements.
-- [sila/execution-apis](https://github.com/sila/execution-apis): The JSON-RPC API specification, which lives in a separate repository.
-- [sila/consensus-specs](https://github.com/sila/consensus-specs): The consensus-layer counterpart to this repository.
+- [sila-chain/SIPs](https://github.com/sila-chain/SIPs): The prose SIP documents that SELS implements.
+- [sila-chain/execution-apis](https://github.com/sila-chain/execution-apis): The JSON-RPC API specification, which lives in a separate repository.
+- [sila-chain/consensus-specs](https://github.com/sila-chain/consensus-specs): The consensus-layer counterpart to this repository.
 
-Production execution clients that implement the spec include [besu](https://github.com/besu-sil/besu), [erigon](https://github.com/erigontech/erigon), [silrex](https://github.com/lambdaclass/silrex), [gsil](https://github.com/sila/go-sila), [nethermind](https://github.com/NethermindEth/nethermind), and [rsil](https://github.com/paradigmxyz/rsil).
+Production execution clients that implement the spec include [besu](https://github.com/besu-sil/besu), [erigon](https://github.com/erigontech/erigon), [silrex](https://github.com/lambdaclass/silrex), [gsil](https://github.com/sila-chain/go-sila), [nethermind](https://github.com/NethermindEth/nethermind), and [rsil](https://github.com/paradigmxyz/rsil).
 
 ## Responsible Disclosure of Vulnerabilities
 

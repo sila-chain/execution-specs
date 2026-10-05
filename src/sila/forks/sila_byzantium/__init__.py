@@ -27,7 +27,7 @@ contracts, and adds cryptographic primitives for layer 2 scaling.
 ### Releases
 
 - [Harmony 2.1.0][h]
-- [Gsil 1.7.2]
+- Gsil 1.7.2
 - [Parity 1.7.6][p]
 
 [SIP-100]: https://sips.sila.org/SIPS/sip-100
@@ -41,7 +41,6 @@ contracts, and adds cryptographic primitives for layer 2 scaling.
 [SIP-649]: https://sips.sila.org/SIPS/sip-649
 [SIP-658]: https://sips.sila.org/SIPS/sip-658
 [h]: https://github.com/sila-camp/sila-harmony/releases/tag/v2.1b56
-[Gsil 1.7.2]: https://github.com/sila/go-sila/releases/tag/v1.7.2
 [p]: https://github.com/paritytech/parity/releases/tag/v1.7.6
 """
 

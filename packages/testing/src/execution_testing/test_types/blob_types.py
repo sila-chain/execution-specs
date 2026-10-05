@@ -171,7 +171,7 @@ class Blob(CamelModel):
             # cancun, prague
             if amount_cell_proofs == 0:
                 z = 2  # 2 is one of many possible valid field elements z
-                # https://github.com/sila/consensus-specs/blob/ad884507f
+                # https://github.com/sila-chain/consensus-specs/blob/main/
                 #  7a1d5962cd3dfb5f7b3e41aab728c55/tests/core/pyspec/sil2spec/
                 #  test/utils/kzg_tests.py#L58-L66)
                 z_valid_size: bytes = z.to_bytes(

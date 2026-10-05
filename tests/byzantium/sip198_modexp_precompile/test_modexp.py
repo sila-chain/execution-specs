@@ -294,8 +294,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             marks=pytest.mark.skip(
                 reason=(
                     "SELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before SilaOsaka - see "
-                    "github.com/sila/execution-specs/issues/1465"
+                    "before SilaOsaka"
                 )
             ),
             id="max-base-length-overflow-out-of-gas",
@@ -312,8 +311,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             marks=pytest.mark.skip(
                 reason=(
                     "SELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before SilaOsaka - see "
-                    "github.com/sila/execution-specs/issues/1465"
+                    "before SilaOsaka"
                 )
             ),
             id="immunefi-38958-by-omik-overflow",
@@ -479,8 +477,8 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
 @pytest.mark.sels_base_coverage
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_37120_37111_37111_1000000Filler.json",
-        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_9_37111_37111_1000000Filler.json",
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_37120_37111_37111_1000000Filler.json",
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_9_37111_37111_1000000Filler.json",
     ],
 )
 def test_modexp(

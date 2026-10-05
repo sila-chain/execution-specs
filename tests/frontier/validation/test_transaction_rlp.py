@@ -18,7 +18,7 @@ pytestmark = [
 ]
 
 LEGACY_TX_TESTS = (
-    "https://github.com/sila/tests/blob/"
+    "https://github.com/sila-chain/sila-tests/blob/main/"
     "c67e485ff8b5be9abc8ad15345ec21aa22e290d9/src/TransactionTestsFiller"
 )
 

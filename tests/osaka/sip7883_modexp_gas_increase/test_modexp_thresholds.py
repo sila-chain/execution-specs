@@ -79,7 +79,7 @@ def test_vectors_from_legacy_tests(
     "modexp_input,",
     [
         # These invalid inputs are from SIP-7823. Ref:
-        # https://github.com/sila/SIPs/blob/master/SIPS/sip-7823.md#analysis
+        # https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7823.md#analysis
         pytest.param(
             bytes.fromhex("9e5faafc"),
             id="invalid-case-1",

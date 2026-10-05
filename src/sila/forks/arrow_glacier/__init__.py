@@ -17,14 +17,13 @@ in this fork.
 - [Besu 21.10.0]
 - [Erigon 2021.11.01-alpha][e]
 - [SilaJS VM 5.6.0][js]
-- [Gsil 1.10.12]
+- Gsil 1.10.12
 - [Nethermind 1.11.7][nm]
 
 [SIP-4345]: https://sips.sila.org/SIPS/sip-4345
 [Besu 21.10.0]: https://github.com/besu-sil/besu/releases/tag/21.10.0
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2021.11.01
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.6.0
-[Gsil 1.10.12]: https://github.com/sila/go-sila/releases/tag/v1.10.12
 [nm]: https://github.com/NethermindEth/nethermind/releases/tag/1.11.7
 """  # noqa: E501
 

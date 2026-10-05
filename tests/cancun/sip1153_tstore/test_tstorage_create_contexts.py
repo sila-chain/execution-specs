@@ -275,8 +275,7 @@ def test_tstore_rollback_on_failed_create(
     """
     Test TSTORE is rolled back after failed CREATE/CREATE2 initcode.
 
-    Regression test for
-    https://github.com/sila/execution-specs/issues/917
+    Regression test.
 
     Initcode does TLOAD(1) to compute a return size, then does
     TSTORE(1, max_code_size), then returns data of the computed size.

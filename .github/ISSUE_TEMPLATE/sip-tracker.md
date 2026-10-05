@@ -46,11 +46,11 @@ When this occurs, owners should either unmark the relevant checkboxes if the iss
 - [ ] Test suite implemented.
 - [ ] Full code coverage for all changes.
 - [ ] No regressions or failures in tests from prior forks (including static tests).
-- [ ] [Testing checklist](https://github.com/sila/execution-specs/blob/HEAD/docs/writing_tests/checklist_templates/sip_testing_checklist_template.md) complete.
+- [ ] [Testing checklist](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/docs/writing_tests/checklist_templates/sip_testing_checklist_template.md) complete.
 - [ ] Hardening session completed.
 - [ ] Benchmarking tests written and results documented.
 - [ ] Ran tests using `execute` to ensure compatibility, and marked specific tests to be skipped when they cannot be executed on live networks.
-- [ ] Added SilaMainnet-marked tests ([example test](https://github.com/sila/execution-specs/blob/2a6f9ee98ba7c0d04c7d523a0ea0ee8a98a5c418/tests/osaka/sip7939_count_leading_zeros/test_sip_sila_mainnet.py)).
+- [ ] Added SilaMainnet-marked tests ([example test](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/tests/osaka/sip7939_count_leading_zeros/test_sip_sila_mainnet.py)).
 
 ### Process Status
 

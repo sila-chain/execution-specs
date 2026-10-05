@@ -58,10 +58,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/sila/execution-specs"
+Homepage = "https://github.com/sila-chain/execution-specs"
 Documentation = "https://github.com/sila-chain/execution-specs/tree/forks/amsterdam/docs"
-Repository = "https://github.com/sila/execution-specs"
-Issues = "https://github.com/sila/execution-specs/issues"
+Repository = "https://github.com/sila-chain/execution-specs"
+Issues = "https://github.com/sila-chain/execution-specs/issues"
 
 [dependency-groups]
 test = [

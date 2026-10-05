@@ -69,7 +69,7 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 ARG branch=""
 
 RUN apt-get update && apt-get install -y git
-RUN git clone --depth 1 https://github.com/sila/execution-specs.git && \
+RUN git clone --depth 1 https://github.com/sila-chain/execution-specs.git && \
     cd execution-specs && \
     if [ -n "$branch" ]; then \
         git fetch --depth 1 origin "$branch" && \

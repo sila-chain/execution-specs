@@ -115,7 +115,7 @@ def test_bal_pending_system_call_reads_vs_leftover_gas(
     A block stays valid however little gas it leaves for the storage reads
     its post-execution system calls still owe. The dequeues spend no block
     gas, so a gas-feasibility check on those reads (`BLOCK_ACCESS_LIST_ITEM`
-    each) would wrongly reject these blocks; see sila/SIPs#12277.
+    each) would wrongly reject these blocks; see sila-chain/SIPs#12277.
     """
     request_types = _queued_request_types(fork)
     post_execution_contracts = {

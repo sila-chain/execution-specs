@@ -30,7 +30,7 @@ Hive runs client images in Docker containers. There are three different ways to 
 | `Dockerfile.git` | Clone from Github and build from source | `dockerfile: git` |
 | `Dockerfile.local` | Build from local source | `dockerfile: local` |
 
-These Dockerfiles are maintained for each supported client in @sila/hive in the [`./clients/`](https://github.com/sila/hive/tree/master/clients) subfolder.
+These Dockerfiles are maintained for each supported client in @sila-chain/sila-hive in the [`./clients/`](https://github.com/sila-chain/sila-hive/tree/main/clients) subfolder.
 
 ### Production Image
 
@@ -92,7 +92,7 @@ cp -r /path/to/your/go-sila ./clients/go-sila/go-sila-local
 | Argument | Description | Example |
 |----------|-------------|---------|
 | `tag` | Git commit/tag/branch or Docker tag | `master`, `v1.13.8`, `latest` |
-| `github` | GitHub repository for source builds | `sila/go-sila` |
+| `github` | GitHub repository for source builds | `sila-chain/go-sila` |
 | `baseimage` | Docker Hub image for binary builds | `sila/client-go` |
 
 ## Troubleshooting

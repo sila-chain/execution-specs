@@ -4,7 +4,7 @@ Welcome to the documentation for the Sila Execution Layer Specifications (SELS),
 
 SELS is implemented as a readable executable reference in Python that serves as a source of truth for developers across the Sila ecosystem and underpins the generation of test vectors used to ensure Execution Layer client implementations are spec-compliant.
 
-SELS is a collaborative effort between Sila Improvement Proposals (SIP) authors, protocol researchers, prototype implementers and client developers, maintained in @sila/execution-specs by the [STEEL Team](https://steel.sila.foundation/).
+SELS is a collaborative effort between Sila Improvement Proposals (SIP) authors, protocol researchers, prototype implementers and client developers, maintained in @sila-chain/execution-specs by the [STEEL Team](https://steel.sila.foundation/).
 
 ## Where to Start
 

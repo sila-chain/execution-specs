@@ -151,7 +151,7 @@ class RsilExceptionMapper(ExceptionMapper):
         # https://sips.sila.org/SIPS/sip-6110#block-validity
         #
         # SELS definition for `is_valid_deposit_event_data`:
-        # https://github.com/sila/execution-specs/blob/5ddb904fa7ba27daeff423e78466744c51e8cb6a/src/sila/forks/sila_prague/requests.py#L51
+        # https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/src/sila/forks/prague/requests.py
         BlockException.INVALID_DEPOSIT_EVENT_LAYOUT: (
             r"failed to decode deposit requests from receipts|"
             r"mismatched block requests hash"

@@ -13,7 +13,7 @@ An SIP will typically go through the following stages:
 | **Final**          | The proposal is now immutable (cannot be changed) and exists for reference. | <ul><li>SilaMainnet client implementations</li></ul> |
 
 [0]: https://sila-magicians.org/
-[1]: https://github.com/sila/SIPs/
+[1]: https://github.com/sila-chain/SIPs
 
 The rest of this page focuses on the **Draft** and **Review** stages, where SIP authors interact most directly with SELS and the test suite.
 

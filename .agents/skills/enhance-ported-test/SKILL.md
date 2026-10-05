@@ -6,7 +6,7 @@ description: Clean up and future-proof a ported static test.
 # Enhance Ported Test
 
 Future-proof and clean up a test under `tests/ported_static/`. These tests were
-machine-ported from the legacy `sila/tests` static fillers (YAML/JSON) and
+machine-ported from the legacy `sila-chain/sila-tests` static fillers (YAML/JSON) and
 carry a lot of boilerplate, hardcoded values, and weak/incomplete post-state
 checks. This skill is the ordered methodology for turning one into idiomatic,
 robust Python.

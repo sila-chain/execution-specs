@@ -203,7 +203,7 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
                 f"{self.test_file}[{self.test_key}] doesn't have post state"
             )
 
-        # Currently, there are 5 tests in the sila/tests fixtures
+        # Currently, there are 5 tests in the sila-chain/sila-tests fixtures
         # where we have non block specific exceptions.
         # For example: All the blocks process correctly but the final
         # block hash provided in the test is not correct. Or all the
@@ -211,7 +211,7 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
         # right. Since these tests do not directly have anything to do
         # with the state transition itself, we skip these
         # See src/BlockchainTestsFiller/InvalidBlocks/bcExpectSection
-        # in sila/tests
+        # in sila-chain/sila-tests
         if "exceptions" in json_data:
             pytest.xfail(
                 f"{self.test_file}[{self.test_key}] has unrelated exceptions"

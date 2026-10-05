@@ -202,14 +202,16 @@ class NethtestFixtureConsumer(
         )
 
         if fixture_name:
-            # TODO: this check is too fragile; extend for sila/tests?
+            # TODO: this check is too fragile; extend for
+            # sila-chain/sila-tests?
             nethtest_suffix = "_d0g0v0_"
             assert all(
                 test_result["name"].endswith(nethtest_suffix)
                 for test_result in file_results
             ), (
                 "consume direct with nethtest doesn't support the "
-                "multi-data statetest format used in sila/tests (yet)"
+                "multi-data statetest format used in sila-chain/sila-tests "
+                "(yet)"
             )
             test_result = [
                 test_result

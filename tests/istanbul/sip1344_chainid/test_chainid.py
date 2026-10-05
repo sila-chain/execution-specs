@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "02e46aebc80e6e5006ab4d2daa41876139f9a9e2"
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stChainId/chainIdFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stChainId/chainIdFiller.json",
     ],
 )
 @pytest.mark.valid_from("SilaIstanbul")

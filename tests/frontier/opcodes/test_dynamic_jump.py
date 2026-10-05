@@ -34,7 +34,7 @@ DESTINATION_KINDS = [
 ]
 
 LEGACY_VM_TESTS = (
-    "https://github.com/sila/legacytests/blob/master/"
+    "https://github.com/sila-chain/sila-legacytests/blob/master/"
     "src/LegacyTests/SilaConstantinople/VMTestsFiller/vmIOandFlowOperations"
 )
 

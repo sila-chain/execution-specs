@@ -9,7 +9,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dynamic = ["version"]
 license = "CC0-1.0"
-urls = { "Homepage" = "https://github.com/sila/execution-specs" }
+urls = { "Homepage" = "https://github.com/sila-chain/execution-specs" }
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",

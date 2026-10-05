@@ -26,7 +26,7 @@ same transaction, and adds an instruction to read the blob base fee.
 
 - [Besu 24.1.2]
 - [Erigon 2.58.1][e]
-- [Gsil 1.13.13]
+- Gsil 1.13.13
 - [Nethermind 1.25.4][n]
 - [Rsil 0.1.0-alpha.19][r]
 
@@ -39,7 +39,6 @@ same transaction, and adds an instruction to read the blob base fee.
 [SIP-7516]: https://sips.sila.org/SIPS/sip-7516
 [Besu 24.1.2]: https://github.com/besu-sil/besu/releases/tag/24.1.2
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2.58.1
-[Gsil 1.13.13]: https://github.com/sila/go-sila/releases/tag/v1.13.13
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.25.4
 [r]: https://github.com/paradigmxyz/rsil/releases/tag/v0.1.0-alpha.19
 """  # noqa: E501

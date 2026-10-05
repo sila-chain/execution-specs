@@ -1,6 +1,6 @@
 # The `sila-execution-testing` Package
 
-Test generation and execution framework for the [Sila Execution Layer Specifications (SELS)](https://github.com/sila/execution-specs).
+Test generation and execution framework for the [Sila Execution Layer Specifications (SELS)](https://github.com/sila-chain/execution-specs).
 
 The package provides:
 
@@ -15,7 +15,7 @@ This package depends on `sila-execution` (the spec itself), and the two are deve
 With `uv` (resolves the sibling spec package from the checkout automatically):
 
 ```console
-git clone https://github.com/sila/execution-specs
+git clone https://github.com/sila-chain/execution-specs
 uv tool install ./execution-specs/packages/testing
 ```
 

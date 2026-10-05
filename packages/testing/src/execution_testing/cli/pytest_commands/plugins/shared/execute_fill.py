@@ -231,7 +231,7 @@ def pytest_configure(config: pytest.Config) -> None:
     )
     config.addinivalue_line(
         "markers",
-        "ported_from: Marks a test as ported from sila/tests",
+        "ported_from: Marks a test as ported from sila-chain/sila-tests",
     )
     config.addinivalue_line(
         "markers",

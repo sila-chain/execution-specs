@@ -20,7 +20,7 @@ empty accounts.
 
 ### Releases
 
-- [Gsil 1.5.2]
+- Gsil 1.5.2
 - [Parity 1.4.4][p]
 - [ruby-sila 0.11.0][rb]
 
@@ -28,7 +28,6 @@ empty accounts.
 [SIP-160]: https://sips.sila.org/SIPS/sip-160
 [SIP-161]: https://sips.sila.org/SIPS/sip-161
 [SIP-170]: https://sips.sila.org/SIPS/sip-170
-[Gsil 1.5.2]: https://github.com/sila/go-sila/releases/tag/v1.5.2
 [p]: https://github.com/paritytech/parity/releases/tag/v1.4.4
 [rb]: https://github.com/cryptape/ruby-sila/releases/tag/v0.11.0
 """

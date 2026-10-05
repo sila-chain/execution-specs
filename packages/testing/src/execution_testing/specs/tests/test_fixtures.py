@@ -593,7 +593,6 @@ class TestFillBlockchainValidTxs:
         new_difficulty = block.header.difficulty - 1  # type: ignore
 
         new_state_root = Hash(12345)
-        # See description of https://github.com/sila/execution-spec-tests/pull/398
         new_transactions_root = 0x100
         header_new_fields = Header(
             difficulty=new_difficulty,

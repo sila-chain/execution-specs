@@ -24,10 +24,9 @@ REFERENCE_SPEC_VERSION = ref_spec_1014.version
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreate2/call_outsize_then_create2_successful_then_returndatasizeFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreate2/call_then_create2_successful_then_returndatasizeFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stCreate2/call_outsize_then_create2_successful_then_returndatasizeFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stCreate2/call_then_create2_successful_then_returndatasizeFiller.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/497"],
     coverage_missed_reason=(
         "coinbase is deleted in original test (tx.gas_price==env.base_fee)"
     ),

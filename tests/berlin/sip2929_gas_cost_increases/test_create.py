@@ -12,9 +12,6 @@ to reach the 1024 call depth limit — gas is exhausted around depth ~300.
 The depth check shares the same `if` block as the balance and nonce checks,
 so it is implicitly covered.
 
-See https://github.com/sila/execution-specs/issues/1019 and
-https://github.com/sila/execution-specs/issues/1541.
-
 Tests for [SIP-2929: Gas cost increases for state access opcodes]
     (https://sips.sila.org/SIPS/sip-2929).
 """

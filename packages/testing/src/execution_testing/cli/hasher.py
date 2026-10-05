@@ -115,7 +115,7 @@ class HashableItem:
                     f"Expected '_info' in {key}, json file: {file_path.name}"
                 )
 
-            # SEST uses 'hash'; sila/tests use 'generatedTestHash'
+            # SEST uses 'hash'; sila-chain/sila-tests use 'generatedTestHash'
             hash_str = item["_info"].get("hash") or item["_info"].get(
                 "generatedTestHash"
             )

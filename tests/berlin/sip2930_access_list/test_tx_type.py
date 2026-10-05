@@ -37,9 +37,8 @@ def tx_validity(fork: Fork) -> Generator[ParameterSet, None, None]:
 @pytest.mark.inclusion_test
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/SilaCancun/GeneralStateTestsFiller/stExample/accessListExampleFiller.yml"
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExample/accessListExampleFiller.yml"
     ],
-    pr=["https://github.com/sila/execution-specs/pull/1754"],
 )
 @pytest.mark.parametrize_by_fork("valid", tx_validity)
 def test_sip2930_tx_validity(

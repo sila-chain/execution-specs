@@ -16,14 +16,12 @@ empty accounts.
 
 ### Releases
 
-- [SilaJ 1.3.6]
-- [Gsil 1.4.18]
+- SilaJ 1.3.6
+- Gsil 1.4.18
 - [Parity 1.3.8][p]
 
 [SIP-150]: https://sips.sila.org/SIPS/sip-150
 [SIP-608]: https://sips.sila.org/SIPS/sip-608
-[SilaJ 1.3.6]: https://github.com/sila/silaj/releases/tag/1.3.6
-[Gsil 1.4.18]: https://github.com/sila/go-sila/releases/tag/v1.4.18
 [p]: https://github.com/opensila/parity-sila/releases/tag/v1.3.8
 """
 

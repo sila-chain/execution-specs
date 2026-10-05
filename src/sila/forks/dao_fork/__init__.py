@@ -16,12 +16,11 @@ recovers the stolen funds into a new contract.
 
 ### Releases
 
-- [Gsil 1.4.10]
+- Gsil 1.4.10
 
 [l]: ref:sila.forks.dao_fork.dao.DAO_ACCOUNTS
 [r]: ref:sila.forks.dao_fork.dao.DAO_RECOVERY
 [SIP-779]: https://sips.sila.org/SIPS/sip-779
-[Gsil 1.4.10]: https://github.com/sila/go-sila/releases/tag/v1.4.10
 """
 
 from sila.fork_criteria import ByBlockNumber, ForkCriteria

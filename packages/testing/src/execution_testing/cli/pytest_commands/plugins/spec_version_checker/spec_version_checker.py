@@ -1,6 +1,6 @@
 """
 A pytest plugin that checks that the spec version specified in test/filler
-modules matches that of https://github.com/sila/SIPs.
+modules matches that of https://github.com/sila-chain/SIPs.
 """
 
 import os
@@ -145,7 +145,7 @@ def test_sip_spec_version(
 ) -> None:
     """
     Test that the ReferenceSpec object as defined in the test module is not
-    outdated when compared to the remote hash from sila/SIPs.
+    outdated when compared to the remote hash from sila-chain/SIPs.
 
     Args:
       module: Module to test
@@ -157,7 +157,7 @@ def test_sip_spec_version(
 
     message = (
         "The version of the spec referenced in "
-        f"{module} does not match that from sila/SIPs, "
+        f"{module} does not match that from sila-chain/SIPs, "
         f"tests might be outdated: Spec: {ref_spec.name()}. "
         f"Referenced version: {ref_spec.known_version()}. "
         f"Latest version: {ref_spec.latest_version()}. The "

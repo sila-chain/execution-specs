@@ -170,17 +170,16 @@ pytestmark = [
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_empty_dataFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_with_g1_zeroFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_with_g2_zeroFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_1Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_2Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_3Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_4Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_5Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_three_point_match_1Filler.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_empty_data.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_with_g1_zero.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_with_g2_zero.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_1.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_2.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_3.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_4.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_match_5.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_three_point_match_1.json",
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2422"],
 )
 def test_valid(
     state_test: StateTestFiller,
@@ -279,13 +278,12 @@ def test_valid(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_failFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_fail_1Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_fail_2Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_points_with_one_g2_zeroFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_three_point_fail_1Filler.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_fail.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_fail_1.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_fail_2.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_points_with_one_g2_zero.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_three_point_fail_1.json",
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2422"],
 )
 def test_fail(
     state_test: StateTestFiller,
@@ -471,19 +469,18 @@ def test_fail(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_bad_length_191Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_bad_length_193Filler.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_field_modulusFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_field_modulus_againFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_not_in_subgroupFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_with_g2_zero_and_g1_invalidFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_curve_orderFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_oneFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_zeropoint_by_curve_orderFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_zeropoint_by_field_modulusFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_zeropoint_by_oneFiller.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_bad_length_191.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_bad_length_193.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_field_modulus.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_field_modulus_again.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_not_in_subgroup.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_with_g2_zero_and_g1_invalid.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_curve_order.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_g2_by_one.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_zeropoint_by_curve_order.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_zeropoint_by_field_modulus.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_perturb_zeropoint_by_one.json",
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2422"],
 )
 def test_invalid(
     state_test: StateTestFiller,
@@ -525,11 +522,10 @@ def test_invalid(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_empty_data_insufficient_gasFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_insufficient_gasFiller.json",
-        "https://github.com/sila/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_oogFiller.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_empty_data_insufficient_gas.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_one_point_insufficient_gas.json",
+        "https://github.com/sila-chain/sila-legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge/ecpairing_two_point_oog.json",
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2422"],
 )
 def test_gas(
     state_test: StateTestFiller,

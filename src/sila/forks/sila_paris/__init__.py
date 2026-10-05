@@ -22,15 +22,14 @@ marks the integration of the [consensus layer] with the execution layer
 
 - [Besu 22.7.2]
 - [Erigon 2022.09.01][e]
-- [Gsil 1.10.23]
+- Gsil 1.10.23
 - [Nethermind 1.14.1][nm]
 
-[consensus layer]: https://github.com/sila/consensus-specs
+[consensus layer]: https://github.com/sila-chain/consensus-specs
 [SIP-3675]: https://sips.sila.org/SIPS/sip-3675
 [SIP-4399]: https://sips.sila.org/SIPS/sip-4399
 [Besu 22.7.2]: https://github.com/besu-sil/besu/releases/tag/22.7.2
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2022.09.01
-[Gsil 1.10.23]: https://github.com/sila/go-sila/releases/tag/v1.10.23
 [nm]: https://github.com/NethermindEth/nethermind/releases/tag/1.14.1
 """  # noqa: E501
 

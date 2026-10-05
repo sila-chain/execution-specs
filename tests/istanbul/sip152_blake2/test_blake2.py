@@ -21,14 +21,10 @@ REFERENCE_SPEC_VERSION = ref_spec_152.version
 
 pytestmark = pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts/blake2BFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLBlake2fFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEBlake2fFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts/delegatecall09UndefinedFiller.yml",
-    ],
-    pr=[
-        "https://github.com/sila/execution-spec-tests/pull/1244",
-        "https://github.com/sila/execution-spec-tests/pull/1067",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts/blake2BFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLBlake2fFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEBlake2fFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts/delegatecall09UndefinedFiller.yml",
     ],
     coverage_missed_reason=(
         "No longer used opcodes, SUB, GT, ISZERO, AND, CODESIZE, JUMP, some "
@@ -82,7 +78,6 @@ pytestmark = pytest.mark.ported_from(
             ),
             id="valid-rounds-1",
         ),
-        # Case from https://github.com/sila/tests/pull/948#issuecomment-925964632
         pytest.param(
             Blake2bInput(
                 m="6162636465000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",

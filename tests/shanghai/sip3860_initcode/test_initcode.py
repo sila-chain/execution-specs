@@ -2,8 +2,8 @@
 Test [SIP-3860: Limit and meter initcode](https://sips.sila.org/SIPS/sip-3860).
 
 Tests ported from:
-- [sila/tests/pull/990](https://github.com/sila/tests/pull/990)
-- [sila/tests/pull/1012](https://github.com/sila/tests/pull/990)
+- sila-chain/sila-tests/pull/990
+- sila-chain/sila-tests/pull/1012
 """
 
 from typing import List
@@ -597,8 +597,7 @@ def test_create2_oversized_initcode_with_insufficient_balance(
     """
     Test CREATE2 with oversized initcode and insufficient balance.
 
-    Regression test for
-    https://github.com/sila/execution-specs/issues/914
+    Regression test.
 
     CREATE2 is called with an endowment of 1123123123 (exceeds the
     contract's zero balance). The initcode size check must take

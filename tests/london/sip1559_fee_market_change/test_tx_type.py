@@ -41,7 +41,6 @@ def tx_validity(fork: Fork) -> Generator[ParameterSet, None, None]:
     [
         "https://github.com/sila/legacytests/blob/master/SilaCancun/GeneralStateTests/stEIP1559/typeTwoBerlin.json"
     ],
-    pr=["https://github.com/sila/execution-specs/pull/1754"],
 )
 @pytest.mark.parametrize_by_fork("valid", tx_validity)
 def test_sip1559_tx_validity(

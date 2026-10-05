@@ -228,7 +228,7 @@ Example output snippet:
 
       ```text
       # sip_checklist_external_coverage.txt
-      general/code_coverage/sels = Covered by sila/execution-specs PR #1234
+      general/code_coverage/sels = Covered by sila-chain/execution-specs PR #1234
       ```
 
       You can verify the correct ID using:

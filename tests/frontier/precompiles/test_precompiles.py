@@ -43,9 +43,8 @@ def precompile_addresses(fork: Fork) -> Iterator[Tuple[Address, bool]]:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts/idPrecompsFiller.yml"
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts/idPrecompsFiller.yml"
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1120"],
     coverage_missed_reason=(
         "Original test saves variables to memory, loads from storage, uses "
         "calldataload to get the precompile address to call, uses lt and gt "

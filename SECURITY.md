@@ -10,8 +10,8 @@ a bug in the production clients, though this is not necessarily the case.
 
 ## Supported Versions
 
-Please see [Releases](https://github.com/sila/execution-specs/releases). We
-recommend using the [latest version](https://github.com/sila/execution-specs/releases/latest).
+Please see [Releases](https://github.com/sila-chain/execution-specs/releases). We
+recommend using the [latest version](https://github.com/sila-chain/execution-specs/releases/latest).
 
 ## Reporting Issues
 
@@ -39,5 +39,5 @@ specification at the SIP level rather than the implementation level) or
 sensitive information has been leaked into the code base, please visit
 [https://bounty.sila.org](https://bounty.sila.org) or email
 bounty@sila.org. Please read the [disclosure
-page](https://github.com/sila/go-sila/security/advisories?state=published)
+page](https://github.com/sila-chain/go-sila/security/advisories?state=published)
 for more information about publicly disclosed security vulnerabilities.

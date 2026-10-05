@@ -5,7 +5,7 @@ inputs:
     description: 'Type of EVM binary to build (key in .github/configs/evm.yaml)'
     required: true
   repo_override:
-    description: 'Override the repo from evm.yaml (e.g. sila/go-sila)'
+    description: 'Override the repo from evm.yaml (e.g. sila-chain/go-sila)'
     required: false
     default: ''
   ref_override:

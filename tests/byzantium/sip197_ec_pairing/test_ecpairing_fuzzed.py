@@ -23,9 +23,8 @@ pytestmark = [
     ),
     pytest.mark.ported_from(
         [
-            "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stZeroKnowledge/ecpairing_inputsFiller.yml",
+            "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stZeroKnowledge/ecpairing_inputsFiller.yml",
         ],
-        pr=["https://github.com/sila/execution-specs/pull/2443"],
     ),
 ]
 

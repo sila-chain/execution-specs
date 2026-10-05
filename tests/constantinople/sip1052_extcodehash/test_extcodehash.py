@@ -35,9 +35,8 @@ pytestmark = [
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSelfFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSelfFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2249"],
 )
 @pytest.mark.sels_base_coverage
 def test_extcodehash_self(
@@ -67,10 +66,9 @@ def test_extcodehash_self(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashNonExistingAccountFiller.yml",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashAccountWithoutCodeFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashNonExistingAccountFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashAccountWithoutCodeFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2237"],
 )
 @pytest.mark.parametrize("target_exists", [True, False])
 def test_extcodehash_of_empty(
@@ -111,9 +109,8 @@ def test_extcodehash_of_empty(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extcodehashEmpty_ParisFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExtCodeHash/extcodehashEmpty_SilaParisFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2237"],
 )
 def test_extcodehash_empty_send_value(
     state_test: StateTestFiller,
@@ -160,9 +157,8 @@ def test_extcodehash_empty_send_value(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extcodehashEmpty_ParisFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExtCodeHash/extcodehashEmpty_SilaParisFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2237"],
 )
 @pytest.mark.pre_alloc_mutable
 @pytest.mark.parametrize(
@@ -268,9 +264,8 @@ def test_extcodehash_empty_account_variants(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extcodehashEmpty_ParisFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExtCodeHash/extcodehashEmpty_SilaParisFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2237"],
 )
 @pytest.mark.parametrize("opcode", [Op.CREATE, Op.CREATE2])
 def test_extcodehash_empty_contract_creation(
@@ -339,9 +334,8 @@ def test_extcodehash_empty_contract_creation(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/dynamicAccountOverwriteEmpty_ParisFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExtCodeHash/dynamicAccountOverwriteEmpty_SilaParisFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2291"],
 )
 @pytest.mark.pre_alloc_mutable
 @pytest.mark.parametrize(
@@ -390,9 +384,8 @@ def test_extcodehash_codeless_with_storage(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/tree/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/dynamicAccountOverwriteEmpty_ParisFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExtCodeHash/dynamicAccountOverwriteEmpty_SilaParisFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2032"],
 )
 @pytest.mark.parametrize(
     "target_exists",
@@ -528,9 +521,8 @@ def test_extcodehash_dynamic_account_overwrite(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashPrecompilesFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashPrecompilesFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2302"],
 )
 @pytest.mark.with_all_precompiles
 def test_extcodehash_precompile(
@@ -566,10 +558,9 @@ def test_extcodehash_precompile(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashNewAccountFiller.json",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/createEmptyThenExtcodehashFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashNewAccountFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/createEmptyThenExtcodehashFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2326"],
 )
 @pytest.mark.parametrize("opcode", [Op.CREATE, Op.CREATE2])
 @pytest.mark.parametrize(
@@ -636,12 +627,11 @@ def test_extcodehash_new_account(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCALLFiller.json",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCALLCODEFiller.json",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDELEGATECALLFiller.json",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSTATICCALLFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCALLFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCALLCODEFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDELEGATECALLFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSTATICCALLFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2348"],
 )
 @pytest.mark.parametrize(
     "opcode",
@@ -696,16 +686,15 @@ def test_extcodehash_via_call(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccountFiller.yml",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount1Filler.yml",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount2Filler.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccountFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount1Filler.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount2Filler.yml",  # noqa: E501
         "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccountCancunFiller.yml",  # noqa: E501
         "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount1CancunFiller.yml",  # noqa: E501
         "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount2CancunFiller.yml",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount3Filler.yml",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount4Filler.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount3Filler.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDeletedAccount4Filler.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2366"],
 )
 @pytest.mark.parametrize(
     "create_opcode",
@@ -802,9 +791,8 @@ def test_extcodehash_after_selfdestruct(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashChangedAccountFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashChangedAccountFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2394"],
 )
 def test_extcodehash_changed_account(
     state_test: StateTestFiller,
@@ -867,9 +855,8 @@ def test_extcodehash_changed_account(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashMaxCodeSizeFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashMaxCodeSizeFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2397"],
 )
 @pytest.mark.parametrize("code_byte", [0x00, 0xFE], ids=["stop", "invalid"])
 @pytest.mark.parametrize("size_delta", [0, 1], ids=["max", "max_minus_1"])
@@ -912,7 +899,7 @@ def test_extcodehash_max_code_size(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashInInitCodeFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashInInitCodeFiller.json",  # noqa: E501
     ],
 )
 @pytest.mark.parametrize(
@@ -995,7 +982,7 @@ def test_extcodehash_in_init_code(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSelfInInitFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSelfInInitFiller.json",  # noqa: E501
     ],
 )
 @pytest.mark.parametrize(
@@ -1072,9 +1059,8 @@ def test_extcodehash_self_in_init(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDynamicArgumentFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashDynamicArgumentFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2379"],
 )
 @pytest.mark.parametrize(
     "target_type",
@@ -1149,9 +1135,8 @@ def test_extcodehash_dynamic_argument(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/callToNonExistentFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/callToNonExistentFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2410"],
 )
 @pytest.mark.with_all_call_opcodes
 def test_extcodehash_call_to_nonexistent(
@@ -1189,9 +1174,8 @@ def test_extcodehash_call_to_nonexistent(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/callToSuicideThenExtcodehashFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/callToSuicideThenExtcodehashFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2412"],
 )
 @pytest.mark.with_all_call_opcodes
 def test_extcodehash_call_to_selfdestruct(
@@ -1247,11 +1231,10 @@ def test_extcodehash_call_to_selfdestruct(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountFiller.json",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountCallFiller.json",  # noqa: E501
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountStaticCallFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountCallFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountStaticCallFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2416"],
 )
 @pytest.mark.parametrize(
     "trigger",
@@ -1340,9 +1323,8 @@ def test_extcodehash_created_and_deleted(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountRecheckInOuterCallFiller.json",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashCreatedAndDeletedAccountRecheckInOuterCallFiller.json",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2428"],
 )
 def test_extcodehash_created_and_deleted_recheck_outer(
     state_test: StateTestFiller,
@@ -1440,10 +1422,9 @@ def test_extcodehash_created_and_deleted_recheck_outer(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSubcallSuicideFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSubcallSuicideFiller.yml",  # noqa: E501
         "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSubcallSuicideCancunFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2418"],
 )
 @pytest.mark.parametrize(
     "call_opcode",
@@ -1555,10 +1536,7 @@ def test_extcodehash_subcall_selfdestruct(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSubcallOOGFiller.yml",  # noqa: E501
-    ],
-    pr=[
-        "https://github.com/sila/execution-specs/pull/2458",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stExtCodeHash/extCodeHashSubcallOOGFiller.yml",  # noqa: E501
     ],
 )
 @pytest.mark.parametrize(
@@ -1656,7 +1634,7 @@ def test_extcodehash_subcall_create2_oog(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/codeCopyZero_ParisFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExtCodeHash/codeCopyZero_SilaParisFiller.yml",  # noqa: E501
     ],
 )
 @pytest.mark.parametrize(
@@ -1722,7 +1700,7 @@ def test_extcodecopy_zero_code(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stExtCodeHash/codeCopyZero_ParisFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stExtCodeHash/codeCopyZero_SilaParisFiller.yml",  # noqa: E501
     ],
 )
 def test_codecopy_zero_in_create2(

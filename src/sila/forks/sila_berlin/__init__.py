@@ -23,7 +23,7 @@ with the first new transaction type—optional access lists.
 
 - [Besu 21.1.2]
 - [SilaJS VM 5.2.0][js]
-- [Gsil 1.10.1]
+- Gsil 1.10.1
 - [Nethermind 1.10.58][n]
 - [OpenSila 3.2.0][oe]
 
@@ -33,7 +33,6 @@ with the first new transaction type—optional access lists.
 [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
 [Besu 21.1.2]: https://github.com/besu-sil/besu/releases/tag/21.1.2
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.2.0
-[Gsil 1.10.1]: https://github.com/sila/go-sila/releases/tag/v1.10.1
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.10.58
 [oe]: https://github.com/opensila/opensila/releases/tag/v3.2.0
 """  # noqa: E501

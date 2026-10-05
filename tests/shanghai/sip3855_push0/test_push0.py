@@ -2,7 +2,7 @@
 Tests [SIP-3855: PUSH0 Instruction](https://sips.sila.org/SIPS/sip-3855).
 
 Tests ported from:
-[sila/tests/pull/1033](https://github.com/sila/tests/pull/1033).
+sila-chain/sila-tests/pull/1033.
 """
 
 import pytest

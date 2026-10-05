@@ -102,7 +102,6 @@ def precompile_caller_code(
         + copy_opcode_cost(fork, len(precompile_input))
     )
     if call_type == Op.CALL or call_type == Op.CALLCODE:
-        # https://github.com/sila/execution-spec-tests/issues/348
         precompile_caller_code += call_type(
             call_gas,
             Spec.POINT_EVALUATION_PRECOMPILE_ADDRESS,
@@ -115,7 +114,6 @@ def precompile_caller_code(
         overhead_cost += (push_operations_cost * 6) + (calldatasize_cost * 1)
     elif call_type == Op.DELEGATECALL or call_type == Op.STATICCALL:
         # Delegatecall and staticcall use one less argument
-        # https://github.com/sila/execution-spec-tests/issues/348
         precompile_caller_code += call_type(
             call_gas,
             Spec.POINT_EVALUATION_PRECOMPILE_ADDRESS,

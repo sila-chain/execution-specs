@@ -1,6 +1,5 @@
 """
-Suicide scenario requested test
-https://github.com/sila/execution-spec-tests/issues/381.
+Suicide scenario requested test.
 """
 
 from typing import Dict, Union

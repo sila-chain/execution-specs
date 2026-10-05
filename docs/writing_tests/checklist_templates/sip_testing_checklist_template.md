@@ -17,7 +17,7 @@ Depending on the changes introduced by an SIP, the following template is the min
 
 | ID                                    | Description                                                                                                                                                                                                  | Status | Tests |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ | ----- |
-| `general/code_coverage/sels`          | Run produced tests against [SELS](https://github.com/sila/execution-specs) and verify that line code coverage of new added lines for the SIP is 100%, with only exceptions being unreachable code lines. |        |       |
+| `general/code_coverage/sels`          | Run produced tests against [SELS](https://github.com/sila-chain/execution-specs) and verify that line code coverage of new added lines for the SIP is 100%, with only exceptions being unreachable code lines. |        |       |
 | `general/code_coverage/test_coverage` | Run coverage on the test code itself (as a basic logic sanity check), i.e., `uv run fill --cov tests`. |        |       |
 | `general/code_coverage/missed_lines`  | Document any lines missed in coverage reports and explain why they are acceptable (e.g., unreachable code, general infrastructure not related to the SIP).                                                                                                        |        |       |
 | `general/code_coverage/second_client` | Optional - Run against a second client and verify sufficient code coverage over new code added for the SIP.                                                                                                  |        |       |
@@ -1001,7 +1001,7 @@ Verify that a block prior to fork activation where the new transaction type is i
 - \*Verify `sil_estimateGas` behavior for different valid combinations of the new transaction type.
 - `transaction_type/test/rpc/send_raw` | Verify `sil_sendRawTransaction` using `execute`.
 
-\*Tests must be added to [`execution-apis`](https://github.com/sila/execution-apis) repository.
+\*Tests must be added to [`execution-apis`](https://github.com/sila-chain/execution-apis) repository.
 
 ### Framework Changes
 

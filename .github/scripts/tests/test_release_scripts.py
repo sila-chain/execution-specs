@@ -282,7 +282,7 @@ class TestCheckNewCommits:
         env = os.environ.copy()
         env["PATH"] = f"{bin_dir}:{env['PATH']}"
         env["GITHUB_EVENT_NAME"] = event_name
-        env["GITHUB_REPOSITORY"] = "sila/execution-specs"
+        env["GITHUB_REPOSITORY"] = "sila-chain/execution-specs"
         env["GITHUB_SHA"] = "b" * 40
         env["GITHUB_STEP_SUMMARY"] = str(summary)
         env["FAKE_GH_RUNS"] = runs
@@ -494,7 +494,7 @@ class TestResolveCachedRelease:
         summary = tmp_path / "summary.md"
         env = os.environ.copy()
         env["PATH"] = f"{bin_dir}:{env['PATH']}"
-        env["GITHUB_REPOSITORY"] = "sila/execution-specs"
+        env["GITHUB_REPOSITORY"] = "sila-chain/execution-specs"
         env["GITHUB_SHA"] = "b" * 40
         env["GITHUB_STEP_SUMMARY"] = str(summary)
         env["INPUT_VERSION"] = version

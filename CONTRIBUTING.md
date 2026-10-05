@@ -3,7 +3,7 @@
 Help is always welcome. The Sila Execution Layer Specifications (SELS) are a community effort and we appreciate support in the following areas:
 
 - Reporting issues.
-- Fixing and responding to [issues](https://github.com/sila/execution-specs/issues), especially those tagged [E-easy](https://github.com/sila/execution-specs/labels/E-easy), which are intended as introductory issues for external contributors.
+- Fixing and responding to [issues](https://github.com/sila-chain/execution-specs/issues), especially those tagged E-easy, which are intended as introductory issues for external contributors.
 - Improving the documentation.
 
 > [!IMPORTANT]

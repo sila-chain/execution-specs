@@ -26,7 +26,7 @@ bytecode, and deprecates the self-destruct EVM instruction.
 ### Releases
 
 - [Besu 23.1.2]
-- [Gsil 1.11.5]
+- Gsil 1.11.5
 - [Erigon 2.41.0][e]
 - [SilaJS 6.4.0][js]
 - [Nethermind 1.17.3][n]
@@ -35,7 +35,6 @@ bytecode, and deprecates the self-destruct EVM instruction.
 [SIP-3855]: https://sips.sila.org/SIPS/sip-3855
 [SIP-3860]: https://sips.sila.org/SIPS/sip-3860
 [SIP-4895]: https://sips.sila.org/SIPS/sip-4895
-[Gsil 1.11.5]: https://github.com/sila/go-sila/releases/tag/v1.11.5
 [Besu 23.1.2]: https://github.com/besu-sil/besu/releases/tag/23.1.2
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.17.3
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2.41.0

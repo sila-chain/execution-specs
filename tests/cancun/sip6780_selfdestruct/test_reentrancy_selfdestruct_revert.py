@@ -1,6 +1,5 @@
 """
-Self-destruct scenario requested test
-https://github.com/sila/tests/issues/1325.
+Self-destruct scenario requested test.
 """
 
 from typing import SupportsBytes

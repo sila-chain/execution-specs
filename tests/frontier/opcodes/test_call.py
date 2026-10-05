@@ -14,8 +14,7 @@ from execution_testing import (
 
 
 # TODO: There's an issue with gas definitions on forks previous to SilaBerlin,
-# remove this when fixed. https://github.com/sila/execution-spec-
-# tests/pull/1952#discussion_r2237634275
+# remove this when fixed.
 @pytest.mark.valid_from("SilaBerlin")
 def test_call_large_offset_mstore(
     state_test: StateTestFiller,
@@ -78,8 +77,7 @@ def test_call_large_offset_mstore(
 
 
 # TODO: There's an issue with gas definitions on forks previous to SilaBerlin,
-# remove this when fixed. https://github.com/sila/execution-spec-
-# tests/pull/1952#discussion_r2237634275
+# remove this when fixed.
 @pytest.mark.valid_from("SilaBerlin")
 def test_call_memory_expands_on_early_revert(
     state_test: StateTestFiller,
@@ -161,8 +159,7 @@ def test_call_memory_expands_on_early_revert(
 
 
 # TODO: There's an issue with gas definitions on forks previous to SilaBerlin,
-# remove this when fixed. https://github.com/sila/execution-spec-
-# tests/pull/1952#discussion_r2237634275
+# remove this when fixed.
 @pytest.mark.with_all_call_opcodes
 @pytest.mark.valid_from("SilaBerlin")
 def test_call_large_args_offset_size_zero(

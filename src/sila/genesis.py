@@ -175,8 +175,7 @@ def add_genesis_block(
     the block added by this function.
 
     The sila-mainnet genesis configuration was originally created using the
-    `mk_genesis_block.py` script. It is long since defunct, but is still
-    available at <https://github.com/sila/genesis_block_generator>.
+    `mk_genesis_block.py` script, which is long since defunct.
 
     The initial state is populated with balances based on the Sila presale
     that happened on the Bitcoin blockchain. Additional sila worth 1.98% of

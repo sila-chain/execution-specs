@@ -14,9 +14,8 @@ from execution_testing import Macros as Om
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/calldatasizeFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/VMTests/vmTests/calldatasizeFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1236"],
 )
 @pytest.mark.parametrize(
     "args_size",
@@ -41,7 +40,7 @@ def test_calldatasize(
                                transaction calldata
 
     Based on
-    https://github.com/sila/tests/blob/
+    https://github.com/sila-chain/sila-tests/blob/main/
     81862e4848585a438d64f911a19b3825f0f4cd95/src/
     GeneralStateTestsFiller/VMTests/vmTests/calldatasizeFiller.yml
     """

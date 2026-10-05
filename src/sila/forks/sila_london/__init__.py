@@ -26,7 +26,7 @@ reserves a contract prefix for future use, and delays the difficulty bomb.
 - [Besu 21.7.2]
 - [Erigon 2021.07.04-alpha][e]
 - [SilaJS 5.5.0][js]
-- [Gsil 1.10.6]
+- Gsil 1.10.6
 - [Nethermind 1.10.79][n]
 - [OpenSila 3.3.0-rc.4][oe]
 
@@ -38,7 +38,6 @@ reserves a contract prefix for future use, and delays the difficulty bomb.
 [Besu 21.7.2]: https://github.com/besu-sil/besu/releases/tag/21.7.2
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2021.07.04
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/%40silajs%2Fvm%405.5.0
-[Gsil 1.10.6]: https://github.com/sila/go-sila/releases/tag/v1.10.6
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.10.79
 [oe]: https://github.com/opensila/opensila/releases/tag/v3.3.0-rc.4
 """  # noqa: E501

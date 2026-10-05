@@ -54,10 +54,9 @@ combinations = list(itertools.product(list_of_args, repeat=2))
 @pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stShift/shiftCombinationsFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stShift/shiftSignedCombinationsFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stShift/shiftCombinationsFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stShift/shiftSignedCombinationsFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1683"],
 )
 @pytest.mark.sels_base_coverage
 def test_combinations(

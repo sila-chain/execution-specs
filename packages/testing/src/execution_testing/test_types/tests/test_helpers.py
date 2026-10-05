@@ -142,7 +142,7 @@ def test_compute_create2_address(
     """
     Test `sila_test.helpers.compute_create2_address` using the CREATE2 gsil
     test cases from:
-    https://github.com/sila/go-sila/blob/2189773093b2fe6d161b6477589f964470ff5bce/core/vm/instructions_test.go.
+    https://github.com/sila-chain/go-sila/blob/2189773093b2fe6d161b6477589f964470ff5bce/core/vm/instructions_test.go.
 
     Note: `compute_create2_address` does not generate checksum addresses.
     """  # noqa: E501

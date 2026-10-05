@@ -10,7 +10,7 @@ from ..reference_spec.git_reference_spec import GitReferenceSpec
 from ..reference_spec.reference_spec import NoLatestKnownVersionError
 
 # the content field from
-# https://api.github.com/repos/sila/SIPs/contents/SIPS/sip-100.md
+# https://api.github.com/repos/sila-chain/SIPs/contents/SIPS/sip-100.md
 # as of 2023-08-29
 response_content = (
     "LS0tCmVpcDogMTAwCnRpdGxlOiBDaGFuZ2UgZGlmZmljdWx0eSBhZGp1c3Rt\

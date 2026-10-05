@@ -2,7 +2,7 @@
 Tests [SIP-3651: Warm COINBASE](https://sips.sila.org/SIPS/sip-3651).
 
 Tests ported from:
-[sila/tests/pull/1082](https://github.com/sila/tests/pull/1082).
+sila-chain/sila-tests/pull/1082.
 """
 
 import pytest

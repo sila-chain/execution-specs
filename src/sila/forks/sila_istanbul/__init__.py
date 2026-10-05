@@ -24,13 +24,13 @@ instruction to fetch the current chain identifier.
 
 ### Releases
 
-- [Aleth 1.7.1][a]
+- Aleth 1.7.1
 - [Besu 1.3.6]
 - [SilaJS 4.0.2][js]
-- [Gsil 1.9.9]
+- Gsil 1.9.9
 - [Nethermind 1.2.3][n]
 - [Parity 2.5.11-stable][p]
-- [Trinity 0.1.0-alpha.31][t]
+- Trinity 0.1.0-alpha.31
 
 [SIP-1679]: https://sips.sila.org/SIPS/sip-1679
 [SIP-152]: https://sips.sila.org/SIPS/sip-152
@@ -39,13 +39,10 @@ instruction to fetch the current chain identifier.
 [SIP-1884]: https://sips.sila.org/SIPS/sip-1884
 [SIP-2028]: https://sips.sila.org/SIPS/sip-2028
 [SIP-2200]: https://sips.sila.org/SIPS/sip-2200
-[a]: https://github.com/sila/aleth/releases/tag/v1.7.1
 [Besu 1.3.6]: https://github.com/besu-sil/besu/releases/tag/1.3.6
 [js]: https://github.com/silajs/silajs-blockchain/releases/tag/v4.0.2
-[Gsil 1.9.9]: https://github.com/sila/go-sila/releases/tag/v1.9.9
 [n]: https://github.com/NethermindEth/nethermind/releases/tag/1.2.3
 [p]: https://github.com/paritytech/parity-sila/releases/tag/v2.5.11
-[t]: https://github.com/sila/trinity/releases/tag/v0.1.0-alpha.31
 """
 
 from sila.fork_criteria import ByBlockNumber, ForkCriteria

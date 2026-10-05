@@ -60,10 +60,9 @@ def prepare_suffix(opcode: Opcode) -> Bytecode:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stBadOpcode/badOpcodesFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stBugs/evmBytecodeFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stBadOpcode/badOpcodesFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stBugs/evmBytecodeFiller.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/748"],
 )
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.sels_base_coverage
