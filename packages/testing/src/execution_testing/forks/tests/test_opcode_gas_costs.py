@@ -10,7 +10,7 @@ from ..forks.forks import (
     SilaHomestead,
     SilaIstanbul,
     SilaOsaka,
-    SpuriousDragon,
+    SIP158,
 )
 from ..helpers import Fork
 
@@ -430,37 +430,37 @@ from ..helpers import Fork
         # they pin the historical schedule from the SELS vm/gas.py
         # constants of each fork.
         pytest.param(SilaHomestead, Op.CALL, 40, id="call_homestead"),
-        pytest.param(SpuriousDragon, Op.CALL, 700, id="call_spurious_dragon"),
+        pytest.param(SIP158, Op.CALL, 700, id="call_sip158"),
         pytest.param(
-            SpuriousDragon,
+            SIP158,
             Op.CALL(address_warm=True),
             700,
-            id="call_warmth_inert_spurious_dragon",
+            id="call_warmth_inert_sip158",
         ),
         pytest.param(
-            SpuriousDragon,
+            SIP158,
             Op.CALL(address_warm=True, value_transfer=True, account_new=True),
             700 + 9_000 + 25_000,
-            id="call_value_new_account_spurious_dragon",
+            id="call_value_new_account_sip158",
         ),
         pytest.param(SilaHomestead, Op.BALANCE, 20, id="balance_homestead"),
         pytest.param(
-            SpuriousDragon, Op.BALANCE, 400, id="balance_spurious_dragon"
+            SIP158, Op.BALANCE, 400, id="balance_sip158"
         ),
         pytest.param(SilaIstanbul, Op.BALANCE, 700, id="balance_istanbul"),
         pytest.param(SilaHomestead, Op.SLOAD, 50, id="sload_homestead"),
         pytest.param(
-            SpuriousDragon, Op.SLOAD, 200, id="sload_spurious_dragon"
+            SIP158, Op.SLOAD, 200, id="sload_sip158"
         ),
         pytest.param(SilaIstanbul, Op.SLOAD, 800, id="sload_istanbul"),
         pytest.param(
             SilaHomestead, Op.EXTCODESIZE, 20, id="extcodesize_homestead"
         ),
         pytest.param(
-            SpuriousDragon,
+            SIP158,
             Op.EXTCODESIZE,
             700,
-            id="extcodesize_spurious_dragon",
+            id="extcodesize_sip158",
         ),
         pytest.param(
             SilaConstantinopleFix,
@@ -475,16 +475,16 @@ from ..helpers import Fork
             SilaHomestead, Op.SELFDESTRUCT, 0, id="selfdestruct_homestead"
         ),
         pytest.param(
-            SpuriousDragon,
+            SIP158,
             Op.SELFDESTRUCT,
             5_000,
-            id="selfdestruct_spurious_dragon",
+            id="selfdestruct_sip158",
         ),
         pytest.param(
-            SpuriousDragon,
+            SIP158,
             Op.SELFDESTRUCT(account_new=True),
             5_000 + 25_000,
-            id="selfdestruct_new_account_spurious_dragon",
+            id="selfdestruct_new_account_sip158",
         ),
         # The new account charge is independent of a value transfer
         # until SIP-161, and SELFDESTRUCT charges nothing before
