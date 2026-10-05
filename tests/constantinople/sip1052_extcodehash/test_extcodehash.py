@@ -26,7 +26,7 @@ from execution_testing.forks.helpers import Fork
 from sila.crypto.hash import keccak256
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-1052.md"
-REFERENCE_SPEC_VERSION = "2dcbc7ce1563e9624e137e9d447374600af876fa"
+REFERENCE_SPEC_VERSION = "4a55e960bee3f514d7f9b269e7cb6cbb52ef8cec"
 
 pytestmark = [
     pytest.mark.valid_from("SilaConstantinopleFix"),

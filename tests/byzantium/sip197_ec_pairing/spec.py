@@ -9,7 +9,7 @@ from ..sip196_ec_add_mul.spec import FP, PointG1
 from ..sip196_ec_add_mul.spec import Spec as Spec196
 
 ref_spec_197 = ReferenceSpec(
-    "SIPS/sip-197.md", "9f9b3d33440e7c122b6c9192facfc380bc009422"
+    "SIPS/sip-197.md", "95c80da96dbb8988e1a8ad0b0ce2aa0688e84c88"
 )
 
 

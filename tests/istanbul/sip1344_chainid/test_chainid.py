@@ -13,7 +13,7 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-1344.md"
-REFERENCE_SPEC_VERSION = "02e46aebc80e6e5006ab4d2daa41876139f9a9e2"
+REFERENCE_SPEC_VERSION = "09be8f037757056e80badd37dfaf62cc82dcc631"
 
 
 @pytest.mark.with_all_typed_transactions(

@@ -12,7 +12,7 @@ class ReferenceSpec:
 
 
 ref_spec_145 = ReferenceSpec(
-    "SIPS/sip-145.md", "be0aca3e57f1eeb8ae265e58da6e2dffc5b67f81"
+    "SIPS/sip-145.md", "e04b84916d3d55add0116624ff8f4911e54d8916"
 )
 
 

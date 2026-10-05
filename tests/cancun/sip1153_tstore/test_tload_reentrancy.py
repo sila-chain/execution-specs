@@ -21,7 +21,7 @@ from execution_testing import (
 from execution_testing import Macros as Om
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-1153.md"
-REFERENCE_SPEC_VERSION = "1eb863b534a5a3e19e9c196ab2a7f3db4bb9da17"
+REFERENCE_SPEC_VERSION = "71af630706495decd26dec6ab63648cce0055da3"
 
 
 class CallDestType(Enum):

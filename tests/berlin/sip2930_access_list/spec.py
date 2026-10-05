@@ -12,7 +12,7 @@ class ReferenceSpec:
 
 
 ref_spec_2930 = ReferenceSpec(
-    "SIPS/sip-2930.md", "c9db53a936c5c9cbe2db32ba0d1b86c4c6e73534"
+    "SIPS/sip-2930.md", "107c3a422bb2c25adbfce5cd2688f1d1303a7547"
 )
 
 

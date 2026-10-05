@@ -13,5 +13,5 @@ class ReferenceSpec:
 
 ref_spec_8246 = ReferenceSpec(
     git_path="SIPS/sip-8246.md",
-    version="8be64cf6a01350938b93332cf0062ab7a3166f23",
+    version="705bb506186b3b4a93ce11d2b555155524776955",
 )

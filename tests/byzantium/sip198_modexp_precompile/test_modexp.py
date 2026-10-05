@@ -23,7 +23,7 @@ from execution_testing.base_types.base_types import (
 from .helpers import ModExpInput, ModExpOutput
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-198.md"
-REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
+REFERENCE_SPEC_VERSION = "c3728ca1a431e00b6a8a32b11812e5a700611c3e"
 
 
 @pytest.mark.valid_from("SilaByzantium")

@@ -16,7 +16,7 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2200.md"
-REFERENCE_SPEC_VERSION = "ad4eaaa1fe5c7aa394b2ab09e885b73b898f5da0"
+REFERENCE_SPEC_VERSION = "81f5462e20a8f90dae06ba588e444508e8c3ae49"
 
 pytestmark = [
     pytest.mark.ported_from(

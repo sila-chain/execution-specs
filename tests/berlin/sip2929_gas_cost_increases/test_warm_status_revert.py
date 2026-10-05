@@ -23,7 +23,7 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2929.md"
-REFERENCE_SPEC_VERSION = "0e11417265a623adb680c527b15d0cb6701b870b"
+REFERENCE_SPEC_VERSION = "04f3aa8ac8d5b31f1a9a0a3393fb65767f430a68"
 
 
 @pytest.mark.valid_from("SilaBerlin")

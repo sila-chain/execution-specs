@@ -35,7 +35,7 @@ from execution_testing import (
 from sila.crypto.hash import keccak256
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-7928.md"
-REFERENCE_SPEC_VERSION = "f834f0004aa5110a5f1ac0d6b80e3dc4b842d040"
+REFERENCE_SPEC_VERSION = "aef85acbe069f399d6edd4d46712a560af3872e4"
 
 pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 

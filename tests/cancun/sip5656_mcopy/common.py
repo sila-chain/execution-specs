@@ -6,7 +6,7 @@ instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md).
 from copy import copy
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-5656.md"
-REFERENCE_SPEC_VERSION = "d0cd8902e2243b66e2b9a858b691bc106cebddfc"
+REFERENCE_SPEC_VERSION = "8d98dc3c535067ece64b601bb4bc7c29291512bb"
 
 
 def mcopy(*, src: int, dest: int, length: int, memory: bytes) -> bytes:

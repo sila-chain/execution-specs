@@ -16,7 +16,7 @@ from execution_testing.forks.forks.forks import SilaIstanbul
 from .spec import Spec
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-152.md"
-REFERENCE_SPEC_VERSION = "2762bfcff3e549ef263342e5239ef03ac2b07400"
+REFERENCE_SPEC_VERSION = "2d29eb21229e23ee0a05bf2d0ec5e55dfb4691c1"
 
 
 @pytest.mark.valid_from("SilaConstantinopleFix")
