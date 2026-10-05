@@ -151,7 +151,7 @@ def test_sub(
     # Source: lll
     # {
     #    ; (-1) - 0
-    #    ; evm arithmetic is mod 2^256, and the big number is 2^256-1
+    #    ; sivm arithmetic is mod 2^256, and the big number is 2^256-1
     #   [[0]] (- 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
     #              0)
     # }

@@ -1,6 +1,6 @@
 # State Transition Tests
 
-This tutorial teaches you to create a state transition execution specification test using the Python Opcodes minilang for writing EVM bytecode. These tests verify that a starting pre-state will reach a specified post-state after executing a single transaction. In this example, we'll create a simple contract using bytecode and then interact with it through a transaction to verify the expected state changes.
+This tutorial teaches you to create a state transition execution specification test using the Python Opcodes minilang for writing Sivm bytecode. These tests verify that a starting pre-state will reach a specified post-state after executing a single transaction. In this example, we'll create a simple contract using bytecode and then interact with it through a transaction to verify the expected state changes.
 
 For an overview of different test types available, see [Types of Tests](../../writing_tests/types_of_tests.md).
 
@@ -18,7 +18,7 @@ The most effective method of learning how to write tests is to study a straightf
 
 ### Complete Test Example
 
-We'll examine a simple test that uses the Python Opcodes minilang to write EVM bytecode. This example is based on the CHAINID opcode test from `tests/istanbul/sip1344_chainid/test_chainid.py`.
+We'll examine a simple test that uses the Python Opcodes minilang to write Sivm bytecode. This example is based on the CHAINID opcode test from `tests/istanbul/sip1344_chainid/test_chainid.py`.
 
 Let's examine each section.
 
@@ -35,7 +35,7 @@ from execution_testing.tools import Account, Alloc, Environment, StateTestFiller
 from execution_testing.vm import Opcodes as Op
 ```
 
-In this snippet the required constants, types and helper functions are imported from `execution_testing.tools`. The `Opcodes` class (aliased as `Op`) provides the Python minilang for writing EVM bytecode. We will go over these as we come across them.
+In this snippet the required constants, types and helper functions are imported from `execution_testing.tools`. The `Opcodes` class (aliased as `Op`) provides the Python minilang for writing Sivm bytecode. We will go over these as we come across them.
 
 ```python
 @pytest.mark.valid_from("SilaIstanbul")

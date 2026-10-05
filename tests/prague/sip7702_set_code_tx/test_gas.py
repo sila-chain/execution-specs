@@ -1007,7 +1007,7 @@ def test_gas_cost(
             self_sponsored=self_sponsored,
             sender=sender,
         )
-        # Match ``allocate_evm_gas``: only the execution intrinsic is
+        # Match ``allocate_sivm_gas``: only the execution intrinsic is
         # removed before the top frame; calldata floor is settled later.
         intrinsic_execution = fork.transaction_intrinsic_cost_calculator()(
             calldata=data,

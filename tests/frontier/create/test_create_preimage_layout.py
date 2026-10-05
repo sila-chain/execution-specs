@@ -30,10 +30,10 @@ def test_create_preimage_layout_address(
     nonce: int,
 ) -> None:
     """
-    Test `CreatePreimageLayout` by executing the bytecode in the EVM
+    Test `CreatePreimageLayout` by executing the bytecode in the Sivm
     and verifying the computed address matches `compute_create_address`.
 
-    The nonce is passed via calldata and RLP-encoded at EVM runtime
+    The nonce is passed via calldata and RLP-encoded at Sivm runtime
     using the CLZ-based branch-free path.
     """
     sender = pre.fund_eoa()
@@ -74,7 +74,7 @@ def test_create_preimage_layout_increment_nonce(
     """
     Test `CreatePreimageLayout.increment_nonce_op` by computing
     addresses for nonces 1..DYNAMIC_NONCE_COUNT using a single
-    layout with nonce incrementing in the EVM.
+    layout with nonce incrementing in the Sivm.
     """
     sender = pre.fund_eoa()
     sender_int = int.from_bytes(sender, "big")
@@ -212,7 +212,8 @@ def test_create_address_nonce_boundary(
     Each boundary value is the last nonce before the RLP encoding
     grows by one byte.
     """
-    # EVM does not allow nonces higher than 8 bytes, so a PUSH8 will always fit
+    # Sivm does not allow nonces higher than 8 bytes, so a PUSH8 will always
+    # fit
     nonce_push = Op.PUSH8(starting_nonce)
 
     layout = CreatePreimageLayout(

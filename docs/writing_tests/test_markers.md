@@ -138,7 +138,7 @@ In this example, the test will be parameterized for parameter `precompile` with 
 
 ### `@pytest.mark.with_all_call_opcodes`
 
-This marker is used to automatically parameterize a test with all EVM call opcodes that are valid for the fork being tested.
+This marker is used to automatically parameterize a test with all Sivm call opcodes that are valid for the fork being tested.
 
 ```python
 import pytest
@@ -160,7 +160,7 @@ In this example, the test will be parametrized for parameter `call_opcode` with 
 
 ### `@pytest.mark.with_all_create_opcodes`
 
-This marker is used to automatically parameterize a test with all EVM create opcodes that are valid for the fork being tested.
+This marker is used to automatically parameterize a test with all Sivm create opcodes that are valid for the fork being tested.
 
 ```python
 import pytest
@@ -476,7 +476,7 @@ import pytest
 
 from execution_testing.tools import Alloc, StateTestFiller
 
-@pytest.mark.xfail(reason="EVM binary doesn't support this opcode")
+@pytest.mark.xfail(reason="Sivm binary doesn't support this opcode")
 def test_something(state_test: StateTestFiller, pre: Alloc):
     pass
 ```

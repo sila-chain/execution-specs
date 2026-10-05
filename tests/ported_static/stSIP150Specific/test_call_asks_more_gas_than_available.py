@@ -94,7 +94,7 @@ def forwarded_from(frame_gas: int, call: Bytecode, fork: Fork) -> int:
     """
     available = frame_gas - call.gas_cost(fork)
     assert available > 0, "the frame must afford the call itself"
-    # The EVM withholds `available // 64`, which is not the same as handing
+    # The Sivm withholds `available // 64`, which is not the same as handing
     # down `available * 63 // 64`.
     return available - available // 64
 

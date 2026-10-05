@@ -117,7 +117,7 @@ def test_mod(
     )
     # Source: lll
     # {
-    #    ; -1 % 2  (2^256-1 = -1 in evm arithmetic)
+    #    ; -1 % 2  (2^256-1 = -1 in sivm arithmetic)
     #    [[0]] (% 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 2)  # noqa: E501
     # }
     contract_1 = pre.deploy_contract(  # noqa: F841

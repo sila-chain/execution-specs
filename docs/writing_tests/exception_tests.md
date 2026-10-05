@@ -6,7 +6,7 @@ Exception tests are a special type of test which verify that an invalid transact
 
 To test for an exception, the test can use either of the following types from `execution_testing.exceptions` library:
 
-1. [`TransactionException`](../library/execution_testing_exceptions.md#execution_testing.exceptions.TransactionException): To be added to the `error` field of the `Transaction` object, and to the `exception` field of the `Block` object that includes the transaction; this exception type is used when a transaction is invalid, and therefore when included in a block, the block is expected to be invalid too. This is different from valid transactions where an exception during EVM execution is expected (e.g. a revert, or out-of-gas), which can be included in valid blocks.
+1. [`TransactionException`](../library/execution_testing_exceptions.md#execution_testing.exceptions.TransactionException): To be added to the `error` field of the `Transaction` object, and to the `exception` field of the `Block` object that includes the transaction; this exception type is used when a transaction is invalid, and therefore when included in a block, the block is expected to be invalid too. This is different from valid transactions where an exception during Sivm execution is expected (e.g. a revert, or out-of-gas), which can be included in valid blocks.
 
     For an example, see [`sip3860_initcode.test_initcode.test_contract_creating_tx`](../tests/shanghai/sip3860_initcode/test_initcode/test_contract_creating_tx.md) which raises `TransactionException.INITCODE_SIZE_EXCEEDED` in the case that the initcode size exceeds the maximum allowed size.
 

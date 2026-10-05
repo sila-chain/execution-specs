@@ -1,5 +1,5 @@
 """
-Test cases for EVM functionality introduced in SilaPrague, [SIP-7600: Hardfork
+Test cases for Sivm functionality introduced in SilaPrague, [SIP-7600: Hardfork
 Meta
 - Pectra](https://sip.directory/sips/sip-7600).
 

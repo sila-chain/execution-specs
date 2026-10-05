@@ -100,7 +100,7 @@ def build_cache_strategy_blocks(
     Assemble benchmark blocks based on cache strategy.
 
     For CACHE_PREVIOUS_BLOCK, prepend a warmup block before the
-    execution block so that client caches are hot but EVM state is
+    execution block so that client caches are hot but Sivm state is
     cold.  Otherwise return a single execution block.
     """
     if cache_strategy != CacheStrategy.CACHE_PREVIOUS_BLOCK:

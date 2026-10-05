@@ -601,7 +601,7 @@ def process_unchecked_system_transaction(
         is_static=False,
         accessed_addresses=set(),
         accessed_storage_keys=set(),
-        parent_evm=None,
+        parent_sivm=None,
     )
 
     system_tx_output = process_message_call(system_tx_message)

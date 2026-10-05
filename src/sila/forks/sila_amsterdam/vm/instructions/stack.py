@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Stack Instructions.
+Sila Virtual Machine (Sivm) Stack Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Stack Instructions.
 Introduction
 ------------
 
-Implementations of the EVM stack related instructions.
+Implementations of the Sivm stack related instructions.
 """
 
 from functools import partial
@@ -16,7 +16,7 @@ from typing import Callable
 
 from sila_types.numeric import U8, U256, Uint
 
-from .. import Evm, stack
+from .. import Sivm, stack
 from ..exceptions import StackUnderflowError
 from ..gas import (
     GasCosts,
@@ -26,37 +26,37 @@ from ..memory import buffer_read
 from ..stack import decode_pair, decode_single
 
 
-def pop(evm: Evm) -> None:
+def pop(sivm: Sivm) -> None:
     """
     Removes an item from the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    stack.pop(evm.stack)
+    stack.pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_POP)
+    charge_gas(sivm, GasCosts.OPCODE_POP)
 
     # OPERATION
     pass
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def push_n(evm: Evm, num_bytes: int) -> None:
+def push_n(sivm: Sivm, num_bytes: int) -> None:
     """
     Pushes an N-byte immediate onto the stack. Push zero if num_bytes is zero.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     num_bytes :
         The number of immediate bytes to be read from the code and pushed to
@@ -68,28 +68,28 @@ def push_n(evm: Evm, num_bytes: int) -> None:
 
     # GAS
     if num_bytes == 0:
-        charge_gas(evm, GasCosts.OPCODE_PUSH0)
+        charge_gas(sivm, GasCosts.OPCODE_PUSH0)
     else:
-        charge_gas(evm, GasCosts.OPCODE_PUSH)
+        charge_gas(sivm, GasCosts.OPCODE_PUSH)
 
     # OPERATION
     data_to_push = U256.from_be_bytes(
-        buffer_read(evm.code, U256(evm.pc + Uint(1)), U256(num_bytes))
+        buffer_read(sivm.code, U256(sivm.pc + Uint(1)), U256(num_bytes))
     )
-    stack.push(evm.stack, data_to_push)
+    stack.push(sivm.stack, data_to_push)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1) + Uint(num_bytes)
+    sivm.pc += Uint(1) + Uint(num_bytes)
 
 
-def dup_n(evm: Evm, item_number: int) -> None:
+def dup_n(sivm: Sivm, item_number: int) -> None:
     """
     Duplicates the Nth stack item (from top of the stack) to the top of stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     item_number :
         The stack item number (0-indexed from top of stack) to be duplicated
@@ -100,17 +100,17 @@ def dup_n(evm: Evm, item_number: int) -> None:
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_DUP)
-    if item_number >= len(evm.stack):
+    charge_gas(sivm, GasCosts.OPCODE_DUP)
+    if item_number >= len(sivm.stack):
         raise StackUnderflowError
-    data_to_duplicate = evm.stack[len(evm.stack) - 1 - item_number]
-    stack.push(evm.stack, data_to_duplicate)
+    data_to_duplicate = sivm.stack[len(sivm.stack) - 1 - item_number]
+    stack.push(sivm.stack, data_to_duplicate)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def swap_n(evm: Evm, item_number: int) -> None:
+def swap_n(sivm: Sivm, item_number: int) -> None:
     """
     Swaps the top and the `item_number` element of the stack, where
     the top of the stack is position zero.
@@ -120,8 +120,8 @@ def swap_n(evm: Evm, item_number: int) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     item_number :
         The stack item number (0-indexed from top of stack) to be swapped
@@ -132,88 +132,88 @@ def swap_n(evm: Evm, item_number: int) -> None:
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SWAP)
-    if item_number >= len(evm.stack):
+    charge_gas(sivm, GasCosts.OPCODE_SWAP)
+    if item_number >= len(sivm.stack):
         raise StackUnderflowError
-    evm.stack[-1], evm.stack[-1 - item_number] = (
-        evm.stack[-1 - item_number],
-        evm.stack[-1],
+    sivm.stack[-1], sivm.stack[-1 - item_number] = (
+        sivm.stack[-1 - item_number],
+        sivm.stack[-1],
     )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-push0: Callable[[Evm], None] = partial(push_n, num_bytes=0)
-push1: Callable[[Evm], None] = partial(push_n, num_bytes=1)
-push2: Callable[[Evm], None] = partial(push_n, num_bytes=2)
-push3: Callable[[Evm], None] = partial(push_n, num_bytes=3)
-push4: Callable[[Evm], None] = partial(push_n, num_bytes=4)
-push5: Callable[[Evm], None] = partial(push_n, num_bytes=5)
-push6: Callable[[Evm], None] = partial(push_n, num_bytes=6)
-push7: Callable[[Evm], None] = partial(push_n, num_bytes=7)
-push8: Callable[[Evm], None] = partial(push_n, num_bytes=8)
-push9: Callable[[Evm], None] = partial(push_n, num_bytes=9)
-push10: Callable[[Evm], None] = partial(push_n, num_bytes=10)
-push11: Callable[[Evm], None] = partial(push_n, num_bytes=11)
-push12: Callable[[Evm], None] = partial(push_n, num_bytes=12)
-push13: Callable[[Evm], None] = partial(push_n, num_bytes=13)
-push14: Callable[[Evm], None] = partial(push_n, num_bytes=14)
-push15: Callable[[Evm], None] = partial(push_n, num_bytes=15)
-push16: Callable[[Evm], None] = partial(push_n, num_bytes=16)
-push17: Callable[[Evm], None] = partial(push_n, num_bytes=17)
-push18: Callable[[Evm], None] = partial(push_n, num_bytes=18)
-push19: Callable[[Evm], None] = partial(push_n, num_bytes=19)
-push20: Callable[[Evm], None] = partial(push_n, num_bytes=20)
-push21: Callable[[Evm], None] = partial(push_n, num_bytes=21)
-push22: Callable[[Evm], None] = partial(push_n, num_bytes=22)
-push23: Callable[[Evm], None] = partial(push_n, num_bytes=23)
-push24: Callable[[Evm], None] = partial(push_n, num_bytes=24)
-push25: Callable[[Evm], None] = partial(push_n, num_bytes=25)
-push26: Callable[[Evm], None] = partial(push_n, num_bytes=26)
-push27: Callable[[Evm], None] = partial(push_n, num_bytes=27)
-push28: Callable[[Evm], None] = partial(push_n, num_bytes=28)
-push29: Callable[[Evm], None] = partial(push_n, num_bytes=29)
-push30: Callable[[Evm], None] = partial(push_n, num_bytes=30)
-push31: Callable[[Evm], None] = partial(push_n, num_bytes=31)
-push32: Callable[[Evm], None] = partial(push_n, num_bytes=32)
+push0: Callable[[Sivm], None] = partial(push_n, num_bytes=0)
+push1: Callable[[Sivm], None] = partial(push_n, num_bytes=1)
+push2: Callable[[Sivm], None] = partial(push_n, num_bytes=2)
+push3: Callable[[Sivm], None] = partial(push_n, num_bytes=3)
+push4: Callable[[Sivm], None] = partial(push_n, num_bytes=4)
+push5: Callable[[Sivm], None] = partial(push_n, num_bytes=5)
+push6: Callable[[Sivm], None] = partial(push_n, num_bytes=6)
+push7: Callable[[Sivm], None] = partial(push_n, num_bytes=7)
+push8: Callable[[Sivm], None] = partial(push_n, num_bytes=8)
+push9: Callable[[Sivm], None] = partial(push_n, num_bytes=9)
+push10: Callable[[Sivm], None] = partial(push_n, num_bytes=10)
+push11: Callable[[Sivm], None] = partial(push_n, num_bytes=11)
+push12: Callable[[Sivm], None] = partial(push_n, num_bytes=12)
+push13: Callable[[Sivm], None] = partial(push_n, num_bytes=13)
+push14: Callable[[Sivm], None] = partial(push_n, num_bytes=14)
+push15: Callable[[Sivm], None] = partial(push_n, num_bytes=15)
+push16: Callable[[Sivm], None] = partial(push_n, num_bytes=16)
+push17: Callable[[Sivm], None] = partial(push_n, num_bytes=17)
+push18: Callable[[Sivm], None] = partial(push_n, num_bytes=18)
+push19: Callable[[Sivm], None] = partial(push_n, num_bytes=19)
+push20: Callable[[Sivm], None] = partial(push_n, num_bytes=20)
+push21: Callable[[Sivm], None] = partial(push_n, num_bytes=21)
+push22: Callable[[Sivm], None] = partial(push_n, num_bytes=22)
+push23: Callable[[Sivm], None] = partial(push_n, num_bytes=23)
+push24: Callable[[Sivm], None] = partial(push_n, num_bytes=24)
+push25: Callable[[Sivm], None] = partial(push_n, num_bytes=25)
+push26: Callable[[Sivm], None] = partial(push_n, num_bytes=26)
+push27: Callable[[Sivm], None] = partial(push_n, num_bytes=27)
+push28: Callable[[Sivm], None] = partial(push_n, num_bytes=28)
+push29: Callable[[Sivm], None] = partial(push_n, num_bytes=29)
+push30: Callable[[Sivm], None] = partial(push_n, num_bytes=30)
+push31: Callable[[Sivm], None] = partial(push_n, num_bytes=31)
+push32: Callable[[Sivm], None] = partial(push_n, num_bytes=32)
 
-dup1: Callable[[Evm], None] = partial(dup_n, item_number=0)
-dup2: Callable[[Evm], None] = partial(dup_n, item_number=1)
-dup3: Callable[[Evm], None] = partial(dup_n, item_number=2)
-dup4: Callable[[Evm], None] = partial(dup_n, item_number=3)
-dup5: Callable[[Evm], None] = partial(dup_n, item_number=4)
-dup6: Callable[[Evm], None] = partial(dup_n, item_number=5)
-dup7: Callable[[Evm], None] = partial(dup_n, item_number=6)
-dup8: Callable[[Evm], None] = partial(dup_n, item_number=7)
-dup9: Callable[[Evm], None] = partial(dup_n, item_number=8)
-dup10: Callable[[Evm], None] = partial(dup_n, item_number=9)
-dup11: Callable[[Evm], None] = partial(dup_n, item_number=10)
-dup12: Callable[[Evm], None] = partial(dup_n, item_number=11)
-dup13: Callable[[Evm], None] = partial(dup_n, item_number=12)
-dup14: Callable[[Evm], None] = partial(dup_n, item_number=13)
-dup15: Callable[[Evm], None] = partial(dup_n, item_number=14)
-dup16: Callable[[Evm], None] = partial(dup_n, item_number=15)
+dup1: Callable[[Sivm], None] = partial(dup_n, item_number=0)
+dup2: Callable[[Sivm], None] = partial(dup_n, item_number=1)
+dup3: Callable[[Sivm], None] = partial(dup_n, item_number=2)
+dup4: Callable[[Sivm], None] = partial(dup_n, item_number=3)
+dup5: Callable[[Sivm], None] = partial(dup_n, item_number=4)
+dup6: Callable[[Sivm], None] = partial(dup_n, item_number=5)
+dup7: Callable[[Sivm], None] = partial(dup_n, item_number=6)
+dup8: Callable[[Sivm], None] = partial(dup_n, item_number=7)
+dup9: Callable[[Sivm], None] = partial(dup_n, item_number=8)
+dup10: Callable[[Sivm], None] = partial(dup_n, item_number=9)
+dup11: Callable[[Sivm], None] = partial(dup_n, item_number=10)
+dup12: Callable[[Sivm], None] = partial(dup_n, item_number=11)
+dup13: Callable[[Sivm], None] = partial(dup_n, item_number=12)
+dup14: Callable[[Sivm], None] = partial(dup_n, item_number=13)
+dup15: Callable[[Sivm], None] = partial(dup_n, item_number=14)
+dup16: Callable[[Sivm], None] = partial(dup_n, item_number=15)
 
-swap1: Callable[[Evm], None] = partial(swap_n, item_number=1)
-swap2: Callable[[Evm], None] = partial(swap_n, item_number=2)
-swap3: Callable[[Evm], None] = partial(swap_n, item_number=3)
-swap4: Callable[[Evm], None] = partial(swap_n, item_number=4)
-swap5: Callable[[Evm], None] = partial(swap_n, item_number=5)
-swap6: Callable[[Evm], None] = partial(swap_n, item_number=6)
-swap7: Callable[[Evm], None] = partial(swap_n, item_number=7)
-swap8: Callable[[Evm], None] = partial(swap_n, item_number=8)
-swap9: Callable[[Evm], None] = partial(swap_n, item_number=9)
-swap10: Callable[[Evm], None] = partial(swap_n, item_number=10)
-swap11: Callable[[Evm], None] = partial(swap_n, item_number=11)
-swap12: Callable[[Evm], None] = partial(swap_n, item_number=12)
-swap13: Callable[[Evm], None] = partial(swap_n, item_number=13)
-swap14: Callable[[Evm], None] = partial(swap_n, item_number=14)
-swap15: Callable[[Evm], None] = partial(swap_n, item_number=15)
-swap16: Callable[[Evm], None] = partial(swap_n, item_number=16)
+swap1: Callable[[Sivm], None] = partial(swap_n, item_number=1)
+swap2: Callable[[Sivm], None] = partial(swap_n, item_number=2)
+swap3: Callable[[Sivm], None] = partial(swap_n, item_number=3)
+swap4: Callable[[Sivm], None] = partial(swap_n, item_number=4)
+swap5: Callable[[Sivm], None] = partial(swap_n, item_number=5)
+swap6: Callable[[Sivm], None] = partial(swap_n, item_number=6)
+swap7: Callable[[Sivm], None] = partial(swap_n, item_number=7)
+swap8: Callable[[Sivm], None] = partial(swap_n, item_number=8)
+swap9: Callable[[Sivm], None] = partial(swap_n, item_number=9)
+swap10: Callable[[Sivm], None] = partial(swap_n, item_number=10)
+swap11: Callable[[Sivm], None] = partial(swap_n, item_number=11)
+swap12: Callable[[Sivm], None] = partial(swap_n, item_number=12)
+swap13: Callable[[Sivm], None] = partial(swap_n, item_number=13)
+swap14: Callable[[Sivm], None] = partial(swap_n, item_number=14)
+swap15: Callable[[Sivm], None] = partial(swap_n, item_number=15)
+swap16: Callable[[Sivm], None] = partial(swap_n, item_number=16)
 
 
-def dupn(evm: Evm) -> None:
+def dupn(sivm: Sivm) -> None:
     """
     Duplicate the Nth stack item (from top of the stack) to the top of stack.
     The item number is read from the immediate byte following the opcode and
@@ -221,31 +221,31 @@ def dupn(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_DUPN)
+    charge_gas(sivm, GasCosts.OPCODE_DUPN)
 
     # OPERATION
     immediate_data = U8(
-        buffer_read(evm.code, U256(evm.pc + Uint(1)), U256(1))[0]
+        buffer_read(sivm.code, U256(sivm.pc + Uint(1)), U256(1))[0]
     )
     item_number = decode_single(immediate_data)
-    if int(item_number) > len(evm.stack):
+    if int(item_number) > len(sivm.stack):
         raise StackUnderflowError
-    data_to_duplicate = evm.stack[-item_number]
-    stack.push(evm.stack, data_to_duplicate)
+    data_to_duplicate = sivm.stack[-item_number]
+    stack.push(sivm.stack, data_to_duplicate)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(2)
+    sivm.pc += Uint(2)
 
 
-def swapn(evm: Evm) -> None:
+def swapn(sivm: Sivm) -> None:
     """
     Swap the top stack item with the Nth stack item.
     The value N is read from the immediate byte following the opcode and
@@ -253,35 +253,35 @@ def swapn(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SWAPN)
+    charge_gas(sivm, GasCosts.OPCODE_SWAPN)
 
     # OPERATION
     immediate_data = U8(
-        buffer_read(evm.code, U256(evm.pc + Uint(1)), U256(1))[0]
+        buffer_read(sivm.code, U256(sivm.pc + Uint(1)), U256(1))[0]
     )
     item_number = decode_single(immediate_data)
     # SWAPN with decoded value n swaps top (position 1) with position (n+1)
-    if int(item_number) + 1 > len(evm.stack):
+    if int(item_number) + 1 > len(sivm.stack):
         raise StackUnderflowError
     # stack[-1] is top (position 1), stack[-(item_number+1)] is position (n+1)
-    evm.stack[-1], evm.stack[-(item_number + U8(1))] = (
-        evm.stack[-(item_number + U8(1))],
-        evm.stack[-1],
+    sivm.stack[-1], sivm.stack[-(item_number + U8(1))] = (
+        sivm.stack[-(item_number + U8(1))],
+        sivm.stack[-1],
     )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(2)
+    sivm.pc += Uint(2)
 
 
-def exchange(evm: Evm) -> None:
+def exchange(sivm: Sivm) -> None:
     """
     Exchange the Nth stack item with the Mth stack item.
     The values N and M are decoded from the immediate byte using the
@@ -289,29 +289,29 @@ def exchange(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_EXCHANGE)
+    charge_gas(sivm, GasCosts.OPCODE_EXCHANGE)
 
     # OPERATION
     immediate_data = U8(
-        buffer_read(evm.code, U256(evm.pc + Uint(1)), U256(1))[0]
+        buffer_read(sivm.code, U256(sivm.pc + Uint(1)), U256(1))[0]
     )
     n, m = decode_pair(immediate_data)
     # EXCHANGE swaps position (n+1) with position (m+1)
     depth = max(n, m) + U8(1)
-    if int(depth) > len(evm.stack):
+    if int(depth) > len(sivm.stack):
         raise StackUnderflowError
-    evm.stack[-(n + U8(1))], evm.stack[-(m + U8(1))] = (
-        evm.stack[-(m + U8(1))],
-        evm.stack[-(n + U8(1))],
+    sivm.stack[-(n + U8(1))], sivm.stack[-(m + U8(1))] = (
+        sivm.stack[-(m + U8(1))],
+        sivm.stack[-(n + U8(1))],
     )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(2)
+    sivm.pc += Uint(2)

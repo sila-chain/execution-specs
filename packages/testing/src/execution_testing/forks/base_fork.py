@@ -184,7 +184,7 @@ class AuthorizationGasInfo(Protocol):
 class TopFrameGasCalculator(Protocol):
     """
     Calculate total execution and state gas charged at the top-level frame,
-    after intrinsic gas is deducted and before EVM execution begins.
+    after intrinsic gas is deducted and before Sivm execution begins.
 
     Use ``transaction_top_frame_execution_gas`` and
     ``transaction_top_frame_state_gas`` when accounting for each dimension
@@ -862,7 +862,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
         """
         Return the additional execution gas charged at the top-level
         transaction frame, after intrinsic gas is deducted but before
-        EVM execution begins.
+        Sivm execution begins.
 
         Defaults to returning 0 for forks that do not perform such
         post-intrinsic preparation.
@@ -882,7 +882,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     ) -> int:
         """
         Return the state gas charged at the top-level transaction
-        frame, after intrinsic gas is deducted but before EVM execution
+        frame, after intrinsic gas is deducted but before Sivm execution
         begins. Companion to ``transaction_top_frame_execution_gas``;
         tests targeting the spillover boundary feed this through
         ``oog_budget_lift`` to get the equivalent execution-gas budget.
@@ -1308,7 +1308,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
             current_cls = current_cls.parent()
         return current_version if current_version > 0 else None
 
-    # EVM information abstract methods
+    # Sivm information abstract methods
     @classmethod
     @abstractmethod
     def max_code_size(cls) -> int:
@@ -1321,7 +1321,7 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
     @classmethod
     @abstractmethod
     def max_stack_height(cls) -> int:
-        """Return the maximum stack height allowed in the EVM stack."""
+        """Return the maximum stack height allowed in the Sivm stack."""
         pass
 
     @classmethod

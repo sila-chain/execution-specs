@@ -30,7 +30,7 @@ from ..vm.gas import (
     charge_gas_from_meter,
     charge_state_gas_from_meter,
 )
-from . import BlockEnvironment, Evm, TransactionEnvironment
+from . import BlockEnvironment, Sivm, TransactionEnvironment
 
 SET_CODE_TX_MAGIC = b"\x05"
 EOA_DELEGATION_MARKER = b"\xef\x01\x00"
@@ -153,14 +153,14 @@ def recover_authority(authorization: Authorization) -> Address:
 
 
 def calculate_delegation_cost(
-    evm: Evm, address: Address
+    sivm: Sivm, address: Address
 ) -> Tuple[bool, Address, ExecutionGas]:
     """
     Get the delegation address and the cost of access from the address.
 
     Parameters
     ----------
-    evm : `Evm`
+    sivm : `Sivm`
         The execution frame.
     address : `Address`
         The address to check for delegation.
@@ -171,7 +171,7 @@ def calculate_delegation_cost(
         The delegation address and access gas cost.
 
     """
-    tx_state = evm.tx_env.state
+    tx_state = sivm.tx_env.state
 
     code = get_code(tx_state, get_account(tx_state, address).code_hash)
 
@@ -180,7 +180,7 @@ def calculate_delegation_cost(
 
     delegated_address = Address(code[EOA_DELEGATION_MARKER_LENGTH:])
 
-    if delegated_address in evm.accessed_addresses:
+    if delegated_address in sivm.accessed_addresses:
         delegation_gas_cost = GasCosts.WARM_ACCESS
     else:
         delegation_gas_cost = GasCosts.COLD_ACCOUNT_ACCESS

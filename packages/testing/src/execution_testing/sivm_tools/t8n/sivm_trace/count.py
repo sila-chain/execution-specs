@@ -1,15 +1,15 @@
 """
-EVM trace implementation that counts how many times each opcode is executed.
+Sivm trace implementation that counts how many times each opcode is executed.
 """
 
 from collections import defaultdict
 
-from sila.trace import EvmTracer, OpStart, TraceEvent
+from sila.trace import OpStart, SivmTracer, TraceEvent
 
 
-class CountTracer(EvmTracer):
+class CountTracer(SivmTracer):
     """
-    EVM trace implementation that counts how many times each opcode is
+    Sivm trace implementation that counts how many times each opcode is
     executed.
 
     Counts accumulate over every execution in the run, including system
@@ -21,11 +21,11 @@ class CountTracer(EvmTracer):
     def __init__(self) -> None:
         self.active_traces = defaultdict(lambda: 0)
 
-    def __call__(self, evm: object, event: TraceEvent) -> None:
+    def __call__(self, sivm: object, event: TraceEvent) -> None:
         """
         Create a trace of the event.
         """
-        del evm  # Counting needs only the event, not the EVM state.
+        del sivm  # Counting needs only the event, not the Sivm state.
         if not isinstance(event, OpStart):
             return
 

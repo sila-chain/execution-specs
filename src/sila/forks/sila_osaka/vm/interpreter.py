@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Interpreter.
+Sila Virtual Machine (Sivm) Interpreter.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Interpreter.
 Introduction
 ------------
 
-A straightforward interpreter that executes EVM code.
+A straightforward interpreter that executes Sivm code.
 """
 
 from dataclasses import dataclass
@@ -20,14 +20,14 @@ from sila_types.numeric import U256, Uint, ulen
 from sila.exceptions import SilaException
 from sila.state import Address
 from sila.trace import (
-    EvmStop,
     OpEnd,
     OpException,
     OpStart,
     PrecompileEnd,
     PrecompileStart,
+    SivmStop,
     TransactionEnd,
-    evm_trace,
+    sivm_trace,
 )
 
 from ..blocks import Log
@@ -47,7 +47,7 @@ from ..vm import Message
 from ..vm.eoa_delegation import get_delegated_code_address, set_delegation
 from ..vm.gas import GasCosts, charge_gas
 from ..vm.precompiled_contracts.mapping import PRE_COMPILED_CONTRACTS
-from . import Evm
+from . import Sivm
 from .exceptions import (
     AddressCollision,
     ExceptionalHalt,
@@ -109,7 +109,7 @@ def process_message_call(message: Message) -> MessageCallOutput:
     refund_counter = U256(0)
     if message.target == Bytes0(b""):
         if account_deployable(tx_state, message.current_target):
-            evm = process_create_message(message)
+            sivm = process_create_message(message)
         else:
             return MessageCallOutput(
                 gas_left=Uint(0),
@@ -133,32 +133,32 @@ def process_message_call(message: Message) -> MessageCallOutput:
             )
             message.code_address = delegated_address
 
-        evm = process_message(message)
+        sivm = process_message(message)
 
-    if evm.error:
+    if sivm.error:
         logs: Tuple[Log, ...] = ()
         accounts_to_delete = set()
     else:
-        logs = evm.logs
-        accounts_to_delete = evm.accounts_to_delete
-        refund_counter += U256(evm.refund_counter)
+        logs = sivm.logs
+        accounts_to_delete = sivm.accounts_to_delete
+        refund_counter += U256(sivm.refund_counter)
 
     tx_end = TransactionEnd(
-        int(message.gas) - int(evm.gas_left), evm.output, evm.error
+        int(message.gas) - int(sivm.gas_left), sivm.output, sivm.error
     )
-    evm_trace(evm, tx_end)
+    sivm_trace(sivm, tx_end)
 
     return MessageCallOutput(
-        gas_left=evm.gas_left,
+        gas_left=sivm.gas_left,
         refund_counter=refund_counter,
         logs=logs,
         accounts_to_delete=accounts_to_delete,
-        error=evm.error,
-        return_data=evm.output,
+        error=sivm.error,
+        return_data=sivm.output,
     )
 
 
-def process_create_message(message: Message) -> Evm:
+def process_create_message(message: Message) -> Sivm:
     """
     Executes a call to create a smart contract.
 
@@ -169,7 +169,7 @@ def process_create_message(message: Message) -> Evm:
 
     Returns
     -------
-    evm: :py:class:`~sila.forks.sila_osaka.vm.Evm`
+    sivm: :py:class:`~sila.forks.sila_osaka.vm.Sivm`
         Items containing execution specific objects.
 
     """
@@ -193,9 +193,9 @@ def process_create_message(message: Message) -> Evm:
     mark_account_created(tx_state, message.current_target)
 
     increment_nonce(tx_state, message.current_target)
-    evm = process_message(message)
-    if not evm.error:
-        contract_code = evm.output
+    sivm = process_message(message)
+    if not sivm.error:
+        contract_code = sivm.output
         contract_code_gas = (
             ulen(contract_code) * GasCosts.CODE_DEPOSIT_PER_BYTE
         )
@@ -203,22 +203,22 @@ def process_create_message(message: Message) -> Evm:
             if len(contract_code) > 0:
                 if contract_code[0] == 0xEF:
                     raise InvalidContractPrefix
-            charge_gas(evm, contract_code_gas)
+            charge_gas(sivm, contract_code_gas)
             if len(contract_code) > MAX_CODE_SIZE:
                 raise OutOfGasError
         except ExceptionalHalt as error:
             restore_tx_state(tx_state, snapshot)
-            evm.gas_left = Uint(0)
-            evm.output = b""
-            evm.error = error
+            sivm.gas_left = Uint(0)
+            sivm.output = b""
+            sivm.error = error
         else:
             set_code(tx_state, message.current_target, contract_code)
     else:
         restore_tx_state(tx_state, snapshot)
-    return evm
+    return sivm
 
 
-def process_message(message: Message) -> Evm:
+def process_message(message: Message) -> Sivm:
     """
     Move sila and execute the relevant code.
 
@@ -229,7 +229,7 @@ def process_message(message: Message) -> Evm:
 
     Returns
     -------
-    evm: :py:class:`~sila.forks.sila_osaka.vm.Evm`
+    sivm: :py:class:`~sila.forks.sila_osaka.vm.Sivm`
         Items containing execution specific objects
 
     """
@@ -239,7 +239,7 @@ def process_message(message: Message) -> Evm:
 
     code = message.code
     valid_jump_destinations = get_valid_jump_destinations(code)
-    evm = Evm(
+    sivm = Sivm(
         pc=Uint(0),
         stack=[],
         memory=bytearray(),
@@ -270,33 +270,33 @@ def process_message(message: Message) -> Evm:
         )
 
     try:
-        if evm.message.code_address in PRE_COMPILED_CONTRACTS:
+        if sivm.message.code_address in PRE_COMPILED_CONTRACTS:
             if not message.disable_precompiles:
-                evm_trace(evm, PrecompileStart(evm.message.code_address))
-                PRE_COMPILED_CONTRACTS[evm.message.code_address](evm)
-                evm_trace(evm, PrecompileEnd())
+                sivm_trace(sivm, PrecompileStart(sivm.message.code_address))
+                PRE_COMPILED_CONTRACTS[sivm.message.code_address](sivm)
+                sivm_trace(sivm, PrecompileEnd())
         else:
-            while evm.running and evm.pc < ulen(evm.code):
+            while sivm.running and sivm.pc < ulen(sivm.code):
                 try:
-                    op = Ops(evm.code[evm.pc])
+                    op = Ops(sivm.code[sivm.pc])
                 except ValueError as e:
-                    raise InvalidOpcode(evm.code[evm.pc]) from e
+                    raise InvalidOpcode(sivm.code[sivm.pc]) from e
 
-                evm_trace(evm, OpStart(op))
-                op_implementation[op](evm)
-                evm_trace(evm, OpEnd())
+                sivm_trace(sivm, OpStart(op))
+                op_implementation[op](sivm)
+                sivm_trace(sivm, OpEnd())
 
-            evm_trace(evm, EvmStop(Ops.STOP))
+            sivm_trace(sivm, SivmStop(Ops.STOP))
 
     except ExceptionalHalt as error:
-        evm_trace(evm, OpException(error))
-        evm.gas_left = Uint(0)
-        evm.output = b""
-        evm.error = error
+        sivm_trace(sivm, OpException(error))
+        sivm.gas_left = Uint(0)
+        sivm.output = b""
+        sivm.error = error
     except Revert as error:
-        evm_trace(evm, OpException(error))
-        evm.error = error
+        sivm_trace(sivm, OpException(error))
+        sivm.error = error
 
-    if evm.error:
+    if sivm.error:
         restore_tx_state(tx_state, snapshot)
-    return evm
+    return sivm

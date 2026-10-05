@@ -129,7 +129,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
 def test_dump_dir(
     request: pytest.FixtureRequest, fixture_path: Path, fixture_name: str
 ) -> Path | None:
-    """The directory to write evm debug output to."""
+    """The directory to write sivm debug output to."""
     base_dump_dir = request.config.getoption("base_dump_dir")
     if not base_dump_dir:
         return None

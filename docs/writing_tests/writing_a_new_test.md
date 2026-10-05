@@ -106,7 +106,7 @@ def test_contract_creating_tx(
 ):
 ```
 
-The `state_test` and `blockchain_test` objects are actually wrapper classes to the `StateTest`, respectively `BlockchainTest` objects, that once called actually instantiate a new instance of these objects and fill the test case using the `evm` tool according to the pre and post states and the transactions defined within the test.
+The `state_test` and `blockchain_test` objects are actually wrapper classes to the `StateTest`, respectively `BlockchainTest` objects, that once called actually instantiate a new instance of these objects and fill the test case using the `sivm` tool according to the pre and post states and the transactions defined within the test.
 
 If a blockchain-type test should only generate a test fixture in the Engine format (`EngineFixture`), the `blockchain_test_engine` object can be specified. This object is a wrapper for the `BlockchainTestEngine` class.
 
@@ -182,7 +182,7 @@ Account bytecode can be "deployed" in a test's pre-state using the `pre` pytest 
 
 ### Using the Python Opcode Minilang
 
-EVM bytecode for tests should be written using the Python-based minilang provided by the [`Opcodes`][execution_testing.vm.Opcodes] class. This allows you to construct bytecode using symbolic opcodes as Python objects.
+Sivm bytecode for tests should be written using the Python-based minilang provided by the [`Opcodes`][execution_testing.vm.Opcodes] class. This allows you to construct bytecode using symbolic opcodes as Python objects.
 
 #### Example: Simple Addition Contract
 
@@ -227,7 +227,7 @@ The `execution_testing.tools.tools_code.generators` module also defines other hi
 
 #### Converting Bytecode to Minilang
 
-If you have EVM bytecode (as hex or binary), you can use the [`sivm_bytes` CLI tool](../library/cli/sivm_bytes.md) to convert it to the SEST Python opcode minilang automatically, for example:
+If you have Sivm bytecode (as hex or binary), you can use the [`sivm_bytes` CLI tool](../library/cli/sivm_bytes.md) to convert it to the SEST Python opcode minilang automatically, for example:
 
 ```console
 uv run sivm_bytes hex-string 0x604260005260206000F3

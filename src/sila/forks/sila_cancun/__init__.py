@@ -7,7 +7,7 @@ same transaction, and adds an instruction to read the blob base fee.
 ### Changes
 
 - [SIP-1153: Transient storage opcodes][SIP-1153]
-- [SIP-4788: Beacon block root in the EVM][SIP-4788]
+- [SIP-4788: Beacon block root in the Sivm][SIP-4788]
 - [SIP-4844: Shard Blob Transactions][SIP-4844]
 - [SIP-5656: MCOPY - Memory copying instruction][SIP-5656]
 - [SIP-6780: SELFDESTRUCT only in same transaction][SIP-6780]

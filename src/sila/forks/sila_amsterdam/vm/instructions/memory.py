@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Memory Instructions.
+Sila Virtual Machine (Sivm) Memory Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Memory Instructions.
 Introduction
 ------------
 
-Implementations of the EVM Memory instructions.
+Implementations of the Sivm Memory instructions.
 """
 
 from sila_types.bytes import Bytes
@@ -17,7 +17,7 @@ from sila_types.numeric import U256, Uint
 from sila.utils.numeric import ceil32
 
 from ...fork_types import ExecutionGas
-from .. import Evm
+from .. import Sivm
 from ..gas import (
     GasCosts,
     calculate_gas_extend_memory,
@@ -27,7 +27,7 @@ from ..memory import memory_read_bytes, memory_write
 from ..stack import pop, push
 
 
-def mstore(evm: Evm) -> None:
+def mstore(sivm: Sivm) -> None:
     """
     Stores a word to memory.
     This also expands the memory, if the memory is
@@ -35,30 +35,30 @@ def mstore(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    start_position = pop(evm.stack)
-    value = pop(evm.stack).to_be_bytes32()
+    start_position = pop(sivm.stack)
+    value = pop(sivm.stack).to_be_bytes32()
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(start_position, U256(len(value)))]
+        sivm.memory, [(start_position, U256(len(value)))]
     )
 
-    charge_gas(evm, GasCosts.OPCODE_MSTORE_BASE + extend_memory.cost)
+    charge_gas(sivm, GasCosts.OPCODE_MSTORE_BASE + extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    memory_write(evm.memory, start_position, value)
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    memory_write(sivm.memory, start_position, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def mstore8(evm: Evm) -> None:
+def mstore8(sivm: Sivm) -> None:
     """
     Stores a byte to memory.
     This also expands the memory, if the memory is
@@ -66,114 +66,114 @@ def mstore8(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    start_position = pop(evm.stack)
-    value = pop(evm.stack)
+    start_position = pop(sivm.stack)
+    value = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(start_position, U256(1))]
+        sivm.memory, [(start_position, U256(1))]
     )
 
-    charge_gas(evm, GasCosts.OPCODE_MSTORE8_BASE + extend_memory.cost)
+    charge_gas(sivm, GasCosts.OPCODE_MSTORE8_BASE + extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
+    sivm.memory += b"\x00" * extend_memory.expand_by
     normalized_bytes_value = Bytes([value & U256(0xFF)])
-    memory_write(evm.memory, start_position, normalized_bytes_value)
+    memory_write(sivm.memory, start_position, normalized_bytes_value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def mload(evm: Evm) -> None:
+def mload(sivm: Sivm) -> None:
     """
     Loads a word from memory.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    start_position = pop(evm.stack)
+    start_position = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(start_position, U256(32))]
+        sivm.memory, [(start_position, U256(32))]
     )
-    charge_gas(evm, GasCosts.OPCODE_MLOAD_BASE + extend_memory.cost)
+    charge_gas(sivm, GasCosts.OPCODE_MLOAD_BASE + extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
+    sivm.memory += b"\x00" * extend_memory.expand_by
     value = U256.from_be_bytes(
-        memory_read_bytes(evm.memory, start_position, U256(32))
+        memory_read_bytes(sivm.memory, start_position, U256(32))
     )
-    push(evm.stack, value)
+    push(sivm.stack, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def msize(evm: Evm) -> None:
+def msize(sivm: Sivm) -> None:
     """
     Pushes the size of active memory in bytes onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_MSIZE)
+    charge_gas(sivm, GasCosts.OPCODE_MSIZE)
 
     # OPERATION
-    push(evm.stack, U256(len(evm.memory)))
+    push(sivm.stack, U256(len(sivm.memory)))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def mcopy(evm: Evm) -> None:
+def mcopy(sivm: Sivm) -> None:
     """
     Copies the bytes in memory from one location to another.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    destination = pop(evm.stack)
-    source = pop(evm.stack)
-    length = pop(evm.stack)
+    destination = pop(sivm.stack)
+    source = pop(sivm.stack)
+    length = pop(sivm.stack)
 
     # GAS
     words = ceil32(Uint(length)) // Uint(32)
     copy_gas_cost = ExecutionGas(GasCosts.OPCODE_COPY_PER_WORD * words)
 
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(source, length), (destination, length)]
+        sivm.memory, [(source, length), (destination, length)]
     )
     charge_gas(
-        evm,
+        sivm,
         GasCosts.OPCODE_MCOPY_BASE + copy_gas_cost + extend_memory.cost,
     )
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    value = memory_read_bytes(evm.memory, source, length)
-    memory_write(evm.memory, destination, value)
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    value = memory_read_bytes(sivm.memory, source, length)
+    memory_write(sivm.memory, destination, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

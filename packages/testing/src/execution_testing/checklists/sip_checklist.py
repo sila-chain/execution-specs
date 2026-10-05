@@ -1330,7 +1330,7 @@ class SIPChecklist:
                 """Transaction-scoped attributes."""
 
                 class Read(ChecklistItem):
-                    """Read attributes from EVM."""
+                    """Read attributes from Sivm."""
 
                     pass
 

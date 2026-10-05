@@ -139,7 +139,7 @@ def test_mul(
     # Source: lll
     # {
     #     ; -1 * -1
-    #     ; -1 = 2^256-1 in evm arithmetic
+    #     ; -1 = 2^256-1 in sivm arithmetic
     #     [[0]] (*
     #              0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
     #              0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
@@ -181,7 +181,7 @@ def test_mul(
     # Source: lll
     # {
     #    ; 2^255 * -1 (the expected answer is 2^255,
-    #    ;             because -2^255 = 2^256-2^255 in evm arithmetic)
+    #    ;             because -2^255 = 2^256-2^255 in sivm arithmetic)
     #    [[0]] (*
     #        0x8000000000000000000000000000000000000000000000000000000000000000
     #        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff

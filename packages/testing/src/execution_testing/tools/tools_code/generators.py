@@ -112,7 +112,7 @@ class Initcode(Bytecode):
 
         return instance
 
-    def evm_gas(self, fork: Type[ForkOpcodeInterface]) -> int:
+    def sivm_gas(self, fork: Type[ForkOpcodeInterface]) -> int:
         """
         Gas cost of executing the initcode, charged before the code
         deposit fee.
@@ -484,7 +484,7 @@ class CalldataCase(Case):
 
 class Switch(Bytecode):
     """
-    Helper class used to generate switch-case expressions in EVM bytecode.
+    Helper class used to generate switch-case expressions in Sivm bytecode.
 
     Switch-case behavior:
       - If no condition is met in the list of BytecodeCases
@@ -736,7 +736,7 @@ def _dynamic_nonce_encode_bytecode(
     bytecode += Op.MSTORE(offset + 32, mstore_value)
 
     # Overwrite byte_length with preimage_size = 22 + rlp_len
-    # EVM evaluates the MLOAD(offset+64) in the expression
+    # Sivm evaluates the MLOAD(offset+64) in the expression
     # before the MSTORE writes to the same address.
     preimage_size_offset = byte_length_offset
     bytecode += Op.MSTORE(

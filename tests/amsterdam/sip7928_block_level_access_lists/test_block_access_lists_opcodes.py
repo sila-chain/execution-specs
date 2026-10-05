@@ -426,7 +426,7 @@ def test_bal_account_touch_system_address(
 
     This confirms that SYSTEM_ADDRESS is only excluded from the BAL when it
     appears as the synthetic caller of a pre-execution system call; a real
-    EVM state access from user code MUST still land in the BAL.
+    Sivm state access from user code MUST still land in the BAL.
     """
     alice = pre.fund_eoa()
     pre.fund_address(SYSTEM_ADDRESS, amount=1)
@@ -538,7 +538,7 @@ def test_bal_call_no_delegation_and_oog_before_target_access(
     CALL without 7702 delegation - test SUCCESS and OOG before target access.
 
     When target_is_warm=True, we use SIP-2930 tx access list to warm the
-    target. Access list warming does NOT add to BAL - only EVM access does.
+    target. Access list warming does NOT add to BAL - only Sivm access does.
 
     Memory expansion is parametrized independently for args (insize) and
     ret (outsize) per #1910, surfacing client-impl asymmetry bugs in the
@@ -687,7 +687,7 @@ def test_bal_call_no_delegation_oog_after_target_access(
     CALL without 7702 delegation - OOG after state access.
 
     When target_is_warm=True, uses SIP-2930 tx access list to warm the target.
-    Access list warming does NOT add targets to BAL - only EVM access does.
+    Access list warming does NOT add targets to BAL - only Sivm access does.
 
     This test is only meaningful when there's a gap between gas check before
     state access and after state access. This only happens if create cost
@@ -815,7 +815,7 @@ def test_bal_call_7702_delegation_and_oog(
     CALL with 7702 delegation - test all OOG boundaries.
 
     When target_is_warm or delegation_is_warm, we use SIP-2930 tx access list.
-    Access list warming does NOT add targets to BAL - only EVM access does.
+    Access list warming does NOT add targets to BAL - only Sivm access does.
 
     Memory expansion is parametrized independently for args and ret per #1910.
     """
@@ -890,7 +890,7 @@ def test_bal_call_7702_delegation_and_oog(
         access_list=access_list,
     )
 
-    # Access list warming does NOT add to BAL - only EVM execution does
+    # Access list warming does NOT add to BAL - only Sivm execution does
     if oog_boundary == OutOfGasBoundary.OOG_BEFORE_TARGET_ACCESS:
         target_in_bal = False
         delegation_in_bal = False
@@ -985,7 +985,7 @@ def test_bal_delegatecall_no_delegation_and_oog_before_target_access(
     DELEGATECALL without 7702 delegation - test SUCCESS and OOG boundaries.
 
     When target_is_warm=True, we use SIP-2930 tx access list to warm the
-    target. Access list warming does NOT add to BAL - only EVM access does.
+    target. Access list warming does NOT add to BAL - only Sivm access does.
 
     Memory expansion is parametrized independently for args and ret per #1910.
     """
@@ -1094,7 +1094,7 @@ def test_bal_delegatecall_7702_delegation_and_oog(
     DELEGATECALL with 7702 delegation - test all OOG boundaries.
 
     When target_is_warm or delegation_is_warm, we use SIP-2930 tx access list.
-    Access list warming does NOT add targets to BAL - only EVM access does.
+    Access list warming does NOT add targets to BAL - only Sivm access does.
 
     For 7702 delegation, there's ALWAYS a gap between static gas and
     second check (delegation_cost) - all 3 scenarios produce distinct
@@ -1168,7 +1168,7 @@ def test_bal_delegatecall_7702_delegation_and_oog(
         access_list=access_list,
     )
 
-    # Access list warming does NOT add to BAL - only EVM execution does
+    # Access list warming does NOT add to BAL - only Sivm execution does
     if oog_boundary == OutOfGasBoundary.OOG_BEFORE_TARGET_ACCESS:
         target_in_bal = False
         delegation_in_bal = False
@@ -1242,7 +1242,7 @@ def test_bal_callcode_no_delegation_and_oog_before_target_access(
     CALLCODE without 7702 delegation - test SUCCESS and OOG boundaries.
 
     When target_is_warm=True, we use SIP-2930 tx access list to warm the
-    target. Access list warming does NOT add to BAL - only EVM access does.
+    target. Access list warming does NOT add to BAL - only Sivm access does.
     CALLCODE has no balance transfer to target (runs in caller's context).
 
     Memory expansion is parametrized independently for args and ret per #1910.
@@ -1363,7 +1363,7 @@ def test_bal_callcode_7702_delegation_and_oog(
     CALLCODE with 7702 delegation - test all OOG boundaries.
 
     When target_is_warm or delegation_is_warm, we use SIP-2930 tx access list.
-    Access list warming does NOT add targets to BAL - only EVM access does.
+    Access list warming does NOT add targets to BAL - only Sivm access does.
 
     For 7702 delegation, there's ALWAYS a gap between static gas and
     second check (delegation_cost) - all 3 scenarios produce distinct
@@ -1442,7 +1442,7 @@ def test_bal_callcode_7702_delegation_and_oog(
         access_list=access_list,
     )
 
-    # Access list warming does NOT add to BAL - only EVM execution does
+    # Access list warming does NOT add to BAL - only Sivm execution does
     if oog_boundary == OutOfGasBoundary.OOG_BEFORE_TARGET_ACCESS:
         target_in_bal = False
         delegation_in_bal = False
@@ -1514,7 +1514,7 @@ def test_bal_staticcall_no_delegation_and_oog_before_target_access(
     STATICCALL without 7702 delegation - test SUCCESS and OOG boundaries.
 
     When target_is_warm=True, we use SIP-2930 tx access list to warm the
-    target. Access list warming does NOT add to BAL - only EVM access does.
+    target. Access list warming does NOT add to BAL - only Sivm access does.
     """
     alice = pre.fund_eoa()
 
@@ -1621,7 +1621,7 @@ def test_bal_staticcall_7702_delegation_and_oog(
     STATICCALL with 7702 delegation - test all OOG boundaries.
 
     When target_is_warm or delegation_is_warm, we use SIP-2930 tx access list.
-    Access list warming does NOT add targets to BAL - only EVM access does.
+    Access list warming does NOT add targets to BAL - only Sivm access does.
 
     For 7702 delegation, there's ALWAYS a gap between static gas and
     second check (delegation_cost) - all 3 scenarios produce distinct
@@ -1690,7 +1690,7 @@ def test_bal_staticcall_7702_delegation_and_oog(
         access_list=access_list,
     )
 
-    # Access list warming does NOT add to BAL - only EVM execution does
+    # Access list warming does NOT add to BAL - only Sivm execution does
     if oog_boundary == OutOfGasBoundary.OOG_BEFORE_TARGET_ACCESS:
         target_in_bal = False
         delegation_in_bal = False
@@ -2619,7 +2619,7 @@ def test_bal_call_revert_insufficient_funds(
     check fails, so both the target and the delegation target appear in
     the BAL.
 
-    Access-list warming does NOT add to BAL on its own — only EVM
+    Access-list warming does NOT add to BAL on its own — only Sivm
     access does — so the BAL is identical across warm/cold variants.
     """
     alice = pre.fund_eoa()

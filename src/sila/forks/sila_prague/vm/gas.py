@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Gas.
+Sila Virtual Machine (Sivm) Gas.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Gas.
 Introduction
 ------------
 
-EVM gas constants and calculators.
+Sivm gas constants and calculators.
 """
 
 from dataclasses import dataclass
@@ -17,19 +17,19 @@ from typing import Final, List, Tuple, final
 from sila_types.numeric import U64, U256, Uint, ulen
 
 from sila.forks.sila_cancun.blocks import Header as PreviousHeader
-from sila.trace import GasAndRefund, evm_trace
+from sila.trace import GasAndRefund, sivm_trace
 from sila.utils.numeric import ceil32, taylor_exponential
 
 from ..blocks import Header
 from ..transactions import BlobTransaction, Transaction
-from . import Evm
+from . import Sivm
 from .exceptions import OutOfGasError
 
 
 # These values may be patched at runtime by a future gas repricing utility
 class GasCosts:
     """
-    Constant gas values for the EVM.
+    Constant gas values for the Sivm.
     """
 
     # Tiers
@@ -224,24 +224,24 @@ class MessageCallGas:
     sub_call: Uint
 
 
-def charge_gas(evm: Evm, amount: Uint) -> None:
+def charge_gas(sivm: Sivm, amount: Uint) -> None:
     """
-    Subtracts `amount` from `evm.gas_left`.
+    Subtracts `amount` from `sivm.gas_left`.
 
     Parameters
     ----------
-    evm :
-        The current EVM.
+    sivm :
+        The current Sivm.
     amount :
         The amount of gas the current operation requires.
 
     """
-    evm_trace(evm, GasAndRefund(int(amount)))
+    sivm_trace(sivm, GasAndRefund(int(amount)))
 
-    if evm.gas_left < amount:
+    if sivm.gas_left < amount:
         raise OutOfGasError
     else:
-        evm.gas_left -= amount
+        sivm.gas_left -= amount
 
 
 def calculate_memory_gas_cost(size_in_bytes: Uint) -> Uint:
@@ -280,7 +280,7 @@ def calculate_gas_extend_memory(
     Parameters
     ----------
     memory :
-        Memory contents of the EVM.
+        Memory contents of the Sivm.
     extensions:
         List of extensions to be made to the memory.
         Consists of a tuple of start position and size.

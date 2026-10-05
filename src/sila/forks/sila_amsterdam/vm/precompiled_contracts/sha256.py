@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) SHA256 PRECOMPILED CONTRACT.
+Sila Virtual Machine (Sivm) SHA256 PRECOMPILED CONTRACT.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -18,29 +18,29 @@ from sila_types.numeric import Uint, ulen
 from sila.utils.numeric import ceil32
 
 from ...fork_types import ExecutionGas
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.gas import (
     GasCosts,
     charge_gas,
 )
 
 
-def sha256(evm: Evm) -> None:
+def sha256(sivm: Sivm) -> None:
     """
     Writes the sha256 hash to output.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.call_data
+    data = sivm.call_data
 
     # GAS
     word_count = ceil32(ulen(data)) // Uint(32)
     charge_gas(
-        evm,
+        sivm,
         ExecutionGas(
             GasCosts.PRECOMPILE_SHA256_BASE
             + GasCosts.PRECOMPILE_SHA256_PER_WORD * word_count
@@ -48,4 +48,4 @@ def sha256(evm: Evm) -> None:
     )
 
     # OPERATION
-    evm.output = hashlib.sha256(data).digest()
+    sivm.output = hashlib.sha256(data).digest()

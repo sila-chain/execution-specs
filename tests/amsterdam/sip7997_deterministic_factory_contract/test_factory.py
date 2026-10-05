@@ -67,7 +67,9 @@ def test_factory_contract_account(
     state_test: StateTestFiller,
     pre: Alloc,
 ) -> None:
-    """Verify the canonical code, initial nonce and balance through the EVM."""
+    """
+    Verify the canonical code, initial nonce and balance through the Sivm.
+    """
     storage = Storage()
     extcodesize_slot = storage.store_next(
         len(Spec.FACTORY_BYTECODE), "extcodesize"

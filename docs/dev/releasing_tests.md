@@ -15,7 +15,7 @@ gh workflow run release_fixtures.yaml -f feature=<feature> -f version=vX.Y.Z [-f
 | `feature`  | yes               | Feature name, e.g. `tests`, `benchmark`, or a `<feat>-devnet` name.                                   |
 | `version`  | yes               | Release version `vX.Y.Z` (validated against `^v[0-9]+\.[0-9]+\.[0-9]+$`). Tagged as `tests-<feature>@<version>` (the `tests` feature tags as `tests@<version>`). |
 | `branch`   | for `*-devnet`    | Branch to build and release from (any branch). Defaults to the dispatch ref for other fresh fills; must be empty for [cached releases](#cached-releases). |
-| `evm`      | no                | Override the evm impl (e.g. `gsil`, `sivmone`). Defaults to the feature's `sivm-type` in `feature.yaml`. |
+| `sivm`      | no                | Override the sivm impl (e.g. `gsil`, `sivmone`). Defaults to the feature's `sivm-type` in `feature.yaml`. |
 | `sivm_repo` | no                | Override the t8n tool repo (e.g. `sila-chain/go-sila`).                                              |
 | `sivm_ref`  | no                | Override the t8n tool branch / tag / commit.                                                          |
 | `cached`   | no                | Draft from the newest nightly artifact instead of refilling (`tests` only): `build` and `combine` are skipped and the tag targets the nightly's commit. See [Cached releases](#cached-releases). |
@@ -26,7 +26,7 @@ gh workflow run release_fixtures.yaml -f feature=<feature> -f version=vX.Y.Z [-f
 Input validation runs in [`generate_build_matrix.py`](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/.github/scripts/generate_build_matrix.py) (unit-tested) before any fixtures are built, and fails fast on:
 
 - an empty `feature` or a `version` that is not `vX.Y.Z`;
-- an `evm` override that is not a key in `.github/configs/sivm.yaml`;
+- a `sivm` override that is not a key in `.github/configs/sivm.yaml`;
 - a bare `devnet` feature name (must carry a `<feat>-` prefix, e.g. `bal-devnet`);
 - a `<feat>-devnet-<n>` feature name — the devnet index belongs in the `version` major, not the feature name (so `feature=bal-devnet-7` is rejected in favour of `feature=bal-devnet version=v7.0.0`);
 - a `*-devnet` release missing a `branch`; a `branch` under `devnets/` that does not follow `devnets/<feat>/<n>` (e.g. `devnets/bal/7-benchmark`); or a `devnets/<feat>/<n>` branch whose devnet number `<n>` does not equal the `version` major (so `feature=bal-devnet branch=devnets/bal/7` must use `version=v7.*.*`). A branch outside `devnets/` (e.g. `sips/amsterdam/sip-8141`) carries no number to check and is accepted as-is.

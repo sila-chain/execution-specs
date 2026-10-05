@@ -308,7 +308,7 @@ def test_value_contract_creation_tx(
     set, the value transfer is reversed, and the top-frame
     ``NEW_ACCOUNT`` state-gas charge for the created account is
     refilled. The sender therefore pays only the execution intrinsic
-    plus the few EVM gas units spent before the revert -- the
+    plus the few Sivm gas units spent before the revert -- the
     ``NEW_ACCOUNT`` charge does not appear on the receipt.
     """
     sender_initial_balance = 10**18

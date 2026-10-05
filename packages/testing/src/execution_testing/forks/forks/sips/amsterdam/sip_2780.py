@@ -177,7 +177,7 @@ class SIP2780(BaseFork):
         """
         Return the additional execution gas charged at the top-level
         transaction frame, after intrinsic gas is deducted but before
-        the EVM dispatches.
+        the Sivm dispatches.
 
         Charges the delegation-target access when the recipient is an
         existing delegated account: ``WARM_ACCESS`` when the target is

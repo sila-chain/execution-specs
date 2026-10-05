@@ -1,5 +1,5 @@
 """
-SIP-7939: CLZ (Count Leading Zeros) EVM opcode.
+SIP-7939: CLZ (Count Leading Zeros) Sivm opcode.
 
 Opcode to count the number of leading zero bits in a 256-bit word.
 

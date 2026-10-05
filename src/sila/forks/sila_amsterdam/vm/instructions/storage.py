@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Storage Instructions.
+Sila Virtual Machine (Sivm) Storage Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Storage Instructions.
 Introduction
 ------------
 
-Implementations of the EVM storage related instructions.
+Implementations of the Sivm storage related instructions.
 """
 
 from sila_types.numeric import Uint
@@ -21,7 +21,7 @@ from ...state_tracker import (
     set_storage,
     set_transient_storage,
 )
-from .. import Evm
+from .. import Sivm
 from ..exceptions import WriteInStaticContext
 from ..gas import (
     GasCosts,
@@ -34,53 +34,53 @@ from ..gas import (
 from ..stack import pop, push
 
 
-def sload(evm: Evm) -> None:
+def sload(sivm: Sivm) -> None:
     """
     Loads to the stack, the value corresponding to a certain key from the
     storage of the current account.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    key = pop(evm.stack).to_be_bytes32()
+    key = pop(sivm.stack).to_be_bytes32()
 
     # GAS
-    if (evm.current_target, key) in evm.accessed_storage_keys:
-        charge_gas(evm, GasCosts.WARM_ACCESS)
+    if (sivm.current_target, key) in sivm.accessed_storage_keys:
+        charge_gas(sivm, GasCosts.WARM_ACCESS)
     else:
-        evm.accessed_storage_keys.add((evm.current_target, key))
-        charge_gas(evm, GasCosts.COLD_STORAGE_ACCESS)
+        sivm.accessed_storage_keys.add((sivm.current_target, key))
+        charge_gas(sivm, GasCosts.COLD_STORAGE_ACCESS)
 
     # OPERATION
-    tx_state = evm.tx_env.state
-    value = get_storage(tx_state, evm.current_target, key)
+    tx_state = sivm.tx_env.state
+    value = get_storage(tx_state, sivm.current_target, key)
 
-    push(evm.stack, value)
+    push(sivm.stack, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def sstore(evm: Evm) -> None:
+def sstore(sivm: Sivm) -> None:
     """
     Stores a value at a certain key in the current context's storage.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    if evm.is_static:
+    if sivm.is_static:
         raise WriteInStaticContext
 
     # STACK
-    key = pop(evm.stack).to_be_bytes32()
-    new_value = pop(evm.stack)
+    key = pop(sivm.stack).to_be_bytes32()
+    new_value = pop(sivm.stack)
 
     # GAS (STATE-INDEPENDENT)
     # Price what is computable without touching state, and check it is
@@ -89,9 +89,9 @@ def sstore(evm: Evm) -> None:
 
     # Access cost: cold or warm, always charged.
     is_cold_access = (
-        evm.current_target,
+        sivm.current_target,
         key,
-    ) not in evm.accessed_storage_keys
+    ) not in sivm.accessed_storage_keys
     if is_cold_access:
         gas_cost += GasCosts.COLD_STORAGE_ACCESS
     else:
@@ -101,7 +101,7 @@ def sstore(evm: Evm) -> None:
     # records the slot read in the Block Access List. The `max` guards an
     # access cost repriced above the stipend; neither warmth is today.
     check_gas(
-        evm, max(gas_cost, ExecutionGas(GasCosts.CALL_STIPEND + Uint(1)))
+        sivm, max(gas_cost, ExecutionGas(GasCosts.CALL_STIPEND + Uint(1)))
     )
 
     # STATE ACCESS (STATE-DEPENDENT GAS)
@@ -109,11 +109,11 @@ def sstore(evm: Evm) -> None:
     # the slot's original and current values, adjusting the
     # transaction's refunds.
     if is_cold_access:
-        evm.accessed_storage_keys.add((evm.current_target, key))
+        sivm.accessed_storage_keys.add((sivm.current_target, key))
 
-    tx_state = evm.tx_env.state
-    original_value = get_storage_original(tx_state, evm.current_target, key)
-    current_value = get_storage(tx_state, evm.current_target, key)
+    tx_state = sivm.tx_env.state
+    original_value = get_storage_original(tx_state, sivm.current_target, key)
+    current_value = get_storage(tx_state, sivm.current_target, key)
 
     state_gas = StateGas(Uint(0))
 
@@ -127,16 +127,16 @@ def sstore(evm: Evm) -> None:
         if original_value != 0 and current_value != 0 and new_value == 0:
             # Slot non-zero at transaction start is cleared; granted on
             # each such clear.
-            evm.gas_meter.refund_counter += GasCosts.REFUND_STORAGE_CLEAR
+            sivm.gas_meter.refund_counter += GasCosts.REFUND_STORAGE_CLEAR
 
         if original_value != 0 and current_value == 0:
             # Gas refund issued earlier to be reversed
-            evm.gas_meter.refund_counter -= GasCosts.REFUND_STORAGE_CLEAR
+            sivm.gas_meter.refund_counter -= GasCosts.REFUND_STORAGE_CLEAR
 
         if original_value == new_value:
             # Slot restored to its original value: refund the
             # STORAGE_WRITE charged when it was moved away.
-            evm.gas_meter.refund_counter += int(GasCosts.STORAGE_WRITE)
+            sivm.gas_meter.refund_counter += int(GasCosts.STORAGE_WRITE)
 
     # STATE GAS
     # A first-time set of a zero slot pays for the state it creates; a
@@ -148,69 +148,69 @@ def sstore(evm: Evm) -> None:
     if current_value != new_value and original_value == new_value:
         if original_value == 0:
             # Slot set then cleared: refund the state gas charge.
-            credit_state_gas_refund(evm.gas_meter, StateGasCosts.STORAGE_SET)
+            credit_state_gas_refund(sivm.gas_meter, StateGasCosts.STORAGE_SET)
 
     # Charge execution gas before state gas so that an execution-gas
     # OOG does not consume state gas that would inflate the parent's
     # reservoir on frame failure.
-    charge_gas(evm, gas_cost)
-    charge_state_gas(evm, state_gas)
-    set_storage(tx_state, evm.current_target, key, new_value)
+    charge_gas(sivm, gas_cost)
+    charge_state_gas(sivm, state_gas)
+    set_storage(tx_state, sivm.current_target, key, new_value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def tload(evm: Evm) -> None:
+def tload(sivm: Sivm) -> None:
     """
     Loads to the stack, the value corresponding to a certain key from the
     transient storage of the current account.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    key = pop(evm.stack).to_be_bytes32()
+    key = pop(sivm.stack).to_be_bytes32()
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_TLOAD)
+    charge_gas(sivm, GasCosts.OPCODE_TLOAD)
 
     # OPERATION
-    value = get_transient_storage(evm.tx_env.state, evm.current_target, key)
-    push(evm.stack, value)
+    value = get_transient_storage(sivm.tx_env.state, sivm.current_target, key)
+    push(sivm.stack, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def tstore(evm: Evm) -> None:
+def tstore(sivm: Sivm) -> None:
     """
     Stores a value at a certain key in the current context's transient storage.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    if evm.is_static:
+    if sivm.is_static:
         raise WriteInStaticContext
 
     # STACK
-    key = pop(evm.stack).to_be_bytes32()
-    new_value = pop(evm.stack)
+    key = pop(sivm.stack).to_be_bytes32()
+    new_value = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_TSTORE)
+    charge_gas(sivm, GasCosts.OPCODE_TSTORE)
     set_transient_storage(
-        evm.tx_env.state,
-        evm.current_target,
+        sivm.tx_env.state,
+        sivm.current_target,
         key,
         new_value,
     )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

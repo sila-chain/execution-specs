@@ -10,7 +10,7 @@ REFERENCE_SPEC_VERSION = "8d98dc3c535067ece64b601bb4bc7c29291512bb"
 
 
 def mcopy(*, src: int, dest: int, length: int, memory: bytes) -> bytes:
-    """Perform the mcopy routine as the EVM would do it."""
+    """Perform the mcopy routine as the Sivm would do it."""
     if length == 0:
         return memory
 

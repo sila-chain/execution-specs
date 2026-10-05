@@ -275,7 +275,7 @@ class TestCreateTxGasBoundary:
         execution = exact_intrinsic_gas + fork.transaction_top_frame_state_gas(
             contract_creation=True
         )
-        execution += initcode.evm_gas(fork)
+        execution += initcode.sivm_gas(fork)
         execution += initcode.deployment_gas(fork)
         return execution
 

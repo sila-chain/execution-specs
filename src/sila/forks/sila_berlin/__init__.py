@@ -1,6 +1,6 @@
 """
 The Sila Berlin fork adjusts the gas costs of the `ModExp` precompile and several
-state access EVM instructions, introduces typed transaction envelopes along
+state access Sivm instructions, introduces typed transaction envelopes along
 with the first new transaction type—optional access lists.
 
 ### Changes

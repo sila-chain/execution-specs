@@ -26,11 +26,11 @@ Depending on the changes introduced by an SIP, the following template is the min
 
 Fuzzing is recommended to be performed on SIPs that introduce new cryptography primitives.
 
-See [holiman/goevmlab](https://github.com/holiman/goevmlab) for an example of a fuzzing framework for the EVM.
+See [holiman/goevmlab](https://github.com/holiman/goevmlab) for an example of a fuzzing framework for the Sivm.
 
 ## New Opcode
 
-The SIP introduces one or more new opcodes to the EVM.
+The SIP introduces one or more new opcodes to the Sivm.
 
 ### Test Vectors
 
@@ -866,12 +866,12 @@ Verify the transaction is correctly rejected if it contains an invalid signature
 | `transaction_type/test/signature/invalid/s/max`                       | `2**256`.                              |        |       |
 | `transaction_type/test/signature/invalid/s/complement`                | `SECP256K1N - S` of a valid signature. |        |       |
 
-#### Transaction Attributes Readable From EVM
+#### Transaction Attributes Readable From Sivm
 
 | ID                                                              | Description                                                                                                                     | Status | Tests |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- |
-| `transaction_type/test/tx_scoped_attributes/read`           | Verify attributes that can be read in the EVM from transaction fields.                                                          |        |       |
-| `transaction_type/test/tx_scoped_attributes/older_tx_types` | Verify attributes specific to the new transaction type that can be read in the EVM behave correctly on older transaction types. |        |       |
+| `transaction_type/test/tx_scoped_attributes/read`           | Verify attributes that can be read in the Sivm from transaction fields.                                                          |        |       |
+| `transaction_type/test/tx_scoped_attributes/older_tx_types` | Verify attributes specific to the new transaction type that can be read in the Sivm behave correctly on older transaction types. |        |       |
 
 #### Transaction-Scoped Persistent Values
 

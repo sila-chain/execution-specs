@@ -59,7 +59,7 @@ class Nethtest(SilaCLI):
         except subprocess.CalledProcessError as e:
             raise Exception("Command failed with non-zero status.") from e
         except Exception as e:
-            raise Exception("Unexpected exception calling evm tool.") from e
+            raise Exception("Unexpected exception calling sivm tool.") from e
 
     def _consume_debug_dump(
         self,
@@ -149,7 +149,7 @@ class NethtestFixtureConsumer(
         """
         Consume an entire state test file.
 
-        The `evm statetest` will always execute all the tests contained in a
+        The `sivm statetest` will always execute all the tests contained in a
         file without the possibility of selecting a single test, so this
         function is cached in order to only call the command once and
         `consume_state_test` can simply select the result that was requested.
@@ -178,7 +178,7 @@ class NethtestFixtureConsumer(
 
         if not isinstance(result_json, list):
             raise Exception(
-                f"Unexpected result from evm statetest: {result_json}"
+                f"Unexpected result from sivm statetest: {result_json}"
             )
         return result_json, result.stderr
 

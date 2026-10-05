@@ -107,7 +107,7 @@ class Header:
     """
     Root hash ([`keccak256`]) of the state trie after executing all
     transactions in this block. It represents the state of the Sila Virtual
-    Machine (EVM) after all transactions in this block have been processed. It
+    Machine (Sivm) after all transactions in this block have been processed. It
     is computed using [`compute_state_root()`][changes],
     which computes the root of the Merkle-Patricia [Trie] representing the
     Sila world state after applying the block's state changes.
@@ -294,7 +294,7 @@ class Block:
 class Log:
     """
     Data record produced during the execution of a transaction. Logs are used
-    by smart contracts to emit events (using the EVM log opcodes ([`LOG0`],
+    by smart contracts to emit events (using the Sivm log opcodes ([`LOG0`],
     [`LOG1`], [`LOG2`], [`LOG3`] and [`LOG4`]), which can be efficiently
     searched using the bloom filter in the block header.
 

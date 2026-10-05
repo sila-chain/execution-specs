@@ -78,5 +78,5 @@ def prepare_message(
         code_address=code_address,
         should_transfer_value=True,
         is_static=False,
-        parent_evm=None,
+        parent_sivm=None,
     )

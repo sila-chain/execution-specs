@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) BLS12 381 PAIRING PRE-COMPILE.
+Sila Virtual Machine (Sivm) BLS12 381 PAIRING PRE-COMPILE.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -15,20 +15,20 @@ from sila_ecc.optimized_bls12_381 import FQ12, curve_order, is_inf, pairing
 from sila_ecc.optimized_bls12_381 import multiply as bls12_multiply
 from sila_types.numeric import Uint
 
-from ....vm import Evm
+from ....vm import Sivm
 from ....vm.gas import charge_gas
 from ...exceptions import InvalidParameter
 from . import bytes_to_g1, bytes_to_g2
 
 
-def bls12_pairing(evm: Evm) -> None:
+def bls12_pairing(sivm: Sivm) -> None:
     """
     The bls12_381 pairing precompile.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
@@ -36,14 +36,14 @@ def bls12_pairing(evm: Evm) -> None:
         If the input length is invalid or if the subgroup check fails.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
     if len(data) == 0 or len(data) % 384 != 0:
         raise InvalidParameter("Invalid Input Length")
 
     # GAS
     k = len(data) // 384
     gas_cost = Uint(32600 * k + 37700)
-    charge_gas(evm, gas_cost)
+    charge_gas(sivm, gas_cost)
 
     # OPERATION
     result = FQ12.one()
@@ -64,6 +64,6 @@ def bls12_pairing(evm: Evm) -> None:
         result *= pairing(g2_point, g1_point)
 
     if result == FQ12.one():
-        evm.output = b"\x00" * 31 + b"\x01"
+        sivm.output = b"\x00" * 31 + b"\x01"
     else:
-        evm.output = b"\x00" * 32
+        sivm.output = b"\x00" * 32

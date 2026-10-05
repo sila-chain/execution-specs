@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) System Instructions.
+Sila Virtual Machine (Sivm) System Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) System Instructions.
 Introduction
 ------------
 
-Implementations of the EVM system related instructions.
+Implementations of the Sivm system related instructions.
 """
 
 from dataclasses import dataclass
@@ -30,8 +30,8 @@ from ...state_tracker import (
 )
 from ...utils.address import compute_contract_address, to_address_masked
 from .. import (
-    Evm,
     Message,
+    Sivm,
     incorporate_child_on_error,
     incorporate_child_on_success,
 )
@@ -47,14 +47,14 @@ from ..memory import memory_read_bytes, memory_write
 from ..stack import pop, push
 
 
-def create(evm: Evm) -> None:
+def create(sivm: Sivm) -> None:
     """
     Creates a new account with associated code.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # This import causes a circular import error
@@ -62,112 +62,113 @@ def create(evm: Evm) -> None:
     from ...vm.interpreter import STACK_DEPTH_LIMIT, process_create_message
 
     # STACK
-    endowment = pop(evm.stack)
-    memory_start_position = pop(evm.stack)
-    memory_size = pop(evm.stack)
+    endowment = pop(sivm.stack)
+    memory_start_position = pop(sivm.stack)
+    memory_size = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_position, memory_size)]
+        sivm.memory, [(memory_start_position, memory_size)]
     )
 
-    charge_gas(evm, GasCosts.OPCODE_CREATE_BASE + extend_memory.cost)
+    charge_gas(sivm, GasCosts.OPCODE_CREATE_BASE + extend_memory.cost)
 
-    create_message_gas = max_message_call_gas(Uint(evm.gas_left))
-    evm.gas_left -= create_message_gas
-    if evm.message.is_static:
+    create_message_gas = max_message_call_gas(Uint(sivm.gas_left))
+    sivm.gas_left -= create_message_gas
+    if sivm.message.is_static:
         raise WriteInStaticContext
-    evm.memory += b"\x00" * extend_memory.expand_by
-    evm.return_data = b""
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    sivm.return_data = b""
 
-    sender_address = evm.message.current_target
-    sender = get_account(evm.message.tx_env.state, sender_address)
+    sender_address = sivm.message.current_target
+    sender = get_account(sivm.message.tx_env.state, sender_address)
 
     contract_address = compute_contract_address(
-        evm.message.current_target,
+        sivm.message.current_target,
         get_account(
-            evm.message.tx_env.state, evm.message.current_target
+            sivm.message.tx_env.state, sivm.message.current_target
         ).nonce,
     )
 
     if (
         sender.balance < endowment
         or sender.nonce == Uint(2**64 - 1)
-        or evm.message.depth + Uint(1) > STACK_DEPTH_LIMIT
+        or sivm.message.depth + Uint(1) > STACK_DEPTH_LIMIT
     ):
-        push(evm.stack, U256(0))
-        evm.gas_left += create_message_gas
-    elif not account_deployable(evm.message.tx_env.state, contract_address):
-        increment_nonce(evm.message.tx_env.state, evm.message.current_target)
-        push(evm.stack, U256(0))
+        push(sivm.stack, U256(0))
+        sivm.gas_left += create_message_gas
+    elif not account_deployable(sivm.message.tx_env.state, contract_address):
+        increment_nonce(sivm.message.tx_env.state, sivm.message.current_target)
+        push(sivm.stack, U256(0))
     else:
         call_data = memory_read_bytes(
-            evm.memory, memory_start_position, memory_size
+            sivm.memory, memory_start_position, memory_size
         )
 
-        increment_nonce(evm.message.tx_env.state, evm.message.current_target)
+        increment_nonce(sivm.message.tx_env.state, sivm.message.current_target)
 
         child_message = Message(
-            block_env=evm.message.block_env,
-            tx_env=evm.message.tx_env,
-            caller=evm.message.current_target,
+            block_env=sivm.message.block_env,
+            tx_env=sivm.message.tx_env,
+            caller=sivm.message.current_target,
             target=Bytes0(),
             gas=create_message_gas,
             value=endowment,
             data=b"",
             code=call_data,
             current_target=contract_address,
-            depth=evm.message.depth + Uint(1),
+            depth=sivm.message.depth + Uint(1),
             code_address=None,
             should_transfer_value=True,
             is_static=False,
-            parent_evm=evm,
+            parent_sivm=sivm,
         )
-        child_evm = process_create_message(child_message)
+        child_sivm = process_create_message(child_message)
 
-        if child_evm.error:
-            incorporate_child_on_error(evm, child_evm)
-            evm.return_data = child_evm.output
-            push(evm.stack, U256(0))
+        if child_sivm.error:
+            incorporate_child_on_error(sivm, child_sivm)
+            sivm.return_data = child_sivm.output
+            push(sivm.stack, U256(0))
         else:
-            incorporate_child_on_success(evm, child_evm)
-            evm.return_data = b""
+            incorporate_child_on_success(sivm, child_sivm)
+            sivm.return_data = b""
             push(
-                evm.stack, U256.from_be_bytes(child_evm.message.current_target)
+                sivm.stack,
+                U256.from_be_bytes(child_sivm.message.current_target),
             )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def return_(evm: Evm) -> None:
+def return_(sivm: Sivm) -> None:
     """
     Halts execution returning output data.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    memory_start_position = pop(evm.stack)
-    memory_size = pop(evm.stack)
+    memory_start_position = pop(sivm.stack)
+    memory_size = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_position, memory_size)]
+        sivm.memory, [(memory_start_position, memory_size)]
     )
 
-    charge_gas(evm, GasCosts.ZERO + extend_memory.cost)
+    charge_gas(sivm, GasCosts.ZERO + extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    evm.output = memory_read_bytes(
-        evm.memory, memory_start_position, memory_size
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    sivm.output = memory_read_bytes(
+        sivm.memory, memory_start_position, memory_size
     )
 
-    evm.running = False
+    sivm.running = False
 
     # PROGRAM COUNTER
     pass
@@ -193,29 +194,29 @@ class GenericCall:
     memory_output_size: U256
 
 
-def generic_call(evm: Evm, params: GenericCall) -> None:
+def generic_call(sivm: Sivm, params: GenericCall) -> None:
     """
     Perform the core logic of the `CALL*` family of opcodes.
     """
     from ...vm.interpreter import STACK_DEPTH_LIMIT, process_message
 
-    evm.return_data = b""
+    sivm.return_data = b""
 
-    if evm.message.depth + Uint(1) > STACK_DEPTH_LIMIT:
-        evm.gas_left += params.gas
-        push(evm.stack, U256(0))
+    if sivm.message.depth + Uint(1) > STACK_DEPTH_LIMIT:
+        sivm.gas_left += params.gas
+        push(sivm.stack, U256(0))
         return
 
     call_data = memory_read_bytes(
-        evm.memory,
+        sivm.memory,
         params.memory_input_start_position,
         params.memory_input_size,
     )
-    account = get_account(evm.message.tx_env.state, params.code_address)
-    code = get_code(evm.message.tx_env.state, account.code_hash)
+    account = get_account(sivm.message.tx_env.state, params.code_address)
+    code = get_code(sivm.message.tx_env.state, account.code_hash)
     child_message = Message(
-        block_env=evm.message.block_env,
-        tx_env=evm.message.tx_env,
+        block_env=sivm.message.block_env,
+        tx_env=sivm.message.tx_env,
         caller=params.caller,
         target=params.to,
         gas=params.gas,
@@ -223,55 +224,55 @@ def generic_call(evm: Evm, params: GenericCall) -> None:
         data=call_data,
         code=code,
         current_target=params.to,
-        depth=evm.message.depth + Uint(1),
+        depth=sivm.message.depth + Uint(1),
         code_address=params.code_address,
         should_transfer_value=params.should_transfer_value,
-        is_static=params.is_staticcall or evm.message.is_static,
-        parent_evm=evm,
+        is_static=params.is_staticcall or sivm.message.is_static,
+        parent_sivm=sivm,
     )
-    child_evm = process_message(child_message)
+    child_sivm = process_message(child_message)
 
-    if child_evm.error:
-        incorporate_child_on_error(evm, child_evm)
-        evm.return_data = child_evm.output
-        push(evm.stack, U256(0))
+    if child_sivm.error:
+        incorporate_child_on_error(sivm, child_sivm)
+        sivm.return_data = child_sivm.output
+        push(sivm.stack, U256(0))
     else:
-        incorporate_child_on_success(evm, child_evm)
-        evm.return_data = child_evm.output
-        push(evm.stack, U256(1))
+        incorporate_child_on_success(sivm, child_sivm)
+        sivm.return_data = child_sivm.output
+        push(sivm.stack, U256(1))
 
     actual_output_size = min(
-        params.memory_output_size, U256(len(child_evm.output))
+        params.memory_output_size, U256(len(child_sivm.output))
     )
     memory_write(
-        evm.memory,
+        sivm.memory,
         params.memory_output_start_position,
-        child_evm.output[:actual_output_size],
+        child_sivm.output[:actual_output_size],
     )
 
 
-def call(evm: Evm) -> None:
+def call(sivm: Sivm) -> None:
     """
     Message-call into an account.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    gas = Uint(pop(evm.stack))
-    to = to_address_masked(pop(evm.stack))
-    value = pop(evm.stack)
-    memory_input_start_position = pop(evm.stack)
-    memory_input_size = pop(evm.stack)
-    memory_output_start_position = pop(evm.stack)
-    memory_output_size = pop(evm.stack)
+    gas = Uint(pop(sivm.stack))
+    to = to_address_masked(pop(sivm.stack))
+    value = pop(sivm.stack)
+    memory_input_start_position = pop(sivm.stack)
+    memory_input_size = pop(sivm.stack)
+    memory_output_start_position = pop(sivm.stack)
+    memory_output_size = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory,
+        sivm.memory,
         [
             (memory_input_start_position, memory_input_size),
             (memory_output_start_position, memory_output_size),
@@ -281,36 +282,36 @@ def call(evm: Evm) -> None:
     code_address = to
 
     create_gas_cost = GasCosts.NEW_ACCOUNT
-    if value == 0 or is_account_alive(evm.message.tx_env.state, to):
+    if value == 0 or is_account_alive(sivm.message.tx_env.state, to):
         create_gas_cost = Uint(0)
     transfer_gas_cost = Uint(0) if value == 0 else GasCosts.CALL_VALUE
     message_call_gas = calculate_message_call_gas(
         value,
         gas,
-        Uint(evm.gas_left),
+        Uint(sivm.gas_left),
         memory_cost=extend_memory.cost,
         extra_gas=GasCosts.OPCODE_CALL_BASE
         + create_gas_cost
         + transfer_gas_cost,
     )
-    charge_gas(evm, message_call_gas.cost + extend_memory.cost)
-    if evm.message.is_static and value != U256(0):
+    charge_gas(sivm, message_call_gas.cost + extend_memory.cost)
+    if sivm.message.is_static and value != U256(0):
         raise WriteInStaticContext
-    evm.memory += b"\x00" * extend_memory.expand_by
+    sivm.memory += b"\x00" * extend_memory.expand_by
     sender_balance = get_account(
-        evm.message.tx_env.state, evm.message.current_target
+        sivm.message.tx_env.state, sivm.message.current_target
     ).balance
     if sender_balance < value:
-        push(evm.stack, U256(0))
-        evm.return_data = b""
-        evm.gas_left += message_call_gas.sub_call
+        push(sivm.stack, U256(0))
+        sivm.return_data = b""
+        sivm.gas_left += message_call_gas.sub_call
     else:
         generic_call(
-            evm,
+            sivm,
             GenericCall(
                 gas=message_call_gas.sub_call,
                 value=value,
-                caller=evm.message.current_target,
+                caller=sivm.message.current_target,
                 to=to,
                 code_address=code_address,
                 should_transfer_value=True,
@@ -323,33 +324,33 @@ def call(evm: Evm) -> None:
         )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def callcode(evm: Evm) -> None:
+def callcode(sivm: Sivm) -> None:
     """
     Message-call into this account with alternative account’s code.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    gas = Uint(pop(evm.stack))
-    code_address = to_address_masked(pop(evm.stack))
-    value = pop(evm.stack)
-    memory_input_start_position = pop(evm.stack)
-    memory_input_size = pop(evm.stack)
-    memory_output_start_position = pop(evm.stack)
-    memory_output_size = pop(evm.stack)
+    gas = Uint(pop(sivm.stack))
+    code_address = to_address_masked(pop(sivm.stack))
+    value = pop(sivm.stack)
+    memory_input_start_position = pop(sivm.stack)
+    memory_input_size = pop(sivm.stack)
+    memory_output_start_position = pop(sivm.stack)
+    memory_output_size = pop(sivm.stack)
 
     # GAS
-    to = evm.message.current_target
+    to = sivm.message.current_target
 
     extend_memory = calculate_gas_extend_memory(
-        evm.memory,
+        sivm.memory,
         [
             (memory_input_start_position, memory_input_size),
             (memory_output_start_position, memory_output_size),
@@ -359,28 +360,28 @@ def callcode(evm: Evm) -> None:
     message_call_gas = calculate_message_call_gas(
         value,
         gas,
-        Uint(evm.gas_left),
+        Uint(sivm.gas_left),
         extend_memory.cost,
         GasCosts.OPCODE_CALL_BASE + transfer_gas_cost,
     )
-    charge_gas(evm, message_call_gas.cost + extend_memory.cost)
+    charge_gas(sivm, message_call_gas.cost + extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
+    sivm.memory += b"\x00" * extend_memory.expand_by
     sender_balance = get_account(
-        evm.message.tx_env.state, evm.message.current_target
+        sivm.message.tx_env.state, sivm.message.current_target
     ).balance
     if sender_balance < value:
-        push(evm.stack, U256(0))
-        evm.return_data = b""
-        evm.gas_left += message_call_gas.sub_call
+        push(sivm.stack, U256(0))
+        sivm.return_data = b""
+        sivm.gas_left += message_call_gas.sub_call
     else:
         generic_call(
-            evm,
+            sivm,
             GenericCall(
                 gas=message_call_gas.sub_call,
                 value=value,
-                caller=evm.message.current_target,
+                caller=sivm.message.current_target,
                 to=to,
                 code_address=code_address,
                 should_transfer_value=True,
@@ -393,101 +394,101 @@ def callcode(evm: Evm) -> None:
         )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def selfdestruct(evm: Evm) -> None:
+def selfdestruct(sivm: Sivm) -> None:
     """
     Halt execution and register account for later deletion.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    beneficiary = to_address_masked(pop(evm.stack))
+    beneficiary = to_address_masked(pop(sivm.stack))
 
     # GAS
     gas_cost = GasCosts.OPCODE_SELFDESTRUCT_BASE
     if (
-        not is_account_alive(evm.message.tx_env.state, beneficiary)
+        not is_account_alive(sivm.message.tx_env.state, beneficiary)
         and get_account(
-            evm.message.tx_env.state, evm.message.current_target
+            sivm.message.tx_env.state, sivm.message.current_target
         ).balance
         != 0
     ):
         gas_cost += GasCosts.OPCODE_SELFDESTRUCT_NEW_ACCOUNT
 
-    originator = evm.message.current_target
+    originator = sivm.message.current_target
 
-    refunded_accounts = evm.accounts_to_delete
-    parent_evm = evm.message.parent_evm
-    while parent_evm is not None:
-        refunded_accounts.update(parent_evm.accounts_to_delete)
-        parent_evm = parent_evm.message.parent_evm
+    refunded_accounts = sivm.accounts_to_delete
+    parent_sivm = sivm.message.parent_sivm
+    while parent_sivm is not None:
+        refunded_accounts.update(parent_sivm.accounts_to_delete)
+        parent_sivm = parent_sivm.message.parent_sivm
 
     if originator not in refunded_accounts:
-        evm.refund_counter += GasCosts.REFUND_SELF_DESTRUCT
+        sivm.refund_counter += GasCosts.REFUND_SELF_DESTRUCT
 
-    charge_gas(evm, gas_cost)
-    if evm.message.is_static:
+    charge_gas(sivm, gas_cost)
+    if sivm.message.is_static:
         raise WriteInStaticContext
 
     beneficiary_balance = get_account(
-        evm.message.tx_env.state, beneficiary
+        sivm.message.tx_env.state, beneficiary
     ).balance
     originator_balance = get_account(
-        evm.message.tx_env.state, originator
+        sivm.message.tx_env.state, originator
     ).balance
 
     # First Transfer to beneficiary
     set_account_balance(
-        evm.message.tx_env.state,
+        sivm.message.tx_env.state,
         beneficiary,
         beneficiary_balance + originator_balance,
     )
     # Next, Zero the balance of the address being deleted (must come after
     # sending to beneficiary in case the contract named itself as the
     # beneficiary).
-    set_account_balance(evm.message.tx_env.state, originator, U256(0))
+    set_account_balance(sivm.message.tx_env.state, originator, U256(0))
 
     # register account for deletion
-    evm.accounts_to_delete.add(originator)
+    sivm.accounts_to_delete.add(originator)
 
     # mark beneficiary as touched
-    if account_exists_and_is_empty(evm.message.tx_env.state, beneficiary):
-        evm.touched_accounts.add(beneficiary)
+    if account_exists_and_is_empty(sivm.message.tx_env.state, beneficiary):
+        sivm.touched_accounts.add(beneficiary)
 
     # HALT the execution
-    evm.running = False
+    sivm.running = False
 
     # PROGRAM COUNTER
     pass
 
 
-def delegatecall(evm: Evm) -> None:
+def delegatecall(sivm: Sivm) -> None:
     """
     Message-call into an account.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    gas = Uint(pop(evm.stack))
-    code_address = to_address_masked(pop(evm.stack))
-    memory_input_start_position = pop(evm.stack)
-    memory_input_size = pop(evm.stack)
-    memory_output_start_position = pop(evm.stack)
-    memory_output_size = pop(evm.stack)
+    gas = Uint(pop(sivm.stack))
+    code_address = to_address_masked(pop(sivm.stack))
+    memory_input_start_position = pop(sivm.stack)
+    memory_input_size = pop(sivm.stack)
+    memory_output_start_position = pop(sivm.stack)
+    memory_output_size = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory,
+        sivm.memory,
         [
             (memory_input_start_position, memory_input_size),
             (memory_output_start_position, memory_output_size),
@@ -496,21 +497,21 @@ def delegatecall(evm: Evm) -> None:
     message_call_gas = calculate_message_call_gas(
         U256(0),
         gas,
-        Uint(evm.gas_left),
+        Uint(sivm.gas_left),
         extend_memory.cost,
         GasCosts.OPCODE_CALL_BASE,
     )
-    charge_gas(evm, message_call_gas.cost + extend_memory.cost)
+    charge_gas(sivm, message_call_gas.cost + extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
+    sivm.memory += b"\x00" * extend_memory.expand_by
     generic_call(
-        evm,
+        sivm,
         GenericCall(
             gas=message_call_gas.sub_call,
-            value=evm.message.value,
-            caller=evm.message.caller,
-            to=evm.message.current_target,
+            value=sivm.message.value,
+            caller=sivm.message.caller,
+            to=sivm.message.current_target,
             code_address=code_address,
             should_transfer_value=False,
             is_staticcall=False,
@@ -522,30 +523,30 @@ def delegatecall(evm: Evm) -> None:
     )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def staticcall(evm: Evm) -> None:
+def staticcall(sivm: Sivm) -> None:
     """
     Message-call into an account.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    gas = Uint(pop(evm.stack))
-    to = to_address_masked(pop(evm.stack))
-    memory_input_start_position = pop(evm.stack)
-    memory_input_size = pop(evm.stack)
-    memory_output_start_position = pop(evm.stack)
-    memory_output_size = pop(evm.stack)
+    gas = Uint(pop(sivm.stack))
+    to = to_address_masked(pop(sivm.stack))
+    memory_input_start_position = pop(sivm.stack)
+    memory_input_size = pop(sivm.stack)
+    memory_output_start_position = pop(sivm.stack)
+    memory_output_size = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory,
+        sivm.memory,
         [
             (memory_input_start_position, memory_input_size),
             (memory_output_start_position, memory_output_size),
@@ -557,20 +558,20 @@ def staticcall(evm: Evm) -> None:
     message_call_gas = calculate_message_call_gas(
         U256(0),
         gas,
-        Uint(evm.gas_left),
+        Uint(sivm.gas_left),
         extend_memory.cost,
         GasCosts.OPCODE_CALL_BASE,
     )
-    charge_gas(evm, message_call_gas.cost + extend_memory.cost)
+    charge_gas(sivm, message_call_gas.cost + extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
+    sivm.memory += b"\x00" * extend_memory.expand_by
     generic_call(
-        evm,
+        sivm,
         GenericCall(
             gas=message_call_gas.sub_call,
             value=U256(0),
-            caller=evm.message.current_target,
+            caller=sivm.message.current_target,
             to=to,
             code_address=code_address,
             should_transfer_value=True,
@@ -583,35 +584,35 @@ def staticcall(evm: Evm) -> None:
     )
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def revert(evm: Evm) -> None:
+def revert(sivm: Sivm) -> None:
     """
     Stop execution and revert state changes, without consuming all provided gas
     and also has the ability to return a reason.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    memory_start_index = pop(evm.stack)
-    size = pop(evm.stack)
+    memory_start_index = pop(sivm.stack)
+    size = pop(sivm.stack)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_index, size)]
+        sivm.memory, [(memory_start_index, size)]
     )
 
-    charge_gas(evm, extend_memory.cost)
+    charge_gas(sivm, extend_memory.cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    output = memory_read_bytes(evm.memory, memory_start_index, size)
-    evm.output = Bytes(output)
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    output = memory_read_bytes(sivm.memory, memory_start_index, size)
+    sivm.output = Bytes(output)
     raise Revert
 
     # PROGRAM COUNTER

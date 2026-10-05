@@ -47,9 +47,9 @@ def sstore_tx_gas(fork: Fork, num_sstores: int = 1) -> tuple[int, int]:
     """Return (execution, state) gas for a tx with N cold SSTOREs."""
     code = Op.SSTORE(0, 1, original_value=0, new_value=1)
     intrinsic_gas = fork.transaction_intrinsic_cost_calculator()()
-    evm_total = num_sstores * code.execution_cost(fork)
+    sivm_total = num_sstores * code.execution_cost(fork)
     state = num_sstores * code.state_cost(fork)
-    return intrinsic_gas + evm_total, state
+    return intrinsic_gas + sivm_total, state
 
 
 def sstore_txs(

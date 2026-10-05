@@ -203,12 +203,12 @@ The spec lint tool checks for style and formatting issues specific to SELS and e
 
 Run it with `just lint-spec` (or `uv run sila-spec-lint`).
 
-## Debugging with `--evm-trace`
+## Debugging with `--sivm-trace`
 
-A trace of the EVM execution for any test case can be obtained by passing the `--evm-trace` argument to pytest. Run it on a small number of tests at a time; the log can otherwise grow very large.
+A trace of the Sivm execution for any test case can be obtained by passing the `--sivm-trace` argument to pytest. Run it on a small number of tests at a time; the log can otherwise grow very large.
 
 ```bash
 uv run pytest \
     'tests/json_loader/test_state_tests.py::test_state_tests_frontier[stAttackTest - ContractCreationSpam - 0]' \
-    --evm_trace
+    --sivm_trace
 ```

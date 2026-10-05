@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Interpreter.
+Sila Virtual Machine (Sivm) Interpreter.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Interpreter.
 Introduction
 ------------
 
-A straightforward interpreter that executes EVM code.
+A straightforward interpreter that executes Sivm code.
 """
 
 from dataclasses import dataclass
@@ -20,14 +20,14 @@ from sila_types.numeric import U256, Uint, ulen
 from sila.exceptions import SilaException
 from sila.state import EMPTY_ACCOUNT, Address
 from sila.trace import (
-    EvmStop,
     OpEnd,
     OpException,
     OpStart,
     PrecompileEnd,
     PrecompileStart,
+    SivmStop,
     TransactionEnd,
-    evm_trace,
+    sivm_trace,
 )
 from sila.utils.numeric import ceil32
 
@@ -64,7 +64,7 @@ from ..vm.gas import (
 from ..vm.precompiled_contracts.mapping import PRE_COMPILED_CONTRACTS
 from . import (
     BlockEnvironment,
-    Evm,
+    Sivm,
     TransactionEnvironment,
     emit_transfer_log,
 )
@@ -135,11 +135,11 @@ def charge_value_transfer_to_non_alive_account(
         charge_state_gas_from_meter(gas_meter, StateGasCosts.NEW_ACCOUNT)
 
 
-def create_evm(
+def create_sivm(
     block_env: BlockEnvironment,
     tx_env: TransactionEnvironment,
     gas_meter: GasMeter,
-) -> Evm:
+) -> Sivm:
     """
     Build the transaction's top-level frame.
 
@@ -201,11 +201,11 @@ def create_evm(
         )
 
     ## Build the frame
-    return Evm(
+    return Sivm(
         # Context
         block_env=block_env,
         tx_env=tx_env,
-        parent_evm=None,
+        parent_sivm=None,
         depth=Uint(0),
         # Call Parameters
         caller=tx_env.origin,
@@ -244,7 +244,7 @@ def process_top_level(
     """
     Execute the top level of a transaction.
 
-    Prepare the transaction's top-level EVM frame and dispatch it: a
+    Prepare the transaction's top-level Sivm frame and dispatch it: a
     contract creation or a call, per the transaction environment. A
     preparation failure rolls back everything the preparation changed
     and never dispatches; the transaction then settles as if
@@ -271,7 +271,7 @@ def process_top_level(
 
     prep_snapshot = copy_tx_state(tx_env.state)
     try:
-        evm = create_evm(block_env, tx_env, gas_meter)
+        sivm = create_sivm(block_env, tx_env, gas_meter)
     except ExceptionalHalt as halt:
         # The rollback also reverts any applied delegations, so their
         # state gas commit is undone with it: roll state gas back to
@@ -293,32 +293,32 @@ def process_top_level(
         )
 
     if tx_env.is_create:
-        process_create(evm)
+        process_create(sivm)
     else:
-        process_call(evm)
+        process_call(sivm)
 
     # A failed execution contributes no logs or self-destructs.
-    if evm.error:
+    if sivm.error:
         logs: Tuple[Log, ...] = ()
         accounts_to_delete: Set[Address] = set()
     else:
-        logs = evm.logs
-        accounts_to_delete = evm.accounts_to_delete
+        logs = sivm.logs
+        accounts_to_delete = sivm.accounts_to_delete
 
     tx_end = TransactionEnd(
         int(tx_env.execution_gas_grant) - int(gas_meter.gas_left),
-        evm.output,
-        evm.error,
+        sivm.output,
+        sivm.error,
     )
-    evm_trace(evm, tx_end)
+    sivm_trace(sivm, tx_end)
 
     return TransactionOutput(
         gas_left=gas_meter.gas_left,
         refund_counter=U256(gas_meter.refund_counter),
         logs=logs,
         accounts_to_delete=accounts_to_delete,
-        error=evm.error,
-        return_data=evm.output,
+        error=sivm.error,
+        return_data=sivm.output,
         state_gas_left=gas_meter.state_gas_left,
         state_gas_used=tx_state_gas_used(
             gas_meter, tx_env.state_gas_reservoir
@@ -326,22 +326,22 @@ def process_top_level(
     )
 
 
-def process_create(evm: Evm) -> Evm:
+def process_create(sivm: Sivm) -> Sivm:
     """
     Executes a call to create a smart contract.
 
     Parameters
     ----------
-    evm :
-        Currently running evm.
+    sivm :
+        Currently running sivm.
 
     Returns
     -------
-    evm: :py:class:`~sila.forks.sila_amsterdam.vm.Evm`
+    sivm: :py:class:`~sila.forks.sila_amsterdam.vm.Sivm`
         Items containing execution specific objects.
 
     """
-    tx_state = evm.tx_env.state
+    tx_state = sivm.tx_env.state
     # take snapshot of state before processing the message
     snapshot = copy_tx_state(tx_state)
 
@@ -352,19 +352,19 @@ def process_create(evm: Evm) -> Evm:
     #   `CREATE` or `CREATE2` call.
     # * The first `CREATE` happened before SIP158 and left empty
     #   code.
-    destroy_storage(tx_state, evm.current_target)
+    destroy_storage(tx_state, sivm.current_target)
 
     # In the previously mentioned edge case the preexisting storage is ignored
     # for gas refund purposes. In order to do this we must track created
     # accounts. This tracking is also needed to respect the constraints
     # added to SELFDESTRUCT by SIP-6780.
-    mark_account_created(tx_state, evm.current_target)
+    mark_account_created(tx_state, sivm.current_target)
 
-    increment_nonce(tx_state, evm.current_target)
+    increment_nonce(tx_state, sivm.current_target)
 
-    evm = process_call(evm)
-    if not evm.error:
-        contract_code = evm.output
+    sivm = process_call(sivm)
+    if not sivm.error:
+        contract_code = sivm.output
         try:
             if len(contract_code) > 0:
                 if contract_code[0] == 0xEF:
@@ -377,98 +377,98 @@ def process_create(evm: Evm) -> Evm:
                 * ceil32(ulen(contract_code))
                 // Uint(32)
             )
-            charge_gas(evm, code_hash_gas)
+            charge_gas(sivm, code_hash_gas)
             code_deposit_state_gas = (
                 ulen(contract_code) * StateGasCosts.COST_PER_STATE_BYTE
             )
-            charge_state_gas(evm, code_deposit_state_gas)
+            charge_state_gas(sivm, code_deposit_state_gas)
         except ExceptionalHalt as error:
             restore_tx_state(tx_state, snapshot)
             # A create frame never applies authorizations, so its
             # baseline is still the frame's entry reservoir.
-            restore_state_gas(evm.gas_meter)
-            forfeit_remaining_gas(evm.gas_meter)
-            evm.output = b""
-            evm.error = error
+            restore_state_gas(sivm.gas_meter)
+            forfeit_remaining_gas(sivm.gas_meter)
+            sivm.output = b""
+            sivm.error = error
         else:
-            set_code(tx_state, evm.current_target, contract_code)
+            set_code(tx_state, sivm.current_target, contract_code)
     else:
         restore_tx_state(tx_state, snapshot)
-    return evm
+    return sivm
 
 
-def process_call(evm: Evm) -> Evm:
+def process_call(sivm: Sivm) -> Sivm:
     """
     Move sila and execute the relevant code.
 
     Parameters
     ----------
-    evm :
-        The EVM frame to execute.
+    sivm :
+        The Sivm frame to execute.
 
     Returns
     -------
-    evm: :py:class:`~sila.forks.sila_amsterdam.vm.Evm`
+    sivm: :py:class:`~sila.forks.sila_amsterdam.vm.Sivm`
         Items containing execution specific objects
 
     """
-    tx_state = evm.tx_env.state
-    if evm.depth > STACK_DEPTH_LIMIT:
+    tx_state = sivm.tx_env.state
+    if sivm.depth > STACK_DEPTH_LIMIT:
         raise StackDepthLimitError("Stack depth limit reached")
 
     snapshot = copy_tx_state(tx_state)
 
     # Execute message code and handle errors
     try:
-        if evm.should_transfer_value and evm.value != 0:
+        if sivm.should_transfer_value and sivm.value != 0:
             move_sila(
                 tx_state,
-                evm.caller,
-                evm.current_target,
-                evm.value,
+                sivm.caller,
+                sivm.current_target,
+                sivm.value,
             )
-            if evm.caller != evm.current_target:
+            if sivm.caller != sivm.current_target:
                 emit_transfer_log(
-                    evm,
-                    evm.caller,
-                    evm.current_target,
-                    evm.value,
+                    sivm,
+                    sivm.caller,
+                    sivm.current_target,
+                    sivm.value,
                 )
-        if evm.code_address in PRE_COMPILED_CONTRACTS:
-            if not evm.disable_precompiles:
-                evm_trace(evm, PrecompileStart(evm.code_address))
-                PRE_COMPILED_CONTRACTS[evm.code_address](evm)
-                evm_trace(evm, PrecompileEnd())
+        if sivm.code_address in PRE_COMPILED_CONTRACTS:
+            if not sivm.disable_precompiles:
+                sivm_trace(sivm, PrecompileStart(sivm.code_address))
+                PRE_COMPILED_CONTRACTS[sivm.code_address](sivm)
+                sivm_trace(sivm, PrecompileEnd())
         else:
-            while evm.running and evm.pc < ulen(evm.code):
+            while sivm.running and sivm.pc < ulen(sivm.code):
                 try:
-                    op = Ops(evm.code[evm.pc])
+                    op = Ops(sivm.code[sivm.pc])
                 except ValueError as e:
-                    raise InvalidOpcode(evm.code[evm.pc]) from e
+                    raise InvalidOpcode(sivm.code[sivm.pc]) from e
 
-                evm_trace(evm, OpStart(op))
-                op_implementation[op](evm)
-                evm_trace(evm, OpEnd())
+                sivm_trace(sivm, OpStart(op))
+                op_implementation[op](sivm)
+                sivm_trace(sivm, OpEnd())
 
-            evm_trace(evm, EvmStop(Ops.STOP))
+            sivm_trace(sivm, SivmStop(Ops.STOP))
 
     except ExceptionalHalt as error:
-        evm_trace(evm, OpException(error))
+        sivm_trace(sivm, OpException(error))
         # Frame settlement: refill state gas to the baseline, then
         # forfeit -- a halted frame returns no execution gas to its
         # parent. After these handlers the meter states exactly what
         # the frame gives back, so parents absorb unconditionally.
-        restore_state_gas(evm.gas_meter)
-        forfeit_remaining_gas(evm.gas_meter)
-        evm.output = b""
-        evm.error = error
+        restore_state_gas(sivm.gas_meter)
+        forfeit_remaining_gas(sivm.gas_meter)
+        sivm.output = b""
+        sivm.error = error
     except Revert as error:
-        evm_trace(evm, OpException(error))
+        sivm_trace(sivm, OpException(error))
         # Frame settlement: refill state gas to the baseline -- a
         # reverted frame returns its unspent `gas_left` to its parent.
-        restore_state_gas(evm.gas_meter)
-        evm.error = error
+        restore_state_gas(sivm.gas_meter)
+        sivm.error = error
 
-    if evm.error:
+    if sivm.error:
         restore_tx_state(tx_state, snapshot)
-    return evm
+    return sivm

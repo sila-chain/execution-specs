@@ -94,7 +94,7 @@ from .vm.gas import (
     GasCosts,
     StateGasCosts,
     TransactionGasSettlement,
-    allocate_evm_gas,
+    allocate_sivm_gas,
     calculate_data_fee,
     calculate_excess_blob_gas,
     calculate_total_blob_gas,
@@ -581,9 +581,9 @@ def check_transaction(
     ):
         raise InvalidSenderError("not EOA")
 
-    # Split the EVM gas into an execution-gas grant (capped by the
+    # Split the Sivm gas into an execution-gas grant (capped by the
     # remaining execution-gas budget) and a state gas reservoir.
-    allocation = allocate_evm_gas(tx.gas, intrinsic)
+    allocation = allocate_sivm_gas(tx.gas, intrinsic)
 
     access_list_addresses = set()
     access_list_storage_keys = set()

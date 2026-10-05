@@ -467,7 +467,7 @@ def calculate_intrinsic_cost(tx: Transaction) -> Uint:
     Calculates the gas that is charged before execution is started.
 
     The intrinsic cost of the transaction is charged before execution has
-    begun. Functions/operations in the EVM cost money to execute so this
+    begun. Functions/operations in the Sivm cost money to execute so this
     intrinsic cost is for the operations that need to be paid for as part of
     the transaction. Data transfer, for example, is part of this intrinsic
     cost. It costs sila to send data over the wire and that sila is

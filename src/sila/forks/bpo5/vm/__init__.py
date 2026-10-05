@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM).
+Sila Virtual Machine (Sivm).
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -28,7 +28,7 @@ from ..fork_types import Authorization, VersionedHash
 from ..state_tracker import BlockState, TransactionState
 from ..transactions import LegacyTransaction
 
-__all__ = ("Environment", "Evm", "Message")
+__all__ = ("Environment", "Sivm", "Message")
 
 
 @final
@@ -136,12 +136,12 @@ class Message:
     accessed_addresses: Set[Address]
     accessed_storage_keys: Set[Tuple[Address, Bytes32]]
     disable_precompiles: bool
-    parent_evm: Optional["Evm"]
+    parent_sivm: Optional["Sivm"]
 
 
 @final
 @dataclass
-class Evm:
+class Sivm:
     """The internal state of the virtual machine."""
 
     pc: Uint
@@ -162,36 +162,37 @@ class Evm:
     accessed_storage_keys: Set[Tuple[Address, Bytes32]]
 
 
-def incorporate_child_on_success(evm: Evm, child_evm: Evm) -> None:
+def incorporate_child_on_success(sivm: Sivm, child_sivm: Sivm) -> None:
     """
-    Incorporate the state of a successful `child_evm` into the parent `evm`.
+    Incorporate the state of a successful `child_sivm` into the parent `sivm`.
 
     Parameters
     ----------
-    evm :
-        The parent `EVM`.
-    child_evm :
-        The child evm to incorporate.
+    sivm :
+        The parent `Sivm`.
+    child_sivm :
+        The child sivm to incorporate.
 
     """
-    evm.gas_left += child_evm.gas_left
-    evm.logs += child_evm.logs
-    evm.refund_counter += child_evm.refund_counter
-    evm.accounts_to_delete.update(child_evm.accounts_to_delete)
-    evm.accessed_addresses.update(child_evm.accessed_addresses)
-    evm.accessed_storage_keys.update(child_evm.accessed_storage_keys)
+    sivm.gas_left += child_sivm.gas_left
+    sivm.logs += child_sivm.logs
+    sivm.refund_counter += child_sivm.refund_counter
+    sivm.accounts_to_delete.update(child_sivm.accounts_to_delete)
+    sivm.accessed_addresses.update(child_sivm.accessed_addresses)
+    sivm.accessed_storage_keys.update(child_sivm.accessed_storage_keys)
 
 
-def incorporate_child_on_error(evm: Evm, child_evm: Evm) -> None:
+def incorporate_child_on_error(sivm: Sivm, child_sivm: Sivm) -> None:
     """
-    Incorporate the state of an unsuccessful `child_evm` into the parent `evm`.
+    Incorporate the state of an unsuccessful `child_sivm` into the parent
+    `sivm`.
 
     Parameters
     ----------
-    evm :
-        The parent `EVM`.
-    child_evm :
-        The child evm to incorporate.
+    sivm :
+        The parent `Sivm`.
+    child_sivm :
+        The child sivm to incorporate.
 
     """
-    evm.gas_left += child_evm.gas_left
+    sivm.gas_left += child_sivm.gas_left

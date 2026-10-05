@@ -1,25 +1,25 @@
 """
-EVM trace implementation that fans out to many concrete trace implementations.
+Sivm trace implementation that fans out to many concrete trace implementations.
 """
 
 from typing import Final
 
-from sila.trace import EvmTracer, TraceEvent
+from sila.trace import SivmTracer, TraceEvent
 from typing_extensions import override
 
 
-class GroupTracer(EvmTracer):
+class GroupTracer(SivmTracer):
     """
-    EVM trace implementation that fans out to many concrete trace
+    Sivm trace implementation that fans out to many concrete trace
     implementations.
     """
 
-    tracers: Final[set[EvmTracer]]
+    tracers: Final[set[SivmTracer]]
 
     def __init__(self) -> None:
         self.tracers = set()
 
-    def add(self, tracer: EvmTracer) -> None:
+    def add(self, tracer: SivmTracer) -> None:
         """
         Insert a new tracer.
         """
@@ -28,11 +28,11 @@ class GroupTracer(EvmTracer):
     @override
     def __call__(
         self,
-        evm: object,
+        sivm: object,
         event: TraceEvent,
     ) -> None:
         """
         Record a trace event.
         """
         for tracer in self.tracers:
-            tracer(evm, event)
+            tracer(sivm, event)

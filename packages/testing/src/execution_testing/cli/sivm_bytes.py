@@ -108,17 +108,17 @@ class OpcodeWithOperandsAssembly(OpcodeWithOperands):
             return f"{opcode_name} {operands}"
 
 
-def process_evm_bytes(  # noqa: D103
+def process_sivm_bytes(  # noqa: D103
     sivm_bytes: bytes,
     assembly: bool = False,
     int_definitions: dict[int, str] | None = None,
 ) -> List[OpcodeWithOperands]:
-    evm_bytes_array = bytearray(sivm_bytes)
+    sivm_bytes_array = bytearray(sivm_bytes)
 
     opcodes: List[OpcodeWithOperands] = []
 
-    while evm_bytes_array:
-        opcode_byte = evm_bytes_array.pop(0)
+    while sivm_bytes_array:
+        opcode_byte = sivm_bytes_array.pop(0)
 
         opcode: Op
         for op in Op:
@@ -133,12 +133,12 @@ def process_evm_bytes(  # noqa: D103
                 opcode=opcode,
                 operands=[
                     int.from_bytes(
-                        evm_bytes_array[: opcode.data_portion_length],
+                        sivm_bytes_array[: opcode.data_portion_length],
                         "big",
                     )
                 ],
             )
-            evm_bytes_array = evm_bytes_array[opcode.data_portion_length :]
+            sivm_bytes_array = sivm_bytes_array[opcode.data_portion_length :]
         else:
             opcode_with_operands = OpcodeWithOperands(opcode=opcode)
         if (
@@ -225,19 +225,19 @@ def format_opcodes(  # noqa: D103
     return " + ".join(f"{op}" for op in opcodes_with_multiply)
 
 
-def process_evm_bytes_string(
-    evm_bytes_hex_string: str,
+def process_sivm_bytes_string(
+    sivm_bytes_hex_string: str,
     assembly: bool = False,
     skip_simplify: bool = False,
     int_definitions: dict[int, str] | None = None,
 ) -> str:
-    """Process the given EVM bytes hex string."""
-    if evm_bytes_hex_string.startswith("0x"):
-        evm_bytes_hex_string = evm_bytes_hex_string[2:]
+    """Process the given Sivm bytes hex string."""
+    if sivm_bytes_hex_string.startswith("0x"):
+        sivm_bytes_hex_string = sivm_bytes_hex_string[2:]
 
-    sivm_bytes = bytes.fromhex(evm_bytes_hex_string)
+    sivm_bytes = bytes.fromhex(sivm_bytes_hex_string)
     return format_opcodes(
-        process_evm_bytes(
+        process_sivm_bytes(
             sivm_bytes,
             assembly=assembly,
             int_definitions=int_definitions,
@@ -264,7 +264,7 @@ assembly_option = click.option(
 )
 def sivm_bytes() -> None:
     """
-    Convert EVM bytecode to SEST's Python Opcodes or an assembly string.
+    Convert Sivm bytecode to SEST's Python Opcodes or an assembly string.
 
     The input can be either a hex string or a binary file.
     """
@@ -278,12 +278,12 @@ def sivm_bytes() -> None:
 @click.argument("hex_string")
 def hex_string(hex_string: str, assembly: bool) -> None:
     """
-    Convert the HEX_STRING representing EVM bytes to SEST Python Opcodes.
+    Convert the HEX_STRING representing Sivm bytes to SEST Python Opcodes.
 
-    HEX_STRING is a string containing EVM bytecode.
+    HEX_STRING is a string containing Sivm bytecode.
 
     Returns:
-        (str): The processed EVM opcodes in Python or assembly format.
+        (str): The processed Sivm opcodes in Python or assembly format.
 
     Example 1: Convert a hex string to SEST Python `Opcodes`
         uv run sivm_bytes hex-string 604260005260206000F3
@@ -306,7 +306,7 @@ def hex_string(hex_string: str, assembly: bool) -> None:
         return
 
     """  # noqa: D301
-    processed_output = process_evm_bytes_string(hex_string, assembly=assembly)
+    processed_output = process_sivm_bytes_string(hex_string, assembly=assembly)
     click.echo(processed_output)
 
 
@@ -317,13 +317,14 @@ def hex_string(hex_string: str, assembly: bool) -> None:
 @click.argument("binary_file", type=click.File("rb"))
 def binary_file(binary_file: Any, assembly: bool) -> None:
     """
-    Convert the BINARY_FILE containing EVM bytes to Python Opcodes or assembly.
+    Convert the BINARY_FILE containing Sivm bytes to Python Opcodes or
+    assembly.
 
-    BINARY_FILE is a binary file containing EVM bytes, use `-` to read from
+    BINARY_FILE is a binary file containing Sivm bytes, use `-` to read from
     stdin.
 
     Returns:
-        (str): The processed EVM opcodes in Python or assembly format.
+        (str): The processed Sivm opcodes in Python or assembly format.
 
     Example: Convert the Withdrawal Request contract to assembly
         \b
@@ -341,7 +342,7 @@ def binary_file(binary_file: Any, assembly: bool) -> None:
 
     """  # noqa: D301
     processed_output = format_opcodes(
-        process_evm_bytes(binary_file.read(), assembly=assembly),
+        process_sivm_bytes(binary_file.read(), assembly=assembly),
         assembly=assembly,
     )
     click.echo(processed_output)

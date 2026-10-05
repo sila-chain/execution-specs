@@ -1,5 +1,5 @@
 """
-Sila Specs EVM Transition Tool Interface.
+Sila Specs Sivm Transition Tool Interface.
 """
 
 import tempfile
@@ -101,13 +101,13 @@ class ExecutionSpecsTransitionTool(TransitionTool):
         directly.
         """
         from execution_testing.sivm_tools.t8n import T8N
-        from execution_testing.sivm_tools.t8n.evm_trace.count import (
+        from execution_testing.sivm_tools.t8n.sivm_trace.count import (
             CountTracer,
         )
-        from execution_testing.sivm_tools.t8n.evm_trace.group import (
+        from execution_testing.sivm_tools.t8n.sivm_trace.group import (
             GroupTracer,
         )
-        from execution_testing.sivm_tools.t8n.evm_trace.sip3155 import (
+        from execution_testing.sivm_tools.t8n.sivm_trace.sip3155 import (
             Sip3155Tracer,
         )
 

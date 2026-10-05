@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Runtime Operations.
+Sila Virtual Machine (Sivm) Runtime Operations.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Runtime Operations.
 Introduction
 ------------
 
-Runtime related operations used while executing EVM code.
+Runtime related operations used while executing Sivm code.
 """
 
 from typing import Set
@@ -21,7 +21,7 @@ from .instructions import Ops
 
 def get_valid_jump_destinations(code: Bytes) -> Set[Uint]:
     """
-    Analyze the EVM code to obtain the set of valid jump destinations.
+    Analyze the Sivm code to obtain the set of valid jump destinations.
 
     Valid jump destinations are defined as follows:
         * The jump destination is less than the length of the code.
@@ -34,7 +34,7 @@ def get_valid_jump_destinations(code: Bytes) -> Set[Uint]:
     Parameters
     ----------
     code :
-        The EVM code which is to be executed.
+        The Sivm code which is to be executed.
 
     Returns
     -------

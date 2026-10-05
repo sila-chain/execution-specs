@@ -2,7 +2,7 @@
 Dedicated tests for the SIP-2780 top-frame charge layer.
 
 The top-frame layer applies *after* intrinsic gas is deducted but
-*before* the EVM dispatches at the transaction's outermost frame. Two
+*before* the Sivm dispatches at the transaction's outermost frame. Two
 charges may fire there, depending on the recipient:
 
 - ``NEW_ACCOUNT`` (state gas) when the recipient is empty and the
@@ -13,7 +13,7 @@ charges may fire there, depending on the recipient:
 
 Each test parametrizes over the interesting outcomes for that charge:
 running out of gas at the boundary, succeeding through the charge and
-into the EVM, and (for the execution charge) succeeding through the
+into the Sivm, and (for the execution charge) succeeding through the
 charge but reverting from the delegated code. For creation
 transactions, the charge keys on the *transaction pre-state* being
 empty, and — being consumed on any successful halt — survives the
@@ -67,8 +67,8 @@ def test_top_frame_state_charge(
 
     - ``oog``: gas limit is one short of covering the state charge.
       The transaction passes the intrinsic check, enters the top-frame
-      preparation in ``create_evm``, and out-of-gases on the
-      ``NEW_ACCOUNT`` state charge before any EVM bytecode runs.
+      preparation in ``create_sivm``, and out-of-gases on the
+      ``NEW_ACCOUNT`` state charge before any Sivm bytecode runs.
       The sender pays the full ``gas_limit`` and no value is
       transferred.
     - ``success``: gas limit covers the state charge. The value
@@ -221,7 +221,7 @@ def test_top_frame_new_account_charged_as_state_gas(
         f"({intrinsic_execution})"
     )
 
-    # No EVM bytecode runs (empty recipient), so the only execution gas
+    # No Sivm bytecode runs (empty recipient), so the only execution gas
     # is the intrinsic and the only state gas is the top-frame
     # ``NEW_ACCOUNT`` charge.
     expected_gas_used = max(intrinsic_execution, new_account_state_gas)
@@ -270,7 +270,7 @@ def test_top_frame_new_account_skipped_for_nonce_only_recipient(
     The gas limit is pinned to exactly the intrinsic, leaving no room
     for any extra charge: an implementation that wrongly charged
     ``NEW_ACCOUNT`` (keying on the zero balance) would out-of-gas
-    rather than succeed. The recipient has no code, so no EVM runs and
+    rather than succeed. The recipient has no code, so no Sivm runs and
     the intrinsic is fully consumed with nothing to refund.
     """
     sender_initial_balance = 10**18
@@ -349,7 +349,7 @@ def test_top_frame_new_account_skipped_for_prefunded_create_target(
     holds a balance does not incur the top-frame ``NEW_ACCOUNT`` state
     charge.
 
-    The create branch of ``create_evm`` keys the charge on the
+    The create branch of ``create_sivm`` keys the charge on the
     *transaction pre-state* being empty — a live check would always see
     the account, because ``process_create`` bumps the target's nonce
     before dispatch. Pre-funding the create address makes the
@@ -537,7 +537,7 @@ def test_top_frame_new_account_skipped_for_create_target_funded_same_block(
 
 @SIPChecklist.GasCostChanges.Test.OutOfGas()
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
-@pytest.mark.parametrize("outcome", ["oog", "success", "evm_reverts"])
+@pytest.mark.parametrize("outcome", ["oog", "success", "sivm_reverts"])
 @pytest.mark.parametrize(
     "value",
     [
@@ -564,10 +564,10 @@ def test_top_frame_execution_charge(
       and the recipient keeps its pre-tx state.
     - ``success``: gas limit covers the execution charge; the delegated
       code is a ``STOP`` and the transaction lands the value transfer.
-    - ``evm_reverts``: the delegated code reverts immediately. The
+    - ``sivm_reverts``: the delegated code reverts immediately. The
       top-frame charge is consumed before dispatch and the two
       ``PUSH`` opcodes that feed the ``REVERT`` are paid before the
-      revert; the value transfer is rolled back, the unused EVM
+      revert; the value transfer is rolled back, the unused Sivm
       budget is returned, and the intrinsic and top-frame gas remain
       paid.
     """
@@ -575,7 +575,7 @@ def test_top_frame_execution_charge(
     sender = pre.fund_eoa(sender_initial_balance)
 
     revert_code = Op.REVERT(0, 0)
-    if outcome == "evm_reverts":
+    if outcome == "sivm_reverts":
         delegated_to = pre.deploy_contract(code=revert_code)
     else:
         delegated_to = pre.deploy_contract(code=Op.STOP)
@@ -614,7 +614,7 @@ def test_top_frame_execution_charge(
         gas_limit = gas_used + 1000
         # Value transfer is rolled back, so the sender keeps the
         # would-be transferred value. The intrinsic, top-frame, and
-        # pre-revert EVM gas stay paid.
+        # pre-revert Sivm gas stay paid.
         sender_final_balance = sender_initial_balance - gas_used * gas_price
         target_balance = 0
 
@@ -781,7 +781,7 @@ def test_initcode_selfdestruct_state_gas_in_header(
     init_code = Op.SELFDESTRUCT.with_metadata(
         address_warm=True, account_new=False
     )(Op.ADDRESS)
-    evm_execution = init_code.execution_cost(fork)
+    sivm_execution = init_code.execution_cost(fork)
 
     intrinsic_gas = fork.transaction_intrinsic_cost_calculator()(
         calldata=init_code,
@@ -797,12 +797,12 @@ def test_initcode_selfdestruct_state_gas_in_header(
     )
     # Block accounting carries the calldata floor in the execution
     # dimension.
-    execution_side = max(intrinsic_gas + evm_execution, calldata_floor)
+    execution_side = max(intrinsic_gas + sivm_execution, calldata_floor)
     assert state_side > execution_side, (
         "the state dimension must dominate for the header to pin it"
     )
 
-    total_gas = intrinsic_gas + state_side + evm_execution
+    total_gas = intrinsic_gas + state_side + sivm_execution
     tx = Transaction(
         sender=sender,
         to=None,
@@ -863,7 +863,7 @@ def test_receipt_status_top_frame_oog_between_successful_txs(
     sits between two successful transactions in one block.
 
     A transaction that out-of-gases on a top-frame charge never
-    dispatches into the EVM but is still included and must produce a
+    dispatches into the Sivm but is still included and must produce a
     ``succeeded=False`` receipt, committed to the header
     ``receiptsRoot``. The other top-frame OOG tests place the failing
     transaction alone in its block, so an implementation that derives
@@ -876,7 +876,7 @@ def test_receipt_status_top_frame_oog_between_successful_txs(
     glamsterdam-devnet-7 with ``receiptRoot mismatch``.)
 
     The middle transaction passes the intrinsic check but out-of-gases
-    on a top-frame charge before any EVM bytecode runs:
+    on a top-frame charge before any Sivm bytecode runs:
 
     - ``create_state_oog``: contract creation; the created account's
       ``NEW_ACCOUNT`` state charge fires at the top frame and the gas
@@ -962,7 +962,7 @@ def test_receipt_status_top_frame_oog_between_successful_txs(
         raise ValueError(f"unhandled failure mode: {failure_mode}")
 
     # The successful transfers go to an alive EOA: no top-frame charge,
-    # no EVM execution, so each consumes exactly its intrinsic gas.
+    # no Sivm execution, so each consumes exactly its intrinsic gas.
     ok_intrinsic_gas = intrinsic_cost(
         sends_value=True,
         recipient_type=RecipientType.EOA,

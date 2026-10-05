@@ -16,7 +16,7 @@ from .bases import ForkOpcodeInterface, OpcodeBase
 
 class Bytecode:
     """
-    Base class to represent EVM bytecode.
+    Base class to represent Sivm bytecode.
 
     Stack calculations are automatically done after an addition operation
     between two bytecode objects. The stack height is not guaranteed to be

@@ -121,7 +121,7 @@ class VmTestLoader:
             # We are checking only the storage here and not the whole state,
             # as the balances in the testcases don't change even though
             # some value is transferred along with code invocation.
-            # But our evm execution transfers the value as well
+            # But our sivm execution transfers the value as well
             # as executing the code
             for addr in test_data["post_state_addresses"]:
                 assert self.storage_root(

@@ -499,7 +499,7 @@ sila
 sila's
 SilaCLI
 SilaJS
-evm
+sivm
 Sivmone
 sivmone
 exc

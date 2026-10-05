@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) POINT EVALUATION PRECOMPILED CONTRACT.
+Sila Virtual Machine (Sivm) POINT EVALUATION PRECOMPILED CONTRACT.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -20,7 +20,7 @@ from sila.crypto.kzg import (
     verify_kzg_proof,
 )
 
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.exceptions import KZGProofError
 from ...vm.gas import GasCosts, charge_gas
 
@@ -29,18 +29,18 @@ BLS_MODULUS = 524358751751261904794477405081859658376905525005276378226036586999
 VERSIONED_HASH_VERSION_KZG = b"\x01"
 
 
-def point_evaluation(evm: Evm) -> None:
+def point_evaluation(sivm: Sivm) -> None:
     """
     A pre-compile that verifies a KZG proof which claims that a blob
     (represented by a commitment) evaluates to a given value at a given point.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
     if len(data) != 192:
         raise KZGProofError
 
@@ -51,7 +51,7 @@ def point_evaluation(evm: Evm) -> None:
     proof = Bytes48(data[144:192])
 
     # GAS
-    charge_gas(evm, GasCosts.PRECOMPILE_POINT_EVALUATION)
+    charge_gas(sivm, GasCosts.PRECOMPILE_POINT_EVALUATION)
     if kzg_commitment_to_versioned_hash(commitment) != versioned_hash:
         raise KZGProofError
 
@@ -66,7 +66,7 @@ def point_evaluation(evm: Evm) -> None:
 
     # Return FIELD_ELEMENTS_PER_BLOB and BLS_MODULUS as padded
     # 32 byte big endian values
-    evm.output = Bytes(
+    sivm.output = Bytes(
         U256(FIELD_ELEMENTS_PER_BLOB).to_be_bytes32()
         + U256(BLS_MODULUS).to_be_bytes32()
     )

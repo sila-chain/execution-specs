@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Bitwise Instructions.
+Sila Virtual Machine (Sivm) Bitwise Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,12 +8,12 @@ Sila Virtual Machine (EVM) Bitwise Instructions.
 Introduction
 ------------
 
-Implementations of the EVM bitwise instructions.
+Implementations of the Sivm bitwise instructions.
 """
 
 from sila_types.numeric import U256, Uint
 
-from .. import Evm
+from .. import Sivm
 from ..gas import (
     GasCosts,
     charge_gas,
@@ -21,106 +21,106 @@ from ..gas import (
 from ..stack import pop, push
 
 
-def bitwise_and(evm: Evm) -> None:
+def bitwise_and(sivm: Sivm) -> None:
     """
     Bitwise AND operation of the top 2 elements of the stack. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
-    y = pop(evm.stack)
+    x = pop(sivm.stack)
+    y = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_AND)
+    charge_gas(sivm, GasCosts.OPCODE_AND)
 
     # OPERATION
-    push(evm.stack, x & y)
+    push(sivm.stack, x & y)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def bitwise_or(evm: Evm) -> None:
+def bitwise_or(sivm: Sivm) -> None:
     """
     Bitwise OR operation of the top 2 elements of the stack. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
-    y = pop(evm.stack)
+    x = pop(sivm.stack)
+    y = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_OR)
+    charge_gas(sivm, GasCosts.OPCODE_OR)
 
     # OPERATION
-    push(evm.stack, x | y)
+    push(sivm.stack, x | y)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def bitwise_xor(evm: Evm) -> None:
+def bitwise_xor(sivm: Sivm) -> None:
     """
     Bitwise XOR operation of the top 2 elements of the stack. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
-    y = pop(evm.stack)
+    x = pop(sivm.stack)
+    y = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_XOR)
+    charge_gas(sivm, GasCosts.OPCODE_XOR)
 
     # OPERATION
-    push(evm.stack, x ^ y)
+    push(sivm.stack, x ^ y)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def bitwise_not(evm: Evm) -> None:
+def bitwise_not(sivm: Sivm) -> None:
     """
     Bitwise NOT operation of the top element of the stack. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
+    x = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_NOT)
+    charge_gas(sivm, GasCosts.OPCODE_NOT)
 
     # OPERATION
-    push(evm.stack, ~x)
+    push(sivm.stack, ~x)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def get_byte(evm: Evm) -> None:
+def get_byte(sivm: Sivm) -> None:
     """
     For a word (defined by next top element of the stack), retrieve the
     Nth byte (0-indexed and defined by top element of stack) from the
@@ -128,16 +128,16 @@ def get_byte(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    byte_index = pop(evm.stack)
-    word = pop(evm.stack)
+    byte_index = pop(sivm.stack)
+    word = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_BYTE)
+    charge_gas(sivm, GasCosts.OPCODE_BYTE)
 
     # OPERATION
     if byte_index >= U256(32):
@@ -150,7 +150,7 @@ def get_byte(evm: Evm) -> None:
         word = word & U256(0xFF)
         result = word
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

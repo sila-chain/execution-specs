@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Comparison Instructions.
+Sila Virtual Machine (Sivm) Comparison Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,170 +8,170 @@ Sila Virtual Machine (EVM) Comparison Instructions.
 Introduction
 ------------
 
-Implementations of the EVM Comparison instructions.
+Implementations of the Sivm Comparison instructions.
 """
 
 from sila_types.numeric import U256, Uint
 
-from .. import Evm
+from .. import Sivm
 from ..gas import GasCosts, charge_gas
 from ..stack import pop, push
 
 
-def less_than(evm: Evm) -> None:
+def less_than(sivm: Sivm) -> None:
     """
     Checks if the top element is less than the next top element. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    left = pop(evm.stack)
-    right = pop(evm.stack)
+    left = pop(sivm.stack)
+    right = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_LT)
+    charge_gas(sivm, GasCosts.OPCODE_LT)
 
     # OPERATION
     result = U256(left < right)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def signed_less_than(evm: Evm) -> None:
+def signed_less_than(sivm: Sivm) -> None:
     """
     Signed less-than comparison.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    left = pop(evm.stack).to_signed()
-    right = pop(evm.stack).to_signed()
+    left = pop(sivm.stack).to_signed()
+    right = pop(sivm.stack).to_signed()
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SLT)
+    charge_gas(sivm, GasCosts.OPCODE_SLT)
 
     # OPERATION
     result = U256(left < right)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def greater_than(evm: Evm) -> None:
+def greater_than(sivm: Sivm) -> None:
     """
     Checks if the top element is greater than the next top element. Pushes
     the result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    left = pop(evm.stack)
-    right = pop(evm.stack)
+    left = pop(sivm.stack)
+    right = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_GT)
+    charge_gas(sivm, GasCosts.OPCODE_GT)
 
     # OPERATION
     result = U256(left > right)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def signed_greater_than(evm: Evm) -> None:
+def signed_greater_than(sivm: Sivm) -> None:
     """
     Signed greater-than comparison.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    left = pop(evm.stack).to_signed()
-    right = pop(evm.stack).to_signed()
+    left = pop(sivm.stack).to_signed()
+    right = pop(sivm.stack).to_signed()
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SGT)
+    charge_gas(sivm, GasCosts.OPCODE_SGT)
 
     # OPERATION
     result = U256(left > right)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def equal(evm: Evm) -> None:
+def equal(sivm: Sivm) -> None:
     """
     Checks if the top element is equal to the next top element. Pushes
     the result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    left = pop(evm.stack)
-    right = pop(evm.stack)
+    left = pop(sivm.stack)
+    right = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_EQ)
+    charge_gas(sivm, GasCosts.OPCODE_EQ)
 
     # OPERATION
     result = U256(left == right)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def is_zero(evm: Evm) -> None:
+def is_zero(sivm: Sivm) -> None:
     """
     Checks if the top element is equal to 0. Pushes the result back on the
     stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
+    x = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_ISZERO)
+    charge_gas(sivm, GasCosts.OPCODE_ISZERO)
 
     # OPERATION
     result = U256(x == 0)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

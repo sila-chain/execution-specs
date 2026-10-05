@@ -59,7 +59,7 @@ class TestFillClickCli:
         assert "[--sivm-bin SIVM_BIN]" in result.output
         assert "[--traces]" in result.output
         assert "--help" in result.output
-        assert "Arguments defining evm executable behavior:" in result.output
+        assert "Arguments defining sivm executable behavior:" in result.output
 
     def test_fill_pytest_help(self, run_fill: Callable[..., Result]) -> None:
         """Test the `--pytest-help` option of the `fill` command."""

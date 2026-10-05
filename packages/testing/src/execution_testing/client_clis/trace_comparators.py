@@ -1,4 +1,4 @@
-"""Trace comparators for verifying EVM execution traces against a baseline."""
+"""Trace comparators for verifying Sivm execution traces against a baseline."""
 
 from abc import ABC, abstractmethod
 from enum import StrEnum

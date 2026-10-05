@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Arithmetic Instructions.
+Sila Virtual Machine (Sivm) Arithmetic Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Arithmetic Instructions.
 Introduction
 ------------
 
-Implementations of the EVM Arithmetic instructions.
+Implementations of the Sivm Arithmetic instructions.
 """
 
 from sila_types.bytes import Bytes
@@ -17,7 +17,7 @@ from sila_types.numeric import U256, Uint
 from sila.utils.numeric import get_sign
 
 from ...fork_types import ExecutionGas
-from .. import Evm
+from .. import Sivm
 from ..gas import (
     GasCosts,
     charge_gas,
@@ -25,104 +25,104 @@ from ..gas import (
 from ..stack import pop, push
 
 
-def add(evm: Evm) -> None:
+def add(sivm: Sivm) -> None:
     """
     Adds the top two elements of the stack togsiler, and pushes the result back
     on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
-    y = pop(evm.stack)
+    x = pop(sivm.stack)
+    y = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_ADD)
+    charge_gas(sivm, GasCosts.OPCODE_ADD)
 
     # OPERATION
     result = x.wrapping_add(y)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def sub(evm: Evm) -> None:
+def sub(sivm: Sivm) -> None:
     """
     Subtracts the top two elements of the stack, and pushes the result back
     on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
-    y = pop(evm.stack)
+    x = pop(sivm.stack)
+    y = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SUB)
+    charge_gas(sivm, GasCosts.OPCODE_SUB)
 
     # OPERATION
     result = x.wrapping_sub(y)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def mul(evm: Evm) -> None:
+def mul(sivm: Sivm) -> None:
     """
     Multiplies the top two elements of the stack, and pushes the result back
     on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
-    y = pop(evm.stack)
+    x = pop(sivm.stack)
+    y = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_MUL)
+    charge_gas(sivm, GasCosts.OPCODE_MUL)
 
     # OPERATION
     result = x.wrapping_mul(y)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def div(evm: Evm) -> None:
+def div(sivm: Sivm) -> None:
     """
     Integer division of the top two elements of the stack. Pushes the result
     back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    dividend = pop(evm.stack)
-    divisor = pop(evm.stack)
+    dividend = pop(sivm.stack)
+    divisor = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_DIV)
+    charge_gas(sivm, GasCosts.OPCODE_DIV)
 
     # OPERATION
     if divisor == 0:
@@ -130,32 +130,32 @@ def div(evm: Evm) -> None:
     else:
         quotient = dividend // divisor
 
-    push(evm.stack, quotient)
+    push(sivm.stack, quotient)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
 U255_CEIL_VALUE = 2**255
 
 
-def sdiv(evm: Evm) -> None:
+def sdiv(sivm: Sivm) -> None:
     """
     Signed integer division of the top two elements of the stack. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    dividend = pop(evm.stack).to_signed()
-    divisor = pop(evm.stack).to_signed()
+    dividend = pop(sivm.stack).to_signed()
+    divisor = pop(sivm.stack).to_signed()
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SDIV)
+    charge_gas(sivm, GasCosts.OPCODE_SDIV)
 
     # OPERATION
     if divisor == 0:
@@ -166,29 +166,29 @@ def sdiv(evm: Evm) -> None:
         sign = get_sign(dividend * divisor)
         quotient = sign * (abs(dividend) // abs(divisor))
 
-    push(evm.stack, U256.from_signed(quotient))
+    push(sivm.stack, U256.from_signed(quotient))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def mod(evm: Evm) -> None:
+def mod(sivm: Sivm) -> None:
     """
     Modulo remainder of the top two elements of the stack. Pushes the result
     back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack)
-    y = pop(evm.stack)
+    x = pop(sivm.stack)
+    y = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_MOD)
+    charge_gas(sivm, GasCosts.OPCODE_MOD)
 
     # OPERATION
     if y == 0:
@@ -196,29 +196,29 @@ def mod(evm: Evm) -> None:
     else:
         remainder = x % y
 
-    push(evm.stack, remainder)
+    push(sivm.stack, remainder)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def smod(evm: Evm) -> None:
+def smod(sivm: Sivm) -> None:
     """
     Signed modulo remainder of the top two elements of the stack. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = pop(evm.stack).to_signed()
-    y = pop(evm.stack).to_signed()
+    x = pop(sivm.stack).to_signed()
+    y = pop(sivm.stack).to_signed()
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SMOD)
+    charge_gas(sivm, GasCosts.OPCODE_SMOD)
 
     # OPERATION
     if y == 0:
@@ -226,30 +226,30 @@ def smod(evm: Evm) -> None:
     else:
         remainder = get_sign(x) * (abs(x) % abs(y))
 
-    push(evm.stack, U256.from_signed(remainder))
+    push(sivm.stack, U256.from_signed(remainder))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def addmod(evm: Evm) -> None:
+def addmod(sivm: Sivm) -> None:
     """
     Modulo addition of the top 2 elements with the 3rd element. Pushes the
     result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = Uint(pop(evm.stack))
-    y = Uint(pop(evm.stack))
-    z = Uint(pop(evm.stack))
+    x = Uint(pop(sivm.stack))
+    y = Uint(pop(sivm.stack))
+    z = Uint(pop(sivm.stack))
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_ADDMOD)
+    charge_gas(sivm, GasCosts.OPCODE_ADDMOD)
 
     # OPERATION
     if z == 0:
@@ -257,30 +257,30 @@ def addmod(evm: Evm) -> None:
     else:
         result = U256((x + y) % z)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def mulmod(evm: Evm) -> None:
+def mulmod(sivm: Sivm) -> None:
     """
     Modulo multiplication of the top 2 elements with the 3rd element. Pushes
     the result back on the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    x = Uint(pop(evm.stack))
-    y = Uint(pop(evm.stack))
-    z = Uint(pop(evm.stack))
+    x = Uint(pop(sivm.stack))
+    y = Uint(pop(sivm.stack))
+    z = Uint(pop(sivm.stack))
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_MULMOD)
+    charge_gas(sivm, GasCosts.OPCODE_MULMOD)
 
     # OPERATION
     if z == 0:
@@ -288,26 +288,26 @@ def mulmod(evm: Evm) -> None:
     else:
         result = U256((x * y) % z)
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def exp(evm: Evm) -> None:
+def exp(sivm: Sivm) -> None:
     """
     Exponential operation of the top 2 elements. Pushes the result back on
     the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    base = Uint(pop(evm.stack))
-    exponent = Uint(pop(evm.stack))
+    base = Uint(pop(sivm.stack))
+    exponent = Uint(pop(sivm.stack))
 
     # GAS
     # This is equivalent to 1 + floor(log(y, 256)). But in python the log
@@ -315,7 +315,7 @@ def exp(evm: Evm) -> None:
     exponent_bits = exponent.bit_length()
     exponent_bytes = (exponent_bits + Uint(7)) // Uint(8)
     charge_gas(
-        evm,
+        sivm,
         ExecutionGas(
             GasCosts.OPCODE_EXP_BASE
             + GasCosts.OPCODE_EXP_PER_BYTE * exponent_bytes
@@ -325,29 +325,29 @@ def exp(evm: Evm) -> None:
     # OPERATION
     result = U256(pow(base, exponent, Uint(U256.MAX_VALUE) + Uint(1)))
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def signextend(evm: Evm) -> None:
+def signextend(sivm: Sivm) -> None:
     """
     Sign extend operation. In other words, extend a signed number which
     fits in N bytes to 32 bytes.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    byte_num = pop(evm.stack)
-    value = pop(evm.stack)
+    byte_num = pop(sivm.stack)
+    value = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SIGNEXTEND)
+    charge_gas(sivm, GasCosts.OPCODE_SIGNEXTEND)
 
     # OPERATION
     if byte_num > U256(31):
@@ -368,7 +368,7 @@ def signextend(evm: Evm) -> None:
                 bytearray([0xFF] * num_bytes_prepend) + value_bytes
             )
 
-    push(evm.stack, result)
+    push(sivm.stack, result)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

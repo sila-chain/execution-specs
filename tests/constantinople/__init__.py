@@ -1,1 +1,1 @@
-"""Test cases for EVM functionality introduced in SilaConstantinople."""
+"""Test cases for Sivm functionality introduced in SilaConstantinople."""

@@ -1,7 +1,7 @@
 """
-SIP-4788: Beacon block root in the EVM.
+SIP-4788: Beacon block root in the Sivm.
 
-Expose beacon chain roots in the EVM.
+Expose beacon chain roots in the Sivm.
 
 https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4788.md
 """

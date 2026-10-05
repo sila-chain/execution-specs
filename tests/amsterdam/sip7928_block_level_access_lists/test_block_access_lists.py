@@ -3610,10 +3610,10 @@ def test_bal_cross_block_ripemd160_state_leak(
     blockchain_test: BlockchainTestFiller,
 ) -> None:
     """
-    Ensure internal EVM state for RIMPEMD-160 precompile handling does not
+    Ensure internal Sivm state for RIMPEMD-160 precompile handling does not
     leak between blocks.
 
-    The EVM may track internal state related to the Parity Touch Bug (SIP-161)
+    The Sivm may track internal state related to the Parity Touch Bug (SIP-161)
     when calling RIPEMD-160 (0x03) with zero value. If this state is not
     properly reset between blocks, it can cause incorrect BAL entries in
     subsequent blocks.

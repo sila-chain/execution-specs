@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) MODEXP PRECOMPILED CONTRACT.
+Sila Virtual Machine (Sivm) MODEXP PRECOMPILED CONTRACT.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -14,19 +14,19 @@ Implementation of the `MODEXP` precompiled contract.
 from sila_types.bytes import Bytes
 from sila_types.numeric import U256, Uint
 
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.gas import charge_gas
 from ..memory import buffer_read
 
 GQUADDIVISOR = Uint(20)
 
 
-def modexp(evm: Evm) -> None:
+def modexp(sivm: Sivm) -> None:
     """
     Calculates `(base**exp) % modulus` for arbitrary sized `base`, `exp` and
     `modulus`. The return value is the same length as the modulus.
     """
-    data = evm.message.data
+    data = sivm.message.data
 
     # GAS
     base_length = U256.from_be_bytes(buffer_read(data, U256(0), U256(32)))
@@ -40,13 +40,13 @@ def modexp(evm: Evm) -> None:
     )
 
     charge_gas(
-        evm,
+        sivm,
         gas_cost(base_length, modulus_length, exp_length, exp_head),
     )
 
     # OPERATION
     if base_length == 0 and modulus_length == 0:
-        evm.output = Bytes()
+        sivm.output = Bytes()
         return
 
     base = Uint.from_be_bytes(buffer_read(data, U256(96), base_length))
@@ -58,9 +58,9 @@ def modexp(evm: Evm) -> None:
     )
 
     if modulus == 0:
-        evm.output = Bytes(b"\x00") * modulus_length
+        sivm.output = Bytes(b"\x00") * modulus_length
     else:
-        evm.output = pow(base, exp, modulus).to_bytes(
+        sivm.output = pow(base, exp, modulus).to_bytes(
             Uint(modulus_length), "big"
         )
 

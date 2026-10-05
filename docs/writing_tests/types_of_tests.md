@@ -37,7 +37,7 @@ Blockchain tests span multiple blocks which may or may not contain transactions 
 
 ### Fork Transition Tests
 
-There is a special type of blockchain test that is used to test a fork transition. It's not executed for all possible forks, rather it targets exactly the blocks at the point of transition from one evm implementation to the next. This type of test must be marked with the `valid_at_transition_to` marker and use the `TransitionFork` type for the `fork` parameter instead of the regular `Fork` type, for example:
+There is a special type of blockchain test that is used to test a fork transition. It's not executed for all possible forks, rather it targets exactly the blocks at the point of transition from one sivm implementation to the next. This type of test must be marked with the `valid_at_transition_to` marker and use the `TransitionFork` type for the `fork` parameter instead of the regular `Fork` type, for example:
 
 ```python
 from execution_testing.forks import TransitionFork

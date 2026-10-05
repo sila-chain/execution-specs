@@ -4,7 +4,7 @@ import pytest
 
 from execution_testing.vm import Op
 
-from ..sivm_bytes import process_evm_bytes_string
+from ..sivm_bytes import process_sivm_bytes_string
 
 basic_vector = [
     "0x60008080808061AAAA612d5ff1600055",
@@ -105,46 +105,46 @@ undefined_opcode_bytes = sorted(
         ),
     ],
 )
-def test_evm_bytes(sivm_bytes: str, python_opcodes: str) -> None:
+def test_sivm_bytes(sivm_bytes: str, python_opcodes: str) -> None:
     """Test sivm_bytes using the basic and complex vectors."""
-    assert process_evm_bytes_string(sivm_bytes) == python_opcodes
+    assert process_sivm_bytes_string(sivm_bytes) == python_opcodes
 
 
 @pytest.mark.parametrize(("sivm_bytes", "python_opcodes"), edge_case_vectors)
-def test_evm_bytes_edge_cases(sivm_bytes: str, python_opcodes: str) -> None:
+def test_sivm_bytes_edge_cases(sivm_bytes: str, python_opcodes: str) -> None:
     """Cover decoding and simplification edge cases for sivm_bytes."""
-    assert process_evm_bytes_string(sivm_bytes) == python_opcodes
+    assert process_sivm_bytes_string(sivm_bytes) == python_opcodes
 
 
 @pytest.mark.parametrize(
     ("sivm_bytes", "python_opcodes"), truncated_push_vectors
 )
-def test_evm_bytes_truncated_push_zero_padding(
+def test_sivm_bytes_truncated_push_zero_padding(
     sivm_bytes: str, python_opcodes: str
 ) -> None:
     """PUSH instructions right-pad missing immediate bytes with zeros."""
-    assert process_evm_bytes_string(sivm_bytes) == python_opcodes
+    assert process_sivm_bytes_string(sivm_bytes) == python_opcodes
 
 
-def test_evm_bytes_assembly_output() -> None:
+def test_sivm_bytes_assembly_output() -> None:
     """Assembly output keeps the opcode stream and line formatting intact."""
     assert (
-        process_evm_bytes_string("0x005b00", assembly=True)
+        process_sivm_bytes_string("0x005b00", assembly=True)
         == "stop\n\njumpdest\nstop"
     )
 
 
-def test_evm_bytes_skip_simplify_output() -> None:
+def test_sivm_bytes_skip_simplify_output() -> None:
     """skip_simplify preserves repeated decoded instructions."""
     assert (
-        process_evm_bytes_string("0x60606060", skip_simplify=True)
+        process_sivm_bytes_string("0x60606060", skip_simplify=True)
         == "Op.PUSH1[0x60] + Op.PUSH1[0x60]"
     )
 
 
-def test_evm_bytes_push0_is_decoded_without_fork_context() -> None:
+def test_sivm_bytes_push0_is_decoded_without_fork_context() -> None:
     """The decoder uses the global opcode table rather than a selected fork."""
-    assert process_evm_bytes_string("0x5f") == "Op.PUSH0"
+    assert process_sivm_bytes_string("0x5f") == "Op.PUSH0"
 
 
 DUPLICATES = [Op.NOOP]
@@ -165,14 +165,14 @@ def test_individual_opcodes(opcode: Op) -> None:
         expected_output = f"Op.{opcode._name_}"
 
     bytecode = opcode.int().to_bytes(1, byteorder="big") + data_portion
-    assert process_evm_bytes_string("0x" + bytecode.hex()) == expected_output
+    assert process_sivm_bytes_string("0x" + bytecode.hex()) == expected_output
 
 
 @pytest.mark.parametrize("sivm_bytes", malformed_hex_strings)
 def test_invalid_hex_string(sivm_bytes: str) -> None:
     """Malformed hex strings are rejected before opcode decoding."""
     with pytest.raises(ValueError):
-        process_evm_bytes_string(sivm_bytes)
+        process_sivm_bytes_string(sivm_bytes)
 
 
 @pytest.mark.parametrize(
@@ -183,4 +183,4 @@ def test_invalid_hex_string(sivm_bytes: str) -> None:
 def test_unknown_opcode(opcode_byte: int) -> None:
     """All bytes not present in Op are rejected as unknown opcodes."""
     with pytest.raises(ValueError):
-        process_evm_bytes_string(f"0x{opcode_byte:02x}")
+        process_sivm_bytes_string(f"0x{opcode_byte:02x}")

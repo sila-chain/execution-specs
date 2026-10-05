@@ -597,7 +597,7 @@ def calculate_intrinsic_cost(tx: Transaction) -> IntrinsicGasCost:
     Calculates the gas that is charged before execution is started.
 
     The intrinsic cost of the transaction is charged before execution has
-    begun. Functions/operations in the EVM cost money to execute so this
+    begun. Functions/operations in the Sivm cost money to execute so this
     intrinsic cost is for the operations that need to be paid for as part of
     the transaction. Data transfer, for example, is part of this intrinsic
     cost. It costs sila to send data over the wire and that sila is
@@ -623,7 +623,7 @@ def calculate_intrinsic_cost(tx: Transaction) -> IntrinsicGasCost:
     num_non_zeros = ulen(tx.data) - num_zeros
 
     tokens_in_calldata = num_zeros + num_non_zeros * Uint(4)
-    # SIP-7623 floor price (note: no EVM costs)
+    # SIP-7623 floor price (note: no Sivm costs)
     calldata_floor_gas_cost = (
         tokens_in_calldata * GasCosts.TX_DATA_TOKEN_FLOOR + GasCosts.TX_BASE
     )

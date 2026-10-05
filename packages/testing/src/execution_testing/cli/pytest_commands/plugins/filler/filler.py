@@ -404,22 +404,22 @@ def default_html_report_file_path() -> str:
 
 def pytest_addoption(parser: pytest.Parser) -> None:
     """Add command-line options to pytest."""
-    evm_group = parser.getgroup(
-        "evm", "Arguments defining evm executable behavior"
+    sivm_group = parser.getgroup(
+        "sivm", "Arguments defining sivm executable behavior"
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--sivm-bin",
         action="store",
         dest="sivm_bin",
         type=Path,
         default=None,
         help=(
-            "Path to an evm executable (or name of an executable in the "
+            "Path to a sivm executable (or name of an executable in the "
             "PATH) that provides `t8n`. Defaults to the in-repo SELS "
             "Python spec (`src/sila/`)."
         ),
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--t8n-server-url",
         action="store",
         dest="t8n_server_url",
@@ -430,7 +430,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
             "framework tests/ci; not intended for regular CLI use."
         ),
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--chain-id",
         action="store",
         dest="chain_id",
@@ -441,35 +441,35 @@ def pytest_addoption(parser: pytest.Parser) -> None:
             f"Default: {ChainConfigDefaults.chain_id}."
         ),
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--traces",
         action="store_true",
-        dest="evm_collect_traces",
+        dest="sivm_collect_traces",
         default=None,
         help="Collect traces of execution info from the transition tool.",
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--verify-fixtures",
         action="store_true",
         dest="verify_fixtures",
         default=False,
         help=(
             "Verify generated fixture JSON files using gsil's sivm "
-            "blocktest command. By default, the same evm binary as for "
+            "blocktest command. By default, the same sivm binary as for "
             "the t8n tool is used. A different (gsil) sivm binary may be "
             "specified via --verify-fixtures-bin, this must be specified "
             "if filling with a non-gsil t8n tool that does not support "
             "blocktest."
         ),
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--verify-fixtures-bin",
         action="store",
         dest="verify_fixtures_bin",
         type=Path,
         default=None,
         help=(
-            "Path to an evm executable that provides the `blocktest` command. "
+            "Path to a sivm executable that provides the `blocktest` command. "
             "Default: The first (gsil) 'sivm' entry in PATH."
         ),
     )
@@ -745,7 +745,7 @@ def pytest_configure(config: pytest.Config) -> None:
             config.op_mode = OpMode.OPTIMIZE_GAS  # type: ignore[attr-defined]
 
     config.collect_traces = (  # type: ignore[attr-defined]
-        config.getoption("evm_collect_traces")
+        config.getoption("sivm_collect_traces")
         or config.getoption("optimize_gas", False)
     )
 
@@ -760,7 +760,7 @@ def pytest_configure(config: pytest.Config) -> None:
     # option is valid. This ensures we only raise an error once, if
     # appropriate, instead of for every test.
     sivm_bin = config.getoption("sivm_bin")
-    trace = config.getoption("evm_collect_traces")
+    trace = config.getoption("sivm_collect_traces")
     t8n_server_url = config.getoption("t8n_server_url")
     kwargs = {
         "trace": trace,
@@ -1000,7 +1000,8 @@ def pytest_html_results_table_header(cells: Any) -> None:
     )
     cells.insert(
         4,
-        '<th class="sortable" data-column-type="evmDumpDir">EVM Dump Dir</th>',
+        '<th class="sortable" data-column-type="sivmDumpDir">'
+        "Sivm Dump Dir</th>",
     )
     del cells[-1]  # Remove the "Links" column
 
@@ -1033,13 +1034,13 @@ def pytest_html_results_table_row(report: Any, cells: Any) -> None:
             else:
                 sivm_dump_dir = user_props.get("sivm_dump_dir")
                 if sivm_dump_dir == "N/A":
-                    evm_dump_entry = "N/A"
+                    sivm_dump_entry = "N/A"
                 else:
-                    evm_dump_entry = (
+                    sivm_dump_entry = (
                         f'<a href="{sivm_dump_dir}" target="_blank">'
                         f"{sivm_dump_dir}</a>"
                     )
-                cells.insert(4, f"<td>{evm_dump_entry}</td>")
+                cells.insert(4, f"<td>{sivm_dump_entry}</td>")
     del cells[-1]  # Remove the "Links" column
 
 
@@ -1127,14 +1128,14 @@ def pytest_html_report_title(report: Any) -> None:
 
 @pytest.fixture(autouse=True, scope="session")
 def sivm_bin(request: pytest.FixtureRequest) -> Path | None:
-    """Return configured evm tool binary path used to run t8n."""
+    """Return configured sivm tool binary path used to run t8n."""
     return request.config.getoption("sivm_bin")
 
 
 @pytest.fixture(autouse=True, scope="session")
 def verify_fixtures_bin(request: pytest.FixtureRequest) -> Path | None:
     """
-    Return configured evm tool binary path used to run statetest or blocktest.
+    Return configured sivm tool binary path used to run statetest or blocktest.
     """
     return request.config.getoption("verify_fixtures_bin")
 
@@ -1227,7 +1228,7 @@ def do_fixture_verification(
     request: pytest.FixtureRequest, verify_fixtures_bin: Path | None
 ) -> bool:
     """
-    Return True if evm statetest or evm blocktest should be ran on the
+    Return True if sivm statetest or sivm blocktest should be ran on the
     generated fixture JSON files.
     """
     do_fixture_verification = False
@@ -1239,15 +1240,15 @@ def do_fixture_verification(
 
 
 @pytest.fixture(autouse=True, scope="session")
-def evm_fixture_verification(
+def sivm_fixture_verification(
     request: pytest.FixtureRequest,
     do_fixture_verification: bool,
     sivm_bin: Path | None,
     verify_fixtures_bin: Path | None,
 ) -> Generator[FixtureConsumer | None, None, None]:
     """
-    Return configured evm binary for executing statetest and blocktest commands
-    used to verify generated JSON fixtures.
+    Return configured sivm binary for executing statetest and blocktest
+    commands used to verify generated JSON fixtures.
     """
     if not do_fixture_verification:
         yield None
@@ -1263,7 +1264,7 @@ def evm_fixture_verification(
             returncode=pytest.ExitCode.USAGE_ERROR,
         )
     try:
-        evm_fixture_verification = FixtureConsumerTool.from_binary_path(
+        sivm_fixture_verification = FixtureConsumerTool.from_binary_path(
             binary_path=Path(verify_fixtures_bin),
             trace=request.config.collect_traces,  # type: ignore[attr-defined]
         )
@@ -1284,12 +1285,12 @@ def evm_fixture_verification(
                 "consumer can be defined.",
                 returncode=pytest.ExitCode.USAGE_ERROR,
             )
-    yield evm_fixture_verification
+    yield sivm_fixture_verification
 
 
 @pytest.fixture(scope="session")
 def base_dump_dir(request: pytest.FixtureRequest) -> Path | None:
-    """Path to base directory to dump the evm debug output."""
+    """Path to base directory to dump the sivm debug output."""
     base_dump_dir_str = request.config.getoption("base_dump_dir")
     if base_dump_dir_str:
         return Path(base_dump_dir_str)
@@ -1371,11 +1372,11 @@ def dump_dir_parameter_level(
     filler_path: Path,
 ) -> Path | None:
     """
-    Directory to dump evm transition tool debug output on a test parameter
+    Directory to dump sivm transition tool debug output on a test parameter
     level.
 
-    Example with --sivm-dump-dir=/tmp/evm: ->
-    /tmp/evm/shanghai__sip3855_push0__test_push0__test_push0_key_sstore/fork_shangh
+    Example with --sivm-dump-dir=/tmp/sivm: ->
+    /tmp/sivm/shanghai__sip3855_push0__test_push0__test_push0_key_sstore/fork_shangh
     ai/
     """
     sivm_dump_dir = node_to_test_info(request.node).get_dump_dir_path(
@@ -1426,7 +1427,7 @@ def reference_spec(request: pytest.FixtureRequest) -> None | ReferenceSpec:
 def fixture_collector(
     request: pytest.FixtureRequest,
     do_fixture_verification: bool,
-    evm_fixture_verification: FixtureConsumer,
+    sivm_fixture_verification: FixtureConsumer,
     filler_path: Path,
     base_dump_dir: Path | None,
     fixture_output: FixtureOutput,
@@ -1449,7 +1450,7 @@ def fixture_collector(
         # Verify fixtures for stdout mode only (files are in memory).
         # For file mode, verification happens at session finish after merge.
         if do_fixture_verification and fixture_output.is_stdout:
-            fixture_collector.verify_fixture_files(evm_fixture_verification)
+            fixture_collector.verify_fixture_files(sivm_fixture_verification)
     finally:
         # Always close streaming file handles, even on error
         fixture_collector.close_streaming_files()
@@ -1985,12 +1986,12 @@ def _verify_fixtures_post_merge(
     Verify fixtures after merge if verification is enabled.
 
     Called from pytest_sessionfinish after partial files are merged into
-    final JSON fixtures. Runs evm statetest/blocktest on each fixture.
+    final JSON fixtures. Runs sivm statetest/blocktest on each fixture.
     """
     if not config.getoption("verify_fixtures"):
         return
 
-    # Get the verification binary (same logic as evm_fixture_verification)
+    # Get the verification binary (same logic as sivm_fixture_verification)
     verify_fixtures_bin = config.getoption("verify_fixtures_bin")
     if not verify_fixtures_bin:
         verify_fixtures_bin = config.getoption("sivm_bin")
@@ -1998,7 +1999,7 @@ def _verify_fixtures_post_merge(
         return
 
     try:
-        evm_verification = FixtureConsumerTool.from_binary_path(
+        sivm_verification = FixtureConsumerTool.from_binary_path(
             binary_path=Path(verify_fixtures_bin),
             trace=getattr(config, "collect_traces", False),
         )
@@ -2028,8 +2029,8 @@ def _verify_fixtures_post_merge(
         if fixture_format is None:
             continue
 
-        if evm_verification.can_consume(fixture_format):
-            evm_verification.consume_fixture(
+        if sivm_verification.can_consume(fixture_format):
+            sivm_verification.consume_fixture(
                 fixture_format,
                 json_file,
                 fixture_name=None,

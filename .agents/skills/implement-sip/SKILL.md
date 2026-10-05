@@ -41,7 +41,7 @@ Each fork lives at `src/sila/forks/<fork_name>/`. Explore the latest fork direct
 
 Recent forks meter two gas dimensions: execution gas and state gas (for durable state growth). Key rules:
 
-1. Gas constants and calculations go in `vm/gas.py`; a frame's mutable gas state lives on `Evm.gas_meter`.
+1. Gas constants and calculations go in `vm/gas.py`; a frame's mutable gas state lives on `Sivm.gas_meter`.
 2. Extend the named helper vocabulary (`charge_*`, `credit_*`, `restore_*`, `withhold_*`, ...) instead of doing gas arithmetic by hand at call sites; encode each helper's invariant as an assert.
 3. State gas is charged by the frame whose opcode causes the creation, before the child's execution-gas share is withheld; the whole reservoir passes to the child.
 4. A failing frame settles its own meter before returning, so parents incorporate children unconditionally.

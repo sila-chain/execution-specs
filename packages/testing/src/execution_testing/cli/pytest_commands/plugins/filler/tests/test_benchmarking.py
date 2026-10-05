@@ -18,17 +18,17 @@ from execution_testing.cli.pytest_commands.plugins.shared.fixture_output import 
     format_fork_subdir,
 )
 
-# EVM binary for fill tests. Unset (or empty) -> the in-repo SELS t8n
+# Sivm binary for fill tests. Unset (or empty) -> the in-repo SELS t8n
 # (fill's default when --sivm-bin is omitted). Set SIVM_BIN to fill
 # against a specific binary, e.g. gsil's `sivm`.
-BENCHMARK_EVM_T8N = os.environ.get("SIVM_BIN") or None
+BENCHMARK_SIVM_T8N = os.environ.get("SIVM_BIN") or None
 
 
-def _evm_bin_args() -> List[str]:
+def _sivm_bin_args() -> List[str]:
     """Return `--sivm-bin` args, or none to use fill's SELS default."""
-    if BENCHMARK_EVM_T8N is None:
+    if BENCHMARK_SIVM_T8N is None:
         return []
-    return [f"--sivm-bin={BENCHMARK_EVM_T8N}"]
+    return [f"--sivm-bin={BENCHMARK_SIVM_T8N}"]
 
 
 test_module_dummy = textwrap.dedent(
@@ -331,7 +331,7 @@ def test_fixed_opcode_count_split_into_subdirs(
         "--no-html",
         "--skip-index",
         f"--output={output_dir}",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "tests/benchmark/dummy_test_module/",
         "-q",
     )
@@ -951,7 +951,7 @@ def test_fixed_opcode_count_config_file_parametrized(
         "--fork",
         "SilaPrague",
         "tests/benchmark/dummy_test_module/",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "--fixed-opcode-count",
         "-v",
     )
@@ -1083,7 +1083,7 @@ def test_fixed_opcode_count_per_parameter_patterns(
         "--fork",
         "SilaPrague",
         "tests/benchmark/dummy_test_module/",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "--fixed-opcode-count",
         "-v",
     )
@@ -1123,7 +1123,7 @@ def test_cli_mode_ignores_per_parameter_patterns(
         "SilaPrague",
         "--fixed-opcode-count=1,5",
         "tests/benchmark/dummy_test_module/",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "-v",
     )
 

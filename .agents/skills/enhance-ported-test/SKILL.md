@@ -649,7 +649,7 @@ expected_gas = forwarded + stipend - Op.GAS.gas_cost(fork)
 where `stipend = fork.gas_costs().CALL_STIPEND` for a value-bearing call (0
 otherwise). **The `// 64` form is the trap:** `available - available // 64` and
 `available * 63 // 64` differ by exactly 1 whenever `available % 64 != 0` (the
-EVM uses the former). One parametrize over `(opcode, value, memory)` covers the
+Sivm uses the former). One parametrize over `(opcode, value, memory)` covers the
 whole CALL/CALLCODE/DELEGATECALL family; floor **SilaBerlin** (the call metadata).
 Validated on `test_raw_call_gas_ask` (10 RawCall*GasAsk fillers).
 

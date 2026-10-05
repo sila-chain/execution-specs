@@ -1,4 +1,4 @@
-"""Entrypoint for the `evm-tools` command-line tool."""
+"""Entrypoint for the `sivm-tools` command-line tool."""
 
 import sys
 

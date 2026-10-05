@@ -85,7 +85,7 @@ def test_intrinsic_reduction_across_amsterdam_transition(
     rules, decomposed intrinsic). Each block uses a distinct sender so
     its post-tx balance pins the fork-appropriate intrinsic; the
     recipient is an existing EOA (or the sender itself for
-    ``self_transfer``), so neither block runs EVM bytecode and
+    ``self_transfer``), so neither block runs Sivm bytecode and
     ``gas_used`` equals the intrinsic exactly.
 
     The per-fork intrinsic returned by the calculator is also checked
@@ -137,7 +137,7 @@ def test_intrinsic_reduction_across_amsterdam_transition(
         else:
             target = pre.fund_eoa(amount=EOA_INITIAL_BALANCE)
 
-        # No EVM bytecode runs (recipient is an EOA or the sender), so
+        # No Sivm bytecode runs (recipient is an EOA or the sender), so
         # gas_used == intrinsic_gas; the gas limit is pinned to exactly
         # the intrinsic, leaving no buffer.
         tx = Transaction(
@@ -414,7 +414,7 @@ def test_intrinsic_validity_across_amsterdam_transition(
     4. Post-fork block with the exact post-fork intrinsic, the gas
        limit rejected before the fork, is accepted.
 
-    No EVM bytecode runs, so each accepted transaction consumes exactly
+    No Sivm bytecode runs, so each accepted transaction consumes exactly
     its intrinsic, pinned through the sender balance.
     """
     gas_price = 1_000_000_000

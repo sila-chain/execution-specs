@@ -191,7 +191,7 @@ def test_max_code_size_deposit_gas(
     exact_gas = (
         intrinsic_gas
         + top_frame_state_gas
-        + initcode.evm_gas(fork)
+        + initcode.sivm_gas(fork)
         + initcode.deployment_gas(fork)
     )
     tx = Transaction(

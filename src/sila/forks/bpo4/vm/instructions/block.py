@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Block Instructions.
+Sila Virtual Machine (Sivm) Block Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,43 +8,43 @@ Sila Virtual Machine (EVM) Block Instructions.
 Introduction
 ------------
 
-Implementations of the EVM block instructions.
+Implementations of the Sivm block instructions.
 """
 
 from sila_types.numeric import U256, Uint
 
-from .. import Evm
+from .. import Sivm
 from ..gas import GasCosts, charge_gas
 from ..stack import pop, push
 
 
-def block_hash(evm: Evm) -> None:
+def block_hash(sivm: Sivm) -> None:
     """
     Push the hash of one of the 256 most recent complete blocks onto the
     stack. The block number to hash is present at the top of the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
     :py:class:`~sila.forks.bpo4.vm.exceptions.StackUnderflowError`
         If `len(stack)` is less than `1`.
     :py:class:`~sila.forks.bpo4.vm.exceptions.OutOfGasError`
-        If `evm.gas_left` is less than `20`.
+        If `sivm.gas_left` is less than `20`.
 
     """
     # STACK
-    block_number = Uint(pop(evm.stack))
+    block_number = Uint(pop(sivm.stack))
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_BLOCKHASH)
+    charge_gas(sivm, GasCosts.OPCODE_BLOCKHASH)
 
     # OPERATION
     max_block_number = block_number + Uint(256)
-    current_block_number = evm.message.block_env.number
+    current_block_number = sivm.message.block_env.number
     if (
         current_block_number <= block_number
         or current_block_number > max_block_number
@@ -54,17 +54,17 @@ def block_hash(evm: Evm) -> None:
         # or if the block's age is more than 256.
         current_block_hash = b"\x00"
     else:
-        current_block_hash = evm.message.block_env.block_hashes[
+        current_block_hash = sivm.message.block_env.block_hashes[
             -(current_block_number - block_number)
         ]
 
-    push(evm.stack, U256.from_be_bytes(current_block_hash))
+    push(sivm.stack, U256.from_be_bytes(current_block_hash))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def coinbase(evm: Evm) -> None:
+def coinbase(sivm: Sivm) -> None:
     """
     Push the current block's beneficiary address (address of the block miner)
     onto the stack.
@@ -74,31 +74,31 @@ def coinbase(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
     :py:class:`~sila.forks.bpo4.vm.exceptions.StackOverflowError`
         If `len(stack)` is equal to `1024`.
     :py:class:`~sila.forks.bpo4.vm.exceptions.OutOfGasError`
-        If `evm.gas_left` is less than `2`.
+        If `sivm.gas_left` is less than `2`.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_COINBASE)
+    charge_gas(sivm, GasCosts.OPCODE_COINBASE)
 
     # OPERATION
-    push(evm.stack, U256.from_be_bytes(evm.message.block_env.coinbase))
+    push(sivm.stack, U256.from_be_bytes(sivm.message.block_env.coinbase))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def timestamp(evm: Evm) -> None:
+def timestamp(sivm: Sivm) -> None:
     """
     Push the current block's timestamp onto the stack. Here the timestamp
     being referred to is actually the unix timestamp in seconds.
@@ -108,31 +108,31 @@ def timestamp(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
     :py:class:`~sila.forks.bpo4.vm.exceptions.StackOverflowError`
         If `len(stack)` is equal to `1024`.
     :py:class:`~sila.forks.bpo4.vm.exceptions.OutOfGasError`
-        If `evm.gas_left` is less than `2`.
+        If `sivm.gas_left` is less than `2`.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_TIMESTAMP)
+    charge_gas(sivm, GasCosts.OPCODE_TIMESTAMP)
 
     # OPERATION
-    push(evm.stack, evm.message.block_env.time)
+    push(sivm.stack, sivm.message.block_env.time)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def number(evm: Evm) -> None:
+def number(sivm: Sivm) -> None:
     """
     Push the current block's number onto the stack.
 
@@ -141,31 +141,31 @@ def number(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
     :py:class:`~sila.forks.bpo4.vm.exceptions.StackOverflowError`
         If `len(stack)` is equal to `1024`.
     :py:class:`~sila.forks.bpo4.vm.exceptions.OutOfGasError`
-        If `evm.gas_left` is less than `2`.
+        If `sivm.gas_left` is less than `2`.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_NUMBER)
+    charge_gas(sivm, GasCosts.OPCODE_NUMBER)
 
     # OPERATION
-    push(evm.stack, U256(evm.message.block_env.number))
+    push(sivm.stack, U256(sivm.message.block_env.number))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def prev_randao(evm: Evm) -> None:
+def prev_randao(sivm: Sivm) -> None:
     """
     Push the `prev_randao` value onto the stack.
 
@@ -174,31 +174,31 @@ def prev_randao(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
     :py:class:`~sila.forks.bpo4.vm.exceptions.StackOverflowError`
         If `len(stack)` is equal to `1024`.
     :py:class:`~sila.forks.bpo4.vm.exceptions.OutOfGasError`
-        If `evm.gas_left` is less than `2`.
+        If `sivm.gas_left` is less than `2`.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_PREVRANDAO)
+    charge_gas(sivm, GasCosts.OPCODE_PREVRANDAO)
 
     # OPERATION
-    push(evm.stack, U256.from_be_bytes(evm.message.block_env.prev_randao))
+    push(sivm.stack, U256.from_be_bytes(sivm.message.block_env.prev_randao))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def gas_limit(evm: Evm) -> None:
+def gas_limit(sivm: Sivm) -> None:
     """
     Push the current block's gas limit onto the stack.
 
@@ -207,55 +207,55 @@ def gas_limit(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
     :py:class:`~sila.forks.bpo4.vm.exceptions.StackOverflowError`
         If `len(stack)` is equal to `1024`.
     :py:class:`~sila.forks.bpo4.vm.exceptions.OutOfGasError`
-        If `evm.gas_left` is less than `2`.
+        If `sivm.gas_left` is less than `2`.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_GASLIMIT)
+    charge_gas(sivm, GasCosts.OPCODE_GASLIMIT)
 
     # OPERATION
-    push(evm.stack, U256(evm.message.block_env.block_gas_limit))
+    push(sivm.stack, U256(sivm.message.block_env.block_gas_limit))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def chain_id(evm: Evm) -> None:
+def chain_id(sivm: Sivm) -> None:
     """
     Push the chain id onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
     :py:class:`~sila.forks.bpo4.vm.exceptions.StackOverflowError`
         If `len(stack)` is equal to `1024`.
     :py:class:`~sila.forks.bpo4.vm.exceptions.OutOfGasError`
-        If `evm.gas_left` is less than `2`.
+        If `sivm.gas_left` is less than `2`.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_CHAINID)
+    charge_gas(sivm, GasCosts.OPCODE_CHAINID)
 
     # OPERATION
-    push(evm.stack, U256(evm.message.block_env.chain_id))
+    push(sivm.stack, U256(sivm.message.block_env.chain_id))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

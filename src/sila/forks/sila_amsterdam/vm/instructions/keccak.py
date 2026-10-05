@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Keccak Instructions.
+Sila Virtual Machine (Sivm) Keccak Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Keccak Instructions.
 Introduction
 ------------
 
-Implementations of the EVM keccak instructions.
+Implementations of the Sivm keccak instructions.
 """
 
 from sila_types.numeric import U256, Uint
@@ -17,7 +17,7 @@ from sila.crypto.hash import keccak256
 from sila.utils.numeric import ceil32
 
 from ...fork_types import ExecutionGas
-from .. import Evm
+from .. import Sivm
 from ..gas import (
     GasCosts,
     calculate_gas_extend_memory,
@@ -27,7 +27,7 @@ from ..memory import memory_read_bytes
 from ..stack import pop, push
 
 
-def keccak(evm: Evm) -> None:
+def keccak(sivm: Sivm) -> None:
     """
     Pushes to the stack the Keccak-256 hash of a region of memory.
 
@@ -36,31 +36,31 @@ def keccak(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    memory_start_index = pop(evm.stack)
-    size = pop(evm.stack)
+    memory_start_index = pop(sivm.stack)
+    size = pop(sivm.stack)
 
     # GAS
     words = ceil32(Uint(size)) // Uint(32)
     word_gas_cost = ExecutionGas(GasCosts.OPCODE_KECCAK256_PER_WORD * words)
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_index, size)]
+        sivm.memory, [(memory_start_index, size)]
     )
     charge_gas(
-        evm,
+        sivm,
         GasCosts.OPCODE_KECCAK256_BASE + word_gas_cost + extend_memory.cost,
     )
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    data = memory_read_bytes(evm.memory, memory_start_index, size)
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    data = memory_read_bytes(sivm.memory, memory_start_index, size)
     hashed = keccak256(data)
 
-    push(evm.stack, U256.from_be_bytes(hashed))
+    push(sivm.stack, U256.from_be_bytes(hashed))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

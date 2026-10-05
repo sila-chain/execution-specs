@@ -356,7 +356,7 @@ def validate_opcode(obj: Any) -> Opcodes | Opcode | UndefinedOpcode:
 
 
 class OpcodeCount(SilaTestRootModel):
-    """Opcode count returned from the evm tool."""
+    """Opcode count returned from the sivm tool."""
 
     root: Dict[
         Annotated[

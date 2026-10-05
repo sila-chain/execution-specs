@@ -1,13 +1,13 @@
 # The `consume direct` Command
 
-The `direct` method provides the fastest way to test EVM functionality by executing tests directly through a client's dedicated test interface (e.g. [`statetest`](https://github.com/sila-chain/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go) or [`blocktest`](https://github.com/sila-chain/go-sila/blob/35dd84ce2999ecf5ca8ace50a4d1a6abc231c370/cmd/evm/blockrunner.go)).
+The `direct` method provides the fastest way to test Sivm functionality by executing tests directly through a client's dedicated test interface (e.g. [`statetest`](https://github.com/sila-chain/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go) or [`blocktest`](https://github.com/sila-chain/go-sila/blob/35dd84ce2999ecf5ca8ace50a4d1a6abc231c370/cmd/evm/blockrunner.go)).
 
 ```bash
-uv run consume direct --bin=<evm-binary> [OPTIONS]
+uv run consume direct --bin=<sivm-binary> [OPTIONS]
 ```
 
-- `--bin SIVM_BIN`: Path to an evm executable that can process `StateTestFixture` and/or `BlockTestFixture` formats.
-- `--traces`: Collect execution traces from the evm executable.
+- `--bin SIVM_BIN`: Path to a sivm executable that can process `StateTestFixture` and/or `BlockTestFixture` formats.
+- `--traces`: Collect execution traces from the sivm executable.
 
 !!! warning "Limited Client Support"
 
@@ -32,7 +32,7 @@ uv run consume direct --bin=<evm-binary> [OPTIONS]
 ## Limitations
 
 - **Limited client support**: Not all clients are supported (see [Supported Clients](#supported-clients) above).
-- **Module scope**: Tests EVM, respectively block import, in isolation, not full client behavior.
+- **Module scope**: Tests Sivm, respectively block import, in isolation, not full client behavior.
 - **Interface dependency**: Requires client-specific test interfaces.
 
 ## Example Usage
@@ -40,7 +40,7 @@ uv run consume direct --bin=<evm-binary> [OPTIONS]
 Only run state tests (by using a mark filter, `-m`) from a local `fixtures` folder with go-sila:
 
 ```bash
-uv run consume direct --input ./fixtures -m state_test --bin=evm
+uv run consume direct --input ./fixtures -m state_test --bin=sivm
 ```
 
 or Besu:
@@ -64,7 +64,7 @@ uv run consume direct --input ./fixtures --bin=sivmone
 Run fixtures in the blockchain test format for the SilaPrague fork:
 
 ```bash
-uv run consume direct --input ./fixtures -m "blockchain_test and SilaPrague" --bin=evm
+uv run consume direct --input ./fixtures -m "blockchain_test and SilaPrague" --bin=sivm
 ```
 
 Test selection via a regular expression match on collected fixture IDs:

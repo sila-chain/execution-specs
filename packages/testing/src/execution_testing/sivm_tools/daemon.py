@@ -32,7 +32,7 @@ def daemon_arguments(subparsers: argparse._SubParsersAction) -> None:
     )
 
 
-class _EvmToolHandler(BaseHTTPRequestHandler):
+class _SivmToolHandler(BaseHTTPRequestHandler):
     @override
     def log_request(
         self, code: int | str = "-", size: int | str = "-"
@@ -201,7 +201,7 @@ class Daemon:
             pass
 
         with _UnixSocketHttpServer(
-            (self.uds), _EvmToolHandler, shutdown_timeout=self.timeout
+            (self.uds), _SivmToolHandler, shutdown_timeout=self.timeout
         ) as server:
             server.timeout = 7.0
             timer = Thread(target=server.check_timeout, daemon=True)

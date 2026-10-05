@@ -6,7 +6,7 @@ The package provides:
 
 - The `execution_testing` library: base types, fork definitions, and test-spec primitives used to write consensus test cases.
 - The pytest-based commands that generate and run test fixtures against execution clients: `fill`, `execute`, `consume`, and friends.
-- `sila-spec-sivm` — the reference EVM CLI that executes the spec directly: a `t8n` transition tool (also available as a daemon), a `b11r` block builder, and a state-test runner.
+- `sila-spec-sivm` — the reference Sivm CLI that executes the spec directly: a `t8n` transition tool (also available as a daemon), a `b11r` block builder, and a state-test runner.
 
 ## Installing `sila-spec-sivm` standalone
 

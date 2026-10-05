@@ -17,7 +17,7 @@ parser = create_parser()
 
 # Vendored from https://github.com/gurukamath/evm-tools-testdata at
 # commit 792422d, `t8n/fixtures/testdata/2`. The retired
-# `evm_tools_testdata` download step used to supply these inputs.
+# `sivm_tools_testdata` download step used to supply these inputs.
 FIXTURE_DIR = Path(__file__).parent / "fixtures" / "count_opcodes"
 
 

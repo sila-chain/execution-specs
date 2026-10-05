@@ -83,7 +83,7 @@ Groups defined by the testing package:
 
 ### Adding or modifying optional dependencies
 
-The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and the external `ethash` accelerator used by Silash for EVM performance.
+The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and the external `ethash` accelerator used by Silash for Sivm performance.
 
 !!! example "Updating an optional dependency"
 

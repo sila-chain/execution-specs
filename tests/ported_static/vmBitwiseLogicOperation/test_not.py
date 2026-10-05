@@ -145,7 +145,7 @@ def test_not(
     )
     # Source: lll
     # {
-    #   ; In evm arithmetic -2 = 256^2-2
+    #   ; In sivm arithmetic -2 = 256^2-2
     #   ; 256^2-1 is in binary all ones
     #   ; so 256^2-2 is all ones except for the least significant bit, which is 0  # noqa: E501
     #   ; and  the not all zeros except for the least significant bit, which is 1  # noqa: E501

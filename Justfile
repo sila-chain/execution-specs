@@ -427,7 +427,7 @@ bench-gas *args: (_tmp-logs "bench-gas")
         --clean \
         "$@" \
         tests/benchmark/compute
-    @echo "==> Step 2/3: Filling blockchain_test fixtures with configured EVM (SIVM_BIN={{ sivm_bin }})"
+    @echo "==> Step 2/3: Filling blockchain_test fixtures with configured Sivm (SIVM_BIN={{ sivm_bin }})"
     uv run fill \
         --sivm-bin="{{ sivm_bin }}" \
         --gas-benchmark-values 1 \

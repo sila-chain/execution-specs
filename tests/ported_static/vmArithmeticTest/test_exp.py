@@ -234,7 +234,7 @@ def test_exp(
         address=Address(0x0000000000000000000000000000000000001007),  # noqa: E501
     )
     # Source: lll
-    # {  ; 0^0 (that is 1 in evm arithmetic)
+    # {  ; 0^0 (that is 1 in sivm arithmetic)
     #    [[0]] (exp 0 0)
     # }
     contract_8 = pre.deploy_contract(  # noqa: F841

@@ -96,7 +96,7 @@ def test_floor_cost_across_amsterdam_transition(
     """
     Pin the SIP-7976 floor increase across the SilaAmsterdam boundary.
 
-    The same data-heavy transaction to an existing EOA (no EVM
+    The same data-heavy transaction to an existing EOA (no Sivm
     execution) is sent in a pre-fork block and a post-fork block with
     the gas limit pinned to the fork-appropriate floor, so the billed
     gas equals the calldata floor exactly on both sides. The zero-byte
@@ -146,7 +146,7 @@ def test_floor_cost_across_amsterdam_transition(
         sender_initial_balance = 10**18
         sender = pre.fund_eoa(sender_initial_balance)
 
-        # The recipient is an EOA, so no EVM bytecode runs and the
+        # The recipient is an EOA, so no Sivm bytecode runs and the
         # billed gas is exactly the floor; the gas limit is pinned to
         # the floor, leaving no buffer.
         tx = Transaction(

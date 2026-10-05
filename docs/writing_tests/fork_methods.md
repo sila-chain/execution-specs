@@ -132,9 +132,9 @@ fork.system_contract_request_types()  # Request classes triggered through a syst
 fork.system_contract_call_phases()  # When the block calls each system contract: before/after transactions, or never
 ```
 
-### EVM Features
+### Sivm Features
 
-Methods for determining EVM features and valid opcodes:
+Methods for determining Sivm features and valid opcodes:
 
 ```python
 fork.valid_opcodes()  # Returns list of valid opcodes for this fork

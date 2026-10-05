@@ -14,7 +14,7 @@ Each entry must include an explanation of why the test case was missed plus the 
 
 A bug was discovered in Nethermind's implementation of CALLDATACOPY and CODECOPY opcodes where the word copy cost (3 gas per 32-byte word) was not being correctly charged. The issue was identified during internal fuzz testing and fixed in [Nethermind PR #10116](https://github.com/NethermindEth/nethermind/pull/10116).
 
-The EVM specification requires data copy operations to charge:
+The Sivm specification requires data copy operations to charge:
 
 - Static cost: 3 gas
 - Word copy cost: 3 * ceil(size/32) gas
@@ -24,7 +24,7 @@ The bug allowed these operations to complete successfully even when insufficient
 
 ### Root Cause Analysis
 
-- The word copy cost is a well-documented part of the EVM specification, but existing test coverage did not specifically isolate this gas component.
+- The word copy cost is a well-documented part of the Sivm specification, but existing test coverage did not specifically isolate this gas component.
 - Tests typically provided ample gas, which masked potential issues with individual gas cost components.
 - The scenario of having exactly enough gas for memory expansion but not for word copy cost was not explicitly tested.
 

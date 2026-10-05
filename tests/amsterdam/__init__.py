@@ -1,4 +1,4 @@
 """
-Test cases for EVM functionality introduced in SilaAmsterdam, [SIP-7773:
+Test cases for Sivm functionality introduced in SilaAmsterdam, [SIP-7773:
 Hardfork Meta - Glamsterdam](https://sip.directory/sips/sip-7773).
 """

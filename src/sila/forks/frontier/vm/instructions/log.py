@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Logging Instructions.
+Sila Virtual Machine (Sivm) Logging Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Logging Instructions.
 Introduction
 ------------
 
-Implementations of the EVM logging instructions.
+Implementations of the Sivm logging instructions.
 """
 
 from functools import partial
@@ -17,7 +17,7 @@ from typing import Callable
 from sila_types.numeric import Uint
 
 from ...blocks import Log
-from .. import Evm
+from .. import Sivm
 from ..gas import (
     GasCosts,
     calculate_gas_extend_memory,
@@ -27,36 +27,36 @@ from ..memory import memory_read_bytes
 from ..stack import pop
 
 
-def log_n(evm: Evm, num_topics: int) -> None:
+def log_n(sivm: Sivm, num_topics: int) -> None:
     """
-    Appends a log entry, having `num_topics` topics, to the evm logs.
+    Appends a log entry, having `num_topics` topics, to the sivm logs.
 
     This will also expand the memory if the data (required by the log entry)
     corresponding to the memory is not accessible.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
     num_topics :
         The number of topics to be included in the log entry.
 
     """
     # STACK
-    memory_start_index = pop(evm.stack)
-    size = pop(evm.stack)
+    memory_start_index = pop(sivm.stack)
+    size = pop(sivm.stack)
 
     topics = []
     for _ in range(num_topics):
-        topic = pop(evm.stack).to_be_bytes32()
+        topic = pop(sivm.stack).to_be_bytes32()
         topics.append(topic)
 
     # GAS
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_index, size)]
+        sivm.memory, [(memory_start_index, size)]
     )
     charge_gas(
-        evm,
+        sivm,
         GasCosts.OPCODE_LOG_BASE
         + GasCosts.OPCODE_LOG_DATA_PER_BYTE * Uint(size)
         + GasCosts.OPCODE_LOG_TOPIC * Uint(num_topics)
@@ -64,21 +64,21 @@ def log_n(evm: Evm, num_topics: int) -> None:
     )
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
+    sivm.memory += b"\x00" * extend_memory.expand_by
     log_entry = Log(
-        address=evm.message.current_target,
+        address=sivm.message.current_target,
         topics=tuple(topics),
-        data=memory_read_bytes(evm.memory, memory_start_index, size),
+        data=memory_read_bytes(sivm.memory, memory_start_index, size),
     )
 
-    evm.logs = evm.logs + (log_entry,)
+    sivm.logs = sivm.logs + (log_entry,)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-log0: Callable[[Evm], None] = partial(log_n, num_topics=0)
-log1: Callable[[Evm], None] = partial(log_n, num_topics=1)
-log2: Callable[[Evm], None] = partial(log_n, num_topics=2)
-log3: Callable[[Evm], None] = partial(log_n, num_topics=3)
-log4: Callable[[Evm], None] = partial(log_n, num_topics=4)
+log0: Callable[[Sivm], None] = partial(log_n, num_topics=0)
+log1: Callable[[Sivm], None] = partial(log_n, num_topics=1)
+log2: Callable[[Sivm], None] = partial(log_n, num_topics=2)
+log3: Callable[[Sivm], None] = partial(log_n, num_topics=3)
+log4: Callable[[Sivm], None] = partial(log_n, num_topics=4)

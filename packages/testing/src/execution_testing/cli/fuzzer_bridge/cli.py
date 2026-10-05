@@ -647,7 +647,7 @@ def batch_mode(
 @click.option(
     "--sivm-bin",
     type=click.Path(exists=True, path_type=Path),
-    help="Path to evm binary for transition tool",
+    help="Path to sivm binary for transition tool",
 )
 @click.option(
     "--pretty",

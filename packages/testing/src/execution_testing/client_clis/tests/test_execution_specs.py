@@ -21,7 +21,7 @@ from execution_testing.test_types import Alloc, Environment, Transaction
 
 CURRENT_FOLDER = Path(realpath(__file__)).parent
 FIXTURES_ROOT = CURRENT_FOLDER / "fixtures"
-DEFAULT_EVM_T8N_BINARY_NAME = "sila-spec-sivm-resolver"
+DEFAULT_SIVM_T8N_BINARY_NAME = "sila-spec-sivm-resolver"
 
 
 @pytest.fixture(autouse=True)
@@ -98,35 +98,35 @@ def test_calc_state_root(
     assert test_alloc.state_root().startswith(expected_hash)
 
 
-@pytest.mark.parametrize("evm_tool", [ExecutionSpecsTransitionTool])
+@pytest.mark.parametrize("sivm_tool", [ExecutionSpecsTransitionTool])
 @pytest.mark.parametrize(
     "binary_arg", ["no_binary_arg", "path_type", "str_type"]
 )
 @pytest.mark.skip(
     reason="ExecutionSpecsTransitionTool through binary path is not supported"
 )
-def test_evm_tool_binary_arg(
-    evm_tool: Type[ExecutionSpecsTransitionTool], binary_arg: str
+def test_sivm_tool_binary_arg(
+    sivm_tool: Type[ExecutionSpecsTransitionTool], binary_arg: str
 ) -> None:
-    """Test the `evm_tool` binary argument."""
+    """Test the `sivm_tool` binary argument."""
     if binary_arg == "no_binary_arg":
-        evm_tool().version()
+        sivm_tool().version()
         return
     elif binary_arg == "path_type":
-        sivm_bin = which(DEFAULT_EVM_T8N_BINARY_NAME)
+        sivm_bin = which(DEFAULT_SIVM_T8N_BINARY_NAME)
         if not sivm_bin:
             # typing: Path can not take None; but if None, we may
             # as well fail explicitly.
             raise Exception(
-                f"Failed to find `{DEFAULT_EVM_T8N_BINARY_NAME}` "
+                f"Failed to find `{DEFAULT_SIVM_T8N_BINARY_NAME}` "
                 "in the PATH via which"
             )
-        evm_tool(binary=Path(sivm_bin)).version()
+        sivm_tool(binary=Path(sivm_bin)).version()
         return
     elif binary_arg == "str_type":
-        evm_bin_str = which(DEFAULT_EVM_T8N_BINARY_NAME)
-        if evm_bin_str:
-            evm_tool(binary=Path(evm_bin_str)).version()
+        sivm_bin_str = which(DEFAULT_SIVM_T8N_BINARY_NAME)
+        if sivm_bin_str:
+            sivm_tool(binary=Path(sivm_bin_str)).version()
         return
     raise Exception("unknown test parameter")
 
@@ -159,7 +159,7 @@ def env(test_dir: str) -> Environment:
 
 
 @pytest.mark.parametrize("test_dir", os.listdir(path=FIXTURES_ROOT))
-def test_evm_t8n(
+def test_sivm_t8n(
     default_t8n: TransitionTool,
     alloc: Alloc,
     txs: List[Transaction],

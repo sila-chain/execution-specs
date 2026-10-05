@@ -1,17 +1,17 @@
 """
-Defines the functions required for creating EVM traces during execution.
+Defines the functions required for creating Sivm traces during execution.
 
 A _trace_ is a log of operations that took place during an event or period of
-time. In the case of an EVM trace, the log is built from a series of
+time. In the case of a Sivm trace, the log is built from a series of
 [`TraceEvent`]s emitted during the execution of a transaction.
 
 Note that this module _does not_ contain a trace implementation. Instead, it
 defines only the events that can be collected into a trace by some other
-package. See [`EvmTracer`].
+package. See [`SivmTracer`].
 
-See [SIP-3155] for more details on EVM traces.
+See [SIP-3155] for more details on Sivm traces.
 
-[`EvmTracer`]: ref:sila.trace.EvmTracer
+[`SivmTracer`]: ref:sila.trace.SivmTracer
 [`TraceEvent`]: ref:sila.trace.TraceEvent
 [SIP-3155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3155.md
 """
@@ -131,9 +131,9 @@ class OpException:
 
 @final
 @dataclass
-class EvmStop:
+class SivmStop:
     """
-    Trace event that is triggered when the EVM stops.
+    Trace event that is triggered when the Sivm stops.
     """
 
     op: enum.Enum
@@ -181,30 +181,30 @@ TraceEvent = (
     | OpStart
     | OpEnd
     | OpException
-    | EvmStop
+    | SivmStop
     | GasAndRefund
     | StateGasAndRefund
 )
 """
-All possible types of events that an [`EvmTracer`] is expected to handle.
+All possible types of events that an [`SivmTracer`] is expected to handle.
 
-[`EvmTracer`]: ref:sila.trace.EvmTracer
+[`SivmTracer`]: ref:sila.trace.SivmTracer
 """
 
 
-def discard_evm_trace(
-    evm: object,
+def discard_sivm_trace(
+    sivm: object,
     event: TraceEvent,
 ) -> None:
     """
-    An [`EvmTracer`] that discards all events.
+    An [`SivmTracer`] that discards all events.
 
-    [`EvmTracer`]: ref:sila.trace.EvmTracer
+    [`SivmTracer`]: ref:sila.trace.SivmTracer
     """
-    del evm, event
+    del sivm, event
 
 
-class EvmTracer(Protocol):
+class SivmTracer(Protocol):
     """
     [`Protocol`] that describes tracer functions.
 
@@ -213,63 +213,63 @@ class EvmTracer(Protocol):
 
     [`Protocol`]: https://docs.python.org/3/library/typing.html#typing.Protocol
     [`sila.trace`]: ref:sila.trace
-    [`__call__`]: ref:sila.trace.EvmTracer.__call__
+    [`__call__`]: ref:sila.trace.SivmTracer.__call__
     """
 
     def __call__(
         self,
-        evm: object,
+        sivm: object,
         event: TraceEvent,
     ) -> None:
         """
         Call `self` as a function, recording a trace event.
 
-        `evm` is the live state of the EVM, and will be a fork-specific type
-        like [`sila.forks.frontier.vm.Evm`][evm].
+        `sivm` is the live state of the Sivm, and will be a fork-specific type
+        like [`sila.forks.frontier.vm.Sivm`][sivm].
 
         `event`, a [`TraceEvent`], is the reason why the tracer was triggered.
 
-        See [`discard_evm_trace`] for an example function implementing this
+        See [`discard_sivm_trace`] for an example function implementing this
         protocol.
 
-        [`discard_evm_trace`]: ref:sila.trace.discard_evm_trace
-        [evm]: ref:sila.forks.frontier.vm.Evm
+        [`discard_sivm_trace`]: ref:sila.trace.discard_sivm_trace
+        [sivm]: ref:sila.forks.frontier.vm.Sivm
         [`TraceEvent`]: ref:sila.trace.TraceEvent
         """
         raise NotImplementedError
 
 
-_evm_trace: EvmTracer = discard_evm_trace
+_sivm_trace: SivmTracer = discard_sivm_trace
 """
-Active [`EvmTracer`] that is used for generating traces.
+Active [`SivmTracer`] that is used for generating traces.
 
-[`EvmTracer`]: ref:sila.trace.EvmTracer
+[`SivmTracer`]: ref:sila.trace.SivmTracer
 """
 
 
-def set_evm_trace(tracer: EvmTracer) -> EvmTracer:
+def set_sivm_trace(tracer: SivmTracer) -> SivmTracer:
     """
-    Change the active [`EvmTracer`] that is used for generating traces.
+    Change the active [`SivmTracer`] that is used for generating traces.
 
-    [`EvmTracer`]: ref:sila.trace.EvmTracer
+    [`SivmTracer`]: ref:sila.trace.SivmTracer
     """
-    global _evm_trace
-    old = _evm_trace
-    _evm_trace = tracer
+    global _sivm_trace
+    old = _sivm_trace
+    _sivm_trace = tracer
     return old
 
 
-def evm_trace(
-    evm: object,
+def sivm_trace(
+    sivm: object,
     event: TraceEvent,
 ) -> None:
     """
-    Emit a trace to the active [`EvmTracer`].
+    Emit a trace to the active [`SivmTracer`].
 
-    [`EvmTracer`]: ref:sila.trace.EvmTracer
+    [`SivmTracer`]: ref:sila.trace.SivmTracer
     """
-    global _evm_trace
-    _evm_trace(
-        evm,
+    global _sivm_trace
+    _sivm_trace(
+        sivm,
         event,
     )

@@ -31,7 +31,7 @@ pytestmark = pytest.mark.valid_from("SilaCancun")
 
 class BlobhashContext(Enum):
     """
-    A utility class for mapping common EVM opcodes in different contexts to
+    A utility class for mapping common Sivm opcodes in different contexts to
     specific bytecode (with BLOBHASH), addresses and contracts.
     """
 

@@ -10,7 +10,7 @@ from sila.cancun.blocks import Withdrawal
 
 from sila.fork_criteria import Unscheduled
 from sila.silash import *
-from sila.trace import EvmTracer
+from sila.trace import SivmTracer
 from sila.utils.hexadecimal import hex_to_bytes256
 from sila_optimized.state_db import State
 from sila_spec_tools.docc import *
@@ -44,7 +44,7 @@ Unscheduled
 silash.generate_dataset
 
 # src/sila/trace.py
-EvmTracer.__call__
+SivmTracer.__call__
 
 # src/sila/optimized/state_db.py
 State.rollback_db_transaction
@@ -167,7 +167,7 @@ _configure_client_manager  # autouse fixture
 test_suite_name  # hive test suite name fixture
 genesis_header  # genesis header fixture
 
-# packages/testing/src/execution_testing/sivm_tools/t8n/evm_trace/
+# packages/testing/src/execution_testing/sivm_tools/t8n/sivm_trace/
 # sip3155.py - SIP-3155 trace output field names, serialized to JSON
 gasCost
 gasUsed

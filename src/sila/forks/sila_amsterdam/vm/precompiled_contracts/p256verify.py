@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) P256VERIFY PRECOMPILED CONTRACT.
+Sila Virtual Machine (Sivm) P256VERIFY PRECOMPILED CONTRACT.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -23,25 +23,25 @@ from sila.crypto.hash import Hash32
 from sila.exceptions import InvalidSignatureError
 from sila.utils.byte import left_pad_zero_bytes
 
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.gas import GasCosts, charge_gas
 from ...vm.memory import buffer_read
 
 
-def p256verify(evm: Evm) -> None:
+def p256verify(sivm: Sivm) -> None:
     """
     Verifies a P-256 signature.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.call_data
+    data = sivm.call_data
 
     # GAS
-    charge_gas(evm, GasCosts.PRECOMPILE_P256VERIFY)
+    charge_gas(sivm, GasCosts.PRECOMPILE_P256VERIFY)
 
     if len(data) != 160:
         return
@@ -87,4 +87,4 @@ def p256verify(evm: Evm) -> None:
     except InvalidSignatureError:
         return
 
-    evm.output = left_pad_zero_bytes(b"\x01", 32)
+    sivm.output = left_pad_zero_bytes(b"\x01", 32)

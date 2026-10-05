@@ -1,5 +1,5 @@
 """
-Protocol definitions for working with EVM trace events.
+Protocol definitions for working with Sivm trace events.
 """
 
 from typing import Optional, Protocol, runtime_checkable
@@ -26,20 +26,20 @@ class Message(Protocol):
 
     depth: int
     tx_env: TransactionEnvironment
-    parent_evm: Optional["Evm"]
+    parent_sivm: Optional["Sivm"]
 
 
 @runtime_checkable
-class Evm(Protocol):
+class Sivm(Protocol):
     """
-    The class describes the EVM interface common to every fork's trace.
+    The class describes the Sivm interface common to every fork's trace.
 
-    The message-scoped fields (`depth`, `tx_env`, `parent_evm`) are
+    The message-scoped fields (`depth`, `tx_env`, `parent_sivm`) are
     described by the `Message` protocol in this module. Older forks
-    carry them on `evm.message`; forks that merge the message into the
-    frame expose them on `evm` itself, so `evm` satisfies both
+    carry them on `sivm.message`; forks that merge the message into the
+    frame expose them on `sivm` itself, so `sivm` satisfies both
     protocols. Tracers resolve the carrier with
-    `getattr(evm, "message", evm)`.
+    `getattr(sivm, "message", sivm)`.
     """
 
     # TODO: Rsilink the tracer interface so it does not probe
@@ -65,10 +65,10 @@ class GasMeter(Protocol):
 
 
 @runtime_checkable
-class EvmWithFlatGas(Evm, Protocol):
+class SivmWithFlatGas(Sivm, Protocol):
     """
-    The class describes the EVM interface for forks that track gas in
-    flat fields on the EVM itself.
+    The class describes the Sivm interface for forks that track gas in
+    flat fields on the Sivm itself.
     """
 
     gas_left: Uint
@@ -76,9 +76,9 @@ class EvmWithFlatGas(Evm, Protocol):
 
 
 @runtime_checkable
-class EvmWithGasMeter(Evm, Protocol):
+class SivmWithGasMeter(Sivm, Protocol):
     """
-    The class describes the EVM interface for forks that track gas in a
+    The class describes the Sivm interface for forks that track gas in a
     dedicated gas meter (SIP-8037).
     """
 
@@ -86,38 +86,38 @@ class EvmWithGasMeter(Evm, Protocol):
 
 
 @runtime_checkable
-class EvmWithReturnData(Evm, Protocol):
+class SivmWithReturnData(Sivm, Protocol):
     """
-    The class describes the EVM interface for post-byzantium forks trace.
+    The class describes the Sivm interface for post-byzantium forks trace.
     """
 
     return_data: Bytes
 
 
-def evm_gas_left(evm: Evm) -> Uint:
+def sivm_gas_left(sivm: Sivm) -> Uint:
     """
     Read the regular gas remaining, whichever gas layout the fork uses.
     """
-    if isinstance(evm, EvmWithGasMeter):
-        return evm.gas_meter.gas_left
-    assert isinstance(evm, EvmWithFlatGas)
-    return evm.gas_left
+    if isinstance(sivm, SivmWithGasMeter):
+        return sivm.gas_meter.gas_left
+    assert isinstance(sivm, SivmWithFlatGas)
+    return sivm.gas_left
 
 
-def evm_refund_counter(evm: Evm) -> int:
+def sivm_refund_counter(sivm: Sivm) -> int:
     """
     Read the refund counter, whichever gas layout the fork uses.
     """
-    if isinstance(evm, EvmWithGasMeter):
-        return evm.gas_meter.refund_counter
-    assert isinstance(evm, EvmWithFlatGas)
-    return evm.refund_counter
+    if isinstance(sivm, SivmWithGasMeter):
+        return sivm.gas_meter.refund_counter
+    assert isinstance(sivm, SivmWithFlatGas)
+    return sivm.refund_counter
 
 
-def evm_state_gas_left(evm: Evm) -> Uint | None:
+def sivm_state_gas_left(sivm: Sivm) -> Uint | None:
     """
     Read the state gas remaining, or `None` for forks without state gas.
     """
-    if isinstance(evm, EvmWithGasMeter):
-        return evm.gas_meter.state_gas_left
+    if isinstance(sivm, SivmWithGasMeter):
+        return sivm.gas_meter.state_gas_left
     return None

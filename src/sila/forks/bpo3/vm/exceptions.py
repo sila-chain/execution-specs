@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Exceptions.
+Sila Virtual Machine (Sivm) Exceptions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Exceptions.
 Introduction
 ------------
 
-Exceptions which cause the EVM to halt exceptionally.
+Exceptions which cause the Sivm to halt exceptionally.
 """
 
 from sila.exceptions import SilaException
@@ -16,7 +16,7 @@ from sila.exceptions import SilaException
 
 class ExceptionalHalt(SilaException):
     """
-    Indicates that the EVM has experienced an exceptional halt. This causes
+    Indicates that the Sivm has experienced an exceptional halt. This causes
     execution to immediately end with all gas being consumed.
     """
 
@@ -25,7 +25,7 @@ class Revert(SilaException):
     """
     Raised by the `REVERT` opcode.
 
-    Unlike other EVM exceptions this does not result in the consumption of all
+    Unlike other Sivm exceptions this does not result in the consumption of all
     gas.
     """
 

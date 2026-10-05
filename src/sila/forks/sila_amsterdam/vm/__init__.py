@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM).
+Sila Virtual Machine (Sivm).
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -36,7 +36,7 @@ from ..state_tracker import BlockState, TransactionState
 from ..transactions import LegacyTransaction
 from .gas import GasMeter, repay_state_gas_spill
 
-__all__ = ("Environment", "Evm")
+__all__ = ("Environment", "Sivm")
 TRANSFER_TOPIC = keccak256(b"Transfer(address,address,uint256)")
 SYSTEM_ADDRESS = Address(
     bytes.fromhex("fffffffffffffffffffffffffffffffffffffffe")
@@ -149,7 +149,7 @@ class TransactionEnvironment:
 
 @final
 @dataclass
-class Evm:
+class Sivm:
     """
     A single call frame: its parameters, gas meter, machine state, and
     accrued effects.
@@ -180,7 +180,7 @@ class Evm:
     should_transfer_value: bool
     is_static: bool
     disable_precompiles: bool
-    parent_evm: Optional["Evm"]
+    parent_sivm: Optional["Sivm"]
 
     output: Bytes
     accounts_to_delete: Set[Address]
@@ -190,10 +190,10 @@ class Evm:
     accessed_storage_keys: Set[Tuple[Address, Bytes32]]
 
 
-def incorporate_child(evm: Evm, child_evm: Evm) -> None:
+def incorporate_child(sivm: Sivm, child_sivm: Sivm) -> None:
     """
-    Incorporate the state of a returning `child_evm` into the parent
-    `evm`.
+    Incorporate the state of a returning `child_sivm` into the parent
+    `sivm`.
 
     Gas flows back to the parent regardless of the child's fate. A
     failed child settles its own meter before returning -- its state
@@ -213,19 +213,19 @@ def incorporate_child(evm: Evm, child_evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The parent `EVM`.
-    child_evm :
-        The child evm to incorporate.
+    sivm :
+        The parent `Sivm`.
+    child_sivm :
+        The child sivm to incorporate.
 
     [spill]: ref:sila.forks.sila_amsterdam.vm.gas.GasMeter.state_gas_spilled
 
     """
-    child_meter = child_evm.gas_meter
+    child_meter = child_sivm.gas_meter
     # Only the top frame commits state gas; a child never carries any.
     assert child_meter.state_gas_committed_spill == Uint(0)
 
-    if child_evm.error:
+    if child_sivm.error:
         # A failed child arrives settled: rolled back to its baseline,
         # spill refilled, refunds discarded.
         assert child_meter.state_gas_spilled == Uint(0)
@@ -234,23 +234,23 @@ def incorporate_child(evm: Evm, child_evm: Evm) -> None:
 
     # Gas returns to the parent regardless of the child's fate.
     # Note that upon failure, the child already arrives settled.
-    gas_meter = evm.gas_meter
+    gas_meter = sivm.gas_meter
     gas_meter.gas_left += child_meter.gas_left
     gas_meter.state_gas_left += child_meter.state_gas_left
     gas_meter.state_gas_spilled += child_meter.state_gas_spilled
     gas_meter.refund_counter += child_meter.refund_counter
 
     # Everything else survives only on success.
-    if not child_evm.error:
+    if not child_sivm.error:
         repay_state_gas_spill(gas_meter)
-        evm.logs += child_evm.logs
-        evm.accounts_to_delete.update(child_evm.accounts_to_delete)
-        evm.accessed_addresses.update(child_evm.accessed_addresses)
-        evm.accessed_storage_keys.update(child_evm.accessed_storage_keys)
+        sivm.logs += child_sivm.logs
+        sivm.accounts_to_delete.update(child_sivm.accounts_to_delete)
+        sivm.accessed_addresses.update(child_sivm.accessed_addresses)
+        sivm.accessed_storage_keys.update(child_sivm.accessed_storage_keys)
 
 
 def emit_transfer_log(
-    evm: Evm,
+    sivm: Sivm,
     sender: Address,
     recipient: Address,
     transfer_amount: U256,
@@ -260,7 +260,7 @@ def emit_transfer_log(
 
     Parameters
     ----------
-    evm :
+    sivm :
         The state of the sila virtual machine
     sender :
         The account address sending the transfer
@@ -285,4 +285,4 @@ def emit_transfer_log(
         data=transfer_amount.to_be_bytes32(),
     )
 
-    evm.logs = evm.logs + (log_entry,)
+    sivm.logs = sivm.logs + (log_entry,)

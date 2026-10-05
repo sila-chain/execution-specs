@@ -1,8 +1,8 @@
-name: 'Build EVM'
-description: 'Resolves and builds the requested EVM binary by name'
+name: 'Build Sivm'
+description: 'Resolves and builds the requested Sivm binary by name'
 inputs:
   type:
-    description: 'Type of EVM binary to build (key in .github/configs/sivm.yaml)'
+    description: 'Type of Sivm binary to build (key in .github/configs/sivm.yaml)'
     required: true
   repo_override:
     description: 'Override the repo from sivm.yaml (e.g. sila-chain/go-sila)'
@@ -14,13 +14,13 @@ inputs:
     default: ''
 outputs:
   impl:
-    description: "Implementation of EVM binary to build"
+    description: "Implementation of Sivm binary to build"
     value: ${{ steps.config-sivm-reader.outputs.impl }}
   repo:
-    description: "Repository to use to build the EVM binary"
+    description: "Repository to use to build the Sivm binary"
     value: ${{ steps.resolved.outputs.repo }}
   ref:
-    description: "Reference to branch, commit, or tag to use to build the EVM binary"
+    description: "Reference to branch, commit, or tag to use to build the Sivm binary"
     value: ${{ steps.resolved.outputs.ref }}
   sivm-bin:
     description: "Binary name of the sivm tool to use"
@@ -31,7 +31,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Get the selected EVM configuration from .github/configs/sivm.yaml
+    - name: Get the selected Sivm configuration from .github/configs/sivm.yaml
       id: config-sivm-reader
       shell: bash
       run: |
@@ -48,26 +48,26 @@ runs:
       run: |
         echo "repo=${REPO_OVERRIDE:-$DEFAULT_REPO}" >> "$GITHUB_OUTPUT"
         echo "ref=${REF_OVERRIDE:-$DEFAULT_REF}" >> "$GITHUB_OUTPUT"
-    - name: Print Variables for the selected EVM type
+    - name: Print Variables for the selected Sivm type
       shell: bash
       run: |
         echo "Type: ${{ inputs.type }}"
         echo "Implementation: ${{ steps.config-sivm-reader.outputs.impl }}"
         echo "Repository: ${{ steps.resolved.outputs.repo }}"
         echo "Reference: ${{ steps.resolved.outputs.ref }}"
-        echo "EVM Binary: ${{ steps.config-sivm-reader.outputs.sivm-bin }}"
+        echo "Sivm Binary: ${{ steps.config-sivm-reader.outputs.sivm-bin }}"
         echo "X-Dist parameter: ${{ steps.config-sivm-reader.outputs.xdist }}"
     - name: Skip building for SELS
       if: steps.config-sivm-reader.outputs.impl == 'sels'
       shell: bash
       run: echo "Skipping build for SELS"
-    - name: Build the EVM using Gsil action
+    - name: Build the Sivm using Gsil action
       if: steps.config-sivm-reader.outputs.impl == 'gsil'
       uses: ./.github/actions/build-sivm-client/gsil
       with:
         repo: ${{ steps.resolved.outputs.repo }}
         ref: ${{ steps.resolved.outputs.ref }}
-    - name: Build the EVM using sivmone action
+    - name: Build the Sivm using sivmone action
       if: steps.config-sivm-reader.outputs.impl == 'sivmone'
       uses: ./.github/actions/build-sivm-client/sivmone
       with:
@@ -75,7 +75,7 @@ runs:
         ref: ${{ steps.resolved.outputs.ref }}
         # `targets` in sivm.yaml must be an inline array to not interfere with `config-sivm-reader`'s parsing
         targets: ${{ join(fromJSON(steps.config-sivm-reader.outputs.targets), ' ') }}
-    - name: Build the EVM using Besu action
+    - name: Build the Besu evmtool using Besu action
       if: steps.config-sivm-reader.outputs.impl == 'besu'
       uses: ./.github/actions/build-sivm-client/besu
       with:

@@ -59,7 +59,7 @@ def test_intrinsic_gas_floor_boundary(
     """
     Reject when ``gas_limit = intrinsic_gas - 1``.
 
-    The transaction never enters the EVM; it is rejected by the
+    The transaction never enters the Sivm; it is rejected by the
     pre-execution intrinsic gas check.
     """
     sender = pre.fund_eoa(10**18)

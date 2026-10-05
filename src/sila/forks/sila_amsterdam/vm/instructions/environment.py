@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Environmental Instructions.
+Sila Virtual Machine (Sivm) Environmental Instructions.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Environmental Instructions.
 Introduction
 ------------
 
-Implementations of the EVM environment related instructions.
+Implementations of the Sivm environment related instructions.
 """
 
 from sila_types.bytes import Bytes32
@@ -21,7 +21,7 @@ from ...fork_types import ExecutionGas
 from ...state_tracker import get_account, get_code
 from ...utils.address import to_address_masked
 from ...vm.memory import buffer_read, memory_write
-from .. import Evm
+from .. import Sivm
 from ..exceptions import OutOfBoundsRead
 from ..gas import (
     GasCosts,
@@ -32,180 +32,180 @@ from ..gas import (
 from ..stack import pop, push
 
 
-def address(evm: Evm) -> None:
+def address(sivm: Sivm) -> None:
     """
     Pushes the address of the current executing account to the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_ADDRESS)
+    charge_gas(sivm, GasCosts.OPCODE_ADDRESS)
 
     # OPERATION
-    push(evm.stack, U256.from_be_bytes(evm.current_target))
+    push(sivm.stack, U256.from_be_bytes(sivm.current_target))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def balance(evm: Evm) -> None:
+def balance(sivm: Sivm) -> None:
     """
     Pushes the balance of the given account onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    address = to_address_masked(pop(evm.stack))
+    address = to_address_masked(pop(sivm.stack))
 
     # GAS
-    if address in evm.accessed_addresses:
-        charge_gas(evm, GasCosts.WARM_ACCESS)
+    if address in sivm.accessed_addresses:
+        charge_gas(sivm, GasCosts.WARM_ACCESS)
     else:
-        evm.accessed_addresses.add(address)
-        charge_gas(evm, GasCosts.COLD_ACCOUNT_ACCESS)
+        sivm.accessed_addresses.add(address)
+        charge_gas(sivm, GasCosts.COLD_ACCOUNT_ACCESS)
 
     # OPERATION
     # Non-existent accounts default to EMPTY_ACCOUNT, which has balance 0.
-    tx_state = evm.tx_env.state
+    tx_state = sivm.tx_env.state
     balance = get_account(tx_state, address).balance
 
-    push(evm.stack, balance)
+    push(sivm.stack, balance)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def origin(evm: Evm) -> None:
+def origin(sivm: Sivm) -> None:
     """
     Pushes the address of the original transaction sender to the stack.
     The origin address can only be an EOA.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_ORIGIN)
+    charge_gas(sivm, GasCosts.OPCODE_ORIGIN)
 
     # OPERATION
-    push(evm.stack, U256.from_be_bytes(evm.tx_env.origin))
+    push(sivm.stack, U256.from_be_bytes(sivm.tx_env.origin))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def caller(evm: Evm) -> None:
+def caller(sivm: Sivm) -> None:
     """
     Pushes the address of the caller onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_CALLER)
+    charge_gas(sivm, GasCosts.OPCODE_CALLER)
 
     # OPERATION
-    push(evm.stack, U256.from_be_bytes(evm.caller))
+    push(sivm.stack, U256.from_be_bytes(sivm.caller))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def callvalue(evm: Evm) -> None:
+def callvalue(sivm: Sivm) -> None:
     """
     Push the value (in wei) sent with the call onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_CALLVALUE)
+    charge_gas(sivm, GasCosts.OPCODE_CALLVALUE)
 
     # OPERATION
-    push(evm.stack, evm.value)
+    push(sivm.stack, sivm.value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def calldataload(evm: Evm) -> None:
+def calldataload(sivm: Sivm) -> None:
     """
     Push a word (32 bytes) of the input data belonging to the current
     environment onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    start_index = pop(evm.stack)
+    start_index = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_CALLDATALOAD)
+    charge_gas(sivm, GasCosts.OPCODE_CALLDATALOAD)
 
     # OPERATION
-    value = buffer_read(evm.call_data, start_index, U256(32))
+    value = buffer_read(sivm.call_data, start_index, U256(32))
 
-    push(evm.stack, U256.from_be_bytes(value))
+    push(sivm.stack, U256.from_be_bytes(value))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def calldatasize(evm: Evm) -> None:
+def calldatasize(sivm: Sivm) -> None:
     """
     Push the size of input data in current environment onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_CALLDATASIZE)
+    charge_gas(sivm, GasCosts.OPCODE_CALLDATASIZE)
 
     # OPERATION
-    push(evm.stack, U256(len(evm.call_data)))
+    push(sivm.stack, U256(len(sivm.call_data)))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def calldatacopy(evm: Evm) -> None:
+def calldatacopy(sivm: Sivm) -> None:
     """
     Copy a portion of the input data in current environment to memory.
 
@@ -214,59 +214,59 @@ def calldatacopy(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    memory_start_index = pop(evm.stack)
-    data_start_index = pop(evm.stack)
-    size = pop(evm.stack)
+    memory_start_index = pop(sivm.stack)
+    data_start_index = pop(sivm.stack)
+    size = pop(sivm.stack)
 
     # GAS
     words = ceil32(Uint(size)) // Uint(32)
     copy_gas_cost = ExecutionGas(GasCosts.OPCODE_COPY_PER_WORD * words)
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_index, size)]
+        sivm.memory, [(memory_start_index, size)]
     )
     charge_gas(
-        evm,
+        sivm,
         GasCosts.OPCODE_CALLDATACOPY_BASE + copy_gas_cost + extend_memory.cost,
     )
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    value = buffer_read(evm.call_data, data_start_index, size)
-    memory_write(evm.memory, memory_start_index, value)
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    value = buffer_read(sivm.call_data, data_start_index, size)
+    memory_write(sivm.memory, memory_start_index, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def codesize(evm: Evm) -> None:
+def codesize(sivm: Sivm) -> None:
     """
     Push the size of code running in current environment onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_CODESIZE)
+    charge_gas(sivm, GasCosts.OPCODE_CODESIZE)
 
     # OPERATION
-    push(evm.stack, U256(len(evm.code)))
+    push(sivm.stack, U256(len(sivm.code)))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def codecopy(evm: Evm) -> None:
+def codecopy(sivm: Sivm) -> None:
     """
     Copy a portion of the code in current environment to memory.
 
@@ -275,176 +275,176 @@ def codecopy(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    memory_start_index = pop(evm.stack)
-    code_start_index = pop(evm.stack)
-    size = pop(evm.stack)
+    memory_start_index = pop(sivm.stack)
+    code_start_index = pop(sivm.stack)
+    size = pop(sivm.stack)
 
     # GAS
     words = ceil32(Uint(size)) // Uint(32)
     copy_gas_cost = ExecutionGas(GasCosts.OPCODE_COPY_PER_WORD * words)
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_index, size)]
+        sivm.memory, [(memory_start_index, size)]
     )
     charge_gas(
-        evm,
+        sivm,
         GasCosts.OPCODE_CODECOPY_BASE + copy_gas_cost + extend_memory.cost,
     )
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    value = buffer_read(evm.code, code_start_index, size)
-    memory_write(evm.memory, memory_start_index, value)
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    value = buffer_read(sivm.code, code_start_index, size)
+    memory_write(sivm.memory, memory_start_index, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def gasprice(evm: Evm) -> None:
+def gasprice(sivm: Sivm) -> None:
     """
     Push the gas price used in current environment onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_GASPRICE)
+    charge_gas(sivm, GasCosts.OPCODE_GASPRICE)
 
     # OPERATION
-    push(evm.stack, U256(evm.tx_env.effective_gas_price))
+    push(sivm.stack, U256(sivm.tx_env.effective_gas_price))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def extcodesize(evm: Evm) -> None:
+def extcodesize(sivm: Sivm) -> None:
     """
     Push the code size of a given account onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    address = to_address_masked(pop(evm.stack))
+    address = to_address_masked(pop(sivm.stack))
 
     # GAS
-    if address in evm.accessed_addresses:
+    if address in sivm.accessed_addresses:
         access_gas_cost = GasCosts.WARM_ACCESS
     else:
-        evm.accessed_addresses.add(address)
+        sivm.accessed_addresses.add(address)
         access_gas_cost = GasCosts.COLD_ACCOUNT_ACCESS
     access_gas_cost += GasCosts.WARM_ACCESS  # Code reading cost (SIP-8038)
-    charge_gas(evm, access_gas_cost)
+    charge_gas(sivm, access_gas_cost)
 
     # OPERATION
-    tx_state = evm.tx_env.state
+    tx_state = sivm.tx_env.state
     code_hash = get_account(tx_state, address).code_hash
     code = get_code(tx_state, code_hash)
 
     codesize = U256(len(code))
-    push(evm.stack, codesize)
+    push(sivm.stack, codesize)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def extcodecopy(evm: Evm) -> None:
+def extcodecopy(sivm: Sivm) -> None:
     """
     Copy a portion of an account's code to memory.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    address = to_address_masked(pop(evm.stack))
-    memory_start_index = pop(evm.stack)
-    code_start_index = pop(evm.stack)
-    size = pop(evm.stack)
+    address = to_address_masked(pop(sivm.stack))
+    memory_start_index = pop(sivm.stack)
+    code_start_index = pop(sivm.stack)
+    size = pop(sivm.stack)
 
     # GAS
     words = ceil32(Uint(size)) // Uint(32)
     copy_gas_cost = ExecutionGas(GasCosts.OPCODE_COPY_PER_WORD * words)
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_index, size)]
+        sivm.memory, [(memory_start_index, size)]
     )
 
-    if address in evm.accessed_addresses:
+    if address in sivm.accessed_addresses:
         access_gas_cost = GasCosts.WARM_ACCESS
     else:
-        evm.accessed_addresses.add(address)
+        sivm.accessed_addresses.add(address)
         access_gas_cost = GasCosts.COLD_ACCOUNT_ACCESS
     access_gas_cost += GasCosts.WARM_ACCESS  # Code reading cost (SIP-8038)
 
     total_gas_cost = access_gas_cost + copy_gas_cost + extend_memory.cost
 
-    charge_gas(evm, total_gas_cost)
+    charge_gas(sivm, total_gas_cost)
 
     # OPERATION
-    evm.memory += b"\x00" * extend_memory.expand_by
-    tx_state = evm.tx_env.state
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    tx_state = sivm.tx_env.state
     code_hash = get_account(tx_state, address).code_hash
     code = get_code(tx_state, code_hash)
 
     value = buffer_read(code, code_start_index, size)
-    memory_write(evm.memory, memory_start_index, value)
+    memory_write(sivm.memory, memory_start_index, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def returndatasize(evm: Evm) -> None:
+def returndatasize(sivm: Sivm) -> None:
     """
     Pushes the size of the return data buffer onto the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_RETURNDATASIZE)
+    charge_gas(sivm, GasCosts.OPCODE_RETURNDATASIZE)
 
     # OPERATION
-    push(evm.stack, U256(len(evm.return_data)))
+    push(sivm.stack, U256(len(sivm.return_data)))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def returndatacopy(evm: Evm) -> None:
+def returndatacopy(sivm: Sivm) -> None:
     """
     Copies data from the return data buffer to memory.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    memory_start_index = pop(evm.stack)
-    return_data_start_position = pop(evm.stack)
-    size = pop(evm.stack)
+    memory_start_index = pop(sivm.stack)
+    return_data_start_position = pop(sivm.stack)
+    size = pop(sivm.stack)
 
     # GAS
     words = ceil32(Uint(size)) // Uint(32)
@@ -452,51 +452,51 @@ def returndatacopy(evm: Evm) -> None:
         GasCosts.OPCODE_RETURNDATACOPY_PER_WORD * words
     )
     extend_memory = calculate_gas_extend_memory(
-        evm.memory, [(memory_start_index, size)]
+        sivm.memory, [(memory_start_index, size)]
     )
     charge_gas(
-        evm,
+        sivm,
         GasCosts.OPCODE_RETURNDATACOPY_BASE
         + copy_gas_cost
         + extend_memory.cost,
     )
-    if Uint(return_data_start_position) + Uint(size) > ulen(evm.return_data):
+    if Uint(return_data_start_position) + Uint(size) > ulen(sivm.return_data):
         raise OutOfBoundsRead
 
-    evm.memory += b"\x00" * extend_memory.expand_by
-    value = evm.return_data[
+    sivm.memory += b"\x00" * extend_memory.expand_by
+    value = sivm.return_data[
         return_data_start_position : return_data_start_position + size
     ]
-    memory_write(evm.memory, memory_start_index, value)
+    memory_write(sivm.memory, memory_start_index, value)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def extcodehash(evm: Evm) -> None:
+def extcodehash(sivm: Sivm) -> None:
     """
     Returns the keccak256 hash of a contract’s bytecode.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    address = to_address_masked(pop(evm.stack))
+    address = to_address_masked(pop(sivm.stack))
 
     # GAS
-    if address in evm.accessed_addresses:
+    if address in sivm.accessed_addresses:
         access_gas_cost = GasCosts.WARM_ACCESS
     else:
-        evm.accessed_addresses.add(address)
+        sivm.accessed_addresses.add(address)
         access_gas_cost = GasCosts.COLD_ACCOUNT_ACCESS
 
-    charge_gas(evm, access_gas_cost)
+    charge_gas(sivm, access_gas_cost)
 
     # OPERATION
-    tx_state = evm.tx_env.state
+    tx_state = sivm.tx_env.state
     account = get_account(tx_state, address)
 
     if account == EMPTY_ACCOUNT:
@@ -504,107 +504,107 @@ def extcodehash(evm: Evm) -> None:
     else:
         codehash = U256.from_be_bytes(account.code_hash)
 
-    push(evm.stack, codehash)
+    push(sivm.stack, codehash)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def self_balance(evm: Evm) -> None:
+def self_balance(sivm: Sivm) -> None:
     """
     Pushes the balance of the current address to the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_SELFBALANCE)
+    charge_gas(sivm, GasCosts.OPCODE_SELFBALANCE)
 
     # OPERATION
     # Non-existent accounts default to EMPTY_ACCOUNT, which has balance 0.
-    balance = get_account(evm.tx_env.state, evm.current_target).balance
+    balance = get_account(sivm.tx_env.state, sivm.current_target).balance
 
-    push(evm.stack, balance)
+    push(sivm.stack, balance)
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def base_fee(evm: Evm) -> None:
+def base_fee(sivm: Sivm) -> None:
     """
     Pushes the base fee of the current block on to the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_BASEFEE)
+    charge_gas(sivm, GasCosts.OPCODE_BASEFEE)
 
     # OPERATION
-    push(evm.stack, U256(evm.block_env.base_fee_per_gas))
+    push(sivm.stack, U256(sivm.block_env.base_fee_per_gas))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def blob_hash(evm: Evm) -> None:
+def blob_hash(sivm: Sivm) -> None:
     """
     Pushes the versioned hash at a particular index on to the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
-    index = pop(evm.stack)
+    index = pop(sivm.stack)
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_BLOBHASH)
+    charge_gas(sivm, GasCosts.OPCODE_BLOBHASH)
 
     # OPERATION
-    if int(index) < len(evm.tx_env.blob_versioned_hashes):
-        blob_hash = evm.tx_env.blob_versioned_hashes[index]
+    if int(index) < len(sivm.tx_env.blob_versioned_hashes):
+        blob_hash = sivm.tx_env.blob_versioned_hashes[index]
     else:
         blob_hash = Bytes32(b"\x00" * 32)
-    push(evm.stack, U256.from_be_bytes(blob_hash))
+    push(sivm.stack, U256.from_be_bytes(blob_hash))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)
 
 
-def blob_base_fee(evm: Evm) -> None:
+def blob_base_fee(sivm: Sivm) -> None:
     """
     Pushes the blob base fee on to the stack.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
     # STACK
     pass
 
     # GAS
-    charge_gas(evm, GasCosts.OPCODE_BLOBBASEFEE)
+    charge_gas(sivm, GasCosts.OPCODE_BLOBBASEFEE)
 
     # OPERATION
-    blob_base_fee = calculate_blob_gas_price(evm.block_env.excess_blob_gas)
-    push(evm.stack, U256(blob_base_fee))
+    blob_base_fee = calculate_blob_gas_price(sivm.block_env.excess_blob_gas)
+    push(sivm.stack, U256(blob_base_fee))
 
     # PROGRAM COUNTER
-    evm.pc += Uint(1)
+    sivm.pc += Uint(1)

@@ -85,7 +85,7 @@ def test_access_list_intrinsic_across_amsterdam_transition(
     post-fork block (decomposed base, repriced entries, plus the
     SIP-7981 byte surcharge). Each block uses a distinct sender so its
     post-tx balance pins the fork-appropriate intrinsic; the recipient
-    is an existing EOA, so no EVM bytecode runs and `gas_used` equals
+    is an existing EOA, so no Sivm bytecode runs and `gas_used` equals
     the intrinsic exactly.
 
     The per-fork intrinsic returned by the calculator is also checked

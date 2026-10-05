@@ -1,5 +1,5 @@
 """
-Tests beacon block root for [SIP-4788: Beacon block root in the EVM](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4788.md).
+Tests beacon block root for [SIP-4788: Beacon block root in the Sivm](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4788.md).
 
 Note: To add a new test, add a function that is named `test_<test_name>`.
 

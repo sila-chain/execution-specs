@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Stack.
+Sila Virtual Machine (Sivm) Stack.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Stack.
 Introduction
 ------------
 
-Implementation of the stack operators for the EVM.
+Implementation of the stack operators for the Sivm.
 """
 
 from typing import List
@@ -25,7 +25,7 @@ def pop(stack: List[U256]) -> U256:
     Parameters
     ----------
     stack :
-        EVM stack.
+        Sivm stack.
 
     Returns
     -------
@@ -46,7 +46,7 @@ def push(stack: List[U256], value: U256) -> None:
     Parameters
     ----------
     stack :
-        EVM stack.
+        Sivm stack.
 
     value :
         Item to be pushed onto `stack`.

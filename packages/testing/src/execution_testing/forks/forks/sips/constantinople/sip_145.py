@@ -1,7 +1,7 @@
 """
-SIP-145: Bitwise shifting instructions in EVM.
+SIP-145: Bitwise shifting instructions in Sivm.
 
-Add SHL, SHR, and SAR instructions to the EVM.
+Add SHL, SHR, and SAR instructions to the Sivm.
 
 https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md
 """

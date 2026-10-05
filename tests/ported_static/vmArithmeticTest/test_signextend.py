@@ -190,7 +190,7 @@ def test_signextend(
     )
     # Source: lll
     # {
-    #    ; -1 = 2^256-1 in EVM arithmetic
+    #    ; -1 = 2^256-1 in Sivm arithmetic
     #    [[0]] (signextend 0 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)  # noqa: E501
     # }
     contract_2 = pre.deploy_contract(  # noqa: F841
@@ -208,7 +208,7 @@ def test_signextend(
     )
     # Source: lll
     # {
-    #    ; -2 = 2^256-2 in EVM arithmetic
+    #    ; -2 = 2^256-2 in Sivm arithmetic
     #    [[0]] (signextend
     #             0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe  # noqa: E501
     #             0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe  # noqa: E501
@@ -229,7 +229,7 @@ def test_signextend(
     )
     # Source: lll
     # {
-    #    ; -1 = 2^256-1 in EVM arithmetic
+    #    ; -1 = 2^256-1 in Sivm arithmetic
     #    [[0]] (signextend
     #             0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
     #             0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501

@@ -1,5 +1,5 @@
 """
-Defines EVM tools for use in the Sila specification.
+Defines Sivm tools for use in the Sila specification.
 """
 
 import argparse
@@ -19,9 +19,9 @@ from .t8n import ForkCache
 from .t8n.cli import run_t8n_cli, t8n_arguments
 
 DESCRIPTION = """
-This is the EVM tool for execution specs. The EVM tool
+This is the Sivm tool for execution specs. The Sivm tool
 provides a few useful subcommands to facilitate testing
-at the EVM layer.
+at the Sivm layer.
 
 Please refer to the following link for more information:
 https://github.com/sila/go-sila/blob/master/cmd/sivm/README.md
@@ -37,7 +37,7 @@ The following forks are supported:
 
 def create_parser() -> argparse.ArgumentParser:
     """
-    Create a command-line argument parser for the evm tool.
+    Create a command-line argument parser for the sivm tool.
     """
     new_parser = argparse.ArgumentParser(
         description=DESCRIPTION,
@@ -56,7 +56,7 @@ def create_parser() -> argparse.ArgumentParser:
     )
 
     # Add options to the t8n tool
-    subparsers = new_parser.add_subparsers(dest="evm_tool")
+    subparsers = new_parser.add_subparsers(dest="sivm_tool")
 
     daemon_arguments(subparsers)
     t8n_arguments(subparsers)
@@ -112,15 +112,15 @@ def main(
             fork_cache = ForkCache()
             exit_stack.push(fork_cache)
 
-        if options.evm_tool == "t8n":
+        if options.sivm_tool == "t8n":
             return run_t8n_cli(options, out_file, in_file, fork_cache)
-        elif options.evm_tool == "b11r":
+        elif options.sivm_tool == "b11r":
             b11r_tool = B11R(options, out_file, in_file)
             return b11r_tool.run()
-        elif options.evm_tool == "daemon":
+        elif options.sivm_tool == "daemon":
             daemon = Daemon(options)
             return daemon.run()
-        elif options.evm_tool == "statetest":
+        elif options.sivm_tool == "statetest":
             state_test = StateTest(options, out_file, in_file)
             return state_test.run()
         else:

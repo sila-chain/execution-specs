@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) IDENTITY PRECOMPILED CONTRACT.
+Sila Virtual Machine (Sivm) IDENTITY PRECOMPILED CONTRACT.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -16,29 +16,29 @@ from sila_types.numeric import Uint, ulen
 from sila.utils.numeric import ceil32
 
 from ...fork_types import ExecutionGas
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.gas import (
     GasCosts,
     charge_gas,
 )
 
 
-def identity(evm: Evm) -> None:
+def identity(sivm: Sivm) -> None:
     """
     Writes the message data to output.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.call_data
+    data = sivm.call_data
 
     # GAS
     word_count = ceil32(ulen(data)) // Uint(32)
     charge_gas(
-        evm,
+        sivm,
         ExecutionGas(
             GasCosts.PRECOMPILE_IDENTITY_BASE
             + GasCosts.PRECOMPILE_IDENTITY_PER_WORD * word_count
@@ -46,4 +46,4 @@ def identity(evm: Evm) -> None:
     )
 
     # OPERATION
-    evm.output = data
+    sivm.output = data

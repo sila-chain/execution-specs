@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Gas.
+Sila Virtual Machine (Sivm) Gas.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Gas.
 Introduction
 ------------
 
-EVM gas constants and calculators.
+Sivm gas constants and calculators.
 """
 
 from dataclasses import dataclass
@@ -18,7 +18,7 @@ from sila_types.numeric import U64, U256, Uint, ulen
 
 from sila.exceptions import GasUsedExceedsLimitError
 from sila.forks.bpo5.blocks import Header as PreviousHeader
-from sila.trace import GasAndRefund, StateGasAndRefund, evm_trace
+from sila.trace import GasAndRefund, StateGasAndRefund, sivm_trace
 from sila.utils.numeric import ceil32, taylor_exponential
 
 from ..blocks import Header
@@ -40,7 +40,7 @@ from ..transactions import (
 from .exceptions import OutOfGasError
 
 if TYPE_CHECKING:
-    from . import BlockEnvironment, BlockOutput, Evm
+    from . import BlockEnvironment, BlockOutput, Sivm
 
 
 # These may be patched at runtime by a future gas repricing utility to
@@ -71,7 +71,7 @@ class StateGasCosts:
 # These values may be patched at runtime by a future gas repricing utility
 class GasCosts:
     """
-    Constant gas values for the EVM.
+    Constant gas values for the Sivm.
     """
 
     # Tiers
@@ -272,9 +272,9 @@ class GasMeter:
 
     Bundle every mutable gas quantity a frame maintains, so the frame
     and its settlement work against one object instead of a scatter of
-    fields on the [`Evm`].
+    fields on the [`Sivm`].
 
-    [`Evm`]: ref:sila.forks.sila_amsterdam.vm.Evm
+    [`Sivm`]: ref:sila.forks.sila_amsterdam.vm.Sivm
     """
 
     gas_left: ExecutionGas
@@ -368,20 +368,20 @@ class MessageCallGas:
     sub_call: ExecutionGas
 
 
-def check_gas(evm: "Evm", amount: ExecutionGas) -> None:
+def check_gas(sivm: "Sivm", amount: ExecutionGas) -> None:
     """
     Checks if `amount` gas is available without charging it.
     Raises OutOfGasError if insufficient gas.
 
     Parameters
     ----------
-    evm :
-        The current EVM.
+    sivm :
+        The current Sivm.
     amount :
         The amount of execution gas to check.
 
     """
-    if evm.gas_meter.gas_left < amount:
+    if sivm.gas_meter.gas_left < amount:
         raise OutOfGasError
 
 
@@ -402,21 +402,21 @@ def charge_gas_from_meter(gas_meter: GasMeter, amount: ExecutionGas) -> None:
     gas_meter.gas_left -= amount
 
 
-def charge_gas(evm: "Evm", amount: ExecutionGas) -> None:
+def charge_gas(sivm: "Sivm", amount: ExecutionGas) -> None:
     """
     Subtracts `amount` from `gas_left` (execution gas).
 
     Parameters
     ----------
-    evm :
-        The current EVM.
+    sivm :
+        The current Sivm.
     amount :
         The amount of execution gas the current operation requires.
 
     """
-    evm_trace(evm, GasAndRefund(int(amount)))
+    sivm_trace(sivm, GasAndRefund(int(amount)))
 
-    charge_gas_from_meter(evm.gas_meter, amount)
+    charge_gas_from_meter(sivm.gas_meter, amount)
 
 
 def charge_state_gas_from_meter(gas_meter: GasMeter, amount: StateGas) -> None:
@@ -445,24 +445,24 @@ def charge_state_gas_from_meter(gas_meter: GasMeter, amount: StateGas) -> None:
         raise OutOfGasError
 
 
-def charge_state_gas(evm: "Evm", amount: StateGas) -> None:
+def charge_state_gas(sivm: "Sivm", amount: StateGas) -> None:
     """
     Subtracts `amount` from the state gas reservoir, then from
     `gas_left` when the reservoir is empty, tracking any [spill].
 
     Parameters
     ----------
-    evm :
-        The current EVM.
+    sivm :
+        The current Sivm.
     amount :
         The amount of state gas the current operation requires.
 
     [spill]: ref:sila.forks.sila_amsterdam.vm.gas.GasMeter.state_gas_spilled
 
     """
-    evm_trace(evm, StateGasAndRefund(int(amount)))
+    sivm_trace(sivm, StateGasAndRefund(int(amount)))
 
-    charge_state_gas_from_meter(evm.gas_meter, amount)
+    charge_state_gas_from_meter(sivm.gas_meter, amount)
 
 
 def commit_state_gas(gas_meter: GasMeter) -> None:
@@ -779,7 +779,7 @@ def calculate_gas_extend_memory(
     Parameters
     ----------
     memory :
-        Memory contents of the EVM.
+        Memory contents of the Sivm.
     extensions:
         List of extensions to be made to the memory.
         Consists of a tuple of start position and size.
@@ -1102,9 +1102,9 @@ def check_block_gas_capacity(
 
 @final
 @dataclass
-class EvmGasAllocation:
+class SivmGasAllocation:
     """
-    Split of a transaction's EVM gas across the two dimensions.
+    Split of a transaction's Sivm gas across the two dimensions.
     """
 
     execution_gas: ExecutionGas
@@ -1114,13 +1114,13 @@ class EvmGasAllocation:
     """State gas set aside for the top frame's reservoir."""
 
 
-def allocate_evm_gas(
+def allocate_sivm_gas(
     tx_gas: Uint, intrinsic: IntrinsicGasCost
-) -> EvmGasAllocation:
+) -> SivmGasAllocation:
     """
-    Split EVM gas into an execution-gas grant and a state reservoir.
+    Split Sivm gas into an execution-gas grant and a state reservoir.
 
-    After the intrinsic cost is removed, the remaining EVM gas is
+    After the intrinsic cost is removed, the remaining Sivm gas is
     divided into execution gas -- capped by the execution-gas budget
     that remains below `TX_MAX_GAS_LIMIT` -- and a state gas reservoir
     that holds whatever exceeds that cap.
@@ -1138,15 +1138,15 @@ def allocate_evm_gas(
 
     Returns
     -------
-    allocation : `EvmGasAllocation`
+    allocation : `SivmGasAllocation`
         The execution gas grant and state gas reservoir.
 
     """
-    evm_gas = tx_gas - Uint(intrinsic.execution)
+    sivm_gas = tx_gas - Uint(intrinsic.execution)
     execution_gas_budget = GasCosts.TX_MAX_GAS_LIMIT - intrinsic.execution
-    execution_gas = ExecutionGas(min(execution_gas_budget, evm_gas))
-    state_gas_reservoir = StateGas(evm_gas - execution_gas)
-    return EvmGasAllocation(execution_gas, state_gas_reservoir)
+    execution_gas = ExecutionGas(min(execution_gas_budget, sivm_gas))
+    state_gas_reservoir = StateGas(sivm_gas - execution_gas)
+    return SivmGasAllocation(execution_gas, state_gas_reservoir)
 
 
 @final

@@ -39,8 +39,8 @@ class SilaCLI:
     """
     Abstract base class to help create Python interfaces to Sila CLIs.
 
-    This base class helps handle the special case of EVM subcommands, such as
-    the EVM transition tool `t8n`, which have multiple implementations, one
+    This base class helps handle the special case of Sivm subcommands, such as
+    the Sivm transition tool `t8n`, which have multiple implementations, one
     from each client team. In the case of these tools, this class mainly serves
     to help instantiate the correct subclass based on the output of the CLI's
     version flag.

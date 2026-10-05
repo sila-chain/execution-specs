@@ -146,7 +146,7 @@ class GenesisConfiguration:
 ```
 
 ```python
-class EvmTracer(Protocol):
+class SivmTracer(Protocol):
     """
     [`Protocol`] that describes tracer functions.
 
@@ -155,7 +155,7 @@ class EvmTracer(Protocol):
 
     [`Protocol`]: https://docs.python.org/3/library/typing.html#typing.Protocol
     [`sila.trace`]: ref:sila.trace
-    [`__call__`]: ref:sila.trace.EvmTracer.__call__
+    [`__call__`]: ref:sila.trace.SivmTracer.__call__
     """
 ```
 
@@ -190,11 +190,11 @@ class Example:
 ### Module-level variables
 
 ```python
-_evm_trace: EvmTracer = discard_evm_trace
+_sivm_trace: SivmTracer = discard_sivm_trace
 """
-Active [`EvmTracer`] that is used for generating traces.
+Active [`SivmTracer`] that is used for generating traces.
 
-[`EvmTracer`]: ref:sila.trace.EvmTracer
+[`SivmTracer`]: ref:sila.trace.SivmTracer
 """
 ```
 
@@ -209,13 +209,13 @@ TraceEvent = (
     | OpStart
     | OpEnd
     | OpException
-    | EvmStop
+    | SivmStop
     | GasAndRefund
 )
 """
-All possible types of events that an [`EvmTracer`] is expected to handle.
+All possible types of events that an [`SivmTracer`] is expected to handle.
 
-[`EvmTracer`]: ref:sila.trace.EvmTracer
+[`SivmTracer`]: ref:sila.trace.SivmTracer
 """
 ```
 

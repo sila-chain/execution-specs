@@ -1,4 +1,4 @@
-"""Helper functions for the EVM."""
+"""Helper functions for the Sivm."""
 
 from .bytecode import Bytecode
 from .opcodes import Opcodes as Op
@@ -54,7 +54,7 @@ class MemoryVariable(Bytecode):
 
     def __new__(cls, offset: int) -> "MemoryVariable":
         """
-        Instantiate a new EVM memory variable.
+        Instantiate a new Sivm memory variable.
 
         When used with normal bytecode, this class simply returns the MLOAD
         with the provided offset.

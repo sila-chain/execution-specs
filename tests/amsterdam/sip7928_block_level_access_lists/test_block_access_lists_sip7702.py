@@ -893,7 +893,7 @@ def test_bal_7702_multi_hop_delegation_chain(
 ) -> None:
     """
     Multi-hop SIP-7702 delegation: `chain` resolves A->B->C; `loop`
-    resolves A->B->A. In both cases the EVM follows the delegation once
+    resolves A->B->A. In both cases the Sivm follows the delegation once
     and runs B's `0xef0100<dest>` bytecode as legacy code, which aborts
     on the INVALID `0xef` opcode. For `chain`, C MUST NOT appear in the
     BAL (second-hop target is never loaded as an execution target). For

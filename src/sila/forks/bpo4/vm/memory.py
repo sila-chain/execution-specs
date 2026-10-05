@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) Memory.
+Sila Virtual Machine (Sivm) Memory.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ Sila Virtual Machine (EVM) Memory.
 Introduction
 ------------
 
-EVM memory operations.
+Sivm memory operations.
 """
 
 from sila_types.bytes import Bytes
@@ -26,7 +26,7 @@ def memory_write(
     Parameters
     ----------
     memory :
-        Memory contents of the EVM.
+        Memory contents of the Sivm.
     start_position :
         Starting pointer to the memory.
     value :
@@ -45,7 +45,7 @@ def memory_read_bytes(
     Parameters
     ----------
     memory :
-        Memory contents of the EVM.
+        Memory contents of the Sivm.
     start_position :
         Starting pointer to the memory.
     size :
@@ -67,7 +67,7 @@ def buffer_read(buffer: Bytes, start_position: U256, size: U256) -> Bytes:
     Parameters
     ----------
     buffer :
-        Memory contents of the EVM.
+        Memory contents of the Sivm.
     start_position :
         Starting pointer to the memory.
     size :

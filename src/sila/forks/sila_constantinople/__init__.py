@@ -1,6 +1,6 @@
 """
 The Sila Constantinople fork reduces mining rewards, delays the difficulty bomb,
-and introduces new EVM instructions for logical shifts, counterfactual
+and introduces new Sivm instructions for logical shifts, counterfactual
 contract deployment, and computing bytecode hashes.
 
 Note that, on certain testnets, this fork is divided in two: Sila Constantinople
@@ -11,7 +11,7 @@ awkward situation and presents only a single fork without SIP-1283.
 
 ### Changes
 
-- [SIP-145: Bitwise shifting instructions in EVM][SIP-145]
+- [SIP-145: Bitwise shifting instructions in Sivm][SIP-145]
 - [SIP-1014: Skinny CREATE2][SIP-1014]
 - [SIP-1052: EXTCODEHASH opcode][SIP-1052]
 - [SIP-1234: Sila Constantinople Difficulty Bomb Delay and Block Reward

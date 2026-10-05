@@ -220,7 +220,7 @@ class GsilSivm(SilaCLI):
         except subprocess.CalledProcessError as e:
             raise Exception("Command failed with non-zero status.") from e
         except Exception as e:
-            raise Exception("Unexpected exception calling evm tool.") from e
+            raise Exception("Unexpected exception calling sivm tool.") from e
 
     def _consume_debug_dump(
         self,
@@ -359,7 +359,7 @@ class GsilFixtureConsumer(
         result_json = json.loads(result.stdout)
         if not isinstance(result_json, list):
             raise Exception(
-                f"Unexpected result from evm blocktest: {result_json}"
+                f"Unexpected result from sivm blocktest: {result_json}"
             )
 
         if any(not test_result["pass"] for test_result in result_json):
@@ -414,7 +414,7 @@ class GsilFixtureConsumer(
         result_json = json.loads(result.stdout)
         if not isinstance(result_json, list):
             raise Exception(
-                f"Unexpected result from evm statetest: {result_json}"
+                f"Unexpected result from sivm statetest: {result_json}"
             )
         return result_json
 

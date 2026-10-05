@@ -543,8 +543,8 @@ def test_bal_post_execution_calls_net_storage_at_last_index(
     call. The slot holding the last caller pins the call order.
     """
     # The request predeploys carry this because SIP-7002 and SIP-7251
-    # require the EVM call, while SIP-2935 and SIP-4788 let a client skip
-    # the EVM and write the storage itself, so substituted code there
+    # require the Sivm call, while SIP-2935 and SIP-4788 let a client skip
+    # the Sivm and write the storage itself, so substituted code there
     # would test a choice the client is free to make.
     post_execution = _system_contracts_called(
         fork, SystemCallPhase.AFTER_TRANSACTIONS

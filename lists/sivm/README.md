@@ -1,7 +1,7 @@
-EVM Summary Information
+Sivm Summary Information
 =======================
 
-This is a set of tables summarizing current and pending EVM information.
+This is a set of tables summarizing current and pending Sivm information.
 
 Where information between the executable spec and this file conflict,
 the executable spec prevails.

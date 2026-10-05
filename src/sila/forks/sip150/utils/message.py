@@ -77,5 +77,5 @@ def prepare_message(
         current_target=current_target,
         code_address=code_address,
         should_transfer_value=True,
-        parent_evm=None,
+        parent_sivm=None,
     )

@@ -1391,7 +1391,7 @@ def test_sstore_oog_no_reservoir_inflation(
     # reservoir is zero — all state gas comes from gas_left.
     factory_gas = (
         factory_code.gas_cost(fork)
-        + initcode.evm_gas(fork)
+        + initcode.sivm_gas(fork)
         + initcode.deployment_gas(fork)
     )
 
@@ -1534,7 +1534,7 @@ def test_max_initcode_size_gas_metering_via_create(
     # CALL gas only feeds gas_left; state gas must come from the reservoir.
     factory_gas = (
         factory_code.gas_cost(fork)
-        + initcode.evm_gas(fork)
+        + initcode.sivm_gas(fork)
         + initcode.deployment_gas(fork)
     )
     factory_state_gas = fork.create_state_gas(
@@ -1890,7 +1890,7 @@ def test_state_gas_spill_header_gas_used(
     intrinsic_gas = intrinsic_cost()
 
     sstore_state_gas = sstore_code.state_cost(fork)
-    evm_execution = sstore_code.execution_cost(fork)
+    sivm_execution = sstore_code.execution_cost(fork)
 
     # Reservoir = half the SSTORE state gas, rest spills to gas_left
     reservoir = sstore_state_gas // 2
@@ -1901,7 +1901,7 @@ def test_state_gas_spill_header_gas_used(
         sender=pre.fund_eoa(),
     )
 
-    tx_execution = intrinsic_gas + evm_execution
+    tx_execution = intrinsic_gas + sivm_execution
     tx_state = sstore_state_gas
     expected_gas_used = max(tx_execution, tx_state)
 

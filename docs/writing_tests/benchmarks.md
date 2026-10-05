@@ -11,8 +11,8 @@ The benchmark suite is organized as follows:
 ```text
 tests/benchmark/
 ├── compute/
-│   ├── instruction/        # Individual EVM opcodes
-│   ├── precompile/         # EVM precompiles
+│   ├── instruction/        # Individual Sivm opcodes
+│   ├── precompile/         # Sivm precompiles
 │   └── scenario/           # Mix of operations, transaction types, etc.
 └── stateful/               # Pre-configured state environments required
 ```
@@ -273,13 +273,13 @@ target_contract = (
 )
 ```
 
-This generator is suitable when the benchmarked operation does **not** grow the EVM stack unboundedly, or when stack growth is explicitly managed (e.g., by pairing stack-producing opcodes with `POP`).
+This generator is suitable when the benchmarked operation does **not** grow the Sivm stack unboundedly, or when stack growth is explicitly managed (e.g., by pairing stack-producing opcodes with `POP`).
 
 ##### ExtCallGenerator
 
 `ExtCallGenerator` constructs two contracts: (1) a target contract, which contains the benchmarked logic and (2) a loop contract, which repeatedly calls into the target contract
 
-In this design, The `attack_block` inside the target contract is repeated 1024 times, corresponding to the EVM maximum stack size. And the loop contract repeatedly invokes the target contract to amplify execution via `STATICCALL`.
+In this design, The `attack_block` inside the target contract is repeated 1024 times, corresponding to the Sivm maximum stack size. And the loop contract repeatedly invokes the target contract to amplify execution via `STATICCALL`.
 
 The contract structures are as follows:
 

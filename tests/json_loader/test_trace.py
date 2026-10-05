@@ -1,4 +1,4 @@
-"""Test evm tracing functionality."""
+"""Test sivm tracing functionality."""
 
 from typing import Optional, cast
 
@@ -7,33 +7,33 @@ from sila_types.numeric import Uint
 import sila.trace
 
 
-def test_modify_evm_trace() -> None:
-    """Tests that EVM trace handlers can be modified and work correctly."""
+def test_modify_sivm_trace() -> None:
+    """Tests that Sivm trace handlers can be modified and work correctly."""
     trace1: Optional[sila.trace.TraceEvent] = None
     trace2: Optional[sila.trace.TraceEvent] = None
 
     def tracer1(
-        evm: object,
+        sivm: object,
         event: sila.trace.TraceEvent,
     ) -> None:
-        del evm
+        del sivm
         nonlocal trace1
         trace1 = event
 
     def tracer2(
-        evm: object,
+        sivm: object,
         event: sila.trace.TraceEvent,
     ) -> None:
-        del evm
+        del sivm
         nonlocal trace2
         trace2 = event
 
-    sila.trace.set_evm_trace(tracer1)
+    sila.trace.set_sivm_trace(tracer1)
 
-    from sila.forks.sila_prague.vm import Evm, Message
+    from sila.forks.sila_prague.vm import Message, Sivm
     from sila.forks.sila_prague.vm.gas import charge_gas
 
-    evm = Evm(
+    sivm = Sivm(
         pc=Uint(1),
         stack=[],
         memory=bytearray(),
@@ -52,15 +52,15 @@ def test_modify_evm_trace() -> None:
         accessed_storage_keys=set(),
     )
 
-    charge_gas(evm, Uint(5))
+    charge_gas(sivm, Uint(5))
 
     assert trace2 is None
     assert isinstance(trace1, sila.trace.GasAndRefund)
     assert trace1.gas_cost == 5
 
-    sila.trace.set_evm_trace(tracer2)
+    sila.trace.set_sivm_trace(tracer2)
 
-    charge_gas(evm, Uint(6))
+    charge_gas(sivm, Uint(6))
 
     # Check that the old event is unmodified.
     assert isinstance(trace1, sila.trace.GasAndRefund)

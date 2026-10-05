@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) BLS12 381 CONTRACTS.
+Sila Virtual Machine (Sivm) BLS12 381 CONTRACTS.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -19,7 +19,7 @@ from sila_ecc.optimized_bls12_381.optimized_curve import (
 )
 from sila_types.numeric import U256, Uint
 
-from ....vm import Evm
+from ....vm import Sivm
 from ....vm.gas import GasCosts, charge_gas
 from ....vm.memory import buffer_read
 from ...exceptions import InvalidParameter
@@ -35,14 +35,14 @@ from . import (
 LENGTH_PER_PAIR = 160
 
 
-def bls12_g1_add(evm: Evm) -> None:
+def bls12_g1_add(sivm: Sivm) -> None:
     """
     The bls12_381 G1 point addition precompile.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
@@ -50,12 +50,12 @@ def bls12_g1_add(evm: Evm) -> None:
         If the input length is invalid.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
     if len(data) != 256:
         raise InvalidParameter("Invalid Input Length")
 
     # GAS
-    charge_gas(evm, GasCosts.PRECOMPILE_BLS_G1ADD)
+    charge_gas(sivm, GasCosts.PRECOMPILE_BLS_G1ADD)
 
     # OPERATION
     p1 = bytes_to_g1(buffer_read(data, U256(0), U256(128)))
@@ -63,10 +63,10 @@ def bls12_g1_add(evm: Evm) -> None:
 
     result = bls12_add(p1, p2)
 
-    evm.output = g1_to_bytes(result)
+    sivm.output = g1_to_bytes(result)
 
 
-def bls12_g1_msm(evm: Evm) -> None:
+def bls12_g1_msm(sivm: Sivm) -> None:
     """
     The bls12_381 G1 multi-scalar multiplication precompile.
     Note: This uses the naive approach to multi-scalar multiplication
@@ -76,8 +76,8 @@ def bls12_g1_msm(evm: Evm) -> None:
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
@@ -85,7 +85,7 @@ def bls12_g1_msm(evm: Evm) -> None:
         If the input length is invalid.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
     if len(data) == 0 or len(data) % LENGTH_PER_PAIR != 0:
         raise InvalidParameter("Invalid Input Length")
 
@@ -97,7 +97,7 @@ def bls12_g1_msm(evm: Evm) -> None:
         discount = Uint(G1_MAX_DISCOUNT)
 
     gas_cost = Uint(k) * GasCosts.PRECOMPILE_BLS_G1MUL * discount // MULTIPLIER
-    charge_gas(evm, gas_cost)
+    charge_gas(sivm, gas_cost)
 
     # OPERATION
     for i in range(k):
@@ -112,17 +112,17 @@ def bls12_g1_msm(evm: Evm) -> None:
         else:
             result = bls12_add(result, product)
 
-    evm.output = g1_to_bytes(result)
+    sivm.output = g1_to_bytes(result)
 
 
-def bls12_map_fp_to_g1(evm: Evm) -> None:
+def bls12_map_fp_to_g1(sivm: Sivm) -> None:
     """
     Precompile to map field element to G1.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     Raises
     ------
@@ -130,12 +130,12 @@ def bls12_map_fp_to_g1(evm: Evm) -> None:
         If the input length is invalid.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
     if len(data) != 64:
         raise InvalidParameter("Invalid Input Length")
 
     # GAS
-    charge_gas(evm, GasCosts.PRECOMPILE_BLS_G1MAP)
+    charge_gas(sivm, GasCosts.PRECOMPILE_BLS_G1MAP)
 
     # OPERATION
     fp = int.from_bytes(data, "big")
@@ -143,4 +143,4 @@ def bls12_map_fp_to_g1(evm: Evm) -> None:
         raise InvalidParameter("coordinate >= field modulus")
 
     g1_optimized_3d = clear_cofactor_G1(map_to_curve_G1(FQ(fp)))
-    evm.output = g1_to_bytes(g1_optimized_3d)
+    sivm.output = g1_to_bytes(g1_optimized_3d)

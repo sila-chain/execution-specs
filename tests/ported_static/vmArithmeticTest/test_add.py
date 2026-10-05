@@ -102,8 +102,9 @@ def test_add(
     # {
     #    ; -1+-1 = -2
     #    ;
-    #    ; The big number is 256^2-1, the biggest number that the evm can hold,
-    #    ; and because evm math is done modulo 256^2, it's equivalent to -1
+    #    ; The big number is 256^2-1, the biggest number that the sivm can
+    #    ; hold,
+    #    ; and because sivm math is done modulo 256^2, it's equivalent to -1
     #    [[0]] (+ 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)  # noqa: E501
     # }
     contract_0 = pre.deploy_contract(  # noqa: F841

@@ -30,9 +30,9 @@ from sila_types.numeric import U64
 
 from . import T8N, ForkCache
 from .block_environment import Ommer
-from .evm_trace.count import CountTracer
-from .evm_trace.group import GroupTracer
-from .evm_trace.sip3155 import Sip3155Tracer
+from .sivm_trace.count import CountTracer
+from .sivm_trace.group import GroupTracer
+from .sivm_trace.sip3155 import Sip3155Tracer
 
 
 def t8n_arguments(subparsers: argparse._SubParsersAction) -> None:

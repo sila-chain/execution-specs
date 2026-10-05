@@ -1,5 +1,5 @@
 """
-Defines Load class for loading json fixtures for the evm
+Defines Load class for loading json fixtures for the sivm
 tools (t8n, b11r, etc.) as well as the execution specs
 testing framework.
 """

@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) ECRECOVER PRECOMPILED CONTRACT.
+Sila Virtual Machine (Sivm) ECRECOVER PRECOMPILED CONTRACT.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -18,26 +18,26 @@ from sila.crypto.hash import Hash32, keccak256
 from sila.exceptions import InvalidSignatureError
 from sila.utils.byte import left_pad_zero_bytes
 
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.gas import GasCosts, charge_gas
 from ...vm.memory import buffer_read
 
 
-def ecrecover(evm: Evm) -> None:
+def ecrecover(sivm: Sivm) -> None:
     """
     Decrypts the address using elliptic curve DSA recovery mechanism and writes
     the address to output.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.call_data
+    data = sivm.call_data
 
     # GAS
-    charge_gas(evm, GasCosts.PRECOMPILE_ECRECOVER)
+    charge_gas(sivm, GasCosts.PRECOMPILE_ECRECOVER)
 
     # OPERATION
     message_hash_bytes = buffer_read(data, U256(0), U256(32))
@@ -61,4 +61,4 @@ def ecrecover(evm: Evm) -> None:
 
     address = keccak256(public_key)[12:32]
     padded_address = left_pad_zero_bytes(address, 32)
-    evm.output = padded_address
+    sivm.output = padded_address

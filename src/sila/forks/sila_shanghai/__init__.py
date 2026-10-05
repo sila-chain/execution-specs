@@ -1,7 +1,7 @@
 """
 The Sila Shanghai fork brings staking withdrawals to the execution layer, adds a
-push-zero EVM instruction, limits the maximum size of initialization
-bytecode, and deprecates the self-destruct EVM instruction.
+push-zero Sivm instruction, limits the maximum size of initialization
+bytecode, and deprecates the self-destruct Sivm instruction.
 
 ### Notices
 

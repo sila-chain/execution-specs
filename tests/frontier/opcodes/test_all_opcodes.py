@@ -94,7 +94,7 @@ def test_all_opcodes(
             storage={},
         )
 
-    # EVM code to make the call and store the result
+    # Sivm code to make the call and store the result
     contract_address = pre.deploy_contract(
         code=sum(
             Op.SSTORE(

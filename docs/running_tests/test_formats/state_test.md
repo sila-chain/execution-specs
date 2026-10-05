@@ -6,7 +6,7 @@ These are produced by the `StateTest` and `StateTestOnly` test specs.
 
 ## Description
 
-The state test fixture format is used to test the state transition function of the Sila Virtual Machine (EVM).
+The state test fixture format is used to test the state transition function of the Sila Virtual Machine (Sivm).
 
 It does so by defining a transaction, a pre-execution state, and a post-execution state, and verifying that the transaction execution results in the expected post-execution state.
 

@@ -1,1 +1,1 @@
-"""Test cases for EVM functionality introduced in SilaIstanbul."""
+"""Test cases for Sivm functionality introduced in SilaIstanbul."""

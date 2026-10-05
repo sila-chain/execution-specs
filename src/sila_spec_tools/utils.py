@@ -1,5 +1,5 @@
 """
-Utilities for the EVM tools.
+Utilities for the Sivm tools.
 """
 
 import json

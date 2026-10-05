@@ -1,5 +1,5 @@
 """
-EVM Instruction Encoding (Opcodes).
+Sivm Instruction Encoding (Opcodes).
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -8,7 +8,7 @@ EVM Instruction Encoding (Opcodes).
 Introduction
 ------------
 
-Machine readable representations of EVM instructions, and a mapping to their
+Machine readable representations of Sivm instructions, and a mapping to their
 implementations.
 """
 
@@ -31,7 +31,7 @@ from . import system as system_instructions
 
 class Ops(enum.Enum):
     """
-    Enum for EVM Opcodes.
+    Enum for Sivm Opcodes.
     """
 
     # Arithmetic Ops

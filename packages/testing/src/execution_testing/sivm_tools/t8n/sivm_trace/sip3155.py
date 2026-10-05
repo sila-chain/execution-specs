@@ -1,5 +1,5 @@
 """
-The module implements the raw EVM tracer for t8n.
+The module implements the raw Sivm tracer for t8n.
 """
 
 import json
@@ -10,14 +10,14 @@ from typing import Any, List, Optional, TextIO, Union
 
 from sila.exceptions import SilaException
 from sila.trace import (
-    EvmStop,
-    EvmTracer,
     GasAndRefund,
     OpEnd,
     OpException,
     OpStart,
     PrecompileEnd,
     PrecompileStart,
+    SivmStop,
+    SivmTracer,
     StateGasAndRefund,
     TraceEvent,
     TransactionEnd,
@@ -25,12 +25,12 @@ from sila.trace import (
 )
 
 from .protocols import (
-    Evm,
-    EvmWithReturnData,
+    Sivm,
+    SivmWithReturnData,
     TransactionEnvironment,
-    evm_gas_left,
-    evm_refund_counter,
-    evm_state_gas_left,
+    sivm_gas_left,
+    sivm_refund_counter,
+    sivm_state_gas_left,
 )
 
 EXCLUDE_FROM_OUTPUT = [
@@ -44,7 +44,7 @@ EXCLUDE_FROM_OUTPUT = [
 @dataclass
 class Trace:
     """
-    The class implements the raw EVM trace.
+    The class implements the raw Sivm trace.
     """
 
     pc: int
@@ -86,9 +86,9 @@ class FinalTrace:
             self.error = type(error).__name__
 
 
-class Sip3155Tracer(EvmTracer):
+class Sip3155Tracer(SivmTracer):
     """
-    EVM trace implementation compatible with SIP-3155.
+    Sivm trace implementation compatible with SIP-3155.
     """
 
     transaction_environment: TransactionEnvironment | None
@@ -113,15 +113,15 @@ class Sip3155Tracer(EvmTracer):
         self.trace_return_data = trace_return_data
         self.output_basedir = output_basedir
 
-    def __call__(self, evm: Any, event: TraceEvent) -> None:
+    def __call__(self, sivm: Any, event: TraceEvent) -> None:
         """
         Create a trace of the event.
         """
         # TODO: Rsilink the tracer interface so it does not probe
         # fork-specific frame layouts. Recent forks merge the message
         # fields into the frame itself; older forks keep them on
-        # `evm.message`.
-        message = getattr(evm, "message", evm)
+        # `sivm.message`.
+        message = getattr(sivm, "message", sivm)
 
         # System Transaction do not have a tx_hash or index
         if (
@@ -130,7 +130,7 @@ class Sip3155Tracer(EvmTracer):
         ):
             return
 
-        assert isinstance(evm, Evm)
+        assert isinstance(sivm, Sivm)
 
         if self.transaction_environment is not message.tx_env:
             self.active_traces = []
@@ -140,25 +140,27 @@ class Sip3155Tracer(EvmTracer):
         if self.active_traces:
             last_trace = self.active_traces[-1]
 
-        refund_counter = evm_refund_counter(evm)
-        parent_evm = message.parent_evm
-        while parent_evm is not None:
-            refund_counter += evm_refund_counter(parent_evm)
-            parent_evm = getattr(parent_evm, "message", parent_evm).parent_evm
+        refund_counter = sivm_refund_counter(sivm)
+        parent_sivm = message.parent_sivm
+        while parent_sivm is not None:
+            refund_counter += sivm_refund_counter(parent_sivm)
+            parent_sivm = getattr(
+                parent_sivm, "message", parent_sivm
+            ).parent_sivm
 
-        len_memory = len(evm.memory)
+        len_memory = len(sivm.memory)
 
         return_data = None
-        if isinstance(evm, EvmWithReturnData) and self.trace_return_data:
-            return_data = "0x" + evm.return_data.hex()
+        if isinstance(sivm, SivmWithReturnData) and self.trace_return_data:
+            return_data = "0x" + sivm.return_data.hex()
 
         memory = None
         if self.trace_memory and len_memory > 0:
-            memory = "0x" + evm.memory.hex()
+            memory = "0x" + sivm.memory.hex()
 
         stack = None
         if self.trace_stack:
-            stack = [hex(i) for i in evm.stack]
+            stack = [hex(i) for i in sivm.stack]
 
         if isinstance(event, TransactionStart):
             pass
@@ -174,9 +176,9 @@ class Sip3155Tracer(EvmTracer):
             )
         elif isinstance(event, PrecompileStart):
             new_trace = Trace(
-                pc=int(evm.pc),
+                pc=int(sivm.pc),
                 op="0x" + event.address.hex().lstrip("0"),
-                gas=hex(evm_gas_left(evm)),
+                gas=hex(sivm_gas_left(sivm)),
                 gasCost="0x0",
                 memory=memory,
                 memSize=len_memory,
@@ -201,14 +203,14 @@ class Sip3155Tracer(EvmTracer):
                 op = "Invalid"
 
             state_gas = None
-            state_gas_left = evm_state_gas_left(evm)
+            state_gas_left = sivm_state_gas_left(sivm)
             if state_gas_left is not None:
                 state_gas = hex(state_gas_left)
 
             new_trace = Trace(
-                pc=int(evm.pc),
+                pc=int(sivm.pc),
                 op=op,
-                gas=hex(evm_gas_left(evm)),
+                gas=hex(sivm_gas_left(sivm)),
                 gasCost="0x0",
                 memory=memory,
                 memSize=len_memory,
@@ -251,9 +253,9 @@ class Sip3155Tracer(EvmTracer):
                     ) from event.error
 
                 new_trace = Trace(
-                    pc=int(evm.pc),
+                    pc=int(sivm.pc),
                     op=event.error.code,
-                    gas=hex(evm_gas_left(evm)),
+                    gas=hex(sivm_gas_left(sivm)),
                     gasCost="0x0",
                     memory=memory,
                     memSize=len_memory,
@@ -273,14 +275,14 @@ class Sip3155Tracer(EvmTracer):
                 # the exception is attributed to the last trace.
                 last_trace.error = type(event.error).__name__
                 last_trace.errorTraced = True
-        elif isinstance(event, EvmStop):
-            if not evm.running:
+        elif isinstance(event, SivmStop):
+            if not sivm.running:
                 return
-            elif len(evm.code) == 0:
+            elif len(sivm.code) == 0:
                 return
             else:
                 self(
-                    evm,
+                    sivm,
                     OpStart(event.op),
                 )
         elif isinstance(event, GasAndRefund):

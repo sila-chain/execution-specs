@@ -12,7 +12,7 @@ Root cause (nethermind, state-test only):
     number != 0 ? Keccak.Zero : Keccak.Compute(number.ToString())
 
 It performs no recency-window check, and the opcode handler
-``InstructionBlockHash`` (in ``EvmInstructions.Environment.cs``) delegates
+``InstructionBlockHash`` (in ``SivmInstructions.Environment.cs``) delegates
 that check to the provider -- it only rejects ``number >= current``. So
 ``BLOCKHASH(0)`` returns ``keccak256("0")`` regardless of how ancient block
 0 is. Nethermind's *production* ``BlockhashProvider`` does enforce the

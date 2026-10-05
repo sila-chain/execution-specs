@@ -31,7 +31,7 @@ def generate_block_check_code(
     check_contract_first: bool = False,
 ) -> Bytecode:
     """
-    Generate EVM code to check that the block hashes are correctly stored in
+    Generate Sivm code to check that the block hashes are correctly stored in
     the state.
 
     Args:

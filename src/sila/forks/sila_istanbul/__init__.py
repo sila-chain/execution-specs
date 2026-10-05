@@ -1,5 +1,5 @@
 """
-The Sila Istanbul fork ([SIP-1679]) makes changes to the gas costs of EVM
+The Sila Istanbul fork ([SIP-1679]) makes changes to the gas costs of Sivm
 instructions and data, adds a cryptographic primitive, and introduces an
 instruction to fetch the current chain identifier.
 

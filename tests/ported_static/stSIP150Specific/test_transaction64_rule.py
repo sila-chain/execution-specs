@@ -100,7 +100,7 @@ def test_transaction64_rule(
         gas_limit=gas_limit,
     )
 
-    # The EVM floors the forwarded gas as `base - base // 64`; the callee
+    # The Sivm floors the forwarded gas as `base - base // 64`; the callee
     # observes it minus its own GAS opcode. An implementation using
     # `base * 63 // 64` is exactly one gas short on the m1/p1 residues.
     forwarded = base - base // 64

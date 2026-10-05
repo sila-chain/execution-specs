@@ -77,9 +77,9 @@ uv run fill tests/shanghai/sip3651_warm_coinbase/test_warm_coinbase.py::test_war
 ## Execution for Development Forks
 
 !!! note ""
-    By default, test cases are not filled for upcoming Sila forks so that they can be readily filled using the `evm` tool from the latest `gsil` release.
+    By default, test cases are not filled for upcoming Sila forks so that they can be readily filled using the `sivm` tool from the latest `gsil` release.
 
-    In order to fill test cases for an upcoming fork, ensure that the `evm` tool used supports that fork and features under test and use the `--until` or `--fork` flag.
+    In order to fill test cases for an upcoming fork, ensure that the `sivm` tool used supports that fork and features under test and use the `--until` or `--fork` flag.
 
     For example, as of Q2 2023, the current fork under active development is `SilaCancun`:
     ```console

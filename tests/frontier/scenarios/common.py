@@ -37,10 +37,10 @@ class ScenarioExpectOpcode(Enum):
 @dataclass
 class ScenarioEnvironment:
     """
-    Scenario EVM environment.
+    Scenario Sivm environment.
 
     Each scenario must define an environment on which the program is executed.
-    This is so post state verification can check the results of EVM opcodes.
+    This is so post state verification can check the results of Sivm opcodes.
     """
 
     code_address: Address  # Op.ADDRESS, address scope for program
@@ -91,7 +91,7 @@ class ProgramResult:
     ) -> int | Address:
         """
         Translate expected program result code into concrete value, given the
-        scenario evm environment and test execution environment.
+        scenario sivm environment and test execution environment.
         """
         if exec_env.fork < self.from_fork:
             return 0
@@ -167,7 +167,7 @@ class ScenarioGeneratorInput:
     Attributes:
       fork (Fork): Fork for which we ask to generate scenarios
       pre(Alloc): Access to the state to be able to deploy contracts into pre
-      operation (Bytecode): Evm bytecode program that will be tested
+      operation (Bytecode): Sivm bytecode program that will be tested
       external_address (Address): Static external address for ext opcodes
 
     """
@@ -186,7 +186,7 @@ class Scenario:
       category (str): Scenario category name
       name (str): Scenario name for the test vector
       code (Address): Address that is an entry point for scenario code
-      env (ScenarioEnvironment): Evm values for ScenarioExpectAddress map
+      env (ScenarioEnvironment): Sivm values for ScenarioExpectAddress map
       reverting (bool): If scenario reverts program execution,
                         making result 0 (default: False)
 
@@ -206,7 +206,7 @@ def make_gas_hash_contract(pre: Alloc) -> Address:
     So that if we can't check exact value in expect section, we at least
     could spend unique gas amount.
     """
-    # EVM memory variables
+    # Sivm memory variables
     byte_offset = MemoryVariable(0)
     current_byte = MemoryVariable(32)
 

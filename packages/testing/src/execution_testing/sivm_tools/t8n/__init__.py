@@ -38,8 +38,8 @@ from sila_types.numeric import U64, U256, Uint
 from typing_extensions import override
 
 from .block_environment import Ommer, build_block_environment
-from .evm_trace.group import GroupTracer
 from .result import build_result, record_rejected_tx
+from .sivm_trace.group import GroupTracer
 
 if TYPE_CHECKING:
     from execution_testing.client_clis.cli_types import (
@@ -203,7 +203,7 @@ class T8N(Load):
         )
 
         if tracers is not None:
-            trace.set_evm_trace(tracers)
+            trace.set_sivm_trace(tracers)
         self.tracers = tracers
 
         self.logger = get_stream_logger("T8N")

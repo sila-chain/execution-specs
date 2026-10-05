@@ -3,7 +3,7 @@ Sila Virtual Machine opcode definitions.
 
 Acknowledgments: The individual opcode documentation below is due to the work
 by [smlXL](https://github.com/smlxl) on [evm.codes](https://www.evm.codes/),
-available as open source [`smlxl/evm.codes`][0]; thank you! And thanks to
+available as open source [`smlxl/sivm.codes`][0]; thank you! And thanks to
 @ThreeHrSleep for integrating it in the docstrings.
 
 [0]: https://github.com/smlxl/evm.codes
@@ -30,7 +30,7 @@ from .bytecode import Bytecode
 def _get_int_size(n: int) -> int:
     """Return size of an integer in bytes."""
     if n < 0:
-        # Negative numbers in the EVM are represented as two's complement
+        # Negative numbers in the Sivm are represented as two's complement
         # of 32 bytes
         return 32
     byte_count = 0
@@ -84,7 +84,7 @@ def _stack_argument_to_bytecode(
 
 class Opcode(Bytecode, OpcodeBase):
     """
-    Represents a single Opcode instruction in the EVM, with extra
+    Represents a single Opcode instruction in the Sivm, with extra
     metadata useful to parametrize tests.
 
     Parameters
@@ -713,7 +713,7 @@ class Opcodes(Opcode, Enum):
     ----
     0
 
-    Source: [evm.codes/#00](https://www.evm.codes/#00)
+    Source: [sivm.codes/#00](https://www.evm.codes/#00)
     """
 
     ADD = Opcode(0x01, popped_stack_items=2, pushed_stack_items=1)
@@ -742,7 +742,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#01](https://www.evm.codes/#01)
+    Source: [sivm.codes/#01](https://www.evm.codes/#01)
     """
 
     MUL = Opcode(0x02, popped_stack_items=2, pushed_stack_items=1)
@@ -771,7 +771,7 @@ class Opcodes(Opcode, Enum):
     ----
     5
 
-    Source: [evm.codes/#02](https://www.evm.codes/#02)
+    Source: [sivm.codes/#02](https://www.evm.codes/#02)
     """
 
     SUB = Opcode(0x03, popped_stack_items=2, pushed_stack_items=1)
@@ -800,7 +800,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#03](https://www.evm.codes/#03)
+    Source: [sivm.codes/#03](https://www.evm.codes/#03)
     """
 
     DIV = Opcode(0x04, popped_stack_items=2, pushed_stack_items=1)
@@ -829,7 +829,7 @@ class Opcodes(Opcode, Enum):
     ----
     5
 
-    Source: [evm.codes/#04](https://www.evm.codes/#04)
+    Source: [sivm.codes/#04](https://www.evm.codes/#04)
     """
 
     SDIV = Opcode(0x05, popped_stack_items=2, pushed_stack_items=1)
@@ -860,7 +860,7 @@ class Opcodes(Opcode, Enum):
     ----
     5
 
-    Source: [evm.codes/#05](https://www.evm.codes/#05)
+    Source: [sivm.codes/#05](https://www.evm.codes/#05)
     """
 
     MOD = Opcode(0x06, popped_stack_items=2, pushed_stack_items=1)
@@ -890,7 +890,7 @@ class Opcodes(Opcode, Enum):
     ----
     5
 
-    Source: [evm.codes/#06](https://www.evm.codes/#06)
+    Source: [sivm.codes/#06](https://www.evm.codes/#06)
     """
 
     SMOD = Opcode(0x07, popped_stack_items=2, pushed_stack_items=1)
@@ -920,7 +920,7 @@ class Opcodes(Opcode, Enum):
     ----
     5
 
-    Source: [evm.codes/#07](https://www.evm.codes/#07)
+    Source: [sivm.codes/#07](https://www.evm.codes/#07)
     """
 
     ADDMOD = Opcode(0x08, popped_stack_items=3, pushed_stack_items=1)
@@ -951,7 +951,7 @@ class Opcodes(Opcode, Enum):
     ----
     8
 
-    Source: [evm.codes/#08](https://www.evm.codes/#08)
+    Source: [sivm.codes/#08](https://www.evm.codes/#08)
     """
 
     MULMOD = Opcode(0x09, popped_stack_items=3, pushed_stack_items=1)
@@ -982,7 +982,7 @@ class Opcodes(Opcode, Enum):
     ----
     8
 
-    Source: [evm.codes/#09](https://www.evm.codes/#09)
+    Source: [sivm.codes/#09](https://www.evm.codes/#09)
     """
 
     EXP = Opcode(
@@ -1021,7 +1021,7 @@ class Opcodes(Opcode, Enum):
     ----
     - exponent: the exponent value (default: 0)
 
-    Source: [evm.codes/#0A](https://www.evm.codes/#0A)
+    Source: [sivm.codes/#0A](https://www.evm.codes/#0A)
     """
 
     SIGNEXTEND = Opcode(0x0B, popped_stack_items=2, pushed_stack_items=1)
@@ -1050,7 +1050,7 @@ class Opcodes(Opcode, Enum):
     ----
     5
 
-    Source: [evm.codes/#0B](https://www.evm.codes/#0B)
+    Source: [sivm.codes/#0B](https://www.evm.codes/#0B)
     """
 
     LT = Opcode(0x10, popped_stack_items=2, pushed_stack_items=1)
@@ -1079,7 +1079,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#10](https://www.evm.codes/#10)
+    Source: [sivm.codes/#10](https://www.evm.codes/#10)
     """
 
     GT = Opcode(0x11, popped_stack_items=2, pushed_stack_items=1)
@@ -1108,7 +1108,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#11](https://www.evm.codes/#11)
+    Source: [sivm.codes/#11](https://www.evm.codes/#11)
     """
 
     SLT = Opcode(0x12, popped_stack_items=2, pushed_stack_items=1)
@@ -1137,7 +1137,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#12](https://www.evm.codes/#12)
+    Source: [sivm.codes/#12](https://www.evm.codes/#12)
     """
 
     SGT = Opcode(0x13, popped_stack_items=2, pushed_stack_items=1)
@@ -1166,7 +1166,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#13](https://www.evm.codes/#13)
+    Source: [sivm.codes/#13](https://www.evm.codes/#13)
     """
 
     EQ = Opcode(0x14, popped_stack_items=2, pushed_stack_items=1)
@@ -1195,7 +1195,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#14](https://www.evm.codes/#14)
+    Source: [sivm.codes/#14](https://www.evm.codes/#14)
     """
 
     ISZERO = Opcode(0x15, popped_stack_items=1, pushed_stack_items=1)
@@ -1223,7 +1223,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#15](https://www.evm.codes/#15)
+    Source: [sivm.codes/#15](https://www.evm.codes/#15)
     """
 
     AND = Opcode(0x16, popped_stack_items=2, pushed_stack_items=1)
@@ -1252,7 +1252,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#16](https://www.evm.codes/#16)
+    Source: [sivm.codes/#16](https://www.evm.codes/#16)
     """
 
     OR = Opcode(0x17, popped_stack_items=2, pushed_stack_items=1)
@@ -1281,7 +1281,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#17](https://www.evm.codes/#17)
+    Source: [sivm.codes/#17](https://www.evm.codes/#17)
     """
 
     XOR = Opcode(0x18, popped_stack_items=2, pushed_stack_items=1)
@@ -1310,7 +1310,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#18](https://www.evm.codes/#18)
+    Source: [sivm.codes/#18](https://www.evm.codes/#18)
     """
 
     NOT = Opcode(0x19, popped_stack_items=1, pushed_stack_items=1)
@@ -1338,7 +1338,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#19](https://www.evm.codes/#19)
+    Source: [sivm.codes/#19](https://www.evm.codes/#19)
     """
 
     BYTE = Opcode(0x1A, popped_stack_items=2, pushed_stack_items=1)
@@ -1368,7 +1368,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#1A](https://www.evm.codes/#1A)
+    Source: [sivm.codes/#1A](https://www.evm.codes/#1A)
     """
 
     SHL = Opcode(0x1B, popped_stack_items=2, pushed_stack_items=1)
@@ -1397,7 +1397,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#1B](https://www.evm.codes/#1B)
+    Source: [sivm.codes/#1B](https://www.evm.codes/#1B)
     """
 
     SHR = Opcode(0x1C, popped_stack_items=2, pushed_stack_items=1)
@@ -1426,7 +1426,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#1C](https://www.evm.codes/#1C)
+    Source: [sivm.codes/#1C](https://www.evm.codes/#1C)
     """
 
     SAR = Opcode(0x1D, popped_stack_items=2, pushed_stack_items=1)
@@ -1455,7 +1455,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#1D](https://www.evm.codes/#1D)
+    Source: [sivm.codes/#1D](https://www.evm.codes/#1D)
     """
 
     CLZ = Opcode(0x1E, popped_stack_items=1, pushed_stack_items=1)
@@ -1483,7 +1483,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#1E](https://www.evm.codes/#1E)
+    Source: [sivm.codes/#1E](https://www.evm.codes/#1E)
     """
 
     SHA3 = Opcode(
@@ -1526,7 +1526,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#20](https://www.evm.codes/#20)
+    Source: [sivm.codes/#20](https://www.evm.codes/#20)
     """
 
     ADDRESS = Opcode(0x30, pushed_stack_items=1)
@@ -1554,7 +1554,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#30](https://www.evm.codes/#30)
+    Source: [sivm.codes/#30](https://www.evm.codes/#30)
     """
 
     BALANCE = Opcode(
@@ -1594,7 +1594,7 @@ class Opcodes(Opcode, Enum):
     ----
     - address_warm: whether the address is already warm (default: False)
 
-    Source: [evm.codes/#31](https://www.evm.codes/#31)
+    Source: [sivm.codes/#31](https://www.evm.codes/#31)
     """
 
     ORIGIN = Opcode(0x32, pushed_stack_items=1)
@@ -1623,7 +1623,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#32](https://www.evm.codes/#32)
+    Source: [sivm.codes/#32](https://www.evm.codes/#32)
     """
 
     CALLER = Opcode(0x33, pushed_stack_items=1)
@@ -1653,7 +1653,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#33](https://www.evm.codes/#33)
+    Source: [sivm.codes/#33](https://www.evm.codes/#33)
     """
 
     CALLVALUE = Opcode(0x34, pushed_stack_items=1)
@@ -1682,7 +1682,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#34](https://www.evm.codes/#34)
+    Source: [sivm.codes/#34](https://www.evm.codes/#34)
     """
 
     CALLDATALOAD = Opcode(
@@ -1714,7 +1714,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#35](https://www.evm.codes/#35)
+    Source: [sivm.codes/#35](https://www.evm.codes/#35)
     """
 
     CALLDATASIZE = Opcode(0x36, pushed_stack_items=1)
@@ -1742,7 +1742,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#36](https://www.evm.codes/#36)
+    Source: [sivm.codes/#36](https://www.evm.codes/#36)
     """
 
     CALLDATACOPY = Opcode(
@@ -1785,7 +1785,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#37](https://www.evm.codes/#37)
+    Source: [sivm.codes/#37](https://www.evm.codes/#37)
     """
 
     CODESIZE = Opcode(0x38, pushed_stack_items=1)
@@ -1813,7 +1813,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#38](https://www.evm.codes/#38)
+    Source: [sivm.codes/#38](https://www.evm.codes/#38)
     """
 
     CODECOPY = Opcode(
@@ -1852,7 +1852,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#39](https://www.evm.codes/#39)
+    Source: [sivm.codes/#39](https://www.evm.codes/#39)
     """
 
     GASPRICE = Opcode(0x3A, pushed_stack_items=1)
@@ -1876,7 +1876,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#3A](https://www.evm.codes/#3A)
+    Source: [sivm.codes/#3A](https://www.evm.codes/#3A)
     """
 
     EXTCODESIZE = Opcode(
@@ -1915,7 +1915,7 @@ class Opcodes(Opcode, Enum):
     ----
     - address_warm: whether the address is already warm (default: False)
 
-    Source: [evm.codes/#3B](https://www.evm.codes/#3B)
+    Source: [sivm.codes/#3B](https://www.evm.codes/#3B)
     """
 
     EXTCODECOPY = Opcode(
@@ -1966,7 +1966,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#3C](https://www.evm.codes/#3C)
+    Source: [sivm.codes/#3C](https://www.evm.codes/#3C)
     """
 
     RETURNDATASIZE = Opcode(0x3D, pushed_stack_items=1)
@@ -1990,7 +1990,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#3D](https://www.evm.codes/#3D)
+    Source: [sivm.codes/#3D](https://www.evm.codes/#3D)
     """
 
     RETURNDATACOPY = Opcode(
@@ -2030,7 +2030,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#3E](https://www.evm.codes/#3E)
+    Source: [sivm.codes/#3E](https://www.evm.codes/#3E)
     """
 
     EXTCODEHASH = Opcode(
@@ -2071,7 +2071,7 @@ class Opcodes(Opcode, Enum):
     ----
     - address_warm: whether the address is already warm (default: False)
 
-    Source: [evm.codes/#3F](https://www.evm.codes/#3F)
+    Source: [sivm.codes/#3F](https://www.evm.codes/#3F)
     """
 
     BLOCKHASH = Opcode(
@@ -2107,7 +2107,7 @@ class Opcodes(Opcode, Enum):
     ----
     20
 
-    Source: [evm.codes/#40](https://www.evm.codes/#40)
+    Source: [sivm.codes/#40](https://www.evm.codes/#40)
     """
 
     COINBASE = Opcode(0x41, pushed_stack_items=1)
@@ -2135,7 +2135,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#41](https://www.evm.codes/#41)
+    Source: [sivm.codes/#41](https://www.evm.codes/#41)
     """
 
     TIMESTAMP = Opcode(0x42, pushed_stack_items=1)
@@ -2163,7 +2163,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#42](https://www.evm.codes/#42)
+    Source: [sivm.codes/#42](https://www.evm.codes/#42)
     """
 
     NUMBER = Opcode(0x43, pushed_stack_items=1)
@@ -2191,7 +2191,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#43](https://www.evm.codes/#43)
+    Source: [sivm.codes/#43](https://www.evm.codes/#43)
     """
 
     PREVRANDAO = Opcode(0x44, pushed_stack_items=1)
@@ -2219,7 +2219,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#44](https://www.evm.codes/#44)
+    Source: [sivm.codes/#44](https://www.evm.codes/#44)
     """
 
     GASLIMIT = Opcode(0x45, pushed_stack_items=1)
@@ -2247,7 +2247,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#45](https://www.evm.codes/#45)
+    Source: [sivm.codes/#45](https://www.evm.codes/#45)
     """
 
     CHAINID = Opcode(0x46, pushed_stack_items=1)
@@ -2275,7 +2275,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#46](https://www.evm.codes/#46)
+    Source: [sivm.codes/#46](https://www.evm.codes/#46)
     """
 
     SELFBALANCE = Opcode(0x47, pushed_stack_items=1)
@@ -2303,7 +2303,7 @@ class Opcodes(Opcode, Enum):
     ----
     5
 
-    Source: [evm.codes/#47](https://www.evm.codes/#47)
+    Source: [sivm.codes/#47](https://www.evm.codes/#47)
     """
 
     BASEFEE = Opcode(0x48, pushed_stack_items=1)
@@ -2327,7 +2327,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#48](https://www.evm.codes/#48)
+    Source: [sivm.codes/#48](https://www.evm.codes/#48)
     """
 
     BLOBHASH = Opcode(
@@ -2444,7 +2444,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#50](https://www.evm.codes/#50)
+    Source: [sivm.codes/#50](https://www.evm.codes/#50)
     """
 
     MLOAD = Opcode(
@@ -2485,7 +2485,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#51](https://www.evm.codes/#51)
+    Source: [sivm.codes/#51](https://www.evm.codes/#51)
     """
 
     MSTORE = Opcode(
@@ -2525,7 +2525,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#52](https://www.evm.codes/#52)
+    Source: [sivm.codes/#52](https://www.evm.codes/#52)
     """
 
     MSTORE8 = Opcode(
@@ -2562,7 +2562,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#53](https://www.evm.codes/#53)
+    Source: [sivm.codes/#53](https://www.evm.codes/#53)
     """
 
     SLOAD = Opcode(
@@ -2602,7 +2602,7 @@ class Opcodes(Opcode, Enum):
     ----
     - key_warm: whether the storage key is already warm (default: False)
 
-    Source: [evm.codes/#54](https://www.evm.codes/#54)
+    Source: [sivm.codes/#54](https://www.evm.codes/#54)
     """
 
     SSTORE = Opcode(
@@ -2669,7 +2669,7 @@ class Opcodes(Opcode, Enum):
         of the opcode (default: None, which means same as original_value)
     - new_value: value being set by the opcode (default: 1)
 
-    Source: [evm.codes/#55](https://www.evm.codes/#55)
+    Source: [sivm.codes/#55](https://www.evm.codes/#55)
     """
 
     JUMP = Opcode(0x56, popped_stack_items=1, kwargs=["pc"])
@@ -2698,7 +2698,7 @@ class Opcodes(Opcode, Enum):
     ----
     8
 
-    Source: [evm.codes/#56](https://www.evm.codes/#56)
+    Source: [sivm.codes/#56](https://www.evm.codes/#56)
     """
 
     JUMPI = Opcode(0x57, popped_stack_items=2, kwargs=["pc", "condition"])
@@ -2727,7 +2727,7 @@ class Opcodes(Opcode, Enum):
     ----
     10
 
-    Source: [evm.codes/#57](https://www.evm.codes/#57)
+    Source: [sivm.codes/#57](https://www.evm.codes/#57)
     """
 
     PC = Opcode(0x58, pushed_stack_items=1)
@@ -2756,7 +2756,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#58](https://www.evm.codes/#58)
+    Source: [sivm.codes/#58](https://www.evm.codes/#58)
     """
 
     MSIZE = Opcode(0x59, pushed_stack_items=1)
@@ -2780,7 +2780,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#59](https://www.evm.codes/#59)
+    Source: [sivm.codes/#59](https://www.evm.codes/#59)
     """
 
     GAS = Opcode(0x5A, pushed_stack_items=1)
@@ -2809,7 +2809,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#5A](https://www.evm.codes/#5A)
+    Source: [sivm.codes/#5A](https://www.evm.codes/#5A)
     """
 
     JUMPDEST = Opcode(0x5B)
@@ -2837,7 +2837,7 @@ class Opcodes(Opcode, Enum):
     ----
     1
 
-    Source: [evm.codes/#5B](https://www.evm.codes/#5B)
+    Source: [sivm.codes/#5B](https://www.evm.codes/#5B)
     """
 
     NOOP = Opcode(0x5B)
@@ -2865,7 +2865,7 @@ class Opcodes(Opcode, Enum):
     ----
     1
 
-    Source: [evm.codes/#5B](https://www.evm.codes/#5B)
+    Source: [sivm.codes/#5B](https://www.evm.codes/#5B)
     """
 
     TLOAD = Opcode(
@@ -2992,7 +2992,7 @@ class Opcodes(Opcode, Enum):
     ----
     2
 
-    Source: [evm.codes/#5F](https://www.evm.codes/#5F)
+    Source: [sivm.codes/#5F](https://www.evm.codes/#5F)
     """
 
     PUSH1 = Opcode(0x60, pushed_stack_items=1, data_portion_length=1)
@@ -3021,7 +3021,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#60](https://www.evm.codes/#60)
+    Source: [sivm.codes/#60](https://www.evm.codes/#60)
     """
 
     PUSH2 = Opcode(0x61, pushed_stack_items=1, data_portion_length=2)
@@ -3050,7 +3050,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#61](https://www.evm.codes/#61)
+    Source: [sivm.codes/#61](https://www.evm.codes/#61)
     """
 
     PUSH3 = Opcode(0x62, pushed_stack_items=1, data_portion_length=3)
@@ -3079,7 +3079,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#62](https://www.evm.codes/#62)
+    Source: [sivm.codes/#62](https://www.evm.codes/#62)
     """
 
     PUSH4 = Opcode(0x63, pushed_stack_items=1, data_portion_length=4)
@@ -3108,7 +3108,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#63](https://www.evm.codes/#63)
+    Source: [sivm.codes/#63](https://www.evm.codes/#63)
     """
 
     PUSH5 = Opcode(0x64, pushed_stack_items=1, data_portion_length=5)
@@ -3137,7 +3137,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#64](https://www.evm.codes/#64)
+    Source: [sivm.codes/#64](https://www.evm.codes/#64)
     """
 
     PUSH6 = Opcode(0x65, pushed_stack_items=1, data_portion_length=6)
@@ -3166,7 +3166,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#65](https://www.evm.codes/#65)
+    Source: [sivm.codes/#65](https://www.evm.codes/#65)
     """
 
     PUSH7 = Opcode(0x66, pushed_stack_items=1, data_portion_length=7)
@@ -3195,7 +3195,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#66](https://www.evm.codes/#66)
+    Source: [sivm.codes/#66](https://www.evm.codes/#66)
     """
 
     PUSH8 = Opcode(0x67, pushed_stack_items=1, data_portion_length=8)
@@ -3224,7 +3224,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#67](https://www.evm.codes/#67)
+    Source: [sivm.codes/#67](https://www.evm.codes/#67)
     """
 
     PUSH9 = Opcode(0x68, pushed_stack_items=1, data_portion_length=9)
@@ -3253,7 +3253,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#68](https://www.evm.codes/#68)
+    Source: [sivm.codes/#68](https://www.evm.codes/#68)
     """
 
     PUSH10 = Opcode(0x69, pushed_stack_items=1, data_portion_length=10)
@@ -3282,7 +3282,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#69](https://www.evm.codes/#69)
+    Source: [sivm.codes/#69](https://www.evm.codes/#69)
     """
 
     PUSH11 = Opcode(0x6A, pushed_stack_items=1, data_portion_length=11)
@@ -3311,7 +3311,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#6A](https://www.evm.codes/#6A)
+    Source: [sivm.codes/#6A](https://www.evm.codes/#6A)
     """
 
     PUSH12 = Opcode(0x6B, pushed_stack_items=1, data_portion_length=12)
@@ -3340,7 +3340,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#6B](https://www.evm.codes/#6B)
+    Source: [sivm.codes/#6B](https://www.evm.codes/#6B)
     """
 
     PUSH13 = Opcode(0x6C, pushed_stack_items=1, data_portion_length=13)
@@ -3369,7 +3369,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#6C](https://www.evm.codes/#6C)
+    Source: [sivm.codes/#6C](https://www.evm.codes/#6C)
     """
 
     PUSH14 = Opcode(0x6D, pushed_stack_items=1, data_portion_length=14)
@@ -3399,7 +3399,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#6D](https://www.evm.codes/#6D)
+    Source: [sivm.codes/#6D](https://www.evm.codes/#6D)
     """
 
     PUSH15 = Opcode(0x6E, pushed_stack_items=1, data_portion_length=15)
@@ -3428,7 +3428,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#6E](https://www.evm.codes/#6E)
+    Source: [sivm.codes/#6E](https://www.evm.codes/#6E)
     """
 
     PUSH16 = Opcode(0x6F, pushed_stack_items=1, data_portion_length=16)
@@ -3457,7 +3457,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#6F](https://www.evm.codes/#6F)
+    Source: [sivm.codes/#6F](https://www.evm.codes/#6F)
     """
 
     PUSH17 = Opcode(0x70, pushed_stack_items=1, data_portion_length=17)
@@ -3486,7 +3486,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#70](https://www.evm.codes/#70)
+    Source: [sivm.codes/#70](https://www.evm.codes/#70)
     """
 
     PUSH18 = Opcode(0x71, pushed_stack_items=1, data_portion_length=18)
@@ -3515,7 +3515,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#71](https://www.evm.codes/#71)
+    Source: [sivm.codes/#71](https://www.evm.codes/#71)
     """
 
     PUSH19 = Opcode(0x72, pushed_stack_items=1, data_portion_length=19)
@@ -3544,7 +3544,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#72](https://www.evm.codes/#72)
+    Source: [sivm.codes/#72](https://www.evm.codes/#72)
     """
 
     PUSH20 = Opcode(0x73, pushed_stack_items=1, data_portion_length=20)
@@ -3573,7 +3573,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#73](https://www.evm.codes/#73)
+    Source: [sivm.codes/#73](https://www.evm.codes/#73)
     """
 
     PUSH21 = Opcode(0x74, pushed_stack_items=1, data_portion_length=21)
@@ -3602,7 +3602,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#74](https://www.evm.codes/#74)
+    Source: [sivm.codes/#74](https://www.evm.codes/#74)
     """
 
     PUSH22 = Opcode(0x75, pushed_stack_items=1, data_portion_length=22)
@@ -3631,7 +3631,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#75](https://www.evm.codes/#75)
+    Source: [sivm.codes/#75](https://www.evm.codes/#75)
     """
 
     PUSH23 = Opcode(0x76, pushed_stack_items=1, data_portion_length=23)
@@ -3660,7 +3660,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#76](https://www.evm.codes/#76)
+    Source: [sivm.codes/#76](https://www.evm.codes/#76)
     """
 
     PUSH24 = Opcode(0x77, pushed_stack_items=1, data_portion_length=24)
@@ -3689,7 +3689,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#77](https://www.evm.codes/#77)
+    Source: [sivm.codes/#77](https://www.evm.codes/#77)
     """
 
     PUSH25 = Opcode(0x78, pushed_stack_items=1, data_portion_length=25)
@@ -3718,7 +3718,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#78](https://www.evm.codes/#78)
+    Source: [sivm.codes/#78](https://www.evm.codes/#78)
     """
 
     PUSH26 = Opcode(0x79, pushed_stack_items=1, data_portion_length=26)
@@ -3747,7 +3747,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#79](https://www.evm.codes/#79)
+    Source: [sivm.codes/#79](https://www.evm.codes/#79)
     """
 
     PUSH27 = Opcode(0x7A, pushed_stack_items=1, data_portion_length=27)
@@ -3776,7 +3776,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#7A](https://www.evm.codes/#7A)
+    Source: [sivm.codes/#7A](https://www.evm.codes/#7A)
     """
 
     PUSH28 = Opcode(0x7B, pushed_stack_items=1, data_portion_length=28)
@@ -3805,7 +3805,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#7B](https://www.evm.codes/#7B)
+    Source: [sivm.codes/#7B](https://www.evm.codes/#7B)
     """
 
     PUSH29 = Opcode(0x7C, pushed_stack_items=1, data_portion_length=29)
@@ -3834,7 +3834,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#7C](https://www.evm.codes/#7C)
+    Source: [sivm.codes/#7C](https://www.evm.codes/#7C)
     """
 
     PUSH30 = Opcode(0x7D, pushed_stack_items=1, data_portion_length=30)
@@ -3863,7 +3863,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#7D](https://www.evm.codes/#7D)
+    Source: [sivm.codes/#7D](https://www.evm.codes/#7D)
     """
 
     PUSH31 = Opcode(0x7E, pushed_stack_items=1, data_portion_length=31)
@@ -3892,7 +3892,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#7E](https://www.evm.codes/#7E)
+    Source: [sivm.codes/#7E](https://www.evm.codes/#7E)
     """
 
     PUSH32 = Opcode(0x7F, pushed_stack_items=1, data_portion_length=32)
@@ -3921,7 +3921,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#7F](https://www.evm.codes/#7F)
+    Source: [sivm.codes/#7F](https://www.evm.codes/#7F)
     """
 
     DUP1 = Opcode(0x80, pushed_stack_items=1, min_stack_height=1)
@@ -3950,7 +3950,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#80](https://www.evm.codes/#80)
+    Source: [sivm.codes/#80](https://www.evm.codes/#80)
     """
 
     DUP2 = Opcode(0x81, pushed_stack_items=1, min_stack_height=2)
@@ -3981,7 +3981,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#81](https://www.evm.codes/#81)
+    Source: [sivm.codes/#81](https://www.evm.codes/#81)
     """
 
     DUP3 = Opcode(0x82, pushed_stack_items=1, min_stack_height=3)
@@ -4014,7 +4014,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#82](https://www.evm.codes/#82)
+    Source: [sivm.codes/#82](https://www.evm.codes/#82)
     """
 
     DUP4 = Opcode(0x83, pushed_stack_items=1, min_stack_height=4)
@@ -4049,7 +4049,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#83](https://www.evm.codes/#83)
+    Source: [sivm.codes/#83](https://www.evm.codes/#83)
     """
 
     DUP5 = Opcode(0x84, pushed_stack_items=1, min_stack_height=5)
@@ -4086,7 +4086,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#84](https://www.evm.codes/#84)
+    Source: [sivm.codes/#84](https://www.evm.codes/#84)
     """
 
     DUP6 = Opcode(0x85, pushed_stack_items=1, min_stack_height=6)
@@ -4123,7 +4123,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#85](https://www.evm.codes/#85)
+    Source: [sivm.codes/#85](https://www.evm.codes/#85)
     """
 
     DUP7 = Opcode(0x86, pushed_stack_items=1, min_stack_height=7)
@@ -4160,7 +4160,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#86](https://www.evm.codes/#86)
+    Source: [sivm.codes/#86](https://www.evm.codes/#86)
     """
 
     DUP8 = Opcode(0x87, pushed_stack_items=1, min_stack_height=8)
@@ -4197,7 +4197,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#87](https://www.evm.codes/#87)
+    Source: [sivm.codes/#87](https://www.evm.codes/#87)
     """
 
     DUP9 = Opcode(0x88, pushed_stack_items=1, min_stack_height=9)
@@ -4234,7 +4234,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#88](https://www.evm.codes/#88)
+    Source: [sivm.codes/#88](https://www.evm.codes/#88)
     """
     DUP10 = Opcode(0x89, pushed_stack_items=1, min_stack_height=10)
     """
@@ -4270,7 +4270,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#89](https://www.evm.codes/#89)
+    Source: [sivm.codes/#89](https://www.evm.codes/#89)
     """
 
     DUP11 = Opcode(0x8A, pushed_stack_items=1, min_stack_height=11)
@@ -4307,7 +4307,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#8A](https://www.evm.codes/#8A)
+    Source: [sivm.codes/#8A](https://www.evm.codes/#8A)
     """
 
     DUP12 = Opcode(0x8B, pushed_stack_items=1, min_stack_height=12)
@@ -4344,7 +4344,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#8B](https://www.evm.codes/#8B)
+    Source: [sivm.codes/#8B](https://www.evm.codes/#8B)
     """
 
     DUP13 = Opcode(0x8C, pushed_stack_items=1, min_stack_height=13)
@@ -4381,7 +4381,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#8C](https://www.evm.codes/#8C)
+    Source: [sivm.codes/#8C](https://www.evm.codes/#8C)
     """
 
     DUP14 = Opcode(0x8D, pushed_stack_items=1, min_stack_height=14)
@@ -4418,7 +4418,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#8D](https://www.evm.codes/#8D)
+    Source: [sivm.codes/#8D](https://www.evm.codes/#8D)
     """
 
     DUP15 = Opcode(0x8E, pushed_stack_items=1, min_stack_height=15)
@@ -4455,7 +4455,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#8E](https://www.evm.codes/#8E)
+    Source: [sivm.codes/#8E](https://www.evm.codes/#8E)
     """
 
     DUP16 = Opcode(0x8F, pushed_stack_items=1, min_stack_height=16)
@@ -4492,7 +4492,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#8F](https://www.evm.codes/#8F)
+    Source: [sivm.codes/#8F](https://www.evm.codes/#8F)
     """
 
     SWAP1 = Opcode(0x90, min_stack_height=2)
@@ -4522,7 +4522,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#90](https://www.evm.codes/#90)
+    Source: [sivm.codes/#90](https://www.evm.codes/#90)
     """
 
     SWAP2 = Opcode(0x91, min_stack_height=3)
@@ -4554,7 +4554,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#91](https://www.evm.codes/#91)
+    Source: [sivm.codes/#91](https://www.evm.codes/#91)
     """
 
     SWAP3 = Opcode(0x92, min_stack_height=4)
@@ -4588,7 +4588,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#92](https://www.evm.codes/#92)
+    Source: [sivm.codes/#92](https://www.evm.codes/#92)
     """
 
     SWAP4 = Opcode(0x93, min_stack_height=5)
@@ -4624,7 +4624,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#93](https://www.evm.codes/#93)
+    Source: [sivm.codes/#93](https://www.evm.codes/#93)
     """
 
     SWAP5 = Opcode(0x94, min_stack_height=6)
@@ -4660,7 +4660,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#94](https://www.evm.codes/#94)
+    Source: [sivm.codes/#94](https://www.evm.codes/#94)
     """
 
     SWAP6 = Opcode(0x95, min_stack_height=7)
@@ -4696,7 +4696,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#95](https://www.evm.codes/#95)
+    Source: [sivm.codes/#95](https://www.evm.codes/#95)
     """
 
     SWAP7 = Opcode(0x96, min_stack_height=8)
@@ -4732,7 +4732,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#96](https://www.evm.codes/#96)
+    Source: [sivm.codes/#96](https://www.evm.codes/#96)
     """
 
     SWAP8 = Opcode(0x97, min_stack_height=9)
@@ -4768,7 +4768,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#97](https://www.evm.codes/#97)
+    Source: [sivm.codes/#97](https://www.evm.codes/#97)
     """
 
     SWAP9 = Opcode(0x98, min_stack_height=10)
@@ -4804,7 +4804,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#98](https://www.evm.codes/#98)
+    Source: [sivm.codes/#98](https://www.evm.codes/#98)
     """
 
     SWAP10 = Opcode(0x99, min_stack_height=11)
@@ -4840,7 +4840,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#99](https://www.evm.codes/#99)
+    Source: [sivm.codes/#99](https://www.evm.codes/#99)
     """
 
     SWAP11 = Opcode(0x9A, min_stack_height=12)
@@ -4876,7 +4876,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#9A](https://www.evm.codes/#9A)
+    Source: [sivm.codes/#9A](https://www.evm.codes/#9A)
     """
 
     SWAP12 = Opcode(0x9B, min_stack_height=13)
@@ -4912,7 +4912,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#9B](https://www.evm.codes/#9B)
+    Source: [sivm.codes/#9B](https://www.evm.codes/#9B)
     """
 
     SWAP13 = Opcode(0x9C, min_stack_height=14)
@@ -4948,7 +4948,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#9C](https://www.evm.codes/#9C)
+    Source: [sivm.codes/#9C](https://www.evm.codes/#9C)
     """
 
     SWAP14 = Opcode(0x9D, min_stack_height=15)
@@ -4984,7 +4984,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#9D](https://www.evm.codes/#9D)
+    Source: [sivm.codes/#9D](https://www.evm.codes/#9D)
     """
 
     SWAP15 = Opcode(0x9E, min_stack_height=16)
@@ -5020,7 +5020,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#9E](https://www.evm.codes/#9E)
+    Source: [sivm.codes/#9E](https://www.evm.codes/#9E)
     """
 
     SWAP16 = Opcode(0x9F, min_stack_height=17)
@@ -5056,7 +5056,7 @@ class Opcodes(Opcode, Enum):
     ----
     3
 
-    Source: [evm.codes/#9F](https://www.evm.codes/#9F)
+    Source: [sivm.codes/#9F](https://www.evm.codes/#9F)
     """
 
     LOG0 = Opcode(
@@ -5097,7 +5097,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#A0](https://www.evm.codes/#A0)
+    Source: [sivm.codes/#A0](https://www.evm.codes/#A0)
     """
 
     LOG1 = Opcode(
@@ -5139,7 +5139,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#A1](https://www.evm.codes/#A1)
+    Source: [sivm.codes/#A1](https://www.evm.codes/#A1)
     """
 
     LOG2 = Opcode(
@@ -5182,7 +5182,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#A2](https://www.evm.codes/#A2)
+    Source: [sivm.codes/#A2](https://www.evm.codes/#A2)
     """
 
     LOG3 = Opcode(
@@ -5226,7 +5226,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#A3](https://www.evm.codes/#A3)
+    Source: [sivm.codes/#A3](https://www.evm.codes/#A3)
     """
 
     LOG4 = Opcode(
@@ -5271,7 +5271,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#A4](https://www.evm.codes/#A4)
+    Source: [sivm.codes/#A4](https://www.evm.codes/#A4)
     """
 
     DUPN = Opcode(
@@ -5441,7 +5441,7 @@ class Opcodes(Opcode, Enum):
     - old_memory_size: memory size before expansion in bytes (default: 0)
     - account_new: whether creating a new account (default: True)
 
-    Source: [evm.codes/#F0](https://www.evm.codes/#F0)
+    Source: [sivm.codes/#F0](https://www.evm.codes/#F0)
     """
 
     CALL = Opcode(
@@ -5520,7 +5520,7 @@ class Opcodes(Opcode, Enum):
     - delegated_address_warm: whether the delegated address of the target
                               is already warm (default: False)
 
-    Source: [evm.codes/#F1](https://www.evm.codes/#F1)
+    Source: [sivm.codes/#F1](https://www.evm.codes/#F1)
     """
 
     CALLCODE = Opcode(
@@ -5599,7 +5599,7 @@ class Opcodes(Opcode, Enum):
     - delegated_address_warm: whether the delegated address of the target
                               is already warm (default: False)
 
-    Source: [evm.codes/#F2](https://www.evm.codes/#F2)
+    Source: [sivm.codes/#F2](https://www.evm.codes/#F2)
     """
 
     RETURN = Opcode(
@@ -5647,7 +5647,7 @@ class Opcodes(Opcode, Enum):
     - code_deposit_size: size of bytecode being deployed in bytes (default: 0,
                          only for RETURN in initcode)
 
-    Source: [evm.codes/#F3](https://www.evm.codes/#F3)
+    Source: [sivm.codes/#F3](https://www.evm.codes/#F3)
     """
 
     DELEGATECALL = Opcode(
@@ -5722,7 +5722,7 @@ class Opcodes(Opcode, Enum):
     - delegated_address_warm: whether the delegated address of the target
                               is already warm (default: False)
 
-    Source: [evm.codes/#F4](https://www.evm.codes/#F4)
+    Source: [sivm.codes/#F4](https://www.evm.codes/#F4)
     """
 
     CREATE2 = Opcode(
@@ -5782,7 +5782,7 @@ class Opcodes(Opcode, Enum):
     - old_memory_size: memory size before expansion in bytes (default: 0)
     - account_new: whether creating a new account (default: True)
 
-    Source: [evm.codes/#F5](https://www.evm.codes/#F5)
+    Source: [sivm.codes/#F5](https://www.evm.codes/#F5)
     """
 
     STATICCALL = Opcode(
@@ -5854,7 +5854,7 @@ class Opcodes(Opcode, Enum):
     - delegated_address_warm: whether the delegated address of the target
                               is already warm (default: False)
 
-    Source: [evm.codes/#FA](https://www.evm.codes/#FA)
+    Source: [sivm.codes/#FA](https://www.evm.codes/#FA)
     """
 
     REVERT = Opcode(
@@ -5892,7 +5892,7 @@ class Opcodes(Opcode, Enum):
     - new_memory_size: memory size after expansion in bytes (default: 0)
     - old_memory_size: memory size before expansion in bytes (default: 0)
 
-    Source: [evm.codes/#FD](https://www.evm.codes/#FD)
+    Source: [sivm.codes/#FD](https://www.evm.codes/#FD)
     """
 
     INVALID = Opcode(0xFE, terminating=True)
@@ -5920,7 +5920,7 @@ class Opcodes(Opcode, Enum):
     ----
     All the remaining gas in this context is consumed
 
-    Source: [evm.codes/#FE](https://www.evm.codes/#FE)
+    Source: [sivm.codes/#FE](https://www.evm.codes/#FE)
     """
 
     SELFDESTRUCT = Opcode(
@@ -5968,7 +5968,7 @@ class Opcodes(Opcode, Enum):
     - self_destructed_account_code_deposit: amount of bytes that comprised the
             code of the self-destructing account (default: 0)
 
-    Source: [evm.codes/#FF](https://www.evm.codes/#FF)
+    Source: [sivm.codes/#FF](https://www.evm.codes/#FF)
     """
 
 

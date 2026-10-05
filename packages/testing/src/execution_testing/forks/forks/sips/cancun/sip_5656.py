@@ -1,7 +1,7 @@
 """
 SIP-5656: MCOPY - Memory copying instruction.
 
-An efficient EVM instruction for copying memory areas.
+An efficient Sivm instruction for copying memory areas.
 
 https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md
 """

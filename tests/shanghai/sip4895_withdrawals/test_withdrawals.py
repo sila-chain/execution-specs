@@ -517,11 +517,11 @@ def test_newly_created_contract(
     blockchain_test(pre=pre, post=post, blocks=[block])
 
 
-def test_no_evm_execution(
+def test_no_sivm_execution(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
 ) -> None:
-    """Test withdrawals don't trigger EVM execution."""
+    """Test withdrawals don't trigger Sivm execution."""
     sender = pre.fund_eoa()
     contracts = [
         pre.deploy_contract(Op.SSTORE(Op.NUMBER, 1)) for _ in range(4)

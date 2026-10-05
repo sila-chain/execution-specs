@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) RIPEMD160 PRECOMPILED CONTRACT.
+Sila Virtual Machine (Sivm) RIPEMD160 PRECOMPILED CONTRACT.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -18,29 +18,29 @@ from sila_types.numeric import Uint, ulen
 from sila.utils.byte import left_pad_zero_bytes
 from sila.utils.numeric import ceil32
 
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.gas import (
     GasCosts,
     charge_gas,
 )
 
 
-def ripemd160(evm: Evm) -> None:
+def ripemd160(sivm: Sivm) -> None:
     """
     Writes the ripemd160 hash to output.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
 
     # GAS
     word_count = ceil32(ulen(data)) // Uint(32)
     charge_gas(
-        evm,
+        sivm,
         GasCosts.PRECOMPILE_RIPEMD160_BASE
         + GasCosts.PRECOMPILE_RIPEMD160_PER_WORD * word_count,
     )
@@ -48,4 +48,4 @@ def ripemd160(evm: Evm) -> None:
     # OPERATION
     hash_bytes = hashlib.new("ripemd160", data).digest()
     padded_hash = left_pad_zero_bytes(hash_bytes, 32)
-    evm.output = padded_hash
+    sivm.output = padded_hash

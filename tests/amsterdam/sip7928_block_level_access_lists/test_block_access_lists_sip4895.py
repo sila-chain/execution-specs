@@ -196,17 +196,17 @@ def test_bal_withdrawal_to_nonexistent_account(
     )
 
 
-def test_bal_withdrawal_no_evm_execution(
+def test_bal_withdrawal_no_sivm_execution(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
 ) -> None:
     """
-    Ensure BAL captures withdrawal without triggering EVM execution.
+    Ensure BAL captures withdrawal without triggering Sivm execution.
 
     Oracle contract starts with 0 balance and storage slot 0x01 = 0x42.
     Oracle's code writes 0xFF to slot 0x01 when called.
     Block with 0 transactions and 1 withdrawal of 10 gwei to Oracle.
-    Storage slot 0x01 remains 0x42 (EVM never executes).
+    Storage slot 0x01 remains 0x42 (Sivm never executes).
     """
     oracle = pre.deploy_contract(
         code=Op.SSTORE(0x01, 0xFF),
