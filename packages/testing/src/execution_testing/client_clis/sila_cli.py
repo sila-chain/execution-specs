@@ -6,7 +6,7 @@ import subprocess
 from itertools import groupby
 from pathlib import Path
 from re import Pattern
-from typing import Any, List, Optional, Type
+from typing import Any, Iterator, List, Optional, Type
 
 from execution_testing.logging import (
     get_logger,
@@ -100,6 +100,33 @@ class SilaCLI:
             logger.debug("Binary path of provided t8n is None!")
             return cls.default_tool(binary=binary_path, **kwargs)
 
+        for tool in cls._tools_from_binary_path(binary_path, **kwargs):
+            return tool
+        raise UnknownCLIError(f"Unknown CLI: {binary_path}")
+
+    @classmethod
+    def all_from_binary_path(
+        cls, *, binary_path: Path, **kwargs: Any
+    ) -> List[Any]:
+        """
+        Instantiate every CLI subclass that matches the CLI's `binary_path`.
+
+        A single binary can implement several registered tools, such as the
+        state and blockchain fixture consumers of `sivmone test`.
+        """
+        tools = list(cls._tools_from_binary_path(binary_path, **kwargs))
+        if not tools:
+            raise UnknownCLIError(f"Unknown CLI: {binary_path}")
+        return tools
+
+    @classmethod
+    def _tools_from_binary_path(
+        cls, binary_path: Path, **kwargs: Any
+    ) -> Iterator[Any]:
+        """
+        Yield an instance of each registered subclass that matches the
+        version output of the CLI at `binary_path`.
+        """
         expanded_path = Path(os.path.expanduser(binary_path))
         logger.debug(f"Expanded path of provided t8n: {expanded_path}")
 
@@ -177,14 +204,13 @@ class SilaCLI:
                         f"Stripped subprocess stdout: {binary_output}"
                     )
 
+                matched: List[Any] = []
                 for subclass in subclasses:
                     logger.debug(f"Trying subclass {subclass}")
                     try:
                         if subclass.detect_binary(binary_output, binary):
-                            subclass_check_result = subclass(
-                                binary=binary, **kwargs
-                            )
-                            return subclass_check_result
+                            matched.append(subclass(binary=binary, **kwargs))
+                            continue
                     except Exception as e:
                         print(e)
                         continue
@@ -201,7 +227,7 @@ class SilaCLI:
                 )
                 continue
 
-        raise UnknownCLIError(f"Unknown CLI: {binary}")
+            yield from matched
 
     @classmethod
     def detect_binary(

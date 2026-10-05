@@ -28,7 +28,12 @@ from .clis.gsil import GsilFixtureConsumer, GsilTransitionTool
 from .clis.nethermind import Nethtest, NethtestFixtureConsumer
 from .clis.nimbus import NimbusTransitionTool
 from .clis.silajs import SilaJSTransitionTool
-from .clis.sivmone import SivmoneExceptionMapper, SivmoneTransitionTool
+from .clis.sivmone import (
+    SivmoneBlockchainFixtureConsumer,
+    SivmoneExceptionMapper,
+    SivmoneStateFixtureConsumer,
+    SivmoneTransitionTool,
+)
 from .filler_backend import FillerBackend
 from .fixture_consumer_tool import FixtureConsumerTool
 from .sila_cli import CLINotFoundInPathError, UnknownCLIError
@@ -57,7 +62,9 @@ __all__ = (
     "ErigonExceptionMapper",
     "ErigonFixtureConsumer",
     "SilaJSTransitionTool",
+    "SivmoneBlockchainFixtureConsumer",
     "SivmoneExceptionMapper",
+    "SivmoneStateFixtureConsumer",
     "SivmoneTransitionTool",
     "ExecutionSpecsTransitionTool",
     "FieldExclusionTraceComparator",

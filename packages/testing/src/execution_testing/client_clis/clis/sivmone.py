@@ -1,15 +1,31 @@
-"""Sivmone Transition tool interface."""
+"""Sivmone Transition tool and fixture consumer interfaces."""
 
 import re
+import shlex
+import shutil
+import subprocess
+import textwrap
+from functools import cache
 from pathlib import Path
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Dict, List, Optional
 
+import pytest
+
+from execution_testing.client_clis.file_utils import (
+    dump_files_to_directory,
+)
+from execution_testing.client_clis.fixture_consumer_tool import (
+    FixtureConsumerTool,
+)
 from execution_testing.exceptions import (
     ExceptionBase,
     ExceptionMapper,
     TransactionException,
 )
 from execution_testing.exceptions.exceptions.block import BlockException
+from execution_testing.fixtures.base import FixtureFormat
+from execution_testing.fixtures.blockchain import BlockchainFixture
+from execution_testing.fixtures.state import StateFixture
 from execution_testing.forks import Fork
 
 from ..transition_tool import TransitionTool
@@ -52,6 +68,215 @@ class SivmoneTransitionTool(TransitionTool):
         """
         del fork
         return True
+
+
+class SivmoneFixtureConsumerCommon:
+    """Common functionality for the `sivmone test` fixture consumers."""
+
+    binary: Path
+    default_binary = Path("sivmone")
+    # The same `sivmone` binary as the transition tool: `sivmone test` runs
+    # both state and blockchain fixtures.
+    detect_binary_pattern = re.compile(r"^sivmone\b(?!-)")
+    version_flag: str = "--version"
+    subcommand = "test"
+
+    cached_version: Optional[str] = None
+
+    def __init__(
+        self,
+        binary: Optional[Path] = None,
+        trace: bool = False,
+    ):
+        """Initialize the `sivmone test` fixture consumer."""
+        del trace
+        self.binary = binary if binary else self.default_binary
+        self._info_metadata: Optional[Dict[str, str]] = {}
+
+    def _run_command(self, command: List[str]) -> subprocess.CompletedProcess:
+        try:
+            return subprocess.run(
+                command,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+        except Exception as e:
+            raise Exception("Unexpected exception calling sivmone.") from e
+
+    def _consume_debug_dump(
+        self,
+        command: List[str],
+        result: subprocess.CompletedProcess,
+        fixture_path: Path,
+        debug_output_path: Path,
+    ) -> None:
+        assert all(isinstance(x, str) for x in command), (
+            f"Not all elements of 'command' list are strings: {command}"
+        )
+        assert len(command) > 0
+
+        # Replace the fixture path with the debug copy of the fixture.
+        debug_fixture_path = str(debug_output_path / "fixtures.json")
+        command[-1] = debug_fixture_path
+
+        consume_direct_call = " ".join(shlex.quote(arg) for arg in command)
+        consume_direct_script = textwrap.dedent(
+            f"""\
+            #!/bin/bash
+            {consume_direct_call}
+            """
+        )
+        dump_files_to_directory(
+            debug_output_path,
+            {
+                "consume_direct_args.py": command,
+                "consume_direct_returncode.txt": result.returncode,
+                "consume_direct_stdout.txt": result.stdout,
+                "consume_direct_stderr.txt": result.stderr,
+                "consume_direct.sh+x": consume_direct_script,
+            },
+        )
+        shutil.copyfile(fixture_path, debug_fixture_path)
+
+    def _skip_message(self, fixture_format: FixtureFormat) -> str:
+        fmt_name = fixture_format.format_name
+        return f"Fixture format {fmt_name} not supported by {self.binary}"
+
+    @cache  # noqa
+    def consume_test_file(
+        self,
+        fixture_path: Path,
+        debug_output_path: Optional[Path] = None,
+    ) -> Dict[str, str]:
+        """
+        Run `sivmone test` on an entire fixture file.
+
+        `sivmone test` runs every fixture of a file as one test, so this
+        function is cached in order to only call the command once per file.
+        Returns the failure summary of each failed fixture, by name.
+        """
+        global_options: List[str] = []
+        if debug_output_path:
+            global_options += ["--trace"]
+        command = (
+            [str(self.binary)]
+            + global_options
+            + [self.subcommand, str(fixture_path)]
+        )
+        result = self._run_command(command)
+
+        if debug_output_path:
+            self._consume_debug_dump(
+                command, result, fixture_path, debug_output_path
+            )
+
+        if result.returncode not in [0, 1]:
+            cmd_str = " ".join(command)
+            raise Exception(
+                f"Unexpected exit code {result.returncode}:\n{cmd_str}\n\n"
+                f"Output:\n{result.stdout}\n\nError:\n{result.stderr}"
+            )
+
+        # Failed fixtures are listed in the short test summary as
+        # `FAILED  <file>::<fixture name> - <reason>`.
+        failures: Dict[str, str] = {}
+        prefix = f"{fixture_path}::"
+        for line in result.stdout.splitlines():
+            if not line.startswith("FAILED"):
+                continue
+            entry = line[len("FAILED") :].strip()
+            if not entry.startswith(prefix):
+                raise Exception(
+                    f"Unexpected `sivmone test` failure line: {line}"
+                )
+            name, _, reason = entry[len(prefix) :].rpartition(" - ")
+            failures[name] = reason
+        if result.returncode == 1 and not failures:
+            raise Exception(
+                "`sivmone test` failed without a failure summary:\n"
+                f"{result.stdout}\n{result.stderr}"
+            )
+        return failures
+
+    def consume_test(
+        self,
+        fixture_path: Path,
+        fixture_name: Optional[str] = None,
+        debug_output_path: Optional[Path] = None,
+    ) -> None:
+        """
+        Consume a single state or blockchain test.
+
+        Uses the cached result from `consume_test_file` in order to not call
+        the command for every fixture of the file.
+        """
+        assert fixture_name is not None, (
+            "fixture_name must be provided for sivmone tests"
+        )
+        failures = self.consume_test_file(
+            fixture_path=fixture_path,
+            debug_output_path=debug_output_path,
+        )
+        assert fixture_name not in failures, (
+            f"Test failed: {failures[fixture_name]}"
+        )
+
+
+class SivmoneStateFixtureConsumer(
+    SivmoneFixtureConsumerCommon,
+    FixtureConsumerTool,
+    fixture_formats=[StateFixture],
+):
+    """Sivmone's `sivmone test` fixture consumer for state tests."""
+
+    def consume_fixture(
+        self,
+        fixture_format: FixtureFormat,
+        fixture_path: Path,
+        fixture_name: Optional[str] = None,
+        debug_output_path: Optional[Path] = None,
+    ) -> None:
+        """
+        Execute the appropriate fixture consumer for the fixture at
+        `fixture_path`.
+        """
+        if fixture_format == StateFixture:
+            self.consume_test(
+                fixture_path=fixture_path,
+                fixture_name=fixture_name,
+                debug_output_path=debug_output_path,
+            )
+        else:
+            pytest.skip(self._skip_message(fixture_format))
+
+
+class SivmoneBlockchainFixtureConsumer(
+    SivmoneFixtureConsumerCommon,
+    FixtureConsumerTool,
+    fixture_formats=[BlockchainFixture],
+):
+    """Sivmone's `sivmone test` fixture consumer for blockchain tests."""
+
+    def consume_fixture(
+        self,
+        fixture_format: FixtureFormat,
+        fixture_path: Path,
+        fixture_name: Optional[str] = None,
+        debug_output_path: Optional[Path] = None,
+    ) -> None:
+        """
+        Execute the appropriate fixture consumer for the fixture at
+        `fixture_path`.
+        """
+        if fixture_format == BlockchainFixture:
+            self.consume_test(
+                fixture_path=fixture_path,
+                fixture_name=fixture_name,
+                debug_output_path=debug_output_path,
+            )
+        else:
+            pytest.skip(self._skip_message(fixture_format))
 
 
 class SivmoneExceptionMapper(ExceptionMapper):

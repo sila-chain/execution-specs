@@ -64,8 +64,9 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
         type=Path,
         default=[],
         help=(
-            "Path to a gsil sivm executable that provides `blocktest` or "
-            "`statetest`. Flag can be used multiple times to specify "
+            "Path to a fixture consumer executable: a gsil `sivm` that "
+            "provides `blocktest` and `statetest`, or a `sivmone` that "
+            "provides `test`. Flag can be used multiple times to specify "
             "multiple fixture consumer binaries."
         ),
     )
@@ -97,8 +98,8 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
     ]
     fixture_consumers = []
     for fixture_consumer_bin_path in config.getoption("fixture_consumer_bin"):
-        fixture_consumers.append(
-            FixtureConsumerTool.from_binary_path(
+        fixture_consumers.extend(
+            FixtureConsumerTool.all_from_binary_path(
                 binary_path=Path(fixture_consumer_bin_path),
                 trace=config.getoption("consumer_collect_traces"),
             )

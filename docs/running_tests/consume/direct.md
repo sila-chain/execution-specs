@@ -21,6 +21,7 @@ uv run consume direct --bin=<evm-binary> [OPTIONS]
 | go-sila | `sivm` | `statetest` | `blocktest` |
 | Besu | `evmtool` | `state-test` | `block-test` |
 | Nethermind | `nethtest` | `nethtest` | `nethtest --blockTest` |
+| sivmone | `sivmone` | `sivmone test` | `sivmone test` |
 
 ## Advantages
 
@@ -52,6 +53,12 @@ or Nethermind:
 
 ```bash
 uv run consume direct --input ./fixtures -m state_test --bin=nethtest
+```
+
+or sivmone, whose single `sivmone` binary consumes both state and blockchain tests via `sivmone test`:
+
+```bash
+uv run consume direct --input ./fixtures --bin=sivmone
 ```
 
 Run fixtures in the blockchain test format for the SilaPrague fork:
