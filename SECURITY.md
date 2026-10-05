@@ -34,10 +34,10 @@ File an issue in GitHub
 
 **Please do NOT file a public ticket** mentioning the issue.
 
-If the issue affects any EL client (i.e. there is an issue with the
-specification at the SIP level rather than the implementation level) or
-sensitive information has been leaked into the code base, please visit
-[https://bounty.sila.org](https://bounty.sila.org) or email
-bounty@sila.org. Please read the [disclosure
+This repository has no private vulnerability reporting channel yet. Until
+one is published here, do not disclose an issue that affects any EL client
+(i.e. an issue with the specification at the SIP level rather than the
+implementation level) or sensitive information leaked into the code base in
+any public channel. Please read the [disclosure
 page](https://github.com/sila-chain/go-sila/security/advisories?state=published)
 for more information about publicly disclosed security vulnerabilities.

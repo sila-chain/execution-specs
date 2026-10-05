@@ -70,7 +70,7 @@ Production execution clients that implement the spec include [besu](https://gith
 ## Responsible Disclosure of Vulnerabilities
 
 > [!CAUTION]
-> Care is required when filing issues or PRs for functionality that is live on Sila sila-mainnet. Please report vulnerabilities and verify bounty eligibility via the bug bounty program; see [SECURITY.md](SECURITY.md) for details.
+> Care is required when filing issues or PRs for functionality that is live on Sila sila-mainnet. See [SECURITY.md](SECURITY.md) for how to handle vulnerabilities.
 >
 > - **Please do not create a PR with a vulnerability visible.**
 > - **Please do not file a public ticket mentioning the vulnerability.**
