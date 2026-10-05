@@ -15,7 +15,7 @@ xdist_workers := env("PYTEST_XDIST_AUTO_NUM_WORKERS", "6")
 # pytest-xdist, which reads it as a numeric worker-count override in
 # `-n auto` mode, does not warn on non-numeric values such as "auto".
 export PYTEST_XDIST_AUTO_NUM_WORKERS := ""
-evm_bin := env("EVM_BIN", "evm")
+sivm_bin := env("SIVM_BIN", "sivm")
 latest_fork := "SilaAmsterdam"
 
 # Use the faster sys.monitoring coverage core (default on 3.14, opt-in below).
@@ -90,7 +90,7 @@ lint *args:
 deadcode:
     uv run vulture \
         src/ \
-        packages/testing/src/execution_testing/evm_tools/ \
+        packages/testing/src/execution_testing/sivm_tools/ \
         vulture_whitelist.py
 
 # Check formatting with ruff
@@ -351,7 +351,7 @@ test-packaging: check-testing-imports build-wheels
     set -euo pipefail
     dist="{{ output_dir }}/dist"
     work="{{ output_dir }}/test-packaging"
-    fixtures="packages/testing/src/execution_testing/evm_tools/tests/fixtures/t8n_build"
+    fixtures="packages/testing/src/execution_testing/sivm_tools/tests/fixtures/t8n_build"
     rm -rf "$work"
 
     # Install into a bare venv, deliberately outside the uv workspace.
@@ -368,9 +368,9 @@ test-packaging: check-testing-imports build-wheels
     # argparse without ever reaching the imports that t8n needs. The
     # output basedir is emptied before the run, so keep it out of the
     # source tree.
-    echo "--> Smoke-testing sila-spec-evm t8n"
+    echo "--> Smoke-testing sila-spec-sivm t8n"
     mkdir -p "$work/t8n-out"
-    "$work/wheel-venv/bin/sila-spec-evm" t8n \
+    "$work/wheel-venv/bin/sila-spec-sivm" t8n \
         --state.fork=Frontier \
         --input.alloc="$fixtures/alloc.json" \
         --input.env="$fixtures/env.json" \
@@ -416,7 +416,7 @@ bench-gas *args: (_tmp-logs "bench-gas")
     @echo "==> Step 1/3: Generating pre-alloc groups (smoke-tests the BlockchainEngineX path)"
     uv run fill \
         --generate-pre-alloc-groups \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --gas-benchmark-values 1 \
         --fork SilaAmsterdam \
         -m "not slow" \
@@ -427,9 +427,9 @@ bench-gas *args: (_tmp-logs "bench-gas")
         --clean \
         "$@" \
         tests/benchmark/compute
-    @echo "==> Step 2/3: Filling blockchain_test fixtures with configured EVM (EVM_BIN={{ evm_bin }})"
+    @echo "==> Step 2/3: Filling blockchain_test fixtures with configured EVM (SIVM_BIN={{ sivm_bin }})"
     uv run fill \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --gas-benchmark-values 1 \
         --fork SilaAmsterdam \
         -m "blockchain_test and primary_format and (not slow)" \
@@ -456,7 +456,7 @@ bench-gas *args: (_tmp-logs "bench-gas")
 [group('benchmark tests')]
 bench-opcode *args: (_tmp-logs "bench-opcode")
     uv run fill \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --fixed-opcode-count 1 \
         --fork SilaAmsterdam \
         -m "repricing and not slow" \
@@ -474,7 +474,7 @@ bench-opcode *args: (_tmp-logs "bench-opcode")
 bench-opcode-config *args: (_tmp-logs "bench-opcode-config")
     uv run benchmark_parser
     uv run fill \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --fixed-opcode-count \
         --fork SilaAmsterdam \
         -m "repricing and not slow" \

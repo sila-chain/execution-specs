@@ -7,10 +7,10 @@ from typing import Any, Dict, Final, Iterable, List
 import pytest
 from _pytest.config import Config
 from _pytest.nodes import Item
-from execution_testing.evm_tools import create_parser
-from execution_testing.evm_tools.statetest import read_test_case
-from execution_testing.evm_tools.t8n import ForkCache
-from execution_testing.evm_tools.t8n.cli import build_t8n_from_cli_options
+from execution_testing.sivm_tools import create_parser
+from execution_testing.sivm_tools.statetest import read_test_case
+from execution_testing.sivm_tools.t8n import ForkCache
+from execution_testing.sivm_tools.t8n.cli import build_t8n_from_cli_options
 from pytest import Collector
 
 from sila.exceptions import StateWithEmptyAccount
@@ -45,7 +45,7 @@ class StateTest(FixtureTestItem):
         self.index = index
         self.fork_name = fork_name
         self.add_marker(pytest.mark.fork(self.fork_name))
-        self.add_marker("evm_tools")
+        self.add_marker("sivm_tools")
         self.add_marker("json_state_tests")
         sels_fork = FORKS[fork_name].short_name
         self.fork_cache = self.session.stash[fork_cache_key]

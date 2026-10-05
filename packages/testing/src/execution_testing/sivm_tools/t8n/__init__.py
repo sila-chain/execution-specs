@@ -127,7 +127,7 @@ class T8N(Load):
     pre-PoS ommer data, and ``run()`` returns a
     :class:`~execution_testing.client_clis.cli_types.TransitionToolOutput`.
     See :mod:`.cli` for the JSON wrapper used by the
-    ``sila-spec-evm t8n`` entry point.
+    ``sila-spec-sivm t8n`` entry point.
     """
 
     tracers: Final[GroupTracer | None]

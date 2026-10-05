@@ -30,15 +30,15 @@ on:
         description: "Branch to release from, e.g. devnets/bal/7 or sips/amsterdam/sip-8141 (required for *-devnet features)"
         required: false
         type: string
-      evm:
-        description: "Override the evm impl (e.g. gsil, sivmone). Defaults to the feature's evm-type."
+      sivm:
+        description: "Override the sivm impl (e.g. gsil, sivmone). Defaults to the feature's sivm-type."
         required: false
         type: string
-      evm_repo:
+      sivm_repo:
         description: "Override the t8n tool repo (e.g. sila-chain/go-sila)"
         required: false
         type: string
-      evm_ref:
+      sivm_ref:
         description: "Override the t8n tool branch / tag / commit"
         required: false
         type: string
@@ -129,12 +129,12 @@ jobs:
           INPUT_FEATURE: ${{ inputs.feature || 'tests' }}
           INPUT_VERSION: ${{ inputs.version || 'v0.0.0' }}
           INPUT_BRANCH: ${{ inputs.branch }}
-          INPUT_EVM: ${{ inputs.evm }}
+          INPUT_SIVM: ${{ inputs.sivm }}
         run: |
-          # The feature, version, devnet-branch and evm-override validation
+          # The feature, version, devnet-branch and sivm-override validation
           # lives in (and is unit-tested via) generate_build_matrix.py.
           uv run -q .github/scripts/generate_build_matrix.py \
-            "$INPUT_FEATURE" "$INPUT_VERSION" "$INPUT_BRANCH" "$INPUT_EVM" \
+            "$INPUT_FEATURE" "$INPUT_VERSION" "$INPUT_BRANCH" "$INPUT_SIVM" \
             >> "$GITHUB_OUTPUT"
 
   build:
@@ -164,9 +164,9 @@ jobs:
           # Nightly splits are intermediates consumed by `combine` right
           # away; don't retain them for the repo-default period.
           split_retention_days: ${{ github.event_name == 'schedule' && '1' || '' }}
-          evm: ${{ inputs.evm }}
-          evm_repo: ${{ inputs.evm_repo }}
-          evm_ref: ${{ inputs.evm_ref }}
+          sivm: ${{ inputs.sivm }}
+          sivm_repo: ${{ inputs.sivm_repo }}
+          sivm_ref: ${{ inputs.sivm_ref }}
 
   combine:
     name: combine (${{ needs.setup.outputs.feature_name }})

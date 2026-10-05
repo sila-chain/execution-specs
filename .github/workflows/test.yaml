@@ -227,11 +227,11 @@ jobs:
       - uses: ./.github/actions/setup-uv
       - uses: ./.github/actions/build-sivmone
       # On benchmarks/** branches, build the pinned gsil so the benchmark
-      # plugin tests fill against a real client (via EVM_BIN). On every other
-      # branch this step is skipped, EVM_BIN stays empty, and those fills fall
+      # plugin tests fill against a real client (via SIVM_BIN). On every other
+      # branch this step is skipped, SIVM_BIN stays empty, and those fills fall
       # through to fill's in-repo SELS t8n.
-      - uses: ./.github/actions/build-evm-base
-        id: evm-builder
+      - uses: ./.github/actions/build-sivm-base
+        id: sivm-builder
         if: ${{ startsWith(github.ref, 'refs/heads/benchmarks/') || startsWith(github.base_ref, 'benchmarks/') }}
         with:
           type: benchmark
@@ -239,7 +239,7 @@ jobs:
         run: just test-tests
         env:
           PYTEST_XDIST_AUTO_NUM_WORKERS: auto
-          EVM_BIN: ${{ steps.evm-builder.outputs.evm-bin }}
+          SIVM_BIN: ${{ steps.sivm-builder.outputs.sivm-bin }}
 
   test-tests-pypy:
     runs-on: ubuntu-latest

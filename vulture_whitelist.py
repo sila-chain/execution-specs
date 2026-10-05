@@ -167,7 +167,7 @@ _configure_client_manager  # autouse fixture
 test_suite_name  # hive test suite name fixture
 genesis_header  # genesis header fixture
 
-# packages/testing/src/execution_testing/evm_tools/t8n/evm_trace/
+# packages/testing/src/execution_testing/sivm_tools/t8n/evm_trace/
 # sip3155.py - SIP-3155 trace output field names, serialized to JSON
 gasCost
 gasUsed
@@ -178,14 +178,14 @@ returnData
 stateGas
 stateGasCost
 
-# packages/testing/src/execution_testing/evm_tools/daemon.py -
+# packages/testing/src/execution_testing/sivm_tools/daemon.py -
 # overrides `BaseHTTPRequestHandler.log_request`
 log_request
 
-# packages/testing/src/execution_testing/evm_tools/t8n/cli.py - field
+# packages/testing/src/execution_testing/sivm_tools/t8n/cli.py - field
 # on the testing `Transaction` model, read by `Transaction.sign`
 protected
 
-# packages/testing/src/execution_testing/evm_tools/tests/ - pytest
+# packages/testing/src/execution_testing/sivm_tools/tests/ - pytest
 # marker magic variable
 pytestmark

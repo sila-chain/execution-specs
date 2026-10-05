@@ -209,16 +209,16 @@ class TestValidateInputs:
         out = parse_matrix_output(result.stdout)
         assert out["feature_name"] == "glamsterdam-devnet"
 
-    def test_unknown_evm_fails(self):
-        """Verify an evm override missing from evm.yaml is rejected."""
+    def test_unknown_sivm_fails(self):
+        """Verify a sivm override missing from sivm.yaml is rejected."""
         result = run_script(
             BUILD_MATRIX_SCRIPT, "tests", "v24.0.0", "", "nonexistent"
         )
         assert result.returncode == 1
         assert "not a key" in result.stderr
 
-    def test_known_evm_passes(self):
-        """Verify an evm override that is a key in evm.yaml passes."""
+    def test_known_sivm_passes(self):
+        """Verify a sivm override that is a key in sivm.yaml passes."""
         result = run_script(
             BUILD_MATRIX_SCRIPT, "tests", "v24.0.0", "", "sivmone"
         )

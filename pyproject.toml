@@ -426,11 +426,11 @@ ignore = [
     "N806",         # Special crypto code absolved of variable naming reqs
     "N802"          # Special crypto code absolved of function naming reqs
 ]
-"packages/testing/src/execution_testing/evm_tools/t8n/evm_trace/sip3155.py" = [
+"packages/testing/src/execution_testing/sivm_tools/t8n/evm_trace/sip3155.py" = [
     "N815"          # The traces must use camel case in JSON property names
 ]
 "tests/*" = ["ARG001"]
-"packages/testing/src/execution_testing/evm_tools/tests/*" = ["ARG001"]
+"packages/testing/src/execution_testing/sivm_tools/tests/*" = ["ARG001"]
 "vulture_whitelist.py" = [
     "B018",  # Useless expression (intentional for Vulture whitelisting)
     "E402",  # Module-level imports throughout file (needed for whitelisting)

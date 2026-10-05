@@ -109,11 +109,11 @@ class OpcodeWithOperandsAssembly(OpcodeWithOperands):
 
 
 def process_evm_bytes(  # noqa: D103
-    evm_bytes: bytes,
+    sivm_bytes: bytes,
     assembly: bool = False,
     int_definitions: dict[int, str] | None = None,
 ) -> List[OpcodeWithOperands]:
-    evm_bytes_array = bytearray(evm_bytes)
+    evm_bytes_array = bytearray(sivm_bytes)
 
     opcodes: List[OpcodeWithOperands] = []
 
@@ -235,10 +235,10 @@ def process_evm_bytes_string(
     if evm_bytes_hex_string.startswith("0x"):
         evm_bytes_hex_string = evm_bytes_hex_string[2:]
 
-    evm_bytes = bytes.fromhex(evm_bytes_hex_string)
+    sivm_bytes = bytes.fromhex(evm_bytes_hex_string)
     return format_opcodes(
         process_evm_bytes(
-            evm_bytes,
+            sivm_bytes,
             assembly=assembly,
             int_definitions=int_definitions,
         ),
@@ -257,12 +257,12 @@ assembly_option = click.option(
 
 
 @click.group(
-    "evm_bytes",
+    "sivm_bytes",
     context_settings={
         "help_option_names": ["-h", "--help"],
     },
 )
-def evm_bytes() -> None:
+def sivm_bytes() -> None:
     """
     Convert EVM bytecode to SEST's Python Opcodes or an assembly string.
 
@@ -271,7 +271,7 @@ def evm_bytes() -> None:
     pass
 
 
-@evm_bytes.command(
+@sivm_bytes.command(
     short_help="Convert a hex string to Python Opcodes or assembly."
 )
 @assembly_option
@@ -286,7 +286,7 @@ def hex_string(hex_string: str, assembly: bool) -> None:
         (str): The processed EVM opcodes in Python or assembly format.
 
     Example 1: Convert a hex string to SEST Python `Opcodes`
-        uv run evm_bytes hex-string 604260005260206000F3
+        uv run sivm_bytes hex-string 604260005260206000F3
 
     Output 1:
         \b
@@ -294,7 +294,7 @@ def hex_string(hex_string: str, assembly: bool) -> None:
         Op.PUSH1[0x0] + Op.RETURN
 
     Example 2: Convert a hex string to assembly
-        uv run evm_bytes hex-string --assembly 604260005260206000F3
+        uv run sivm_bytes hex-string --assembly 604260005260206000F3
 
     Output 2:
         \b
@@ -310,7 +310,7 @@ def hex_string(hex_string: str, assembly: bool) -> None:
     click.echo(processed_output)
 
 
-@evm_bytes.command(
+@sivm_bytes.command(
     short_help="Convert a binary file to Python Opcodes or assembly."
 )
 @assembly_option
@@ -327,7 +327,7 @@ def binary_file(binary_file: Any, assembly: bool) -> None:
 
     Example: Convert the Withdrawal Request contract to assembly
         \b
-        uv run evm_bytes binary-file ./src/execution_testing/forks/
+        uv run sivm_bytes binary-file ./src/execution_testing/forks/
             contracts/withdrawal_request.bin --assembly
 
     Output:

@@ -4,7 +4,7 @@ CLI / JSON wrapper for the ``T8N`` transition tool.
 ``T8N`` itself consumes a testing-package
 ``TransitionTool.TransitionToolData`` and knows nothing about argparse,
 stdin/stdout, or JSON. This module provides the bridge used by the
-``sila-spec-evm t8n`` entry point and by ``statetest``:
+``sila-spec-sivm t8n`` entry point and by ``statetest``:
 
 * :func:`build_t8n_from_cli_options` reads the JSON inputs
   (stdin / files), resolves the fork, parses everything into testing

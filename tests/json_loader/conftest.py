@@ -5,7 +5,7 @@ from typing import Callable
 
 from _pytest.config.argparsing import Parser
 from _pytest.nodes import Item
-from execution_testing.evm_tools.t8n import ForkCache
+from execution_testing.sivm_tools.t8n import ForkCache
 from pytest import Collector, Config, Session, fixture
 
 from . import FORKS
@@ -118,7 +118,7 @@ def pytest_configure(config: Config) -> None:
         sila_optimized.monkey_patch(None)
 
     if config.getoption("evm_trace"):
-        from execution_testing.evm_tools.t8n.evm_trace.sip3155 import (
+        from execution_testing.sivm_tools.t8n.evm_trace.sip3155 import (
             Sip3155Tracer,
         )
 

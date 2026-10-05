@@ -9,9 +9,9 @@ from pathlib import Path
 
 import pytest
 
-from execution_testing.evm_tools import create_parser
-from execution_testing.evm_tools.t8n import ForkCache
-from execution_testing.evm_tools.t8n.cli import run_t8n_cli
+from execution_testing.sivm_tools import create_parser
+from execution_testing.sivm_tools.t8n import ForkCache
+from execution_testing.sivm_tools.t8n.cli import run_t8n_cli
 
 parser = create_parser()
 
@@ -21,7 +21,7 @@ parser = create_parser()
 FIXTURE_DIR = Path(__file__).parent / "fixtures" / "count_opcodes"
 
 
-@pytest.mark.evm_tools
+@pytest.mark.sivm_tools
 def test_count_opcodes(tmp_path: Path) -> None:
     """Test counting opcodes in a transaction execution using the T8N tool."""
     options = parser.parse_args(

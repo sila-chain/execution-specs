@@ -56,7 +56,7 @@ class TestFillClickCli:
     def test_fill_help(self, run_fill: Callable[..., Result]) -> None:
         """Test the `--help` option of the `fill` command."""
         result = run_fill("--help")
-        assert "[--evm-bin EVM_BIN]" in result.output
+        assert "[--sivm-bin SIVM_BIN]" in result.output
         assert "[--traces]" in result.output
         assert "--help" in result.output
         assert "Arguments defining evm executable behavior:" in result.output

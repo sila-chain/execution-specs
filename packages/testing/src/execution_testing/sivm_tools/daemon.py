@@ -1,5 +1,5 @@
 """
-Run sila-spec-evm as a daemon.
+Run sila-spec-sivm as a daemon.
 """
 
 import argparse
@@ -166,7 +166,7 @@ class _UnixSocketHttpServer(_UnixStreamServerBase):
 
 class Daemon:
     """
-    Converts HTTP requests into sila-spec-evm calls.
+    Converts HTTP requests into sila-spec-sivm calls.
     """
 
     def __init__(self, options: argparse.Namespace) -> None:
@@ -179,7 +179,7 @@ class Daemon:
                     "sila[tools] extra)"
                 ) from e
             runtime_dir = user_runtime_dir(
-                appname="sila-spec-evm",
+                appname="sila-spec-sivm",
                 appauthor="org.sila",
                 ensure_exists=True,
             )

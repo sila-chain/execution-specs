@@ -78,7 +78,7 @@ dev = [
 ]
 
 [project.scripts]
-sila-spec-evm = "execution_testing.evm_tools:main"
+sila-spec-sivm = "execution_testing.sivm_tools:main"
 fill = "execution_testing.cli.pytest_commands.fill:fill"
 phil = "execution_testing.cli.pytest_commands.fill:phil"
 execute = "execution_testing.cli.pytest_commands.execute:execute"
@@ -95,7 +95,7 @@ genindex = "execution_testing.cli.gen_index:generate_fixtures_index_cli"
 gentest = "execution_testing.cli.gentest:generate"
 markdownlintcli2_soft_fail = "execution_testing.cli.ci_helpers:markdownlint"
 order_fixtures = "execution_testing.cli.order_fixtures:order_fixtures"
-evm_bytes = "execution_testing.cli.evm_bytes:evm_bytes"
+sivm_bytes = "execution_testing.cli.sivm_bytes:sivm_bytes"
 hasher = "execution_testing.cli.hasher:main"
 sest = "execution_testing.cli.sest.cli:sest"
 groupstats = "execution_testing.cli.show_pre_alloc_group_stats:main"
@@ -142,7 +142,7 @@ markers = [
     "some_mark: Test marker for parametrizer tests",
     "sip_checklist: Custom marker for SIP checklist tests",
     "slow: Marks tests as slow running",
-    "evm_tools: marks tests as evm_tools (deselect with '-m \"not evm_tools\"')",
+    "sivm_tools: marks tests as sivm_tools (deselect with '-m \"not sivm_tools\"')",
 ]
 
 [tool.uv]

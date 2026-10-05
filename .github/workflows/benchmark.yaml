@@ -50,15 +50,15 @@ jobs:
         shell: bash
         run: uv python install pypy3.11
 
-      - uses: ./.github/actions/build-evm-base
-        id: evm-builder
+      - uses: ./.github/actions/build-sivm-base
+        id: sivm-builder
         with:
           type: benchmark
 
       - name: Run ${{ matrix.name }}
         run: just ${{ matrix.recipe }}
         env:
-          EVM_BIN: ${{ steps.evm-builder.outputs.evm-bin }}
+          SIVM_BIN: ${{ steps.sivm-builder.outputs.sivm-bin }}
 
   # TODO: Add execute remote tests with --gas-benchmark-values
   # TODO: Add execute remote tests with --fixed-opcode-count

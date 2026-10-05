@@ -109,7 +109,7 @@ This flag automatically performs a two-phase execution:
 
 ## Debugging the `t8n` Command
 
-The `--evm-dump-dir` flag can be used to dump the inputs and outputs of every call made to the `t8n` command for debugging purposes, see [Debugging Transition Tools](./debugging_t8n_tools.md).
+The `--sivm-dump-dir` flag can be used to dump the inputs and outputs of every call made to the `t8n` command for debugging purposes, see [Debugging Transition Tools](./debugging_t8n_tools.md).
 
 ## Watch Mode for Development
 

@@ -29,7 +29,7 @@ from execution_testing.exceptions import (
 from execution_testing.forks import Fork
 
 if TYPE_CHECKING:
-    from execution_testing.evm_tools.t8n import ForkCache
+    from execution_testing.sivm_tools.t8n import ForkCache
 
 
 class ExecutionSpecsTransitionTool(TransitionTool):
@@ -60,7 +60,7 @@ class ExecutionSpecsTransitionTool(TransitionTool):
     def fork_cache(self) -> "ForkCache":
         """Lazily import and instantiate the SELS fork cache on first use."""
         if self._fork_cache is None:
-            from execution_testing.evm_tools.t8n import ForkCache
+            from execution_testing.sivm_tools.t8n import ForkCache
 
             self._fork_cache = ForkCache()
         return self._fork_cache
@@ -100,14 +100,14 @@ class ExecutionSpecsTransitionTool(TransitionTool):
         — and ``T8N.run()`` returns the ``TransitionToolOutput``
         directly.
         """
-        from execution_testing.evm_tools.t8n import T8N
-        from execution_testing.evm_tools.t8n.evm_trace.count import (
+        from execution_testing.sivm_tools.t8n import T8N
+        from execution_testing.sivm_tools.t8n.evm_trace.count import (
             CountTracer,
         )
-        from execution_testing.evm_tools.t8n.evm_trace.group import (
+        from execution_testing.sivm_tools.t8n.evm_trace.group import (
             GroupTracer,
         )
-        from execution_testing.evm_tools.t8n.evm_trace.sip3155 import (
+        from execution_testing.sivm_tools.t8n.evm_trace.sip3155 import (
             Sip3155Tracer,
         )
 

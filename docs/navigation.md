@@ -88,7 +88,7 @@
   * [Library Reference](library/index.md)
       * [SEST CLI Tools](library/cli/index.md)
           * [sest](library/cli/sest.md)
-          * [evm_bytes](library/cli/evm_bytes.md)
+          * [sivm_bytes](library/cli/sivm_bytes.md)
           * [extract_config](library/cli/extract_config.md)
       * [Execution Testing Base Types Package](library/execution_testing_base_types.md)
       * [Execution Testing Exceptions Package](library/execution_testing_exceptions.md)

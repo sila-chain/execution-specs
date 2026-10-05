@@ -21,7 +21,7 @@ from execution_testing.test_types import Alloc, Environment, Transaction
 
 CURRENT_FOLDER = Path(realpath(__file__)).parent
 FIXTURES_ROOT = CURRENT_FOLDER / "fixtures"
-DEFAULT_EVM_T8N_BINARY_NAME = "sila-spec-evm-resolver"
+DEFAULT_EVM_T8N_BINARY_NAME = "sila-spec-sivm-resolver"
 
 
 @pytest.fixture(autouse=True)
@@ -35,7 +35,7 @@ def monkeypatch_path_for_entry_points(
     This would typically be in the venv in which pytest is running these tests
     and fill, which, with uv, is `./.venv/bin`.
 
-    This is required in order for fill to locate the sila-spec-evm-resolver
+    This is required in order for fill to locate the sila-spec-sivm-resolver
     "binary" (entrypoint) when being executed using pytester.
     """
     bin_dir = sysconfig.get_path("scripts")
@@ -113,15 +113,15 @@ def test_evm_tool_binary_arg(
         evm_tool().version()
         return
     elif binary_arg == "path_type":
-        evm_bin = which(DEFAULT_EVM_T8N_BINARY_NAME)
-        if not evm_bin:
+        sivm_bin = which(DEFAULT_EVM_T8N_BINARY_NAME)
+        if not sivm_bin:
             # typing: Path can not take None; but if None, we may
             # as well fail explicitly.
             raise Exception(
                 f"Failed to find `{DEFAULT_EVM_T8N_BINARY_NAME}` "
                 "in the PATH via which"
             )
-        evm_tool(binary=Path(evm_bin)).version()
+        evm_tool(binary=Path(sivm_bin)).version()
         return
     elif binary_arg == "str_type":
         evm_bin_str = which(DEFAULT_EVM_T8N_BINARY_NAME)

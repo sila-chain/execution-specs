@@ -1,10 +1,10 @@
-"""Test suite for `cli.evm_bytes` module."""
+"""Test suite for `cli.sivm_bytes` module."""
 
 import pytest
 
 from execution_testing.vm import Op
 
-from ..evm_bytes import process_evm_bytes_string
+from ..sivm_bytes import process_evm_bytes_string
 
 basic_vector = [
     "0x60008080808061AAAA612d5ff1600055",
@@ -94,7 +94,7 @@ undefined_opcode_bytes = sorted(
 
 
 @pytest.mark.parametrize(
-    "evm_bytes, python_opcodes",
+    "sivm_bytes, python_opcodes",
     [
         (basic_vector[0], basic_vector[1]),
         (basic_vector[0][2:], basic_vector[1]),  # no "0x" prefix
@@ -105,25 +105,25 @@ undefined_opcode_bytes = sorted(
         ),
     ],
 )
-def test_evm_bytes(evm_bytes: str, python_opcodes: str) -> None:
-    """Test evm_bytes using the basic and complex vectors."""
-    assert process_evm_bytes_string(evm_bytes) == python_opcodes
+def test_evm_bytes(sivm_bytes: str, python_opcodes: str) -> None:
+    """Test sivm_bytes using the basic and complex vectors."""
+    assert process_evm_bytes_string(sivm_bytes) == python_opcodes
 
 
-@pytest.mark.parametrize(("evm_bytes", "python_opcodes"), edge_case_vectors)
-def test_evm_bytes_edge_cases(evm_bytes: str, python_opcodes: str) -> None:
-    """Cover decoding and simplification edge cases for evm_bytes."""
-    assert process_evm_bytes_string(evm_bytes) == python_opcodes
+@pytest.mark.parametrize(("sivm_bytes", "python_opcodes"), edge_case_vectors)
+def test_evm_bytes_edge_cases(sivm_bytes: str, python_opcodes: str) -> None:
+    """Cover decoding and simplification edge cases for sivm_bytes."""
+    assert process_evm_bytes_string(sivm_bytes) == python_opcodes
 
 
 @pytest.mark.parametrize(
-    ("evm_bytes", "python_opcodes"), truncated_push_vectors
+    ("sivm_bytes", "python_opcodes"), truncated_push_vectors
 )
 def test_evm_bytes_truncated_push_zero_padding(
-    evm_bytes: str, python_opcodes: str
+    sivm_bytes: str, python_opcodes: str
 ) -> None:
     """PUSH instructions right-pad missing immediate bytes with zeros."""
-    assert process_evm_bytes_string(evm_bytes) == python_opcodes
+    assert process_evm_bytes_string(sivm_bytes) == python_opcodes
 
 
 def test_evm_bytes_assembly_output() -> None:
@@ -168,11 +168,11 @@ def test_individual_opcodes(opcode: Op) -> None:
     assert process_evm_bytes_string("0x" + bytecode.hex()) == expected_output
 
 
-@pytest.mark.parametrize("evm_bytes", malformed_hex_strings)
-def test_invalid_hex_string(evm_bytes: str) -> None:
+@pytest.mark.parametrize("sivm_bytes", malformed_hex_strings)
+def test_invalid_hex_string(sivm_bytes: str) -> None:
     """Malformed hex strings are rejected before opcode decoding."""
     with pytest.raises(ValueError):
-        process_evm_bytes_string(evm_bytes)
+        process_evm_bytes_string(sivm_bytes)
 
 
 @pytest.mark.parametrize(

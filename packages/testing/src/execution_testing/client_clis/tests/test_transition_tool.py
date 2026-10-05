@@ -53,9 +53,9 @@ def test_default_tool() -> None:
             SivmoneTransitionTool,
         ),
         pytest.param(
-            Path("sila-spec-evm"),
-            "sila-spec-evm",
-            "sila-spec-evm",
+            Path("sila-spec-sivm"),
+            "sila-spec-sivm",
+            "sila-spec-sivm",
             ExecutionSpecsTransitionTool,
             marks=pytest.mark.skip(
                 reason=(

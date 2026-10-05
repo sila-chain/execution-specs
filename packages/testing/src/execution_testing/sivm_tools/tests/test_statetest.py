@@ -9,18 +9,18 @@ from typing import Any
 import pytest
 
 from execution_testing.base_types import EmptyTrieRoot, Hash
-from execution_testing.evm_tools import statetest
-from execution_testing.evm_tools.statetest import (
+from execution_testing.sivm_tools import statetest
+from execution_testing.sivm_tools.statetest import (
     StateTest,
     run_test_case,
 )
-from execution_testing.evm_tools.statetest import (
+from execution_testing.sivm_tools.statetest import (
     TestCase as StateTestCase,
 )
-from execution_testing.evm_tools.t8n import ForkCache
+from execution_testing.sivm_tools.t8n import ForkCache
 from execution_testing.test_types import Environment
 
-pytestmark = pytest.mark.evm_tools
+pytestmark = pytest.mark.sivm_tools
 
 
 def _test_case(

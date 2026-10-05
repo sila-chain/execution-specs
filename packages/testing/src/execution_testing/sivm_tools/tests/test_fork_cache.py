@@ -13,9 +13,9 @@ from sila_spec_tools.forks import ForkOverrides, Hardfork
 from sila_types.numeric import U64, Uint
 from typing_extensions import assert_never
 
-from execution_testing.evm_tools.t8n import ForkCache
+from execution_testing.sivm_tools.t8n import ForkCache
 
-pytestmark = pytest.mark.evm_tools
+pytestmark = pytest.mark.sivm_tools
 
 OVERRIDE_FIELDS: tuple[str, ...] = (
     "blob_target_gas_per_block",

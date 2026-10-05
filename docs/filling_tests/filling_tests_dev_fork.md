@@ -25,11 +25,11 @@ By default, the execution-testing framework only generates fixtures for forks th
           uv run fill -k 4844 --until=SilaCancun -v
           ```
 
-!!! note "Specifying the `evm` binary via `evm-bin`"
-     It is possible to explicitly specify the `evm` binary used to generate fixtures via the `--evm-bin` flag, for example,
+!!! note "Specifying the `evm` binary via `sivm-bin`"
+     It is possible to explicitly specify the `evm` binary used to generate fixtures via the `--sivm-bin` flag, for example,
 
      ```console
-     uv run fill --fork=SilaCancun --evm-bin=/opt/bin/sivm -v
+     uv run fill --fork=SilaCancun --sivm-bin=/opt/bin/sivm -v
      ```
 
 ## Further Help

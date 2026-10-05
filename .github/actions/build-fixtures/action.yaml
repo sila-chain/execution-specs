@@ -16,13 +16,13 @@ inputs:
   split_retention_days:
     description: "retention-days for the split fixture artifact. Empty for the repo default."
     default: ""
-  evm:
-    description: "Override the evm impl. Defaults to the feature's evm-type."
+  sivm:
+    description: "Override the sivm impl. Defaults to the feature's sivm-type."
     default: ""
-  evm_repo:
+  sivm_repo:
     description: "Override the t8n tool repo (e.g. sila-chain/go-sila)"
     default: ""
-  evm_ref:
+  sivm_ref:
     description: "Override the t8n tool branch / tag / commit"
     default: ""
 runs:
@@ -40,12 +40,12 @@ runs:
       run: |
         echo "release_name=${{ inputs.release_name }}"
         uv run -q .github/scripts/get_release_props.py ${{ inputs.release_name }} >> "$GITHUB_OUTPUT"
-    - uses: ./.github/actions/build-evm-base
-      id: evm-builder
+    - uses: ./.github/actions/build-sivm-base
+      id: sivm-builder
       with:
-        type: ${{ inputs.evm != '' && inputs.evm || steps.properties.outputs.evm-type }}
-        repo_override: ${{ inputs.evm_repo }}
-        ref_override: ${{ inputs.evm_ref }}
+        type: ${{ inputs.sivm != '' && inputs.sivm || steps.properties.outputs.sivm-type }}
+        repo_override: ${{ inputs.sivm_repo }}
+        ref_override: ${{ inputs.sivm_ref }}
     - name: Install pigz for parallel tarball compression
       if: inputs.split_label == ''
       shell: bash
@@ -53,7 +53,7 @@ runs:
     - name: Generate fixtures using fill
       shell: bash
       env:
-        PYTEST_XDIST_AUTO_NUM_WORKERS: ${{ steps.evm-builder.outputs.xdist }}
+        PYTEST_XDIST_AUTO_NUM_WORKERS: ${{ steps.sivm-builder.outputs.xdist }}
       run: |
         IS_SPLIT="${{ inputs.split_label }}"
 
@@ -65,22 +65,22 @@ runs:
           FORK_ARGS=""
         fi
 
-        EVM_ARGS=""
-        if [ "${{ steps.evm-builder.outputs.impl }}" != "sels" ]; then
-          EVM_ARGS="--evm-bin=${{ steps.evm-builder.outputs.evm-bin }}"
+        SIVM_ARGS=""
+        if [ "${{ steps.sivm-builder.outputs.impl }}" != "sels" ]; then
+          SIVM_ARGS="--sivm-bin=${{ steps.sivm-builder.outputs.sivm-bin }}"
         fi
 
         # Allow exit code 5 (NO_TESTS_COLLECTED) for fork ranges with no tests.
         EXIT_CODE=0
-        just fill-release $EVM_ARGS ${{ steps.properties.outputs.fill-params }} $FORK_ARGS $OUTPUT_ARG --build-name ${{ inputs.release_name }} || EXIT_CODE=$?
+        just fill-release $SIVM_ARGS ${{ steps.properties.outputs.fill-params }} $FORK_ARGS $OUTPUT_ARG --build-name ${{ inputs.release_name }} || EXIT_CODE=$?
         if [ "$EXIT_CODE" -ne 0 ] && [ "$EXIT_CODE" -ne 5 ]; then
           exit "$EXIT_CODE"
         fi
     - name: Validate blockchain fixtures with SELS
-      if: inputs.split_label != '' && steps.evm-builder.outputs.impl == 'sels'
+      if: inputs.split_label != '' && steps.sivm-builder.outputs.impl == 'sels'
       shell: bash
       env:
-        PYTEST_XDIST_AUTO_NUM_WORKERS: ${{ steps.evm-builder.outputs.xdist }}
+        PYTEST_XDIST_AUTO_NUM_WORKERS: ${{ steps.sivm-builder.outputs.xdist }}
       run: |
         FIXTURES="fixtures_${{ inputs.release_name }}/blockchain_tests"
         if [ ! -d "$FIXTURES" ]; then

@@ -71,7 +71,7 @@ def extract_affected_forks(
             # framework
             return all_forks
         if file_path.is_relative_to(
-            "packages/testing/src/execution_testing/evm_tools"
+            "packages/testing/src/execution_testing/sivm_tools"
         ):
             # Run all forks if something changes in the evm
             # tools

@@ -408,9 +408,9 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         "evm", "Arguments defining evm executable behavior"
     )
     evm_group.addoption(
-        "--evm-bin",
+        "--sivm-bin",
         action="store",
-        dest="evm_bin",
+        dest="sivm_bin",
         type=Path,
         default=None,
         help=(
@@ -644,7 +644,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
     debug_group = parser.getgroup("debug", "Arguments defining debug behavior")
     debug_group.addoption(
-        "--evm-dump-dir",
+        "--sivm-dump-dir",
         "--t8n-dump-dir",
         action="store",
         dest="base_dump_dir",
@@ -749,7 +749,7 @@ def pytest_configure(config: pytest.Config) -> None:
         or config.getoption("optimize_gas", False)
     )
 
-    # set default for --evm-dump-dir
+    # set default for --sivm-dump-dir
     if (
         config.collect_traces  # type: ignore[attr-defined]
         and config.getoption("base_dump_dir")
@@ -759,7 +759,7 @@ def pytest_configure(config: pytest.Config) -> None:
     # Instantiate the transition tool here to check that the binary path/trace
     # option is valid. This ensures we only raise an error once, if
     # appropriate, instead of for every test.
-    evm_bin = config.getoption("evm_bin")
+    sivm_bin = config.getoption("sivm_bin")
     trace = config.getoption("evm_collect_traces")
     t8n_server_url = config.getoption("t8n_server_url")
     kwargs = {
@@ -767,13 +767,13 @@ def pytest_configure(config: pytest.Config) -> None:
     }
     if t8n_server_url is not None:
         kwargs["server_url"] = t8n_server_url
-    if evm_bin is None:
+    if sivm_bin is None:
         assert TransitionTool.default_tool is not None, (
             "No default transition tool found"
         )
         t8n = TransitionTool.default_tool(**kwargs)
     else:
-        t8n = TransitionTool.from_binary_path(binary_path=evm_bin, **kwargs)
+        t8n = TransitionTool.from_binary_path(binary_path=sivm_bin, **kwargs)
 
     if (
         isinstance(config.getoption("numprocesses"), int)
@@ -1023,21 +1023,21 @@ def pytest_html_results_table_row(report: Any, cells: Any) -> None:
             cells.insert(3, f"<td>{fixture_path_link}</td>")
         elif report.failed:
             cells.insert(3, "<td>Fixture unavailable</td>")
-        if "evm_dump_dir" in user_props:
-            if user_props["evm_dump_dir"] is None:
+        if "sivm_dump_dir" in user_props:
+            if user_props["sivm_dump_dir"] is None:
                 cells.insert(
                     4,
                     "<td>For t8n debug info use "
-                    "<code>--evm-dump-dir=path --traces</code></td>",
+                    "<code>--sivm-dump-dir=path --traces</code></td>",
                 )
             else:
-                evm_dump_dir = user_props.get("evm_dump_dir")
-                if evm_dump_dir == "N/A":
+                sivm_dump_dir = user_props.get("sivm_dump_dir")
+                if sivm_dump_dir == "N/A":
                     evm_dump_entry = "N/A"
                 else:
                     evm_dump_entry = (
-                        f'<a href="{evm_dump_dir}" target="_blank">'
-                        f"{evm_dump_dir}</a>"
+                        f'<a href="{sivm_dump_dir}" target="_blank">'
+                        f"{sivm_dump_dir}</a>"
                     )
                 cells.insert(4, f"<td>{evm_dump_entry}</td>")
     del cells[-1]  # Remove the "Links" column
@@ -1104,7 +1104,7 @@ def pytest_runtest_makereport(
             report.user_properties.append(
                 ("fixture_path_relative", item.config.fixture_path_relative)
             )
-        if hasattr(item.config, "evm_dump_dir") and hasattr(
+        if hasattr(item.config, "sivm_dump_dir") and hasattr(
             item.config, "fixture_format"
         ):
             if item.config.fixture_format in [
@@ -1114,10 +1114,10 @@ def pytest_runtest_makereport(
                 "blockchain_test_sync",
             ]:
                 report.user_properties.append(
-                    ("evm_dump_dir", item.config.evm_dump_dir)
+                    ("sivm_dump_dir", item.config.sivm_dump_dir)
                 )
             else:
-                report.user_properties.append(("evm_dump_dir", "N/A"))
+                report.user_properties.append(("sivm_dump_dir", "N/A"))
 
 
 def pytest_html_report_title(report: Any) -> None:
@@ -1126,9 +1126,9 @@ def pytest_html_report_title(report: Any) -> None:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def evm_bin(request: pytest.FixtureRequest) -> Path | None:
+def sivm_bin(request: pytest.FixtureRequest) -> Path | None:
     """Return configured evm tool binary path used to run t8n."""
-    return request.config.getoption("evm_bin")
+    return request.config.getoption("sivm_bin")
 
 
 @pytest.fixture(autouse=True, scope="session")
@@ -1242,7 +1242,7 @@ def do_fixture_verification(
 def evm_fixture_verification(
     request: pytest.FixtureRequest,
     do_fixture_verification: bool,
-    evm_bin: Path | None,
+    sivm_bin: Path | None,
     verify_fixtures_bin: Path | None,
 ) -> Generator[FixtureConsumer | None, None, None]:
     """
@@ -1252,13 +1252,13 @@ def evm_fixture_verification(
     if not do_fixture_verification:
         yield None
         return
-    reused_evm_bin = False
-    if not verify_fixtures_bin and evm_bin:
-        verify_fixtures_bin = evm_bin
-        reused_evm_bin = True
+    reused_sivm_bin = False
+    if not verify_fixtures_bin and sivm_bin:
+        verify_fixtures_bin = sivm_bin
+        reused_sivm_bin = True
     if not verify_fixtures_bin:
         pytest.exit(
-            "--verify-fixtures requires --evm-bin or --verify-fixtures-bin "
+            "--verify-fixtures requires --sivm-bin or --verify-fixtures-bin "
             "to be specified.",
             returncode=pytest.ExitCode.USAGE_ERROR,
         )
@@ -1268,9 +1268,9 @@ def evm_fixture_verification(
             trace=request.config.collect_traces,  # type: ignore[attr-defined]
         )
     except Exception:
-        if reused_evm_bin:
+        if reused_sivm_bin:
             pytest.exit(
-                "The binary specified in --evm-bin could not be recognized "
+                "The binary specified in --sivm-bin could not be recognized "
                 "as a known FixtureConsumerTool. Either remove "
                 "--verify-fixtures or set --verify-fixtures-bin to a known "
                 "fixture consumer binary.",
@@ -1374,21 +1374,21 @@ def dump_dir_parameter_level(
     Directory to dump evm transition tool debug output on a test parameter
     level.
 
-    Example with --evm-dump-dir=/tmp/evm: ->
+    Example with --sivm-dump-dir=/tmp/evm: ->
     /tmp/evm/shanghai__sip3855_push0__test_push0__test_push0_key_sstore/fork_shangh
     ai/
     """
-    evm_dump_dir = node_to_test_info(request.node).get_dump_dir_path(
+    sivm_dump_dir = node_to_test_info(request.node).get_dump_dir_path(
         base_dump_dir,
         filler_path,
         level="test_parameter",
     )
     # NOTE: Use str for compatibility with pytest-dist
-    if evm_dump_dir:
-        request.node.config.evm_dump_dir = str(evm_dump_dir)
+    if sivm_dump_dir:
+        request.node.config.sivm_dump_dir = str(sivm_dump_dir)
     else:
-        request.node.config.evm_dump_dir = None
-    return evm_dump_dir
+        request.node.config.sivm_dump_dir = None
+    return sivm_dump_dir
 
 
 def get_fixture_collection_scope(
@@ -1993,7 +1993,7 @@ def _verify_fixtures_post_merge(
     # Get the verification binary (same logic as evm_fixture_verification)
     verify_fixtures_bin = config.getoption("verify_fixtures_bin")
     if not verify_fixtures_bin:
-        verify_fixtures_bin = config.getoption("evm_bin")
+        verify_fixtures_bin = config.getoption("sivm_bin")
     if not verify_fixtures_bin:
         return
 
