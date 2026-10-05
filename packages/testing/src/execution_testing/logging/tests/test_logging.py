@@ -18,7 +18,7 @@ from .. import (
     FAIL_LEVEL,
     VERBOSE_LEVEL,
     ColorFormatter,
-    EESTLogger,
+    SESTLogger,
     UTCFormatter,
     configure_logging,
     get_logger,
@@ -38,7 +38,7 @@ class TestLoggerSetup:
     def test_get_logger(self) -> None:
         """Test that get_logger returns a properly typed logger."""
         logger = get_logger("test_logger")
-        assert isinstance(logger, EESTLogger)
+        assert isinstance(logger, SESTLogger)
         assert logger.name == "test_logger"
         assert hasattr(logger, "verbose")
         assert hasattr(logger, "fail")
@@ -50,7 +50,7 @@ class TestEESTLogger:
     def setup_method(self) -> None:
         """Set up a logger and string stream for capturing log output."""
         self.log_output = io.StringIO()
-        self.logger = get_logger("test_eest_logger")
+        self.logger = get_logger("test_sest_logger")
 
         # Remove any existing handlers
         for handler in self.logger.handlers[:]:
@@ -230,12 +230,12 @@ class TestPytestIntegration:
                 class MockConfig:
                     def __init__(self) -> None:
                         self.option = MagicMock()
-                        self.option.eest_log_level = logging.INFO
-                        self.option.eest_log_dir = temp_dir
+                        self.option.sest_log_level = logging.INFO
+                        self.option.sest_log_dir = temp_dir
                         self.workerinput: dict[str, Any] = {}
 
                     def getoption(self, name: str) -> Any:
-                        if name == "eest_log_level":
+                        if name == "sest_log_level":
                             return logging.INFO
 
                 # Set up environment
@@ -247,7 +247,7 @@ class TestPytestIntegration:
                 pytest_configure(config)  # type: ignore[arg-type]
 
                 # Check that logging is configured
-                assert hasattr(config.option, "eest_log_file_path")
+                assert hasattr(config.option, "sest_log_file_path")
 
                 # Check that a file handler was added to the root logger
                 file_handlers = [

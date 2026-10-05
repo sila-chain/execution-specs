@@ -57,10 +57,10 @@ runs:
         echo "Reference: ${{ steps.resolved.outputs.ref }}"
         echo "EVM Binary: ${{ steps.config-evm-reader.outputs.evm-bin }}"
         echo "X-Dist parameter: ${{ steps.config-evm-reader.outputs.xdist }}"
-    - name: Skip building for EELS
-      if: steps.config-evm-reader.outputs.impl == 'eels'
+    - name: Skip building for SELS
+      if: steps.config-evm-reader.outputs.impl == 'sels'
       shell: bash
-      run: echo "Skipping build for EELS"
+      run: echo "Skipping build for SELS"
     - name: Build the EVM using Gsil action
       if: steps.config-evm-reader.outputs.impl == 'gsil'
       uses: ./.github/actions/build-evm-client/gsil

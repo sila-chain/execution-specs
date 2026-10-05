@@ -18,14 +18,14 @@ from execution_testing.cli.pytest_commands.plugins.shared.fixture_output import 
     format_fork_subdir,
 )
 
-# EVM binary for fill tests. Unset (or empty) -> the in-repo EELS t8n
+# EVM binary for fill tests. Unset (or empty) -> the in-repo SELS t8n
 # (fill's default when --evm-bin is omitted). Set EVM_BIN to fill
 # against a specific binary, e.g. gsil's `sivm`.
 BENCHMARK_EVM_T8N = os.environ.get("EVM_BIN") or None
 
 
 def _evm_bin_args() -> List[str]:
-    """Return `--evm-bin` args, or none to use fill's EELS default."""
+    """Return `--evm-bin` args, or none to use fill's SELS default."""
     if BENCHMARK_EVM_T8N is None:
         return []
     return [f"--evm-bin={BENCHMARK_EVM_T8N}"]

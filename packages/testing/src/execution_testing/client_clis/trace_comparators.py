@@ -219,7 +219,7 @@ def _is_out_of_gas_error(error: str | None) -> bool:
     s = error.lower()
     # Two trace conventions coexist: gsil-style natural-language messages
     # ("out of gas", "contract creation code storage out of gas") and the
-    # EELS SIP-3155 emitter, which writes the Python exception class name
+    # SELS SIP-3155 emitter, which writes the Python exception class name
     # ("OutOfGasError"). The class name has no spaces, so the substring
     # match alone misses it — match it explicitly.
     return "out of gas" in s or s == "outofgaserror"

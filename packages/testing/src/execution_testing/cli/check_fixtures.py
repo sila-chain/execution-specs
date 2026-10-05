@@ -35,7 +35,7 @@ def check_json(json_file_path: Path) -> None:
     """
     Check all fixtures in the specified json file:
     1. Load the json file into a pydantic model. This checks there are no
-       Validation errors when loading fixtures into EEST models.
+       Validation errors when loading fixtures into SEST models.
     2. Serialize the loaded pydantic model to "json" (actually python data
        structures, ready to written as json).
     3. Load the serialized data back into a pydantic model (to get an updated

@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 @pytest.fixture(scope="function")
 def hive_clients_yaml_target_filename() -> str:
     """Return the name of the target clients YAML file."""
-    return "clients_eest.yaml"
+    return "clients_sest.yaml"
 
 
 @pytest.fixture(scope="function")
@@ -162,12 +162,12 @@ def hive_dev_command(
 
 
 @pytest.fixture(scope="function")
-def eest_consume_command(
+def sest_consume_command(
     test_suite_name: str,
     test_case: TestCaseIndexFile | TestCaseStream,
     fixture_source_flags: List[str],
 ) -> str:
-    """Commands to run the test within EEST using a hive dev back-end."""
+    """Commands to run the test within SEST using a hive dev back-end."""
     flags = " ".join(fixture_source_flags)
     return (
         f"uv run consume {test_suite_name.split('-')[-1]} "
@@ -182,7 +182,7 @@ def test_case_description(
     hive_clients_yaml_generator_command: str,
     hive_consume_command: str,
     hive_dev_command: str,
-    eest_consume_command: str,
+    sest_consume_command: str,
 ) -> str:
     """Create the description of the current blockchain fixture test case."""
     test_url = fixture.info.get("url", "")
@@ -214,10 +214,10 @@ def test_case_description(
             {hive_consume_command}</code>
 
         <b>Advanced: Run the test against a hive developer backend using
-        EEST's <code>consume</code> command</b>
+        SEST's <code>consume</code> command</b>
         Create the client YAML file, as above, then:
         1. Start hive in dev mode: <code>{hive_dev_command}</code>
-        2. In the EEST repository root: <code>{eest_consume_command}</code>
+        2. In the SEST repository root: <code>{sest_consume_command}</code>
     """)
 
     description = description.strip()

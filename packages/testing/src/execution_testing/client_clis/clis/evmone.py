@@ -326,7 +326,7 @@ class EvmOneBlockchainFixtureConsumer(
 
 class EvmoneExceptionMapper(ExceptionMapper):
     """
-    Translate between EEST exceptions and error strings returned by Evmone.
+    Translate between SEST exceptions and error strings returned by Evmone.
     """
 
     mapping_substring: ClassVar[Dict[ExceptionBase, str]] = {

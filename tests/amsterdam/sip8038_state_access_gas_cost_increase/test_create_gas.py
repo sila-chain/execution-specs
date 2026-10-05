@@ -495,7 +495,7 @@ def test_create2_to_occupied_address(
 
     # The address CREATE2 would compute from this factory, salt, and
     # initcode. ``compute_create_address`` with ``opcode=Op.CREATE2`` is
-    # the unified EEST helper for the CREATE2 derivation.
+    # the unified SEST helper for the CREATE2 derivation.
     collision_address = compute_create_address(
         address=factory,
         salt=salt,

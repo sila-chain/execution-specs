@@ -195,7 +195,7 @@ def hive_client_ip(
                 **{k: f"{v:d}" for k, v in ruleset[TEST_FORK].items()},
             }
             suite: HiveTestSuite = simulator.start_suite(
-                name="eels/execute-remote-e2e",
+                name="sels/execute-remote-e2e",
                 description=("E2E tests for execute remote command"),
             )
             test: HiveTest = suite.start_test(

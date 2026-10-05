@@ -33,7 +33,7 @@ if TYPE_CHECKING:
 
 
 class ExecutionSpecsTransitionTool(TransitionTool):
-    """Implementation of the EELS T8N for execution-spec-tests."""
+    """Implementation of the SELS T8N for execution-spec-tests."""
 
     supports_opcode_count: ClassVar[bool] = True
     supports_blob_params: ClassVar[bool] = True
@@ -44,8 +44,8 @@ class ExecutionSpecsTransitionTool(TransitionTool):
         binary: Optional[Path] = None,
         trace: bool = False,
     ):
-        """Initialize the EELS Transition Tool interface."""
-        del binary  # EELS doesn't use an external binary
+        """Initialize the SELS Transition Tool interface."""
+        del binary  # SELS doesn't use an external binary
         self.exception_mapper = ExecutionSpecsExceptionMapper()
         self.trace = trace
         self._info_metadata: Optional[Dict[str, Any]] = {}
@@ -58,7 +58,7 @@ class ExecutionSpecsTransitionTool(TransitionTool):
 
     @property
     def fork_cache(self) -> "ForkCache":
-        """Lazily import and instantiate the EELS fork cache on first use."""
+        """Lazily import and instantiate the SELS fork cache on first use."""
         if self._fork_cache is None:
             from execution_testing.evm_tools.t8n import ForkCache
 
@@ -93,7 +93,7 @@ class ExecutionSpecsTransitionTool(TransitionTool):
         profiler: Profiler,
     ) -> TransitionToolOutput:
         """
-        Evaluate using the EELS T8N entry point in-process.
+        Evaluate using the SELS T8N entry point in-process.
 
         ``transition_tool_data`` is handed to ``T8N`` as-is — fork,
         chain_id, reward, state_test, blob_schedule all flow through
@@ -192,7 +192,7 @@ class ExecutionSpecsTransitionTool(TransitionTool):
 
 class ExecutionSpecsExceptionMapper(ExceptionMapper):
     """
-    Translate between EEST exceptions and error strings returned by
+    Translate between SEST exceptions and error strings returned by
     ExecutionSpecs.
     """
 

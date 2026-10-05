@@ -1,5 +1,5 @@
 """
-Shared pytest fixtures and hooks for EEST generation modes (fill and execute).
+Shared pytest fixtures and hooks for SEST generation modes (fill and execute).
 """
 
 from pathlib import Path
@@ -267,8 +267,8 @@ def pytest_configure(config: pytest.Config) -> None:
     )
     config.addinivalue_line(
         "markers",
-        "eels_base_coverage: Minimized subset selected to preserve high "
-        "EELS line-coverage parity.",
+        "sels_base_coverage: Minimized subset selected to preserve high "
+        "SELS line-coverage parity.",
     )
 
 

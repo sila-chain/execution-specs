@@ -142,7 +142,7 @@ class ClientBackendExceptionMapper(ExceptionMapper):
     Exception mapper for live-client responses.
 
     ``reliable = False`` signals that engine API errors cannot be accurately
-    mapped to EEST transaction/block exceptions; tests that assert on a
+    mapped to SEST transaction/block exceptions; tests that assert on a
     specific failure mode should prefer the t8n path.
     """
 

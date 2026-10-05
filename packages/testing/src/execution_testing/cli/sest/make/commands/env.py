@@ -22,7 +22,7 @@ def create_default_env() -> None:
     _Easter egg: Shows a random quote after creating the environment file._
 
     Example:
-        uv run eest make env
+        uv run sest make env
 
     Output:
 

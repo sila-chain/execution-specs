@@ -1,6 +1,6 @@
 """
 Tests that address coverage gaps that result from updating `sila/tests`
-into EEST tests.
+into SEST tests.
 """
 
 import pytest

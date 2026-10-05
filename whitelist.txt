@@ -451,9 +451,9 @@ ed
 EE
 ee
 eeast
-EELST8N
-eest
-EESTLogger
+SELST8N
+sest
+SESTLogger
 eestloglevel
 EF
 ef

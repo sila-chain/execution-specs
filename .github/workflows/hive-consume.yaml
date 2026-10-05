@@ -101,15 +101,15 @@ jobs:
         include:
           - name: Engine
             mode: simulator
-            simulator: sila/eels/consume-engine
+            simulator: sila/sels/consume-engine
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*SilaOsaka.*"
           - name: RLP
             mode: simulator
-            simulator: sila/eels/consume-rlp
+            simulator: sila/sels/consume-rlp
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*SilaOsaka.*"
           - name: Sync
             mode: simulator
-            simulator: sila/eels/consume-sync
+            simulator: sila/sels/consume-sync
             sim_limit: ".*test_block_at_rlp_limit_with_logs.*SilaOsaka.*"
           - name: Dev Mode Consume Engine
             mode: dev

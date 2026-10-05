@@ -5,7 +5,7 @@
 #     "click",
 # ]
 # ///
-"""Extract the properties of a configured EEST release from a YAML file."""
+"""Extract the properties of a configured SEST release from a YAML file."""
 
 import sys
 

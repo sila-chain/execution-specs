@@ -1,6 +1,6 @@
 """
-`eest` is a CLI tool that helps with routine tasks.
-Invoke using `uv run eest`.
+`sest` is a CLI tool that helps with routine tasks.
+Invoke using `uv run sest`.
 """
 
 import sys
@@ -15,7 +15,7 @@ def ensure_utf8_output() -> None:
     """
     Reconfigure the standard streams to UTF-8 so output cannot crash.
 
-    The `eest` commands print Unicode characters (box drawing, emoji)
+    The `sest` commands print Unicode characters (box drawing, emoji)
     that a legacy console code page such as Windows `cp1252` cannot
     encode, otherwise raising `UnicodeEncodeError` mid-command. Streams
     that do not support reconfiguration (for example when output is
@@ -37,8 +37,8 @@ def ensure_utf8_output() -> None:
         "max_content_width": 120,
     }
 )
-def eest() -> None:
-    """`eest` is a CLI tool that helps with routine tasks."""
+def sest() -> None:
+    """`sest` is a CLI tool that helps with routine tasks."""
     ensure_utf8_output()
 
 
@@ -52,6 +52,6 @@ def eest() -> None:
 Register nested commands here. For more information, see Click documentation:
 https://click.palletsprojects.com/en/8.0.x/commands/#nested-handling-and-contexts
 """
-eest.add_command(make)
-eest.add_command(clean)
-eest.add_command(info)
+sest.add_command(make)
+sest.add_command(clean)
+sest.add_command(info)

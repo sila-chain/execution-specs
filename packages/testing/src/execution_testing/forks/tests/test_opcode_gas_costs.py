@@ -427,7 +427,7 @@ from ..helpers import Fork
             id="clz_osaka",
         ),
         # Pre-SilaBerlin flat access costs. Literal values are the point:
-        # they pin the historical schedule from the EELS vm/gas.py
+        # they pin the historical schedule from the SELS vm/gas.py
         # constants of each fork.
         pytest.param(SilaHomestead, Op.CALL, 40, id="call_homestead"),
         pytest.param(SpuriousDragon, Op.CALL, 700, id="call_spurious_dragon"),
@@ -749,7 +749,7 @@ def test_bytecode_refunds(  # noqa: D103
             id="sstore_clear_cold",  # 5 → 0
         ),
         # Legacy SSTORE, charged by the current value only. Literal
-        # values pin the historical schedule from the EELS vm/gas.py
+        # values pin the historical schedule from the SELS vm/gas.py
         # constants of each fork.
         pytest.param(
             SilaHomestead,

@@ -1,4 +1,4 @@
-"""Command to display EEST and system information."""
+"""Command to display SEST and system information."""
 
 import platform
 import subprocess
@@ -33,9 +33,9 @@ def get_uv_version() -> str:
 
 @click.command(name="info")
 def info() -> None:
-    """Display EEST and system information."""
+    """Display SEST and system information."""
     # Format headers
-    title = click.style("EEST", fg="green", bold=True)
+    title = click.style("SEST", fg="green", bold=True)
 
     version = AppConfig().version
 

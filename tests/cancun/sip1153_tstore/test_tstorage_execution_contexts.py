@@ -367,7 +367,7 @@ def post(  # noqa: D103
 
 
 @CallContextTestCases.parametrize()
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_subcall(
     state_test: StateTestFiller,
     env: Environment,

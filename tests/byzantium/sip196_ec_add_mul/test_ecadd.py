@@ -453,7 +453,7 @@ def test_valid(
         "https://github.com/sila/execution-specs/pull/2477",
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid(
     state_test: StateTestFiller,
     pre: Alloc,

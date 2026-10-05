@@ -3,16 +3,10 @@
 The easiest way to get started is to use the interactive CLI:
 
 ```console
-uv run eest make test
+uv run sest make test
 ```
 
 and modify the generated test module to suit your needs.
-
-<figure class="video_container">
-  <video controls="true" allowfullscreen="true">
-    <source src="./img/eest_make_test.mp4" type="video/mp4">
-  </video>
-</figure>
 
 For help deciding which test format to select, see [Types of Tests](./types_of_tests.md), in particular [Deciding on a Test Type](./types_of_tests.md#deciding-on-a-test-type). Otherwise, some simple test case examples to get started with are:
 

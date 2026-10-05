@@ -121,8 +121,8 @@ def test_sip_checklist_class_structure() -> None:
 
     # Test that the metaclass is working correctly
     assert (
-        str(SIPChecklist.General.CodeCoverage.Eels)
-        == "general/code_coverage/eels"
+        str(SIPChecklist.General.CodeCoverage.Sels)
+        == "general/code_coverage/sels"
     )
     assert (
         str(SIPChecklist.Opcode.Test.MemExp.ZeroBytesZeroOffset)
@@ -146,7 +146,7 @@ def test_id_extraction_functions() -> None:
     # Test checklist extraction
     checklist_ids = get_all_checklist_ids(SIPChecklist)
     assert len(checklist_ids) > 0
-    assert "general/code_coverage/eels" in checklist_ids
+    assert "general/code_coverage/sels" in checklist_ids
 
 
 def test_sip_checklist_decorator_usage() -> None:

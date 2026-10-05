@@ -43,7 +43,7 @@ pytestmark = [
 @SIPChecklist.Precompile.Test.CallContexts.Normal()
 @SIPChecklist.Precompile.Test.Inputs.Valid()
 @SIPChecklist.Precompile.Test.Inputs.MaxValues()
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_wycheproof_valid(
     state_test: StateTestFiller, pre: Alloc, post: dict, tx: Transaction
 ) -> None:
@@ -969,7 +969,7 @@ def test_valid(
 @SIPChecklist.Precompile.Test.InputLengths.Static.TooLong()
 @SIPChecklist.Precompile.Test.OutOfBounds.Max()
 @SIPChecklist.Precompile.Test.OutOfBounds.MaxPlusOne()
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid(
     state_test: StateTestFiller, pre: Alloc, post: dict, tx: Transaction
 ) -> None:

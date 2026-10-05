@@ -59,7 +59,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/sila/execution-specs"
-Documentation = "https://eest.sila.org"
+Documentation = "https://github.com/sila-chain/execution-specs/tree/forks/amsterdam/docs"
 Repository = "https://github.com/sila/execution-specs"
 Issues = "https://github.com/sila/execution-specs/issues"
 
@@ -97,7 +97,7 @@ markdownlintcli2_soft_fail = "execution_testing.cli.ci_helpers:markdownlint"
 order_fixtures = "execution_testing.cli.order_fixtures:order_fixtures"
 evm_bytes = "execution_testing.cli.evm_bytes:evm_bytes"
 hasher = "execution_testing.cli.hasher:main"
-eest = "execution_testing.cli.eest.cli:eest"
+sest = "execution_testing.cli.sest.cli:sest"
 groupstats = "execution_testing.cli.show_pre_alloc_group_stats:main"
 extract_config = "execution_testing.cli.extract_config:extract_config"
 compare_fixtures = "execution_testing.cli.compare_fixtures:main"
@@ -110,7 +110,7 @@ exclude = ["*tests*"]
 [tool.setuptools.package-data]
 "execution_testing.forks" = ["forks/sips/**/*.bin"]
 "execution_testing.cli.pytest_commands.plugins.execute" = ["sil_config/networks.yml"]
-"execution_testing.cli.eest.make" = ["templates/*.j2"]
+"execution_testing.cli.sest.make" = ["templates/*.j2"]
 "execution_testing.cli.pytest_commands" = ["pytest_ini_files/*.ini"]
 "execution_testing.test_types" = ["kzg_trusted_setup.txt"]
 

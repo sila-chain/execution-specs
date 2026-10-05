@@ -19,7 +19,7 @@ from execution_testing.forks import get_development_forks, get_forks
 
 from ....input import input_select, input_text
 
-template_loader = jinja2.PackageLoader("execution_testing.cli.eest.make")
+template_loader = jinja2.PackageLoader("execution_testing.cli.sest.make")
 template_env = jinja2.Environment(
     loader=template_loader,
     keep_trailing_newline=True,
@@ -49,19 +49,9 @@ def test() -> None:
     directory with a rendered template.
 
     Example:
-        uv run eest make test
+        uv run sest make test
 
-    \f
-    <figure class="video_container">
-        <video controls="true" allowfullscreen="true">
-            <source
-                src="/execution-spec-tests/writing_tests/img/eest_make_test.mp4"
-                type="video/mp4"
-            />
-        </video>
-    </figure>
-
-    """  # noqa: D301
+    """
     test_type = input_select(
         "Choose the type of test to generate", choices=["State", "Blockchain"]
     )

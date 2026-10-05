@@ -674,7 +674,7 @@ def test_bal_call_no_delegation_and_oog_before_target_access(
         pytest.param(32, 32, id="both_small"),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_bal_call_no_delegation_oog_after_target_access(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,

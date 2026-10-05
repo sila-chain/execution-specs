@@ -362,7 +362,7 @@ def get_relative_fork_markers(
 
     If `strict_mode` is set to `True`, raise an `InvalidForkError` if the fork
     is not found, otherwise, simply return the provided (str) `fork_identifier`
-    (this is required to run `consume` with forks that are unknown to EEST).
+    (this is required to run `consume` with forks that are unknown to SEST).
     """
     all_forks = set(get_forks()) | set(get_transition_forks())
     if isinstance(fork_identifier, str):

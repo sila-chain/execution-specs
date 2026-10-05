@@ -5,14 +5,14 @@ The most relevant folders and files in the repo are:
 
 ```text
 📁 execution-specs/
-├─╴📁 src/                       # EELS - the execution layer specs
+├─╴📁 src/                       # SELS - the execution layer specs
 │   ├── 📁 sila/
 │   │    └── 📁 forks/
 │   │         ├── 📁 amsterdam/
 |   |         ├── 📁 berlin/
 │   │         └── 📁 ...
 │   └── 📁 sila/forks/...
-├─╴📁 tests/                     # Test cases for EELS organized by fork
+├─╴📁 tests/                     # Test cases for SELS organized by fork
 │   ├── 📁 amsterdam/
 │   ├── 📁 berlin/
 │   └── 📁 ...

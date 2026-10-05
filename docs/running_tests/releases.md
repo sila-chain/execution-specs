@@ -1,4 +1,4 @@
-# EELS Fixture Releases
+# SELS Fixture Releases
 
 Test fixtures are published as feature-scoped releases on the
 [`sila/execution-specs`](https://github.com/sila/execution-specs/releases)
@@ -75,11 +75,11 @@ command.
 | Format                                                               | Consumed by the client                                                                                                                                                                                                                                                                    | Location in `.tar.gz` release                                       |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | [State Tests](./test_formats/state_test.md)                         | - directly via a `statetest`-like command<br/> (e.g., [go-sila/cmd/evm/staterunner.go](https://github.com/sila/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go))                                                                                 | `./fixtures/state_tests/`                                           |
-| [Blockchain Tests](./test_formats/blockchain_test.md)               | - directly via a `blocktest`-like command<br/> (e.g., [go-sila/cmd/evm/blockrunner.go](https://github.com/sila/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/blockrunner.go))</br>- using the [eels/consume-rlp Simulator](./running.md#rlp) via block import | `./fixtures/blockchain_tests/`                                      |
-| [Blockchain Engine Tests](./test_formats/blockchain_test_engine.md) | - using the [eels/consume-engine Simulator](./running.md#engine) and the Engine API                                                                                                                                                                                                          | `./fixtures/blockchain_tests_engine/`                               |
-| [Blockchain Engine X Tests](./test_formats/blockchain_test_engine_x.md) | - using the [eels/consume-enginex Simulator](./running.md#enginex) and the Engine API, reusing a client per pre-allocation group | `./fixtures/blockchain_tests_engine_x/` |
+| [Blockchain Tests](./test_formats/blockchain_test.md)               | - directly via a `blocktest`-like command<br/> (e.g., [go-sila/cmd/evm/blockrunner.go](https://github.com/sila/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/blockrunner.go))</br>- using the [sels/consume-rlp Simulator](./running.md#rlp) via block import | `./fixtures/blockchain_tests/`                                      |
+| [Blockchain Engine Tests](./test_formats/blockchain_test_engine.md) | - using the [sels/consume-engine Simulator](./running.md#engine) and the Engine API                                                                                                                                                                                                          | `./fixtures/blockchain_tests_engine/`                               |
+| [Blockchain Engine X Tests](./test_formats/blockchain_test_engine_x.md) | - using the [sels/consume-enginex Simulator](./running.md#enginex) and the Engine API, reusing a client per pre-allocation group | `./fixtures/blockchain_tests_engine_x/` |
 | [Transaction Tests](./test_formats/transaction_test.md)             | - using a new simulator coming soon                                                                                                                                                                                                                                                       | None; executed directly from Python source,</br>using a release tag |
-| Blob Transaction Tests                                               | - using the [eels/execute-blobs Simulator](./execute/hive.md#the-eelsexecute-blobs-simulator)                                                                                                                                                                                                                         | None; executed directly from Python source,</br>using a release tag |
+| Blob Transaction Tests                                               | - using the [sels/execute-blobs Simulator](./execute/hive.md#the-eelsexecute-blobs-simulator)                                                                                                                                                                                                                         | None; executed directly from Python source,</br>using a release tag |
 
 ## Fixture Output Directory Structure
 
@@ -166,7 +166,7 @@ Mapped to a typical client CI setup:
 
 ## Downloading Releases
 
-The [`consume cache`](./consume/cache.md) command resolves EELS release and pre-release tags
+The [`consume cache`](./consume/cache.md) command resolves SELS release and pre-release tags
 to release URLs and downloads them. For example:
 
 ```bash

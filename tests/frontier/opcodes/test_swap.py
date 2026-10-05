@@ -107,7 +107,7 @@ def test_swap(
     ids=lambda op: str(op),
 )
 @pytest.mark.valid_from("Frontier")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_stack_underflow(
     state_test: StateTestFiller,
     fork: Fork,

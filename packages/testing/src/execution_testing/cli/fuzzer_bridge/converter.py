@@ -1,14 +1,14 @@
 """
-Converter module for transforming fuzzer DTOs to EEST domain models.
+Converter module for transforming fuzzer DTOs to SEST domain models.
 
 This module performs explicit transformation from fuzzer's
-JSON-RPC format (captured in DTOs) to EEST's internal domain
+JSON-RPC format (captured in DTOs) to SEST's internal domain
 models (Transaction, Account, etc.).
 
 Key Responsibilities:
 1. Field mapping (gas → gas_limit, from → sender, etc.)
 2. Creating EOA objects from private keys
-3. Building proper EEST domain models with all required context
+3. Building proper SEST domain models with all required context
 4. Preventing TestAddress pollution by setting sender
    BEFORE model_post_init
 """
@@ -34,17 +34,17 @@ from .models import (
 )
 
 
-def fuzzer_account_to_eest_account(
+def fuzzer_account_to_sest_account(
     fuzzer_account: FuzzerAccountInput,
 ) -> Account:
     """
-    Convert fuzzer account DTO to EEST Account domain model.
+    Convert fuzzer account DTO to SEST Account domain model.
 
     Args:
         fuzzer_account: Raw account data from fuzzer
 
     Returns:
-        EEST Account ready for pre-state
+        SEST Account ready for pre-state
 
     """
     return Account(
@@ -55,17 +55,17 @@ def fuzzer_account_to_eest_account(
     )
 
 
-def fuzzer_authorization_to_eest(
+def fuzzer_authorization_to_sest(
     fuzzer_auth: FuzzerAuthorizationInput,
 ) -> AuthorizationTuple:
     """
-    Convert fuzzer authorization DTO to EEST AuthorizationTuple.
+    Convert fuzzer authorization DTO to SEST AuthorizationTuple.
 
     Args:
         fuzzer_auth: Raw authorization data from fuzzer
 
     Returns:
-        EEST AuthorizationTuple for SIP-7702 transactions
+        SEST AuthorizationTuple for SIP-7702 transactions
 
     """
     return AuthorizationTuple(
@@ -78,18 +78,18 @@ def fuzzer_authorization_to_eest(
     )
 
 
-def fuzzer_transaction_to_eest_transaction(
+def fuzzer_transaction_to_sest_transaction(
     fuzzer_tx: FuzzerTransactionInput,
     sender_eoa: EOA,
 ) -> Transaction:
     """
-    Convert fuzzer transaction DTO to EEST Transaction domain model.
+    Convert fuzzer transaction DTO to SEST Transaction domain model.
 
     This function performs explicit field mapping and MUST set sender BEFORE
     calling Transaction constructor to prevent TestAddress injection.
 
     Key Mappings:
-    - fuzzer_tx.gas → transaction.gas_limit (JSON-RPC → EEST naming)
+    - fuzzer_tx.gas → transaction.gas_limit (JSON-RPC → SEST naming)
     - fuzzer_tx.from_ → sender_eoa (Address → EOA with private key)
     - fuzzer_tx.data → transaction.data (same field, explicit for clarity)
 
@@ -98,14 +98,14 @@ def fuzzer_transaction_to_eest_transaction(
         sender_eoa: EOA object created from private key (prevents TestAddress)
 
     Returns:
-        EEST Transaction ready for block generation
+        SEST Transaction ready for block generation
 
     """
     # Build authorization list if present
     auth_list = None
     if fuzzer_tx.authorization_list:
         auth_list = [
-            fuzzer_authorization_to_eest(auth)
+            fuzzer_authorization_to_sest(auth)
             for auth in fuzzer_tx.authorization_list
         ]
 
@@ -174,7 +174,7 @@ def blockchain_test_from_fuzzer(
     """
     Convert fuzzer output to BlockchainTest instance.
 
-    This is the main entry point for fuzzer-to-EEST conversion.
+    This is the main entry point for fuzzer-to-SEST conversion.
     It orchestrates:
     1. Parsing and validation (already done by FuzzerOutput DTO)
     2. Creating EOA objects from private keys
@@ -200,17 +200,17 @@ def blockchain_test_from_fuzzer(
                        (sender validation, etc.)
 
     """
-    # Step 1: Convert accounts to EEST Account domain models
+    # Step 1: Convert accounts to SEST Account domain models
     pre_dict: Dict[Address, Account | None] = {}
     for addr, fuzzer_account in fuzzer_output.accounts.items():
-        pre_dict[addr] = fuzzer_account_to_eest_account(fuzzer_account)
+        pre_dict[addr] = fuzzer_account_to_sest_account(fuzzer_account)
     pre = Alloc(pre_dict)
 
     # Step 2: Create EOA map for transaction signing
     sender_eoa_map = create_sender_eoa_map(fuzzer_output.accounts)
 
-    # Step 3: Convert transactions to EEST Transaction domain models
-    eest_transactions: list[Transaction] = []
+    # Step 3: Convert transactions to SEST Transaction domain models
+    sest_transactions: list[Transaction] = []
     for fuzzer_tx in fuzzer_output.transactions:
         # Verify sender has private key
         assert fuzzer_tx.from_ in sender_eoa_map, (
@@ -218,11 +218,11 @@ def blockchain_test_from_fuzzer(
         )
 
         # Convert with explicit sender (prevents TestAddress injection)
-        eest_tx = fuzzer_transaction_to_eest_transaction(
+        sest_tx = fuzzer_transaction_to_sest_transaction(
             fuzzer_tx,
             sender_eoa=sender_eoa_map[fuzzer_tx.from_],
         )
-        eest_transactions.append(eest_tx)
+        sest_transactions.append(sest_tx)
 
     # Step 4: Build genesis environment
     env = fuzzer_output.env
@@ -242,7 +242,7 @@ def blockchain_test_from_fuzzer(
 
     # Step 5: Distribute transactions across blocks
     blocks = _distribute_transactions_to_blocks(
-        eest_transactions,
+        sest_transactions,
         num_blocks,
         block_strategy,
         block_time,
@@ -272,7 +272,7 @@ def _distribute_transactions_to_blocks(
     Distribute transactions across multiple blocks.
 
     Args:
-        transactions: List of EEST Transaction objects (ready for execution)
+        transactions: List of SEST Transaction objects (ready for execution)
         num_blocks: Number of blocks to create
         strategy: Distribution strategy ("distribute" or "first-block")
         block_time: Seconds between blocks

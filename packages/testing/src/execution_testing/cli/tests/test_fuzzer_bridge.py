@@ -19,9 +19,9 @@ from execution_testing.test_types import (
 from ..fuzzer_bridge.converter import (
     blockchain_test_from_fuzzer,
     create_sender_eoa_map,
-    fuzzer_account_to_eest_account,
-    fuzzer_authorization_to_eest,
-    fuzzer_transaction_to_eest_transaction,
+    fuzzer_account_to_sest_account,
+    fuzzer_authorization_to_sest,
+    fuzzer_transaction_to_sest_transaction,
 )
 from ..fuzzer_bridge.models import (
     FuzzerAccountInput,
@@ -147,7 +147,7 @@ class TestFuzzerOutputParsing:
             assert auth.s is not None
 
     def test_parse_environment(self, fuzzer_data: Dict[str, Any]) -> None:
-        """Test Environment parsing (using EEST Environment directly)."""
+        """Test Environment parsing (using SEST Environment directly)."""
         env = Environment(**fuzzer_data["env"])
 
         assert env.fee_recipient is not None
@@ -157,7 +157,7 @@ class TestFuzzerOutputParsing:
 
 
 class TestDTOConversion:
-    """Test conversion from DTOs to EEST domain models."""
+    """Test conversion from DTOs to SEST domain models."""
 
     @pytest.fixture
     def fuzzer_output(self) -> FuzzerOutput:
@@ -165,23 +165,23 @@ class TestDTOConversion:
         data = load_fuzzer_vector("fuzzer_test_0.json")
         return FuzzerOutput(**data)
 
-    def test_fuzzer_account_to_eest_account(
+    def test_fuzzer_account_to_sest_account(
         self, fuzzer_output: FuzzerOutput
     ) -> None:
-        """Test account DTO to EEST Account conversion."""
+        """Test account DTO to SEST Account conversion."""
         fuzzer_account = next(iter(fuzzer_output.accounts.values()))
 
-        eest_account = fuzzer_account_to_eest_account(fuzzer_account)
+        sest_account = fuzzer_account_to_sest_account(fuzzer_account)
 
-        assert isinstance(eest_account, Account)
-        assert eest_account.balance == fuzzer_account.balance
-        assert eest_account.nonce == fuzzer_account.nonce
-        assert eest_account.code == fuzzer_account.code
+        assert isinstance(sest_account, Account)
+        assert sest_account.balance == fuzzer_account.balance
+        assert sest_account.nonce == fuzzer_account.nonce
+        assert sest_account.code == fuzzer_account.code
 
-    def test_fuzzer_authorization_to_eest(
+    def test_fuzzer_authorization_to_sest(
         self, fuzzer_output: FuzzerOutput
     ) -> None:
-        """Test authorization DTO to EEST AuthorizationTuple conversion."""
+        """Test authorization DTO to SEST AuthorizationTuple conversion."""
         tx_with_auth = next(
             (tx for tx in fuzzer_output.transactions if tx.authorization_list),
             None,
@@ -190,12 +190,12 @@ class TestDTOConversion:
         if tx_with_auth and tx_with_auth.authorization_list:
             fuzzer_auth = tx_with_auth.authorization_list[0]
 
-            eest_auth = fuzzer_authorization_to_eest(fuzzer_auth)
+            sest_auth = fuzzer_authorization_to_sest(fuzzer_auth)
 
-            assert isinstance(eest_auth, AuthorizationTuple)
-            assert eest_auth.chain_id == fuzzer_auth.chain_id
-            assert eest_auth.address == fuzzer_auth.address
-            assert eest_auth.nonce == fuzzer_auth.nonce
+            assert isinstance(sest_auth, AuthorizationTuple)
+            assert sest_auth.chain_id == fuzzer_auth.chain_id
+            assert sest_auth.address == fuzzer_auth.address
+            assert sest_auth.nonce == fuzzer_auth.nonce
 
     def test_create_sender_eoa_map(self, fuzzer_output: FuzzerOutput) -> None:
         """Test EOA map creation from accounts."""
@@ -218,21 +218,21 @@ class TestDTOConversion:
         # All created EOAs should pass validation
         assert all(Address(eoa) == addr for addr, eoa in sender_map.items())
 
-    def test_fuzzer_transaction_to_eest_transaction(
+    def test_fuzzer_transaction_to_sest_transaction(
         self, fuzzer_output: FuzzerOutput
     ) -> None:
-        """Test transaction DTO to EEST Transaction conversion."""
+        """Test transaction DTO to SEST Transaction conversion."""
         fuzzer_tx = fuzzer_output.transactions[0]
         sender_map = create_sender_eoa_map(fuzzer_output.accounts)
         sender_eoa = sender_map[fuzzer_tx.from_]
 
-        eest_tx = fuzzer_transaction_to_eest_transaction(fuzzer_tx, sender_eoa)
+        sest_tx = fuzzer_transaction_to_sest_transaction(fuzzer_tx, sender_eoa)
 
-        assert isinstance(eest_tx, Transaction)
-        assert eest_tx.sender == sender_eoa
-        assert eest_tx.to == fuzzer_tx.to
-        assert eest_tx.gas_limit == fuzzer_tx.gas  # Key mapping!
-        assert eest_tx.data == fuzzer_tx.data
+        assert isinstance(sest_tx, Transaction)
+        assert sest_tx.sender == sender_eoa
+        assert sest_tx.to == fuzzer_tx.to
+        assert sest_tx.gas_limit == fuzzer_tx.gas  # Key mapping!
+        assert sest_tx.data == fuzzer_tx.data
 
     def test_transaction_gas_field_mapping(
         self, fuzzer_output: FuzzerOutput
@@ -242,10 +242,10 @@ class TestDTOConversion:
         sender_map = create_sender_eoa_map(fuzzer_output.accounts)
         sender_eoa = sender_map[fuzzer_tx.from_]
 
-        eest_tx = fuzzer_transaction_to_eest_transaction(fuzzer_tx, sender_eoa)
+        sest_tx = fuzzer_transaction_to_sest_transaction(fuzzer_tx, sender_eoa)
 
-        # Fuzzer uses 'gas' (JSON-RPC), EEST uses 'gas_limit'
-        assert eest_tx.gas_limit == fuzzer_tx.gas
+        # Fuzzer uses 'gas' (JSON-RPC), SEST uses 'gas_limit'
+        assert sest_tx.gas_limit == fuzzer_tx.gas
 
     def test_transaction_authorization_list_conversion(
         self, fuzzer_output: FuzzerOutput
@@ -260,17 +260,17 @@ class TestDTOConversion:
             sender_map = create_sender_eoa_map(fuzzer_output.accounts)
             sender_eoa = sender_map[tx_with_auth.from_]
 
-            eest_tx = fuzzer_transaction_to_eest_transaction(
+            sest_tx = fuzzer_transaction_to_sest_transaction(
                 tx_with_auth, sender_eoa
             )
 
-            assert eest_tx.authorization_list is not None
-            assert len(eest_tx.authorization_list) == len(
+            assert sest_tx.authorization_list is not None
+            assert len(sest_tx.authorization_list) == len(
                 tx_with_auth.authorization_list
             )
             assert all(
                 isinstance(auth, AuthorizationTuple)
-                for auth in eest_tx.authorization_list
+                for auth in sest_tx.authorization_list
             )
 
 

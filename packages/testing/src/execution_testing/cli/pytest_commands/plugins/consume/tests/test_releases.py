@@ -99,7 +99,7 @@ def release_information() -> List[ReleaseInformation]:
         ),
     ],
 )
-def test_eels_release_parsing(
+def test_sels_release_parsing(
     release_name: str,
     expected_release_download_url: str,
     release_information: List[ReleaseInformation],

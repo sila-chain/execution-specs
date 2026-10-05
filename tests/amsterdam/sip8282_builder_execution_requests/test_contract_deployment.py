@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = ref_spec_8282.version
 MIN_DEPOSIT_GWEI = BuilderDepositRequest.min_deposit_wei // 10**9
 
 
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 @SIPChecklist.SystemContract.Test.Deployment.Address()
 @SIPChecklist.SystemContract.Test.Deployment.Missing()
 @generate_system_contract_deploy_test(
@@ -68,7 +68,7 @@ def test_builder_deposit_contract_deployment(
     )
 
 
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 @SIPChecklist.SystemContract.Test.Deployment.Address()
 @SIPChecklist.SystemContract.Test.Deployment.Missing()
 @generate_system_contract_deploy_test(

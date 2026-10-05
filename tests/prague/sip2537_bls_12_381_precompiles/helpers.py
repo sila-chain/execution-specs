@@ -678,7 +678,7 @@ class BLSPointGenerator:
         curve via an 11-isogeny. For reference:
         https://sips.sila.org/assets/sip-2537/field_to_curve
 
-        Note we cannot use sage math directly within EEST as it is not a pure
+        Note we cannot use sage math directly within SEST as it is not a pure
         python library and requires an external dependency to be installed on
         the system machine.
 
@@ -812,7 +812,7 @@ class BLSPointGenerator:
         BLS curve via a 3-isogeny. For reference:
         - https://sips.sila.org/assets/sip-2537/field_to_curve
 
-        Note we cannot use sage math directly within EEST as it is not a pure
+        Note we cannot use sage math directly within SEST as it is not a pure
         python library and requires an external dependency to be installed on
         the system machine.
 

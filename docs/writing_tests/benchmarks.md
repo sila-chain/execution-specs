@@ -1,6 +1,6 @@
 # Benchmark Tests
 
-The EELS benchmark serves as a centralized hub for benchmarking test cases, evaluating execution layer performance across a wide range of scenarios, including gas limit testing, zkEVM, Bloatnet, gas repricing and SIPs that introduce new opcodes, precompiles, transaction types, or more use cases.
+The SELS benchmark serves as a centralized hub for benchmarking test cases, evaluating execution layer performance across a wide range of scenarios, including gas limit testing, zkEVM, Bloatnet, gas repricing and SIPs that introduce new opcodes, precompiles, transaction types, or more use cases.
 
 All benchmark tests are maintained under the `./tests/benchmark` directory. The benchmark suite is further organized based on whether tests require a pre-configured, stateful environment.
 
@@ -106,7 +106,7 @@ The subdirectory name follows the pattern `for_{fork}_at_{gas}M` (see [Fixture O
 
 ## Developing Benchmarks
 
-Before writing benchmark-specific tests, please refer to the [general documentation](./writing_a_new_test.md) for the fundamentals of writing tests in the EELS framework.
+Before writing benchmark-specific tests, please refer to the [general documentation](./writing_a_new_test.md) for the fundamentals of writing tests in the SELS framework.
 
 ### Environment Variables
 
@@ -197,7 +197,7 @@ Import `TestPhaseManager` and use it to annotate each transaction or block with 
 
 ### BenchmarkTest Wrapper
 
-Within the EELS framework, tests can be written using existing fixtures such as `BlockchainTest` and `StateTest`. However, for benchmark scenarios, we strongly recommend using the `BenchmarkTest` wrapper, which encapsulates repetitive logic commonly required in benchmark test construction.
+Within the SELS framework, tests can be written using existing fixtures such as `BlockchainTest` and `StateTest`. However, for benchmark scenarios, we strongly recommend using the `BenchmarkTest` wrapper, which encapsulates repetitive logic commonly required in benchmark test construction.
 
 Note that `BenchmarkTest` is a wrapper, not a new fixture type. It does not introduce a new fixture format, and therefore clients do not need to add special support for it. Internally, `BenchmarkTest` accepts user-provided parameters and converts them into the corresponding `BlockchainTest` representation.
 
@@ -246,7 +246,7 @@ def test_simple_benchmark(
 
 This mode allows users to provide a code generator that emits execution payloads dynamically. It is the recommended approach for most benchmark use cases, as it offers the greatest flexibility and reuse.
 
-Currently, EELS provides two built-in code generators, `JumpLoopGenerator` and `ExtCallGenerator`. Both generators accept the following components to construct the benchmark contracts:
+Currently, SELS provides two built-in code generators, `JumpLoopGenerator` and `ExtCallGenerator`. Both generators accept the following components to construct the benchmark contracts:
 
 - `setup`: Code executed once before the attack loop
 - `attack_block`: The core operation to be benchmarked

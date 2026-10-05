@@ -341,7 +341,7 @@ def test_maximum_gas_refund(
 @pytest.mark.parametrize("zero_byte", [True, False])
 @pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.valid_before("SIP8037")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_tx_gas_limit_cap_full_calldata(
     state_test: StateTestFiller,
     pre: Alloc,

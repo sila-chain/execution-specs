@@ -47,13 +47,13 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
         "logging", "Arguments related to logging from test fixtures and tests."
     )
     logging_group.addoption(
-        "--eest-log-level",  # --log-level is defined by pytest's built-in
+        "--sest-log-level",  # --log-level is defined by pytest's built-in
         # logging
         "--eestloglevel",
         action="store",
         default="INFO",
         type=LogLevel.from_cli,
-        dest="eest_log_level",
+        dest="sest_log_level",
         help=(
             "The logging level to use in the test session: DEBUG, INFO, "
             "WARNING, ERROR or CRITICAL, default - INFO. An integer in "
@@ -64,7 +64,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
         "--log-to",
         action="store",
         default=None,
-        dest="eest_log_dir",
+        dest="sest_log_dir",
         help=(
             "Directory to write log files. Defaults to ./logs if not "
             "specified."
@@ -119,17 +119,17 @@ def pytest_configure(config: pytest.Config) -> None:
 
     worker_id = os.getenv("PYTEST_XDIST_WORKER", "main")
     log_filename = f"{log_stem}-{worker_id}.log"
-    log_dir = getattr(config.option, "eest_log_dir", None)
+    log_dir = getattr(config.option, "sest_log_dir", None)
     base_logs_dir = Path("logs") if log_dir is None else Path(log_dir)
     base_logs_dir.mkdir(parents=True, exist_ok=True)
     log_file_path = base_logs_dir / log_filename
 
     # Store the log file path in the pytest config
-    config.option.eest_log_file_path = log_file_path
+    config.option.sest_log_file_path = log_file_path
 
     # Configure logging using the standalone function
     file_handler = configure_logging(
-        log_level=config.getoption("eest_log_level"),
+        log_level=config.getoption("sest_log_level"),
         log_file=log_file_path,
         log_to_stdout=True,
     )
@@ -137,8 +137,8 @@ def pytest_configure(config: pytest.Config) -> None:
 
 def pytest_report_header(config: pytest.Config) -> list[str]:
     """Show the log file path in the test session header."""
-    if eest_log_file_path := config.option.eest_log_file_path:
-        return [f"Log file: {eest_log_file_path}"]
+    if sest_log_file_path := config.option.sest_log_file_path:
+        return [f"Log file: {sest_log_file_path}"]
     return []
 
 
@@ -149,9 +149,9 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter) -> None:
     """
     if terminalreporter.config.option.collectonly:
         return
-    if eest_log_file_path := terminalreporter.config.option.eest_log_file_path:
+    if sest_log_file_path := terminalreporter.config.option.sest_log_file_path:
         terminalreporter.write_sep(
-            "-", f"Log file: {eest_log_file_path.resolve()}", yellow=True
+            "-", f"Log file: {sest_log_file_path.resolve()}", yellow=True
         )
 
 

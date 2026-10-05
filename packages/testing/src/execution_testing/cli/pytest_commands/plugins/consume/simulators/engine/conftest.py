@@ -31,7 +31,7 @@ def pytest_configure(config: pytest.Config) -> None:
 @pytest.fixture(scope="module")
 def test_suite_name() -> str:
     """The name of the hive test suite used in this simulator."""
-    return "eels/consume-engine"
+    return "sels/consume-engine"
 
 
 @pytest.fixture(scope="module")

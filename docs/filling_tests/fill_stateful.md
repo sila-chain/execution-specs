@@ -100,7 +100,7 @@ uv run fill-stateful \
 
 ### 4. Replay
 
-Point `benchmarkoor`'s `datadirs.gsil.source_dir` at the pristine snapshot (`/tmp/multi-snap/gsil/execution-data`) — never at the fillcopy — and `tests.source.eest_fixtures.local_fixtures_dir` at the fill output. See the [benchmarkoor docs](https://github.com/ethpandaops/benchmarkoor) for the full config shape.
+Point `benchmarkoor`'s `datadirs.gsil.source_dir` at the pristine snapshot (`/tmp/multi-snap/gsil/execution-data`) — never at the fillcopy — and `tests.source.sest_fixtures.local_fixtures_dir` at the fill output. See the [benchmarkoor docs](https://github.com/ethpandaops/benchmarkoor) for the full config shape.
 
 ## CLI options
 

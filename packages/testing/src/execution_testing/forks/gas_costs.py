@@ -27,7 +27,7 @@ class GasCosts:
     WARM_SLOAD: int
     COLD_STORAGE_ACCESS: int
     # Flat access costs used before SIP-2929 introduces warm and cold
-    # pricing. Field names follow the EELS gas constants.
+    # pricing. Field names follow the SELS gas constants.
     OPCODE_BALANCE: int
     OPCODE_EXTERNAL_BASE: int
     OPCODE_CALL_BASE: int

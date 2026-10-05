@@ -39,7 +39,7 @@ class FillerBackend(Protocol):
 
     exception_mapper: ExceptionMapper
     """
-    Maps backend-specific errors to EEST transaction/block exceptions.
+    Maps backend-specific errors to SEST transaction/block exceptions.
     ``exception_mapper.reliable`` indicates whether the mapping is trusted
     for test assertions (t8n: True; live-client: typically False).
     """
@@ -47,7 +47,7 @@ class FillerBackend(Protocol):
     attests_block_access_list_hash: ClassVar[bool]
     """
     Whether ``Result.block_access_list_hash`` is computed by the backend
-    rather than derived by EEST from the BAL body the backend returned
+    rather than derived by SEST from the BAL body the backend returned
     (t8n: True; live-client: False, since an engine ``ExecutionPayload``
     carries the body but no hash).
     """

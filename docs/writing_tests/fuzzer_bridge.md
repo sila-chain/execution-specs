@@ -24,7 +24,7 @@ graph LR
 
 ## Installation
 
-The fuzzer bridge is included with the execution-specs framework. Follow the [installation guide](../getting_started/installation.md) to set up EELS.
+The fuzzer bridge is included with the execution-specs framework. Follow the [installation guide](../getting_started/installation.md) to set up SELS.
 
 Once installed, the `fuzzer_bridge` command will be available through `uv run`.
 

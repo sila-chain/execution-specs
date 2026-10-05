@@ -259,24 +259,24 @@ class VmTest(FixtureTestItem):
     """Single VM test case item for a specific fork."""
 
     fork_name: str
-    eels_fork: str
+    sels_fork: str
 
     def __init__(
         self,
         *args: Any,
         fork_name: str,
-        eels_fork: str,
+        sels_fork: str,
         **kwargs: Any,
     ) -> None:
         """Initialize a single VM test case item."""
         super().__init__(*args, **kwargs)
         self.fork_name = fork_name
-        self.eels_fork = eels_fork
+        self.sels_fork = sels_fork
         self.add_marker(pytest.mark.fork(self.fork_name))
         self.add_marker("vm_test")
 
         # Mark tests with exceptional markers
-        test_patterns = exceptional_vm_test_patterns(fork_name, eels_fork)
+        test_patterns = exceptional_vm_test_patterns(fork_name, sels_fork)
         if any(x.search(self.nodeid) for x in test_patterns.slow):
             self.add_marker("slow")
 
@@ -306,7 +306,7 @@ class VmTest(FixtureTestItem):
 
     def runtest(self) -> None:
         """Run a VM test from JSON test case data."""
-        loader = VmTestLoader(self.fork_name, self.eels_fork)
+        loader = VmTestLoader(self.fork_name, self.sels_fork)
         loader.run_test_from_dict(self.test_dict)
 
     def reportinfo(self) -> Tuple[Path, int, str]:
@@ -362,7 +362,7 @@ class VmTestFixture(Fixture, Collector):
                 parent=self,
                 name=fork.json_test_name,
                 fork_name=fork.json_test_name,
-                eels_fork=fork.short_name,
+                sels_fork=fork.short_name,
             )
 
     @classmethod

@@ -1,6 +1,6 @@
 # The `sila-execution-testing` Package
 
-Test generation and execution framework for the [Sila Execution Layer Specifications (EELS)](https://github.com/sila/execution-specs).
+Test generation and execution framework for the [Sila Execution Layer Specifications (SELS)](https://github.com/sila/execution-specs).
 
 The package provides:
 

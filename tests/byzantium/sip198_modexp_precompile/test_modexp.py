@@ -293,7 +293,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             # FIXME
             marks=pytest.mark.skip(
                 reason=(
-                    "EELS bug: U256 overflow in modexp pointer arithmetic "
+                    "SELS bug: U256 overflow in modexp pointer arithmetic "
                     "before SilaOsaka - see "
                     "github.com/sila/execution-specs/issues/1465"
                 )
@@ -311,7 +311,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             # FIXME
             marks=pytest.mark.skip(
                 reason=(
-                    "EELS bug: U256 overflow in modexp pointer arithmetic "
+                    "SELS bug: U256 overflow in modexp pointer arithmetic "
                     "before SilaOsaka - see "
                     "github.com/sila/execution-specs/issues/1465"
                 )
@@ -476,7 +476,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
     ids=lambda param: param.__repr__(),  # only required to remove parameter
     # names (input/output)
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 @pytest.mark.ported_from(
     [
         "https://github.com/sila/legacytests/blob/master/src/LegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_37120_37111_37111_1000000Filler.json",

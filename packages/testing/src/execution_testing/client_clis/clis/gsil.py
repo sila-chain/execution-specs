@@ -29,7 +29,7 @@ from ..transition_tool import TransitionTool, dump_files_to_directory
 
 
 class GsilExceptionMapper(ExceptionMapper):
-    """Translate between EEST exceptions and error strings returned by Gsil."""
+    """Translate between SEST exceptions and error strings returned by Gsil."""
 
     mapping_substring: ClassVar[Dict[ExceptionBase, str]] = {
         TransactionException.SENDER_NOT_EOA: "sender not an eoa",
@@ -160,7 +160,7 @@ class GsilExceptionMapper(ExceptionMapper):
         # third within the `is_valid_deposit_event_data` function:
         # https://sips.sila.org/SIPS/sip-6110#block-validity
         #
-        # EELS definition for `is_valid_deposit_event_data`:
+        # SELS definition for `is_valid_deposit_event_data`:
         # https://github.com/sila/execution-specs/blob/5ddb904fa7ba27daeff423e78466744c51e8cb6a/src/sila/forks/sila_prague/requests.py#L51
         # BAL Exceptions
         BlockException.INVALID_BAL_HASH: (

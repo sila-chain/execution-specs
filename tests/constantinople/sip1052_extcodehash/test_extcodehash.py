@@ -39,7 +39,7 @@ pytestmark = [
     ],
     pr=["https://github.com/sila/execution-specs/pull/2249"],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_extcodehash_self(
     state_test: StateTestFiller,
     pre: Alloc,

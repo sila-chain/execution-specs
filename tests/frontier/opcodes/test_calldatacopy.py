@@ -154,7 +154,7 @@ from execution_testing import (
         "sec",
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_calldatacopy(
     state_test: StateTestFiller,
     code: Bytecode,

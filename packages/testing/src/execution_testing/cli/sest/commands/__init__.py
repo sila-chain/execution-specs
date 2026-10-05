@@ -1,7 +1,7 @@
 """
-A collection of commands supported by `eest` CLI.
+A collection of commands supported by `sest` CLI.
 
-Run `uv run eest` for complete list.
+Run `uv run sest` for complete list.
 """
 
 from .clean import clean

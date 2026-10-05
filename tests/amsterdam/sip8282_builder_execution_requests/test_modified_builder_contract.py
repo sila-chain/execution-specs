@@ -230,7 +230,7 @@ def test_extra_builder_exits(
 @SIPChecklist.SystemContract.Test.ContractSubstitution.GasLimitFailure()
 @SIPChecklist.SystemContract.Test.ExcessiveGas.SystemCall()
 @generate_system_contract_error_test()  # type: ignore[arg-type]
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_system_contract_errors() -> None:
     """
     Test system contract raising different errors when called by the system

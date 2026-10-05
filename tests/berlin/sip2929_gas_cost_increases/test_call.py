@@ -17,7 +17,7 @@ REFERENCE_SPEC_VERSION = "0e11417265a623adb680c527b15d0cb6701b870b"
 
 
 @pytest.mark.valid_from("SilaBerlin")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_call_insufficient_balance(
     state_test: StateTestFiller, pre: Alloc, env: Environment, fork: Fork
 ) -> None:

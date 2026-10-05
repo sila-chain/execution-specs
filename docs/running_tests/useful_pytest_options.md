@@ -1,6 +1,6 @@
 # Useful Pytest Options
 
-The EEST commands to run tests are customizations to the pytest framework, which provides many helpful options for test selection, parallel execution, report output and debugging. This section provides the most relevant options, a full overview is available in the [pytest docs](https://docs.pytest.org/en/8.3.x/).
+The SEST commands to run tests are customizations to the pytest framework, which provides many helpful options for test selection, parallel execution, report output and debugging. This section provides the most relevant options, a full overview is available in the [pytest docs](https://docs.pytest.org/en/8.3.x/).
 
 ## Fixture Inputs (Consume Commands)
 
@@ -14,14 +14,14 @@ List collected tests, `-q` restricts output to [test IDs](../filling_tests/test_
 uv run consume engine --input=<fixture_input> --collect-only -q
 ```
 
-In `./hive` [standalone mode](./hive/index.md), this can be achieved via EEST's [`--sim.limit` "collectonly" prefix](./hive/common_options.md#collect-onlydry-run).
+In `./hive` [standalone mode](./hive/index.md), this can be achieved via SEST's [`--sim.limit` "collectonly" prefix](./hive/common_options.md#collect-onlydry-run).
 
 ## Output Control
 
 - `-v` - verbose output.
 - `-vv` - more verbose output.
 - `-s` - print stdout to the terminal during execution (don't capture it).
-- `--eest-log-level=<LOG_LEVEL>` - write logs during test (helpful in combination with `-s`).
+- `--sest-log-level=<LOG_LEVEL>` - write logs during test (helpful in combination with `-s`).
 
 ## Report Generation
 
@@ -92,7 +92,7 @@ uv run consume direct --input=<fixture_input> -n 4
 
 ## Dropping in the Python Debugger
 
-Dropping into the Python debugger can be helpful to inspect EEST simulator state or ssh to a client container. Adding the `--pdb` option will drop into Python debugger upon test failure, `-x` tells pytest to exit after the first fail:
+Dropping into the Python debugger can be helpful to inspect SEST simulator state or ssh to a client container. Adding the `--pdb` option will drop into Python debugger upon test failure, `-x` tells pytest to exit after the first fail:
 
 ```bash
 uv run consume engine --pdb -x ...

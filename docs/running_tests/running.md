@@ -1,13 +1,13 @@
 # Methods of Running Tests
 
-EEST has two commands, `consume` and `execute`, that run test cases against EL clients:
+SEST has two commands, `consume` and `execute`, that run test cases against EL clients:
 
 1. `consume` runs JSON test fixtures against a client - the client is said to "consume" the test case fixture.
 2. `execute` runs test cases from Python source against a client - the test case is "executed" against the client.
 
 ## Top-Level Comparison
 
-Both `consume` and `execute` provide sub-commands which correspond to different methods of testing EL clients using EEST test cases:
+Both `consume` and `execute` provide sub-commands which correspond to different methods of testing EL clients using SEST test cases:
 
 | Command                                 | Description                                                                             | Components tested                                            | Environment   | Scope                             |
 | --------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | --------------------------------- |
@@ -27,9 +27,9 @@ Both `consume` and `execute` provide sub-commands which correspond to different 
 
 The following sections describe the different methods in more detail.
 
-!!! note "`./hive --sim=eels/consume-engine` vs `consume engine`"
+!!! note "`./hive --sim=sels/consume-engine` vs `consume engine`"
 
-     The execution-specs simulators can be ran either standalone using the `./hive` command or via a `uv`/Python-based command against a `./hive --dev` backend, more details are [provided below](#two-methods-to-run-eels-simulators).
+     The execution-specs simulators can be ran either standalone using the `./hive` command or via a `uv`/Python-based command against a `./hive --dev` backend, more details are [provided below](#two-methods-to-run-sels-simulators).
 
 ## Direct
 
@@ -41,7 +41,7 @@ The following sections describe the different methods in more detail.
 
 The direct method provides the fastest way to test EVM functionality by executing tests directly through a client's dedicated test interface (e.g. [`statetest`](https://github.com/sila/go-sila/blob/4bb097b7ffc32256791e55ff16ca50ef83c4609b/cmd/evm/staterunner.go) or [`blocktest`](https://github.com/sila/go-sila/blob/35dd84ce2999ecf5ca8ace50a4d1a6abc231c370/cmd/evm/blockrunner.go)). This method requires clients to implement a custom interface to read tests and pass their inputs through appropriate code paths; implementation guides available for [state tests](./test_formats/state_test.md#consumption) and [blockchain tests](./test_formats/blockchain_test.md#consumption).
 
-The EEST `consume direct` command is a small wrapper around client direct interfaces that allows fast and easy selection of test subsets to execute via [test ID](../filling_tests/test_ids.md) regex match (thanks to [an index file](./consume/cache.md#the-fixture-index-file)). See [Consume Direct](./consume/direct.md) and the [Cache and Fixture Inputs](./consume/cache.md) and [Useful Pytest Options](./useful_pytest_options.md) pages for help with options.
+The SEST `consume direct` command is a small wrapper around client direct interfaces that allows fast and easy selection of test subsets to execute via [test ID](../filling_tests/test_ids.md) regex match (thanks to [an index file](./consume/cache.md#the-fixture-index-file)). See [Consume Direct](./consume/direct.md) and the [Cache and Fixture Inputs](./consume/cache.md) and [Useful Pytest Options](./useful_pytest_options.md) pages for help with options.
 
 !!! tip "Rapid EVM development"
 
@@ -52,7 +52,7 @@ The EEST `consume direct` command is a small wrapper around client direct interf
 | Nomenclature   |                          |
 | -------------- | ------------------------ |
 | Command        | `consume engine`         |
-| Simulator      | `eels/consume-engine`    |
+| Simulator      | `sels/consume-engine`    |
 | Fixture format | `blockchain_test_engine` |
 
 The consume engine method tests execution clients via the Engine API by sending block payloads and verifying the response (post-merge forks only). This method provides the most realistic testing environment for production Sila client behavior, covering consensus integration, payload validation, and state synchronization.
@@ -73,7 +73,7 @@ The `consume engine` command:
 | Nomenclature   |                            |
 | -------------- | -------------------------- |
 | Command        | `consume enginex`          |
-| Simulator      | `eels/consume-enginex`     |
+| Simulator      | `sels/consume-enginex`     |
 | Fixture format | `blockchain_test_engine_x` |
 
 The EngineX method is a faster alternative to `consume engine` that executes multiple tests against a single client instance. This is achieved via the [Blockchain Engine X Test fixture format](./test_formats/blockchain_test_engine_x.md) which groups tests that share the same fork and EVM [Environment](./test_formats/state_test.md#fixtureenvironment) togsiler and contains a larger, shared pre-allocation state that all tests in the group use. This allows the EngineX simulator to execute multiple tests against the same client instance, whereas the Engine Simulator starts a fresh client for each test.
@@ -139,7 +139,7 @@ EngineX achieves faster execution by:
 | Nomenclature   |                    |
 | -------------- | ------------------ |
 | Command        | `consume rlp`      |
-| Simulator      | `eels/consume-rlp` |
+| Simulator      | `sels/consume-rlp` |
 | Fixture format | `blockchain_test`  |
 
 The RLP consumption method tests execution clients by providing them with RLP-encoded blocks to load upon startup, similar to the block import process during historical synchronization. This method tests the client's core block processing logic without the overhead of network protocols.
@@ -178,7 +178,7 @@ The `consume sync` command:
 | Nomenclature   |                          |
 | -------------- | ------------------------ |
 | Command        | `build-block`            |
-| Simulator      | `eels/build-block`       |
+| Simulator      | `sels/build-block`       |
 | Fixture format | `blockchain_test_engine` |
 
 The block-building method tests the **producer-side** of an execution client: rather than asking the client to validate and import a pre-built block, it asks the client to build a block from inputs (parent, payload attributes, transactions) and then validates the resulting block field-by-field against the fixture's expected block. This exercises tx ordering, gas accounting, payload assembly, and (for fork ≥ SilaPrague) `executionRequests` derivation.
@@ -197,15 +197,15 @@ This complements `consume engine`: where `consume engine` tests the client's pay
 
 ## Engine vs RLP Simulator
 
-The RLP Simulator (`eels/consume-rlp`) and the Engine Simulator (`eels/consume-engine`) should be seen as complimentary to one another. Although they execute the same underlying EVM test cases, the block validation logic is executed via different client code paths (using different [fixture formats](./test_formats/index.md)). Therefore, ideally, **both simulators should be executed for full coverage**.
+The RLP Simulator (`sels/consume-rlp`) and the Engine Simulator (`sels/consume-engine`) should be seen as complimentary to one another. Although they execute the same underlying EVM test cases, the block validation logic is executed via different client code paths (using different [fixture formats](./test_formats/index.md)). Therefore, ideally, **both simulators should be executed for full coverage**.
 
 ### Code Path Choices
 
-Clients consume fixtures in the `eels/consume-engine` simulator via the Engine API's `EngineNewPayloadv*` endpoint; a natural way to validate, respectively invalidate, block payloads. In this case, there is no flexibility in the choice of code path - it directly harnesses sila-mainnet client functionality. The `eels/consume-rlp` Simulator, however, allows clients more freedom, as the rlp-encoded blocks are imported upon client startup. Clients are recommended to try and hook the block import into the code path used for historical syncing.
+Clients consume fixtures in the `sels/consume-engine` simulator via the Engine API's `EngineNewPayloadv*` endpoint; a natural way to validate, respectively invalidate, block payloads. In this case, there is no flexibility in the choice of code path - it directly harnesses sila-mainnet client functionality. The `sels/consume-rlp` Simulator, however, allows clients more freedom, as the rlp-encoded blocks are imported upon client startup. Clients are recommended to try and hook the block import into the code path used for historical syncing.
 
 ### Differences
 
-|                         | `eels/consume-rlp`                                    | `eels/consume-engine`                                              |
+|                         | `sels/consume-rlp`                                    | `sels/consume-engine`                                              |
 | ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------------ |
 | **Fixture Format Used** | [`BlockchainTest`](./test_formats/blockchain_test.md) | [`BlockchainTestEngine`](./test_formats/blockchain_test_engine.md) |
 | **Fork support**        | All forks (including pre-merge)                       | Post-merge forks only (SilaParis+)                                     |
@@ -222,9 +222,9 @@ Clients consume fixtures in the `eels/consume-engine` simulator via the Engine A
 
 See [Execute Command](./execute/index.md).
 
-## Two Methods to Run EELS Simulators
+## Two Methods to Run SELS Simulators
 
-Many of the methods use the Hive Testing Environment to interact with clients and run tests against them. These methods are also called Hive simulators. While Hive is always necessary to run simulators, they can be called in two different ways. Both of these commands execute the same simulator code, but in different environments, we take the example of the `eels/consume-engine` simulator:
+Many of the methods use the Hive Testing Environment to interact with clients and run tests against them. These methods are also called Hive simulators. While Hive is always necessary to run simulators, they can be called in two different ways. Both of these commands execute the same simulator code, but in different environments, we take the example of the `sels/consume-engine` simulator:
 
-1. `./hive --sim=eels/consume-engine` is a standalone command that installs and configures execution-specs and its `consume` command in a dockerized container managed by Hive. This is the standard method to execute EEST [fixture releases](./releases.md) against clients in CI environments and is the method to generate the results at [hive.ethpandaops.io](https://hive.ethpandaops.io). See [Hive](./hive/index.md) and its [Common Options](./hive/common_options.md) for help with this method.
+1. `./hive --sim=sels/consume-engine` is a standalone command that installs and configures execution-specs and its `consume` command in a dockerized container managed by Hive. This is the standard method to execute SEST [fixture releases](./releases.md) against clients in CI environments and is the method to generate the results at [hive.ethpandaops.io](https://hive.ethpandaops.io). See [Hive](./hive/index.md) and its [Common Options](./hive/common_options.md) for help with this method.
 2. `uv run consume engine` requires the user to clone and [configure execution-specs](../getting_started/installation.md) and start a Hive server in [development mode](./hive/dev_mode.md). In this case, the simulator runs on the native system and communicate to the client via the Hive API. This is particularly useful during test development as fixtures on the local disk can be specified via `--input=fixtures/`. As the simulator runs natively, it is easy to drop into a debugger and inspect the simulator or client container state. See [Hive Developer Mode](./hive/dev_mode.md) for help with this method.

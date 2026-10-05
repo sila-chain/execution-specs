@@ -74,7 +74,7 @@ class NimbusTransitionTool(TransitionTool):
 
 class NimbusExceptionMapper(ExceptionMapper):
     """
-    Translate between EEST exceptions and error strings returned by Nimbus.
+    Translate between SEST exceptions and error strings returned by Nimbus.
     """
 
     mapping_substring: ClassVar[Dict[ExceptionBase, str]] = {

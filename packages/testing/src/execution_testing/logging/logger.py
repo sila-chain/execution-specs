@@ -17,7 +17,7 @@ logging.addLevelName(VERBOSE_LEVEL, "VERBOSE")
 logging.addLevelName(FAIL_LEVEL, "FAIL")
 
 
-class EESTLogger(logging.Logger):
+class SESTLogger(logging.Logger):
     """Define custom log levels via a dedicated Logger class."""
 
     def verbose(
@@ -72,12 +72,12 @@ class EESTLogger(logging.Logger):
 
 
 # Register the custom logger class
-logging.setLoggerClass(EESTLogger)
+logging.setLoggerClass(SESTLogger)
 
 
-def get_logger(name: str) -> EESTLogger:
-    """Get a properly-typed logger with the EEST custom logging levels."""
-    return cast(EESTLogger, logging.getLogger(name))
+def get_logger(name: str) -> SESTLogger:
+    """Get a properly-typed logger with the SEST custom logging levels."""
+    return cast(SESTLogger, logging.getLogger(name))
 
 
 # Module logger
@@ -180,7 +180,7 @@ def configure_logging(
     use_color: Optional[bool] = None,
 ) -> Optional[logging.FileHandler]:
     """
-    Configure logging with EEST custom log levels and formatters.
+    Configure logging with SEST custom log levels and formatters.
 
     This function can be used in any Python project to set up logging with the
     same settings as the pytest plugin.

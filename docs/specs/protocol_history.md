@@ -1,6 +1,6 @@
 # Protocol History
 
-The table below lists every sila-mainnet Sila hardfork, its activation point, the SIPs it introduced, a link to its fork manifest in EELS, and the Sila Foundation announcement blog post.
+The table below lists every sila-mainnet Sila hardfork, its activation point, the SIPs it introduced, a link to its fork manifest in SELS, and the Sila Foundation announcement blog post.
 
 ## SilaMainnet hardforks
 

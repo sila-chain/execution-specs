@@ -463,7 +463,7 @@ def test_blake2b_invalid_input(
         pytest.param(-1, id="insufficient_gas"),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_blake2b_gas(
     state_test: StateTestFiller,
     pre: Alloc,

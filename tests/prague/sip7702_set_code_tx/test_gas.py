@@ -1149,7 +1149,7 @@ def test_gas_cost(
 @pytest.mark.parametrize(
     **gas_test_parameter_args(include_many=False, include_data=False)
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_account_warming(
     state_test: StateTestFiller,
     pre: Alloc,

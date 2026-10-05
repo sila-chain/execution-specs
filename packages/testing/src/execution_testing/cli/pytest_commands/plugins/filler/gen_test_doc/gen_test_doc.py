@@ -1,7 +1,7 @@
 """
 A pytest plugin that generates test case documentation for use in mkdocs.
 
-It generates the top-level "Test Case Reference" section in EEST's mkdocs site.
+It generates the top-level "Test Case Reference" section in SEST's mkdocs site.
 
 Note:
 ----
@@ -361,12 +361,12 @@ class TestDocsGenerator:
         deploys a version of the site underneath a sub-directory named after
         the version, e.g.:
 
-        - https://eest.sila.org/main/
-        - https://eest.sila.org/v4.1.0/
+        - <site>/main/
+        - <site>/v4.1.0/
 
         We need to be able to include the javascript available at:
 
-        - https://eest.sila.org/main/javascripts/site.js
+        - <site>/main/javascripts/site.js
         """
         ci = os.getenv("CI", None)
         github_ref_name = os.getenv("GITHUB_REF_NAME", None)

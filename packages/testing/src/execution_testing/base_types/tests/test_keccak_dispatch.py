@@ -152,13 +152,13 @@ def test_native_path_used_when_hashlib_has_keccak(
     )
 
 
-def test_eest_bytes_keccak256_matches_eels() -> None:
-    """`Bytes.keccak256()` returns the same digest as EELS `keccak256`."""
+def test_sest_bytes_keccak256_matches_sels() -> None:
+    """`Bytes.keccak256()` returns the same digest as SELS `keccak256`."""
     from sila.crypto.hash import keccak256
 
     from ..base_types import Bytes
 
     for buffer in (b"", b"hashme", bytes(range(256))):
-        from_eest = bytes(Bytes(buffer).keccak256())
-        from_eels = bytes(keccak256(buffer))
-        assert from_eest == from_eels
+        from_sest = bytes(Bytes(buffer).keccak256())
+        from_sels = bytes(keccak256(buffer))
+        assert from_sest == from_sels

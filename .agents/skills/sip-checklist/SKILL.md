@@ -39,7 +39,7 @@ Run `uv run checklist` to generate coverage reports. Template at `docs/writing_t
 Create `sip_checklist_external_coverage.txt` in the SIP test directory:
 
 ```
-general/code_coverage/eels = Covered by EELS test suite
+general/code_coverage/sels = Covered by SELS test suite
 ```
 
 Create `sip_checklist_not_applicable.txt` for inapplicable items:

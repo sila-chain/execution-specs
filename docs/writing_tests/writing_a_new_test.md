@@ -227,7 +227,7 @@ The `execution_testing.tools.tools_code.generators` module also defines other hi
 
 #### Converting Bytecode to Minilang
 
-If you have EVM bytecode (as hex or binary), you can use the [`evm_bytes` CLI tool](../library/cli/evm_bytes.md) to convert it to the EEST Python opcode minilang automatically, for example:
+If you have EVM bytecode (as hex or binary), you can use the [`evm_bytes` CLI tool](../library/cli/evm_bytes.md) to convert it to the SEST Python opcode minilang automatically, for example:
 
 ```console
 uv run evm_bytes hex-string 0x604260005260206000F3

@@ -50,7 +50,7 @@ TESTS_FEATURE_NAME = "tests"
 
 BARE_VERSION_RE = re.compile(r"^v\d+\.\d+\.\d+$")
 
-# TODO: Legacy EEST `stable`/`develop` releases (bare `vX.Y.Z` git tags on
+# TODO: Legacy SEST `stable`/`develop` releases (bare `vX.Y.Z` git tags on
 # the archived sila/execution-spec-tests repo) remain resolvable so
 # existing consumers don't break; remove after 2026-08 (see #3085).
 LEGACY_FEATURE_NAMES = {"stable", "develop"}

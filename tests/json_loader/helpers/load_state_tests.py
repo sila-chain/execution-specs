@@ -47,11 +47,11 @@ class StateTest(FixtureTestItem):
         self.add_marker(pytest.mark.fork(self.fork_name))
         self.add_marker("evm_tools")
         self.add_marker("json_state_tests")
-        eels_fork = FORKS[fork_name].short_name
+        sels_fork = FORKS[fork_name].short_name
         self.fork_cache = self.session.stash[fork_cache_key]
 
         # Mark tests with exceptional markers
-        test_patterns = exceptional_state_test_patterns(fork_name, eels_fork)
+        test_patterns = exceptional_state_test_patterns(fork_name, sels_fork)
         if any(x.search(self.nodeid) for x in test_patterns.slow):
             self.add_marker("slow")
 

@@ -2,7 +2,7 @@
 
 This page collects the style rules, cross-fork discipline, and CLI utilities you need when writing or modifying code under `src/sila/`.
 
-The overarching goal is readability: anyone reading a fork from top to bottom should be able to follow what Sila does for a given block, without jumping between files or untangling abstractions. EELS deliberately prefers repeated code (WET: "write everything twice") over clever reuse (DRY), because duplication is easier to read than a network of abstractions.
+The overarching goal is readability: anyone reading a fork from top to bottom should be able to follow what Sila does for a given block, without jumping between files or untangling abstractions. SELS deliberately prefers repeated code (WET: "write everything twice") over clever reuse (DRY), because duplication is easier to read than a network of abstractions.
 
 ## Style
 
@@ -159,7 +159,7 @@ The following must be updated manually afterwards:
 
 ### Sync Tool
 
-The sync tool uses an RPC provider to fetch and validate blocks against EELS. The validated state can be stored in a local DB. Because syncing directly with the specs is very slow, the sync tool can also leverage the `sila_optimized` module, which contains alternative implementations of routines in EELS optimized for speed rather than clarity/readability.
+The sync tool uses an RPC provider to fetch and validate blocks against SELS. The validated state can be stored in a local DB. Because syncing directly with the specs is very slow, the sync tool can also leverage the `sila_optimized` module, which contains alternative implementations of routines in SELS optimized for speed rather than clarity/readability.
 
 Invoke the tool with `uv run --group optimized sila-spec-sync` (the `optimized` dependency group provides the `sila_optimized` module). Arguments:
 
@@ -196,7 +196,7 @@ uv run python src/sila_spec_tools/patch_tool.py frontier homestead tangerine_whi
 
 ### Lint Tool
 
-The spec lint tool checks for style and formatting issues specific to EELS and emits diagnostics when issues are found. Currently it verifies:
+The spec lint tool checks for style and formatting issues specific to SELS and emits diagnostics when issues are found. Currently it verifies:
 
 - The order of identifiers between each hardfork is consistent.
 - Import statements follow the relevant import rules in modules.

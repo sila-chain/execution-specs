@@ -123,8 +123,8 @@ class SIPChecklist:
         class CodeCoverage(ChecklistItem):
             """Code coverage checklist items."""
 
-            class Eels(ChecklistItem):
-                """EELS code coverage."""
+            class Sels(ChecklistItem):
+                """SELS code coverage."""
 
                 pass
 

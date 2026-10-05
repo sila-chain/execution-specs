@@ -11,13 +11,13 @@
 # nightly run of the `release_fixtures` workflow fills, so the rotating
 # nightly artifact is a release-ready rehearsal of the next tests@ release.
 tests:
-  evm-type: eels
+  evm-type: sels
   fill-params: --until=SilaAmsterdam --generate-all-formats
 
 # Minimal Sila-native fixture set used only by Hive smoke/consume CI. Keep the
 # full `tests` release profile above unchanged for release and client conformance.
 hive_smoke:
-  evm-type: eels
+  evm-type: sels
   fill-params: --fork=SilaOsaka --generate-all-formats -k "test_block_at_rlp_limit_with_logs or test_clz_stack_underflow"
   feature_only: true
 
@@ -33,5 +33,5 @@ benchmark_fast:
 
 # Shared entry for all `<feat>-devnet` releases; matched by `-devnet` suffix.
 devnet:
-  evm-type: eels
+  evm-type: sels
   fill-params: --until=SilaAmsterdam --generate-all-formats

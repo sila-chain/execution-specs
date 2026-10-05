@@ -1,6 +1,6 @@
 # Releasing
 
-This is the maintainer runbook for cutting an EELS release. For the
+This is the maintainer runbook for cutting an SELS release. For the
 contributor-facing explanation of the versioning scheme, see
 [Spec Releases](../specs/spec_releases.md).
 

@@ -199,7 +199,7 @@ def post(
 )
 @pytest.mark.parametrize("proof", ["correct", "incorrect"])
 @pytest.mark.valid_from("SilaCancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_point_evaluation_precompile_gas_usage(
     state_test: StateTestFiller,
     pre: Dict,

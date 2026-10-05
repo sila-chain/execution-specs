@@ -102,17 +102,17 @@ cp -r /path/to/your/go-sila ./clients/go-sila/go-sila-local
 Force rebuild base images:
 
 ```bash
-./hive --docker.pull --sim sila/eels/consume-engine
+./hive --docker.pull --sim sila/sels/consume-engine
 ```
 
 Force rebuild specific client:
 
 ```bash
-./hive --docker.nocache "clients/go-sila" --sim sila/eels/consume-engine
+./hive --docker.nocache "clients/go-sila" --sim sila/sels/consume-engine
 ```
 
 Show the docker container build output:
 
 ```bash
-./hive --docker.buildoutput --sim sila/eels/consume-engine
+./hive --docker.buildoutput --sim sila/sels/consume-engine
 ```

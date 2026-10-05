@@ -392,7 +392,7 @@ def test_modexp_gas_usage_contract_wrapper(
 @SIPChecklist.Precompile.Test.CallContexts.TxEntry()
 @SIPChecklist.Precompile.Test.ValueTransfer.NoFee()
 @pytest.mark.valid_from("SilaBerlin")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_modexp_used_in_transaction_entry_points(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -781,7 +781,7 @@ def create_modexp_variable_gas_test_cases() -> Generator:
 @SIPChecklist.Precompile.Test.InputLengths.Zero()
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
 @pytest.mark.valid_from("SilaBerlin")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_modexp_variable_gas_cost(
     state_test: StateTestFiller,
     precompile_gas: int,

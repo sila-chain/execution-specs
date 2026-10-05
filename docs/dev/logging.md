@@ -66,10 +66,10 @@ logger.fail("Test failure or similar issue")
 
 ### Setting Log Level on the Command Line
 
-You can adjust the log level when running pytest with the `--eest-log-level` option:
+You can adjust the log level when running pytest with the `--sest-log-level` option:
 
 ```bash
-consume engine --input=tests@v20.0.0 --eest-log-level=VERBOSE -s --sim.limit=".*chainid.*"
+consume engine --input=tests@v20.0.0 --sest-log-level=VERBOSE -s --sim.limit=".*chainid.*"
 ```
 
 The argument accepts both log level names (e.g., "DEBUG", "VERBOSE", "INFO") and numeric values.
@@ -120,9 +120,9 @@ The `configure_logging` function accepts the following parameters:
 
 ## Implementation Details
 
-### The EESTLogger Class
+### The SESTLogger Class
 
-The `EESTLogger` class extends Python's `Logger` class to add the custom log methods. The main module logger is automatically configured to use this class.
+The `SESTLogger` class extends Python's `Logger` class to add the custom log methods. The main module logger is automatically configured to use this class.
 
 ### Formatters
 

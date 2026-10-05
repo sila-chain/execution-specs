@@ -1,6 +1,6 @@
 # Common Simulator Options
 
-All execution-specs (EELS) Hive simulators share common command-line options and patterns.
+All execution-specs (SELS) Hive simulators share common command-line options and patterns.
 
 ## Basic Usage
 
@@ -9,7 +9,7 @@ While they may be omitted, it's recommended to specify the `fixtures` and `branc
 For example, this runs fixtures from the [`tests@v20.0.0` release](../releases.md#test-release-types) and builds the simulator at a pinned ref:
 
 ```bash
-./hive --sim sila/eels/consume-engine \
+./hive --sim sila/sels/consume-engine \
   --sim.buildarg fixtures=tests@v20.0.0 \
   --sim.buildarg branch=forks/amsterdam \
   --client go-sila
@@ -20,7 +20,7 @@ For example, this runs fixtures from the [`tests@v20.0.0` release](../releases.m
 Run a subset of tests by filtering tests using `--sim.limit=<regex>` to perform a regular expression match against test IDs:
 
 ```bash
-./hive --sim sila/eels/consume-engine --sim.limit ".*sip4844.*"
+./hive --sim sila/sels/consume-engine --sim.limit ".*sip4844.*"
 ```
 
 ### Collect Only/Dry-Run
@@ -28,7 +28,7 @@ Run a subset of tests by filtering tests using `--sim.limit=<regex>` to perform 
 The `collectonly:` prefix can be used to inspect which tests would match an expression (dry-run), `--docker.output` must be specified to see the simulator's collection result:
 
 ```bash
-./hive --sim sila/eels/consume-engine \
+./hive --sim sila/sels/consume-engine \
      --sim.buildarg fixtures=tests@v20.0.0 \
      --sim.buildarg branch=forks/amsterdam \
      --docker.output \
@@ -40,7 +40,7 @@ The `collectonly:` prefix can be used to inspect which tests would match an expr
 The `id:` prefix can be used to select a single test via its ID (this will automatically escape any special characters in the test case ID):
 
 ```console
-./hive --sim sila/eels/consume-engine \
+./hive --sim sila/sels/consume-engine \
      --sim.buildarg fixtures=tests@v20.0.0 \
      --sim.buildarg branch=forks/amsterdam \
      --docker.output \
@@ -52,7 +52,7 @@ The `id:` prefix can be used to select a single test via its ID (this will autom
 To run multiple tests in parallel, use `--sim.parallelism`:
 
 ```bash
-./hive --sim sila/eels/consume-rlp --sim.parallelism 4
+./hive --sim sila/sels/consume-rlp --sim.parallelism 4
 ```
 
 ### Output Options
@@ -60,7 +60,7 @@ To run multiple tests in parallel, use `--sim.parallelism`:
 See hive log output in the console:
 
 ```bash
-./hive --sim sila/eels/consume-engine --sim.loglevel 5
+./hive --sim sila/sels/consume-engine --sim.loglevel 5
 ```
 
 ### Container Issues
@@ -68,5 +68,5 @@ See hive log output in the console:
 Increase client timeout:
 
 ```bash
-./hive --client.checktimelimit=180s --sim sila/eels/consume-engine
+./hive --client.checktimelimit=180s --sim sila/sels/consume-engine
 ```

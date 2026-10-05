@@ -13,14 +13,14 @@ Some CI jobs are slow. Only run the checks relevant to your change.
 | Any PR (baseline)                                 | `just static`                                                          | Lint, format, mypy, spellcheck, import isolation, workflow lint.                                       |
 | Added or modified tests                           | `just fill tests/path/to/new/tests`                                    | See [Filling Tests](../filling_tests/index.md).                                                        |
 | Framework changes (`packages/testing/`)           | `just test-tests`                                                      | Framework unit tests. Mirrors the `test-tests` CI job.                                                 |
-| Benchmark test changes (`tests/benchmark/`)       | `just fill-benchmark`                                                  | Fills `tests/benchmark/compute` at 1M gas with EELS. Mirrors the `fill-benchmark` CI job.              |
+| Benchmark test changes (`tests/benchmark/`)       | `just fill-benchmark`                                                  | Fills `tests/benchmark/compute` at 1M gas with SELS. Mirrors the `fill-benchmark` CI job.              |
 | Benchmark framework changes                       | `just test-tests`, `just bench-gas`, `just bench-opcode`, `just bench-opcode-config` | Benchmark plugin unit tests now run within `test-tests`; the `bench-*` recipes fill/verify the suite (gsil-backed on `benchmarks/**`).                  |
 | Markdown touched                                  | `just lint-md`                                                         | Requires `markdownlint-cli2`; see [Linting Markdown](#linting-markdown).                               |
 | Docs touched                                      | `just docs` or `just docs-fast`                                        | `docs-fast` skips the Test Case Reference section for faster iteration.                                |
 
 ## `just fix` and `just static`
 
-`just static` is the baseline check for every PR. It runs spellcheck, lint, format check, mypy, EELS import isolation, and workflow linting.
+`just static` is the baseline check for every PR. It runs spellcheck, lint, format check, mypy, SELS import isolation, and workflow linting.
 
 `just fix` auto-applies formatting and the safe subset of `ruff` lint fixes. Run it first to clear anything mechanically fixable, then run `just static` to see what's left.
 

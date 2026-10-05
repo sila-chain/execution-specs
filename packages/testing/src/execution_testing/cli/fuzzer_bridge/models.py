@@ -2,13 +2,13 @@
 Pydantic models for fuzzer output format v2.
 
 This module defines Data Transfer Objects (DTOs) for parsing
-fuzzer output. These DTOs are intentionally separate from EEST
+fuzzer output. These DTOs are intentionally separate from SEST
 domain models (Transaction, Account) to maintain clean separation
 between external data format and internal representation.
 
 Design Principle:
 - DTOs (this file): Parse external JSON-RPC standard format
-- Domain Models (EEST): Internal test generation logic
+- Domain Models (SEST): Internal test generation logic
 - Converter (converter.py): Explicit transformation between the two
 """
 
@@ -33,7 +33,7 @@ class FuzzerAccountInput(BaseModel):
     Raw account data from fuzzer output.
 
     This is a DTO that accepts fuzzer's JSON format without triggering
-    EEST's Account validation logic or defaults.
+    SEST's Account validation logic or defaults.
     """
 
     model_config = ConfigDict(populate_by_name=True)
@@ -67,9 +67,9 @@ class FuzzerTransactionInput(BaseModel):
     Raw transaction data from fuzzer output.
 
     This is a DTO that accepts standard Sila JSON-RPC transaction format
-    without triggering EEST's Transaction.model_post_init logic.
+    without triggering SEST's Transaction.model_post_init logic.
 
-    Key differences from EEST Transaction:
+    Key differences from SEST Transaction:
     - Uses "gas" not "gas_limit" (JSON-RPC standard)
     - Uses "data" not "input" (JSON-RPC standard)
     - Uses "from" not "sender" (JSON-RPC standard)
@@ -109,11 +109,11 @@ class FuzzerOutput(CamelModel):
 
     This is the top-level DTO that parses the complete fuzzer
     output JSON. It uses pure DTOs (FuzzerAccountInput,
-    FuzzerTransactionInput) to avoid triggering EEST domain
+    FuzzerTransactionInput) to avoid triggering SEST domain
     model logic during parsing.
 
     After parsing, the converter will transform these DTOs into
-    EEST domain models.
+    SEST domain models.
     """
 
     version: str = Field(..., pattern="^2\\.0$")

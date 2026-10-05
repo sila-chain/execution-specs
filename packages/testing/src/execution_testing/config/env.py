@@ -83,7 +83,7 @@ class EnvConfig(Config):
         if not ENV_PATH.exists():
             raise FileNotFoundError(
                 f"The configuration file '{ENV_PATH}' does not exist. "
-                "Run `uv run eest make env` to create it."
+                "Run `uv run sest make env` to create it."
             )
 
         with ENV_PATH.open("r") as file:

@@ -1,6 +1,6 @@
 # Releasing Test Fixtures
 
-This page covers the mechanics of cutting a test fixture release. For the release types, their versioning, and consumption guidance, see [EELS Fixture Releases](../running_tests/releases.md).
+This page covers the mechanics of cutting a test fixture release. For the release types, their versioning, and consumption guidance, see [SELS Fixture Releases](../running_tests/releases.md).
 
 Fixture releases are produced by manually dispatching the [`release_fixtures.yaml`](https://github.com/sila/execution-specs/blob/master/.github/workflows/release_fixtures.yaml) workflow. There is no tag to push by hand. The workflow builds the fixtures and, only on success, drafts the GitHub release; publishing the draft creates the tag.
 

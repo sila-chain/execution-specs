@@ -41,7 +41,7 @@ def clean(all_files: bool, dry_run: bool, verbose: bool) -> None:
     Example: Cleaning all generated files and directories and show the deleted
     items.
 
-        uv run eest clean --all -v
+        uv run sest clean --all -v
 
     Output:
 

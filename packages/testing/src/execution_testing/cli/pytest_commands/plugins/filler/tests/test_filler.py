@@ -770,7 +770,7 @@ def test_fixture_output_based_on_command_line_args(
     expected_resolver_file = None
     resolver_file = None
     if TransitionTool.default_tool == ExecutionSpecsTransitionTool:
-        expected_resolver_file = "eels_resolutions.json"
+        expected_resolver_file = "sels_resolutions.json"
 
     ini_file = None
     index_file = None
@@ -923,7 +923,7 @@ def test_fill_variables(
     expected_resolver_file = None
     resolver_file = None
     if TransitionTool.default_tool == ExecutionSpecsTransitionTool:
-        expected_resolver_file = "eels_resolutions.json"
+        expected_resolver_file = "sels_resolutions.json"
 
     ini_file = None
     index_file = None

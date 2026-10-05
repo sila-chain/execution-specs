@@ -101,7 +101,7 @@ def pytest_addoption(parser: Parser) -> None:
         const=True,
         help=(
             "Verify blockchain fixtures that only include `postStateHash` "
-            "(not the full `postState` dict). The EELS state transition's "
+            "(not the full `postState` dict). The SELS state transition's "
             "internal state-root check plus the `lastblockhash` assertion "
             "are cryptographically sufficient."
         ),

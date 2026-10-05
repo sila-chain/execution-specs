@@ -113,7 +113,7 @@ jobs:
           -m "not slow and primary_format"
         env:
           PYTEST_XDIST_AUTO_NUM_WORKERS: auto
-      - name: Validate blockchain fixtures with EELS (${{ matrix.label }})
+      - name: Validate blockchain fixtures with SELS (${{ matrix.label }})
         run: just validate-blocks .just/fill/fixtures/blockchain_tests
         env:
           PYTEST_XDIST_AUTO_NUM_WORKERS: auto
@@ -229,7 +229,7 @@ jobs:
       # On benchmarks/** branches, build the pinned gsil so the benchmark
       # plugin tests fill against a real client (via EVM_BIN). On every other
       # branch this step is skipped, EVM_BIN stays empty, and those fills fall
-      # through to fill's in-repo EELS t8n.
+      # through to fill's in-repo SELS t8n.
       - uses: ./.github/actions/build-evm-base
         id: evm-builder
         if: ${{ startsWith(github.ref, 'refs/heads/benchmarks/') || startsWith(github.base_ref, 'benchmarks/') }}

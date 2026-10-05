@@ -579,7 +579,7 @@ def generate_invalid_tx_max_fee_per_blob_gas_tests(fork: Fork) -> List:
     [1_000_000_000],
 )  # Extra balance to cover block blob gas cost
 @pytest.mark.valid_from("SilaCancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_tx_max_fee_per_blob_gas(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -647,7 +647,7 @@ def test_invalid_tx_max_fee_per_blob_gas_state(
 )
 @pytest.mark.exception_test
 @pytest.mark.valid_from("SilaCancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_normal_gas(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -689,7 +689,7 @@ def test_invalid_normal_gas(
 )
 @pytest.mark.exception_test
 @pytest.mark.valid_from("SilaCancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_block_blob_count(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -1039,7 +1039,7 @@ def generate_invalid_tx_blob_count_tests(
 )
 @pytest.mark.exception_test
 @pytest.mark.valid_from("SilaCancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_tx_blob_count(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -1157,7 +1157,7 @@ def test_invalid_blob_hash_versioning_single_tx(
 )
 @pytest.mark.exception_test
 @pytest.mark.valid_from("SilaCancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_blob_hash_versioning_multiple_txs(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

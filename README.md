@@ -9,7 +9,7 @@
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
-The Sila Execution Layer Specifications (EELS) are an executable Python reference implementation of Sila's execution layer, along with the test cases that verify it. It provides a shared, runnable description of consensus-critical behaviour, and the accompanying tests generate fixtures that can be used to validate execution client implementations.
+The Sila Execution Layer Specifications (SELS) are an executable Python reference implementation of Sila's execution layer, along with the test cases that verify it. It provides a shared, runnable description of consensus-critical behaviour, and the accompanying tests generate fixtures that can be used to validate execution client implementations.
 
 ## Quick Start
 
@@ -61,7 +61,7 @@ For other help, see the [Documentation](#documentation) section above, or reach 
 
 ### Related projects
 
-- [sila/SIPs](https://github.com/sila/SIPs): The prose SIP documents that EELS implements.
+- [sila/SIPs](https://github.com/sila/SIPs): The prose SIP documents that SELS implements.
 - [sila/execution-apis](https://github.com/sila/execution-apis): The JSON-RPC API specification, which lives in a separate repository.
 - [sila/consensus-specs](https://github.com/sila/consensus-specs): The consensus-layer counterpart to this repository.
 

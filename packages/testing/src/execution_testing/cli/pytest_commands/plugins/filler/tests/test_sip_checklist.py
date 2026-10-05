@@ -46,7 +46,7 @@ def test_sip_checklist_collection(testdir: Any) -> None:
     sip_7702_external_coverage_file.write(
         textwrap.dedent(
             """
-            general/code_coverage/eels = DEBUG EXTERNAL COVERAGE REASON
+            general/code_coverage/sels = DEBUG EXTERNAL COVERAGE REASON
             """
         )
     )

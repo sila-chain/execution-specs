@@ -31,7 +31,7 @@ runs:
     - uses: ./.github/actions/setup-uv
       with:
         enable-cache: "false"
-    - name: Install EEST
+    - name: Install SEST
       shell: bash
       run: uv sync --no-progress
     - name: Extract fixture release properties from config
@@ -66,7 +66,7 @@ runs:
         fi
 
         EVM_ARGS=""
-        if [ "${{ steps.evm-builder.outputs.impl }}" != "eels" ]; then
+        if [ "${{ steps.evm-builder.outputs.impl }}" != "sels" ]; then
           EVM_ARGS="--evm-bin=${{ steps.evm-builder.outputs.evm-bin }}"
         fi
 
@@ -76,8 +76,8 @@ runs:
         if [ "$EXIT_CODE" -ne 0 ] && [ "$EXIT_CODE" -ne 5 ]; then
           exit "$EXIT_CODE"
         fi
-    - name: Validate blockchain fixtures with EELS
-      if: inputs.split_label != '' && steps.evm-builder.outputs.impl == 'eels'
+    - name: Validate blockchain fixtures with SELS
+      if: inputs.split_label != '' && steps.evm-builder.outputs.impl == 'sels'
       shell: bash
       env:
         PYTEST_XDIST_AUTO_NUM_WORKERS: ${{ steps.evm-builder.outputs.xdist }}

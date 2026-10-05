@@ -50,7 +50,7 @@ class Operation(Enum):
     ),
     reason="transaction_create only valid with CREATE",
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_create_suicide_during_transaction_create(
     state_test: StateTestFiller,
     fork: Fork,

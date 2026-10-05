@@ -2,7 +2,7 @@
 
 Tests can be executed on a local hive-controlled single-client network by running the `execute hive` command.
 
-## The `eels/execute-blobs` Simulator
+## The `sels/execute-blobs` Simulator
 
 The `blob_transaction_test` execute test spec sends blob transactions to a running client. Blob transactions are fully supported in execute mode:
 
@@ -13,7 +13,7 @@ The `blob_transaction_test` execute test spec sends blob transactions to a runni
 Tests can be run using:
 
 ```bash
-./hive --client besu --client-file ./configs/osaka.yaml --sim sila/eels/execute-blobs
+./hive --client besu --client-file ./configs/osaka.yaml --sim sila/sels/execute-blobs
 ```
 
 **Note**: If the Engine RPC is unavailable, blob transactions will be sent and `getBlobsV*` validation is skipped.
@@ -42,7 +42,7 @@ and running:
 uv run execute hive --fork=SilaCancun
 ```
 
-If the command above leads to errors such as `ImportError: Error importing plugin "pytest_plugins.execute.rpc.hive": No module named 'hive.client'` run the following to fix it: `uv run eest clean --all`.
+If the command above leads to errors such as `ImportError: Error importing plugin "pytest_plugins.execute.rpc.hive": No module named 'hive.client'` run the following to fix it: `uv run sest clean --all`.
 
 This will execute all available tests in the `tests` directory on the `SilaCancun` fork by connecting to the hive server running on `http://127.0.0.1:3000` and launching a single client with the appropriate genesis file.
 

@@ -62,7 +62,7 @@ class FixtureConsumer(ABC):
 
 
 class TestCaseBase(BaseModel):
-    """Base model for a test case used in EEST consume commands."""
+    """Base model for a test case used in SEST consume commands."""
 
     id: str
     fixture_hash: IndexHash

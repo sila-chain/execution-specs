@@ -289,7 +289,7 @@ markers = [
     "json_blockchain_tests: marks tests as json_blockchain_tests (deselect with '-m \"not json_blockchain_tests\"')",
     "json_state_tests: marks tests as json_state_tests (deselect with '-m \"not json_state_tests\"')",
     "vm_test: marks tests as vm_test (deselect with '-m \"not vm_test\"')",
-    "eels_base_coverage: Minimized subset selected to preserve high EELS line-coverage parity (select with '-m eels_base_coverage')",
+    "sels_base_coverage: Minimized subset selected to preserve high SELS line-coverage parity (select with '-m sels_base_coverage')",
     "fork: marks JSON fixture tests by fork",
     "repricing: marks tests for gas repricing analysis",
     "stub_parametrize: parametrize test from address stubs by prefix",
@@ -375,7 +375,7 @@ path = ".just/docs-spec"
 extension = ".html"
 
 [tool.vulture]
-exclude = ["tests/fixtures/", "eest_tests/"]
+exclude = ["tests/fixtures/", "sest_tests/"]
 ignore_names = ["pytest_*"]
 
 [tool.ruff]

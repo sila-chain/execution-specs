@@ -2,7 +2,7 @@
 
 ## Overview
 
-While the Sila Execution Layer Specification (EELS) is not intended to be a
+While the Sila Execution Layer Specification (SELS) is not intended to be a
 production ready client, the software is intended to be fully capable of applying
 state transitions for local testing and acts as a point of reference for the
 other Execution Layer (EL) clients. Therefore, a bug in this spec _could_ imply
@@ -18,11 +18,11 @@ recommend using the [latest version](https://github.com/sila/execution-specs/rel
 ### What Constitutes a Serious Issue
 
 - Issues which affect any production EL client (gsil, Nethermind, Besu, etc.)
-- EELS has inadvertently leaked secure information into the codebase
+- SELS has inadvertently leaked secure information into the codebase
 
 ### What Does _Not_ Constitute a Serious Issue
 
-- Issues which are limited to EELS operation as a local EL test client
+- Issues which are limited to SELS operation as a local EL test client
 
 ### How to Notify the Project of an Issue
 

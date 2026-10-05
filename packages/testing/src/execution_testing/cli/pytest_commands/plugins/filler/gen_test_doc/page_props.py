@@ -6,7 +6,7 @@ used in the jinja2 templates when generating site content (located in
 docs/templates). The classes also define each page's navigation menu entry and
 target output file.
 
-A few helpers are defined with EEST logic in order to sanitize strings from
+A few helpers are defined with SEST logic in order to sanitize strings from
 file paths for use in navigation menu.
 """
 

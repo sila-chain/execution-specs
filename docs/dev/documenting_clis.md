@@ -1,6 +1,6 @@
 # Documenting CLIs
 
-EEST command line interfaces (CLIs) are documented using the [`click`](https://click.palletsprojects.com) library's built-in help system and the [`mkdocs-click`](https://github.com/mkdocs/mkdocs-click) extension for mkdocs. This allows generation of CLI documentation directly from the (click) source code, ensuring that the documentation is always up-to-date with the code.
+SEST command line interfaces (CLIs) are documented using the [`click`](https://click.palletsprojects.com) library's built-in help system and the [`mkdocs-click`](https://github.com/mkdocs/mkdocs-click) extension for mkdocs. This allows generation of CLI documentation directly from the (click) source code, ensuring that the documentation is always up-to-date with the code.
 
 Current limitations:
 

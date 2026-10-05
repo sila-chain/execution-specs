@@ -79,7 +79,7 @@ G2_POINT_ZERO_FP = PointG2(
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_valid(
     state_test: StateTestFiller,
     pre: Alloc,

@@ -264,7 +264,7 @@ assembly_option = click.option(
 )
 def evm_bytes() -> None:
     """
-    Convert EVM bytecode to EEST's Python Opcodes or an assembly string.
+    Convert EVM bytecode to SEST's Python Opcodes or an assembly string.
 
     The input can be either a hex string or a binary file.
     """
@@ -278,14 +278,14 @@ def evm_bytes() -> None:
 @click.argument("hex_string")
 def hex_string(hex_string: str, assembly: bool) -> None:
     """
-    Convert the HEX_STRING representing EVM bytes to EEST Python Opcodes.
+    Convert the HEX_STRING representing EVM bytes to SEST Python Opcodes.
 
     HEX_STRING is a string containing EVM bytecode.
 
     Returns:
         (str): The processed EVM opcodes in Python or assembly format.
 
-    Example 1: Convert a hex string to EEST Python `Opcodes`
+    Example 1: Convert a hex string to SEST Python `Opcodes`
         uv run evm_bytes hex-string 604260005260206000F3
 
     Output 1:

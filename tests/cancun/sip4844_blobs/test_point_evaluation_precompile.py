@@ -431,7 +431,7 @@ def test_valid_inputs(
 )
 @pytest.mark.parametrize("result", [Result.FAILURE])
 @pytest.mark.valid_from("SilaCancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_inputs(
     state_test: StateTestFiller,
     pre: Alloc,

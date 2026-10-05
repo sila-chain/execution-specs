@@ -166,7 +166,7 @@ def get_fork_permutations(fork: Fork) -> Generator[ParameterSet, None, None]:
 
 
 @pytest.mark.parametrize_by_fork("requests", get_fork_permutations)
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 @SIPChecklist.ExecutionLayerRequest.Test.CrossRequestType.Update(sip=[8282])
 def test_valid_multi_type_requests(
     blockchain_test: BlockchainTestFiller,

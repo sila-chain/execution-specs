@@ -1,4 +1,4 @@
-"""Additional tests for the EELS t8n tool."""
+"""Additional tests for the SELS t8n tool."""
 
 import json
 import os
@@ -190,7 +190,7 @@ def test_evm_t8n(
         if isinstance(default_t8n, ExecutionSpecsTransitionTool):
             # The expected output was generated with gsil, instead of deleting
             # any info from this expected output, the fields not returned by
-            # eels are handled here.
+            # sels are handled here.
             missing_receipt_fields = [
                 "root",
                 "contractAddress",

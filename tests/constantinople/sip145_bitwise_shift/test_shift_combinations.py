@@ -59,7 +59,7 @@ combinations = list(itertools.product(list_of_args, repeat=2))
     ],
     pr=["https://github.com/sila/execution-spec-tests/pull/1683"],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_combinations(
     state_test: StateTestFiller, pre: Alloc, opcode: Op, operation: Callable
 ) -> None:

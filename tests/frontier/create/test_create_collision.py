@@ -126,7 +126,7 @@ PORTED_FROM = pytest.mark.ported_from(
     collision_params,
 )
 @pytest.mark.with_all_contract_creating_tx_types
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_create_tx_collision(
     state_test: StateTestFiller,
     pre: Alloc,

@@ -157,13 +157,13 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
         self.add_marker("json_blockchain_tests")
         self.transition = ForkTransition.parse(self.fork_name)
         if self.transition is None:
-            self.eels_fork = FORKS[self.fork_name].short_name
+            self.sels_fork = FORKS[self.fork_name].short_name
         else:
-            self.eels_fork = FORKS[self.transition.to_fork].short_name
+            self.sels_fork = FORKS[self.transition.to_fork].short_name
 
         # Mark tests with exceptional markers
         test_patterns = exceptional_blockchain_test_patterns(
-            self.fork_name, self.eels_fork
+            self.fork_name, self.sels_fork
         )
         if any(x.search(self.nodeid) for x in test_patterns.expected_fail):
             self.add_marker(pytest.mark.skip("Expected to fail"))
@@ -217,7 +217,7 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
                 f"{self.test_file}[{self.test_key}] has unrelated exceptions"
             )
 
-        load = Load(self.eels_fork)
+        load = Load(self.sels_fork)
         # A transition fixture starts its chain on the previous fork; the
         # genesis and the blocks before the activation belong to it.
         if self.transition is None:

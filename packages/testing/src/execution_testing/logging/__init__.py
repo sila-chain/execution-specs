@@ -9,8 +9,8 @@ from .logger import (
     FAIL_LEVEL,
     VERBOSE_LEVEL,
     ColorFormatter,
-    EESTLogger,
     LogLevel,
+    SESTLogger,
     UTCFormatter,
     configure_logging,
     get_logger,
@@ -19,7 +19,7 @@ from .logger import (
 __all__ = [
     "VERBOSE_LEVEL",
     "FAIL_LEVEL",
-    "EESTLogger",
+    "SESTLogger",
     "UTCFormatter",
     "ColorFormatter",
     "LogLevel",

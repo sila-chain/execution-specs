@@ -75,7 +75,7 @@ pytestmark = [pytest.mark.valid_at("SilaPrague"), pytest.mark.sila_mainnet]
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_sip_2537(
     state_test: StateTestFiller,
     pre: Alloc,

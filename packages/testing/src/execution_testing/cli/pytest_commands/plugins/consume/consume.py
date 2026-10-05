@@ -525,7 +525,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
             f"Tests in `{fixture_format.format_name}` format ",
         )
 
-    # All forked defined within EEST
+    # All forked defined within SEST
     all_forks = {
         fork
         for fork in set(get_forks()) | get_transition_forks()

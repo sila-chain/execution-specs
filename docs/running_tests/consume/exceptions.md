@@ -13,11 +13,11 @@ Exception tests validate that clients correctly reject invalid blocks and transa
 
 ## Client Exception Mappers
 
-Each client has unique error message formats. EEST maintains exception mappers that translate client-specific errors to standardized exception types.
+Each client has unique error message formats. SEST maintains exception mappers that translate client-specific errors to standardized exception types.
 
 ### Mapper Location
 
-Exception mappers are defined in the EEST codebase:
+Exception mappers are defined in the SEST codebase:
 
 - `packages/testing/src/execution_testing/client_clis/clis/<client>.py` (e.g., `gsil.py`, `besu.py`, `nethermind.py`)
 
@@ -98,7 +98,7 @@ uv run consume engine --disable-strict-exception-matching=nimbus-el
 Enable verbose client output:
 
 ```bash
-./hive --sim sila/eels/consume-engine \
+./hive --sim sila/sels/consume-engine \
   --docker.output \
   --sim.loglevel 5
 ```

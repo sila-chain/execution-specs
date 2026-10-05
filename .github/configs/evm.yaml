@@ -4,8 +4,8 @@ benchmark:
   ref: glamsterdam-devnet-8
   evm-bin: sivm
   xdist: auto
-eels:
-  impl: eels
+sels:
+  impl: sels
   repo: null
   ref: null
   evm-bin: null
