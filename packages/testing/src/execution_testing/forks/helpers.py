@@ -527,7 +527,7 @@ ForkSIP = Annotated[
     PlainSerializer(str),
     PlainValidator(
         fork_validator_generator(
-            BaseFork, all_forks + all_sips + transition_forks
+            BaseFork, all_sips + all_forks + transition_forks
         )
     ),
 ]

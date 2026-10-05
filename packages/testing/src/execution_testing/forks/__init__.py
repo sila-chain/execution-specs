@@ -24,8 +24,8 @@ from .forks.forks import (
     SilaParis,
     SilaPrague,
     SilaShanghai,
-    SpuriousDragon,
-    TangerineWhistle,
+    SIP150,
+    SIP158,
 )
 from .forks.sips.amsterdam.sip_8282 import (
     BuilderDepositRequest,
@@ -130,8 +130,8 @@ __all__ = [
     "Frontier",
     "GrayGlacier",
     "SilaHomestead",
-    "TangerineWhistle",
-    "SpuriousDragon",
+    "SIP150",
+    "SIP158",
     "InvalidForkError",
     "SilaIstanbul",
     "SilaLondon",

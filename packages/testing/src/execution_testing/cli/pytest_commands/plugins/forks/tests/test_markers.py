@@ -41,7 +41,7 @@ def test_case(state_test):
             [],
             # All deployed forks from Frontier through SilaCancun, except
             # SilaConstantinople (filled as SilaConstantinopleFix): Frontier,
-            # SilaHomestead, TangerineWhistle, SpuriousDragon, SilaByzantium,
+            # SilaHomestead, SIP150, SIP158, SilaByzantium,
             # SilaConstantinopleFix, SilaIstanbul, SilaBerlin, SilaLondon,
             # SilaParis, SilaShanghai,
             # SilaCancun = 12 forks.
@@ -331,8 +331,8 @@ import pytest
     [
         pytest.param(
             True,
-            id="from_tangerine",
-            marks=pytest.mark.valid_from("TangerineWhistle"),
+            id="from_sip150",
+            marks=pytest.mark.valid_from("SIP150"),
         ),
         pytest.param(
             False,
@@ -410,7 +410,7 @@ import pytest
         pytest.param(
             True,
             id="all_forks",
-            marks=pytest.mark.valid_from("TangerineWhistle"),
+            marks=pytest.mark.valid_from("SIP150"),
         ),
         pytest.param(
             False,
@@ -432,7 +432,7 @@ def test_mixed_function_and_param_markers(state_test, value):
         pytest.param(
             generate_param_level_marker_test(),
             ["--from=SilaParis", "--until=SilaCancun"],
-            # from_tangerine: SilaParis, SilaShanghai, SilaCancun = 3 forks
+            # from_sip150: SilaParis, SilaShanghai, SilaCancun = 3 forks
             # from_paris: SilaParis, SilaShanghai, SilaCancun = 3 forks
             # Total: 6 tests
             {"passed": 6, "failed": 0, "skipped": 0, "errors": 0},
@@ -441,7 +441,7 @@ def test_mixed_function_and_param_markers(state_test, value):
         pytest.param(
             generate_param_level_marker_test(),
             ["--from=SilaBerlin", "--until=SilaShanghai"],
-            # from_tangerine: SilaBerlin, SilaLondon, SilaParis, SilaShanghai =
+            # from_sip150: SilaBerlin, SilaLondon, SilaParis, SilaShanghai =
             # 4 forks
             # from_paris: SilaParis, SilaShanghai = 2 forks
             # Total: 6 tests
@@ -451,7 +451,7 @@ def test_mixed_function_and_param_markers(state_test, value):
         pytest.param(
             generate_param_level_marker_test(),
             ["--from=SilaBerlin", "--until=SilaLondon"],
-            # from_tangerine: SilaBerlin, SilaLondon = 2 forks
+            # from_sip150: SilaBerlin, SilaLondon = 2 forks
             # from_paris: none (SilaParis > SilaLondon)
             # Total: 2 tests
             {"passed": 2, "failed": 0, "skipped": 0, "errors": 0},
@@ -480,7 +480,7 @@ def test_mixed_function_and_param_markers(state_test, value):
             ["--from=SilaBerlin", "--until=SilaPrague"],
             # Function marker: valid_until("SilaCancun") limits to <=
             # SilaCancun
-            # all_forks (TangerineWhistle):
+            # all_forks (SIP150):
             #   SilaBerlin, SilaLondon, SilaParis, SilaShanghai, SilaCancun = 5
             # paris_only: SilaParis, SilaShanghai, SilaCancun = 3
             # Total: 8 tests
