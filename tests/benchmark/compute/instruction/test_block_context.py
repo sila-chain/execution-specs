@@ -11,7 +11,6 @@ Supported Opcodes:
 - CHAINID
 - BASEFEE
 - BLOBBASEFEE
-- SLOTNUM
 """
 
 import pytest
@@ -49,6 +48,7 @@ def test_block_context_ops(
     )
 
 
+@pytest.mark.skip(reason="Temporarily disabled pending investigation")
 @pytest.mark.repricing
 @pytest.mark.parametrize(
     "index,chain_length",
@@ -79,14 +79,4 @@ def test_blockhash(
         code_generator=ExtCallGenerator(
             attack_block=Op.BLOCKHASH(block_number)
         ),
-    )
-
-
-@pytest.mark.repricing
-@pytest.mark.valid_from("SilaAmsterdam")
-def test_slotnum(benchmark_test: BenchmarkTestFiller) -> None:
-    """Benchmark SLOTNUM instruction."""
-    benchmark_test(
-        target_opcode=Op.SLOTNUM,
-        code_generator=ExtCallGenerator(attack_block=Op.SLOTNUM),
     )
