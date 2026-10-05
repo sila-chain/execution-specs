@@ -1427,8 +1427,12 @@ class BaseFork(ForkOpcodeInterface, metaclass=BaseForkMeta):
 
     @classmethod
     def is_sip(cls) -> bool:
-        """Return whether this class is an SIP."""
-        return cls.__name__.startswith("SIP") and cls.__name__[-1].isdigit()
+        """Return whether this class is an SIP proposal mixin."""
+        return (
+            ".forks.sips." in cls.__module__
+            and cls.__name__.startswith("SIP")
+            and cls.__name__[-1].isdigit()
+        )
 
     @classmethod
     def sip(cls) -> int:
