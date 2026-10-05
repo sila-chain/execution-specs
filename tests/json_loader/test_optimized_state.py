@@ -6,7 +6,7 @@ import pytest
 from sila_types.numeric import U256
 
 import sila.state_mpt as state
-from sila.forks.tangerine_whistle.utils.hexadecimal import hex_to_address
+from sila.forks.sip150.utils.hexadecimal import hex_to_address
 from sila.state import EMPTY_ACCOUNT
 from sila_spec_tools.forks import Hardfork
 

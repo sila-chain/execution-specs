@@ -175,7 +175,7 @@ def _parse_txs_json_to_testing(
     Parse a JSON tx array into signed testing ``Transaction`` objects.
 
     Unsigned txs carrying only ``secretKey`` are signed in place via
-    ``Transaction.sign``; pre-Spurious-Dragon forks get
+    ``Transaction.sign``; pre-SIP158 forks get
     ``protected=False`` so the ``v`` value stays in ``{27, 28}``.
 
     RLP-string input (a single hex string of an encoded tx list) is

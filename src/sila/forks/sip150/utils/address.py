@@ -8,7 +8,7 @@ Hardfork Utility Functions For Addresses.
 Introduction
 ------------
 
-Address specific functions used in this tangerine whistle version of
+Address specific functions used in this SIP150 version of
 specification.
 """
 
@@ -52,7 +52,7 @@ def compute_contract_address(address: Address, nonce: Uint) -> Address:
 
     Returns
     -------
-    address: `sila.forks.tangerine_whistle.fork_types.Address`
+    address: `sila.forks.sip150.fork_types.Address`
         The computed address of the new account.
 
     """

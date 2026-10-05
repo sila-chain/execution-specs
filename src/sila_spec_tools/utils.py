@@ -34,10 +34,10 @@ EXCEPTION_MAPS = {
         "fork_blocks": [("sila_homestead", 0), ("dao_fork", 5)],
     },
     "SilaHomesteadToSIP150At5": {
-        "fork_blocks": [("sila_homestead", 0), ("tangerine_whistle", 5)],
+        "fork_blocks": [("sila_homestead", 0), ("sip150", 5)],
     },
     "SIP158ToByzantiumAt5": {
-        "fork_blocks": [("spurious_dragon", 0), ("sila_byzantium", 5)],
+        "fork_blocks": [("sip158", 0), ("sila_byzantium", 5)],
     },
     "SilaByzantiumToSilaConstantinopleAt5": {
         "fork_blocks": [("sila_byzantium", 0), ("sila_constantinople", 5)],
@@ -47,12 +47,6 @@ EXCEPTION_MAPS = {
     },
     "SilaBerlinToSilaLondonAt5": {
         "fork_blocks": [("sila_berlin", 0), ("sila_london", 5)],
-    },
-    "SIP150": {
-        "fork_blocks": [("tangerine_whistle", 0)],
-    },
-    "SIP158": {
-        "fork_blocks": [("spurious_dragon", 0)],
     },
     "SilaConstantinopleFix": {
         "fork_blocks": [("sila_constantinople", 0)],
@@ -117,6 +111,7 @@ def find_fork(
                 current_fork_block = fork_block
 
     current_fork_module = re.sub("^b_p_o", "bpo", current_fork_module)
+    current_fork_module = re.sub("^s_i_p", "sip", current_fork_module)
 
     for fork in forks:
         if current_fork_module == fork.short_name:
@@ -150,9 +145,10 @@ def resolve_fork(fork_name: str) -> Hardfork:
     short = _SPEC_SHORT_NAME_OVERRIDES.get(fork_name)
     if short is None:
         short = re.sub(r"(?<!^)(?=[A-Z])", "_", fork_name).lower()
-        # ``BPO1`` and friends would otherwise become ``b_p_o1``; mirror
-        # the ``b_p_o → bpo`` collapse that :func:`find_fork` performs.
+        # ``BPO1`` and ``SIP150`` would otherwise become ``b_p_o1`` and
+        # ``s_i_p150``; mirror the collapse that :func:`find_fork` performs.
         short = re.sub(r"^b_p_o", "bpo", short)
+        short = re.sub(r"^s_i_p", "sip", short)
     for fork in Hardfork.discover():
         if fork.short_name == short:
             return fork

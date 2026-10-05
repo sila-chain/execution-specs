@@ -43,7 +43,7 @@ MEMORY_SIZE = 0x1F40  # 8000-byte init-code window for the memory variants
         "state_tests/stEIP150singleCodeGasPrices/RawCreateFailGasValueTransfer2Filler.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 @pytest.mark.parametrize(
     "create_value, size, fails",
     [

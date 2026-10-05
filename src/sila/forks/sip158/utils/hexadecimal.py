@@ -9,7 +9,7 @@ Introduction
 ------------
 
 Hexadecimal utility functions used in this specification, specific to
-Spurious Dragon types.
+SIP158 types.
 """
 
 from sila_types.bytes import Bytes

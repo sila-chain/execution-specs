@@ -143,7 +143,7 @@ def process_create_message(message: Message) -> Evm:
 
     Returns
     -------
-    evm: :py:class:`~sila.forks.tangerine_whistle.vm.Evm`
+    evm: :py:class:`~sila.forks.sip150.vm.Evm`
         Items containing execution specific objects.
 
     """
@@ -188,7 +188,7 @@ def process_message(message: Message) -> Evm:
 
     Returns
     -------
-    evm: :py:class:`~sila.forks.tangerine_whistle.vm.Evm`
+    evm: :py:class:`~sila.forks.sip150.vm.Evm`
         Items containing execution specific objects
 
     """

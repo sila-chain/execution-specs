@@ -75,7 +75,7 @@ def test_sip1559_tx_validity(
 
 
 @pytest.mark.inclusion_test
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 @pytest.mark.exception_test
 @pytest.mark.with_all_tx_types
 def test_invalid_chain_id(

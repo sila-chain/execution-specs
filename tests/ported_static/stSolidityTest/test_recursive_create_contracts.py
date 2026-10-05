@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSolidityTest/RecursiveCreateContractsFiller.json"],
 )
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 def test_recursive_create_contracts(
     state_test: StateTestFiller, pre: Alloc, fork: Fork
 ) -> None:

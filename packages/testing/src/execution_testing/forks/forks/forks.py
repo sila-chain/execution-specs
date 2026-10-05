@@ -1108,7 +1108,7 @@ class Frontier(BaseFork):
         At genesis, there is no upper bound for code size (bounded by block gas
         limit).
 
-        However, the default is set to the limit of SIP-170 (Spurious Dragon)
+        However, the default is set to the limit of SIP-170 (SIP158)
         """
         return 0x6000
 

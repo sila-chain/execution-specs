@@ -270,8 +270,8 @@ class Hardfork:
         config = {
             ByBlockNumber(0): "frontier",
             ByBlockNumber(c["homesteadBlock"]): "sila_homestead",
-            ByBlockNumber(c["sip150Block"]): "tangerine_whistle",
-            ByBlockNumber(c["sip155Block"]): "spurious_dragon",
+            ByBlockNumber(c["sip150Block"]): "sip150",
+            ByBlockNumber(c["sip155Block"]): "sip158",
             ByBlockNumber(c["byzantiumBlock"]): "sila_byzantium",
             ByBlockNumber(c["constantinopleBlock"]): "sila_constantinople",
             ByBlockNumber(c["istanbulBlock"]): "sila_istanbul",
@@ -458,6 +458,8 @@ class Hardfork:
         """
         if self.short_name.startswith("bpo"):
             return "BPO" + self.short_name[3:].replace("_", " ")
+        if self.short_name.startswith("sip"):
+            return "SIP" + self.short_name[3:].replace("_", " ")
 
         return self.short_name.replace("_", " ").title()
 

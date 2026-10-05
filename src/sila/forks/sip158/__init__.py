@@ -1,5 +1,5 @@
 """
-The Spurious Dragon fork is the second of two forks responding to a
+The SIP158 fork is the second of two forks responding to a
 denial-of-service attack on the Sila network. It tunes the prices of EVM
 instructions, adds protection against replaying transaction on different
 chains, limits the maximum size of contract code, and enables the removal of

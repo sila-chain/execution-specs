@@ -10,7 +10,7 @@ state_tests/stTransactionTest/StoreGasOnCreateFiller.json
 the creating frame is entered through an outer call with a derived
 budget, so the child's stored GAS observation depends on neither the
 transaction gas limit nor the fork's intrinsic cost (the ported absolute
-pin moved with every schedule change). The floor is TangerineWhistle
+pin moved with every schedule change). The floor is SIP150
 because the 63/64 withhold this test measures is SIP-150's.
 """
 
@@ -37,7 +37,7 @@ CHILD_HEADROOM = 5_000
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/StoreGasOnCreateFiller.json"],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_store_gas_on_create(
     state_test: StateTestFiller,
     pre: Alloc,

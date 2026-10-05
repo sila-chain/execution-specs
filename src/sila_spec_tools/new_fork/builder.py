@@ -367,7 +367,7 @@ class ForkBuilder:
     """
     Name of the new fork as a Python-friendly identifier.
 
-    For example, `"spurious_dragon"` and not `"Spurious Dragon"`.
+    For example, `"sila_homestead"` and not `"Sila Homestead"`.
     """
 
     output: Path | None

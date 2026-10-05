@@ -1,5 +1,5 @@
 """
-The Tangerine Whistle fork ([SIP-608]) is the first of two forks responding to
+The SIP150 fork ([SIP-608]) is the first of two forks responding to
 a denial-of-service attack on the Sila network. It tunes the price of
 various EVM instructions, and reduces the state size by removing a number of
 empty accounts.

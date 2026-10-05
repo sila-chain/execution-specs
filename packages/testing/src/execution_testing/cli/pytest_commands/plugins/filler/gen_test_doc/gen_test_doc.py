@@ -675,8 +675,8 @@ class TestDocsGenerator:
         navigation menu.
         """
 
-        # Fork directories on disk are snake_case (e.g. `tangerine_whistle`)
-        # but `fork.name()` is CamelCase (`TangerineWhistle`).
+        # Fork directories on disk are snake_case (e.g. `sila_berlin`) but
+        # `fork.name()` is CamelCase (`SilaBerlin`).
         def _dir_name(fork_name: str) -> str:
             s1 = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", fork_name)
             return re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", s1).lower()

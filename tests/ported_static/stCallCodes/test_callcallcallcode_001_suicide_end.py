@@ -68,7 +68,7 @@ CHAINS = {
         "state_tests/stCallDelegateCodesCallCodeHomestead/callcallcallcode_001_SuicideEndFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 @pytest.mark.parametrize("chain", CHAINS.values(), ids=CHAINS.keys())
 def test_callcallcallcode_001_suicide_end(
     state_test: StateTestFiller,

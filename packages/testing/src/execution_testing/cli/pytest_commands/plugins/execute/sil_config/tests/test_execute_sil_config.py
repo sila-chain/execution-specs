@@ -395,8 +395,8 @@ SilaMainnet:
     Frontier:           0
     SilaHomestead:          1150000
     DAOFork:            1920000
-    TangerineWhistle:   2463000
-    SpuriousDragon:     2675000
+    SIP150:             2463000
+    SIP158:             2675000
     SilaByzantium:          4370000
     SilaConstantinople:     7280000
     SilaIstanbul:           9069000

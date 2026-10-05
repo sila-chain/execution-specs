@@ -8,7 +8,7 @@ Hardfork Utility Functions For Addresses.
 Introduction
 ------------
 
-Address specific functions used in this spurious dragon version of
+Address specific functions used in this SIP158 version of
 specification.
 """
 
@@ -52,7 +52,7 @@ def compute_contract_address(address: Address, nonce: Uint) -> Address:
 
     Returns
     -------
-    address: `sila.forks.spurious_dragon.fork_types.Address`
+    address: `sila.forks.sip158.fork_types.Address`
         The computed address of the new account.
 
     """

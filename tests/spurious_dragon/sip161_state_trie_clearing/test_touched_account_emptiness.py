@@ -121,7 +121,7 @@ def test_extcodehash_after_precompile_touch(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 @pytest.mark.parametrize(
     "precompile,args_size",
     [
@@ -215,7 +215,7 @@ def test_call_new_account_charge_after_precompile_touch(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 @pytest.mark.parametrize(
     "precompile",
     [

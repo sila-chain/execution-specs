@@ -8,7 +8,7 @@ Hardfork Utility Functions For The Message Data-structure.
 Introduction
 ------------
 
-Message specific functions used in this tangerine whistle version of
+Message specific functions used in this SIP150 version of
 specification.
 """
 
@@ -42,7 +42,7 @@ def prepare_message(
 
     Returns
     -------
-    message: `sila.forks.tangerine_whistle.vm.Message`
+    message: `sila.forks.sip150.vm.Message`
         Items containing contract creation or message call specific data.
 
     """

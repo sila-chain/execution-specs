@@ -197,7 +197,7 @@ under test.
   SilaAmsterdam — a common reason a pure-behavior test lands on the skip list. Omit
   the operand so it forwards everything. **Caveat:** forwarding all gas via
   `Op.GAS` misbehaves on **pre-SIP-150 (SilaHomestead)** — the sweep (step 11) fails
-  only there, so such tests floor at **TangerineWhistle**. Keep an explicit `gas`
+  only there, so such tests floor at **SIP150**. Keep an explicit `gas`
   operand *only* when the amount forwarded is the subject (an OOG-boundary test).
   **Budget vs. subject:** before dropping the operand, ask *why* the constant
   has its value. A mid-sized constant (`0xEA60`) is a *budget* sized for the old
@@ -680,17 +680,17 @@ lowering, never a true removal.
   init-code metering floors at SilaShanghai, etc. The floor is whichever SIP the
   test's behavior/metadata depends on, which the empirical sweep reveals directly.
 - **Behavioral floors show up as non-gas mismatches in the sweep.** A CREATE
-  test asserting the created account has `nonce=1` floors at **SpuriousDragon
+  test asserting the created account has `nonce=1` floors at **SIP158
   (SIP-161)** — earlier forks start contract nonces at 0, so Frontier/SilaHomestead/
-  TangerineWhistle fail on the nonce, not the gas. Read *what* the sweep's
+  SIP150 fail on the nonce, not the gas. Read *what* the sweep's
   earliest-passing fork is gated on; it is not always a gas-schedule change.
 - **A `bad v` / `INVALID_SIGNATURE_VRS` failure is a signature floor, not a
   real one — don't raise `valid_from` for it.** The default `Transaction` is
-  SIP-155-protected, which pre-SpuriousDragon forks reject. Instead set
+  SIP-155-protected, which pre-SIP158 forks reject. Instead set
   `protected=fork.supports_protected_txs()` (add `fork: Fork`): it goes
-  unprotected on Frontier/SilaHomestead/TangerineWhistle and protected from
-  SpuriousDragon on. This keeps the floor at the *behavior's* real SIP (e.g.
-  SilaHomestead for `DELEGATECALL`) instead of masking it at SpuriousDragon.
+  unprotected on Frontier/SilaHomestead/SIP150 and protected from
+  SIP158 on. This keeps the floor at the *behavior's* real SIP (e.g.
+  SilaHomestead for `DELEGATECALL`) instead of masking it at SIP158.
   Validated on `test_delegatecall_emptycontract`.
 
 ## Re-pinning expected values

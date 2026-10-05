@@ -161,7 +161,7 @@ def process_create_message(message: Message) -> Evm:
     # circumstances:
     # * The address created by a `CREATE` call collides with a subsequent
     #   `CREATE` or `CREATE2` call.
-    # * The first `CREATE` happened before Spurious Dragon and left empty
+    # * The first `CREATE` happened before SIP158 and left empty
     #   code.
     destroy_storage(tx_state, message.current_target)
 

@@ -350,7 +350,7 @@ def process_create(evm: Evm) -> Evm:
     # circumstances:
     # * The address created by a `CREATE` call collides with a subsequent
     #   `CREATE` or `CREATE2` call.
-    # * The first `CREATE` happened before Spurious Dragon and left empty
+    # * The first `CREATE` happened before SIP158 and left empty
     #   code.
     destroy_storage(tx_state, evm.current_target)
 

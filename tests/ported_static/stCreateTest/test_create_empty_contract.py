@@ -33,7 +33,7 @@ GAS_SLOT = 0x64
         "state_tests/stCreateTest/CREATE_EmptyContractWithBalanceFiller.json",
     ],
 )
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 @pytest.mark.parametrize(
     "create_value",
     [

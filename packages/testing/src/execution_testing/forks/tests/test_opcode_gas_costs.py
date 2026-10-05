@@ -5,12 +5,12 @@ import pytest
 from execution_testing.vm import Bytecode, Op
 
 from ..forks.forks import (
+    SIP158,
     SilaBerlin,
     SilaConstantinopleFix,
     SilaHomestead,
     SilaIstanbul,
     SilaOsaka,
-    SIP158,
 )
 from ..helpers import Fork
 
@@ -444,14 +444,10 @@ from ..helpers import Fork
             id="call_value_new_account_sip158",
         ),
         pytest.param(SilaHomestead, Op.BALANCE, 20, id="balance_homestead"),
-        pytest.param(
-            SIP158, Op.BALANCE, 400, id="balance_sip158"
-        ),
+        pytest.param(SIP158, Op.BALANCE, 400, id="balance_sip158"),
         pytest.param(SilaIstanbul, Op.BALANCE, 700, id="balance_istanbul"),
         pytest.param(SilaHomestead, Op.SLOAD, 50, id="sload_homestead"),
-        pytest.param(
-            SIP158, Op.SLOAD, 200, id="sload_sip158"
-        ),
+        pytest.param(SIP158, Op.SLOAD, 200, id="sload_sip158"),
         pytest.param(SilaIstanbul, Op.SLOAD, 800, id="sload_istanbul"),
         pytest.param(
             SilaHomestead, Op.EXTCODESIZE, 20, id="extcodesize_homestead"

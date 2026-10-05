@@ -54,7 +54,7 @@ DELEGATE_VALUE_SLOT = 0xC
     ],
 )
 @pytest.mark.with_all_create_opcodes
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 def test_delegatecall_in_initcode_to_existing_contract(
     state_test: StateTestFiller,
     pre: Alloc,

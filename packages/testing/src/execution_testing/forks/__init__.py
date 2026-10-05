@@ -7,6 +7,8 @@ from .forks.forks import (
     BPO3,
     BPO4,
     BPO5,
+    SIP150,
+    SIP158,
     ArrowGlacier,
     Frontier,
     GrayGlacier,
@@ -24,8 +26,6 @@ from .forks.forks import (
     SilaParis,
     SilaPrague,
     SilaShanghai,
-    SIP150,
-    SIP158,
 )
 from .forks.sips.amsterdam.sip_8282 import (
     BuilderDepositRequest,
