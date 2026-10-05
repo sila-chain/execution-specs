@@ -1,0 +1,203 @@
+# Sila-native `tests` fixtures as workflow evidence.
+#
+# Fills the `tests` feature (`--until=SilaAmsterdam --generate-all-formats`,
+# split by the release fork ranges) with the SELS t8n, sharded further by
+# test module: every shard runs the phase the `fill` command builds, the
+# phase-1 groups of all shards are merged and packed once, and the phase-2
+# fixtures are merged with the framework's own partial-file merge. The
+# archive, its SHA256, the fixture counts and the fork inventory are a
+# workflow artifact only: no tag, no release.
+name: Sila tests fixtures (evidence)
+
+on:
+  push:
+    branches:
+      - sila/tests-artifact-evidence
+
+permissions:
+  contents: read
+
+env:
+  PARTS: 12
+  FILL_ARGS: --generate-all-formats --no-html --build-name tests -n auto
+
+jobs:
+  phase1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        range: &ranges
+          - { label: pre-shanghai, from: Frontier, until: SilaParis }
+          - { label: shanghai-cancun, from: SilaShanghai, until: SilaCancun }
+          - { label: prague, from: SilaPrague, until: SilaPrague }
+          - { label: osaka, from: SilaOsaka, until: BPO5 }
+          - { label: amsterdam, from: SilaAmsterdam, until: SilaAmsterdam }
+        part: &parts [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: true
+      - uses: ./.github/actions/setup-uv
+      - name: Select the shard's modules
+        id: modules
+        run: |
+          uv run fill --collect-only -q --from=${{ matrix.range.from }} \
+            --until=${{ matrix.range.until }} --generate-all-formats \
+            > collected.txt || test $? -eq 5
+          grep "::" collected.txt | cut -d: -f1 | sort -u > modules.txt
+          uv run python - <<'EOF' > shard_modules.txt
+          import zlib
+          for line in open("modules.txt").read().split():
+              if zlib.crc32(line.encode()) % ${{ env.PARTS }} == ${{ matrix.part }}:
+                  print(line)
+          EOF
+          echo "count=$(wc -l < shard_modules.txt)" >> "$GITHUB_OUTPUT"
+          wc -l modules.txt shard_modules.txt
+      - name: Phase 1 (pre-allocation groups)
+        if: steps.modules.outputs.count != '0'
+        run: |
+          # shellcheck disable=SC2046
+          uv run python .github/scripts/sila_fill_phase.py 1 \
+            --until=SilaAmsterdam $FILL_ARGS \
+            --from=${{ matrix.range.from }} --until=${{ matrix.range.until }} \
+            --output=out $(cat shard_modules.txt)
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        if: steps.modules.outputs.count != '0'
+        with:
+          name: phase1-${{ matrix.range.label }}-${{ matrix.part }}
+          path: |
+            out/blockchain_tests_engine_x/pre_alloc
+            shard_modules.txt
+          if-no-files-found: error
+
+  groups:
+    needs: phase1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./.github/actions/setup-uv
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: phase1-*
+          path: phase1
+      - name: Merge and pack the pre-allocation groups
+        run: |
+          for d in phase1/*; do
+            mkdir -p "shards/$(basename "$d")/blockchain_tests_engine_x"
+            mv "$d/out/blockchain_tests_engine_x/pre_alloc" \
+              "shards/$(basename "$d")/blockchain_tests_engine_x/pre_alloc"
+          done
+          uv run python .github/scripts/sila_fill_merge.py groups merged shards/*
+          find merged -type f | wc -l
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: merged/blockchain_tests_engine_x/pre_alloc
+          if-no-files-found: error
+
+  phase2:
+    needs: groups
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        range: *ranges
+        part: *parts
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: true
+      - uses: ./.github/actions/setup-uv
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        id: shard
+        continue-on-error: true
+        with:
+          name: phase1-${{ matrix.range.label }}-${{ matrix.part }}
+          path: shard
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        if: steps.shard.outcome == 'success'
+        with:
+          name: pre-alloc-groups
+          path: out/blockchain_tests_engine_x/pre_alloc
+      - name: Phase 2 (fixtures)
+        if: steps.shard.outcome == 'success'
+        run: |
+          # shellcheck disable=SC2046
+          uv run python .github/scripts/sila_fill_phase.py 2 \
+            --until=SilaAmsterdam $FILL_ARGS \
+            --from=${{ matrix.range.from }} --until=${{ matrix.range.until }} \
+            --output=out $(cat shard/shard_modules.txt)
+          rm -rf out/blockchain_tests_engine_x/pre_alloc
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        if: steps.shard.outcome == 'success'
+        with:
+          name: phase2-${{ matrix.range.label }}-${{ matrix.part }}
+          path: out
+          include-hidden-files: true
+          if-no-files-found: error
+
+  combine:
+    needs: phase2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./.github/actions/setup-uv
+      - name: Install pigz
+        run: sudo apt-get install -y pigz
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: phase2-*
+          path: phase2
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: pre_alloc
+      - name: Merge the fixtures and build the archive
+        run: |
+          uv run python .github/scripts/sila_fill_merge.py fixtures combined phase2/*
+          rm -rf phase2/*/blockchain_tests* phase2/*/state_tests phase2/*/transaction_tests
+          mkdir -p combined/.meta combined/blockchain_tests_engine_x
+          first="$(find phase2 -mindepth 1 -maxdepth 1 -type d | sort | head -1)"
+          cp "$first/.meta/fixtures.ini" combined/.meta/
+          cp -r pre_alloc combined/blockchain_tests_engine_x/pre_alloc
+          uv run genindex --input combined --quiet
+          uv run python - <<'EOF' | tee inventory.txt
+          import collections, json, pathlib
+          counts = collections.Counter()
+          forks = collections.Counter()
+          for path in pathlib.Path("combined").rglob("*.json"):
+              parts = path.relative_to("combined").parts
+              if parts[0] == ".meta" or "pre_alloc" in parts:
+                  continue
+              for fixture in json.loads(path.read_text()).values():
+                  counts[parts[0]] += 1
+                  info = fixture.get("network") or fixture.get("config", {}).get("network")
+                  if info is None and "post" in fixture:
+                      for fork in fixture["post"]:
+                          forks[fork] += 1
+                  elif info is not None:
+                      forks[info] += 1
+          for name, count in sorted(counts.items()):
+              print(f"{name}: {count}")
+          print("total:", sum(counts.values()))
+          for fork, count in sorted(forks.items()):
+              print(f"fork {fork}: {count}")
+          EOF
+          uv run -q .github/scripts/create_release_tarball.py combined fixtures.tar.gz
+          sha256sum fixtures.tar.gz | tee fixtures.tar.gz.sha256
+          {
+            echo "source: $GITHUB_SHA"
+            cat inventory.txt fixtures.tar.gz.sha256
+          } > provenance.txt
+          cat provenance.txt >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: fixtures-tests-sila
+          path: |
+            fixtures.tar.gz
+            fixtures.tar.gz.sha256
+            provenance.txt
+          if-no-files-found: error
