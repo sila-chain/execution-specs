@@ -31,7 +31,7 @@ from execution_testing.forks import (
     ALL_FORKS,
     ALL_FORKS_WITH_TRANSITIONS,
     Fork,
-    ForkEIPSetAdapter,
+    ForkSIPSetAdapter,
     ForkSetAdapter,
     InvalidForkError,
     TransitionFork,
@@ -812,7 +812,7 @@ class ValidityMarker(ABC):
         self, *fork_args: str
     ) -> Set[Fork | TransitionFork]:
         """Process the fork arguments."""
-        fork_sips_set = ForkEIPSetAdapter.validate_python(fork_args)
+        fork_sips_set = ForkSIPSetAdapter.validate_python(fork_args)
         if len(fork_sips_set) != len(fork_args):
             raise Exception(
                 f"Duplicate argument specified in '{self.marker_name}'"
