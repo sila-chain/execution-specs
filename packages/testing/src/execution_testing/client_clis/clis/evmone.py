@@ -34,10 +34,12 @@ from ..transition_tool import TransitionTool
 
 
 class EvmOneTransitionTool(TransitionTool):
-    """Evmone `evmone-t8n` Transition tool interface wrapper class."""
+    """Sivmone `sivmone t8n` Transition tool interface wrapper class."""
 
-    default_binary = Path("evmone-t8n")
-    detect_binary_pattern = re.compile(r"^evmone-t8n\b")
+    default_binary = Path("sivmone")
+    detect_binary_pattern = re.compile(r"^sivmone\b(?!-)")
+    version_flag = "--version"
+    subcommand: Optional[str] = "t8n"
     t8n_use_stream = False
 
     binary: Path
@@ -46,11 +48,8 @@ class EvmOneTransitionTool(TransitionTool):
     supports_opcode_count: ClassVar[bool] = True
     supports_blob_params: ClassVar[bool] = True
 
-    # evmone uses space-separated fork names for some forks
-    fork_name_map: ClassVar[Dict[str, str]] = {
-        "TangerineWhistle": "Tangerine Whistle",
-        "SpuriousDragon": "Spurious Dragon",
-    }
+    # sivmone uses the Sila fork names as they are.
+    fork_name_map: ClassVar[Dict[str, str]] = {}
 
     def __init__(
         self,

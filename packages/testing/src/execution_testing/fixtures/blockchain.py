@@ -49,7 +49,7 @@ from execution_testing.exceptions import (
     EngineAPIError,
     ExceptionInstanceOrList,
 )
-from execution_testing.forks import Fork, Paris
+from execution_testing.forks import Fork, SilaParis
 from execution_testing.test_types import (
     BlockAccessList,
     Environment,
@@ -776,9 +776,9 @@ class BlockchainEngineFixtureCommon(BaseFixture):
         """
         Return whether the fixture can be generated for the given fork.
 
-        The Engine API is available only on Paris and afterwards.
+        The Engine API is available only on SilaParis and afterwards.
         """
-        return fork >= Paris
+        return fork >= SilaParis
 
 
 class BlockchainEngineFixture(BlockchainEngineFixtureCommon):

@@ -160,7 +160,7 @@ multiSelfdestruct:
         data: !!int 0
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -183,7 +183,7 @@ multiSelfdestruct:
         data: !!int 1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -206,7 +206,7 @@ multiSelfdestruct:
     - indexes:
         data: !!int 2
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -229,7 +229,7 @@ multiSelfdestruct:
     - indexes:
         data: !!int 3
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -252,7 +252,7 @@ multiSelfdestruct:
     - indexes:
         data: !!int 4
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:

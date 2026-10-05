@@ -245,7 +245,7 @@ transactionCosts:
       gas: !!int -1
       value: !!int -1
     network:
-    - "Cancun"
+    - "SilaCancun"
     result:
       <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
         balance: 100000000
@@ -264,7 +264,7 @@ transactionCosts:
       gas: !!int -1
       value: !!int -1
     network:
-    - ">=Prague"
+    - ">=SilaPrague"
     result:
       <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
         balance: 99999940
@@ -278,7 +278,7 @@ transactionCosts:
       gas: !!int -1
       value: !!int -1
     network:
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
         balance: 99976000
@@ -294,7 +294,7 @@ transactionCosts:
       gas: !!int -1
       value: !!int -1
     network:
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
         balance: 99957000
@@ -314,7 +314,7 @@ transactionCosts:
       gas: !!int -1
       value: !!int -1
     network:
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
         balance: 99938000
@@ -335,7 +335,7 @@ transactionCosts:
       gas: !!int -1
       value: !!int -1
     network:
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
         balance: 99914000
@@ -350,7 +350,7 @@ transactionCosts:
       gas: !!int -1
       value: !!int -1
     network:
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
         balance: 99285000

@@ -46,13 +46,13 @@ def consume_test_case_ids() -> list[str]:
 @pytest.fixture(scope="module")
 def fill_fork_from() -> str:
     """Specify the value for `fill`'s `--from` argument."""
-    return "Paris"
+    return "SilaParis"
 
 
 @pytest.fixture(scope="module")
 def fill_fork_until() -> str:
     """Specify the value for `fill`'s `--until` argument."""
-    return "Cancun"
+    return "SilaCancun"
 
 
 @pytest.fixture(scope="module")
@@ -160,12 +160,12 @@ single_test_id = (
         ),
         pytest.param(
             ["--collect-only", "-q", "--sim.limit", ".*fork_Cancun.*"],
-            re.compile(".*Cancun.*"),
+            re.compile(".*SilaCancun.*"),
             id="sim_limit_regex",
         ),
         pytest.param(
             ["--sim.limit", "collectonly:.*fork_Cancun.*"],
-            re.compile(".*Cancun.*"),
+            re.compile(".*SilaCancun.*"),
             id="sim_limit_collect_only_regex",
         ),
         pytest.param(

@@ -50,10 +50,10 @@ transactionCollidingWithNonEmptyAccount_callsItself:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       
       # Transaction should be rejected since it is being sent by a EOA with code in it.
       expectException:
-        '>=Cancun': 'TransactionException.SENDER_NOT_EOA'
+        '>=SilaCancun': 'TransactionException.SENDER_NOT_EOA'
       
       result: {}  # No point checking the result when no transaction happened

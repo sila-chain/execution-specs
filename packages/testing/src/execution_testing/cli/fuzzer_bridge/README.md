@@ -21,7 +21,7 @@ The fuzzer must output JSON in the following format:
 ```json
 {
   "version": "2.0",
-  "fork": "Prague",
+  "fork": "SilaPrague",
   "chainId": 1,
   "accounts": {
     "0x7e5f4552091a69125d5dfcb7b8c2659029395bdf": {
@@ -204,7 +204,7 @@ Once EEST is installed, the fuzzer bridge will be available as a command-line to
 uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json
 
 # With custom fork
-uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --fork Shanghai
+uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --fork SilaShanghai
 
 # Pretty print output
 uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --pretty

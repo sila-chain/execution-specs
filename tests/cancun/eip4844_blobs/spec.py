@@ -90,7 +90,7 @@ class SpecHelpers:
 
     BYTES_PER_FIELD_ELEMENT = 32
     _EXHAUSTIVE_MAX_BLOBS_PER_BLOCK = (
-        9  # Osaka max; exhaustive is tractable up to here
+        9  # SilaOsaka max; exhaustive is tractable up to here
     )
 
     @classmethod

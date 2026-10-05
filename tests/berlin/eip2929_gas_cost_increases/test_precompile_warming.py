@@ -86,7 +86,7 @@ def precompile_addresses_in_predecessor_successor(
         )
 
 
-@pytest.mark.valid_at_transition_to("Paris", subsequent_forks=True)
+@pytest.mark.valid_at_transition_to("SilaParis", subsequent_forks=True)
 @pytest.mark.parametrize_by_fork(
     "address,precompile_in_successor,precompile_in_predecessor",
     precompile_addresses_in_predecessor_successor,

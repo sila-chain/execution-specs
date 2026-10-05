@@ -1,7 +1,7 @@
 # The refund for opcode FF   (SELFDESTRUCT)
 # 
-# There should be a refund in Berlin, but not in London (EIP 3529)
-# The Berlin refund is 14303, not the expected 24000, because it is limited
+# There should be a refund in SilaBerlin, but not in SilaLondon (EIP 3529)
+# The SilaBerlin refund is 14303, not the expected 24000, because it is limited
 # to half the gas used by the transaction.
 
 refundFF:
@@ -63,10 +63,10 @@ refundFF:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
           # Without a refund, the balance would be 1000000000000
-          # There is no refund in London
+          # There is no refund in SilaLondon
           balance: 1000000000000
 

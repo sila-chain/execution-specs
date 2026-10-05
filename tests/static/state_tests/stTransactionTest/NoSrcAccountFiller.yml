@@ -59,7 +59,7 @@ NoSrcAccount:
 
     # Not enough ETH for executing the transaction
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 0
         gas: 0-1
@@ -70,7 +70,7 @@ NoSrcAccount:
 
 
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 1
         gas: !!int 0
@@ -80,7 +80,7 @@ NoSrcAccount:
       result: {}
 
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 1
         gas: !!int 1
@@ -93,7 +93,7 @@ NoSrcAccount:
 
     # Not enough ETH for the value we transfer
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: 0-1
         gas: !!int 2
@@ -106,7 +106,7 @@ NoSrcAccount:
 
     # Gas limit of zero, should be at least 21000
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: 0-1
         gas: !!int 2
@@ -116,94 +116,94 @@ NoSrcAccount:
       result: {}
 
 
-    # Transaction type 1 starts at Berlin 
+    # Transaction type 1 starts at SilaBerlin 
 
     # Not enough ETH for executing the transaction
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 2
         gas: !!int 0
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"  # Nimbus check triggers a different exception in this case
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"  # Nimbus check triggers a different exception in this case
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 2
         gas: !!int 1
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 3
         gas: !!int 0
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW" # Nimbus check triggers a different exception in this case
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW" # Nimbus check triggers a different exception in this case
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 3
         gas: !!int 1
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 4
         gas: !!int 0
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW" # Nimbus check triggers a different exception in this case
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW" # Nimbus check triggers a different exception in this case
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int 4
         gas: !!int 1
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
 
 
     # Not enough ETH for the value we transfer
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: 2-4
         gas: !!int 2
         value: !!int 1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
 
 
 
     # Gas limit of zero, should be at least 21000
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: 2-4
         gas: !!int 2
         value: !!int 0
       expectException:
-        ">=Cancun" : "TransactionException.INTRINSIC_GAS_TOO_LOW"
-        "<Berlin" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INTRINSIC_GAS_TOO_LOW"
+        "<SilaBerlin" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
 

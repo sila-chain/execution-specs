@@ -24,7 +24,7 @@ from .spec import ref_spec_3855
 REFERENCE_SPEC_GIT_PATH = ref_spec_3855.git_path
 REFERENCE_SPEC_VERSION = ref_spec_3855.version
 
-pytestmark = pytest.mark.valid_from("Shanghai")
+pytestmark = pytest.mark.valid_from("SilaShanghai")
 
 
 @pytest.mark.xdist_group(name="bigmem")

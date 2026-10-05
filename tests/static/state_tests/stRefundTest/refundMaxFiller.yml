@@ -4,8 +4,8 @@
 # The cost of the transaction without refunds is 61057 gas
 #    (obtained by running with newVal := <not zero>)
 #
-# Berlin Refund: 30528 gas   ( 61057 / 2 )
-# London Refund: 12211 gas   ( 61057 / 5 )
+# SilaBerlin Refund: 30528 gas   ( 61057 / 2 )
+# SilaLondon Refund: 12211 gas   ( 61057 / 5 )
 #
 # EIP 3529 sets MAX_REFUND_QUOTIENT to 5 (previously it was 2)
 
@@ -79,10 +79,10 @@ refundMax:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
           # Without a refund, the balance would be 1000000000000
-          # The London refund is 12218000 wei, which is 12218 gas 
+          # The SilaLondon refund is 12218000 wei, which is 12218 gas 
           balance: 1000012218000
 

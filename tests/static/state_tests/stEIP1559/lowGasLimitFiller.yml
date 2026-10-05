@@ -56,9 +56,9 @@ lowGasLimit:
         gas:  !!int 0
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       expectException:
-         '>=Cancun': TransactionException.GAS_ALLOWANCE_EXCEEDED
+         '>=SilaCancun': TransactionException.GAS_ALLOWANCE_EXCEEDED
       result: {}
 
 
@@ -68,7 +68,7 @@ lowGasLimit:
         gas:  !!int 1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
            storage:
@@ -81,7 +81,7 @@ lowGasLimit:
         gas:  !!int 2
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
            storage:
@@ -94,8 +94,8 @@ lowGasLimit:
         gas:  !!int 3
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       expectException:
-        '>=Cancun': TransactionException.INTRINSIC_GAS_TOO_LOW
+        '>=SilaCancun': TransactionException.INTRINSIC_GAS_TOO_LOW
       result: {}
 

@@ -21,13 +21,13 @@ from execution_testing import (
     Transaction,
     compute_create2_address,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 REFERENCE_SPEC_GIT_PATH = "EIPS/eip-6780.md"
 REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
 
 
-@pytest.mark.valid_from("Paris")
+@pytest.mark.valid_from("SilaParis")
 @pytest.mark.parametrize(
     "create2_dest_already_in_state",
     (
@@ -209,7 +209,7 @@ def test_dynamic_create2_selfdestruct_collision(
             code=deploy_code,
             storage={create2_constructor_worked: 0x00},
         )
-        if create2_dest_already_in_state and fork >= Cancun
+        if create2_dest_already_in_state and fork >= SilaCancun
         else Account.NONEXISTENT
     )
 
@@ -259,7 +259,7 @@ def test_dynamic_create2_selfdestruct_collision(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Paris")
+@pytest.mark.valid_from("SilaParis")
 @pytest.mark.parametrize(
     "create2_dest_already_in_state",
     (
@@ -439,7 +439,7 @@ def test_dynamic_create2_selfdestruct_collision_two_different_transactions(
             code=deploy_code,
             storage={create2_constructor_worked: 0x00},
         )
-        if create2_dest_already_in_state and fork >= Cancun
+        if create2_dest_already_in_state and fork >= SilaCancun
         else (
             Account.NONEXISTENT
             if call_create2_contract_at_the_end
@@ -447,13 +447,13 @@ def test_dynamic_create2_selfdestruct_collision_two_different_transactions(
         )
     )
 
-    # after Cancun Create2 initcode is only executed if the contract did not
+    # after SilaCancun Create2 initcode is only executed if the contract did not
     # already exist and before it will always be executed as the first tx
     # deletes the account
     post[address_create2_storage] = Account(
         storage={
             create2_constructor_worked: int(
-                fork < Cancun or not create2_dest_already_in_state
+                fork < SilaCancun or not create2_dest_already_in_state
             )
         }
     )
@@ -471,7 +471,7 @@ def test_dynamic_create2_selfdestruct_collision_two_different_transactions(
     post[address_to_second] = Account(
         storage={
             code_worked: 0x01,
-            # Second create2 will not collide before Cancun as the first tx
+            # Second create2 will not collide before SilaCancun as the first tx
             # calls selfdestruct
             #
             # After cancun it will collide only if
@@ -479,7 +479,7 @@ def test_dynamic_create2_selfdestruct_collision_two_different_transactions(
             # deletes it
             second_create2_result: (
                 (0x00 if create2_dest_already_in_state else create2_address)
-                if fork >= Cancun
+                if fork >= SilaCancun
                 else create2_address
             ),
         }
@@ -491,7 +491,7 @@ def test_dynamic_create2_selfdestruct_collision_two_different_transactions(
 
     if create2_dest_already_in_state:
         sendall_destination_balance += pre_existing_create2_balance
-        if fork >= Cancun:
+        if fork >= SilaCancun:
             # first create2 fails, but first calls ok. the account is not
             # removed on cancun therefore with the second create2 it is not
             # successful
@@ -539,7 +539,7 @@ def test_dynamic_create2_selfdestruct_collision_two_different_transactions(
     )
 
 
-@pytest.mark.valid_from("Paris")
+@pytest.mark.valid_from("SilaParis")
 @pytest.mark.parametrize(
     "selfdestruct_on_first_tx,recreate_on_first_tx",
     [
@@ -733,7 +733,7 @@ def test_dynamic_create2_selfdestruct_collision_multi_tx(
 
     # Create2 address only exists if it was pre-existing and after cancun
     account_will_exist_with_code = (
-        not selfdestruct_on_first_tx and fork >= Cancun
+        not selfdestruct_on_first_tx and fork >= SilaCancun
     )
     # If the contract is self-destructed and we also attempt to recreate it on
     # the first tx, the second call on the second tx will only place balance in

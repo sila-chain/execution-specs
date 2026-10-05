@@ -9,7 +9,7 @@ from execution_testing.base_types import (
     TestPrivateKey,
     TestPrivateKey2,
 )
-from execution_testing.forks import Fork, Prague
+from execution_testing.forks import Fork, SilaPrague
 from execution_testing.test_types import EOA
 from execution_testing.vm import Op
 
@@ -23,7 +23,7 @@ from ..pre_alloc import (
 
 def create_test_alloc(
     alloc_mode: AllocMode = AllocMode.PERMISSIVE,
-    fork: Fork = Prague,
+    fork: Fork = SilaPrague,
 ) -> Alloc:
     """Create a test Alloc instance with default iterators."""
     contract_iter = iter(

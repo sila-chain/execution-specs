@@ -9,7 +9,7 @@
         },
         "expect" : [
             {
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
                     "1000000000000000000000000000000000000000" : {
                         "storage" : {

@@ -13,7 +13,7 @@
         },
         "expect" : [
     	    {
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
 		            "2000000000000000000000000000000000000000" : {
     			        "//comment" : "indicates that call finished without OOG",

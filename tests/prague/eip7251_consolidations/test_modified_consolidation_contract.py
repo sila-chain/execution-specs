@@ -29,7 +29,7 @@ from .spec import ref_spec_7251
 REFERENCE_SPEC_GIT_PATH: str = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_7251.version
 
-pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("Prague")
+pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("SilaPrague")
 
 
 def consolidation_list_with_custom_fee(n: int) -> List[ConsolidationRequest]:  # noqa: D103

@@ -52,7 +52,7 @@ uv run execute remote \
   --rpc-seed-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
   --chain-id 1337 \
   --address-stubs geth_stubs.json \
-  --fork Prague \
+  --fork SilaPrague \
   tests/benchmark/stateful/bloatnet/test_single_opcode.py::test_sload_empty_erc20_balanceof \
   -k "[5]" \
 

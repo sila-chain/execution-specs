@@ -201,7 +201,7 @@ def test_shifts(
 
 
 @pytest.mark.repricing
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_same(benchmark_test: BenchmarkTestFiller) -> None:
     """Benchmark CLZ instruction with same input."""
     magic_value = 248  # CLZ(248) = 248
@@ -213,7 +213,7 @@ def test_clz_same(benchmark_test: BenchmarkTestFiller) -> None:
     )
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_clz_diff(
     benchmark_test: BenchmarkTestFiller,
     pre: Alloc,

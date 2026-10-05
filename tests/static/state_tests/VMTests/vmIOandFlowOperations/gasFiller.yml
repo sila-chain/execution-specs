@@ -78,7 +78,7 @@ gas:
 
   expect:
     # gas1 has a different cost because the cost of memory access changed
-    # between Istanbul and Berlin
+    # between SilaIstanbul and SilaBerlin
     #
     # The change in the cost of SSTORE doesn't matter, because it happens
     # AFTER the (gas)
@@ -89,7 +89,7 @@ gas:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun<Osaka'
+        - '>=SilaCancun<SilaOsaka'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -103,7 +103,7 @@ gas:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun<Osaka'
+        - '>=SilaCancun<SilaOsaka'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:

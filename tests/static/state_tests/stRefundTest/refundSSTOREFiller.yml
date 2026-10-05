@@ -1,7 +1,7 @@
 # Calculate the refund provided by a single SSTORE that replaces a value with zero
 #
-# Berlin: 13005 gas
-# London:  4800 gas (as per EIP 3529)
+# SilaBerlin: 13005 gas
+# SilaLondon:  4800 gas (as per EIP 3529)
 
 
 refundSSTORE:
@@ -56,9 +56,9 @@ refundSSTORE:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
           # Without a refund, the balance would be 1000000000000
-          # The London refund is 4800000 wei, which is 4800 gas 
+          # The SilaLondon refund is 4800000 wei, which is 4800 gas 
           balance: 1000004800000

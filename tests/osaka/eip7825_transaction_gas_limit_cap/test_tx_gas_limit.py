@@ -64,7 +64,7 @@ def tx_gas_limit_cap_tests(fork: Fork) -> List[ParameterSet]:
 
 @pytest.mark.parametrize_by_fork("tx_gas_limit,error", tx_gas_limit_cap_tests)
 @pytest.mark.with_all_tx_types
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_transaction_gas_limit_cap(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -137,7 +137,7 @@ def test_transaction_gas_limit_cap(
         pytest.param(Op.STATICCALL),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_subcall_context(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -189,7 +189,7 @@ def test_tx_gas_limit_cap_subcall_context(
         pytest.param(False),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_larger_than_block_gas_limit(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -235,7 +235,7 @@ def test_tx_gas_larger_than_block_gas_limit(
         pytest.param(False),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_maximum_gas_refund(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -318,7 +318,7 @@ def total_cost_floor_per_token(fork: Fork) -> int:
     ],
 )
 @pytest.mark.parametrize("zero_byte", [True, False])
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_full_calldata(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -399,7 +399,7 @@ def test_tx_gas_limit_cap_full_calldata(
         pytest.param(False),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_contract_creation(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -464,7 +464,7 @@ def test_tx_gas_limit_cap_contract_creation(
         pytest.param(False, True),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_access_list_with_diff_keys(
     state_test: StateTestFiller,
     exceed_tx_gas_limit: bool,
@@ -549,7 +549,7 @@ def test_tx_gas_limit_cap_access_list_with_diff_keys(
         pytest.param(False, True),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_access_list_with_diff_addr(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -629,7 +629,7 @@ def test_tx_gas_limit_cap_access_list_with_diff_addr(
         pytest.param(False, True),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_authorized_tx(
     state_test: StateTestFiller,
     pre: Alloc,

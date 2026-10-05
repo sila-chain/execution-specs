@@ -169,7 +169,7 @@ def pre_fork_excess_blob_gas(
 
     Calculates the expected excess blob gas by iterating through pre-fork
     blocks using the fork's calculator, which handles EIP-7918 reserve price
-    for >=Osaka.
+    for >=SilaOsaka.
     """
     if not fork.supports_blobs(timestamp=0):
         return 0
@@ -336,7 +336,7 @@ def post(  # noqa: D103
     }
 
 
-@pytest.mark.valid_at_transition_to("Cancun", subsequent_forks=False)
+@pytest.mark.valid_at_transition_to("SilaCancun", subsequent_forks=False)
 @pytest.mark.parametrize(
     "excess_blob_gas_present,blob_gas_used_present",
     [
@@ -358,7 +358,7 @@ def test_invalid_pre_fork_block_with_blob_fields(
     Test block rejection when `excessBlobGas` and/or `blobGasUsed` fields are
     present on a pre-fork block.
 
-    Blocks sent by NewPayloadV2 (Shanghai) that contain `excessBlobGas` and
+    Blocks sent by NewPayloadV2 (SilaShanghai) that contain `excessBlobGas` and
     `blobGasUsed` fields must be rejected with the appropriate
     `EngineAPIError.InvalidParams` error.
     """
@@ -382,7 +382,7 @@ def test_invalid_pre_fork_block_with_blob_fields(
     )
 
 
-@pytest.mark.valid_at_transition_to("Cancun", subsequent_forks=False)
+@pytest.mark.valid_at_transition_to("SilaCancun", subsequent_forks=False)
 @pytest.mark.parametrize(
     "excess_blob_gas_missing,blob_gas_used_missing",
     [
@@ -404,7 +404,7 @@ def test_invalid_post_fork_block_without_blob_fields(
     Test block rejection when `excessBlobGas` and/or `blobGasUsed` fields are
     missing on a post-fork block.
 
-    Blocks sent by NewPayloadV3 (Cancun) without `excessBlobGas` and
+    Blocks sent by NewPayloadV3 (SilaCancun) without `excessBlobGas` and
     `blobGasUsed` fields must be rejected with the appropriate
     `EngineAPIError.InvalidParams` error.
     """
@@ -429,7 +429,7 @@ def test_invalid_post_fork_block_without_blob_fields(
     )
 
 
-@pytest.mark.valid_at_transition_to("Cancun", subsequent_forks=False)
+@pytest.mark.valid_at_transition_to("SilaCancun", subsequent_forks=False)
 @pytest.mark.parametrize_by_fork(
     "post_fork_block_count,post_fork_blobs_per_block",
     lambda fork: [
@@ -476,7 +476,7 @@ def test_fork_transition_excess_blob_gas_at_blob_genesis(
 
 
 @pytest.mark.valid_for_bpo_forks
-@pytest.mark.valid_at_transition_to("Prague", subsequent_forks=True)
+@pytest.mark.valid_at_transition_to("SilaPrague", subsequent_forks=True)
 @pytest.mark.parametrize_by_fork(
     "post_fork_block_count,pre_fork_blobs_per_block,post_fork_blobs_per_block",
     lambda fork: [

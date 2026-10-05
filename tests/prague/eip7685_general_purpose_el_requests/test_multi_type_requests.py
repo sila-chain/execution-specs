@@ -53,7 +53,7 @@ from .spec import ref_spec_7685
 REFERENCE_SPEC_GIT_PATH: str = ref_spec_7685.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_7685.version
 
-pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("Prague")
+pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("SilaPrague")
 
 
 def single_deposit(i: int) -> DepositRequest:  # noqa: D103

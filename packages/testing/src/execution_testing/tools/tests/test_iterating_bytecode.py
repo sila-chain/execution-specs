@@ -4,16 +4,16 @@ from typing import Self, Type
 
 import pytest
 
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 from execution_testing.vm import Op
 
 from ..tools_code import FixedIterationsBytecode, IteratingBytecode
 
-OSAKA_GAS_COSTS = Osaka.gas_costs()
+OSAKA_GAS_COSTS = SilaOsaka.gas_costs()
 
 
-class CustomOsaka(Osaka):
-    """Custom Osaka fork with a custom transaction gas limit cap."""
+class CustomOsaka(SilaOsaka):
+    """Custom SilaOsaka fork with a custom transaction gas limit cap."""
 
     tx_gas_limit_cap: int | None = 1_000_000
 
@@ -41,7 +41,7 @@ class CustomOsaka(Osaka):
         pytest.param(
             IteratingBytecode(iterating=Op.ADD(1, 2)),
             10,
-            10 * (Op.ADD(1, 2).gas_cost(Osaka)),
+            10 * (Op.ADD(1, 2).gas_cost(SilaOsaka)),
             id="simple_code",
         ),
         pytest.param(
@@ -50,8 +50,8 @@ class CustomOsaka(Osaka):
                 warm_iterating=Op.CALL(address=1, address_warm=True),
             ),
             10,
-            1 * (Op.CALL(address=1).gas_cost(Osaka))
-            + 9 * (Op.CALL(address=1, address_warm=True).gas_cost(Osaka)),
+            1 * (Op.CALL(address=1).gas_cost(SilaOsaka))
+            + 9 * (Op.CALL(address=1, address_warm=True).gas_cost(SilaOsaka)),
             id="simple_code_with_warm_variation",
         ),
         pytest.param(
@@ -67,9 +67,9 @@ class CustomOsaka(Osaka):
                 cleanup=Op.STOP,
             ),
             5,
-            Op.PUSH1(0).gas_cost(Osaka)
-            + 5 * Op.ADD(1, 2).gas_cost(Osaka)
-            + Op.STOP.gas_cost(Osaka),
+            Op.PUSH1(0).gas_cost(SilaOsaka)
+            + 5 * Op.ADD(1, 2).gas_cost(SilaOsaka)
+            + Op.STOP.gas_cost(SilaOsaka),
             id="with_setup_and_cleanup",
         ),
         pytest.param(
@@ -78,8 +78,8 @@ class CustomOsaka(Osaka):
                 iterating_subcall=Op.RETURN(0, 0),
             ),
             3,
-            3 * Op.CALL(address=1).gas_cost(Osaka)
-            + 3 * Op.RETURN(0, 0).gas_cost(Osaka),
+            3 * Op.CALL(address=1).gas_cost(SilaOsaka)
+            + 3 * Op.RETURN(0, 0).gas_cost(SilaOsaka),
             id="with_subcall_bytecode",
         ),
         pytest.param(
@@ -88,7 +88,7 @@ class CustomOsaka(Osaka):
                 iterating_subcall=10000,
             ),
             3,
-            3 * Op.SSTORE(0, 1).gas_cost(Osaka) + 3 * 10000,
+            3 * Op.SSTORE(0, 1).gas_cost(SilaOsaka) + 3 * 10000,
             id="with_subcall_int",
         ),
     ],
@@ -98,7 +98,7 @@ def test_iterating_bytecode_gas_cost(
 ) -> None:
     """Test the gas cost calculating function of an iterating bytecode."""
     calculated_cost = iterating_bytecode.gas_cost_by_iteration_count(
-        fork=Osaka, iteration_count=iterations
+        fork=SilaOsaka, iteration_count=iterations
     )
     assert calculated_cost == expected_cost, (
         f"Gas cost for {iterations} iterations is {expected_cost}, "
@@ -113,16 +113,16 @@ def test_iterating_subcall_gas_cost() -> None:
         iterating=Op.STOP,
         iterating_subcall=Op.CALL(address=1),
     )
-    assert bytecode.iterating_subcall_gas_cost(fork=Osaka) == Op.CALL(
+    assert bytecode.iterating_subcall_gas_cost(fork=SilaOsaka) == Op.CALL(
         address=1
-    ).gas_cost(Osaka)
+    ).gas_cost(SilaOsaka)
 
     # Test with int
     bytecode_int = IteratingBytecode(
         iterating=Op.STOP,
         iterating_subcall=5000,
     )
-    assert bytecode_int.iterating_subcall_gas_cost(fork=Osaka) == 5000
+    assert bytecode_int.iterating_subcall_gas_cost(fork=SilaOsaka) == 5000
 
 
 def test_iterating_subcall_reserve() -> None:
@@ -131,7 +131,7 @@ def test_iterating_subcall_reserve() -> None:
         iterating=Op.STOP,
         iterating_subcall=6300,
     )
-    reserve = bytecode.iterating_subcall_reserve(fork=Osaka)
+    reserve = bytecode.iterating_subcall_reserve(fork=SilaOsaka)
     # Reserve should be: (6300 * 64 / 63) - 6300 = 100
     assert reserve == 100
 
@@ -148,9 +148,9 @@ def test_with_fixed_iteration_count() -> None:
     assert isinstance(fixed, FixedIterationsBytecode)
     assert fixed.iteration_count == 10
     assert fixed.gas_cost(
-        Osaka
+        SilaOsaka
     ) == iterating_bytecode.gas_cost_by_iteration_count(
-        fork=Osaka, iteration_count=10
+        fork=SilaOsaka, iteration_count=10
     )
 
 
@@ -159,27 +159,27 @@ def test_tx_gas_cost_by_iteration_count() -> None:
     bytecode = IteratingBytecode(
         iterating=Op.ADD(1, 2),
     )
-    intrinsic_gas_cost_calc = Osaka.transaction_intrinsic_cost_calculator()
+    intrinsic_gas_cost_calc = SilaOsaka.transaction_intrinsic_cost_calculator()
 
     tx_gas = bytecode.tx_gas_cost_by_iteration_count(
-        fork=Osaka,
+        fork=SilaOsaka,
         iteration_count=5,
     )
 
     expected = (
-        bytecode.gas_cost_by_iteration_count(fork=Osaka, iteration_count=5)
+        bytecode.gas_cost_by_iteration_count(fork=SilaOsaka, iteration_count=5)
         + intrinsic_gas_cost_calc()
     )
     assert tx_gas == expected
 
     # With calldata
     tx_gas = bytecode.tx_gas_cost_by_iteration_count(
-        fork=Osaka,
+        fork=SilaOsaka,
         iteration_count=5,
         calldata=b"hello",
     )
     expected = bytecode.gas_cost_by_iteration_count(
-        fork=Osaka, iteration_count=5
+        fork=SilaOsaka, iteration_count=5
     ) + intrinsic_gas_cost_calc(
         calldata=b"hello", return_cost_deducted_prior_execution=True
     )
@@ -194,14 +194,14 @@ def test_tx_gas_limit_by_iteration_count() -> None:
     )
 
     tx_gas_limit = bytecode.tx_gas_limit_by_iteration_count(
-        fork=Osaka,
+        fork=SilaOsaka,
         iteration_count=5,
     )
     tx_gas_cost = bytecode.tx_gas_cost_by_iteration_count(
-        fork=Osaka,
+        fork=SilaOsaka,
         iteration_count=5,
     )
-    reserve = bytecode.iterating_subcall_reserve(fork=Osaka)
+    reserve = bytecode.iterating_subcall_reserve(fork=SilaOsaka)
 
     assert tx_gas_limit == tx_gas_cost + reserve
 
@@ -314,7 +314,7 @@ def test_tx_iterations_by_total_iteration_count(
     if gas_limit_cap is not None:
         for iters in result:
             tx_gas = bytecode.tx_gas_limit_by_iteration_count(
-                fork=Osaka, iteration_count=iters
+                fork=SilaOsaka, iteration_count=iters
             )
             assert tx_gas <= gas_limit_cap
 

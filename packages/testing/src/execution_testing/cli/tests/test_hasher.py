@@ -587,14 +587,14 @@ class TestMergePartialIndexes:
                     "test_a",
                     "state_tests/cancun/test.json",
                     HASH_1,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="state_test",
                 ),
                 self._make_entry_dict(
                     "test_b",
                     "blockchain_tests/cancun/test.json",
                     HASH_2,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="blockchain_test",
                 ),
             ]
@@ -632,14 +632,14 @@ class TestMergePartialIndexes:
                     "t1",
                     "state_tests/test.json",
                     HASH_1,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="state_test",
                 ),
                 self._make_entry_dict(
                     "t2",
                     "blockchain_tests/test.json",
                     HASH_2,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="blockchain_test",
                 ),
             ]
@@ -667,14 +667,14 @@ class TestMergePartialIndexes:
                     "t1",
                     "state_tests/test.json",
                     HASH_1,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="state_test",
                 ),
                 self._make_entry_dict(
                     "t2",
                     "state_tests/test2.json",
                     HASH_2,
-                    fork="Shanghai",
+                    fork="SilaShanghai",
                     fmt="state_test",
                 ),
             ]
@@ -687,8 +687,8 @@ class TestMergePartialIndexes:
             )
             assert index.forks is not None
             assert sorted(str(f) for f in index.forks) == [
-                "Cancun",
-                "Shanghai",
+                "SilaCancun",
+                "SilaShanghai",
             ]
 
     def test_merge_cleans_up_partial_files(self) -> None:

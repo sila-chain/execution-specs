@@ -16,7 +16,7 @@ from execution_testing import (
     Transaction,
     generate_system_contract_deploy_test,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 
 from .helpers import ConsolidationRequest
 from .spec import Spec, ref_spec_7251
@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = ref_spec_7251.version
     reason="Deploys consolidation system contract at hardcoded address",
 )
 @generate_system_contract_deploy_test(
-    fork=Prague,
+    fork=SilaPrague,
     tx_json_path=Path(realpath(__file__)).parent / "contract_deploy_tx.json",
     expected_deploy_address=Address(
         Spec.CONSOLIDATION_REQUEST_PREDEPLOY_ADDRESS

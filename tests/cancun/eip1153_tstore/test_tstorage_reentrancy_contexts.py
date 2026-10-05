@@ -26,7 +26,7 @@ from .spec import ref_spec_1153
 REFERENCE_SPEC_GIT_PATH = ref_spec_1153.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1153.version
 
-pytestmark = [pytest.mark.valid_from("Cancun")]
+pytestmark = [pytest.mark.valid_from("SilaCancun")]
 
 SETUP_CONDITION: Bytecode = Op.EQ(Op.CALLDATALOAD(0), 0x01)
 REENTRANT_CALL: Bytecode = Op.MSTORE(0, 2) + Op.SSTORE(

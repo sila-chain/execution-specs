@@ -65,11 +65,11 @@ class EthrexExceptionMapper(ExceptionMapper):
             r"blob version not supported|Invalid blob versioned hash"
         ),
         TransactionException.TYPE_2_TX_PRE_FORK: (
-            r"Type 2 transactions are not supported before the London fork"
+            r"Type 2 transactions are not supported before the SilaLondon fork"
         ),
         TransactionException.TYPE_3_TX_PRE_FORK: (
             r"blob versioned hashes not supported|"
-            r"Type 3 transactions are not supported before the Cancun fork"
+            r"Type 3 transactions are not supported before the SilaCancun fork"
         ),
         # A type 4 Transaction without a recipient won't even reach the EVM, we
         # can't decode it.
@@ -85,7 +85,7 @@ class EthrexExceptionMapper(ExceptionMapper):
         ),
         TransactionException.TYPE_4_TX_PRE_FORK: (
             r"eip 7702 transactions present in pre-prague payload|"
-            r"Type 4 transactions are not supported before the Prague fork"
+            r"Type 4 transactions are not supported before the SilaPrague fork"
         ),
         TransactionException.INSUFFICIENT_ACCOUNT_FUNDS: (
             r"lack of funds \(\d+\) for max fee \(\d+\)|"

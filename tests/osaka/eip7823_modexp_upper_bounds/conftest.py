@@ -14,7 +14,7 @@ from execution_testing import (
     Transaction,
     keccak256,
 )
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 
 from ...byzantium.eip198_modexp_precompile.helpers import ModExpInput
 from ..eip7883_modexp_gas_increase.spec import Spec, Spec7883
@@ -51,7 +51,7 @@ def call_succeeds(
         base_length > Spec.MAX_LENGTH_BYTES
         or exp_length > Spec.MAX_LENGTH_BYTES
         or mod_length > Spec.MAX_LENGTH_BYTES
-    ) and fork >= Osaka:
+    ) and fork >= SilaOsaka:
         return False
 
     return True
@@ -149,14 +149,14 @@ def precompile_gas(fork: Fork, modexp_input: ModExpInput) -> int:
     Calculate gas cost for the ModExp precompile and verify it matches expected
     gas.
     """
-    spec = Spec if fork < Osaka else Spec7883
+    spec = Spec if fork < SilaOsaka else Spec7883
     try:
         calculated_gas = spec.calculate_gas_cost(modexp_input)
         return calculated_gas
     except Exception:
         # Used for `test_modexp_invalid_inputs` we expect the call to not
         # succeed. Return is for completeness.
-        return 500 if fork >= Osaka else 200
+        return 500 if fork >= SilaOsaka else 200
 
 
 @pytest.fixture

@@ -1,5 +1,5 @@
 """
-Test ModExp gas cost transition from EIP-7883 before & after the Osaka fork.
+Test ModExp gas cost transition from EIP-7883 before & after the SilaOsaka fork.
 """
 
 import pytest
@@ -21,7 +21,7 @@ from .spec import Spec, ref_spec_7883
 REFERENCE_SPEC_GIT_PATH = ref_spec_7883.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7883.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Osaka")
+pytestmark = pytest.mark.valid_at_transition_to("SilaOsaka")
 
 
 @pytest.mark.parametrize(
@@ -47,7 +47,7 @@ def test_modexp_fork_transition(
     modexp_expected: bytes,
 ) -> None:
     """
-    Test ModExp gas cost transition from EIP-7883 before and after the Osaka
+    Test ModExp gas cost transition from EIP-7883 before and after the SilaOsaka
     hard fork.
     """
     call_code = Op.CALL(

@@ -100,7 +100,7 @@
 
   expect:
     - network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xa00000000000000000000000000000000000000a>:
           storage:

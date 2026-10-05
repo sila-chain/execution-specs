@@ -1,5 +1,5 @@
 {
-    "000/my_chain_id_test/Paris/tx_type_0": {
+    "000/my_chain_id_test/SilaParis/tx_type_0": {
         "_info": {
             "hash": "0xdf866e0391fe827cdcde77f06d63ca9fc3a8692a1048618c2cf12a5e6e6649ae",
             "fixture_format": "state_test"
@@ -44,7 +44,7 @@
             "secretKey": "0x45a915e4d060149eb4365960e6a7a45f334393093061116b197e3240065ff2d8"
         },
         "post": {
-            "Paris": [
+            "SilaParis": [
                 {
                     "hash": "0xaf03c39e7a64dc7072c098673612e0e0aa75419aec9bf8a454da0332fed3ae09",
                     "logs": "0x6f322afda7b9376eb43961bc85e0a097c0118bb3545c42c888830702a95b18a5",

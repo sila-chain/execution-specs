@@ -201,7 +201,7 @@ def post(
     ids=["exact_gas", "insufficient_gas", "extra_gas"],
 )
 @pytest.mark.parametrize("proof", ["correct", "incorrect"])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_point_evaluation_precompile_gas_usage(
     state_test: StateTestFiller,
     pre: Dict,

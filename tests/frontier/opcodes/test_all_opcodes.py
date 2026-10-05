@@ -123,7 +123,7 @@ def test_all_opcodes(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_cover_revert(state_test: StateTestFiller, pre: Alloc) -> None:
     """Cover state revert from original tests for the coverage script."""
     tx = Transaction(
@@ -225,7 +225,7 @@ def constant_gas_opcodes(fork: Fork) -> Generator[ParameterSet, None, None]:
         )
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize_by_fork("opcode", constant_gas_opcodes)
 def test_constant_gas(
     state_test: StateTestFiller,

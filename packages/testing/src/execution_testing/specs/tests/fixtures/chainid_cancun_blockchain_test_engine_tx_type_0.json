@@ -1,10 +1,10 @@
 {
-    "000/my_chain_id_test/Cancun/tx_type_0": {
+    "000/my_chain_id_test/SilaCancun/tx_type_0": {
         "_info": {
             "hash": "0xceef046d56927cb3ba54a0dddae52780b253edceb40696e62683dff192a68956",
             "fixture_format": "blockchain_test_engine"
         },
-        "network": "Cancun",
+        "network": "SilaCancun",
         "genesisBlockHeader": {
             "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "uncleHash": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
@@ -111,10 +111,10 @@
             }
         },
         "config": {
-            "network": "Cancun",
+            "network": "SilaCancun",
             "chainid": "0x01",
             "blobSchedule": {
-                "Cancun": {
+                "SilaCancun": {
                     "max": "0x06",
                     "target": "0x03",
                     "baseFeeUpdateFraction": "0x32f0ed"

@@ -102,7 +102,7 @@ SSTORE_TOKENS = [
 #   - Simulates real-world contract state accumulation over time
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("token_name", SLOAD_TOKENS)
 def test_sload_empty_erc20_balanceof(
     blockchain_test: BlockchainTestFiller,
@@ -245,7 +245,7 @@ def test_sload_empty_erc20_balanceof(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("token_name", SSTORE_TOKENS)
 def test_sstore_erc20_approve(
     blockchain_test: BlockchainTestFiller,

@@ -111,7 +111,7 @@ OOGinReturn:
         gas:  !!int 0
         value: !!int 0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -129,7 +129,7 @@ OOGinReturn:
         gas:  !!int 0
         value: !!int 0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:

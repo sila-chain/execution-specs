@@ -177,26 +177,26 @@ class FuzzerBridge:
             "post": {},
             "blocks": [block],
             "chain_id": fuzzer_data.get("chainId", 1),
-            "fork": fuzzer_data.get("fork", "Prague"),
+            "fork": fuzzer_data.get("fork", "SilaPrague"),
         }
 
     def generate_fixture(self, test_params: Dict[str, Any]) -> Dict[str, Any]:
         """Generate blockchain test fixture."""
         # Get fork
         from execution_testing.forks import (
-            Cancun,
-            Osaka,
-            Prague,
-            Shanghai,
+            SilaCancun,
+            SilaOsaka,
+            SilaPrague,
+            SilaShanghai,
         )
 
         fork_map = {
-            "Osaka": Osaka,
-            "Prague": Prague,
-            "Shanghai": Shanghai,
-            "Cancun": Cancun,
+            "SilaOsaka": SilaOsaka,
+            "SilaPrague": SilaPrague,
+            "SilaShanghai": SilaShanghai,
+            "SilaCancun": SilaCancun,
         }
-        fork = fork_map.get(test_params["fork"], Prague)
+        fork = fork_map.get(test_params["fork"], SilaPrague)
 
         # Create test
         test = BlockchainTest(

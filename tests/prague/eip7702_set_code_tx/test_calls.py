@@ -14,7 +14,7 @@ from execution_testing import (
     Transaction,
 )
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 REFERENCE_SPEC_GIT_PATH = "EIPS/eip-7702.md"
 REFERENCE_SPEC_VERSION = "99f1be49f37c034bdd5c082946f5968710dbfc87"
 

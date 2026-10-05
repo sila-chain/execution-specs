@@ -14,7 +14,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_196.git_path
 REFERENCE_SPEC_VERSION = ref_spec_196.version
 
 pytestmark = [
-    pytest.mark.valid_from("Byzantium"),
+    pytest.mark.valid_from("SilaByzantium"),
     pytest.mark.parametrize("precompile_address", [Spec.ECADD], ids=["ecadd"]),
 ]
 
@@ -121,34 +121,34 @@ pytestmark = [
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_0Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_64Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_80_ParisFiller.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_0Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_64Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_80Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_21000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_25000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_25000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_21000_64Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_21000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_25000_64Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_25000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_25000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_21000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_25000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_25000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_1145-4651_21000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_1145-4651_25000_192Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_2969-1336_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_2969-1336_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_0Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_64Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_80_ParisFiller.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_21000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_0Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_64Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_80Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_0-0_25000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_21000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-2_25000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_21000_64Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_21000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_25000_64Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_0-0_25000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_21000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-2_1-2_25000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_1145-4651_21000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_1145-4651_25000_192Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_2969-1336_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1145-3932_2969-1336_25000_128Filler.json"
     ],
     pr=["https://github.com/ethereum/execution-specs/pull/1935"],
 )
@@ -249,14 +249,14 @@ def test_valid(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-3_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-3_25000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-3_1-2_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-3_1-2_25000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-3_0-0_21000_80Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-3_0-0_25000_80_ParisFiller.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_6-9_19274124-124124_21000_128Filler.json"
-        "https://github.com/ethereum/legacytests/tree/master/Cancun/GeneralStateTests/stZeroKnowledge2/ecadd_6-9_19274124-124124_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-3_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-0_1-3_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-3_1-2_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_0-3_1-2_25000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-3_0-0_21000_80Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_1-3_0-0_25000_80_ParisFiller.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_6-9_19274124-124124_21000_128Filler.json"
+        "https://github.com/ethereum/legacytests/tree/master/SilaCancun/GeneralStateTests/stZeroKnowledge2/ecadd_6-9_19274124-124124_25000_128Filler.json"
     ],
     pr=["https://github.com/ethereum/execution-specs/pull/1935"],
 )

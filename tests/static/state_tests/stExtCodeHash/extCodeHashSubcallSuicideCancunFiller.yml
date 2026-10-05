@@ -2,7 +2,7 @@
 # B call to A
 # A delegatecall/callcode to C (C has selfdestruct)
 # A selfdestructed. returned to B. now we could check extcodehash of A (in account B code)
-# Cancun version with dynamic contract suicide
+# SilaCancun version with dynamic contract suicide
 ---
 extCodeHashSubcallSuicideCancun:
   _info:
@@ -73,7 +73,7 @@ extCodeHashSubcallSuicideCancun:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         b000000000000000000000000000000000000000:
           storage: {
@@ -85,7 +85,7 @@ extCodeHashSubcallSuicideCancun:
              "0x06": '0x60206000600060006000733e180b1862f9d158abb5e519a6d8605540c2368262',
              "0x07": '0x01'
           }
-        #CALLCODE to a contract that suicide in Cancun does not delete the caller. even if contract that has suicide is dynamically created
+        #CALLCODE to a contract that suicide in SilaCancun does not delete the caller. even if contract that has suicide is dynamically created
         a000000000000000000000000000000000000000:
             nonce: '0'
             storage: {}

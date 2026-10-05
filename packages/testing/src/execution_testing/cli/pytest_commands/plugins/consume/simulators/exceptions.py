@@ -87,8 +87,8 @@ def fork_strict_exception_matching(
     disable_strict_exception_matching: List[str],
 ) -> bool:
     """Return True if the fork should use strict exception matching."""
-    # NOTE: `in` makes it easier for transition forks ("Prague" in
-    # "CancunToPragueAtTime15k")
+    # NOTE: `in` makes it easier for transition forks ("SilaPrague" in
+    # "SilaCancunToSilaPragueAtTime15k")
     return not any(
         s.lower() in str(fixture.fork).lower()
         for s in disable_strict_exception_matching

@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from execution_testing.fixtures import TransactionFixture
-from execution_testing.forks import Fork, Shanghai
+from execution_testing.forks import Fork, SilaShanghai
 from execution_testing.test_types import Transaction
 
 from ..transaction import TransactionTest
@@ -20,7 +20,7 @@ FIXTURES_FOLDER = CURRENT_FOLDER / "fixtures"
 @pytest.mark.parametrize(
     "name, tx, fork",
     [
-        pytest.param("simple_type_0", Transaction(), Shanghai),
+        pytest.param("simple_type_0", Transaction(), SilaShanghai),
     ],
 )
 def test_transaction_test_filling(

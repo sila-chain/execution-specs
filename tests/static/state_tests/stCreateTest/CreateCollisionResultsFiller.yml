@@ -161,7 +161,7 @@ CreateCollisionResults:
         gas:  !!int 0
         value: !!int 0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         cccccccccccccccccccccccccccccccccccccccc:

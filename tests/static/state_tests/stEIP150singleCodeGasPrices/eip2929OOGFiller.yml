@@ -194,14 +194,14 @@ eip2929OOG:
     
     
   expect:
-    # Berlin and above should fail (not enough gas)
+    # SilaBerlin and above should fail (not enough gas)
     - indexes:
         data:
         - :label failEIP2929
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:

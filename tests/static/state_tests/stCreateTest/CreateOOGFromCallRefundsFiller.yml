@@ -524,7 +524,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SStore_Refund_NoOoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -540,7 +540,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SStore_Refund_OoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -556,7 +556,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SelfDestruct_Refund_NoOoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -576,7 +576,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SelfDestruct_Refund_OoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -598,7 +598,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label LogOp_NoOoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -614,7 +614,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label LogOp_OoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -629,7 +629,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SStore_Create_Refund_NoOoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -650,7 +650,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SStore_Create_Refund_OoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -667,7 +667,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SStore_Create2_Refund_NoOoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
@@ -688,7 +688,7 @@ CreateOOGFromCallRefunds:
         data: 
         - :label SStore_Create2_Refund_OoG
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
 
         a94f5374fce5edbc8e2a8697c15331677e6ebf0b:

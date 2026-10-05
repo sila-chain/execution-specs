@@ -279,7 +279,7 @@ def post(
     ],
 )
 @pytest.mark.parametrize("result", [Result.SUCCESS])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_valid_inputs(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -351,7 +351,7 @@ def test_valid_inputs(
     ],
 )
 @pytest.mark.parametrize("result", [Result.FAILURE])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_invalid_inputs(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -469,7 +469,7 @@ def all_external_vectors() -> List:
     all_external_vectors(),
 )
 @pytest.mark.parametrize("versioned_hash", [None])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow()
 def test_external_vectors(
     state_test: StateTestFiller,
@@ -507,7 +507,7 @@ def test_external_vectors(
     [[Z, INF_POINT, INF_POINT, None]],
     ids=[""],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_call_opcode_types(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -547,7 +547,7 @@ def test_call_opcode_types(
     ],
     ids=["correct_proof", "incorrect_proof"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_tx_entry_point(
     fork: Fork,
     state_test: StateTestFiller,
@@ -638,7 +638,7 @@ def test_tx_entry_point(
     ],
     ids=[""],
 )
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_precompile_before_fork(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -694,7 +694,7 @@ PRE_FORK_BLOCK_RANGE = range(999, FORK_TIMESTAMP, 1_000)
     ],
     ids=[""],
 )
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_precompile_during_fork(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

@@ -30,9 +30,9 @@ from execution_testing import (
     Macros as Om,
 )
 from execution_testing.forks import (
-    Berlin,
-    Cancun,
-    SpuriousDragon,
+    SilaBerlin,
+    SilaCancun,
+    SIP158,
 )
 from execution_testing.forks.helpers import Fork
 
@@ -58,16 +58,16 @@ def calculate_selfdestruct_gas(
         gas_costs.G_VERY_LOW + gas_costs.G_SELF_DESTRUCT
     )
 
-    # Cold access cost (>=Berlin only)
-    if fork >= Berlin and not beneficiary_warm:
+    # Cold access cost (>=SilaBerlin only)
+    if fork >= SilaBerlin and not beneficiary_warm:
         gas += gas_costs.G_COLD_ACCOUNT_ACCESS
 
     # G_NEW_ACCOUNT:
-    # - Pre-EIP-161 (TangerineWhistle): charged when beneficiary is dead
-    # - Post-EIP-161 (>=SpuriousDragon): charged when beneficiary is dead
+    # - Pre-EIP-161 (SIP150): charged when beneficiary is dead
+    # - Post-EIP-161 (>=SIP158): charged when beneficiary is dead
     #   AND originator has balance > 0
     if beneficiary_dead:
-        if fork >= SpuriousDragon:
+        if fork >= SIP158:
             if originator_balance > 0:
                 gas += gas_costs.G_NEW_ACCOUNT
         else:
@@ -118,11 +118,11 @@ def setup_selfdestruct_test(
             code=Op.CALL(gas=inner_call_gas, address=victim)
         )
 
-    # Warm beneficiary via access list (>=Berlin only,
-    # doesn't add to BAL >= Amsterdam)
+    # Warm beneficiary via access list (>=SilaBerlin only,
+    # doesn't add to BAL >= SilaAmsterdam)
     access_list = (
         [AccessList(address=beneficiary, storage_keys=[])]
-        if beneficiary_warm and fork >= Berlin
+        if beneficiary_warm and fork >= SilaBerlin
         else None
     )
 
@@ -149,7 +149,7 @@ def build_bal_expectations(
     success: bool,
     beneficiary_in_bal: bool,
 ) -> BlockAccessListExpectation | None:
-    """Build BAL expectations for >=Amsterdam."""
+    """Build BAL expectations for >=SilaAmsterdam."""
     if not fork.header_bal_hash_required():
         return None
 
@@ -251,7 +251,7 @@ def build_post_state(
     caller_nonce = 2 if same_tx else 1
 
     if success:
-        contract_destroyed = fork < Cancun or same_tx
+        contract_destroyed = fork < SilaCancun or same_tx
         final_beneficiary_balance = (
             beneficiary_initial_balance + originator_balance
         )
@@ -263,7 +263,7 @@ def build_post_state(
                 victim: Account.NONEXISTENT,
             }
         else:
-            # >=Cancun pre-existing: code preserved, balance transferred
+            # >=SilaCancun pre-existing: code preserved, balance transferred
             post = {
                 alice: Account(nonce=1),
                 caller: Account(nonce=caller_nonce),
@@ -274,8 +274,8 @@ def build_post_state(
         # Pre-EIP-161: empty accounts touched during execution persist
         if final_beneficiary_balance > 0 or beneficiary_has_code:
             post[beneficiary] = Account(balance=final_beneficiary_balance)
-        elif fork >= SpuriousDragon:
-            # EIP-161 (>=SpuriousDragon): empty accounts are deleted
+        elif fork >= SIP158:
+            # EIP-161 (>=SIP158): empty accounts are deleted
             post[beneficiary] = Account.NONEXISTENT
         else:
             # Pre-EIP-161: empty accounts persist after being touched
@@ -311,9 +311,9 @@ def build_post_state(
     "warm",
     [
         pytest.param(
-            False, id="cold", marks=pytest.mark.valid_from("TangerineWhistle")
+            False, id="cold", marks=pytest.mark.valid_from("SIP150")
         ),
-        pytest.param(True, id="warm", marks=pytest.mark.valid_from("Berlin")),
+        pytest.param(True, id="warm", marks=pytest.mark.valid_from("SilaBerlin")),
     ],
 )
 @pytest.mark.parametrize(
@@ -375,7 +375,7 @@ def test_selfdestruct_to_account(
     # In BAL if: success OR G_NEW_ACCOUNT charged (OOG after access)
     needs_new_account = False
     if beneficiary_dead:
-        if fork >= SpuriousDragon:
+        if fork >= SIP158:
             needs_new_account = originator_balance > 0
         else:
             needs_new_account = True
@@ -435,9 +435,9 @@ def test_selfdestruct_to_account(
     "warm",
     [
         pytest.param(
-            False, id="cold", marks=pytest.mark.valid_from("TangerineWhistle")
+            False, id="cold", marks=pytest.mark.valid_from("SIP150")
         ),
-        pytest.param(True, id="warm", marks=pytest.mark.valid_from("Berlin")),
+        pytest.param(True, id="warm", marks=pytest.mark.valid_from("SilaBerlin")),
     ],
 )
 @pytest.mark.parametrize(
@@ -493,7 +493,7 @@ def test_selfdestruct_state_access_boundary(
     # Does NOT include G_NEW_ACCOUNT
     gas_costs = fork.gas_costs()
     inner_call_gas = gas_costs.G_VERY_LOW + gas_costs.G_SELF_DESTRUCT
-    if fork >= Berlin and not warm:
+    if fork >= SilaBerlin and not warm:
         inner_call_gas += gas_costs.G_COLD_ACCOUNT_ACCESS
 
     if not is_success:
@@ -503,10 +503,10 @@ def test_selfdestruct_state_access_boundary(
     # At state access boundary, we have enough gas for base + cold access
     # Operation succeeds if NO G_NEW_ACCOUNT is needed:
     # - Beneficiary is alive (has balance or has code)
-    # - OR beneficiary is dead but originator_balance=0 (>=SpuriousDragon)
+    # - OR beneficiary is dead but originator_balance=0 (>=SIP158)
     needs_new_account = False
     if beneficiary_dead:
-        if fork >= SpuriousDragon:
+        if fork >= SIP158:
             needs_new_account = originator_balance > 0
         else:
             needs_new_account = True
@@ -592,7 +592,7 @@ def test_selfdestruct_state_access_boundary(
         ),
     ],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_selfdestruct_to_precompile(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -632,7 +632,7 @@ def test_selfdestruct_to_precompile(
     # In BAL if: success OR G_NEW_ACCOUNT charged (OOG after access)
     needs_new_account = False
     if beneficiary_dead:
-        if fork >= SpuriousDragon:
+        if fork >= SIP158:
             needs_new_account = originator_balance > 0
         else:
             needs_new_account = True
@@ -713,7 +713,7 @@ def test_selfdestruct_to_precompile(
         ),
     ],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_selfdestruct_to_precompile_state_access_boundary(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -749,7 +749,7 @@ def test_selfdestruct_to_precompile_state_access_boundary(
     # Success at base cost if no G_NEW_ACCOUNT needed
     needs_new_account = False
     if beneficiary_dead:
-        if fork >= SpuriousDragon:
+        if fork >= SIP158:
             needs_new_account = originator_balance > 0
         else:
             needs_new_account = True
@@ -814,7 +814,7 @@ def test_selfdestruct_to_precompile_state_access_boundary(
     [0, 1],
     ids=["no_balance", "has_balance"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_selfdestruct_to_system_contract(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -961,7 +961,7 @@ def test_selfdestruct_to_system_contract(
 @pytest.mark.parametrize(
     "same_tx", [False, True], ids=["pre_deploy", "same_tx"]
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_selfdestruct_to_self(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -979,7 +979,7 @@ def test_selfdestruct_to_self(
     - Beneficiary is always warm (it's the executing contract)
     - Beneficiary is always alive (EIP-161 nonce=1)
     - No G_NEW_ACCOUNT charge
-    - No cold access charge (>=Berlin)
+    - No cold access charge (>=SilaBerlin)
     - Balance is "transferred" to self (no net change until destruction)
 
     Gas boundary:
@@ -987,8 +987,8 @@ def test_selfdestruct_to_self(
     - exact_gas_minus_1: OOG, SELFDESTRUCT fails
 
     Post-destruction behavior (is_success=True only):
-    - Pre-Cancun or same_tx: contract destroyed, balance = 0
-    - >=Cancun pre-existing: contract NOT destroyed, balance preserved
+    - Pre-SilaCancun or same_tx: contract destroyed, balance = 0
+    - >=SilaCancun pre-existing: contract NOT destroyed, balance preserved
     """
     alice = pre.fund_eoa()
     victim_code = Op.SELFDESTRUCT(Op.ADDRESS)
@@ -1072,11 +1072,11 @@ def test_selfdestruct_to_self(
             if not is_success:
                 # OOG: victim accessed but no state changes
                 victim_expectation = BalAccountExpectation.empty()
-            elif fork >= Cancun:
-                # >=Cancun success: contract survives with original balance
+            elif fork >= SilaCancun:
+                # >=SilaCancun success: contract survives with original balance
                 victim_expectation = BalAccountExpectation.empty()
             elif originator_balance > 0:
-                # Pre-Cancun success: contract destroyed
+                # Pre-SilaCancun success: contract destroyed
                 victim_expectation = BalAccountExpectation(
                     balance_changes=[
                         BalBalanceChange(block_access_index=1, post_balance=0)
@@ -1116,7 +1116,7 @@ def test_selfdestruct_to_self(
                 victim: Account(balance=originator_balance, code=victim_code),
             }
     else:
-        contract_destroyed = fork < Cancun or same_tx
+        contract_destroyed = fork < SilaCancun or same_tx
         if contract_destroyed:
             post = {
                 alice: Account(nonce=1),
@@ -1124,7 +1124,7 @@ def test_selfdestruct_to_self(
                 victim: Account.NONEXISTENT,
             }
         else:
-            # >=Cancun pre-existing: code preserved, balance preserved
+            # >=SilaCancun pre-existing: code preserved, balance preserved
             post = {
                 alice: Account(nonce=1),
                 caller: Account(nonce=caller_nonce),
@@ -1143,7 +1143,7 @@ def test_selfdestruct_to_self(
     [0, 1],
     ids=["no_balance", "has_balance"],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_initcode_selfdestruct_to_self(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -1162,7 +1162,7 @@ def test_initcode_selfdestruct_to_self(
     - Contract has nonce=1 (post-EIP-161) making it non-empty
     - Beneficiary is always warm (it's the executing contract)
     - No G_NEW_ACCOUNT charge (contract has nonce > 0)
-    - No cold access charge (>=Berlin)
+    - No cold access charge (>=SilaBerlin)
 
     Note: Gas boundary testing not possible for initcode since CREATE
     doesn't accept a gas parameter - it uses all available gas.

@@ -673,8 +673,8 @@ class TestDocsGenerator:
             Nav entries / output files contain special cases such as:
 
             - ("Test Case Reference",) -> tests/index.md
-            - ("Test Case Reference", "Berlin") -> tests/berlin/index.md
-            - ("Test Case Reference", "Shanghai", "EIP-3855 PUSH0", "Spec") ->
+            - ("Test Case Reference", "SilaBerlin") -> tests/berlin/index.md
+            - ("Test Case Reference", "SilaShanghai", "EIP-3855 PUSH0", "Spec") ->
             tests/shanghai/eip3855_push0/spec.py
 
             This function provides and ordering to sort nav men entries as

@@ -32,13 +32,13 @@ ETHEREUM_TESTS_PATH = TEST_FIXTURES["ethereum_tests"]["fixture_path"]
 
 POW_FORKS = [
     "Frontier",
-    "Homestead",
+    "SilaHomestead",
     "EIP150",
     "EIP158",
-    "Byzantium",
-    "ConstantinopleFix",
-    "Istanbul",
-    "Berlin",
+    "SilaByzantium",
+    "SilaConstantinopleFix",
+    "SilaIstanbul",
+    "SilaBerlin",
 ]
 
 
@@ -148,8 +148,8 @@ def test_pow_validation_block_headers(
 
 
 # TODO: Once there is a method to download blocks, test the proof-of-work
-# validation for the following blocks in each hardfork (except London as the
-# current PoW algo won't work from London):
+# validation for the following blocks in each hardfork (except SilaLondon as the
+# current PoW algo won't work from SilaLondon):
 #   * Start of hardfork
 #   * two random blocks inside the hardfork
 #   * End of hardfork

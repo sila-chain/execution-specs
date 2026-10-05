@@ -259,7 +259,7 @@ def test_block_full_data(
     effective_gas = gas_benchmark_value
 
     if block_rlp_limit:
-        # Max calldata bytes at 99% of limit (Osaka: 8,388,608 * 0.99 ≈ 8.3 MB)
+        # Max calldata bytes at 99% of limit (SilaOsaka: 8,388,608 * 0.99 ≈ 8.3 MB)
         safe_calldata_bytes = int(block_rlp_limit * 0.99)
 
         # convert to gas: zero bytes = 10 gas/byte, non-zero = 40 gas/byte
@@ -270,7 +270,7 @@ def test_block_full_data(
         )
         # For zero bytes: 8.3MB * 10 = 83M gas just for calldata
         max_calldata_gas = safe_calldata_bytes * gas_per_byte
-        # Add intrinsic cost per tx (Osaka): 83M + 6 txs * 21k ≈ 83.1M total
+        # Add intrinsic cost per tx (SilaOsaka): 83M + 6 txs * 21k ≈ 83.1M total
         rlp_limited_gas = max_calldata_gas + iteration_count * intrinsic_cost
 
         # use the min between benchmark target and the RLP limit

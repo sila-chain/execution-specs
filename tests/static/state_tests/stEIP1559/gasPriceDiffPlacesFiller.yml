@@ -649,7 +649,7 @@ gasPriceDiffPlaces:
         value: !!int -1
 
       network:
-        - '>=Cancun<Osaka'
+        - '>=SilaCancun<SilaOsaka'
 
       result:
         cccccccccccccccccccccccccccccccccccccccc:

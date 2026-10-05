@@ -18,7 +18,7 @@ coinbaseWarmAccountCallGasFail:
         {
            // Depending on the called contract here, the subcall will perform
            // another call/delegatecall/staticcall/callcode that will only succeed
-           // if coinbase is considered warm by default (post-Shanghai).
+           // if coinbase is considered warm by default (post-SilaShanghai).
            let calladdr := calldataload(4)
 
            let callgas := 100
@@ -125,9 +125,9 @@ coinbaseWarmAccountCallGasFail:
 
   expect:
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
-            # Coinbase access post-Shanghai is warm, hence subcall has enough gas and succeeds
+            # Coinbase access post-SilaShanghai is warm, hence subcall has enough gas and succeeds
             0x0:  1

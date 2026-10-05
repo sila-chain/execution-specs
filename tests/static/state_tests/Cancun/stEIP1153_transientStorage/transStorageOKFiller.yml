@@ -825,7 +825,7 @@ transStorageOK:
         data: :label sum_16
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -842,7 +842,7 @@ transStorageOK:
         data: :label callcode_sum_16
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -860,7 +860,7 @@ transStorageOK:
         data: :label delegate_sum_16
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -877,7 +877,7 @@ transStorageOK:
         data: :label sum_256
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -896,7 +896,7 @@ transStorageOK:
         data: :label callback_sum_10
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -922,7 +922,7 @@ transStorageOK:
         data: :label callback_sum_50
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -948,7 +948,7 @@ transStorageOK:
         data: :label bin_tree_6
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -971,7 +971,7 @@ transStorageOK:
         data: :label delegate_bin_tree_6
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -994,7 +994,7 @@ transStorageOK:
         data: :label inherit_trans
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -1018,7 +1018,7 @@ transStorageOK:
         data: :label deep_call
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -1037,7 +1037,7 @@ transStorageOK:
         data: :label static_call
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:

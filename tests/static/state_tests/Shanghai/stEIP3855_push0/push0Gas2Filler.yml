@@ -61,7 +61,7 @@ push0Gas2:
     - indexes:
         data: ':label use_push0'
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         0000000000000000000000000000000000001000:
           balance: 0
@@ -75,7 +75,7 @@ push0Gas2:
     - indexes:
         data: ':label use_push1_00'
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         0000000000000000000000000000000000000200:
           balance: 0

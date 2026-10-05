@@ -43,7 +43,7 @@ def test_no_options_no_validity_marker(pytester: pytest.Pytester) -> None:
         for f in forks_from_until(all_forks[0], all_forks[-1])
         if not f.ignore()
     ]
-    expected_skipped = 2  # eels doesn't support Constantinople
+    expected_skipped = 2  # eels doesn't support SilaConstantinople
     expected_passed = (
         len([f for f in forks_under_test if not f.ignore()])
         * len(StateTest.supported_fixture_formats)
@@ -82,13 +82,13 @@ def test_no_options_no_validity_marker(pytester: pytest.Pytester) -> None:
     )
 
 
-@pytest.mark.parametrize("fork", ["London", "Paris"])
+@pytest.mark.parametrize("fork", ["SilaLondon", "SilaParis"])
 def test_from_london_option_no_validity_marker(
     pytester: pytest.Pytester, fork_map: dict[str, Fork], fork: str
 ) -> None:
     """
     Test test parametrization with:
-    - --from London command-line option,
+    - --from SilaLondon command-line option,
     - no until command-line option,
     - no fork validity marker.
     """
@@ -144,8 +144,8 @@ def test_from_london_until_shanghai_option_no_validity_marker(
 ) -> None:
     """
     Test test parametrization with:
-    - --from London command-line option,
-    - --until Shanghai command-line option,
+    - --from SilaLondon command-line option,
+    - --until SilaShanghai command-line option,
     - no fork validity marker.
     """
     pytester.makepyfile(
@@ -164,12 +164,12 @@ def test_from_london_until_shanghai_option_no_validity_marker(
         "pytest-fill.ini",
         "-v",
         "--from",
-        "London",
+        "SilaLondon",
         "--until",
         "shanghai",
     )
     forks_under_test = forks_from_until(
-        fork_map["London"], fork_map["Shanghai"]
+        fork_map["SilaLondon"], fork_map["SilaShanghai"]
     )
     expected_passed = len(forks_under_test) * len(
         StateTest.supported_fixture_formats
@@ -212,8 +212,8 @@ def test_from_paris_until_paris_option_no_validity_marker(
 ) -> None:
     """
     Test test parametrization with:
-    - --from Paris command-line option,
-    - --until Paris command-line option,
+    - --from SilaParis command-line option,
+    - --until SilaParis command-line option,
     - no fork validity marker.
     """
     pytester.makepyfile(
@@ -230,7 +230,7 @@ def test_from_paris_until_paris_option_no_validity_marker(
     result = pytester.runpytest(
         "-c", "pytest-fill.ini", "-v", "--from", "paris", "--until", "paris"
     )
-    forks_under_test = forks_from_until(fork_map["Paris"], fork_map["Paris"])
+    forks_under_test = forks_from_until(fork_map["SilaParis"], fork_map["SilaParis"])
     expected_passed = len(forks_under_test) * len(
         StateTest.supported_fixture_formats
     )

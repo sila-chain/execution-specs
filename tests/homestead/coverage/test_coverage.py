@@ -12,13 +12,13 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
 REFERENCE_SPEC_VERSION = "N/A"
 
 
-@pytest.mark.valid_from("Homestead")
+@pytest.mark.valid_from("SilaHomestead")
 def test_coverage(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -71,7 +71,7 @@ def test_coverage(
         + Op.RETURN(0, 32),
     )
 
-    if fork >= Cancun:
+    if fork >= SilaCancun:
         tx = Transaction(
             sender=pre.fund_eoa(7_000_000_000_000_000_000),
             gas_limit=100000,

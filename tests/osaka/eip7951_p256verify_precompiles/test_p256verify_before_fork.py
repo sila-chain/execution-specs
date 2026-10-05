@@ -4,7 +4,7 @@ Curve Support](https://eips.ethereum.org/EIPS/eip-7951).
 
 Tests P256VERIFY
 precompiles of [EIP-7951: Precompile for secp256r1 Curve
-Support](https://eips.ethereum.org/EIPS/eip-7951) before the Osaka hard fork is
+Support](https://eips.ethereum.org/EIPS/eip-7951) before the SilaOsaka hard fork is
 active.
 """
 
@@ -22,7 +22,7 @@ from .spec import Spec, ref_spec_7951
 REFERENCE_SPEC_GIT_PATH = ref_spec_7951.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7951.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Osaka")
+pytestmark = pytest.mark.valid_at_transition_to("SilaOsaka")
 
 
 @pytest.mark.parametrize(
@@ -61,7 +61,7 @@ def test_precompile_before_fork(
     tx: Transaction,
 ) -> None:
     """
-    Test P256VERIFY precompiles before the Osaka hard fork is active.
+    Test P256VERIFY precompiles before the SilaOsaka hard fork is active.
 
     The call must succeed but the output must be empty.
     """

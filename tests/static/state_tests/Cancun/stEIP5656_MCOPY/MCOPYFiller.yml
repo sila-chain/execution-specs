@@ -165,7 +165,7 @@ MCOPY:
           - :label inplace_0
           - :label inplace_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -177,7 +177,7 @@ MCOPY:
         data:
           - :label forward_overlapped_0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -189,7 +189,7 @@ MCOPY:
         data:
           - :label forward_overlapped_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -201,7 +201,7 @@ MCOPY:
         data:
           - :label forward_disjoint_0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -213,7 +213,7 @@ MCOPY:
         data:
           - :label forward_disjoint_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -225,7 +225,7 @@ MCOPY:
         data:
           - :label forward_adjacent_0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -237,7 +237,7 @@ MCOPY:
         data:
           - :label forward_adjacent_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -249,7 +249,7 @@ MCOPY:
         data:
           - :label backward_overlapped_0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -261,7 +261,7 @@ MCOPY:
         data:
           - :label backward_overlapped_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -273,7 +273,7 @@ MCOPY:
         data:
           - :label backward_disjoint_0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -285,7 +285,7 @@ MCOPY:
         data:
           - :label backward_disjoint_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -297,7 +297,7 @@ MCOPY:
         data:
           - :label backward_adjacent_0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -309,7 +309,7 @@ MCOPY:
         data:
           - :label backward_adjacent_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:

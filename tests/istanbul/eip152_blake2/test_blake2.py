@@ -35,14 +35,14 @@ pytestmark = pytest.mark.ported_from(
     ],
     coverage_missed_reason=(
         "No longer used opcodes, SUB, GT, ISZERO, AND, CODESIZE, JUMP, some "
-        "PUSH opcodes. Original test calls Blake2b in ConstantinopleFix "
+        "PUSH opcodes. Original test calls Blake2b in SilaConstantinopleFix "
         "(activation test), which results in empty account code being "
         "triggered."
     ),
 )
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL])
 @pytest.mark.parametrize(
     ["data", "output"],
@@ -438,7 +438,7 @@ def test_blake2b(
     state_test(env=env, pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize("gas_limit", [90_000, 110_000, 200_000])
 @pytest.mark.parametrize(
@@ -566,7 +566,7 @@ def tx_gas_limits(fork: Fork) -> List[int]:
     return [max_tx_gas_limit(fork), 90_000, 110_000, 200_000]
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize_by_fork("gas_limit", tx_gas_limits)
 @pytest.mark.parametrize(
@@ -678,7 +678,7 @@ def test_blake2b_gas_limit(
     )
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize_by_fork(
     "gas_limit", lambda fork: [max_tx_gas_limit(fork)]

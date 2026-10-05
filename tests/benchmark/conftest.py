@@ -6,7 +6,7 @@ from typing import Any
 import pytest
 from execution_testing import Fork
 
-DEFAULT_BENCHMARK_FORK = "Prague"
+DEFAULT_BENCHMARK_FORK = "SilaPrague"
 
 
 def pytest_generate_tests(metafunc: Any) -> None:

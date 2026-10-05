@@ -6,56 +6,56 @@ from .forks import (
     BPO2,
     BPO3,
     BPO4,
-    Amsterdam,
-    Berlin,
-    Cancun,
-    London,
-    Osaka,
-    Paris,
-    Prague,
-    Shanghai,
+    SilaAmsterdam,
+    SilaBerlin,
+    SilaCancun,
+    SilaLondon,
+    SilaOsaka,
+    SilaParis,
+    SilaPrague,
+    SilaShanghai,
 )
 
 
 # Transition Forks
-@transition_fork(to_fork=London, at_block=5)
-class BerlinToLondonAt5(Berlin):
-    """Berlin to London transition at Block 5."""
+@transition_fork(to_fork=SilaLondon, at_block=5)
+class SilaBerlinToSilaLondonAt5(SilaBerlin):
+    """SilaBerlin to SilaLondon transition at Block 5."""
 
     pass
 
 
-@transition_fork(to_fork=Shanghai, at_timestamp=15_000)
-class ParisToShanghaiAtTime15k(Paris):
-    """Paris to Shanghai transition at Timestamp 15k."""
+@transition_fork(to_fork=SilaShanghai, at_timestamp=15_000)
+class SilaParisToSilaShanghaiAtTime15k(SilaParis):
+    """SilaParis to SilaShanghai transition at Timestamp 15k."""
 
     pass
 
 
-@transition_fork(to_fork=Cancun, at_timestamp=15_000)
-class ShanghaiToCancunAtTime15k(Shanghai):
-    """Shanghai to Cancun transition at Timestamp 15k."""
+@transition_fork(to_fork=SilaCancun, at_timestamp=15_000)
+class SilaShanghaiToSilaCancunAtTime15k(SilaShanghai):
+    """SilaShanghai to SilaCancun transition at Timestamp 15k."""
 
     pass
 
 
-@transition_fork(to_fork=Prague, at_timestamp=15_000)
-class CancunToPragueAtTime15k(Cancun):
-    """Cancun to Prague transition at Timestamp 15k."""
+@transition_fork(to_fork=SilaPrague, at_timestamp=15_000)
+class SilaCancunToSilaPragueAtTime15k(SilaCancun):
+    """SilaCancun to SilaPrague transition at Timestamp 15k."""
 
     pass
 
 
-@transition_fork(to_fork=Osaka, at_timestamp=15_000)
-class PragueToOsakaAtTime15k(Prague):
-    """Prague to Osaka transition at Timestamp 15k."""
+@transition_fork(to_fork=SilaOsaka, at_timestamp=15_000)
+class SilaPragueToSilaOsakaAtTime15k(SilaPrague):
+    """SilaPrague to SilaOsaka transition at Timestamp 15k."""
 
     pass
 
 
 @transition_fork(to_fork=BPO1, at_timestamp=15_000)
-class OsakaToBPO1AtTime15k(Osaka):
-    """Osaka to BPO1 transition at Timestamp 15k."""
+class SilaOsakaToBPO1AtTime15k(SilaOsaka):
+    """SilaOsaka to BPO1 transition at Timestamp 15k."""
 
     pass
 
@@ -67,12 +67,12 @@ class BPO1ToBPO2AtTime15k(BPO1):
     pass
 
 
-@transition_fork(to_fork=Amsterdam, at_timestamp=15_000)
-class BPO2ToAmsterdamAtTime15k(BPO2):
-    """BPO2 to Amsterdam transition at Timestamp 15k."""
+@transition_fork(to_fork=SilaAmsterdam, at_timestamp=15_000)
+class BPO2ToSilaAmsterdamAtTime15k(BPO2):
+    """BPO2 to SilaAmsterdam transition at Timestamp 15k."""
 
-    # TODO: We may need to adjust which BPO Amsterdam inherits from as the
-    #  related Amsterdam specs change over time, and before Amsterdam is
+    # TODO: We may need to adjust which BPO SilaAmsterdam inherits from as the
+    #  related SilaAmsterdam specs change over time, and before SilaAmsterdam is
     #  live on mainnet.
 
     pass

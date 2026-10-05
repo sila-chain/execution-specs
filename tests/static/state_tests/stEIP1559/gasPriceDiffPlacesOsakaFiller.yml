@@ -645,7 +645,7 @@ gasPriceDiffPlaces:
         value: !!int -1
 
       network:
-        - '>=Osaka'
+        - '>=SilaOsaka'
 
       result:
         cccccccccccccccccccccccccccccccccccccccc:

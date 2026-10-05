@@ -18,7 +18,7 @@ test_module_with_verify_sync = textwrap.dedent(
 
     TEST_ADDRESS = Account(balance=1_000_000)
 
-    @pytest.mark.valid_at("Cancun")
+    @pytest.mark.valid_at("SilaCancun")
     def test_verify_sync_default(blockchain_test) -> None:
         blockchain_test(
             pre={TestAddress: TEST_ADDRESS},
@@ -27,7 +27,7 @@ test_module_with_verify_sync = textwrap.dedent(
         )
 
 
-    @pytest.mark.valid_at("Cancun")
+    @pytest.mark.valid_at("SilaCancun")
     @pytest.mark.verify_sync
     def test_verify_sync_with_marker(blockchain_test) -> None:
         blockchain_test(
@@ -36,7 +36,7 @@ test_module_with_verify_sync = textwrap.dedent(
             blocks=[Block(txs=[Transaction()])]
         )
 
-    @pytest.mark.valid_at("Cancun")
+    @pytest.mark.valid_at("SilaCancun")
     @pytest.mark.parametrize(
         "has_exception",
         [

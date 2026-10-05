@@ -46,8 +46,8 @@ invalid_cli_option_test_cases = (
     (
         "invalid_fork_range",
         (
-            ("--from", "Paris", "--until", "Frontier"),
-            "--from Paris --until Frontier creates an empty fork range",
+            ("--from", "SilaParis", "--until", "Frontier"),
+            "--from SilaParis --until Frontier creates an empty fork range",
         ),
     ),
 )

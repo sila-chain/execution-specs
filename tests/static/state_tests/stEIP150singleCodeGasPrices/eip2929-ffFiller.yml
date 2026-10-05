@@ -126,7 +126,7 @@ eip2929-ff:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -146,7 +146,7 @@ eip2929-ff:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:

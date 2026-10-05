@@ -45,14 +45,14 @@ test_module_paris = textwrap.dedent(
 
     from execution_testing import  Account, Environment, TestAddress, Transaction
 
-    @pytest.mark.valid_from("Paris")
-    @pytest.mark.valid_until("Shanghai")
+    @pytest.mark.valid_from("SilaParis")
+    @pytest.mark.valid_until("SilaShanghai")
     def test_paris_one(state_test) -> None:
         state_test(env=Environment(),
                     pre={TestAddress: Account(balance=1_000_000)}, post={}, tx=Transaction())
 
-    @pytest.mark.valid_from("Paris")
-    @pytest.mark.valid_until("Shanghai")
+    @pytest.mark.valid_from("SilaParis")
+    @pytest.mark.valid_until("SilaShanghai")
     def test_paris_two(state_test) -> None:
         state_test(env=Environment(),
                     pre={TestAddress: Account(balance=1_000_000)}, post={}, tx=Transaction())
@@ -66,15 +66,15 @@ test_module_shanghai = textwrap.dedent(
 
     from execution_testing import  Account, Environment, TestAddress, Transaction
 
-    @pytest.mark.valid_from("Paris")
-    @pytest.mark.valid_until("Shanghai")
+    @pytest.mark.valid_from("SilaParis")
+    @pytest.mark.valid_until("SilaShanghai")
     def test_shanghai_one(state_test) -> None:
         state_test(env=Environment(),
                     pre={TestAddress: Account(balance=1_000_000)}, post={}, tx=Transaction())
 
     @pytest.mark.parametrize("x", [1, 2, 3])
-    @pytest.mark.valid_from("Paris")
-    @pytest.mark.valid_until("Shanghai")
+    @pytest.mark.valid_from("SilaParis")
+    @pytest.mark.valid_until("SilaShanghai")
     def test_shanghai_two(state_test, x) -> None:
         state_test(env=Environment(),
                     pre={TestAddress: Account(balance=1_000_000)}, post={}, tx=Transaction())
@@ -566,7 +566,7 @@ test_module_environment_variables = textwrap.dedent(
     from execution_testing import  Account, Environment, Transaction
 
     @pytest.mark.parametrize("block_gas_limit", [Environment().gas_limit])
-    @pytest.mark.valid_at("Cancun")
+    @pytest.mark.valid_at("SilaCancun")
     def test_max_gas_limit(state_test, pre, block_gas_limit) -> None:
         env = Environment()
         assert block_gas_limit == {expected_gas_limit}

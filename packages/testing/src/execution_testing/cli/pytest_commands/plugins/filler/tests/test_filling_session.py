@@ -13,7 +13,7 @@ from execution_testing.fixtures import (
     PreAllocGroupBuilders,
     PreAllocGroups,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 from execution_testing.test_types import Environment
 
 from ..filler import FillingSession
@@ -85,9 +85,9 @@ class TestFillingSession:
         test_group_builder = PreAllocGroupBuilder(
             pre=Alloc().model_dump(mode="json"),
             environment=Environment()
-            .set_fork_requirements(Prague)
+            .set_fork_requirements(SilaPrague)
             .model_dump(mode="json", exclude={"parent_hash"}),
-            fork=Prague.name(),
+            fork=SilaPrague.name(),
         )
         test_group = test_group_builder.build()
         mock_groups = PreAllocGroups(root={"test_hash": test_group})
@@ -170,9 +170,9 @@ class TestFillingSession:
         test_group_builder = PreAllocGroupBuilder(
             pre=Alloc().model_dump(mode="json"),
             environment=Environment()
-            .set_fork_requirements(Prague)
+            .set_fork_requirements(SilaPrague)
             .model_dump(mode="json", exclude={"parent_hash"}),
-            fork=Prague.name(),
+            fork=SilaPrague.name(),
         )
         test_group = test_group_builder.build()
         mock_groups = PreAllocGroups(root={"test_hash": test_group})
@@ -238,9 +238,9 @@ class TestFillingSession:
         test_group_builder = PreAllocGroupBuilder(
             pre=Alloc().model_dump(mode="json"),
             environment=Environment()
-            .set_fork_requirements(Prague)
+            .set_fork_requirements(SilaPrague)
             .model_dump(mode="json", exclude={"parent_hash"}),
-            fork=Prague.name(),
+            fork=SilaPrague.name(),
         )
         session.update_pre_alloc_group_builder("test_hash", test_group_builder)
 
@@ -264,9 +264,9 @@ class TestFillingSession:
         test_group_builder = PreAllocGroupBuilder(
             pre=Alloc().model_dump(mode="json"),
             environment=Environment()
-            .set_fork_requirements(Prague)
+            .set_fork_requirements(SilaPrague)
             .model_dump(mode="json", exclude={"parent_hash"}),
-            fork=Prague.name(),
+            fork=SilaPrague.name(),
         )
         with pytest.raises(
             ValueError,
@@ -290,9 +290,9 @@ class TestFillingSession:
         test_group_builder = PreAllocGroupBuilder(
             pre=Alloc().model_dump(mode="json"),
             environment=Environment()
-            .set_fork_requirements(Prague)
+            .set_fork_requirements(SilaPrague)
             .model_dump(mode="json", exclude={"parent_hash"}),
-            fork=Prague.name(),
+            fork=SilaPrague.name(),
         )
         session.update_pre_alloc_group_builder("test_hash", test_group_builder)
 

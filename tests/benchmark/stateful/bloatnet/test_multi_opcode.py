@@ -57,7 +57,7 @@ REFERENCE_SPEC_VERSION = "1.0"
     [True, False],
     ids=["balance_extcodesize", "extcodesize_balance"],
 )
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_bloatnet_balance_extcodesize(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -238,7 +238,7 @@ def test_bloatnet_balance_extcodesize(
     [True, False],
     ids=["balance_extcodecopy", "extcodecopy_balance"],
 )
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_bloatnet_balance_extcodecopy(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -427,7 +427,7 @@ def test_bloatnet_balance_extcodecopy(
     [True, False],
     ids=["balance_extcodehash", "extcodehash_balance"],
 )
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_bloatnet_balance_extcodehash(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -606,7 +606,7 @@ MIXED_TOKENS = [
 ]
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("token_name", MIXED_TOKENS)
 @pytest.mark.parametrize(
     "sload_percent,sstore_percent",

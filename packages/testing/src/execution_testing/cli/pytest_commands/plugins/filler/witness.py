@@ -18,7 +18,7 @@ from execution_testing.fixtures.blockchain import (
     FixtureBlock,
     WitnessChunk,
 )
-from execution_testing.forks import Paris
+from execution_testing.forks import SilaParis
 
 
 class WitnessFillerResult(EthereumTestRootModel[List[WitnessChunk]]):
@@ -29,9 +29,9 @@ class WitnessFillerResult(EthereumTestRootModel[List[WitnessChunk]]):
     root: List[WitnessChunk]
 
 
-class Merge(Paris):
+class Merge(SilaParis):
     """
-    Paris fork that serializes as 'Merge' for witness-filler compatibility.
+    SilaParis fork that serializes as 'Merge' for witness-filler compatibility.
 
     IMPORTANT: This class MUST be named 'Merge' (not 'MergeForWitness' or
     similar) because the class name is used directly in Pydantic serialization,
@@ -101,9 +101,9 @@ def witness_generator(
             return None
 
         # Hotfix: witness-filler expects "Merge" but execution-spec-tests uses
-        # "Paris"
+        # "SilaParis"
         original_fork = None
-        if fixture.fork is Paris:
+        if fixture.fork is SilaParis:
             original_fork = fixture.fork
             fixture.fork = Merge
 

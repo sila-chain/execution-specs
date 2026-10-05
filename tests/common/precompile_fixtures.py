@@ -83,7 +83,7 @@ def call_contract_code(
     The code calls the precompile and stores the call return code, output size,
     and output hash in storage. The information about the call output is
     collected with the RETURNDATASIZE and RETURNDATACOPY opcodes.
-    Therefore, the test contract doesn't work correctly in pre-Byzantium forks.
+    Therefore, the test contract doesn't work correctly in pre-SilaByzantium forks.
 
     Args:
       precompile_address: Address of the precompile to call.

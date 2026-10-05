@@ -20,7 +20,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_1014.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1014.version
 
 
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 def test_deterministic_deployment(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

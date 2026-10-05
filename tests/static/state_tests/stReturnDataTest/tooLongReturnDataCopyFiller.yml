@@ -240,7 +240,7 @@ tooLongReturnDataCopy:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -256,7 +256,7 @@ tooLongReturnDataCopy:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:

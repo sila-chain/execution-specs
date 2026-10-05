@@ -63,7 +63,7 @@ extcodehashEmpty_Paris:
            [[4]] (- @0x20 @0x40 19)
 
            ; Also, the EXTCODEHASH cost here is for a previously touched
-           ; account, which makes it a lot lower (>=Cancun)
+           ; account, which makes it a lot lower (>=SilaCancun)
         }
       nonce: '0'
       storage: {}
@@ -250,7 +250,7 @@ extcodehashEmpty_Paris:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -266,7 +266,7 @@ extcodehashEmpty_Paris:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -286,7 +286,7 @@ extcodehashEmpty_Paris:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -305,7 +305,7 @@ extcodehashEmpty_Paris:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -323,7 +323,7 @@ extcodehashEmpty_Paris:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -341,7 +341,7 @@ extcodehashEmpty_Paris:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         # We don't care about C0EA7E (which obviously is not empty)
         # We care about the account it creates.
@@ -357,7 +357,7 @@ extcodehashEmpty_Paris:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         # We don't care about C0EA7E2 (which obviously is not empty)
         # We care about the account it creates.

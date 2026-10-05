@@ -23,7 +23,7 @@ from execution_testing.exceptions import (
     EngineAPIError,
     TransactionException,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 from execution_testing.test_types import (
     EOA,
     AuthorizationTuple,
@@ -671,7 +671,7 @@ fixture_header_ones = FixtureHeader(
         pytest.param(
             True,
             FixtureEngineNewPayload.from_fixture_header(
-                fork=Prague,
+                fork=SilaPrague,
                 header=FixtureHeader(
                     parent_hash=Hash(0),
                     ommers_hash=Hash(1),
@@ -830,9 +830,9 @@ fixture_header_ones = FixtureHeader(
         pytest.param(
             True,
             FixtureEngineNewPayload.from_fixture_header(
-                fork=Prague,
+                fork=SilaPrague,
                 header=FixtureHeader(
-                    fork=Prague,
+                    fork=SilaPrague,
                     parent_hash=Hash(0),
                     ommers_hash=Hash(1),
                     fee_recipient=Address(2),

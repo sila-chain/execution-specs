@@ -1,10 +1,10 @@
 {
-    "000/my_chain_id_test/Paris/tx_type_0": {
+    "000/my_chain_id_test/SilaParis/tx_type_0": {
         "_info": {
             "hash": "0xfb3bfb73acf7ccc1592d06a570cf2e95eec18c6335bd095e425e814c8bb3433d",
             "fixture_format": "blockchain_test_engine"
         },
-        "network": "Paris",
+        "network": "SilaParis",
         "lastblockhash": "0xc24d78b58b7ccc57effaee66f54e3c6c2c79de399568432ed1aa34c66475c2ee",
         "genesisBlockHeader": {
             "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -88,7 +88,7 @@
             }
         },
         "config": {
-            "network": "Paris",
+            "network": "SilaParis",
             "chainid": "0x01"
         }
     }

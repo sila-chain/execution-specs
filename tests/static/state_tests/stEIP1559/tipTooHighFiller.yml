@@ -51,7 +51,7 @@ tipTooHigh:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       expectException:
-        '>=Cancun': TransactionException.PRIORITY_GREATER_THAN_MAX_FEE_PER_GAS
+        '>=SilaCancun': TransactionException.PRIORITY_GREATER_THAN_MAX_FEE_PER_GAS
       result: {}

@@ -27,7 +27,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_7823.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7823.version
 
 
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.parametrize(
     "modexp_input,modexp_expected,call_succeeds",
     [
@@ -283,7 +283,7 @@ def test_modexp_upper_bounds(
         ),
     ],
 )
-@pytest.mark.valid_at_transition_to("Osaka")
+@pytest.mark.valid_at_transition_to("SilaOsaka")
 def test_modexp_upper_bounds_fork_transition(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -293,7 +293,7 @@ def test_modexp_upper_bounds_fork_transition(
     modexp_expected: bytes,
 ) -> None:
     """
-    Test MODEXP upper bounds enforcement transition from before to after Osaka
+    Test MODEXP upper bounds enforcement transition from before to after SilaOsaka
     hard fork.
     """
     call_code = Op.CALL(

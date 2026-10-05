@@ -51,7 +51,7 @@ CREATE2_FirstByte_loop:
     - indexes:
         data: :label firstHalf
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
        <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
           nonce: 1
@@ -66,7 +66,7 @@ CREATE2_FirstByte_loop:
     - indexes:
         data: :label secondHalf
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
        <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
           nonce: 1
@@ -81,7 +81,7 @@ CREATE2_FirstByte_loop:
     - indexes:
         data: :label invalidByte
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
        <eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>:
           nonce: 1

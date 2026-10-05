@@ -181,14 +181,14 @@ class BlobsBundle(CamelModel):
 
 
 class BlobAndProofV1(CamelModel):
-    """Represents a blob and single-proof structure (< Osaka)."""
+    """Represents a blob and single-proof structure (< SilaOsaka)."""
 
     blob: Bytes
     proof: Bytes
 
 
 class BlobAndProofV2(CamelModel):
-    """Represents a blob and cell proof structure (>= Osaka)."""
+    """Represents a blob and cell proof structure (>= SilaOsaka)."""
 
     blob: Bytes
     proofs: List[Bytes]

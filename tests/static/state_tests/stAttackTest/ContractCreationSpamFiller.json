@@ -13,7 +13,7 @@
         "expect" : [
 	    {
             "//comment" : "Running OOG on contract creation, eating ~10M gas",
-	        "network" : [ ">=Cancun"],
+	        "network" : [ ">=SilaCancun"],
 	        "indexes" : { "data" : -1, "gas" : -1, "value" : -1 },
 	        "result" : {
                         "6a0a0fc761c612c340a0e98d33b37a75e5268472" : {

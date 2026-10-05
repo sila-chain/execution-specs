@@ -36,7 +36,7 @@ def tx_validity(fork: Fork) -> Generator[ParameterSet, None, None]:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/legacytests/blob/master/src/LegacyTests/Cancun/GeneralStateTestsFiller/stExample/accessListExampleFiller.yml"
+        "https://github.com/ethereum/legacytests/blob/master/src/LegacyTests/SilaCancun/GeneralStateTestsFiller/stExample/accessListExampleFiller.yml"
     ],
     pr=["https://github.com/ethereum/execution-specs/pull/1754"],
 )

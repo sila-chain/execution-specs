@@ -38,7 +38,7 @@ Post-state verification checks attack contract's slot 1 for expected size.
 
 ```bash
 uv run execute remote \\
-  --fork Osaka \\
+  --fork SilaOsaka \\
   --rpc-endpoint http://127.0.0.1:8545 \\
   --rpc-seed-key <SEED_KEY> \\
   --rpc-chain-id 1337 \\
@@ -52,7 +52,7 @@ uv run execute remote \\
 
 ```bash
 uv run execute remote \\
-  --fork Osaka \\
+  --fork SilaOsaka \\
   --rpc-endpoint http://127.0.0.1:8545 \\
   --rpc-seed-key <SEED_KEY> \\
   --rpc-chain-id 1337 \\
@@ -169,7 +169,7 @@ def build_attack_contract(factory_address: Address) -> Bytecode:
     [0.5, 1.0, 2.0, 5.0, 10.0, 24.0],
     ids=lambda size: f"{size}KB",
 )
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_extcodesize_bytecode_sizes(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

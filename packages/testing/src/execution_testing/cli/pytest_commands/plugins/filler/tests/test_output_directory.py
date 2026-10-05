@@ -33,13 +33,13 @@ def minimal_test_path(pytester: pytest.Pytester) -> Path:
 @pytest.fixture(scope="module")
 def fill_fork_from() -> str:
     """Specify the value for `fill`'s `--from` argument."""
-    return "Paris"
+    return "SilaParis"
 
 
 @pytest.fixture(scope="module")
 def fill_fork_until() -> str:
     """Specify the value for `fill`'s `--until` argument."""
-    return "Cancun"
+    return "SilaCancun"
 
 
 @pytest.fixture

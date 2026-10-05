@@ -36,7 +36,7 @@ push0Gas:
 
   expect:
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x0000000000000000000000000000000000001000>:
           # Initial gas: 100000

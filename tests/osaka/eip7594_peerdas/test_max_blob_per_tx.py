@@ -81,7 +81,7 @@ def tx(
     "blob_count",
     lambda fork: list(range(1, fork.max_blobs_per_tx() + 1)),
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_valid_max_blobs_per_tx(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -110,7 +110,7 @@ def test_valid_max_blobs_per_tx(
         fork.max_blobs_per_block() + 1,
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.exception_test
 def test_invalid_max_blobs_per_tx(
     fork: Fork,
@@ -145,7 +145,7 @@ def test_invalid_max_blobs_per_tx(
         fork.max_blobs_per_block(timestamp=FORK_TIMESTAMP) + 1,
     ],
 )
-@pytest.mark.valid_at_transition_to("Osaka")
+@pytest.mark.valid_at_transition_to("SilaOsaka")
 @pytest.mark.exception_test
 def test_max_blobs_per_tx_fork_transition(
     fork: Fork,

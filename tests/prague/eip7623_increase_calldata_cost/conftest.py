@@ -148,7 +148,7 @@ def tx_data(
         the data are enough to trigger the floor gas cost.
 
     E.g. Given a transaction with a single access list and a single storage
-    key, its intrinsic gas cost (as of Prague fork) can be calculated as:
+    key, its intrinsic gas cost (as of SilaPrague fork) can be calculated as:
 
     - 21,000 gas for the transaction
     - 2,400 gas for the access list

@@ -1,9 +1,9 @@
 {
-    "000/my_blockchain_test/Shanghai/solc=0.8.20": {
+    "000/my_blockchain_test/SilaShanghai/solc=0.8.20": {
         "_info": {
             "hash": "0xdad9b692610689e2500ce3dc7054823817bbd8ac763254a13aa895822b614e8c"
         },
-        "network": "Shanghai",
+        "network": "SilaShanghai",
         "genesisBlockHeader": {
             "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "uncleHash": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
@@ -296,11 +296,11 @@
             }
         }
     },
-    "000/my_blockchain_test/Shanghai/solc=padding_version": {
+    "000/my_blockchain_test/SilaShanghai/solc=padding_version": {
         "_info": {
             "hash": "0x17b5ea4a0ba988ea7383ef3026376366c1928e5e7b8837436dd5110597a58d99"
         },
-        "network": "Shanghai",
+        "network": "SilaShanghai",
         "genesisBlockHeader": {
             "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "uncleHash": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",

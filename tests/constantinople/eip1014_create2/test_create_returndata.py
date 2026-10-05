@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = ref_spec_1014.version
         "coinbase is deleted in original test (tx.gas_price==env.base_fee)"
     ),
 )
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_return_size", [35, 32, 0])
 @pytest.mark.parametrize("create_type", [Op.CREATE, Op.CREATE2])
 @pytest.mark.parametrize("return_type", [Op.RETURN, Op.REVERT])

@@ -18,7 +18,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Shanghai
+from execution_testing.forks import SilaShanghai
 
 from .spec import ref_spec_3651
 
@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = ref_spec_3651.version
 GAS_REQUIRED_CALL_WARM_ACCOUNT = 100
 
 
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 @pytest.mark.parametrize(
     "use_sufficient_gas",
     [True, False],
@@ -104,7 +104,7 @@ def test_warm_coinbase_call_out_of_gas(
         sender=sender,
     )
 
-    if use_sufficient_gas and fork >= Shanghai:
+    if use_sufficient_gas and fork >= SilaShanghai:
         post[caller_address] = Account(
             storage={
                 # On shanghai and beyond, calls with only 100 gas to
@@ -198,7 +198,7 @@ gas_measured_opcodes = [
 ]
 
 
-@pytest.mark.valid_from("Berlin")  # these tests fill for fork >= Berlin
+@pytest.mark.valid_from("SilaBerlin")  # these tests fill for fork >= SilaBerlin
 @pytest.mark.parametrize(
     "opcode,code_gas_measure",
     gas_measured_opcodes,
@@ -229,7 +229,7 @@ def test_warm_coinbase_gas_usage(
         code=code_gas_measure,
     )
 
-    if fork >= Shanghai:  # Warm account access cost after EIP-3651
+    if fork >= SilaShanghai:  # Warm account access cost after EIP-3651
         expected_gas = GAS_REQUIRED_CALL_WARM_ACCOUNT
     else:
         expected_gas = 2600  # Cold account access cost before EIP-3651

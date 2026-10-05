@@ -10,7 +10,7 @@ test_module_dummy = textwrap.dedent(
 
     from execution_testing import Environment
 
-    @pytest.mark.valid_at("Istanbul")
+    @pytest.mark.valid_at("SilaIstanbul")
     def test_dummy_collect_only_test(state_test) -> None:
         state_test(env=Environment(), pre={}, post={}, tx=None)
     """
@@ -35,7 +35,7 @@ def test_collect_only_output(pytester: pytest.Pytester) -> None:
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Istanbul",
+        "SilaIstanbul",
         "tests/istanbul/dummy_test_module/",
         "--collect-only",
         "-q",

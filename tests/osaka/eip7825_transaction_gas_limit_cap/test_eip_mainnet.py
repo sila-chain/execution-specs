@@ -19,7 +19,7 @@ from .spec import Spec, ref_spec_7825
 REFERENCE_SPEC_GIT_PATH = ref_spec_7825.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7825.version
 
-pytestmark = [pytest.mark.valid_at("Osaka"), pytest.mark.mainnet]
+pytestmark = [pytest.mark.valid_at("SilaOsaka"), pytest.mark.mainnet]
 
 
 def test_tx_gas_limit_cap_at_maximum(

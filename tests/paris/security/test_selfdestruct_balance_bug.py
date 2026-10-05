@@ -27,7 +27,7 @@ from execution_testing import (
 )
 
 
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 def test_tx_selfdestruct_balance_bug(
     blockchain_test: BlockchainTestFiller, pre: Alloc
 ) -> None:

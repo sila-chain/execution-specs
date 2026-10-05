@@ -15,7 +15,7 @@ REFERENCE_SPEC_GIT_PATH = "N/A"
 REFERENCE_SPEC_VERSION = "N/A"
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "opcode,topics",
     [(Op.LOG0, 0), (Op.LOG1, 1), (Op.LOG2, 2), (Op.LOG3, 3), (Op.LOG4, 4)],

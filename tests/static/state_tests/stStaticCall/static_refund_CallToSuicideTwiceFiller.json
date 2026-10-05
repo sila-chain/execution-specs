@@ -12,7 +12,7 @@
                 "indexes" : {
                     "data" : 1
                 },
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
                     "<contract:target:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>" : {
                         "balance" : "2000000000000000010",
@@ -35,7 +35,7 @@
                 "indexes" : {
                     "data" : 0
                 },
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
                     "<contract:target:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>" : {
                         "balance" : "1000000000000000010",

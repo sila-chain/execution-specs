@@ -244,7 +244,7 @@ transStorageReset:
    
 
 
-    # In Cancun SELFDESTRUCT https://eips.ethereum.org/EIPS/eip-6780 acts like
+    # In SilaCancun SELFDESTRUCT https://eips.ethereum.org/EIPS/eip-6780 acts like
     # STOP except it sends all the contract's funds somewhere. Until I have a geth
     # that supports this behavior, I can't write a test to check for it.
     # - :label reverter-call-call-selfdestruct         :abi reverter(uint,uint,uint) <contract:reverter> <contract:dead> 0xF1F1FF
@@ -275,7 +275,7 @@ transStorageReset:
         data:
         - :label reverter-call-call-stop
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -301,7 +301,7 @@ transStorageReset:
         - :label reverter-code-delegate-stop
         - :label reverter-code-code-stop
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -320,7 +320,7 @@ transStorageReset:
         - :label reverter-delegate-nop-stop
         - :label reverter-code-nop-stop
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -362,7 +362,7 @@ transStorageReset:
 
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
@@ -389,7 +389,7 @@ transStorageReset:
         - :label reverter-call-nop-stop
 
       network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:

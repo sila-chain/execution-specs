@@ -8,7 +8,7 @@ import pytest
 from pydantic import ValidationError
 
 from execution_testing.base_types import Account, Address, HexNumber
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 from execution_testing.test_types import (
     Alloc,
     AuthorizationTuple,
@@ -56,7 +56,7 @@ class TestFuzzerOutputParsing:
         fuzzer_output = FuzzerOutput(**fuzzer_data)
 
         assert fuzzer_output.version == "2.0"
-        assert fuzzer_output.fork == Osaka
+        assert fuzzer_output.fork == SilaOsaka
         assert fuzzer_output.chain_id == HexNumber(1)
         assert len(fuzzer_output.transactions) == 17
         assert len(fuzzer_output.accounts) > 0
@@ -289,7 +289,7 @@ class TestBlockchainTestGeneration:
         """Test single-block blockchain test generation."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
             num_blocks=1,
         )
 
@@ -304,7 +304,7 @@ class TestBlockchainTestGeneration:
         """Test multi-block generation with distribute strategy."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
             num_blocks=3,
             block_strategy="distribute",
         )
@@ -324,7 +324,7 @@ class TestBlockchainTestGeneration:
         """Test multi-block generation with first-block strategy."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
             num_blocks=3,
             block_strategy="first-block",
         )
@@ -340,7 +340,7 @@ class TestBlockchainTestGeneration:
         """Test pre-state (Alloc) generation."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
         )
 
         assert isinstance(blockchain_test.pre, Alloc)
@@ -354,7 +354,7 @@ class TestBlockchainTestGeneration:
         """Test genesis environment derivation."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
         )
 
         genesis_env = blockchain_test.genesis_environment
@@ -371,7 +371,7 @@ class TestBlockchainTestGeneration:
         """Test block timestamp incrementing."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
             num_blocks=3,
             block_time=12,
         )
@@ -388,7 +388,7 @@ class TestBlockchainTestGeneration:
         """Test parent beacon block root only in first block (EIP-4788)."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
             num_blocks=3,
         )
 
@@ -415,7 +415,7 @@ class TestEIPFeatures:
         """Test EIP-7702 authorization list handling."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
         )
 
         # Find transactions with authorization lists
@@ -441,7 +441,7 @@ class TestEIPFeatures:
         """Test EIP-4788 parent beacon block root handling."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
         )
 
         # Beacon root should match fuzzer output
@@ -456,7 +456,7 @@ class TestEIPFeatures:
         """Test that transaction senders are EOAs, not TestAddress."""
         blockchain_test = blockchain_test_from_fuzzer(
             fuzzer_output,
-            fork=Osaka,
+            fork=SilaOsaka,
         )
 
         for block in blockchain_test.blocks:
@@ -491,4 +491,4 @@ class TestErrorHandling:
 
         # Conversion should fail due to missing sender keys
         with pytest.raises(AssertionError):
-            blockchain_test_from_fuzzer(fuzzer_output, fork=Osaka)
+            blockchain_test_from_fuzzer(fuzzer_output, fork=SilaOsaka)

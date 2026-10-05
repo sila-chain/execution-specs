@@ -335,9 +335,10 @@ class TransitionTool(EthereumCLI):
         )
         fork_name = self.fork_name_map.get(fork_name, fork_name)
 
-        # Construct args for evmone-t8n binary
+        # Construct args for the t8n binary
         args = [
             str(self.binary),
+            *([self.subcommand] if self.subcommand else []),
             "--state.fork",
             fork_name,
             "--input.alloc",

@@ -9,8 +9,8 @@
         },
         "expect" : [
     	    {
-                "//comment" : "In Shanghai it is impossible to pay for such CREATE instruction",
-                "network" : [">=Cancun"],
+                "//comment" : "In SilaShanghai it is impossible to pay for such CREATE instruction",
+                "network" : [">=SilaCancun"],
                 "result" : {
                     "095e7baea6a6c7c4c2dfeb977efac326af552d87" : {
                         "nonce" : "0",

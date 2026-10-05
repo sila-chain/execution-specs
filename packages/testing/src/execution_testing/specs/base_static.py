@@ -65,7 +65,7 @@ class BaseStaticTest(BaseModel):
         ```
         @pytest.mark.parametrize("n", [1])
         @pytest.mark.parametrize("m", [1, 2])
-        @pytest.mark.valid_from("Homestead")
+        @pytest.mark.valid_from("SilaHomestead")
         def test_state_filler(
             state_test: StateTestFiller,
             fork: Fork,
@@ -83,7 +83,7 @@ class BaseStaticTest(BaseModel):
                 nonce=0,
                 to=Address(0x1000),
                 gas_limit=500000,
-                protected=False if fork in [Frontier, Homestead] else True,
+                protected=False if fork in [Frontier, SilaHomestead] else True,
                 data="",
                 sender=sender,
             )

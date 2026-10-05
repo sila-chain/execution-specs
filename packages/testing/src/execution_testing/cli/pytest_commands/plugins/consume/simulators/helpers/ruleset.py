@@ -12,31 +12,31 @@ from execution_testing.forks import (
     BPO2,
     BPO3,
     BPO4,
-    Amsterdam,
-    Berlin,
-    BerlinToLondonAt5,
+    SilaAmsterdam,
+    SilaBerlin,
+    SilaBerlinToSilaLondonAt5,
     BPO1ToBPO2AtTime15k,
-    BPO2ToAmsterdamAtTime15k,
+    BPO2ToSilaAmsterdamAtTime15k,
     BPO2ToBPO3AtTime15k,
     BPO3ToBPO4AtTime15k,
-    Byzantium,
-    Cancun,
-    CancunToPragueAtTime15k,
-    Constantinople,
-    ConstantinopleFix,
+    SilaByzantium,
+    SilaCancun,
+    SilaCancunToSilaPragueAtTime15k,
+    SilaConstantinople,
+    SilaConstantinopleFix,
     Fork,
     Frontier,
-    Homestead,
-    Istanbul,
-    London,
-    Osaka,
-    OsakaToBPO1AtTime15k,
-    Paris,
-    ParisToShanghaiAtTime15k,
-    Prague,
-    PragueToOsakaAtTime15k,
-    Shanghai,
-    ShanghaiToCancunAtTime15k,
+    SilaHomestead,
+    SilaIstanbul,
+    SilaLondon,
+    SilaOsaka,
+    SilaOsakaToBPO1AtTime15k,
+    SilaParis,
+    SilaParisToSilaShanghaiAtTime15k,
+    SilaPrague,
+    SilaPragueToSilaOsakaAtTime15k,
+    SilaShanghai,
+    SilaShanghaiToSilaCancunAtTime15k,
 )
 
 
@@ -85,7 +85,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 2000,
         "HIVE_FORK_LONDON": 2000,
     },
-    Homestead: {
+    SilaHomestead: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_DAO_BLOCK": 2000,
         "HIVE_FORK_TANGERINE": 2000,
@@ -97,7 +97,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 2000,
         "HIVE_FORK_LONDON": 2000,
     },
-    Byzantium: {
+    SilaByzantium: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -108,7 +108,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 2000,
         "HIVE_FORK_LONDON": 2000,
     },
-    Constantinople: {
+    SilaConstantinople: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -119,7 +119,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 2000,
         "HIVE_FORK_LONDON": 2000,
     },
-    ConstantinopleFix: {
+    SilaConstantinopleFix: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -130,7 +130,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 2000,
         "HIVE_FORK_LONDON": 2000,
     },
-    Istanbul: {
+    SilaIstanbul: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -141,7 +141,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 2000,
         "HIVE_FORK_LONDON": 2000,
     },
-    Berlin: {
+    SilaBerlin: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -152,7 +152,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 0,
         "HIVE_FORK_LONDON": 2000,
     },
-    BerlinToLondonAt5: {
+    SilaBerlinToSilaLondonAt5: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -163,7 +163,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 0,
         "HIVE_FORK_LONDON": 5,
     },
-    London: {
+    SilaLondon: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -174,7 +174,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_BERLIN": 0,
         "HIVE_FORK_LONDON": 0,
     },
-    Paris: {
+    SilaParis: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -187,7 +187,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_FORK_MERGE": 0,
         "HIVE_TERMINAL_TOTAL_DIFFICULTY": 0,
     },
-    Shanghai: {
+    SilaShanghai: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -201,7 +201,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_TERMINAL_TOTAL_DIFFICULTY": 0,
         "HIVE_SHANGHAI_TIMESTAMP": 0,
     },
-    ParisToShanghaiAtTime15k: {
+    SilaParisToSilaShanghaiAtTime15k: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -215,7 +215,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_TERMINAL_TOTAL_DIFFICULTY": 0,
         "HIVE_SHANGHAI_TIMESTAMP": 15000,
     },
-    Cancun: {
+    SilaCancun: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -229,9 +229,9 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_TERMINAL_TOTAL_DIFFICULTY": 0,
         "HIVE_SHANGHAI_TIMESTAMP": 0,
         "HIVE_CANCUN_TIMESTAMP": 0,
-        **get_blob_schedule_entries(Cancun),
+        **get_blob_schedule_entries(SilaCancun),
     },
-    ShanghaiToCancunAtTime15k: {
+    SilaShanghaiToSilaCancunAtTime15k: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -245,9 +245,9 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_TERMINAL_TOTAL_DIFFICULTY": 0,
         "HIVE_SHANGHAI_TIMESTAMP": 0,
         "HIVE_CANCUN_TIMESTAMP": 15000,
-        **get_blob_schedule_entries(Cancun),
+        **get_blob_schedule_entries(SilaCancun),
     },
-    Prague: {
+    SilaPrague: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -262,9 +262,9 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_SHANGHAI_TIMESTAMP": 0,
         "HIVE_CANCUN_TIMESTAMP": 0,
         "HIVE_PRAGUE_TIMESTAMP": 0,
-        **get_blob_schedule_entries(Prague),
+        **get_blob_schedule_entries(SilaPrague),
     },
-    CancunToPragueAtTime15k: {
+    SilaCancunToSilaPragueAtTime15k: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -279,9 +279,9 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_SHANGHAI_TIMESTAMP": 0,
         "HIVE_CANCUN_TIMESTAMP": 0,
         "HIVE_PRAGUE_TIMESTAMP": 15000,
-        **get_blob_schedule_entries(Prague),
+        **get_blob_schedule_entries(SilaPrague),
     },
-    Osaka: {
+    SilaOsaka: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -297,9 +297,9 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_CANCUN_TIMESTAMP": 0,
         "HIVE_PRAGUE_TIMESTAMP": 0,
         "HIVE_OSAKA_TIMESTAMP": 0,
-        **get_blob_schedule_entries(Osaka),
+        **get_blob_schedule_entries(SilaOsaka),
     },
-    PragueToOsakaAtTime15k: {
+    SilaPragueToSilaOsakaAtTime15k: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -315,7 +315,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_CANCUN_TIMESTAMP": 0,
         "HIVE_PRAGUE_TIMESTAMP": 0,
         "HIVE_OSAKA_TIMESTAMP": 15000,
-        **get_blob_schedule_entries(Osaka),
+        **get_blob_schedule_entries(SilaOsaka),
     },
     BPO1: {
         "HIVE_FORK_HOMESTEAD": 0,
@@ -336,7 +336,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_BPO1_TIMESTAMP": 0,
         **get_blob_schedule_entries(BPO1),
     },
-    OsakaToBPO1AtTime15k: {
+    SilaOsakaToBPO1AtTime15k: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -481,7 +481,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_BPO4_TIMESTAMP": 15000,
         **get_blob_schedule_entries(BPO4),
     },
-    BPO2ToAmsterdamAtTime15k: {
+    BPO2ToSilaAmsterdamAtTime15k: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -501,7 +501,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_AMSTERDAM_TIMESTAMP": 15000,
         **get_blob_schedule_entries(BPO2),
     },
-    Amsterdam: {
+    SilaAmsterdam: {
         "HIVE_FORK_HOMESTEAD": 0,
         "HIVE_FORK_TANGERINE": 0,
         "HIVE_FORK_SPURIOUS": 0,
@@ -520,7 +520,7 @@ ruleset: Dict[Fork, Dict[str, int]] = {
         "HIVE_BPO1_TIMESTAMP": 0,
         "HIVE_BPO2_TIMESTAMP": 0,
         # TODO: So far only BPOs 1 and 2 are active. This may have to be
-        #  tweaked as more BPOs get activated and the Amsterdam fork
+        #  tweaked as more BPOs get activated and the SilaAmsterdam fork
         #  starts inheriting these params.
         # "HIVE_BPO3_TIMESTAMP": 0,
         # "HIVE_BPO4_TIMESTAMP": 0,

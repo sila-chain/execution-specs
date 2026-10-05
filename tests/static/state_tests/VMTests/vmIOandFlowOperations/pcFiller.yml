@@ -79,7 +79,7 @@ pc:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -93,7 +93,7 @@ pc:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:

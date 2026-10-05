@@ -12,7 +12,7 @@
         },
         "expect" : [
             {
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
 		            "<eoa:sender:0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b>" : {
 		               "nonce" : "1"

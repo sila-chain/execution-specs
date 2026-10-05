@@ -226,13 +226,13 @@ measureGas:
   expect:
 
     # CREATE
-    # Starting the Shanghai the cost of a CREATE[2] transaction 
+    # Starting the SilaShanghai the cost of a CREATE[2] transaction 
     # includes a cost of 2 gas per initcode word (32 byte chunk)
     - indexes:
         data: 
         - :label CREATE
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -246,7 +246,7 @@ measureGas:
         data: 
         - :label CREATE2
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -258,7 +258,7 @@ measureGas:
         - :label CALL
         - :label CALLCODE
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -270,7 +270,7 @@ measureGas:
         - :label DELEGATECALL
         - :label STATICCALL
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -280,7 +280,7 @@ measureGas:
         data: 
         - :label MLOAD
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -292,7 +292,7 @@ measureGas:
         - :label MSTORE
         - :label MSTORE8
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -302,7 +302,7 @@ measureGas:
         data: 
         - :label EXTCODE
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:
@@ -311,7 +311,7 @@ measureGas:
     - indexes:
         data: :label SHA3
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         cccccccccccccccccccccccccccccccccccccccc:
           storage:

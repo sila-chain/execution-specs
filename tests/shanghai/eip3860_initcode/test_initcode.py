@@ -38,7 +38,7 @@ from .spec import Spec, ref_spec_3860
 REFERENCE_SPEC_GIT_PATH = ref_spec_3860.git_path
 REFERENCE_SPEC_VERSION = ref_spec_3860.version
 
-pytestmark = pytest.mark.valid_from("Shanghai")
+pytestmark = pytest.mark.valid_from("SilaShanghai")
 
 
 """Initcode templates used throughout the tests"""

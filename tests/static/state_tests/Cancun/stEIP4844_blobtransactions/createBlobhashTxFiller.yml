@@ -14,13 +14,13 @@ createBlobhashTx:
 
   expect:
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>:
           storage:
             0x00: 0
       expectException:     
-        '>=Cancun': TransactionException.TYPE_3_TX_CONTRACT_CREATION
+        '>=SilaCancun': TransactionException.TYPE_3_TX_CONTRACT_CREATION
 
   pre:
     <contract:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>:

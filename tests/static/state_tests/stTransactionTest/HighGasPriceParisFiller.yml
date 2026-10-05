@@ -39,7 +39,7 @@ HighGasPriceParis:
 
   expect:
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       expectException:
         ">=EIP158" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.GASLIMIT_PRICE_PRODUCT_OVERFLOW"
       result:

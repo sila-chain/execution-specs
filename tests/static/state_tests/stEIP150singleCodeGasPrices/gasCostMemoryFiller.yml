@@ -344,7 +344,7 @@ gasCostMemory:
   expect:
 
 
-    # Berlin, for costs that don't include contract calls
+    # SilaBerlin, for costs that don't include contract calls
     - indexes:
         data: 
         - !!int 0
@@ -412,7 +412,7 @@ gasCostMemory:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         095e7baea6a6c7c4c2dfeb977efac326af552d87:
           storage:
@@ -421,7 +421,7 @@ gasCostMemory:
 
 
 
-    # Berlin, for costs that do include a contract call (and tare therefore 
+    # SilaBerlin, for costs that do include a contract call (and tare therefore 
     - indexes:
         data: 
         - !!int 36
@@ -440,7 +440,7 @@ gasCostMemory:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         095e7baea6a6c7c4c2dfeb977efac326af552d87:
           storage:

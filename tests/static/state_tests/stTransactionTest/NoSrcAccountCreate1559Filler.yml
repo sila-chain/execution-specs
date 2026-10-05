@@ -50,54 +50,54 @@ NoSrcAccountCreate1559:
       - 1
 
   expect:
-    # Transaction type 2 starts at London
+    # Transaction type 2 starts at SilaLondon
 
     # Not enough ETH for executing the transaction
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int -1
         gas: !!int 0
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"
-        "<London" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"
+        "<SilaLondon" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int -1
         gas: !!int 1
         value: !!int -1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
-        "<London" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS"
+        "<SilaLondon" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
 
 
     # Not enough ETH for the value we transfer
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int -1
         gas: !!int 2
         value: !!int 1
       expectException:
-        ">=Cancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"
-        "<London" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INSUFFICIENT_ACCOUNT_FUNDS|TransactionException.INTRINSIC_GAS_TOO_LOW"
+        "<SilaLondon" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
 
 
 
     # Gas limit of zero, should be at least 21000
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       indexes:
         data: !!int -1
         gas: !!int 2
         value: !!int 0
       expectException:
-        ">=Cancun" : "TransactionException.INTRINSIC_GAS_TOO_LOW"
-        "<London" : "TransactionException.TYPE_NOT_SUPPORTED"
+        ">=SilaCancun" : "TransactionException.INTRINSIC_GAS_TOO_LOW"
+        "<SilaLondon" : "TransactionException.TYPE_NOT_SUPPORTED"
       result: {}
 

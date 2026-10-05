@@ -63,7 +63,7 @@ CREATE2_RefundEF:
     value: [ 0 ]
   expect:
     - network:
-        - ">=Cancun"
+        - ">=SilaCancun"
       result:
         00000000000000000000000000000000005ef94d:
           storage:

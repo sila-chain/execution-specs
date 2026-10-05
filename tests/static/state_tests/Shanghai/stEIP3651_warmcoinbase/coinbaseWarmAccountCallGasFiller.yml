@@ -143,9 +143,9 @@ coinbaseWarmAccountCallGas:
 
   expect:
     - network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
           storage:
-            # Coinbase access post-Shanghai is warm
+            # Coinbase access post-SilaShanghai is warm
             0x0:  100

@@ -1,5 +1,5 @@
 # Check various weird V values on ecRecover, see they don't work even though the signature is legal.
-# These tests are >=Byzantium because using staticcall, but should be >=Frontier otherwise.
+# These tests are >=SilaByzantium because using staticcall, but should be >=Frontier otherwise.
 
 # Using (on hardhat console): 
 #     wallet = ethers.Wallet.createRandom()
@@ -160,7 +160,7 @@ ecrecoverWeirdV:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -175,7 +175,7 @@ ecrecoverWeirdV:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:

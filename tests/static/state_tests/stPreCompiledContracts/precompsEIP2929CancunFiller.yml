@@ -1,5 +1,5 @@
 # Check which low address contracts (precompiles) are part of the EIP2929
-# access lists. This was the Berlin fork OpenEthereum bug, that they thought
+# access lists. This was the SilaBerlin fork OpenEthereum bug, that they thought
 # 0x00.000a was in the access list and the other clients disagreed (see
 # https://twitter.com/ralexstokes/status/1382750525070868484 and
 # https://twitter.com/ralexstokes/status/1382750938142629889)
@@ -878,7 +878,7 @@ precompsEIP2929Cancun:
       data: 
       - :label yes
     network: 
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
         storage:
@@ -891,7 +891,7 @@ precompsEIP2929Cancun:
       - :label yes_from_prague
       - :label all_then_yes_from_prague
     network: 
-    - ">=Prague"
+    - ">=SilaPrague"
     result:
       <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
         storage:
@@ -907,7 +907,7 @@ precompsEIP2929Cancun:
       data: 
       - :label no
     network: 
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
         storage:
@@ -919,7 +919,7 @@ precompsEIP2929Cancun:
       data: 
       - :label yes_from_prague
     network: 
-    - "Cancun"
+    - "SilaCancun"
     result:
       <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
         storage:
@@ -934,7 +934,7 @@ precompsEIP2929Cancun:
       data: 
       - :label new
     network: 
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
         storage:
@@ -949,7 +949,7 @@ precompsEIP2929Cancun:
       data: 
       - :label all
     network: 
-    - ">=Cancun"
+    - ">=SilaCancun"
     result:
       <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
         storage:
@@ -961,7 +961,7 @@ precompsEIP2929Cancun:
       data: 
       - :label all_then_yes_from_prague
     network: 
-    - "Cancun"
+    - "SilaCancun"
     result:
       <contract:target:0xcccccccccccccccccccccccccccccccccccccccc>:
         storage:

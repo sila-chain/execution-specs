@@ -12,7 +12,7 @@ def test_json_dict() -> None:
     """Test that the json_dict property does not include the info field."""
     fixture = TransactionFixture(
         transaction="0x1234",
-        result={"Paris": FixtureResult(intrinsic_gas=0)},
+        result={"SilaParis": FixtureResult(intrinsic_gas=0)},
     )
     assert "_info" not in fixture.json_dict, (
         "json_dict should exclude the 'info' field"
@@ -40,7 +40,7 @@ def test_json_dict() -> None:
         pytest.param(
             TransactionFixture(
                 transaction="0x1234",
-                result={"Paris": FixtureResult(intrinsic_gas=0)},
+                result={"SilaParis": FixtureResult(intrinsic_gas=0)},
             ),
             id="TransactionFixture",
         ),

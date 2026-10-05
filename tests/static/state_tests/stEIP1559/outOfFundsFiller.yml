@@ -53,9 +53,9 @@ outOfFunds:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       expectException:
-        '>=Cancun': TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
+        '>=SilaCancun': TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
       result: {}
 
 
@@ -65,7 +65,7 @@ outOfFunds:
         value: !!int 0
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result: {}
 
 
@@ -74,7 +74,7 @@ outOfFunds:
         gas:  !!int 1
         value: !!int 1
       expectException:
-        '>=Cancun': TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
+        '>=SilaCancun': TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result: {}

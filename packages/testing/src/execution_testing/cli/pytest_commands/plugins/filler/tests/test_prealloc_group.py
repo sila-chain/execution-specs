@@ -8,7 +8,7 @@ from unittest.mock import Mock
 import pytest
 
 from execution_testing.fixtures import BaseFixture, PreAllocGroups
-from execution_testing.forks import Fork, Prague
+from execution_testing.forks import Fork, SilaPrague
 from execution_testing.specs.base import BaseTest
 from execution_testing.test_types import Alloc, Environment
 
@@ -50,7 +50,7 @@ def test_pre_alloc_group_separate() -> None:
     # Create mock environment and pre-allocation
     env = Environment()
     pre = Alloc()
-    fork = Prague
+    fork = SilaPrague
 
     # Create test without marker
     test1 = MockTest(pre=pre, genesis_environment=env, fork=fork)
@@ -83,7 +83,7 @@ def test_pre_alloc_group_custom_salt() -> None:
     """Test that custom group names create consistent grouping."""
     env = Environment()
     pre = Alloc()
-    fork = Prague
+    fork = SilaPrague
 
     # Create test with custom group "eip1234"
     mock_request1 = Mock()
@@ -138,7 +138,7 @@ def test_pre_alloc_group_separate_different_nodeids() -> None:
     """Test that different tests with "separate" get different hashes."""
     env = Environment()
     pre = Alloc()
-    fork = Prague
+    fork = SilaPrague
 
     # Create test with "separate" and nodeid1
     mock_request1 = Mock()
@@ -174,7 +174,7 @@ def test_no_pre_alloc_group_marker() -> None:
     """Test normal grouping without pre_alloc_group marker."""
     env = Environment()
     pre = Alloc()
-    fork = Prague
+    fork = SilaPrague
 
     # Create test without marker but with request object
     mock_request = Mock()
@@ -199,7 +199,7 @@ def test_pre_alloc_group_with_reason() -> None:
     """Test that reason kwarg is accepted but doesn't affect grouping."""
     env = Environment()
     pre = Alloc()
-    fork = Prague
+    fork = SilaPrague
 
     # Create test with custom group and reason
     mock_request1 = Mock()
@@ -262,7 +262,7 @@ class StateTest(FormattedTest):  # noqa: D101
             Transaction
         )
 
-        @pytest.mark.valid_from("Istanbul")
+        @pytest.mark.valid_from("SilaIstanbul")
         def test_chainid(state_test: StateTestFiller, pre: Alloc) -> None:
             contract_address = pre.deploy_contract(Op.SSTORE(1, Op.CHAINID) + Op.STOP)
             sender = pre.fund_eoa()
@@ -299,7 +299,7 @@ class BlockchainTest(FormattedTest):  # noqa: D101
             Transaction
         )
 
-        @pytest.mark.valid_from("Istanbul")
+        @pytest.mark.valid_from("SilaIstanbul")
         def test_chainid_blockchain(blockchain_test: BlockchainTestFiller, pre: Alloc) -> None:
             contract_address = pre.deploy_contract(Op.SSTORE(1, Op.CHAINID) + Op.STOP)
             sender = pre.fund_eoa()
@@ -457,7 +457,7 @@ def test_pre_alloc_grouping_by_test_type(
         "-c",
         "pytest-fill.ini",
         "--generate-pre-alloc-groups",
-        "--fork=Cancun",
+        "--fork=SilaCancun",
     ]
     result = pytester.runpytest(*args)
     result.assert_outcomes(

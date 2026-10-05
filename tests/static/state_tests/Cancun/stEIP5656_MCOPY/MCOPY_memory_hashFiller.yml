@@ -92,7 +92,7 @@ MCOPY_memory_hash:
           - :label clear_low_half_0
           - :label clear_low_half_1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -103,7 +103,7 @@ MCOPY_memory_hash:
         data:
           - :label clear_low_half_2
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -114,7 +114,7 @@ MCOPY_memory_hash:
         data:
           - :label clear_high_half_0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -125,7 +125,7 @@ MCOPY_memory_hash:
         data:
           - :label memmove_forward
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -136,7 +136,7 @@ MCOPY_memory_hash:
         data:
           - :label memmove_backward
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:

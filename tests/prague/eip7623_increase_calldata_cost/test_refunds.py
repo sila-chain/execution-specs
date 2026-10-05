@@ -17,7 +17,7 @@ from execution_testing import (
     Transaction,
     TransactionReceipt,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 
 from .helpers import DataTestType
 from .spec import ref_spec_7623
@@ -25,7 +25,7 @@ from .spec import ref_spec_7623
 REFERENCE_SPEC_GIT_PATH = ref_spec_7623.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7623.version
 
-ENABLE_FORK = Prague
+ENABLE_FORK = SilaPrague
 pytestmark = [pytest.mark.valid_from(str(ENABLE_FORK))]
 
 
@@ -159,7 +159,7 @@ def intrinsic_gas_data_floor_minimum_delta() -> int:
     would always be the below the execution gas cost even after the refund is
     applied.
 
-    This value has been set as of Prague and should be adjusted if the gas
+    This value has been set as of SilaPrague and should be adjusted if the gas
     costs change.
     """
     return 250

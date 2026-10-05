@@ -52,9 +52,9 @@ from execution_testing import (
     Transaction,
 )
 from execution_testing.forks.forks.forks import (
-    Berlin,
-    Byzantium,
-    Homestead,
+    SilaBerlin,
+    SilaByzantium,
+    SilaHomestead,
 )
 from execution_testing.forks.helpers import Fork
 
@@ -64,7 +64,7 @@ def callee_init_stack_gas(callee_opcode: Op, fork: Fork) -> int:
     """
     Calculate the initial stack gas for the callee opcode.
     """
-    if fork < Byzantium:
+    if fork < SilaByzantium:
         # all *CALL arguments handled with PUSHes
         return len(callee_opcode.kwargs) * 3
     else:
@@ -84,15 +84,15 @@ def sufficient_gas(
 
     cost = 0
 
-    if fork >= Berlin:
+    if fork >= SilaBerlin:
         cost += gas_costs.G_COLD_ACCOUNT_ACCESS
-    elif Byzantium <= fork < Berlin:
-        cost += 700  # Pre-Berlin warm call cost
-    elif fork == Homestead:
-        cost += 40  # Homestead call cost
+    elif SilaByzantium <= fork < SilaBerlin:
+        cost += 700  # Pre-SilaBerlin warm call cost
+    elif fork == SilaHomestead:
+        cost += 40  # SilaHomestead call cost
         cost += 1  # mandatory callee gas allowance
     else:
-        raise Exception("Only forks Homestead and >=Byzantium supported")
+        raise Exception("Only forks SilaHomestead and >=SilaByzantium supported")
 
     is_value_call = callee_opcode in [Op.CALL, Op.CALLCODE]
     if is_value_call:
@@ -122,7 +122,7 @@ def callee_code(
       PUSH1 0x01 <- for positive value transfer, if applies
       PUSH2 Contract.nonexistent
       PUSH1 0x00 or GAS <- value doesn't matter:
-        - PUSH1 0x01: pre Byzantium tests, as they require `gas_left` to be at
+        - PUSH1 0x01: pre SilaByzantium tests, as they require `gas_left` to be at
           least `gas`. In these cases we want non-zero `gas`, so that that
           condition check can also be triggered - see `gas_shortage` parameter
           values.
@@ -136,7 +136,7 @@ def callee_code(
 
     return callee_opcode(
         unchecked=False,
-        gas=1 if fork < Byzantium else Op.GAS,
+        gas=1 if fork < SilaByzantium else Op.GAS,
         address=empty_account,
         args_offset=0,
         args_size=0,
@@ -224,7 +224,7 @@ def expected_block_access_list(
     empty_account: Account,
     gas_shortage: int,
 ) -> None | BlockAccessListExpectation:
-    """The expected block access list for >=Amsterdam cases."""
+    """The expected block access list for >=SilaAmsterdam cases."""
     if fork.header_bal_hash_required():
         if callee_opcode == Op.CALL:
             if gas_shortage:
@@ -286,7 +286,7 @@ def expected_block_access_list(
     "callee_opcode", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]
 )
 @pytest.mark.parametrize("gas_shortage", [0, 1])
-@pytest.mark.valid_from("London")
+@pytest.mark.valid_from("SilaLondon")
 def test_value_transfer_gas_calculation(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -311,8 +311,8 @@ def test_value_transfer_gas_calculation(
     "callee_opcode", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]
 )
 @pytest.mark.parametrize("gas_shortage", [0, 1])
-@pytest.mark.valid_from("Byzantium")
-@pytest.mark.valid_until("Berlin")
+@pytest.mark.valid_from("SilaByzantium")
+@pytest.mark.valid_until("SilaBerlin")
 def test_value_transfer_gas_calculation_byzantium(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -329,12 +329,12 @@ def test_value_transfer_gas_calculation_byzantium(
 @pytest.mark.parametrize(
     "callee_opcode", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL]
 )
-# pre-Byzantium rules have one more condition to fail on:
+# pre-SilaByzantium rules have one more condition to fail on:
 # the check for `gas_left` to be at least `gas` allowance specified
 # in the CALL. We will be setting that allowance to `1` and either
 # making the call miss that amount or fail on the earlier gas check.
 @pytest.mark.parametrize("gas_shortage", [0, 1, 2])
-@pytest.mark.valid_at("Homestead")
+@pytest.mark.valid_at("SilaHomestead")
 def test_value_transfer_gas_calculation_homestead(
     state_test: StateTestFiller,
     pre: Alloc,

@@ -33,7 +33,7 @@ def type_0_default_transaction(sender: EOA) -> Transaction:
 
 @pytest.fixture
 def type_1_default_transaction(sender: EOA) -> Transaction:
-    """Type 1 (access list) default transaction introduced in Berlin fork."""
+    """Type 1 (access list) default transaction introduced in SilaBerlin fork."""
     return Transaction(
         ty=1,
         sender=sender,
@@ -50,7 +50,7 @@ def type_1_default_transaction(sender: EOA) -> Transaction:
 
 @pytest.fixture
 def type_2_default_transaction(sender: EOA) -> Transaction:
-    """Type 2 (dynamic fee) default transaction introduced in London fork."""
+    """Type 2 (dynamic fee) default transaction introduced in SilaLondon fork."""
     return Transaction(
         ty=2,
         sender=sender,
@@ -67,7 +67,7 @@ def type_2_default_transaction(sender: EOA) -> Transaction:
 
 @pytest.fixture
 def type_3_default_transaction(sender: EOA) -> Transaction:
-    """Type 3 (blob) default transaction introduced in Cancun fork."""
+    """Type 3 (blob) default transaction introduced in SilaCancun fork."""
     return Transaction(
         ty=3,
         sender=sender,
@@ -92,7 +92,7 @@ def type_3_default_transaction(sender: EOA) -> Transaction:
 
 @pytest.fixture
 def type_4_default_transaction(sender: EOA, pre: Alloc) -> Transaction:
-    """Type 4 (set code) default transaction introduced in Prague fork."""
+    """Type 4 (set code) default transaction introduced in SilaPrague fork."""
     # Create authorized accounts with funds
     auth_signer1 = pre.fund_eoa(amount=10**18)
     auth_signer2 = pre.fund_eoa(amount=10**18)

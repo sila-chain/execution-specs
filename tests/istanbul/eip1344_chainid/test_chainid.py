@@ -25,7 +25,7 @@ REFERENCE_SPEC_VERSION = "02e46aebc80e6e5006ab4d2daa41876139f9a9e2"
     if tx_type == 3
     else None
 )
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 def test_chainid(
     state_test: StateTestFiller,
     pre: Alloc,

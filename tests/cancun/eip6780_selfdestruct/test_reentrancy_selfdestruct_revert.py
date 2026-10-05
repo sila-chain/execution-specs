@@ -15,7 +15,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 REFERENCE_SPEC_GIT_PATH = "EIPS/eip-6780.md"
 REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
@@ -129,7 +129,7 @@ def revert_contract_address(
     )
 
 
-@pytest.mark.valid_from("Paris")
+@pytest.mark.valid_from("SilaParis")
 @pytest.mark.parametrize(
     "first_suicide", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL]
 )
@@ -172,8 +172,8 @@ def test_reentrancy_selfdestruct_revert(
     }
 
     if first_suicide in [Op.CALLCODE, Op.DELEGATECALL]:
-        if fork >= Cancun:
-            # On Cancun even callcode/delegatecall does not remove the account,
+        if fork >= SilaCancun:
+            # On SilaCancun even callcode/delegatecall does not remove the account,
             # so the value remain
             post[executor_contract_address] = Account(
                 storage={
@@ -196,7 +196,7 @@ def test_reentrancy_selfdestruct_revert(
             balance=executor_contract_init_balance,
         )
 
-    # On Cancun suicide no longer destroys the account from state, just cleans
+    # On SilaCancun suicide no longer destroys the account from state, just cleans
     # the balance
     if first_suicide in [Op.CALL]:
         post[executor_contract_address] = Account(
@@ -206,8 +206,8 @@ def test_reentrancy_selfdestruct_revert(
                 0x03: 16,  # Reverted value to check that revert really worked
             },
         )
-        if fork >= Cancun:
-            # On Cancun suicide does not remove the account, just sends the
+        if fork >= SilaCancun:
+            # On SilaCancun suicide does not remove the account, just sends the
             # balance
             post[selfdestruct_contract_address] = Account(
                 balance=0, code=selfdestruct_contract_bytecode, storage={}

@@ -20,7 +20,7 @@ test_module_dummy = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     def test_dummy_benchmark_test(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
@@ -35,7 +35,7 @@ test_module_without_fixture = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     def test_dummy_no_benchmark_test(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
@@ -50,7 +50,7 @@ test_module_with_repricing = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     @pytest.mark.repricing
     def test_benchmark_with_repricing(benchmark_test: BenchmarkTestFiller) -> None:
@@ -59,7 +59,7 @@ test_module_with_repricing = textwrap.dedent(
             code_generator=JumpLoopGenerator(attack_block=Op.JUMPDEST),
         )
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     def test_benchmark_without_repricing(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
@@ -74,14 +74,14 @@ test_module_without_benchmark_test_fixture = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     def test_with_gas_benchmark_value(state_test, gas_benchmark_value: int) -> None:
         # This test intentionally uses state_test instead of benchmark_test
         # to verify that --fixed-opcode-count filters it out
         state_test(pre={}, post={}, tx=None)
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     def test_with_benchmark_test(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
@@ -96,7 +96,7 @@ test_module_with_repricing_kwargs = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     @pytest.mark.repricing(opcode=Op.ADD)
     @pytest.mark.parametrize("opcode", [Op.ADD, Op.SUB, Op.MUL])
@@ -109,7 +109,7 @@ test_module_with_repricing_kwargs = textwrap.dedent(
             code_generator=JumpLoopGenerator(attack_block=Op.JUMPDEST),
         )
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     @pytest.mark.repricing
     @pytest.mark.parametrize("opcode", [Op.ADD, Op.SUB])
@@ -186,7 +186,7 @@ def test_benchmarking_mode_configured_with_option(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--gas-benchmark-values",
         "10,20,30",
         "tests/benchmark/dummy_test_module/",
@@ -218,7 +218,7 @@ def test_benchmarking_mode_not_configured_without_option(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/benchmark/dummy_test_module/",
         "--collect-only",
         "-q",
@@ -274,7 +274,7 @@ def test_repricing_marker_filter_with_benchmark_options(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         benchmark_option,
         *benchmark_args,
         "-m",
@@ -315,7 +315,7 @@ def test_fixed_opcode_count_filters_tests_without_benchmark_test_fixture(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "tests/benchmark/dummy_test_module/",
@@ -352,7 +352,7 @@ def test_repricing_marker_with_kwargs_filters_parametrized_tests(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "-m",
@@ -408,7 +408,7 @@ def test_not_repricing_marker_negation(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "-m",
@@ -444,7 +444,7 @@ def test_mutual_exclusivity_of_benchmark_options(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--gas-benchmark-values",
         "10",
         "--fixed-opcode-count",
@@ -477,7 +477,7 @@ def test_without_repricing_flag_collects_all_tests(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "tests/benchmark/dummy_test_module/",
@@ -770,7 +770,7 @@ def test_fixed_opcode_count_config_file_parametrized(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/benchmark/dummy_test_module/",
         f"--evm-bin={BENCHMARK_EVM_T8N}",
         "--fixed-opcode-count",
@@ -791,7 +791,7 @@ test_module_parametrized = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.benchmark
     @pytest.mark.parametrize("size", [0, 32, 256, 1024])
     def test_parametrized_benchmark(
@@ -900,7 +900,7 @@ def test_fixed_opcode_count_per_parameter_patterns(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/benchmark/dummy_test_module/",
         f"--evm-bin={BENCHMARK_EVM_T8N}",
         "--fixed-opcode-count",
@@ -936,7 +936,7 @@ def test_cli_mode_ignores_per_parameter_patterns(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count=1,5",
         "tests/benchmark/dummy_test_module/",
         f"--evm-bin={BENCHMARK_EVM_T8N}",

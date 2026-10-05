@@ -166,7 +166,7 @@ MCOPY_memory_expansion_cost:
           - :label dst0_src0_size0
           - :label huge_size0
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -180,7 +180,7 @@ MCOPY_memory_expansion_cost:
           - :label dst31_src62_size706
           - :label dst62_src62_size706
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -197,7 +197,7 @@ MCOPY_memory_expansion_cost:
           - :label dst33_src33_size1344
           - :label dst64_src64_size1344
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:
@@ -213,7 +213,7 @@ MCOPY_memory_expansion_cost:
           - :label huge_size_n63
           - :label huge_size_n64
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:target:0x000000000000000000000000000000000000c0de>:
           storage:

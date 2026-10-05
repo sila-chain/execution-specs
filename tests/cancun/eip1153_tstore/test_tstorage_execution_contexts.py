@@ -24,7 +24,7 @@ from .spec import Spec, ref_spec_1153
 REFERENCE_SPEC_GIT_PATH = ref_spec_1153.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1153.version
 
-pytestmark = [pytest.mark.valid_from("Cancun")]
+pytestmark = [pytest.mark.valid_from("SilaCancun")]
 
 PUSH_OPCODE_COST = 3
 

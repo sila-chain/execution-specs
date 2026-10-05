@@ -333,7 +333,7 @@ def generate_valid_blob_tests(
     generate_valid_blob_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_get_blobs(
     blobs_test: BlobsTestFiller,
     pre: Alloc,
@@ -351,7 +351,7 @@ def test_get_blobs(
     generate_valid_blob_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_get_blobs_nonexisting(
     blobs_test: BlobsTestFiller,
     pre: Alloc,

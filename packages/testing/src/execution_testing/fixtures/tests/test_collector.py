@@ -15,7 +15,7 @@ def _make_fixture(nonce: int = 0) -> TransactionFixture:
     """Create a minimal TransactionFixture for testing."""
     fixture = TransactionFixture(
         transaction=f"0x{nonce:04x}",
-        result={"Paris": FixtureResult(intrinsic_gas=nonce)},
+        result={"SilaParis": FixtureResult(intrinsic_gas=nonce)},
     )
     fixture.fill_info(
         "t8n-test",

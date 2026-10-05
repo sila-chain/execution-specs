@@ -9,9 +9,9 @@
         },
         "expect" : [
             {
-                "network" : [ ">=Cancun"],
+                "network" : [ ">=SilaCancun"],
                 "result" : {
-                    "//comment" : "CREATE price changed in Shanghai",
+                    "//comment" : "CREATE price changed in SilaShanghai",
                     "//comment" : "Due to eip-3860 (https://eips.ethereum.org/EIPS/eip-3860) pay extra 2 gas for each 32 bytes of initcode",
         		    "b94f5374fce5edbc8e2a8697c15331677e6ebf0b" : {
 		                "storage" : {

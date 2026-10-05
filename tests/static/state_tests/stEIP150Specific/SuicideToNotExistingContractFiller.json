@@ -9,7 +9,7 @@
         },
         "expect" : [
     	    {
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
 		            "<contract:0x1000000000000000000000000000000000000116>" : {
 		                "balance" : "0",

@@ -1,5 +1,5 @@
 {
-    "000/my_chain_id_test/Cancun/tx_type_1": {
+    "000/my_chain_id_test/SilaCancun/tx_type_1": {
         "_info": {
             "hash": "0x49130f37343fa73f364ed83e2a2e7146c4effa64cdb6b371f5f2bf3f2004fade",
             "fixture_format": "state_test"
@@ -17,7 +17,7 @@
         "config": {
             "chainid": "0x01",
             "blobSchedule": {
-                "Cancun": {
+                "SilaCancun": {
                     "max": "0x06",
                     "target": "0x03",
                     "baseFeeUpdateFraction": "0x32f0ed"
@@ -66,7 +66,7 @@
             "secretKey": "0x45a915e4d060149eb4365960e6a7a45f334393093061116b197e3240065ff2d8"
         },
         "post": {
-            "Cancun": [
+            "SilaCancun": [
                 {
                     "hash": "0x0ee52e9f67e3c0327408ba3a0b530d6832345fa94420053457e3ae147c4f2363",
                     "logs": "0x6f322afda7b9376eb43961bc85e0a097c0118bb3545c42c888830702a95b18a5",

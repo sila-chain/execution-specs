@@ -3,7 +3,7 @@
 from functools import cached_property
 
 from execution_testing import Alloc, Bytecode, Fork, Op
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 from ..common import ProgramResult, ScenarioTestProgram
 
@@ -47,7 +47,7 @@ class ProgramTstoreTload(ScenarioTestProgram):
 
     def result(self) -> ProgramResult:
         """Test result."""
-        return ProgramResult(result=11, static_support=False, from_fork=Cancun)
+        return ProgramResult(result=11, static_support=False, from_fork=SilaCancun)
 
 
 class ProgramLogs(ScenarioTestProgram):

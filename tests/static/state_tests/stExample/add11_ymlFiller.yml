@@ -27,9 +27,9 @@ add11_yml:
         gas:  !!int 0
         value: !!int -1
 
-      # hard fork order Frontier, Homestead, EIP150, EIP155, Byzantium, Constantinople, Istanbul
+      # hard fork order Frontier, SilaHomestead, EIP150, EIP155, SilaByzantium, SilaConstantinople, SilaIstanbul
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
          # Account in expect section would be checked for the fields specified here (balance, code, storage)
         095e7baea6a6c7c4c2dfeb977efac326af552d87:

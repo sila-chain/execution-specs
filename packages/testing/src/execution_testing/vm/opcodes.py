@@ -1227,7 +1227,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Constantinople
+    SilaConstantinople
 
     Gas
     ----
@@ -1256,7 +1256,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Constantinople
+    SilaConstantinople
 
     Gas
     ----
@@ -1285,7 +1285,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Constantinople
+    SilaConstantinople
 
     Gas
     ----
@@ -1313,7 +1313,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Osaka
+    SilaOsaka
 
     Gas
     ----
@@ -1820,7 +1820,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Byzantium
+    SilaByzantium
 
     Gas
     ----
@@ -1852,7 +1852,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Byzantium
+    SilaByzantium
 
     Gas
     ----
@@ -1896,7 +1896,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Constantinople
+    SilaConstantinople
 
     Gas
     ----
@@ -2105,7 +2105,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Istanbul
+    SilaIstanbul
 
     Gas
     ----
@@ -2133,7 +2133,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Istanbul
+    SilaIstanbul
 
     Gas
     ----
@@ -2157,7 +2157,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    London
+    SilaLondon
 
     Gas
     ----
@@ -2188,7 +2188,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Cancun
+    SilaCancun
 
     Gas
     ----
@@ -2216,7 +2216,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Cancun
+    SilaCancun
 
     Gas
     ----
@@ -2696,7 +2696,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Cancun
+    SilaCancun
 
     Gas
     ----
@@ -2721,7 +2721,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Cancun
+    SilaCancun
 
     Gas
     ----
@@ -2756,7 +2756,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Cancun
+    SilaCancun
 
     Gas
     ----
@@ -2792,7 +2792,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Shanghai
+    SilaShanghai
 
     Gas
     ----
@@ -5391,7 +5391,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Byzantium
+    SilaByzantium
 
     Gas
     ----
@@ -5448,7 +5448,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Constantinople
+    SilaConstantinople
 
     Gas
     ----
@@ -5520,7 +5520,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Byzantium
+    SilaByzantium
 
     Gas
     ----
@@ -5566,7 +5566,7 @@ class Opcodes(Opcode, Enum):
 
     Fork
     ----
-    Byzantium
+    SilaByzantium
 
     Gas
     ----

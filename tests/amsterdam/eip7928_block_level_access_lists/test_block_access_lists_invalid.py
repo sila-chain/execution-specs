@@ -46,7 +46,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_missing_nonce(
     blockchain_test: BlockchainTestFiller,
@@ -92,7 +92,7 @@ def test_bal_invalid_missing_nonce(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_nonce_value(
     blockchain_test: BlockchainTestFiller,
@@ -137,7 +137,7 @@ def test_bal_invalid_nonce_value(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_storage_value(
     blockchain_test: BlockchainTestFiller,
@@ -217,7 +217,7 @@ def test_bal_invalid_storage_value(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_tx_order(
     blockchain_test: BlockchainTestFiller,
@@ -290,7 +290,7 @@ def test_bal_invalid_tx_order(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_account(
     blockchain_test: BlockchainTestFiller,
@@ -349,7 +349,7 @@ def test_bal_invalid_account(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_duplicate_account(
     blockchain_test: BlockchainTestFiller,
@@ -402,7 +402,7 @@ def test_bal_invalid_duplicate_account(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_account_order(
     blockchain_test: BlockchainTestFiller,
@@ -454,7 +454,7 @@ def test_bal_invalid_account_order(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_complex_corruption(
     blockchain_test: BlockchainTestFiller,
@@ -549,7 +549,7 @@ def test_bal_invalid_complex_corruption(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_missing_account(
     blockchain_test: BlockchainTestFiller,
@@ -601,7 +601,7 @@ def test_bal_invalid_missing_account(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 def test_bal_invalid_balance_value(
     blockchain_test: BlockchainTestFiller,
@@ -650,7 +650,7 @@ def test_bal_invalid_balance_value(
     )
 
 
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.exception_test
 @pytest.mark.parametrize(
     "modifier",
@@ -679,7 +679,7 @@ def test_bal_invalid_balance_value(
             lambda idx, **actors: append_change(
                 account=actors["oracle"],
                 change=BalCodeChange(
-                    block_access_index=idx, new_code=b"Amsterdam"
+                    block_access_index=idx, new_code=b"SilaAmsterdam"
                 ),
             ),
             id="extra_code",

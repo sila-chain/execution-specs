@@ -392,7 +392,7 @@ def _exact_size_transactions_impl(
         ),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_block_at_rlp_size_limit_boundary(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -440,7 +440,7 @@ def test_block_at_rlp_size_limit_boundary(
 @EIPChecklist.BlockLevelConstraint.Test.Content.TransactionTypes()
 @pytest.mark.with_all_typed_transactions
 @pytest.mark.verify_sync
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_block_rlp_size_at_limit_with_all_typed_transactions(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -475,7 +475,7 @@ def test_block_rlp_size_at_limit_with_all_typed_transactions(
 
 @EIPChecklist.BlockLevelConstraint.Test.Content.Logs()
 @pytest.mark.verify_sync
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_block_at_rlp_limit_with_logs(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -512,7 +512,7 @@ def test_block_at_rlp_limit_with_logs(
 
 @EIPChecklist.BlockLevelConstraint.Test.Content.Withdrawals()
 @pytest.mark.verify_sync
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_block_at_rlp_limit_with_withdrawals(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -577,7 +577,7 @@ def test_block_at_rlp_limit_with_withdrawals(
         ),
     ],
 )
-@pytest.mark.valid_at_transition_to("Osaka")
+@pytest.mark.valid_at_transition_to("SilaOsaka")
 def test_fork_transition_block_rlp_limit(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

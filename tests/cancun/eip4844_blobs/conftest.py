@@ -294,7 +294,7 @@ def non_zero_blob_gas_used_genesis_block(
     add parent_blobs to the intermediate block within a blob tx such that an
     equivalent blobGasUsed field is wrote.
 
-    For forks >= Osaka where the MAX_BLOBS_PER_TX is introduced, we split the
+    For forks >= SilaOsaka where the MAX_BLOBS_PER_TX is introduced, we split the
     blobs across multiple transactions to respect the MAX_BLOBS_PER_TX limit.
     """
     if parent_blobs == 0:

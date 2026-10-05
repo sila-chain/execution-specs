@@ -12,28 +12,28 @@ from ..forks.forks import (
     BPO2,
     BPO3,
     BPO4,
-    Amsterdam,
-    Berlin,
-    Cancun,
+    SilaAmsterdam,
+    SilaBerlin,
+    SilaCancun,
     Frontier,
-    Homestead,
-    Istanbul,
-    London,
-    Osaka,
-    Paris,
-    Prague,
-    Shanghai,
+    SilaHomestead,
+    SilaIstanbul,
+    SilaLondon,
+    SilaOsaka,
+    SilaParis,
+    SilaPrague,
+    SilaShanghai,
 )
 from ..forks.transition import (
-    BerlinToLondonAt5,
+    SilaBerlinToSilaLondonAt5,
     BPO1ToBPO2AtTime15k,
     BPO2ToBPO3AtTime15k,
     BPO3ToBPO4AtTime15k,
-    CancunToPragueAtTime15k,
-    OsakaToBPO1AtTime15k,
-    ParisToShanghaiAtTime15k,
-    PragueToOsakaAtTime15k,
-    ShanghaiToCancunAtTime15k,
+    SilaCancunToSilaPragueAtTime15k,
+    SilaOsakaToBPO1AtTime15k,
+    SilaParisToSilaShanghaiAtTime15k,
+    SilaPragueToSilaOsakaAtTime15k,
+    SilaShanghaiToSilaCancunAtTime15k,
 )
 from ..helpers import (
     Fork,
@@ -50,170 +50,170 @@ from ..helpers import (
 from ..transition_base_fork import transition_fork
 
 FIRST_DEPLOYED = Frontier
-LAST_DEPLOYED = Osaka
-LAST_DEVELOPMENT = Amsterdam
-DEVELOPMENT_FORKS = [Amsterdam]
+LAST_DEPLOYED = SilaOsaka
+LAST_DEVELOPMENT = SilaAmsterdam
+DEVELOPMENT_FORKS = [SilaAmsterdam]
 
 
 def test_transition_forks() -> None:
     """Test transition fork utilities."""
-    assert transition_fork_from_to(Berlin, London) == BerlinToLondonAt5
-    assert transition_fork_from_to(Berlin, Paris) is None
-    assert transition_fork_to(Shanghai) == {ParisToShanghaiAtTime15k}
+    assert transition_fork_from_to(SilaBerlin, SilaLondon) == SilaBerlinToSilaLondonAt5
+    assert transition_fork_from_to(SilaBerlin, SilaParis) is None
+    assert transition_fork_to(SilaShanghai) == {SilaParisToSilaShanghaiAtTime15k}
 
     # Test forks transitioned to and from
-    assert BerlinToLondonAt5.transitions_to() == London  # type: ignore
-    assert BerlinToLondonAt5.transitions_from() == Berlin  # type: ignore
+    assert SilaBerlinToSilaLondonAt5.transitions_to() == SilaLondon  # type: ignore
+    assert SilaBerlinToSilaLondonAt5.transitions_from() == SilaBerlin  # type: ignore
 
     assert (
-        BerlinToLondonAt5.transition_tool_name(block_number=4, timestamp=0)
-        == "Berlin"
+        SilaBerlinToSilaLondonAt5.transition_tool_name(block_number=4, timestamp=0)
+        == "SilaBerlin"
     )
     assert (
-        BerlinToLondonAt5.transition_tool_name(block_number=5, timestamp=0)
-        == "London"
+        SilaBerlinToSilaLondonAt5.transition_tool_name(block_number=5, timestamp=0)
+        == "SilaLondon"
     )
     # Default values of transition forks is the transition block
-    assert BerlinToLondonAt5.transition_tool_name() == "London"
+    assert SilaBerlinToSilaLondonAt5.transition_tool_name() == "SilaLondon"
 
     assert (
-        ParisToShanghaiAtTime15k.transition_tool_name(
+        SilaParisToSilaShanghaiAtTime15k.transition_tool_name(
             block_number=0, timestamp=14_999
         )
         == "Merge"
     )
     assert (
-        ParisToShanghaiAtTime15k.transition_tool_name(
+        SilaParisToSilaShanghaiAtTime15k.transition_tool_name(
             block_number=0, timestamp=15_000
         )
-        == "Shanghai"
+        == "SilaShanghai"
     )
-    assert ParisToShanghaiAtTime15k.transition_tool_name() == "Shanghai"
+    assert SilaParisToSilaShanghaiAtTime15k.transition_tool_name() == "SilaShanghai"
 
     assert (
-        BerlinToLondonAt5.header_base_fee_required(block_number=4, timestamp=0)
+        SilaBerlinToSilaLondonAt5.header_base_fee_required(block_number=4, timestamp=0)
         is False
     )
     assert (
-        BerlinToLondonAt5.header_base_fee_required(block_number=5, timestamp=0)
+        SilaBerlinToSilaLondonAt5.header_base_fee_required(block_number=5, timestamp=0)
         is True
     )
 
     assert (
-        ParisToShanghaiAtTime15k.header_withdrawals_required(
+        SilaParisToSilaShanghaiAtTime15k.header_withdrawals_required(
             block_number=0, timestamp=14_999
         )
         is False
     )
     assert (
-        ParisToShanghaiAtTime15k.header_withdrawals_required(
+        SilaParisToSilaShanghaiAtTime15k.header_withdrawals_required(
             block_number=0, timestamp=15_000
         )
         is True
     )
 
     assert (
-        ParisToShanghaiAtTime15k.engine_new_payload_version(
+        SilaParisToSilaShanghaiAtTime15k.engine_new_payload_version(
             block_number=0, timestamp=14_999
         )
         == 1
     )
     assert (
-        ParisToShanghaiAtTime15k.engine_new_payload_version(
+        SilaParisToSilaShanghaiAtTime15k.engine_new_payload_version(
             block_number=0, timestamp=15_000
         )
         == 2
     )
 
-    assert BerlinToLondonAt5.fork_at(block_number=4, timestamp=0) == Berlin
-    assert BerlinToLondonAt5.fork_at(block_number=5, timestamp=0) == London
+    assert SilaBerlinToSilaLondonAt5.fork_at(block_number=4, timestamp=0) == SilaBerlin
+    assert SilaBerlinToSilaLondonAt5.fork_at(block_number=5, timestamp=0) == SilaLondon
     assert (
-        ParisToShanghaiAtTime15k.fork_at(block_number=0, timestamp=14_999)
-        == Paris
+        SilaParisToSilaShanghaiAtTime15k.fork_at(block_number=0, timestamp=14_999)
+        == SilaParis
     )
     assert (
-        ParisToShanghaiAtTime15k.fork_at(block_number=0, timestamp=15_000)
-        == Shanghai
+        SilaParisToSilaShanghaiAtTime15k.fork_at(block_number=0, timestamp=15_000)
+        == SilaShanghai
     )
-    assert ParisToShanghaiAtTime15k.fork_at() == Paris
+    assert SilaParisToSilaShanghaiAtTime15k.fork_at() == SilaParis
     assert (
-        ParisToShanghaiAtTime15k.fork_at(
+        SilaParisToSilaShanghaiAtTime15k.fork_at(
             block_number=10_000_000, timestamp=14_999
         )
-        == Paris
+        == SilaParis
     )
 
 
 def test_forks_from() -> None:  # noqa: D103
-    assert forks_from(Paris)[0] == Paris
-    assert forks_from(Paris)[-1] == LAST_DEPLOYED
-    assert forks_from(Paris, deployed_only=True)[0] == Paris
-    assert forks_from(Paris, deployed_only=True)[-1] == LAST_DEPLOYED
-    assert forks_from(Paris, deployed_only=False)[0] == Paris
+    assert forks_from(SilaParis)[0] == SilaParis
+    assert forks_from(SilaParis)[-1] == LAST_DEPLOYED
+    assert forks_from(SilaParis, deployed_only=True)[0] == SilaParis
+    assert forks_from(SilaParis, deployed_only=True)[-1] == LAST_DEPLOYED
+    assert forks_from(SilaParis, deployed_only=False)[0] == SilaParis
     # Too flaky
-    # assert forks_from(Paris, deployed_only=False)[-1] == LAST_DEVELOPMENT
+    # assert forks_from(SilaParis, deployed_only=False)[-1] == LAST_DEVELOPMENT
 
 
 def test_forks() -> None:
     """Test fork utilities."""
-    assert forks_from_until(Berlin, Berlin) == [Berlin]
-    assert forks_from_until(Berlin, London) == [Berlin, London]
-    assert forks_from_until(Berlin, Paris) == [
-        Berlin,
-        London,
-        Paris,
+    assert forks_from_until(SilaBerlin, SilaBerlin) == [SilaBerlin]
+    assert forks_from_until(SilaBerlin, SilaLondon) == [SilaBerlin, SilaLondon]
+    assert forks_from_until(SilaBerlin, SilaParis) == [
+        SilaBerlin,
+        SilaLondon,
+        SilaParis,
     ]
 
     # Test fork names
-    assert London.name() == "London"
-    assert ParisToShanghaiAtTime15k.name() == "ParisToShanghaiAtTime15k"
-    assert f"{London}" == "London"
-    assert f"{ParisToShanghaiAtTime15k}" == "ParisToShanghaiAtTime15k"
+    assert SilaLondon.name() == "SilaLondon"
+    assert SilaParisToSilaShanghaiAtTime15k.name() == "SilaParisToSilaShanghaiAtTime15k"
+    assert f"{SilaLondon}" == "SilaLondon"
+    assert f"{SilaParisToSilaShanghaiAtTime15k}" == "SilaParisToSilaShanghaiAtTime15k"
 
     # Merge name will be changed to paris, but we need to check the inheriting
     # fork name is still the default
-    assert Paris.transition_tool_name() == "Merge"
-    assert Shanghai.transition_tool_name() == "Shanghai"
-    assert f"{Paris}" == "Paris"
-    assert f"{Shanghai}" == "Shanghai"
-    assert f"{ParisToShanghaiAtTime15k}" == "ParisToShanghaiAtTime15k"
+    assert SilaParis.transition_tool_name() == "Merge"
+    assert SilaShanghai.transition_tool_name() == "SilaShanghai"
+    assert f"{SilaParis}" == "SilaParis"
+    assert f"{SilaShanghai}" == "SilaShanghai"
+    assert f"{SilaParisToSilaShanghaiAtTime15k}" == "SilaParisToSilaShanghaiAtTime15k"
 
     # Test some fork properties
     assert (
-        Berlin.header_base_fee_required(block_number=0, timestamp=0) is False
+        SilaBerlin.header_base_fee_required(block_number=0, timestamp=0) is False
     )
-    assert London.header_base_fee_required(block_number=0, timestamp=0) is True
-    assert Paris.header_base_fee_required(block_number=0, timestamp=0) is True
+    assert SilaLondon.header_base_fee_required(block_number=0, timestamp=0) is True
+    assert SilaParis.header_base_fee_required(block_number=0, timestamp=0) is True
     # Default values of normal forks if the genesis block
-    assert Paris.header_base_fee_required() is True
+    assert SilaParis.header_base_fee_required() is True
 
     # Transition forks too
     assert (
-        cast(Fork, BerlinToLondonAt5).header_base_fee_required(
+        cast(Fork, SilaBerlinToSilaLondonAt5).header_base_fee_required(
             block_number=4, timestamp=0
         )
         is False
     )
     assert (
-        cast(Fork, BerlinToLondonAt5).header_base_fee_required(
+        cast(Fork, SilaBerlinToSilaLondonAt5).header_base_fee_required(
             block_number=5, timestamp=0
         )
         is True
     )
     assert (
-        cast(Fork, ParisToShanghaiAtTime15k).header_withdrawals_required(
+        cast(Fork, SilaParisToSilaShanghaiAtTime15k).header_withdrawals_required(
             block_number=0, timestamp=14_999
         )
         is False
     )
     assert (
-        cast(Fork, ParisToShanghaiAtTime15k).header_withdrawals_required(
+        cast(Fork, SilaParisToSilaShanghaiAtTime15k).header_withdrawals_required(
             block_number=0, timestamp=15_000
         )
         is True
     )
     assert (
-        cast(Fork, ParisToShanghaiAtTime15k).header_withdrawals_required()
+        cast(Fork, SilaParisToSilaShanghaiAtTime15k).header_withdrawals_required()
         is True
     )
 
@@ -229,59 +229,59 @@ class ForkInPydanticModel(BaseModel):
 def test_fork_in_pydantic_model() -> None:
     """Test fork in pydantic model."""
     model = ForkInPydanticModel(
-        fork_1=Paris, fork_2=ParisToShanghaiAtTime15k, fork_3=None
+        fork_1=SilaParis, fork_2=SilaParisToSilaShanghaiAtTime15k, fork_3=None
     )
     assert model.model_dump() == {
-        "fork_1": "Paris",
-        "fork_2": "ParisToShanghaiAtTime15k",
+        "fork_1": "SilaParis",
+        "fork_2": "SilaParisToSilaShanghaiAtTime15k",
         "fork_3": None,
     }
     assert model.model_dump_json() == (
-        '{"fork_1":"Paris","fork_2":"ParisToShanghaiAtTime15k","fork_3":null}'
+        '{"fork_1":"SilaParis","fork_2":"SilaParisToSilaShanghaiAtTime15k","fork_3":null}'
     )
     model = ForkInPydanticModel.model_validate_json(
-        '{"fork_1": "Paris", "fork_2": "ParisToShanghaiAtTime15k", '
+        '{"fork_1": "SilaParis", "fork_2": "SilaParisToSilaShanghaiAtTime15k", '
         '"fork_3": null}'
     )
-    assert model.fork_1 == Paris
-    assert model.fork_2 == ParisToShanghaiAtTime15k
+    assert model.fork_1 == SilaParis
+    assert model.fork_2 == SilaParisToSilaShanghaiAtTime15k
     assert model.fork_3 is None
 
 
 def test_fork_comparison() -> None:
     """Test fork comparison operators."""
     # Test fork comparison
-    assert Paris > Berlin
-    assert not Berlin > Paris
-    assert Berlin < Paris
-    assert not Paris < Berlin
+    assert SilaParis > SilaBerlin
+    assert not SilaBerlin > SilaParis
+    assert SilaBerlin < SilaParis
+    assert not SilaParis < SilaBerlin
 
-    assert Paris >= Berlin
-    assert not Berlin >= Paris
-    assert Berlin <= Paris
-    assert not Paris <= Berlin
+    assert SilaParis >= SilaBerlin
+    assert not SilaBerlin >= SilaParis
+    assert SilaBerlin <= SilaParis
+    assert not SilaParis <= SilaBerlin
 
-    assert London > Berlin
-    assert not Berlin > London
-    assert Berlin < London
-    assert not London < Berlin
+    assert SilaLondon > SilaBerlin
+    assert not SilaBerlin > SilaLondon
+    assert SilaBerlin < SilaLondon
+    assert not SilaLondon < SilaBerlin
 
-    assert London >= Berlin
-    assert not Berlin >= London
-    assert Berlin <= London
-    assert not London <= Berlin
+    assert SilaLondon >= SilaBerlin
+    assert not SilaBerlin >= SilaLondon
+    assert SilaBerlin <= SilaLondon
+    assert not SilaLondon <= SilaBerlin
 
-    assert Berlin >= Berlin
-    assert Berlin <= Berlin
-    assert not Berlin > Berlin
-    assert not Berlin < Berlin
+    assert SilaBerlin >= SilaBerlin
+    assert SilaBerlin <= SilaBerlin
+    assert not SilaBerlin > SilaBerlin
+    assert not SilaBerlin < SilaBerlin
 
-    fork = Berlin
-    assert fork >= Berlin
-    assert fork <= Berlin
-    assert not fork > Berlin
-    assert not fork < Berlin
-    assert fork == Berlin
+    fork = SilaBerlin
+    assert fork >= SilaBerlin
+    assert fork <= SilaBerlin
+    assert not fork > SilaBerlin
+    assert not fork < SilaBerlin
+    assert fork == SilaBerlin
 
 
 def test_transition_fork_comparison() -> None:
@@ -300,34 +300,34 @@ def test_transition_fork_comparison() -> None:
     From B    fork >= B    True
     Until B   fork <= B    True
     """
-    assert BerlinToLondonAt5 >= Berlin
-    assert not BerlinToLondonAt5 <= Berlin
-    assert BerlinToLondonAt5 >= London
-    assert BerlinToLondonAt5 <= London
+    assert SilaBerlinToSilaLondonAt5 >= SilaBerlin
+    assert not SilaBerlinToSilaLondonAt5 <= SilaBerlin
+    assert SilaBerlinToSilaLondonAt5 >= SilaLondon
+    assert SilaBerlinToSilaLondonAt5 <= SilaLondon
 
     # Comparisons between transition forks is done against the `transitions_to`
     # fork
-    assert BerlinToLondonAt5 < ParisToShanghaiAtTime15k
-    assert ParisToShanghaiAtTime15k > BerlinToLondonAt5
-    assert BerlinToLondonAt5 == BerlinToLondonAt5
-    assert BerlinToLondonAt5 != ParisToShanghaiAtTime15k
-    assert BerlinToLondonAt5 <= ParisToShanghaiAtTime15k
-    assert ParisToShanghaiAtTime15k >= BerlinToLondonAt5
+    assert SilaBerlinToSilaLondonAt5 < SilaParisToSilaShanghaiAtTime15k
+    assert SilaParisToSilaShanghaiAtTime15k > SilaBerlinToSilaLondonAt5
+    assert SilaBerlinToSilaLondonAt5 == SilaBerlinToSilaLondonAt5
+    assert SilaBerlinToSilaLondonAt5 != SilaParisToSilaShanghaiAtTime15k
+    assert SilaBerlinToSilaLondonAt5 <= SilaParisToSilaShanghaiAtTime15k
+    assert SilaParisToSilaShanghaiAtTime15k >= SilaBerlinToSilaLondonAt5
 
     assert sorted(
         {
-            PragueToOsakaAtTime15k,
-            CancunToPragueAtTime15k,
-            ParisToShanghaiAtTime15k,
-            ShanghaiToCancunAtTime15k,
-            BerlinToLondonAt5,
+            SilaPragueToSilaOsakaAtTime15k,
+            SilaCancunToSilaPragueAtTime15k,
+            SilaParisToSilaShanghaiAtTime15k,
+            SilaShanghaiToSilaCancunAtTime15k,
+            SilaBerlinToSilaLondonAt5,
         }
     ) == [
-        BerlinToLondonAt5,
-        ParisToShanghaiAtTime15k,
-        ShanghaiToCancunAtTime15k,
-        CancunToPragueAtTime15k,
-        PragueToOsakaAtTime15k,
+        SilaBerlinToSilaLondonAt5,
+        SilaParisToSilaShanghaiAtTime15k,
+        SilaShanghaiToSilaCancunAtTime15k,
+        SilaCancunToSilaPragueAtTime15k,
+        SilaPragueToSilaOsakaAtTime15k,
     ]
 
 
@@ -343,7 +343,7 @@ def test_deployed_forks() -> None:  # noqa: D103
     assert deployed_forks[-1] == LAST_DEPLOYED
 
 
-class PrePreAllocFork(Shanghai):
+class PrePreAllocFork(SilaShanghai):
     """Dummy fork used for testing."""
 
     @classmethod
@@ -388,19 +388,19 @@ def test_pre_alloc() -> None:  # noqa: D103
 
 
 def test_precompiles() -> None:  # noqa: D103
-    Cancun.precompiles() == list(range(11))[1:]  # noqa: B015
+    SilaCancun.precompiles() == list(range(11))[1:]  # noqa: B015
 
 
 def test_tx_types() -> None:  # noqa: D103
-    Cancun.tx_types() == list(range(4))  # noqa: B015
+    SilaCancun.tx_types() == list(range(4))  # noqa: B015
 
 
 @pytest.mark.parametrize(
     "fork",
     [
-        pytest.param(Berlin, id="Berlin"),
-        pytest.param(Istanbul, id="Istanbul"),
-        pytest.param(Homestead, id="Homestead"),
+        pytest.param(SilaBerlin, id="SilaBerlin"),
+        pytest.param(SilaIstanbul, id="SilaIstanbul"),
+        pytest.param(SilaHomestead, id="SilaHomestead"),
         pytest.param(Frontier, id="Frontier"),
     ],
 )
@@ -422,13 +422,13 @@ def test_tx_intrinsic_gas_functions(  # noqa: D103
     if calldata == b"\0":
         intrinsic_gas += 4
     else:
-        if fork >= Istanbul:
+        if fork >= SilaIstanbul:
             intrinsic_gas += 16
         else:
             intrinsic_gas += 68
 
     if create_tx:
-        if fork >= Homestead:
+        if fork >= SilaHomestead:
             intrinsic_gas += 32000
         intrinsic_gas += 2
     assert (
@@ -440,7 +440,7 @@ def test_tx_intrinsic_gas_functions(  # noqa: D103
     )
 
 
-class FutureFork(Osaka):
+class FutureFork(SilaOsaka):
     """
     Dummy fork used for testing.
 
@@ -457,104 +457,104 @@ class FutureFork(Osaka):
     [
         pytest.param(Frontier, None, id="Frontier"),
         pytest.param(
-            Cancun,
+            SilaCancun,
             {
-                "Cancun": {
+                "SilaCancun": {
                     "target_blobs_per_block": 3,
                     "max_blobs_per_block": 6,
                     "baseFeeUpdateFraction": 3338477,
                 },
             },
-            id="Cancun",
+            id="SilaCancun",
         ),
         pytest.param(
-            Prague,
+            SilaPrague,
             {
-                "Cancun": {
+                "SilaCancun": {
                     "target_blobs_per_block": 3,
                     "max_blobs_per_block": 6,
                     "baseFeeUpdateFraction": 3338477,
                 },
-                "Prague": {
+                "SilaPrague": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
                 },
             },
-            id="Prague",
+            id="SilaPrague",
         ),
         pytest.param(
-            Osaka,
+            SilaOsaka,
             {
-                "Cancun": {
+                "SilaCancun": {
                     "target_blobs_per_block": 3,
                     "max_blobs_per_block": 6,
                     "baseFeeUpdateFraction": 3338477,
                 },
-                "Prague": {
+                "SilaPrague": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
                 },
-                "Osaka": {
+                "SilaOsaka": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
                 },
             },
-            id="Osaka",
+            id="SilaOsaka",
         ),
         pytest.param(
-            CancunToPragueAtTime15k,
+            SilaCancunToSilaPragueAtTime15k,
             {
-                "Cancun": {
+                "SilaCancun": {
                     "target_blobs_per_block": 3,
                     "max_blobs_per_block": 6,
                     "baseFeeUpdateFraction": 3338477,
                 },
-                "Prague": {
+                "SilaPrague": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
                 },
             },
-            id="CancunToPragueAtTime15k",
+            id="SilaCancunToSilaPragueAtTime15k",
         ),
         pytest.param(
-            PragueToOsakaAtTime15k,
+            SilaPragueToSilaOsakaAtTime15k,
             {
-                "Cancun": {
+                "SilaCancun": {
                     "target_blobs_per_block": 3,
                     "max_blobs_per_block": 6,
                     "baseFeeUpdateFraction": 3338477,
                 },
-                "Prague": {
+                "SilaPrague": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
                 },
-                "Osaka": {
+                "SilaOsaka": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
                 },
             },
-            id="PragueToOsakaAtTime15k",
+            id="SilaPragueToSilaOsakaAtTime15k",
         ),
         pytest.param(
             FutureFork,
             {
-                "Cancun": {
+                "SilaCancun": {
                     "target_blobs_per_block": 3,
                     "max_blobs_per_block": 6,
                     "baseFeeUpdateFraction": 3338477,
                 },
-                "Prague": {
+                "SilaPrague": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
                 },
-                "Osaka": {
+                "SilaOsaka": {
                     "target_blobs_per_block": 6,
                     "max_blobs_per_block": 9,
                     "baseFeeUpdateFraction": 5007716,
@@ -578,26 +578,26 @@ def test_blob_schedules(fork: Fork, expected_schedule: Dict | None) -> None:
 
 
 def test_bpo_fork() -> None:  # noqa: D103
-    assert Osaka.bpo_fork() is False
+    assert SilaOsaka.bpo_fork() is False
     assert BPO1.bpo_fork() is True
     assert BPO2.bpo_fork() is True
     assert BPO3.bpo_fork() is True
     assert BPO4.bpo_fork() is True
-    assert OsakaToBPO1AtTime15k.bpo_fork() is True
+    assert SilaOsakaToBPO1AtTime15k.bpo_fork() is True
     assert BPO1ToBPO2AtTime15k.bpo_fork() is True
     assert BPO2ToBPO3AtTime15k.bpo_fork() is True
     assert BPO3ToBPO4AtTime15k.bpo_fork() is True
 
 
 def test_fork_adapters() -> None:  # noqa: D103
-    assert Osaka == ForkAdapter.validate_python("Osaka")
-    assert Osaka == ForkOrNoneAdapter.validate_python("Osaka")
+    assert SilaOsaka == ForkAdapter.validate_python("SilaOsaka")
+    assert SilaOsaka == ForkOrNoneAdapter.validate_python("SilaOsaka")
     assert ForkOrNoneAdapter.validate_python(None) is None
-    assert {Osaka, Prague} == ForkSetAdapter.validate_python("Osaka, Prague")
-    assert {Osaka, Prague} == ForkSetAdapter.validate_python("osaka, Prague")
-    assert {Osaka, Prague} == ForkSetAdapter.validate_python(
-        {"osaka", "Prague"}
+    assert {SilaOsaka, SilaPrague} == ForkSetAdapter.validate_python("SilaOsaka, SilaPrague")
+    assert {SilaOsaka, SilaPrague} == ForkSetAdapter.validate_python("osaka, SilaPrague")
+    assert {SilaOsaka, SilaPrague} == ForkSetAdapter.validate_python(
+        {"osaka", "SilaPrague"}
     )
-    assert {Osaka} == ForkSetAdapter.validate_python("Osaka")
-    assert {Osaka} == ForkSetAdapter.validate_python({Osaka})
+    assert {SilaOsaka} == ForkSetAdapter.validate_python("SilaOsaka")
+    assert {SilaOsaka} == ForkSetAdapter.validate_python({SilaOsaka})
     assert set() == ForkSetAdapter.validate_python("")

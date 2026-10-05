@@ -25,7 +25,7 @@ class TestHardfork(Hardfork):
             return "EIP150"
         elif self.title_case_name == "Spurious Dragon":
             return "EIP158"
-        elif self.title_case_name == "Constantinople":
-            return "ConstantinopleFix"
+        elif self.title_case_name == "SilaConstantinople":
+            return "SilaConstantinopleFix"
         else:
             return self.title_case_name

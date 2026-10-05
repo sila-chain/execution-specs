@@ -12,7 +12,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Frontier, TangerineWhistle
+from execution_testing.forks import Frontier, SIP150
 
 SLOT_CREATE_RESULT = 1
 SLOT_CREATE_RESULT_PRE = 0xDEADBEEF
@@ -63,7 +63,7 @@ def test_create_deposit_oog(
     create_gas = return_code.gas_cost(fork) + expand_memory_code.gas_cost(fork)
     if not enough_gas:
         create_gas -= 1
-    if fork >= TangerineWhistle:
+    if fork >= SIP150:
         # Increment the gas for the 63/64 rule
         create_gas = (create_gas * 64) // 63
     call_gas = create_gas + factory_code.gas_cost(fork)

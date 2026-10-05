@@ -19,10 +19,10 @@ from execution_testing.cli.pytest_commands.plugins.solc.solc import (
 from execution_testing.client_clis import TransitionTool
 from execution_testing.fixtures import BlockchainFixture
 from execution_testing.forks import (
-    Cancun,
+    SilaCancun,
     Fork,
-    Homestead,
-    Shanghai,
+    SilaHomestead,
+    SilaShanghai,
     get_deployed_forks,
 )
 from execution_testing.specs import StateTest
@@ -45,7 +45,7 @@ def expected_bytes(
     """Return the expected bytes for the test."""
     expected_bytes = request.param
     if isinstance(expected_bytes, Template):
-        if solc_version < SOLC_EXPECTED_MIN_VERSION or fork <= Homestead:
+        if solc_version < SOLC_EXPECTED_MIN_VERSION or fork <= SilaHomestead:
             solc_padding = ""
         else:
             solc_padding = "00"
@@ -53,9 +53,9 @@ def expected_bytes(
             expected_bytes.substitute(solc_padding=solc_padding)
         )
     if isinstance(expected_bytes, bytes):
-        if fork >= Shanghai:
+        if fork >= SilaShanghai:
             expected_bytes = b"\x5f" + expected_bytes[2:]
-        if solc_version < SOLC_EXPECTED_MIN_VERSION or fork <= Homestead:
+        if solc_version < SOLC_EXPECTED_MIN_VERSION or fork <= SilaHomestead:
             return expected_bytes
         else:
             return expected_bytes + b"\x00"
@@ -691,7 +691,7 @@ def test_switch(
     }
     state_test = StateTest(
         env=Environment(),
-        fork=Cancun,
+        fork=SilaCancun,
         pre=pre,
         tx=tx,
         post=post,

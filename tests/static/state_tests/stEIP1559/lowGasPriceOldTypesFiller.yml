@@ -53,7 +53,7 @@ lowGasPriceOldTypes:
         value: !!int -1
 
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       expectException:
-        '>=Cancun': TransactionException.INSUFFICIENT_MAX_FEE_PER_GAS
+        '>=SilaCancun': TransactionException.INSUFFICIENT_MAX_FEE_PER_GAS
       result: {}

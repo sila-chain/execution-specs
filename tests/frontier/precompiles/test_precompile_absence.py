@@ -25,7 +25,7 @@ RETURNDATASIZE_OFFSET = 0x10000000000000000  # Must be greater than UPPER_BOUND
         pytest.param(32, id="32_bytes"),
     ],
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_precompile_absence(
     state_test: StateTestFiller,
     pre: Alloc,

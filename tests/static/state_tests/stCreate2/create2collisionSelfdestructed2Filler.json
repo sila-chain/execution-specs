@@ -15,7 +15,7 @@
                 "indexes" : {
                     "data" : 0
                 },
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
                     "fce41d047b4a1d4450382dcc29ec7e5fedc5f9a3" : {
                         "balance" : "0",
@@ -35,7 +35,7 @@
                 "indexes" : {
                     "data" : 1
                 },
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
                     "cff64f4c5df8f436c4f2c1af4b2e3f9e3004c779" : {
                         "balance" : "0",

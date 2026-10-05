@@ -17,7 +17,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import London
+from execution_testing.forks import SilaLondon
 
 
 @pytest.mark.ported_from(
@@ -82,7 +82,7 @@ def test_create_one_byte(
 
     created_accounts: dict[int, Address] = {}
     for opcode, opcode_init in initcode.items():
-        ef_exception = opcode == 239 and fork >= London
+        ef_exception = opcode == 239 and fork >= SilaLondon
         created_accounts[opcode] = compute_create_address(
             address=create_contract,
             salt=0,
@@ -107,7 +107,7 @@ def test_create_one_byte(
         code: Account(storage=expect_post),
     }
     for opcode, _ in initcode.items():
-        ef_exception = opcode == 239 and fork >= London
+        ef_exception = opcode == 239 and fork >= SilaLondon
         if not ef_exception:
             post[created_accounts[opcode]] = Account(
                 code=bytes.fromhex(f"{opcode:02x}")

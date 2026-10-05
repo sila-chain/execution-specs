@@ -29,7 +29,7 @@ from .spec import ref_spec_7002
 REFERENCE_SPEC_GIT_PATH: str = ref_spec_7002.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_7002.version
 
-pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("Prague")
+pytestmark: pytest.MarkDecorator = pytest.mark.valid_from("SilaPrague")
 
 
 def withdrawal_list_with_custom_fee(n: int) -> List[WithdrawalRequest]:  # noqa: D103

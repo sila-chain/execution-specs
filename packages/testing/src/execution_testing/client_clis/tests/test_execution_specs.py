@@ -16,7 +16,7 @@ from execution_testing.client_clis import (
     ExecutionSpecsTransitionTool,
     TransitionTool,
 )
-from execution_testing.forks import Berlin
+from execution_testing.forks import SilaBerlin
 from execution_testing.test_types import Alloc, Environment, Transaction
 
 CURRENT_FOLDER = Path(realpath(__file__)).parent
@@ -177,10 +177,10 @@ def test_evm_t8n(
                 alloc=alloc,
                 txs=txs,
                 env=env,
-                fork=Berlin,
+                fork=SilaBerlin,
                 chain_id=1,
                 reward=0,
-                blob_schedule=Berlin.blob_schedule(),
+                blob_schedule=SilaBerlin.blob_schedule(),
             ),
         )
         assert to_json(t8n_output.alloc.get()) == expected.get("alloc")

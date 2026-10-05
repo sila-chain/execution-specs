@@ -2,7 +2,7 @@
 
 import pytest
 
-from ..forks.forks import Osaka, Prague
+from ..forks.forks import SilaOsaka, SilaPrague
 from ..helpers import ForkRangeDescriptor
 
 
@@ -10,17 +10,17 @@ from ..helpers import ForkRangeDescriptor
     "fork_range_descriptor_string,expected_fork_range_descriptor",
     [
         (
-            ">=Osaka",
+            ">=SilaOsaka",
             ForkRangeDescriptor(
-                greater_equal=Osaka,
+                greater_equal=SilaOsaka,
                 less_than=None,
             ),
         ),
         (
-            ">= Prague < Osaka",
+            ">= SilaPrague < SilaOsaka",
             ForkRangeDescriptor(
-                greater_equal=Prague,
-                less_than=Osaka,
+                greater_equal=SilaPrague,
+                less_than=SilaOsaka,
             ),
         ),
     ],

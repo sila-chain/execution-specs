@@ -72,7 +72,7 @@ pytestmark = pytest.mark.pre_alloc_group(
         (Op.STATICCALL, 0, True),
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_beacon_root_contract_calls(
     blockchain_test: BlockchainTestFiller,
     beacon_root: bytes,
@@ -156,7 +156,7 @@ def test_beacon_root_contract_calls(
         ),
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_beacon_root_contract_timestamps(
     blockchain_test: BlockchainTestFiller,
     beacon_root: bytes,
@@ -206,7 +206,7 @@ def test_beacon_root_contract_timestamps(
 )
 @pytest.mark.parametrize("valid_call,valid_input", [(False, False)])
 @pytest.mark.parametrize("timestamp", [12])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_calldata_lengths(
     blockchain_test: BlockchainTestFiller,
     beacon_root: bytes,
@@ -242,7 +242,7 @@ def test_calldata_lengths(
     indirect=["beacon_root"],
 )
 @pytest.mark.parametrize("auto_access_list", [False, True])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_beacon_root_equal_to_timestamp(
     blockchain_test: BlockchainTestFiller,
     beacon_root: bytes,
@@ -274,7 +274,7 @@ def test_beacon_root_equal_to_timestamp(
 @pytest.mark.parametrize("auto_access_list", [False, True])
 @pytest.mark.parametrize("call_beacon_root_contract", [True])
 @pytest.mark.with_all_tx_types
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_tx_to_beacon_root_contract(
     blockchain_test: BlockchainTestFiller,
     beacon_root: bytes,
@@ -310,7 +310,7 @@ def test_tx_to_beacon_root_contract(
 )
 @pytest.mark.parametrize("valid_call,valid_input", [(False, False)])
 @pytest.mark.parametrize("timestamp", [12])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_invalid_beacon_root_calldata_value(
     blockchain_test: BlockchainTestFiller,
     beacon_root: bytes,
@@ -339,7 +339,7 @@ def test_invalid_beacon_root_calldata_value(
 
 
 @pytest.mark.parametrize("timestamp", [12])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_beacon_root_selfdestruct(
     blockchain_test: BlockchainTestFiller,
     beacon_root: bytes,
@@ -425,7 +425,7 @@ def test_beacon_root_selfdestruct(
     ],
 )
 @pytest.mark.parametrize("block_count", [10])  # All tests use 10 blocks
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_multi_block_beacon_root_timestamp_calls(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -564,7 +564,7 @@ def test_multi_block_beacon_root_timestamp_calls(
     [pytest.param(count_factory(start=1000, step=1000), id="fork_transition")],
 )
 @pytest.mark.parametrize("block_count", [20])
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_beacon_root_transition(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -696,7 +696,7 @@ def test_beacon_root_transition(
 
 
 @pytest.mark.parametrize("timestamp", [15_000])
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 @pytest.mark.pre_alloc_group(
     "beacon_root_no_contract",
     reason="This test removes the beacon root system contract",
@@ -741,7 +741,7 @@ def test_no_beacon_root_contract_at_transition(
         )
     ]
     pre[Spec.BEACON_ROOTS_ADDRESS] = Account(
-        code=b"",  # Remove the code that is automatically allocated on Cancun
+        code=b"",  # Remove the code that is automatically allocated on SilaCancun
         # fork
         nonce=0,
         balance=0,
@@ -778,7 +778,7 @@ def test_no_beacon_root_contract_at_transition(
         pytest.param(30_000, id="deploy_on_cancun"),
     ],
 )
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 @pytest.mark.pre_alloc_group(
     "beacon_root_deploy_contract",
     reason=(
@@ -797,8 +797,8 @@ def test_beacon_root_contract_deploy(
     fork: Fork,
 ) -> None:
     """
-    Tests the fork transition to cancun deploying the contract during Shanghai
-    and verifying the code deployed and its functionality after Cancun.
+    Tests the fork transition to cancun deploying the contract during SilaShanghai
+    and verifying the code deployed and its functionality after SilaCancun.
     """
     assert fork.header_beacon_root_required(
         block_number=1, timestamp=timestamp
@@ -907,7 +907,7 @@ def test_beacon_root_contract_deploy(
         Spec.BEACON_ROOTS_ADDRESS
     ]["code"]
     pre[Spec.BEACON_ROOTS_ADDRESS] = Account(
-        code=b"",  # Remove the code that is automatically allocated on Cancun
+        code=b"",  # Remove the code that is automatically allocated on SilaCancun
         # fork
         nonce=0,
         balance=0,

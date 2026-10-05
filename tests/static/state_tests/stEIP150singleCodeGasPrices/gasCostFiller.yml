@@ -1,8 +1,8 @@
 gasCost:
 
-# This test only applies to Istanbul,
+# This test only applies to SilaIstanbul,
 # But there is a similar test, gasCostBerlin, which applies
-# to all subsequent forks (so far, I'm writing this between Paris and Shanghai)
+# to all subsequent forks (so far, I'm writing this between SilaParis and SilaShanghai)
 
   env:
     currentCoinbase: 2adc25665018aa1fe0e6bc666dac8fc2697ff9ba
@@ -346,7 +346,7 @@ gasCost:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>:
           storage:
@@ -359,7 +359,7 @@ gasCost:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>:
           storage:
@@ -372,7 +372,7 @@ gasCost:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>:
           storage:
@@ -385,7 +385,7 @@ gasCost:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>:
           storage:
@@ -399,7 +399,7 @@ gasCost:
         gas:  !!int -1
         value: !!int -1
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
         <contract:0x095e7baea6a6c7c4c2dfeb977efac326af552d87>:
           storage:

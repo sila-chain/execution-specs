@@ -9,13 +9,13 @@
         },
         "expect" : [
             {
-                "network" : [">=Cancun"],
+                "network" : [">=SilaCancun"],
                 "result" : {
 		            "b94f5374fce5edbc8e2a8697c15331677e6ebf0b" : {
 		                "storage" : {
 		                    "0x00" : "0x08d5b6",
 		                    "0x01" : "0xf1ecf98489fa9ed60a664fc4998db699cfa39d40",
-                            "//comment" : "CREATE price changed in Shanghai",
+                            "//comment" : "CREATE price changed in SilaShanghai",
 		                    "0x02" : "0x07abf8",
 		                    "0x03" : "0x01",
 		                    "0x64" : "0x06f50b"

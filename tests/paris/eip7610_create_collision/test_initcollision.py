@@ -22,7 +22,7 @@ REFERENCE_SPEC_GIT_PATH = "EIPS/eip-7610.md"
 REFERENCE_SPEC_VERSION = "80ef48d0bbb5a4939ade51caaaac57b5df6acd4e"
 
 pytestmark = [
-    pytest.mark.valid_from("Paris"),
+    pytest.mark.valid_from("SilaParis"),
     pytest.mark.ported_from(
         [
             "https://github.com/ethereum/tests/blob/v13.3/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionFiller.json",

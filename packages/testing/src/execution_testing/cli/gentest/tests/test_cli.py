@@ -157,7 +157,7 @@ def test_tx_type(
         "-m",
         "state_test",
         "--fork",
-        "Cancun",
+        "SilaCancun",
     ]
     result = pytester.runpytest("-v", *args)
     assert result.ret == pytest.ExitCode.OK, f"Fill command failed:\n{result}"

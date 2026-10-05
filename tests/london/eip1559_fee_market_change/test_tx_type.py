@@ -36,7 +36,7 @@ def tx_validity(fork: Fork) -> Generator[ParameterSet, None, None]:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/ethereum/legacytests/blob/master/Cancun/GeneralStateTests/stEIP1559/typeTwoBerlin.json"
+        "https://github.com/ethereum/legacytests/blob/master/SilaCancun/GeneralStateTests/stEIP1559/typeTwoBerlin.json"
     ],
     pr=["https://github.com/ethereum/execution-specs/pull/1754"],
 )
@@ -48,7 +48,7 @@ def test_eip1559_tx_validity(
     valid: bool,
 ) -> None:
     """
-    Tests that an EIP-1559 tx has no effect before London.
+    Tests that an EIP-1559 tx has no effect before SilaLondon.
     """
     account = pre.deploy_contract(
         code=Op.SSTORE(0, 1),

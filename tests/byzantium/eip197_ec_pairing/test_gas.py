@@ -17,7 +17,7 @@ REFERENCE_SPEC_VERSION = "9f9b3d33440e7c122b6c9192facfc380bc009422"
 EC_PAIRING_ADDRESS = Address(0x08)
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize(
     "address",
     [

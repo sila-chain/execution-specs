@@ -1,5 +1,5 @@
 """
-Test cases for EVM functionality introduced in Prague, [EIP-7600: Hardfork Meta
+Test cases for EVM functionality introduced in SilaPrague, [EIP-7600: Hardfork Meta
 - Pectra](https://eip.directory/eips/eip-7600).
 
 Devnet Specifications:

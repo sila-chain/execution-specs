@@ -205,7 +205,7 @@
     "currentNumber": "0x1",
     "currentTimestamp": "0x3e8"
   },
-  "fork": "Osaka",
+  "fork": "SilaOsaka",
   "parentBeaconBlockRoot": "0x6c31fc15422ebad28aaf9089c306702f67540b53c7eea8b7d2941044b027100f",
   "transactions": [
     {

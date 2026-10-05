@@ -62,7 +62,7 @@ create2InitCodeSizeLimit:
     - indexes:
        data: ':label valid'
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
        a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
           nonce: 1
@@ -73,7 +73,7 @@ create2InitCodeSizeLimit:
        c94f5374fce5edbc8e2a8697c15331677e6ebf0b:
           storage:
               '0': '9e7a3337d18c31fe4c1fe51ab2da6cfd3629923d' # created account
-               # Difference with Paris is the charge for initcode 49152 // 32 * 2 = 3072 gas
+               # Difference with SilaParis is the charge for initcode 49152 // 32 * 2 = 3072 gas
               '10': 55539                                     # gas used by CREATE
        9e7a3337d18c31fe4c1fe51ab2da6cfd3629923d:
           balance: 0
@@ -84,7 +84,7 @@ create2InitCodeSizeLimit:
     - indexes:
        data: ':label invalid'
       network:
-        - '>=Cancun'
+        - '>=SilaCancun'
       result:
        a94f5374fce5edbc8e2a8697c15331677e6ebf0b:
           nonce: 1

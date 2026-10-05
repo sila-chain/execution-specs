@@ -26,7 +26,7 @@ REFERENCE_SPEC_GIT_PATH = "EIPS/eip-198.md"
 REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize(
     ["mod_exp_input", "output"],
     [
@@ -294,7 +294,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             marks=pytest.mark.skip(
                 reason=(
                     "EELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before Osaka - see "
+                    "before SilaOsaka - see "
                     "github.com/ethereum/execution-specs/issues/1465"
                 )
             ),
@@ -312,7 +312,7 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             marks=pytest.mark.skip(
                 reason=(
                     "EELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before Osaka - see "
+                    "before SilaOsaka - see "
                     "github.com/ethereum/execution-specs/issues/1465"
                 )
             ),

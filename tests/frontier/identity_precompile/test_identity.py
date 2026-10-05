@@ -38,7 +38,7 @@ from .common import CallArgs, generate_identity_call_bytecode
     pr=["https://github.com/ethereum/execution-spec-tests/pull/1344"],
     coverage_missed_reason="MPT related coverage lost, not relevant to test",
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize("call_type", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     [
@@ -163,7 +163,7 @@ def test_call_identity_precompile(
     pr=["https://github.com/ethereum/execution-spec-tests/pull/1344"],
     coverage_missed_reason="MPT related coverage lost, not relevant to test",
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize("call_type", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     [

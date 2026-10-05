@@ -1166,7 +1166,7 @@ class Frontier(BaseFork, solc_name="homestead"):
         """
         At genesis, there is no upper bound for initcode size.
 
-        However, the default is set to the limit of EIP-3860 (Shanghai).
+        However, the default is set to the limit of EIP-3860 (SilaShanghai).
         """
         del block_number, timestamp
         return 0xC000
@@ -1416,15 +1416,15 @@ class Frontier(BaseFork, solc_name="homestead"):
         return FixtureHeader(**defaults)
 
 
-class Homestead(Frontier):
-    """Homestead fork."""
+class SilaHomestead(Frontier):
+    """SilaHomestead fork."""
 
     @classmethod
     def precompiles(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
         """
-        At Homestead, EC-recover, SHA256, RIPEMD160, and Identity precompiles
+        At SilaHomestead, EC-recover, SHA256, RIPEMD160, and Identity precompiles
         are introduced.
         """
         return [
@@ -1432,7 +1432,7 @@ class Homestead(Frontier):
             Address(2, label="SHA256"),
             Address(3, label="RIPEMD160"),
             Address(4, label="ID"),
-        ] + super(Homestead, cls).precompiles(
+        ] + super(SilaHomestead, cls).precompiles(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1440,8 +1440,8 @@ class Homestead(Frontier):
     def call_opcodes(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Opcodes]:
-        """At Homestead, DELEGATECALL opcode was introduced."""
-        return [Opcodes.DELEGATECALL] + super(Homestead, cls).call_opcodes(
+        """At SilaHomestead, DELEGATECALL opcode was introduced."""
+        return [Opcodes.DELEGATECALL] + super(SilaHomestead, cls).call_opcodes(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1449,14 +1449,14 @@ class Homestead(Frontier):
     def opcode_gas_map(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
-        """Add DELEGATECALL opcode gas cost for Homestead."""
+        """Add DELEGATECALL opcode gas cost for SilaHomestead."""
         gas_costs = cls.gas_costs(
             block_number=block_number, timestamp=timestamp
         )
         memory_expansion_calculator = cls.memory_expansion_gas_calculator(
             block_number=block_number, timestamp=timestamp
         )
-        base_map = super(Homestead, cls).opcode_gas_map(
+        base_map = super(SilaHomestead, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
         return {
@@ -1473,17 +1473,17 @@ class Homestead(Frontier):
     ) -> List[Opcodes]:
         """Return the list of Opcodes that are valid to work on this fork."""
         del block_number, timestamp
-        return [Opcodes.DELEGATECALL] + super(Homestead, cls).valid_opcodes()
+        return [Opcodes.DELEGATECALL] + super(SilaHomestead, cls).valid_opcodes()
 
     @classmethod
     def transaction_intrinsic_cost_calculator(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> TransactionIntrinsicCostCalculator:
         """
-        At Homestead, the transaction intrinsic cost needs to take contract
+        At SilaHomestead, the transaction intrinsic cost needs to take contract
         creation into account.
         """
-        super_fn = super(Homestead, cls).transaction_intrinsic_cost_calculator(
+        super_fn = super(SilaHomestead, cls).transaction_intrinsic_cost_calculator(
             block_number=block_number, timestamp=timestamp
         )
         gas_costs = cls.gas_costs(
@@ -1513,20 +1513,20 @@ class Homestead(Frontier):
         return fn
 
 
-class DAOFork(Homestead, ignore=True):
+class DAOFork(SilaHomestead, ignore=True):
     """DAO fork."""
 
     pass
 
 
-class TangerineWhistle(DAOFork, ignore=True):
-    """TangerineWhistle fork (EIP-150)."""
+class SIP150(DAOFork, ignore=True):
+    """SIP150 fork (EIP-150)."""
 
     pass
 
 
-class SpuriousDragon(TangerineWhistle, ignore=True):
-    """SpuriousDragon fork."""
+class SIP158(SIP150, ignore=True):
+    """SIP158 fork."""
 
     @classmethod
     def _calculate_call_gas(
@@ -1536,7 +1536,7 @@ class SpuriousDragon(TangerineWhistle, ignore=True):
         At Spurious Dragon, the call gas cost needs to take the value transfer
         and account new into account.
         """
-        base_cost = super(SpuriousDragon, cls)._calculate_call_gas(
+        base_cost = super(SIP158, cls)._calculate_call_gas(
             opcode, gas_costs
         )
 
@@ -1560,13 +1560,13 @@ class SpuriousDragon(TangerineWhistle, ignore=True):
         return True
 
 
-class Byzantium(SpuriousDragon):
-    """Byzantium fork."""
+class SilaByzantium(SIP158):
+    """SilaByzantium fork."""
 
     @classmethod
     def get_reward(cls, *, block_number: int = 0, timestamp: int = 0) -> int:
         """
-        At Byzantium, the block reward is reduced to 3_000_000_000_000_000_000
+        At SilaByzantium, the block reward is reduced to 3_000_000_000_000_000_000
         wei.
         """
         del block_number, timestamp
@@ -1577,7 +1577,7 @@ class Byzantium(SpuriousDragon):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
         """
-        At Byzantium, precompiles for bigint modular exponentiation, addition
+        At SilaByzantium, precompiles for bigint modular exponentiation, addition
         and scalar multiplication on elliptic curve alt_bn128, and optimal ate
         pairing check on elliptic curve alt_bn128 are introduced.
         """
@@ -1586,7 +1586,7 @@ class Byzantium(SpuriousDragon):
             Address(6, label="BN254_ADD"),
             Address(7, label="BN254_MUL"),
             Address(8, label="BN254_PAIRING"),
-        ] + super(Byzantium, cls).precompiles(
+        ] + super(SilaByzantium, cls).precompiles(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1607,8 +1607,8 @@ class Byzantium(SpuriousDragon):
     def call_opcodes(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Opcodes]:
-        """At Byzantium, STATICCALL opcode was introduced."""
-        return [Opcodes.STATICCALL] + super(Byzantium, cls).call_opcodes(
+        """At SilaByzantium, STATICCALL opcode was introduced."""
+        return [Opcodes.STATICCALL] + super(SilaByzantium, cls).call_opcodes(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1616,14 +1616,14 @@ class Byzantium(SpuriousDragon):
     def opcode_gas_map(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
-        """Add Byzantium opcodes gas costs."""
+        """Add SilaByzantium opcodes gas costs."""
         gas_costs = cls.gas_costs(
             block_number=block_number, timestamp=timestamp
         )
         memory_expansion_calculator = cls.memory_expansion_gas_calculator(
             block_number=block_number, timestamp=timestamp
         )
-        base_map = super(Byzantium, cls).opcode_gas_map(
+        base_map = super(SilaByzantium, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
         return {
@@ -1653,17 +1653,17 @@ class Byzantium(SpuriousDragon):
             Opcodes.RETURNDATASIZE,
             Opcodes.RETURNDATACOPY,
             Opcodes.STATICCALL,
-        ] + super(Byzantium, cls).valid_opcodes()
+        ] + super(SilaByzantium, cls).valid_opcodes()
 
     @classmethod
     def gas_costs(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> GasCosts:
         """
-        On Byzantium, precompiled contract gas costs are introduced.
+        On SilaByzantium, precompiled contract gas costs are introduced.
         """
         return replace(
-            super(Byzantium, cls).gas_costs(
+            super(SilaByzantium, cls).gas_costs(
                 block_number=block_number, timestamp=timestamp
             ),
             G_PRECOMPILE_ECADD=500,
@@ -1673,13 +1673,13 @@ class Byzantium(SpuriousDragon):
         )
 
 
-class Constantinople(Byzantium):
-    """Constantinople fork."""
+class SilaConstantinople(SilaByzantium):
+    """SilaConstantinople fork."""
 
     @classmethod
     def get_reward(cls, *, block_number: int = 0, timestamp: int = 0) -> int:
         """
-        At Constantinople, the block reward is reduced to
+        At SilaConstantinople, the block reward is reduced to
         2_000_000_000_000_000_000 wei.
         """
         del block_number, timestamp
@@ -1703,8 +1703,8 @@ class Constantinople(Byzantium):
     def create_opcodes(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Opcodes]:
-        """At Constantinople, `CREATE2` opcode is added."""
-        return [Opcodes.CREATE2] + super(Constantinople, cls).create_opcodes(
+        """At SilaConstantinople, `CREATE2` opcode is added."""
+        return [Opcodes.CREATE2] + super(SilaConstantinople, cls).create_opcodes(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1712,14 +1712,14 @@ class Constantinople(Byzantium):
     def opcode_gas_map(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
-        """Add Constantinople opcodes gas costs."""
+        """Add SilaConstantinople opcodes gas costs."""
         gas_costs = cls.gas_costs(
             block_number=block_number, timestamp=timestamp
         )
         memory_expansion_calculator = cls.memory_expansion_gas_calculator(
             block_number=block_number, timestamp=timestamp
         )
-        base_map = super(Constantinople, cls).opcode_gas_map(
+        base_map = super(SilaConstantinople, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
         return {
@@ -1746,26 +1746,26 @@ class Constantinople(Byzantium):
             Opcodes.SAR,
             Opcodes.EXTCODEHASH,
             Opcodes.CREATE2,
-        ] + super(Constantinople, cls).valid_opcodes()
+        ] + super(SilaConstantinople, cls).valid_opcodes()
 
 
-class ConstantinopleFix(Constantinople, solc_name="constantinople"):
-    """Constantinople Fix fork."""
+class SilaConstantinopleFix(SilaConstantinople, solc_name="constantinople"):
+    """SilaConstantinople Fix fork."""
 
     pass
 
 
-class Istanbul(ConstantinopleFix):
-    """Istanbul fork."""
+class SilaIstanbul(SilaConstantinopleFix):
+    """SilaIstanbul fork."""
 
     @classmethod
     def precompiles(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
-        """At Istanbul, a precompile for blake2 compression is introduced."""
+        """At SilaIstanbul, a precompile for blake2 compression is introduced."""
         return [
             Address(9, label="BLAKE2F"),
-        ] + super(Istanbul, cls).precompiles(
+        ] + super(SilaIstanbul, cls).precompiles(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1773,11 +1773,11 @@ class Istanbul(ConstantinopleFix):
     def opcode_gas_map(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
-        """Add Istanbul opcodes gas costs."""
+        """Add SilaIstanbul opcodes gas costs."""
         gas_costs = cls.gas_costs(
             block_number=block_number, timestamp=timestamp
         )
-        base_map = super(Istanbul, cls).opcode_gas_map(
+        base_map = super(SilaIstanbul, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
         return {
@@ -1793,7 +1793,7 @@ class Istanbul(ConstantinopleFix):
         """Return list of Opcodes that are valid to work on this fork."""
         del block_number, timestamp
         return [Opcodes.CHAINID, Opcodes.SELFBALANCE] + super(
-            Istanbul, cls
+            SilaIstanbul, cls
         ).valid_opcodes()
 
     @classmethod
@@ -1801,11 +1801,11 @@ class Istanbul(ConstantinopleFix):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> GasCosts:
         """
-        On Istanbul, the non-zero transaction data byte cost is reduced to 16
+        On SilaIstanbul, the non-zero transaction data byte cost is reduced to 16
         due to EIP-2028.
         """
         return replace(
-            super(Istanbul, cls).gas_costs(
+            super(SilaIstanbul, cls).gas_costs(
                 block_number=block_number, timestamp=timestamp
             ),
             G_TX_DATA_NON_ZERO=16,  # https://eips.ethereum.org/EIPS/eip-2028
@@ -1818,21 +1818,21 @@ class Istanbul(ConstantinopleFix):
 
 
 # Glacier forks skipped, unless explicitly specified
-class MuirGlacier(Istanbul, solc_name="istanbul", ignore=True):
+class MuirGlacier(SilaIstanbul, solc_name="istanbul", ignore=True):
     """Muir Glacier fork."""
 
     pass
 
 
-class Berlin(Istanbul):
-    """Berlin fork."""
+class SilaBerlin(SilaIstanbul):
+    """SilaBerlin fork."""
 
     @classmethod
     def tx_types(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[int]:
-        """At Berlin, access list transactions are introduced."""
-        return [1] + super(Berlin, cls).tx_types(
+        """At SilaBerlin, access list transactions are introduced."""
+        return [1] + super(SilaBerlin, cls).tx_types(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1840,8 +1840,8 @@ class Berlin(Istanbul):
     def contract_creating_tx_types(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[int]:
-        """At Berlin, access list transactions are introduced."""
-        return [1] + super(Berlin, cls).contract_creating_tx_types(
+        """At SilaBerlin, access list transactions are introduced."""
+        return [1] + super(SilaBerlin, cls).contract_creating_tx_types(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1850,10 +1850,10 @@ class Berlin(Istanbul):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> TransactionIntrinsicCostCalculator:
         """
-        At Berlin, the transaction intrinsic cost needs to take the access list
+        At SilaBerlin, the transaction intrinsic cost needs to take the access list
         into account.
         """
-        super_fn = super(Berlin, cls).transaction_intrinsic_cost_calculator(
+        super_fn = super(SilaBerlin, cls).transaction_intrinsic_cost_calculator(
             block_number=block_number, timestamp=timestamp
         )
         gas_costs = cls.gas_costs(
@@ -1885,14 +1885,14 @@ class Berlin(Istanbul):
         return fn
 
 
-class London(Berlin):
-    """London fork."""
+class SilaLondon(SilaBerlin):
+    """SilaLondon fork."""
 
     @classmethod
     def header_base_fee_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Header must contain the Base Fee starting from London."""
+        """Header must contain the Base Fee starting from SilaLondon."""
         del block_number, timestamp
         return True
 
@@ -1900,8 +1900,8 @@ class London(Berlin):
     def tx_types(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[int]:
-        """At London, dynamic fee transactions are introduced."""
-        return [2] + super(London, cls).tx_types(
+        """At SilaLondon, dynamic fee transactions are introduced."""
+        return [2] + super(SilaLondon, cls).tx_types(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1909,8 +1909,8 @@ class London(Berlin):
     def contract_creating_tx_types(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[int]:
-        """At London, dynamic fee transactions are introduced."""
-        return [2] + super(London, cls).contract_creating_tx_types(
+        """At SilaLondon, dynamic fee transactions are introduced."""
+        return [2] + super(SilaLondon, cls).contract_creating_tx_types(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -1918,11 +1918,11 @@ class London(Berlin):
     def opcode_gas_map(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
-        """Add London opcodes gas costs."""
+        """Add SilaLondon opcodes gas costs."""
         gas_costs = cls.gas_costs(
             block_number=block_number, timestamp=timestamp
         )
-        base_map = super(London, cls).opcode_gas_map(
+        base_map = super(SilaLondon, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
         return {
@@ -1936,13 +1936,13 @@ class London(Berlin):
     ) -> List[Opcodes]:
         """Return list of Opcodes that are valid to work on this fork."""
         del block_number, timestamp
-        return [Opcodes.BASEFEE] + super(London, cls).valid_opcodes()
+        return [Opcodes.BASEFEE] + super(SilaLondon, cls).valid_opcodes()
 
     @classmethod
     def max_refund_quotient(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Return the max refund quotient at London."""
+        """Return the max refund quotient at SilaLondon."""
         del block_number, timestamp
         return 5
 
@@ -1950,7 +1950,7 @@ class London(Berlin):
     def base_fee_max_change_denominator(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Return the base fee max change denominator at London."""
+        """Return the base fee max change denominator at SilaLondon."""
         del block_number, timestamp
         return 8
 
@@ -1958,7 +1958,7 @@ class London(Berlin):
     def base_fee_elasticity_multiplier(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Return the base fee elasticity multiplier at London."""
+        """Return the base fee elasticity multiplier at SilaLondon."""
         del block_number, timestamp
         return 2
 
@@ -1967,7 +1967,7 @@ class London(Berlin):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> BaseFeePerGasCalculator:
         """
-        Return a callable that calculates the base fee per gas at London.
+        Return a callable that calculates the base fee per gas at SilaLondon.
 
         EIP-1559 block validation pseudo code:
 
@@ -2105,7 +2105,7 @@ class London(Berlin):
 
 
 # Glacier forks skipped, unless explicitly specified
-class ArrowGlacier(London, solc_name="london", ignore=True):
+class ArrowGlacier(SilaLondon, solc_name="london", ignore=True):
     """Arrow Glacier fork."""
 
     pass
@@ -2117,17 +2117,17 @@ class GrayGlacier(ArrowGlacier, solc_name="london", ignore=True):
     pass
 
 
-class Paris(
-    London,
+class SilaParis(
+    SilaLondon,
     transition_tool_name="Merge",
 ):
-    """Paris (Merge) fork."""
+    """SilaParis (Merge) fork."""
 
     @classmethod
     def header_prev_randao_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Prev Randao is required starting from Paris."""
+        """Prev Randao is required starting from SilaParis."""
         del block_number, timestamp
         return True
 
@@ -2135,13 +2135,13 @@ class Paris(
     def header_zero_difficulty_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Zero difficulty is required starting from Paris."""
+        """Zero difficulty is required starting from SilaParis."""
         del block_number, timestamp
         return True
 
     @classmethod
     def get_reward(cls, *, block_number: int = 0, timestamp: int = 0) -> int:
-        """Paris updates the reward to 0."""
+        """SilaParis updates the reward to 0."""
         del block_number, timestamp
         return 0
 
@@ -2149,19 +2149,19 @@ class Paris(
     def engine_new_payload_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """From Paris, payloads can be sent through the engine API."""
+        """From SilaParis, payloads can be sent through the engine API."""
         del block_number, timestamp
         return 1
 
 
-class Shanghai(Paris):
-    """Shanghai fork."""
+class SilaShanghai(SilaParis):
+    """SilaShanghai fork."""
 
     @classmethod
     def header_withdrawals_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Withdrawals are required starting from Shanghai."""
+        """Withdrawals are required starting from SilaShanghai."""
         del block_number, timestamp
         return True
 
@@ -2169,7 +2169,7 @@ class Shanghai(Paris):
     def engine_new_payload_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """From Shanghai, new payload calls must use version 2."""
+        """From SilaShanghai, new payload calls must use version 2."""
         del block_number, timestamp
         return 2
 
@@ -2177,7 +2177,7 @@ class Shanghai(Paris):
     def max_initcode_size(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """From Shanghai, the initcode size is now limited. See EIP-3860."""
+        """From SilaShanghai, the initcode size is now limited. See EIP-3860."""
         del block_number, timestamp
         return 0xC000
 
@@ -2186,13 +2186,13 @@ class Shanghai(Paris):
         cls, opcode: OpcodeBase, gas_costs: GasCosts
     ) -> int:
         """
-        Calculate CREATE gas cost based on metadata (from Shanghai, includes
+        Calculate CREATE gas cost based on metadata (from SilaShanghai, includes
         initcode cost).
         """
         metadata = opcode.metadata
 
         # Get base cost from parent fork
-        base_cost = super(Shanghai, cls)._calculate_create_gas(
+        base_cost = super(SilaShanghai, cls)._calculate_create_gas(
             opcode, gas_costs
         )
 
@@ -2208,13 +2208,13 @@ class Shanghai(Paris):
         cls, opcode: OpcodeBase, gas_costs: GasCosts
     ) -> int:
         """
-        Calculate CREATE2 gas cost based on metadata (from Shanghai,
+        Calculate CREATE2 gas cost based on metadata (from SilaShanghai,
         includes initcode cost).
         """
         metadata = opcode.metadata
 
         # Get base cost from parent fork (includes keccak hash cost)
-        base_cost = super(Shanghai, cls)._calculate_create2_gas(
+        base_cost = super(SilaShanghai, cls)._calculate_create2_gas(
             opcode, gas_costs
         )
 
@@ -2229,11 +2229,11 @@ class Shanghai(Paris):
     def opcode_gas_map(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
-        """Add Shanghai opcodes gas costs."""
+        """Add SilaShanghai opcodes gas costs."""
         gas_costs = cls.gas_costs(
             block_number=block_number, timestamp=timestamp
         )
-        base_map = super(Shanghai, cls).opcode_gas_map(
+        base_map = super(SilaShanghai, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
         return {
@@ -2247,11 +2247,11 @@ class Shanghai(Paris):
     ) -> List[Opcodes]:
         """Return list of Opcodes that are valid to work on this fork."""
         del block_number, timestamp
-        return [Opcodes.PUSH0] + super(Shanghai, cls).valid_opcodes()
+        return [Opcodes.PUSH0] + super(SilaShanghai, cls).valid_opcodes()
 
 
-class Cancun(Shanghai):
-    """Cancun fork."""
+class SilaCancun(SilaShanghai):
+    """SilaCancun fork."""
 
     BLOB_CONSTANTS = {  # every value is an int or a Literal
         "FIELD_ELEMENTS_PER_BLOB": 4096,
@@ -2285,7 +2285,7 @@ class Cancun(Shanghai):
     def header_excess_blob_gas_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Excess blob gas is required starting from Cancun."""
+        """Excess blob gas is required starting from SilaCancun."""
         del block_number, timestamp
         return True
 
@@ -2293,7 +2293,7 @@ class Cancun(Shanghai):
     def header_blob_gas_used_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Blob gas used is required starting from Cancun."""
+        """Blob gas used is required starting from SilaCancun."""
         del block_number, timestamp
         return True
 
@@ -2301,7 +2301,7 @@ class Cancun(Shanghai):
     def header_beacon_root_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Parent beacon block root is required starting from Cancun."""
+        """Parent beacon block root is required starting from SilaCancun."""
         del block_number, timestamp
         return True
 
@@ -2309,7 +2309,7 @@ class Cancun(Shanghai):
     def blob_gas_price_calculator(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> BlobGasPriceCalculator:
-        """Return a callable that calculates the blob gas price at Cancun."""
+        """Return a callable that calculates the blob gas price at SilaCancun."""
         min_base_fee_per_blob_gas = cls.min_base_fee_per_blob_gas(
             block_number=block_number, timestamp=timestamp
         )
@@ -2332,7 +2332,7 @@ class Cancun(Shanghai):
     ) -> ExcessBlobGasCalculator:
         """
         Return a callable that calculates the excess blob gas for a block at
-        Cancun.
+        SilaCancun.
         """
         target_blobs_per_block = cls.target_blobs_per_block(
             block_number=block_number, timestamp=timestamp
@@ -2348,7 +2348,7 @@ class Cancun(Shanghai):
             parent_excess_blobs: int | None = None,
             parent_blob_gas_used: int | None = None,
             parent_blob_count: int | None = None,
-            # Required for Osaka as using this as base
+            # Required for SilaOsaka as using this as base
             parent_base_fee_per_gas: int,
         ) -> int:
             del parent_base_fee_per_gas
@@ -2383,7 +2383,7 @@ class Cancun(Shanghai):
     def min_base_fee_per_blob_gas(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Return the minimum base fee per blob gas for Cancun."""
+        """Return the minimum base fee per blob gas for SilaCancun."""
         del block_number, timestamp
         return 1
 
@@ -2391,7 +2391,7 @@ class Cancun(Shanghai):
     def blob_base_fee_update_fraction(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Return the blob base fee update fraction for Cancun."""
+        """Return the blob base fee update fraction for SilaCancun."""
         del block_number, timestamp
         return 3338477
 
@@ -2399,7 +2399,7 @@ class Cancun(Shanghai):
     def blob_gas_per_blob(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Blobs are enabled starting from Cancun."""
+        """Blobs are enabled starting from SilaCancun."""
         del block_number, timestamp
         return 2**17
 
@@ -2407,7 +2407,7 @@ class Cancun(Shanghai):
     def supports_blobs(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """At Cancun, blobs support is enabled."""
+        """At SilaCancun, blobs support is enabled."""
         del block_number, timestamp
         return True
 
@@ -2416,7 +2416,7 @@ class Cancun(Shanghai):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
         """
-        Blobs are enabled starting from Cancun, with a static target of 3 blobs
+        Blobs are enabled starting from SilaCancun, with a static target of 3 blobs
         per block.
         """
         del block_number, timestamp
@@ -2427,7 +2427,7 @@ class Cancun(Shanghai):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
         """
-        Blobs are enabled starting from Cancun, with a static max of 6 blobs
+        Blobs are enabled starting from SilaCancun, with a static max of 6 blobs
         per block.
         """
         del block_number, timestamp
@@ -2437,7 +2437,7 @@ class Cancun(Shanghai):
     def blob_reserve_price_active(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Blob reserve price is not supported in Cancun."""
+        """Blob reserve price is not supported in SilaCancun."""
         del block_number, timestamp
         return False
 
@@ -2446,7 +2446,7 @@ class Cancun(Shanghai):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int | None:
         """
-        Pre-Osaka forks don't use tx wrapper versions for full blob
+        Pre-SilaOsaka forks don't use tx wrapper versions for full blob
         transactions.
         """
         del block_number, timestamp
@@ -2457,7 +2457,7 @@ class Cancun(Shanghai):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
         """
-        Blobs are enabled starting from Cancun, with a static max equal to the
+        Blobs are enabled starting from SilaCancun, with a static max equal to the
         max per block.
         """
         return cls.max_blobs_per_block(
@@ -2469,7 +2469,7 @@ class Cancun(Shanghai):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> BlobSchedule | None:
         """
-        At Cancun, the fork object runs this routine to get the updated blob
+        At SilaCancun, the fork object runs this routine to get the updated blob
         schedule.
         """
         parent_fork = cls.parent()
@@ -2498,8 +2498,8 @@ class Cancun(Shanghai):
     def tx_types(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[int]:
-        """At Cancun, blob type transactions are introduced."""
-        return [3] + super(Cancun, cls).tx_types(
+        """At SilaCancun, blob type transactions are introduced."""
+        return [3] + super(SilaCancun, cls).tx_types(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -2507,10 +2507,10 @@ class Cancun(Shanghai):
     def precompiles(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
-        """At Cancun, a precompile for kzg point evaluation is introduced."""
+        """At SilaCancun, a precompile for kzg point evaluation is introduced."""
         return [
             Address(10, label="KZG_POINT_EVALUATION"),
-        ] + super(Cancun, cls).precompiles(
+        ] + super(SilaCancun, cls).precompiles(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -2518,7 +2518,7 @@ class Cancun(Shanghai):
     def system_contracts(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
-        """Cancun introduces the system contract for EIP-4788."""
+        """SilaCancun introduces the system contract for EIP-4788."""
         del block_number, timestamp
         return [
             Address(
@@ -2532,7 +2532,7 @@ class Cancun(Shanghai):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Mapping:
         """
-        Cancun requires pre-allocation of the beacon root contract for EIP-4788
+        SilaCancun requires pre-allocation of the beacon root contract for EIP-4788
         on blockchain type tests.
         """
         del block_number, timestamp
@@ -2545,13 +2545,13 @@ class Cancun(Shanghai):
                 "5b62001fff42064281555f359062001fff015500",
             }
         }
-        return new_allocation | super(Cancun, cls).pre_allocation_blockchain()  # type: ignore
+        return new_allocation | super(SilaCancun, cls).pre_allocation_blockchain()  # type: ignore
 
     @classmethod
     def engine_new_payload_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """From Cancun, new payload calls must use version 3."""
+        """From SilaCancun, new payload calls must use version 3."""
         del block_number, timestamp
         return 3
 
@@ -2559,7 +2559,7 @@ class Cancun(Shanghai):
     def engine_get_blobs_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """At Cancun, the engine get blobs version is 1."""
+        """At SilaCancun, the engine get blobs version is 1."""
         del block_number, timestamp
         return 1
 
@@ -2567,7 +2567,7 @@ class Cancun(Shanghai):
     def engine_new_payload_blob_hashes(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """From Cancun, payloads must have blob hashes."""
+        """From SilaCancun, payloads must have blob hashes."""
         del block_number, timestamp
         return True
 
@@ -2575,7 +2575,7 @@ class Cancun(Shanghai):
     def engine_new_payload_beacon_root(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """From Cancun, payloads must have a parent beacon block root."""
+        """From SilaCancun, payloads must have a parent beacon block root."""
         del block_number, timestamp
         return True
 
@@ -2584,9 +2584,9 @@ class Cancun(Shanghai):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
         """
-        Return a mapping of opcodes to their gas costs for Cancun.
+        Return a mapping of opcodes to their gas costs for SilaCancun.
 
-        Adds Cancun-specific opcodes: BLOBHASH, BLOBBASEFEE, TLOAD, TSTORE,
+        Adds SilaCancun-specific opcodes: BLOBHASH, BLOBBASEFEE, TLOAD, TSTORE,
         MCOPY.
         """
         gas_costs = cls.gas_costs(
@@ -2597,11 +2597,11 @@ class Cancun(Shanghai):
         )
 
         # Get parent fork's opcode gas map
-        base_map = super(Cancun, cls).opcode_gas_map(
+        base_map = super(SilaCancun, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
 
-        # Add Cancun-specific opcodes
+        # Add SilaCancun-specific opcodes
         return {
             **base_map,
             # EIP-4844: Shard Blob Transactions
@@ -2630,15 +2630,15 @@ class Cancun(Shanghai):
             Opcodes.TLOAD,
             Opcodes.TSTORE,
             Opcodes.MCOPY,
-        ] + super(Cancun, cls).valid_opcodes()
+        ] + super(SilaCancun, cls).valid_opcodes()
 
 
-class Prague(Cancun):
-    """Prague fork."""
+class SilaPrague(SilaCancun):
+    """SilaPrague fork."""
 
     # update some blob constants
     BLOB_CONSTANTS = {
-        **Cancun.BLOB_CONSTANTS,  # same base constants as cancun
+        **SilaCancun.BLOB_CONSTANTS,  # same base constants as cancun
         "MAX_BLOBS_PER_BLOCK": 9,  # but overwrite or add these
         "TARGET_BLOBS_PER_BLOCK": 6,
         "MAX_BLOB_GAS_PER_BLOCK": 1179648,
@@ -2651,7 +2651,7 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
         """
-        At Prague, precompiles for BLS operations are added.
+        At SilaPrague, precompiles for BLS operations are added.
 
         BLS12_G1ADD = 0x0B
         BLS12_G1MSM = 0x0C
@@ -2669,7 +2669,7 @@ class Prague(Cancun):
             Address(15, label="BLS12_PAIRING_CHECK"),
             Address(16, label="BLS12_MAP_FP_TO_G1"),
             Address(17, label="BLS12_MAP_FP2_TO_G2"),
-        ] + super(Prague, cls).precompiles(
+        ] + super(SilaPrague, cls).precompiles(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -2677,8 +2677,8 @@ class Prague(Cancun):
     def tx_types(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[int]:
-        """At Prague, set-code type transactions are introduced."""
-        return [4] + super(Prague, cls).tx_types(
+        """At SilaPrague, set-code type transactions are introduced."""
+        return [4] + super(SilaPrague, cls).tx_types(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -2687,11 +2687,11 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> GasCosts:
         """
-        On Prague, the standard token cost and the floor token costs are
+        On SilaPrague, the standard token cost and the floor token costs are
         introduced due to EIP-7623.
         """
         return replace(
-            super(Prague, cls).gas_costs(
+            super(SilaPrague, cls).gas_costs(
                 block_number=block_number, timestamp=timestamp
             ),
             G_TX_DATA_STANDARD_TOKEN_COST=4,  # https://eips.ethereum.org/EIPS/eip-7623
@@ -2705,7 +2705,7 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
         """
-        Prague introduces the system contracts for EIP-6110, EIP-7002, EIP-7251
+        SilaPrague introduces the system contracts for EIP-6110, EIP-7002, EIP-7251
         and EIP-2935.
         """
         return [
@@ -2725,7 +2725,7 @@ class Prague(Cancun):
                 0x0000F90827F1C53A10CB7A02335B175320002935,
                 label="HISTORY_STORAGE_ADDRESS",
             ),
-        ] + super(Prague, cls).system_contracts(
+        ] + super(SilaPrague, cls).system_contracts(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -2734,7 +2734,7 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
         """
-        At Prague, three request types are introduced, hence the max request
+        At SilaPrague, three request types are introduced, hence the max request
         type is 2.
         """
         del block_number, timestamp
@@ -2770,12 +2770,12 @@ class Prague(Cancun):
         cls, opcode: OpcodeBase, gas_costs: GasCosts
     ) -> int:
         """
-        At Prague, the call gas cost needs to take the authorization into
+        At SilaPrague, the call gas cost needs to take the authorization into
         account.
         """
         metadata = opcode.metadata
 
-        base_cost = super(Prague, cls)._calculate_call_gas(opcode, gas_costs)
+        base_cost = super(SilaPrague, cls)._calculate_call_gas(opcode, gas_costs)
 
         if metadata["delegated_address"] or metadata["delegated_address_warm"]:
             if metadata["delegated_address_warm"]:
@@ -2790,7 +2790,7 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> TransactionDataFloorCostCalculator:
         """
-        On Prague, due to EIP-7623, the transaction data floor cost is
+        On SilaPrague, due to EIP-7623, the transaction data floor cost is
         introduced.
         """
         calldata_gas_calculator = cls.calldata_gas_calculator(
@@ -2813,10 +2813,10 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> TransactionIntrinsicCostCalculator:
         """
-        At Prague, the transaction intrinsic cost needs to take the
+        At SilaPrague, the transaction intrinsic cost needs to take the
         authorizations into account.
         """
-        super_fn = super(Prague, cls).transaction_intrinsic_cost_calculator(
+        super_fn = super(SilaPrague, cls).transaction_intrinsic_cost_calculator(
             block_number=block_number, timestamp=timestamp
         )
         gas_costs = cls.gas_costs(
@@ -2865,7 +2865,7 @@ class Prague(Cancun):
     def blob_base_fee_update_fraction(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Return the blob base fee update fraction for Prague."""
+        """Return the blob base fee update fraction for SilaPrague."""
         del block_number, timestamp
         return 5007716
 
@@ -2873,7 +2873,7 @@ class Prague(Cancun):
     def target_blobs_per_block(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Blobs in Prague, have a static target of 6 blobs per block."""
+        """Blobs in SilaPrague, have a static target of 6 blobs per block."""
         del block_number, timestamp
         return 6
 
@@ -2881,7 +2881,7 @@ class Prague(Cancun):
     def max_blobs_per_block(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
-        """Blobs in Prague, have a static max of 9 blobs per block."""
+        """Blobs in SilaPrague, have a static max of 9 blobs per block."""
         del block_number, timestamp
         return 9
 
@@ -2890,7 +2890,7 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Mapping:
         """
-        Prague requires pre-allocation of the beacon chain deposit contract for
+        SilaPrague requires pre-allocation of the beacon chain deposit contract for
         EIP-6110, the exits contract for EIP-7002, and the history storage
         contract for EIP-2935.
         """
@@ -2961,14 +2961,14 @@ class Prague(Cancun):
                 }
             )
 
-        return new_allocation | super(Prague, cls).pre_allocation_blockchain()  # type: ignore
+        return new_allocation | super(SilaPrague, cls).pre_allocation_blockchain()  # type: ignore
 
     @classmethod
     def header_requests_required(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
         """
-        Prague requires that the execution layer header contains the beacon
+        SilaPrague requires that the execution layer header contains the beacon
         chain requests hash.
         """
         del block_number, timestamp
@@ -2979,7 +2979,7 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
         """
-        From Prague, new payloads include the requests hash as a parameter.
+        From SilaPrague, new payloads include the requests hash as a parameter.
         """
         del block_number, timestamp
         return True
@@ -2988,7 +2988,7 @@ class Prague(Cancun):
     def engine_new_payload_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """From Prague, new payload calls must use version 4."""
+        """From SilaPrague, new payload calls must use version 4."""
         del block_number, timestamp
         return 4
 
@@ -2997,18 +2997,18 @@ class Prague(Cancun):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
         """
-        At Prague, version number of NewPayload and ForkchoiceUpdated diverge.
+        At SilaPrague, version number of NewPayload and ForkchoiceUpdated diverge.
         """
         del block_number, timestamp
         return 3
 
 
-class Osaka(Prague, solc_name="cancun"):
-    """Osaka fork."""
+class SilaOsaka(SilaPrague, solc_name="cancun"):
+    """SilaOsaka fork."""
 
     # update some blob constants
     BLOB_CONSTANTS = {
-        **Prague.BLOB_CONSTANTS,  # same base constants as prague
+        **SilaPrague.BLOB_CONSTANTS,  # same base constants as prague
         "AMOUNT_CELL_PROOFS": 128,
     }
 
@@ -3016,7 +3016,7 @@ class Osaka(Prague, solc_name="cancun"):
     def engine_get_payload_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """From Osaka, get payload calls must use version 5."""
+        """From SilaOsaka, get payload calls must use version 5."""
         del block_number, timestamp
         return 5
 
@@ -3024,7 +3024,7 @@ class Osaka(Prague, solc_name="cancun"):
     def engine_get_blobs_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """At Osaka, the engine get blobs version is 2."""
+        """At SilaOsaka, the engine get blobs version is 2."""
         del block_number, timestamp
         return 2
 
@@ -3032,7 +3032,7 @@ class Osaka(Prague, solc_name="cancun"):
     def full_blob_tx_wrapper_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int | None:
-        """At Osaka, the full blob transaction wrapper version is defined."""
+        """At SilaOsaka, the full blob transaction wrapper version is defined."""
         del block_number, timestamp
         return 1
 
@@ -3040,7 +3040,7 @@ class Osaka(Prague, solc_name="cancun"):
     def transaction_gas_limit_cap(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int | None:
-        """At Osaka, transaction gas limit is capped at 16 million (2**24)."""
+        """At SilaOsaka, transaction gas limit is capped at 16 million (2**24)."""
         del block_number, timestamp
         return 16_777_216
 
@@ -3048,7 +3048,7 @@ class Osaka(Prague, solc_name="cancun"):
     def block_rlp_size_limit(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int | None:
-        """From Osaka, block RLP size is limited as specified in EIP-7934."""
+        """From SilaOsaka, block RLP size is limited as specified in EIP-7934."""
         del block_number, timestamp
 
         max_block_size = 10_485_760
@@ -3059,11 +3059,11 @@ class Osaka(Prague, solc_name="cancun"):
     def opcode_gas_map(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Dict[OpcodeBase, int | Callable[[OpcodeBase], int]]:
-        """Add Osaka opcodes gas costs."""
+        """Add SilaOsaka opcodes gas costs."""
         gas_costs = cls.gas_costs(
             block_number=block_number, timestamp=timestamp
         )
-        base_map = super(Osaka, cls).opcode_gas_map(
+        base_map = super(SilaOsaka, cls).opcode_gas_map(
             block_number=block_number, timestamp=timestamp
         )
         return {
@@ -3079,20 +3079,20 @@ class Osaka(Prague, solc_name="cancun"):
         del block_number, timestamp
         return [
             Opcodes.CLZ,
-        ] + super(Prague, cls).valid_opcodes()
+        ] + super(SilaPrague, cls).valid_opcodes()
 
     @classmethod
     def precompiles(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> List[Address]:
         """
-        At Osaka, a precompile for p256verify operation is added.
+        At SilaOsaka, a precompile for p256verify operation is added.
 
         P256VERIFY = 0x100
         """
         return [
             Address(0x100, label="P256VERIFY"),
-        ] + super(Osaka, cls).precompiles(
+        ] + super(SilaOsaka, cls).precompiles(
             block_number=block_number, timestamp=timestamp
         )
 
@@ -3172,7 +3172,7 @@ class Osaka(Prague, solc_name="cancun"):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> int:
         """
-        Blobs in Osaka, have a static max of 6 blobs per tx. Differs from the
+        Blobs in SilaOsaka, have a static max of 6 blobs per tx. Differs from the
         max per block.
         """
         del block_number, timestamp
@@ -3182,7 +3182,7 @@ class Osaka(Prague, solc_name="cancun"):
     def blob_reserve_price_active(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
-        """Blob reserve price is supported in Osaka."""
+        """Blob reserve price is supported in SilaOsaka."""
         del block_number, timestamp
         return True
 
@@ -3195,7 +3195,7 @@ class Osaka(Prague, solc_name="cancun"):
         return 2**13  # EIP-7918 new parameter
 
 
-class BPO1(Osaka, bpo_fork=True):
+class BPO1(SilaOsaka, bpo_fork=True):
     """Mainnet BPO1 fork - Blob Parameter Only fork 1."""
 
     @classmethod
@@ -3327,11 +3327,11 @@ class BPO5(BPO4, bpo_fork=True):
     pass
 
 
-class Amsterdam(BPO2):
-    """Amsterdam fork."""
+class SilaAmsterdam(BPO2):
+    """SilaAmsterdam fork."""
 
-    # TODO: We may need to adjust which BPO Amsterdam inherits from as the
-    #  related Amsterdam specs change over time, and before Amsterdam is
+    # TODO: We may need to adjust which BPO SilaAmsterdam inherits from as the
+    #  related SilaAmsterdam specs change over time, and before SilaAmsterdam is
     #  live on mainnet.
 
     @classmethod
@@ -3339,7 +3339,7 @@ class Amsterdam(BPO2):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
         """
-        From Amsterdam, header must contain block access list hash (EIP-7928).
+        From SilaAmsterdam, header must contain block access list hash (EIP-7928).
         """
         del block_number, timestamp
         return True
@@ -3353,7 +3353,7 @@ class Amsterdam(BPO2):
     def engine_new_payload_version(
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> Optional[int]:
-        """From Amsterdam, new payload calls must use version 5."""
+        """From SilaAmsterdam, new payload calls must use version 5."""
         del block_number, timestamp
         return 5
 
@@ -3362,7 +3362,7 @@ class Amsterdam(BPO2):
         cls, *, block_number: int = 0, timestamp: int = 0
     ) -> bool:
         """
-        From Amsterdam, engine execution payload includes `block_access_list`
+        From SilaAmsterdam, engine execution payload includes `block_access_list`
         as a parameter.
         """
         del block_number, timestamp
