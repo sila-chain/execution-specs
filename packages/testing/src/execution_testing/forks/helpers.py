@@ -522,7 +522,7 @@ ForkSet = Annotated[
 ]
 ForkSetAdapter: TypeAdapter = TypeAdapter(ForkSet)
 
-ForkEIP = Annotated[
+ForkSIP = Annotated[
     Type[BaseFork],
     PlainSerializer(str),
     PlainValidator(
@@ -531,11 +531,11 @@ ForkEIP = Annotated[
         )
     ),
 ]
-ForkEIPSet = Annotated[
-    Set[ForkEIP],
+ForkSIPSet = Annotated[
+    Set[ForkSIP],
     BeforeValidator(set_before_validator),
 ]
-ForkEIPSetAdapter: TypeAdapter = TypeAdapter(ForkEIPSet)
+ForkSIPSetAdapter: TypeAdapter = TypeAdapter(ForkSIPSet)
 
 TransitionFork = Annotated[
     Type[TransitionBaseClass],

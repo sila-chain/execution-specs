@@ -39,7 +39,7 @@ from ..gas_costs import BASE, HIGH, LOW, MID, VERY_LOW, GasCosts
 from ..requests import SystemContractRequest
 from . import sips
 from .helpers import ceiling_division
-from .sips.amsterdam import AmsterdamEIPs
+from .sips.amsterdam import AmsterdamSIPs
 
 
 # All forks must be listed here !!! in the order they were introduced !!!
@@ -1642,7 +1642,7 @@ class BPO5(
 
 
 class SilaAmsterdam(
-    AmsterdamEIPs,
+    AmsterdamSIPs,
     BPO2,
     deployed=False,
 ):
