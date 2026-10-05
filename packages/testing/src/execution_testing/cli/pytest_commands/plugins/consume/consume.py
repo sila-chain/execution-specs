@@ -532,7 +532,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
         if not fork.ignore()
     }
     # Append all forks within the index file (compatibility with
-    # `sila/tests`)
+    # `sila-chain/sila-tests`)
     all_forks.update(getattr(index, "forks", []))
     for fork in all_forks:
         config.addinivalue_line(

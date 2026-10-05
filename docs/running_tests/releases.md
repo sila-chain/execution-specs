@@ -32,8 +32,7 @@ and cadence.
 - "Tests" releases aim to match clients' master branches. Once clients have merged the
   upcoming fork into those branches ahead of a pending client release, the `tests` release
   includes that fork too, and `X` bumps to its fork number. They are the "must pass" release
-  for client CI, tagged frequently (roughly once or twice a week), and supersede the old
-  `fixtures_stable` / `fixtures_develop` artifacts.
+  for client CI, tagged frequently (roughly once or twice a week).
 - "Devnet" releases target a specific feature under active development (e.g. `bal-devnet`).
   They are advisory/non-blocking and may not yet cover every SIP; see the corresponding
   release notes for the coverage provided.
@@ -152,8 +151,7 @@ Mapped to a typical client CI setup:
 
 - **Blocking gate (the forks on your `master` branch)**: Pin a specific `tests@vX.Y.Z` for reproducible,
   no-rug-pull CI on your `master`/production branch, or follow the latest `tests` release if
-  a moving target is acceptable. This supersedes the old `fixtures_develop` / `fixtures_stable`
-  artifacts.
+  a moving target is acceptable.
 - **Non-blocking gate (next fork)**: Use the current `<feat>-devnet@vX.Y.Z` release for the
   upcoming fork's active devnet (e.g. `bal-devnet@vX.Y.Z`). Treat it as advisory, since devnet
   coverage changes rapidly and should not block merges.

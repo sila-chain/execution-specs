@@ -92,7 +92,7 @@ Release builds require the `ref` input to be specified. To test a release build 
 
     ```json
     {
-        "ref": "refs/tags/stable@v4.2.0"
+        "ref": "refs/tags/tests@v21.0.0"
     }
     ```
 

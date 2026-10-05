@@ -23,10 +23,9 @@ CACHED_RELEASE_INFORMATION_FILE = (
 )
 
 SUPPORTED_REPOS = [
-    "sila/execution-spec-tests",
-    "sila/execution-specs",
-    "sila/tests",
-    "sila/legacytests",
+    "sila-chain/execution-specs",
+    "sila-chain/sila-tests",
+    "sila-chain/sila-legacytests",
 ]
 
 
@@ -49,11 +48,6 @@ class AssetNotFoundError(Exception):
 TESTS_FEATURE_NAME = "tests"
 
 BARE_VERSION_RE = re.compile(r"^v\d+\.\d+\.\d+$")
-
-# TODO: Legacy SEST `stable`/`develop` releases (bare `vX.Y.Z` git tags on
-# the archived sila/execution-spec-tests repo) remain resolvable so
-# existing consumers don't break; remove after 2026-08 (see #3085).
-LEGACY_FEATURE_NAMES = {"stable", "develop"}
 
 
 @dataclass(kw_only=True)
@@ -111,12 +105,6 @@ class ReleaseTag:
         friendly feature name (`bal-devnet@v7.0.0`) and the full tag
         (`tests-bal-devnet@v7.0.0`) are accepted as input.
         """
-        if self.feature_name in LEGACY_FEATURE_NAMES:
-            # Legacy releases tag as bare `vX.Y.Z`; the asset name check
-            # in `ReleaseInformation.__contains__` selects the feature.
-            if self.version is not None:
-                return tag == self.version
-            return BARE_VERSION_RE.match(tag) is not None
         if self.version is not None:
             return tag in (
                 f"{self.tag_name}@{self.version}",
