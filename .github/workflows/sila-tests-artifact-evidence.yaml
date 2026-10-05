@@ -27,6 +27,9 @@ jobs:
     timeout-minutes: 360
     strategy:
       fail-fast: false
+      # Stay within the hosted runner concurrency: queued jobs that no
+      # runner acquires are dropped.
+      max-parallel: 12
       matrix:
         range: &ranges
           - { label: pre-shanghai, from: Frontier, until: SilaParis }
@@ -103,6 +106,9 @@ jobs:
     timeout-minutes: 360
     strategy:
       fail-fast: false
+      # Stay within the hosted runner concurrency: queued jobs that no
+      # runner acquires are dropped.
+      max-parallel: 12
       matrix:
         range: *ranges
         part: *parts
