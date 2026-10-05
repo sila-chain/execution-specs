@@ -77,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         gas: [1, 5, 10, 30, 60, 100, 150]
         group: ["0", "1", "2", "3"]
@@ -170,7 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         gas: [1, 5, 10, 30, 60, 100, 150]
         group: ["0", "1", "2", "3"]
@@ -191,10 +191,12 @@ jobs:
       - name: Phase 2 (fixtures)
         run: |
           chmod +x bin/sivmone
+          # Every worker loads the merged pre-allocation groups; two keep
+          # the runner within its memory.
           uv run python .github/scripts/sila_benchmark_phase.py 2 \
             --evm-bin="$PWD/bin/sivmone" --fork="$FORK" \
             --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
-            --generate-all-formats -n auto --output=out ${{ matrix.modules }}
+            --generate-all-formats -n 2 --output=out ${{ matrix.modules }}
           rm -rf out/blockchain_tests_engine_x/pre_alloc
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
