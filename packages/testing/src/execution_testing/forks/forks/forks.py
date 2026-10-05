@@ -1375,25 +1375,25 @@ class DAOFork(
     pass
 
 
-class TangerineWhistle(
+class SIP150(
     sips.SIP150,
     DAOFork,
-    ruleset_name="TANGERINE",
+    ruleset_name="SIP150",
 ):
-    """TangerineWhistle fork (SIP-150)."""
+    """SIP150 fork."""
 
     pass
 
 
-class SpuriousDragon(
+class SIP158(
     sips.SIP170,
     sips.SIP161,
     sips.SIP160,
     sips.SIP155,
-    TangerineWhistle,
-    ruleset_name="SPURIOUS",
+    SIP150,
+    ruleset_name="SIP158",
 ):
-    """SpuriousDragon fork."""
+    """SIP158 fork."""
 
     pass
 
@@ -1406,7 +1406,7 @@ class SilaByzantium(
     sips.SIP198,
     sips.SIP196,
     sips.SIP197,
-    SpuriousDragon,
+    SIP158,
 ):
     """SilaByzantium fork."""
 
