@@ -200,6 +200,10 @@ jobs:
           # same item (669/714) twice without a test failure. Log memory,
           # cgroup and pressure state and the running tests every 5 seconds.
           TELEMETRY: ${{ matrix.gas == 150 && matrix.group == '3' }}
+          # The runner of the 150M group 3 shard was terminated three times
+          # on three runners with two workers, with no test failure: run that
+          # shard with a single worker.
+          WORKERS: ${{ (matrix.gas == 150 && matrix.group == '3') && 1 || 2 }}
         run: |
           chmod +x bin/sivmone
           verbose=""
@@ -228,13 +232,13 @@ jobs:
             ) &
             telemetry=$!
           fi
-          # Every worker loads the merged pre-allocation groups; two keep
-          # the runner within its memory.
+          # Every worker loads the merged pre-allocation groups; two (one
+          # for the 150M group 3 shard) keep the runner within its resources.
           # shellcheck disable=SC2086
           uv run python .github/scripts/sila_benchmark_phase.py 2 \
             --evm-bin="$PWD/bin/sivmone" --fork="$FORK" \
             --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
-            --generate-all-formats -n 2 --output=out $verbose ${{ matrix.modules }}
+            --generate-all-formats -n "$WORKERS" --output=out $verbose ${{ matrix.modules }}
           if [ -n "${telemetry:-}" ]; then kill "$telemetry"; fi
           rm -rf out/blockchain_tests_engine_x/pre_alloc
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
