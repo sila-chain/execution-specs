@@ -491,21 +491,21 @@ def default_html_report_file_path() -> str:
 
 def pytest_addoption(parser: pytest.Parser) -> None:
     """Add command-line options to pytest."""
-    evm_group = parser.getgroup(
-        "evm", "Arguments defining evm executable behavior"
+    sivm_group = parser.getgroup(
+        "sivm", "Arguments defining sivm executable behavior"
     )
-    evm_group.addoption(
-        "--evm-bin",
+    sivm_group.addoption(
+        "--sivm-bin",
         action="store",
-        dest="evm_bin",
+        dest="sivm_bin",
         type=Path,
         default=None,
         help=(
-            "Path to an evm executable (or name of an executable in the "
+            "Path to a Sivm executable (or name of an executable in the "
             "PATH) that provides `t8n`. Default: `ethereum-spec-evm-resolver`."
         ),
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--t8n-server-url",
         action="store",
         dest="t8n_server_url",
@@ -516,14 +516,14 @@ def pytest_addoption(parser: pytest.Parser) -> None:
             "framework tests/ci; not intended for regular CLI use."
         ),
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--traces",
         action="store_true",
         dest="evm_collect_traces",
         default=None,
         help="Collect traces of execution info from the transition tool.",
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--verify-fixtures",
         action="store_true",
         dest="verify_fixtures",
@@ -537,7 +537,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
             "blocktest."
         ),
     )
-    evm_group.addoption(
+    sivm_group.addoption(
         "--verify-fixtures-bin",
         action="store",
         dest="verify_fixtures_bin",
@@ -814,7 +814,7 @@ def pytest_configure(config: pytest.Config) -> None:
     # Instantiate the transition tool here to check that the binary path/trace
     # option is valid. This ensures we only raise an error once, if
     # appropriate, instead of for every test.
-    evm_bin = config.getoption("evm_bin")
+    sivm_bin = config.getoption("sivm_bin")
     trace = config.getoption("evm_collect_traces")
     t8n_server_url = config.getoption("t8n_server_url")
     kwargs = {
@@ -822,13 +822,13 @@ def pytest_configure(config: pytest.Config) -> None:
     }
     if t8n_server_url is not None:
         kwargs["server_url"] = t8n_server_url
-    if evm_bin is None:
+    if sivm_bin is None:
         assert TransitionTool.default_tool is not None, (
             "No default transition tool found"
         )
         t8n = TransitionTool.default_tool(**kwargs)
     else:
-        t8n = TransitionTool.from_binary_path(binary_path=evm_bin, **kwargs)
+        t8n = TransitionTool.from_binary_path(binary_path=sivm_bin, **kwargs)
 
     if (
         isinstance(config.getoption("numprocesses"), int)
@@ -1062,9 +1062,9 @@ def pytest_html_report_title(report: Any) -> None:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def evm_bin(request: pytest.FixtureRequest) -> Path | None:
+def sivm_bin(request: pytest.FixtureRequest) -> Path | None:
     """Return configured evm tool binary path used to run t8n."""
-    return request.config.getoption("evm_bin")
+    return request.config.getoption("sivm_bin")
 
 
 @pytest.fixture(autouse=True, scope="session")
@@ -1114,7 +1114,7 @@ def do_fixture_verification(
 def evm_fixture_verification(
     request: pytest.FixtureRequest,
     do_fixture_verification: bool,
-    evm_bin: Path | None,
+    sivm_bin: Path | None,
     verify_fixtures_bin: Path | None,
 ) -> Generator[FixtureConsumer | None, None, None]:
     """
@@ -1124,13 +1124,13 @@ def evm_fixture_verification(
     if not do_fixture_verification:
         yield None
         return
-    reused_evm_bin = False
-    if not verify_fixtures_bin and evm_bin:
-        verify_fixtures_bin = evm_bin
-        reused_evm_bin = True
+    reused_sivm_bin = False
+    if not verify_fixtures_bin and sivm_bin:
+        verify_fixtures_bin = sivm_bin
+        reused_sivm_bin = True
     if not verify_fixtures_bin:
         pytest.exit(
-            "--verify-fixtures requires --evm-bin or --verify-fixtures-bin "
+            "--verify-fixtures requires --sivm-bin or --verify-fixtures-bin "
             "to be specified.",
             returncode=pytest.ExitCode.USAGE_ERROR,
         )
@@ -1140,9 +1140,9 @@ def evm_fixture_verification(
             trace=request.config.collect_traces,  # type: ignore[attr-defined]
         )
     except Exception:
-        if reused_evm_bin:
+        if reused_sivm_bin:
             pytest.exit(
-                "The binary specified in --evm-bin could not be recognized "
+                "The binary specified in --sivm-bin could not be recognized "
                 "as a known FixtureConsumerTool. Either remove "
                 "--verify-fixtures or set --verify-fixtures-bin to a known "
                 "fixture consumer binary.",
@@ -1713,7 +1713,7 @@ def _verify_fixtures_post_merge(
     # Get the verification binary (same logic as evm_fixture_verification)
     verify_fixtures_bin = config.getoption("verify_fixtures_bin")
     if not verify_fixtures_bin:
-        verify_fixtures_bin = config.getoption("evm_bin")
+        verify_fixtures_bin = config.getoption("sivm_bin")
     if not verify_fixtures_bin:
         return
 

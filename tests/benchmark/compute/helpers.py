@@ -1,4 +1,4 @@
-"""Helper functions for the EVM benchmark worst-case tests."""
+"""Helper functions for the Sivm benchmark worst-case tests."""
 
 import math
 from enum import Enum, auto

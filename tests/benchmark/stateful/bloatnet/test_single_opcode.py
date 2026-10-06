@@ -1,7 +1,7 @@
 """
 abstract: BloatNet single-opcode benchmark cases for state-related operations.
 
-   These tests focus on individual EVM opcodes (SLOAD, SSTORE) to measure
+   These tests focus on individual Sivm opcodes (SLOAD, SSTORE) to measure
    their performance when accessing many storage slots across pre-deployed
    contracts. Unlike multi-opcode tests, these isolate single operations
    to benchmark specific state-handling bottlenecks.

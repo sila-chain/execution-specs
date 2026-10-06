@@ -133,7 +133,7 @@ jobs:
         run: |
           chmod +x bin/sivmone
           uv run python .github/scripts/sila_benchmark_phase.py 1 \
-            --evm-bin="$PWD/bin/sivmone" --fork="$FORK" \
+            --sivm-bin="$PWD/bin/sivmone" --fork="$FORK" \
             --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
             --generate-all-formats -n auto --output=out ${{ matrix.modules }}
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
@@ -236,7 +236,7 @@ jobs:
           # for the 150M group 3 shard) keep the runner within its resources.
           # shellcheck disable=SC2086
           uv run python .github/scripts/sila_benchmark_phase.py 2 \
-            --evm-bin="$PWD/bin/sivmone" --fork="$FORK" \
+            --sivm-bin="$PWD/bin/sivmone" --fork="$FORK" \
             --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
             --generate-all-formats -n "$WORKERS" --output=out $verbose ${{ matrix.modules }}
           if [ -n "${telemetry:-}" ]; then kill "$telemetry"; fi

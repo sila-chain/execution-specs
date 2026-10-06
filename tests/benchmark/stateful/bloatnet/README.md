@@ -1,6 +1,6 @@
 # BloatNet Single-Opcode Benchmarks
 
-This directory contains benchmarks for testing single EVM opcodes (SLOAD, SSTORE) under state-heavy conditions using pre-deployed contracts.
+This directory contains benchmarks for testing single Sivm opcodes (SLOAD, SSTORE) under state-heavy conditions using pre-deployed contracts.
 
 ## Test Setup
 

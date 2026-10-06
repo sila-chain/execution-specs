@@ -772,7 +772,7 @@ def test_fixed_opcode_count_config_file_parametrized(
         "--fork",
         "SilaPrague",
         "tests/benchmark/dummy_test_module/",
-        f"--evm-bin={BENCHMARK_EVM_T8N}",
+        f"--sivm-bin={BENCHMARK_EVM_T8N}",
         "--fixed-opcode-count",
         "-v",
     )
@@ -902,7 +902,7 @@ def test_fixed_opcode_count_per_parameter_patterns(
         "--fork",
         "SilaPrague",
         "tests/benchmark/dummy_test_module/",
-        f"--evm-bin={BENCHMARK_EVM_T8N}",
+        f"--sivm-bin={BENCHMARK_EVM_T8N}",
         "--fixed-opcode-count",
         "-v",
     )
@@ -939,7 +939,7 @@ def test_cli_mode_ignores_per_parameter_patterns(
         "SilaPrague",
         "--fixed-opcode-count=1,5",
         "tests/benchmark/dummy_test_module/",
-        f"--evm-bin={BENCHMARK_EVM_T8N}",
+        f"--sivm-bin={BENCHMARK_EVM_T8N}",
         "-v",
     )
 

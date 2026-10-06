@@ -98,7 +98,7 @@ def pytest_configure(config: pytest.Config) -> None:
             config,
             "pytest-fill.ini",
             [
-                "evm",
+                "sivm",
                 "solc",
                 "fork range",
                 "filler location",

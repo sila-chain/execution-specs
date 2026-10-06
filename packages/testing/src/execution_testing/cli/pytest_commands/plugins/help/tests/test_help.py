@@ -5,7 +5,7 @@ from typing import Any
 import pytest
 
 FILL_TEST_ARGS = (
-    "--evm-bin",
+    "--sivm-bin",
     "--traces",
     "--filler-path",
     "--output",

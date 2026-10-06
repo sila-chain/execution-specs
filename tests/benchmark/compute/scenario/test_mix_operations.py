@@ -32,7 +32,7 @@ def test_jumpdest_analysis(
 
     This benchmark places a very long initcode in the memory and then invoke
     CREATE instructions with this initcode up to the block gas limit. The
-    initcode itself has minimal execution time but forces the EVM to perform
+    initcode itself has minimal execution time but forces the Sivm to perform
     the full jumpdest analysis on the parametrized byte pattern. The initicode
     is modified by mixing-in the returned create address between CREATE
     invocations to prevent caching.
@@ -59,7 +59,7 @@ def test_jumpdest_analysis(
     )
 
     # At the start of the initcode execution, jump to the last opcode.
-    # This forces EVM to do the full jumpdest analysis.
+    # This forces the Sivm to do the full jumpdest analysis.
     initcode_prefix = Op.JUMP(initcode_size - 1)
     code_prepare_initcode += Op.MSTORE(
         0, Op.PUSH32[bytes(initcode_prefix).ljust(32, bytes(Op.JUMPDEST))]

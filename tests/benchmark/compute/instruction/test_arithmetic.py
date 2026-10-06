@@ -200,7 +200,7 @@ def test_mod(
     mod[1] = numerators[indexes[0]] % mod[0]
     mod[2] = numerators[indexes[1]] % mod[1] ...
 
-    The "numerators" is a pool of 15 constants pushed to the EVM stack at the
+    The "numerators" is a pool of 15 constants pushed to the Sivm stack at the
     program start.
 
     The order of accessing the numerators is selected in a way the mod value
@@ -321,9 +321,9 @@ def test_mod_arithmetic(
     mod[0] = calldataload(0)
     mod[1] = (fixed_arg op args[indexes[0]]) % mod[0]
     mod[2] = (fixed_arg op args[indexes[1]]) % mod[1]
-    The "args" is a pool of 15 constants pushed to the EVM stack at the program
-    start.
-    The "fixed_arg" is the 0xFF...FF constant added to the EVM stack by PUSH32
+    The "args" is a pool of 15 constants pushed to the Sivm stack at the
+    program start.
+    The "fixed_arg" is the 0xFF...FF constant added to the Sivm stack by PUSH32
     just before executing the "op".
     The order of accessing the numerators is selected in a way the mod value
     remains in the range as long as possible.
