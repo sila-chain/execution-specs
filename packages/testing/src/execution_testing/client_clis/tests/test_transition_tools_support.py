@@ -13,23 +13,23 @@ from execution_testing.base_types import (
     TestPrivateKey,
 )
 from execution_testing.client_clis import (
-    EvmOneTransitionTool,
     ExecutionSpecsTransitionTool,
+    SivmoneTransitionTool,
     TransitionTool,
 )
 from execution_testing.fixtures import BlockchainFixture
 from execution_testing.forks import (
     ArrowGlacier,
-    Berlin,
-    Byzantium,
-    Cancun,
-    Constantinople,
     Fork,
     GrayGlacier,
-    London,
     MuirGlacier,
-    Paris,
-    Prague,
+    SilaBerlin,
+    SilaByzantium,
+    SilaCancun,
+    SilaConstantinople,
+    SilaLondon,
+    SilaParis,
+    SilaPrague,
     get_deployed_forks,
 )
 from execution_testing.specs import Block, BlockchainTest
@@ -46,10 +46,10 @@ from execution_testing.vm import Op
 BLOB_COMMITMENT_VERSION_KZG = 1
 
 fork_set = set(get_deployed_forks())
-fork_set.add(Prague)
+fork_set.add(SilaPrague)
 
 
-@pytest.mark.xfail(reason="Known issue: gsil evm not built in CI, see #2557")
+@pytest.mark.xfail(reason="Known issue: gsil sivm not built in CI, see #2557")
 def test_ci_multi_t8n_support(
     installed_transition_tool_instances: Dict[str, TransitionTool | Exception],
     running_in_ci: bool,
@@ -61,7 +61,7 @@ def test_ci_multi_t8n_support(
     expected_names = {"ExecutionSpecsTransitionTool"}
     if running_in_ci:
         expected_names.add("GsilTransitionTool")
-        expected_names.add("EvmOneTransitionTool")
+        expected_names.add("SivmoneTransitionTool")
     assert expected_names.issubset(names), (
         f"Missing expected transition tools: {expected_names - names}"
     )
@@ -76,8 +76,8 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
     if fork in [MuirGlacier, ArrowGlacier, GrayGlacier]:
         return
     if isinstance(
-        installed_t8n, (ExecutionSpecsTransitionTool, EvmOneTransitionTool)
-    ) and fork in [Constantinople]:
+        installed_t8n, (ExecutionSpecsTransitionTool, SivmoneTransitionTool)
+    ) and fork in [SilaConstantinople]:
         return
     env = Environment()
     sender = TestAddress
@@ -99,7 +99,8 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
                 )
                 + Op.SSTORE(
                     storage_1.store_next(
-                        1 if fork < Paris else 0, "difficulty_1_is_near_20000"
+                        1 if fork < SilaParis else 0,
+                        "difficulty_1_is_near_20000",
                     ),
                     Op.AND(
                         Op.GT(Op.PREVRANDAO(), 0x19990),
@@ -114,7 +115,8 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
                 )
                 + Op.SSTORE(
                     storage_2.store_next(
-                        1 if fork < Paris else 0, "difficulty_2_is_near_20000"
+                        1 if fork < SilaParis else 0,
+                        "difficulty_2_is_near_20000",
                     ),
                     Op.AND(
                         Op.GT(Op.PREVRANDAO(), 0x19990),
@@ -131,9 +133,9 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
         data=b"",
         nonce=0,
         secret_key=TestPrivateKey,
-        protected=fork >= Byzantium,
+        protected=fork >= SilaByzantium,
     )
-    if fork < Berlin:
+    if fork < SilaBerlin:
         # Feed legacy transaction, type 0
         tx_2 = Transaction(
             gas_limit=100_000,
@@ -141,9 +143,9 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
             data=b"",
             nonce=1,
             secret_key=TestPrivateKey,
-            protected=fork >= Byzantium,
+            protected=fork >= SilaByzantium,
         )
-    elif fork < London:
+    elif fork < SilaLondon:
         # Feed access list transaction, type 1
         tx_2 = Transaction(
             gas_limit=100_000,
@@ -151,7 +153,7 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
             data=b"",
             nonce=1,
             secret_key=TestPrivateKey,
-            protected=fork >= Byzantium,
+            protected=fork >= SilaByzantium,
             access_list=[
                 AccessList(
                     address=0x1234,
@@ -159,14 +161,14 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
                 )
             ],
         )
-    elif fork < Cancun:
+    elif fork < SilaCancun:
         # Feed base fee transaction, type 2
         tx_2 = Transaction(
             to=code_account_2,
             data=b"",
             nonce=1,
             secret_key=TestPrivateKey,
-            protected=fork >= Byzantium,
+            protected=fork >= SilaByzantium,
             gas_limit=100_000,
             max_priority_fee_per_gas=5,
             max_fee_per_gas=10,
@@ -177,14 +179,14 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
                 )
             ],
         )
-    elif fork < Prague:
+    elif fork < SilaPrague:
         # Feed blob transaction, type 3
         tx_2 = Transaction(
             to=code_account_2,
             data=b"",
             nonce=1,
             secret_key=TestPrivateKey,
-            protected=fork >= Byzantium,
+            protected=fork >= SilaByzantium,
             gas_limit=100_000,
             max_priority_fee_per_gas=5,
             max_fee_per_gas=10,
@@ -206,7 +208,7 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
             data=b"",
             sender=sender,
             secret_key=TestPrivateKey,
-            protected=fork >= Byzantium,
+            protected=fork >= SilaByzantium,
             gas_limit=100_000,
             max_priority_fee_per_gas=5,
             max_fee_per_gas=10,
@@ -240,14 +242,14 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
         txs=[tx_2],
         expected_post_state={
             code_account_2: Account(
-                balance=1_000_000_000 if fork >= Cancun else 0,
+                balance=1_000_000_000 if fork >= SilaCancun else 0,
                 storage=storage_2,
             ),
         }
-        if fork < Prague
+        if fork < SilaPrague
         else {
             code_account_2: Account(
-                balance=1_000_000_000 if fork >= Cancun else 0,
+                balance=1_000_000_000 if fork >= SilaCancun else 0,
             ),
             sender: Account(
                 storage=storage_2,
@@ -255,7 +257,7 @@ def test_t8n_support(fork: Fork, installed_t8n: TransitionTool) -> None:
         },
     )
 
-    if fork >= Cancun:
+    if fork >= SilaCancun:
         block_2.withdrawals = [
             Withdrawal(
                 address=code_account_2,

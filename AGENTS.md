@@ -41,7 +41,7 @@ threads. Return findings in chat or write them to a local draft instead.
 When reviewing PRs that implement or test SIPs:
 
 1. Identify the SIP number(s) from the branch name, PR title, or changed file paths
-2. Fetch each SIP spec from `https://sips.sila.org/SIPS/sip-<number>` before starting the review
+2. Fetch each SIP spec from `https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-<number>.md` before starting the review
 3. Verify the implementation matches the SIP's specification requirements
 
 ## When to Use Skills

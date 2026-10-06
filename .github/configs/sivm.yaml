@@ -1,0 +1,25 @@
+benchmark:
+  impl: gsil
+  repo: sila/go-sila
+  ref: glamsterdam-devnet-8
+  sivm-bin: sivm
+  xdist: auto
+sels:
+  impl: sels
+  repo: null
+  ref: null
+  sivm-bin: null
+  xdist: auto
+sivmone:
+  impl: sivmone
+  repo: sila-chain/sivmone
+  ref: 8f53f09fa95cfeddd5081de2e2756b3326718f23
+  sivm-bin: sivmone
+  xdist: auto
+  targets: ["sivmone-cli"]
+besu:
+  impl: besu
+  repo: hyperledger/besu
+  ref: main
+  sivm-bin: evmtool
+  xdist: 0

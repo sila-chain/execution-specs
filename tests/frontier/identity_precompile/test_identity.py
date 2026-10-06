@@ -17,27 +17,26 @@ from .common import CallArgs, generate_identity_call_bytecode
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentitiy_0Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentitiy_1Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_1_nonzeroValueFiller.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_2Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_3Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_4Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_4_gas17Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_4_gas18Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentitiy_0Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentitiy_1Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_1_nonzeroValueFiller.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_2Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_3Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_4Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_4_gas17Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_4_gas18Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentitiy_0Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentitiy_1Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_1_nonzeroValueFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_2Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_3Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_4Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_4_gas17Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_4_gas18Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentitiy_0Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentitiy_1Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_1_nonzeroValueFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_2Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_3Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_4Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_4_gas17Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_4_gas18Filler.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1344"],
     coverage_missed_reason="MPT related coverage lost, not relevant to test",
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize("call_type", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     [
@@ -112,7 +111,7 @@ from .common import CallArgs, generate_identity_call_bytecode
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_call_identity_precompile(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -151,13 +150,12 @@ def test_call_identity_precompile(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_5Filler.json",
-        "https://github.com/sila/tests/blob/v17.1/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_5Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEIdentity_5Filler.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CallIdentity_5Filler.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1344"],
     coverage_missed_reason="MPT related coverage lost, not relevant to test",
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize("call_type", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     [

@@ -18,7 +18,7 @@ from execution_testing import (
 from execution_testing import Macros as Om
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-1153.md"
-REFERENCE_SPEC_VERSION = "1eb863b534a5a3e19e9c196ab2a7f3db4bb9da17"
+REFERENCE_SPEC_VERSION = "71af630706495decd26dec6ab63648cce0055da3"
 
 
 class CallDestType(Enum):
@@ -30,21 +30,17 @@ class CallDestType(Enum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/06_tstoreInReentrancyCallFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/07_tloadAfterReentrancyStoreFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/08_revertUndoesTransientStoreFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/09_revertUndoesAllFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/11_tstoreDelegateCallFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/13_tloadStaticCallFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/20_oogUndoesTransientStoreInCallFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/19_oogUndoesTransientStoreFiller.yml",
-    ],
-    pr=[
-        "https://github.com/sila/execution-spec-tests/pull/440",
-        "https://github.com/sila/execution-specs/pull/2385",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/06_tstoreInReentrancyCallFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/07_tloadAfterReentrancyStoreFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/08_revertUndoesTransientStoreFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/09_revertUndoesAllFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/11_tstoreDelegateCallFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/13_tloadStaticCallFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/20_oogUndoesTransientStoreInCallFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/19_oogUndoesTransientStoreFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "call_type", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]
 )

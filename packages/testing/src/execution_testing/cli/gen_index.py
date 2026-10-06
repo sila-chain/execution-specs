@@ -180,7 +180,8 @@ def generate_fixtures_index(
                     TestCaseIndexFile(
                         id=fixture_name,
                         json_path=relative_file_path,
-                        # eest uses hash; sila/tests uses generatedTestHash
+                        # sest uses hash; sila-chain/sila-tests uses
+                        # generatedTestHash
                         fixture_hash=fixture.info.get("hash")
                         or f"0x{fixture.info.get('generatedTestHash')}",
                         fork=fixture_fork,

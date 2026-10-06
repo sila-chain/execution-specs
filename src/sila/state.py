@@ -94,7 +94,7 @@ class PreState(Protocol):
     Protocol for providing pre-execution state.
 
     Specify the operations that any pre-state provider (dict, database,
-    witness, etc.) must support for the EELS state transition.
+    witness, etc.) must support for the SELS state transition.
     """
 
     def get_account_optional(self, address: Address) -> Optional[Account]:

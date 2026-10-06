@@ -13,7 +13,7 @@ the inner value transfer rolls back, defeating the "store clears
 success" intent. Both the inner `CALL` gas argument and the transaction
 gas limit are raised by `10 * cold_clear_delta` so all 10 clears still
 succeed. The per-clear delta is derived from the fork gas model and is
-exactly 0 pre-SIP-8037; do not hardcode the Amsterdam values. The
+exactly 0 pre-SIP-8037; do not hardcode the SilaAmsterdam values. The
 asserted balances are fork-invariant once the clears land, and the post
 does not assert the sender balance, so no balance adjustment is needed.
 """
@@ -28,7 +28,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -40,7 +40,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stTransactionTest/InternalCallStoreClearsSuccessFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_internal_call_store_clears_success(
     state_test: StateTestFiller,
@@ -67,7 +67,9 @@ def test_internal_call_store_clears_success(
     cold_clear = Op.SSTORE.with_metadata(
         key_warm=False, original_value=1, current_value=1, new_value=0
     )
-    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(Cancun)
+    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(
+        SilaCancun
+    )
     clears_gas_bump = 10 * cold_clear_delta
 
     # Source: lll

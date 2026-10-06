@@ -21,7 +21,7 @@ The fuzzer must output JSON in the following format:
 ```json
 {
   "version": "2.0",
-  "fork": "Prague",
+  "fork": "SilaPrague",
   "chainId": 1,
   "accounts": {
     "0x7e5f4552091a69125d5dfcb7b8c2659029395bdf": {
@@ -84,7 +84,7 @@ graph TD
     B3["FuzzerAuthorizationInput<br/>Raw auth tuple (SIP-7702)"]
     B4["FuzzerOutput<br/>Complete fuzzer output"]
 
-    C["EEST Domain Models<br/>converter.py"]
+    C["SEST Domain Models<br/>converter.py"]
     C1["Account<br/>With validation & defaults"]
     C2["Transaction<br/>With gas_limit, EOA sender"]
     C3["AuthorizationTuple<br/>SIP-7702 support"]
@@ -118,8 +118,8 @@ graph TD
 ### Why DTOs?
 
 1. **Separation of Concerns**
-   - External JSON-RPC format ≠ EEST internal representation
-   - Fuzzer format can change without affecting EEST domain models
+   - External JSON-RPC format ≠ SEST internal representation
+   - Fuzzer format can change without affecting SEST domain models
 
 2. **No Side Effects During Parsing**
    - DTOs don't trigger `model_post_init` validation logic
@@ -135,7 +135,7 @@ graph TD
 
 ### Key Field Mappings
 
-| Fuzzer Field (JSON-RPC) | DTO Field            | EEST Domain Field    | Notes                          |
+| Fuzzer Field (JSON-RPC) | DTO Field            | SEST Domain Field    | Notes                          |
 |-------------------------|----------------------|----------------------|--------------------------------|
 | `from`                  | `from_`              | `sender` (EOA)       | Creates EOA from private key   |
 | `gas`                   | `gas`                | `gas_limit`          | JSON-RPC vs internal naming    |
@@ -153,7 +153,7 @@ graph TD
 - ~119 lines
 
 #### `converter.py` - Transformation Logic
-- Pure functions: DTO → EEST domain models
+- Pure functions: DTO → SEST domain models
 - All field mapping logic centralized here
 - Creates EOA objects from private keys
 - Builds BlockchainTest from validated data
@@ -191,9 +191,9 @@ The DTO pattern provides cleaner separation and explicit control.
 
 ## Installation
 
-See the [EEST installation guide](https://eest.sila.org/main/getting_started/installation/) for setting up the execution-spec-tests framework.
+See the [SEST installation guide](../../../../../../docs/getting_started/installation.md) for setting up the execution-spec-tests framework.
 
-Once EEST is installed, the fuzzer bridge will be available as a command-line tool.
+Once SEST is installed, the fuzzer bridge will be available as a command-line tool.
 
 ## Usage
 
@@ -204,7 +204,7 @@ Once EEST is installed, the fuzzer bridge will be available as a command-line to
 uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json
 
 # With custom fork
-uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --fork Shanghai
+uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --fork SilaShanghai
 
 # Pretty print output
 uv run fuzzer_bridge --input fuzzer_output.json --output blocktest.json --pretty
@@ -227,7 +227,7 @@ blocktest = bridge.convert(fuzzer_data)
 bridge.save(blocktest, "output.json")
 
 # Or verify with gsil directly
-result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/evm")
+result = bridge.verify_with_gsil(blocktest, gsil_path="../go-sila/build/bin/sivm")
 print(f"Test passed: {result['pass']}")
 ```
 
@@ -280,7 +280,7 @@ def test_fuzzer_generated(blockchain_test):
 
 ### Go-Sila (gsil)
 ```bash
-../go-sila/build/bin/evm blocktest generated_test.json
+../go-sila/build/bin/sivm blocktest generated_test.json
 ```
 
 ### Besu

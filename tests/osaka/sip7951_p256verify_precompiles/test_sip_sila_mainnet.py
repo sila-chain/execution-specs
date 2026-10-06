@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7951: Precompile for secp256r1 Curve Support](https://sips.sila.org/SIPS/sip-7951).
+[SIP-7951: Precompile for secp256r1 Curve Support](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md).
 """
 
 import pytest
@@ -11,7 +11,7 @@ from .spec import H, R, S, Spec, X, Y, ref_spec_7951
 REFERENCE_SPEC_GIT_PATH = ref_spec_7951.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7951.version
 
-pytestmark = [pytest.mark.valid_at("Osaka"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaOsaka"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

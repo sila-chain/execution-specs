@@ -32,7 +32,7 @@ CALL_VALUE = 0xA
         "state_tests/stStaticCall/static_call_value_inherit_from_callFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_static_call_value_inherit_from_call(
     state_test: StateTestFiller,
     pre: Alloc,

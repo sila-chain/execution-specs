@@ -1,7 +1,7 @@
 # Ported Static Tests
 
 Tests in this directory were auto-converted from the static fillers in
-[sila/tests](https://github.com/sila/tests) and may be regenerated
+[sila-chain/sila-tests](https://github.com/sila-chain/sila-tests) and may be regenerated
 by the conversion tooling.
 
 If you correct a test by hand (e.g. fix its post-state expectations), add

@@ -23,7 +23,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stNonZeroCallsTest/NonZeroValue_CALLCODE_ToNonNonZeroBalanceFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_non_zero_value_callcode_to_non_non_zero_balance(
     state_test: StateTestFiller,
@@ -48,13 +48,14 @@ def test_non_zero_value_callcode_to_non_non_zero_balance(
     # value-unchanged SSTORE gains its own reprice.
     gas_costs = fork.gas_costs()
     cold_account_delta = (
-        gas_costs.COLD_ACCOUNT_ACCESS - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        gas_costs.COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
-    call_value_delta = gas_costs.CALL_VALUE - Cancun.gas_costs().CALL_VALUE
+    call_value_delta = gas_costs.CALL_VALUE - SilaCancun.gas_costs().CALL_VALUE
     cold_noop_sstore = Op.SSTORE.with_metadata(
         key_warm=False, original_value=0, current_value=0, new_value=0
     )
-    cancun_cold_noop_sstore = cold_noop_sstore.gas_cost(Cancun)
+    cancun_cold_noop_sstore = cold_noop_sstore.gas_cost(SilaCancun)
     cold_noop_sstore_delta = (
         cold_noop_sstore.gas_cost(fork) - cancun_cold_noop_sstore
     )

@@ -2,7 +2,7 @@
 Tests gas usage on point evaluation precompile for SIP-4844.
 
 Tests gas usage on point evaluation precompile for
-[SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+[SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 """
 
 from typing import Dict, Literal
@@ -102,7 +102,6 @@ def precompile_caller_code(
         + copy_opcode_cost(fork, len(precompile_input))
     )
     if call_type == Op.CALL or call_type == Op.CALLCODE:
-        # https://github.com/sila/execution-spec-tests/issues/348
         precompile_caller_code += call_type(
             call_gas,
             Spec.POINT_EVALUATION_PRECOMPILE_ADDRESS,
@@ -115,7 +114,6 @@ def precompile_caller_code(
         overhead_cost += (push_operations_cost * 6) + (calldatasize_cost * 1)
     elif call_type == Op.DELEGATECALL or call_type == Op.STATICCALL:
         # Delegatecall and staticcall use one less argument
-        # https://github.com/sila/execution-spec-tests/issues/348
         precompile_caller_code += call_type(
             call_gas,
             Spec.POINT_EVALUATION_PRECOMPILE_ADDRESS,
@@ -198,8 +196,8 @@ def post(
     ids=["exact_gas", "insufficient_gas", "extra_gas"],
 )
 @pytest.mark.parametrize("proof", ["correct", "incorrect"])
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.sels_base_coverage
 def test_point_evaluation_precompile_gas_usage(
     state_test: StateTestFiller,
     pre: Dict,

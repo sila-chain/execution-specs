@@ -42,7 +42,7 @@ GRANT_MARGIN = 1_000
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refundSuicide50procentCapFiller.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "call_succeeds",
     [False, True],

@@ -1,5 +1,5 @@
 """
-Tests [SIP-5656: MCOPY - Memory copying instruction](https://sips.sila.org/SIPS/sip-5656).
+Tests [SIP-5656: MCOPY - Memory copying instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md).
 """
 
 from typing import Mapping
@@ -179,7 +179,7 @@ def post(code_address: Address, code_storage: Storage) -> Mapping:  # noqa: D103
         "out_of_bounds_memory_extension",
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_valid_mcopy_operations(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -216,11 +216,10 @@ PATTERN = bytes.fromhex(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP5656_MCOPY/MCOPY_memory_hashFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP5656-MCOPY/MCOPY_memory_hashFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2490"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_mcopy_repeated(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -294,7 +293,7 @@ def test_mcopy_repeated(
 @pytest.mark.parametrize("src", [0x00, 0x20])
 @pytest.mark.parametrize("length", [0x00, 0x01])
 @pytest.mark.parametrize("initial_memory", [bytes()], ids=["empty_memory"])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_mcopy_on_empty_memory(
     state_test: StateTestFiller,
     pre: Alloc,

@@ -5,7 +5,7 @@ Decompose the intrinsic transaction gas into explicit recipient-access
 and value-transfer primitives so that the cost paid before execution
 reflects the actual work the transaction will perform.
 
-https://sips.sila.org/SIPS/sip-2780
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2780.md
 """
 
 from dataclasses import replace
@@ -177,7 +177,7 @@ class SIP2780(BaseFork):
         """
         Return the additional execution gas charged at the top-level
         transaction frame, after intrinsic gas is deducted but before
-        the EVM dispatches.
+        the Sivm dispatches.
 
         Charges the delegation-target access when the recipient is an
         existing delegated account: ``WARM_ACCESS`` when the target is
@@ -244,7 +244,7 @@ class SIP2780(BaseFork):
 
         SIP-2780 charges each authorization's state-dependent cost at the
         top frame, keyed on the authority's pre-transaction state, with no
-        refund. The Prague-era ``AUTHORIZATION_EXISTING_AUTHORITY`` refund
+        refund. The SilaPrague-era ``AUTHORIZATION_EXISTING_AUTHORITY`` refund
         therefore no longer applies.
         """
         return [

@@ -2,7 +2,7 @@
 BLOB003, BLOB004.
 
 Ported from:
-state_tests/Cancun/stEIP4844_blobtransactions/opcodeBlobhashOutOfRangeFiller.yml
+state_tests/SilaCancun/stEIP4844_blobtransactions/opcodeBlobhashOutOfRangeFiller.yml
 """
 
 import pytest
@@ -26,10 +26,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Cancun/stEIP4844_blobtransactions/opcodeBlobhashOutOfRangeFiller.yml"  # noqa: E501
+        "state_tests/SilaCancun/stEIP4844_blobtransactions/opcodeBlobhashOutOfRangeFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_opcode_blobhash_out_of_range(
     state_test: StateTestFiller,

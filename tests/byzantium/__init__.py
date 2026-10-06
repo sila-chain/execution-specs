@@ -1,1 +1,1 @@
-"""Test cases for EVM functionality introduced in Byzantium."""
+"""Test cases for Sivm functionality introduced in SilaByzantium."""

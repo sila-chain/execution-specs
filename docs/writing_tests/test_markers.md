@@ -45,7 +45,7 @@ import pytest
 from execution_testing.tools import Alloc, StateTestFiller
 
 @pytest.mark.with_all_tx_types
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_something_with_all_tx_types(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -54,13 +54,13 @@ def test_something_with_all_tx_types(
     pass
 ```
 
-In this example, the test will be parameterized for parameter `tx_type` with values `[0, 1]` for fork Berlin, but with values `[0, 1, 2]` for fork London (because of SIP-1559).
+In this example, the test will be parameterized for parameter `tx_type` with values `[0, 1]` for fork SilaBerlin, but with values `[0, 1, 2]` for fork SilaLondon (because of SIP-1559).
 
 ### `@pytest.mark.with_all_contract_creating_tx_types`
 
 This marker is used to automatically parameterize a test with all contract creating transaction types that are valid for the fork being tested.
 
-This marker only differs from `pytest.mark.with_all_tx_types` in that it does not include transaction type 3 (Blob Transaction type) on fork Cancun and after.
+This marker only differs from `pytest.mark.with_all_tx_types` in that it does not include transaction type 3 (Blob Transaction type) on fork SilaCancun and after.
 
 ### `@pytest.mark.with_all_typed_transactions`
 
@@ -106,7 +106,7 @@ def type_4_default_transaction(sender: Account, pre: Alloc):
 
 
 @pytest.mark.with_all_typed_transactions
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_something_with_all_tx_types(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -125,7 +125,7 @@ import pytest
 from execution_testing.tools import Alloc, StateTestFiller
 
 @pytest.mark.with_all_precompiles
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_something_with_all_precompiles(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -134,11 +134,11 @@ def test_something_with_all_precompiles(
     pass
 ```
 
-In this example, the test will be parameterized for parameter `precompile` with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` for fork Shanghai, but with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` for fork Cancun which introduced the [point evaluation precompile](https://sips.sila.org/SIPS/sip-4844#point-evaluation-precompile) defined in SIP-4844.
+In this example, the test will be parameterized for parameter `precompile` with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]` for fork SilaShanghai, but with values `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` for fork SilaCancun which introduced the [point evaluation precompile](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md#point-evaluation-precompile) defined in SIP-4844.
 
 ### `@pytest.mark.with_all_call_opcodes`
 
-This marker is used to automatically parameterize a test with all EVM call opcodes that are valid for the fork being tested.
+This marker is used to automatically parameterize a test with all Sivm call opcodes that are valid for the fork being tested.
 
 ```python
 import pytest
@@ -156,11 +156,11 @@ def test_something_with_all_call_opcodes(
     pass
 ```
 
-In this example, the test will be parametrized for parameter `call_opcode` with values `[Op.CALL, Op.CALLCODE]` starting on fork Frontier, `[Op.CALL, Op.CALLCODE, Op.DELEGATECALL]` on fork Homestead, and `[Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]` on fork Byzantium and later.
+In this example, the test will be parametrized for parameter `call_opcode` with values `[Op.CALL, Op.CALLCODE]` starting on fork Frontier, `[Op.CALL, Op.CALLCODE, Op.DELEGATECALL]` on fork SilaHomestead, and `[Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]` on fork SilaByzantium and later.
 
 ### `@pytest.mark.with_all_create_opcodes`
 
-This marker is used to automatically parameterize a test with all EVM create opcodes that are valid for the fork being tested.
+This marker is used to automatically parameterize a test with all Sivm create opcodes that are valid for the fork being tested.
 
 ```python
 import pytest
@@ -178,7 +178,7 @@ def test_something_with_all_create_opcodes(
     pass
 ```
 
-In this example, the test will be parametrized for parameter `create_opcode` with values `[Op.CREATE]` starting on fork Frontier, and `[Op.CREATE, Op.CREATE2]` starting on fork Constantinople and later.
+In this example, the test will be parametrized for parameter `create_opcode` with values `[Op.CREATE]` starting on fork Frontier, and `[Op.CREATE, Op.CREATE2]` starting on fork SilaConstantinople and later.
 
 ### `@pytest.mark.with_all_system_contracts`
 
@@ -191,7 +191,7 @@ from execution_testing.tools import Alloc, StateTestFiller
 from execution_testing.base_types import Address
 
 @pytest.mark.with_all_system_contracts
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_something_with_all_system_contracts(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -201,7 +201,7 @@ def test_something_with_all_system_contracts(
 
 ```
 
-In this example, the test will be parameterized for parameter `system_contract` with value `[0x000F3DF6D732807EF1319FB7B8BB8522D0BEAC02]` for fork Cancun.
+In this example, the test will be parameterized for parameter `system_contract` with value `[0x000F3DF6D732807EF1319FB7B8BB8522D0BEAC02]` for fork SilaCancun.
 
 ### `@pytest.mark.with_all_system_contract_request_types`
 
@@ -215,7 +215,7 @@ import pytest
 from execution_testing import Alloc, BlockchainTestFiller, SystemContractRequest
 
 @pytest.mark.with_all_system_contract_request_types
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_something_with_all_system_contract_request_types(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -225,7 +225,7 @@ def test_something_with_all_system_contract_request_types(
 
 ```
 
-In this example, the test will be parameterized for parameter `request_class` with value `[ConsolidationRequest, WithdrawalRequest, DepositRequest]` for fork Prague.
+In this example, the test will be parameterized for parameter `request_class` with value `[ConsolidationRequest, WithdrawalRequest, DepositRequest]` for fork SilaPrague.
 
 Pass `selector=lambda cls: issubclass(cls, FeeSystemContractRequest)` (also exported from `execution_testing`) to keep only the request types that queue through a fee-charging system contract; `DepositRequest` is log-driven and keeps no queue.
 
@@ -241,7 +241,7 @@ import pytest
 from execution_testing import Address, Alloc, RefundTypes, StateTestFiller
 
 @pytest.mark.with_all_refund_types
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_something_with_all_refund_types(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -251,7 +251,7 @@ def test_something_with_all_refund_types(
 
 ```
 
-In this example, the test will be parameterized for parameter `refund_type` with value `[RefundTypes.STORAGE_CLEAR, RefundTypes.AUTHORIZATION_EXISTING_AUTHORITY]` for fork Prague.
+In this example, the test will be parameterized for parameter `refund_type` with value `[RefundTypes.STORAGE_CLEAR, RefundTypes.AUTHORIZATION_EXISTING_AUTHORITY]` for fork SilaPrague.
 
 ### Covariant Marker Keyword Arguments
 
@@ -267,7 +267,7 @@ import pytest
 from execution_testing.tools import Alloc, StateTestFiller
 
 @pytest.mark.with_all_tx_types(selector=lambda tx_type: tx_type != 2)
-@pytest.mark.valid_from("London")
+@pytest.mark.valid_from("SilaLondon")
 def test_something_with_all_tx_types(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -288,7 +288,7 @@ import pytest
 @pytest.mark.with_all_tx_types(
     marks=lambda tx_type: pytest.mark.skip("incompatible") if tx_type == 1 else None,
 )
-@pytest.mark.valid_from("London")
+@pytest.mark.valid_from("SilaLondon")
 def test_something_with_all_tx_types_but_skip_type_1(state_test_only, tx_type):
     assert tx_type != 1
     ...
@@ -319,16 +319,16 @@ If the parameters that are being parametrized are multiple, the return value of 
 import pytest
 
 def covariant_function(fork):
-    return [[1, 2], [3, 4]] if fork.name() == "Paris" else [[4, 5], [5, 6], [6, 7]]
+    return [[1, 2], [3, 4]] if fork.name() == "SilaParis" else [[4, 5], [5, 6], [6, 7]]
 
 @pytest.mark.parametrize_by_fork("test_parameter,test_parameter_2", covariant_function)
-@pytest.mark.valid_from("Paris")
-@pytest.mark.valid_until("Shanghai")
+@pytest.mark.valid_from("SilaParis")
+@pytest.mark.valid_until("SilaShanghai")
 def test_case(state_test_only, test_parameter, test_parameter_2):
     pass
 ```
 
-In this example, the test will be parametrized with the values `[1, 2]` and `[3, 4]` for the Paris fork, with values `1` and `3` being assigned to `test_parameter` and `2` and `4` being assigned to `test_parameter_2`. For the Shanghai fork, the test will be parametrized with the values `[4, 5]`, `[5, 6]`, and `[6, 7]`. Therefore, more test cases will be generated for the Shanghai fork.
+In this example, the test will be parametrized with the values `[1, 2]` and `[3, 4]` for the SilaParis fork, with values `1` and `3` being assigned to `test_parameter` and `2` and `4` being assigned to `test_parameter_2`. For the SilaShanghai fork, the test will be parametrized with the values `[4, 5]`, `[5, 6]`, and `[6, 7]`. Therefore, more test cases will be generated for the SilaShanghai fork.
 
 If the parameters that are being parametrized is only a single parameter, the return value of `fn` should be a list of values for that parameter.
 
@@ -476,7 +476,7 @@ import pytest
 
 from execution_testing.tools import Alloc, StateTestFiller
 
-@pytest.mark.xfail(reason="EVM binary doesn't support this opcode")
+@pytest.mark.xfail(reason="Sivm binary doesn't support this opcode")
 def test_something(state_test: StateTestFiller, pre: Alloc):
     pass
 ```

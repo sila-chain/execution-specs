@@ -13,26 +13,26 @@ from typing import List
 
 import pytest
 
-from execution_testing.forks import Amsterdam, Fork, Osaka, Prague
+from execution_testing.forks import Fork, SilaAmsterdam, SilaOsaka, SilaPrague
 
 from ..transaction_types import Transaction
 
-_osaka_cap = Osaka.transaction_gas_limit_cap()
+_osaka_cap = SilaOsaka.transaction_gas_limit_cap()
 assert _osaka_cap is not None
 OSAKA_CAP: int = _osaka_cap
-_amsterdam_cap = Amsterdam.transaction_gas_limit_cap()
+_amsterdam_cap = SilaAmsterdam.transaction_gas_limit_cap()
 assert _amsterdam_cap is not None
 AMSTERDAM_CAP: int = _amsterdam_cap
-_amsterdam_total_cap = Amsterdam.transaction_total_gas_limit_cap()
+_amsterdam_total_cap = SilaAmsterdam.transaction_total_gas_limit_cap()
 assert _amsterdam_total_cap is not None
 AMSTERDAM_TOTAL_CAP: int = _amsterdam_total_cap
 
-assert Prague.transaction_gas_limit_cap() is None
-assert Prague.transaction_total_gas_limit_cap() is None
-assert Osaka.transaction_total_gas_limit_cap() is None
-assert not Prague.state_gas_reservoir_enabled()
-assert not Osaka.state_gas_reservoir_enabled()
-assert Amsterdam.state_gas_reservoir_enabled()
+assert SilaPrague.transaction_gas_limit_cap() is None
+assert SilaPrague.transaction_total_gas_limit_cap() is None
+assert SilaOsaka.transaction_total_gas_limit_cap() is None
+assert not SilaPrague.state_gas_reservoir_enabled()
+assert not SilaOsaka.state_gas_reservoir_enabled()
+assert SilaAmsterdam.state_gas_reservoir_enabled()
 
 
 def calculate_max_transaction_gas_limit(
@@ -286,7 +286,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction(gas_limit=200_000)]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=100_000, fork=Prague
+                txs, env_gas_limit=100_000, fork=SilaPrague
             )
             == 0
         )
@@ -295,7 +295,7 @@ class TestCalculateMaxTransactionGasLimit:
         """Return 0 for an empty transaction list."""
         assert (
             calculate_max_transaction_gas_limit(
-                [], env_gas_limit=100_000, fork=Prague
+                [], env_gas_limit=100_000, fork=SilaPrague
             )
             == 0
         )
@@ -305,7 +305,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction()]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=100_000, fork=Prague
+                txs, env_gas_limit=100_000, fork=SilaPrague
             )
             == 100_000
         )
@@ -315,7 +315,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction(gas_limit=40_000), Transaction()]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=100_000, fork=Prague
+                txs, env_gas_limit=100_000, fork=SilaPrague
             )
             == 60_000
         )
@@ -325,7 +325,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction(gas_limit=10_000), Transaction(), Transaction()]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=100_000, fork=Prague
+                txs, env_gas_limit=100_000, fork=SilaPrague
             )
             == 45_000
         )
@@ -337,7 +337,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction()]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=env_gas_limit, fork=Osaka
+                txs, env_gas_limit=env_gas_limit, fork=SilaOsaka
             )
             == OSAKA_CAP
         )
@@ -350,7 +350,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction()]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=env_gas_limit, fork=Amsterdam
+                txs, env_gas_limit=env_gas_limit, fork=SilaAmsterdam
             )
             == env_gas_limit
         )
@@ -361,7 +361,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction()]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=env_gas_limit, fork=Amsterdam
+                txs, env_gas_limit=env_gas_limit, fork=SilaAmsterdam
             )
             == AMSTERDAM_TOTAL_CAP
         )
@@ -380,7 +380,7 @@ class TestCalculateMaxTransactionGasLimit:
             Exception, match="test correctness: unable to automatically"
         ):
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=100_000, fork=Prague
+                txs, env_gas_limit=100_000, fork=SilaPrague
             )
 
     def test_no_remaining_gas_all_explicit_does_not_raise(self) -> None:
@@ -388,7 +388,7 @@ class TestCalculateMaxTransactionGasLimit:
         txs = [Transaction(gas_limit=150_000)]
         assert (
             calculate_max_transaction_gas_limit(
-                txs, env_gas_limit=100_000, fork=Prague
+                txs, env_gas_limit=100_000, fork=SilaPrague
             )
             == 0
         )

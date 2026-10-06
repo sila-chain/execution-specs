@@ -19,7 +19,7 @@ import pytest
 # Pinned so the fill runs against a single, stable fork: the invalid
 # transaction is derived from the fork's intrinsic gas cost, which later forks
 # reprice.
-FORK = "Prague"
+FORK = "SilaPrague"
 
 TEST_MODULE_DIR = "tests/prague/dummy_test_module"
 

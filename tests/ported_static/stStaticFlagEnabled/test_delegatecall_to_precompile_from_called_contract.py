@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticFlagEnabled/DelegatecallToPrecompileFromCalledContractFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_delegatecall_to_precompile_from_called_contract(
     state_test: StateTestFiller,

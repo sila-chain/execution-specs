@@ -12,8 +12,8 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_until("Paris")
-            @pytest.mark.valid_until("Paris")
+            @pytest.mark.valid_until("SilaParis")
+            @pytest.mark.valid_until("SilaParis")
             def test_case(state_test):
                 assert 0
             """,
@@ -25,8 +25,8 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_at_transition_to("Paris")
-            @pytest.mark.valid_at_transition_to("Paris")
+            @pytest.mark.valid_at_transition_to("SilaParis")
+            @pytest.mark.valid_at_transition_to("SilaParis")
             def test_case(state_test):
                 assert 0
             """,
@@ -74,7 +74,7 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_from("Paris", "Paris")
+            @pytest.mark.valid_from("SilaParis", "SilaParis")
             def test_case(state_test):
                 assert 0
             """,
@@ -86,7 +86,7 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_until("Paris", "Paris")
+            @pytest.mark.valid_until("SilaParis", "SilaParis")
             def test_case(state_test):
                 assert 0
             """,
@@ -98,7 +98,7 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_at_transition_to("Paris", "Paris")
+            @pytest.mark.valid_at_transition_to("SilaParis", "SilaParis")
             def test_case(state_test):
                 assert 0
             """,
@@ -146,7 +146,9 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_at_transition_to("Shanghai", until="Cantcun")
+            @pytest.mark.valid_at_transition_to(
+                "SilaShanghai", until="Cantcun"
+            )
             def test_case(state_test):
                 assert 0
             """,
@@ -158,8 +160,8 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_at_transition_to("Cancun")
-            @pytest.mark.valid_from("Paris")
+            @pytest.mark.valid_at_transition_to("SilaCancun")
+            @pytest.mark.valid_from("SilaParis")
             def test_case(state_test):
                 assert 0
             """,
@@ -174,8 +176,8 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_at_transition_to("Shanghai")
-            @pytest.mark.valid_until("Cancun")
+            @pytest.mark.valid_at_transition_to("SilaShanghai")
+            @pytest.mark.valid_until("SilaCancun")
             def test_case(state_test):
                 assert 0
             """,
@@ -190,7 +192,7 @@ invalid_validity_marker_test_cases = (
         (
             """
             import pytest
-            @pytest.mark.valid_from("Paris")
+            @pytest.mark.valid_from("SilaParis")
             @pytest.mark.valid_until("Frontier")
             def test_case(state_test):
                 assert 0
@@ -243,10 +245,10 @@ param_level_marker_error_test_cases = (
             @pytest.mark.parametrize(
                 "value",
                 [
-                    pytest.param(True, marks=pytest.mark.valid_until("Cancun")),
+                    pytest.param(True, marks=pytest.mark.valid_until("SilaCancun")),
                 ],
             )
-            @pytest.mark.valid_until("Prague")
+            @pytest.mark.valid_until("SilaPrague")
             def test_case(state_test, value):
                 assert 1
             """,  # noqa: E501

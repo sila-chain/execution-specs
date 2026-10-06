@@ -1,9 +1,9 @@
 """
-SIP-1234: Constantinople difficulty bomb delay and block reward adjustment.
+SIP-1234: SilaConstantinople difficulty bomb delay and block reward adjustment.
 
 Delay the difficulty bomb and reduce the block reward to 2 SIL.
 
-https://sips.sila.org/SIPS/sip-1234
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1234.md
 """
 
 from ....base_fork import BaseFork

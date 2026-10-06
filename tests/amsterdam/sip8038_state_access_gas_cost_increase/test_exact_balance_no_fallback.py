@@ -1,17 +1,17 @@
 """
 No-silent-fallback exact-balance tests for
-[SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+[SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 Each test funds the sender with *exactly* ``gas_limit * gas_price`` and
-sets ``gas_limit`` one gas below the spec-correct Amsterdam intrinsic for
+sets ``gas_limit`` one gas below the spec-correct SilaAmsterdam intrinsic for
 a single repriced dimension. A spec-correct client therefore rejects the
 transaction with ``INTRINSIC_GAS_TOO_LOW``; a client that silently fell
-back to the pre-Amsterdam value for that one constant would have computed
+back to the pre-SilaAmsterdam value for that one constant would have computed
 a strictly smaller intrinsic (``new - per_unit_delta``) and could have
 executed the transaction. Because the sender holds no surplus wei, there
 is no room for such a fallback to hide.
 
-The pre-Amsterdam (old) per-component value is read from the parent
+The pre-SilaAmsterdam (old) per-component value is read from the parent
 fork's schedule (``fork.parent()``); the spec-correct intrinsic is read
 from the active fork's intrinsic calculator. Nothing is hardcoded; the
 gap is asserted to be positive so the construction is only emitted when
@@ -38,7 +38,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 GAS_PRICE = 10
 
@@ -81,7 +81,7 @@ def test_access_list_no_fallback(
 ) -> None:
     """
     Reject an access-list transaction whose ``gas_limit`` is one gas
-    below the Amsterdam intrinsic.
+    below the SilaAmsterdam intrinsic.
 
     SIP-8038 raises ``TX_ACCESS_LIST_ADDRESS`` and
     ``TX_ACCESS_LIST_STORAGE_KEY``. A client reusing the
@@ -155,7 +155,7 @@ def test_authorization_no_fallback(
 ) -> None:
     """
     Reject a ``7702`` set-code transaction whose ``gas_limit`` is one
-    gas below the Amsterdam intrinsic.
+    gas below the SilaAmsterdam intrinsic.
 
     SIP-8038 raises the per-authorization intrinsic
     (``AUTH_PER_EMPTY_ACCOUNT``). A client reusing the old per-auth
@@ -217,7 +217,7 @@ def test_cold_account_access_no_fallback(
 ) -> None:
     """
     Reject a plain call transaction whose ``gas_limit`` is one gas below
-    the Amsterdam intrinsic.
+    the SilaAmsterdam intrinsic.
 
     Under SIP-2780 every non-create, non-self transaction pays one
     ``COLD_ACCOUNT_ACCESS`` in its intrinsic for touching the recipient;

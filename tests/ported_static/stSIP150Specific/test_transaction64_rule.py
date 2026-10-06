@@ -42,7 +42,7 @@ OVERSIZED_GAS_ASK = 2**61
         "state_tests/stEIP150Specific/Transaction64Rule_d64p1Filler.json",
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "residue",
     [
@@ -100,7 +100,7 @@ def test_transaction64_rule(
         gas_limit=gas_limit,
     )
 
-    # The EVM floors the forwarded gas as `base - base // 64`; the callee
+    # The Sivm floors the forwarded gas as `base - base // 64`; the callee
     # observes it minus its own GAS opcode. An implementation using
     # `base * 63 // 64` is exactly one gas short on the m1/p1 residues.
     forwarded = base - base // 64

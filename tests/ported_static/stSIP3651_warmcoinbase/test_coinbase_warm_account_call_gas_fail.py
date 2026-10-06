@@ -2,8 +2,8 @@
 Test_coinbase_warm_account_call_gas_fail.
 
 Ported from:
-state_tests/Shanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFailFiller.yml
-@manually-enhanced: Do not overwrite. `tx_gas` bumped on Amsterdam
+state_tests/SilaShanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFailFiller.yml
+@manually-enhanced: Do not overwrite. `tx_gas` bumped on SilaAmsterdam
 to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
 
 """
@@ -29,10 +29,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Shanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFailFiller.yml"  # noqa: E501
+        "state_tests/SilaShanghai/stEIP3651_warmcoinbase/coinbaseWarmAccountCallGasFailFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -175,7 +175,7 @@ def test_coinbase_warm_account_call_gas_fail(
     # {
     #    // Depending on the called contract here, the subcall will perform
     #    // another call/delegatecall/staticcall/callcode that will only succeed  # noqa: E501
-    #    // if coinbase is considered warm by default (post-Shanghai).
+    #    // if coinbase is considered warm by default (post-SilaShanghai).
     #    let calladdr := calldataload(4)
     #
     #    let callgas := 100
@@ -254,7 +254,7 @@ def test_coinbase_warm_account_call_gas_fail(
         Bytes("693c6139") + Hash(addr_3, left_padding=True),
         Bytes("693c6139") + Hash(addr_4, left_padding=True),
     ]
-    # SIP-8037 state-gas spill on Amsterdam exceeds the original 80k.
+    # SIP-8037 state-gas spill on SilaAmsterdam exceeds the original 80k.
     outer_tx_gas = 80000
     if fork.is_sip_enabled(8037):
         outer_tx_gas = 500_000

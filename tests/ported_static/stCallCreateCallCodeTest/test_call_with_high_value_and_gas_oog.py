@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stCallCreateCallCodeTest/callWithHighValueAndGasOOGFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -119,7 +119,7 @@ def test_call_with_high_value_and_gas_oog(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": -1, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -130,7 +130,7 @@ def test_call_with_high_value_and_gas_oog(
         },
         {
             "indexes": {"data": -1, "gas": -1, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={

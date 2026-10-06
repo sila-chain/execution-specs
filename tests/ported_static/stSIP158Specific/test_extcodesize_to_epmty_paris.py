@@ -24,7 +24,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP158Specific/EXTCODESIZE_toEpmtyParisFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_extcodesize_to_epmty_paris(
     state_test: StateTestFiller,
@@ -47,14 +47,14 @@ def test_extcodesize_to_epmty_paris(
     # the cold SSTORE-clear (nonzero -> 0) spills its state-gas back
     # into regular gas.
     cold_extcodesize = Op.EXTCODESIZE.with_metadata(address_warm=False)
-    cancun_extcodesize_cost = cold_extcodesize.gas_cost(Cancun)
+    cancun_extcodesize_cost = cold_extcodesize.gas_cost(SilaCancun)
     extcodesize_delta = (
         cold_extcodesize.gas_cost(fork) - cancun_extcodesize_cost
     )
     cold_clear_sstore = Op.SSTORE.with_metadata(
         key_warm=False, original_value=1, current_value=1, new_value=0
     )
-    cancun_clear_sstore_cost = cold_clear_sstore.gas_cost(Cancun)
+    cancun_clear_sstore_cost = cold_clear_sstore.gas_cost(SilaCancun)
     cold_clear_sstore_delta = (
         cold_clear_sstore.gas_cost(fork) - cancun_clear_sstore_cost
     )

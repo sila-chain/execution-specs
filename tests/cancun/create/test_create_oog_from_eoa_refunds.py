@@ -28,7 +28,7 @@ from execution_testing import (
     compute_create_address,
 )
 
-pytestmark = pytest.mark.valid_from("Cancun")
+pytestmark = pytest.mark.valid_from("SilaCancun")
 
 
 class OogScenario(Enum):
@@ -237,9 +237,8 @@ def build_init_code(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CreateOOGFromEOARefundsFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stCreateTest/CreateOOGFromEOARefundsFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-specs/pull/1831"],
 )
 def test_create_oog_from_eoa_refunds(
     pre: Alloc,

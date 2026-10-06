@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stReturnDataTest/modexp_modsize0_returndatasizeFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -113,27 +113,27 @@ def test_modexp_modsize0_returndatasize(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={1: 1, 2: 0, 3: 0})},
         },
         {
             "indexes": {"data": 1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={1: 1, 2: 0, 3: 1})},
         },
         {
             "indexes": {"data": 2, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={1: 1, 2: 0, 3: 100})},
         },
         {
             "indexes": {"data": 3, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={1: 1, 2: 0, 3: 256})},
         },
         {
             "indexes": {"data": 4, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={})},
         },
     ]

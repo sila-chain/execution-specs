@@ -2,7 +2,7 @@
 Test SIP-7702 SetCode authorization state gas under the SIP-2780
 top-frame charge model.
 
-Under SIP-2780 (Amsterdam) an authorization's intrinsic cost is only the
+Under SIP-2780 (SilaAmsterdam) an authorization's intrinsic cost is only the
 state-independent ``EXECUTION_PER_AUTH_BASE_COST``; there is no intrinsic
 auth state gas and there are no auth refunds. The state-dependent costs
 are charged lazily at the top frame in ``set_delegation``, keyed on each
@@ -19,15 +19,16 @@ For a value-free type-4 transaction whose recipient runs code ``code``:
 
 * the receipt ``cumulative_gas_used`` is the plain sum
   ``intrinsic_execution + top_frame_execution + top_frame_state +
-  evm_execution + evm_state`` (no refund term); and
+  sivm_execution + sivm_state`` (no refund term); and
 * the header ``gas_used`` is ``max(block_execution, block_state)`` where
   ``block_execution = intrinsic_execution + top_frame_execution +
-  evm_execution`` and ``block_state = top_frame_state +
-  evm_state``.
+  sivm_execution`` and ``block_state = top_frame_state +
+  sivm_state``.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037); the ``valid_from("SIP8037")``
-markers resolve to Amsterdam, where SIP-2780 governs the charge model.
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md); the
+``valid_from("SIP8037")`` markers resolve to SilaAmsterdam, where SIP-2780
+governs the charge model.
 """
 
 import pytest
@@ -98,16 +99,18 @@ def _receipt_and_header(
     top_frame_execution: int,
     top_frame_state: int,
     *,
-    evm_execution: int = 0,
-    evm_state: int = 0,
+    sivm_execution: int = 0,
+    sivm_state: int = 0,
 ) -> tuple[int, int]:
     """
     Return the (receipt cumulative_gas_used, header gas_used) for a
     successful (non-reverting) transaction under the no-refund top-frame
     model.
     """
-    block_execution = intrinsic_execution + top_frame_execution + evm_execution
-    block_state = top_frame_state + evm_state
+    block_execution = (
+        intrinsic_execution + top_frame_execution + sivm_execution
+    )
+    block_state = top_frame_state + sivm_state
     cumulative_gas_used = block_execution + block_state
     header_gas_used = max(block_execution, block_state)
     return cumulative_gas_used, header_gas_used
@@ -528,8 +531,8 @@ def test_authorization_with_sstore(
     storage = Storage()
     code = Op.SSTORE(storage.store_next(1), 1)
     contract = pre.deploy_contract(code=code)
-    evm_execution = code.execution_cost(fork)
-    evm_state = code.state_cost(fork)
+    sivm_execution = code.execution_cost(fork)
+    sivm_state = code.state_cost(fork)
 
     signer = pre.fund_eoa()
     authorization_list = [
@@ -549,8 +552,8 @@ def test_authorization_with_sstore(
         intrinsic_execution,
         top_frame_execution,
         top_frame_state,
-        evm_execution=evm_execution,
-        evm_state=evm_state,
+        sivm_execution=sivm_execution,
+        sivm_state=sivm_state,
     )
 
     tx = Transaction(
@@ -590,8 +593,8 @@ def test_existing_account_no_refund_with_sstore(
     storage = Storage()
     code = Op.SSTORE(storage.store_next(1), 1)
     contract = pre.deploy_contract(code=code)
-    evm_execution = code.execution_cost(fork)
-    evm_state = code.state_cost(fork)
+    sivm_execution = code.execution_cost(fork)
+    sivm_state = code.state_cost(fork)
 
     signer = pre.fund_eoa()
     authorization_list = [
@@ -611,8 +614,8 @@ def test_existing_account_no_refund_with_sstore(
         intrinsic_execution,
         top_frame_execution,
         top_frame_state,
-        evm_execution=evm_execution,
-        evm_state=evm_state,
+        sivm_execution=sivm_execution,
+        sivm_state=sivm_state,
     )
 
     tx = Transaction(
@@ -1023,8 +1026,8 @@ def test_auth_with_calldata_and_access_list(
     storage = Storage()
     code = Op.SSTORE(storage.store_next(0x42), Op.CALLDATALOAD(0))
     contract = pre.deploy_contract(code=code)
-    evm_execution = code.execution_cost(fork)
-    evm_state = code.state_cost(fork)
+    sivm_execution = code.execution_cost(fork)
+    sivm_state = code.state_cost(fork)
 
     signer = pre.fund_eoa()
     authorization_list = [
@@ -1053,8 +1056,8 @@ def test_auth_with_calldata_and_access_list(
         intrinsic_execution,
         top_frame_execution,
         top_frame_state,
-        evm_execution=evm_execution,
-        evm_state=evm_state,
+        sivm_execution=sivm_execution,
+        sivm_state=sivm_state,
     )
 
     tx = Transaction(
@@ -1241,8 +1244,8 @@ def test_auth_with_multiple_sstores(
     for _ in range(num_sstores):
         code += Op.SSTORE(storage.store_next(1), 1)
     contract = pre.deploy_contract(code=code)
-    evm_execution = code.execution_cost(fork)
-    evm_state = code.state_cost(fork)
+    sivm_execution = code.execution_cost(fork)
+    sivm_state = code.state_cost(fork)
 
     signer = pre.fund_eoa()
     authorization_list = [
@@ -1262,8 +1265,8 @@ def test_auth_with_multiple_sstores(
         intrinsic_execution,
         top_frame_execution,
         top_frame_state,
-        evm_execution=evm_execution,
-        evm_state=evm_state,
+        sivm_execution=sivm_execution,
+        sivm_state=sivm_state,
     )
 
     tx = Transaction(
@@ -1510,8 +1513,8 @@ def test_fresh_authority_and_sstores_full_state(
     for _ in range(num_sstores):
         code += Op.SSTORE(storage.store_next(1), 1)
     contract = pre.deploy_contract(code=code)
-    evm_execution = code.execution_cost(fork)
-    evm_state = code.state_cost(fork)
+    sivm_execution = code.execution_cost(fork)
+    sivm_state = code.state_cost(fork)
 
     signer = pre.fund_eoa(amount=0)
     authorization_list = [
@@ -1531,8 +1534,8 @@ def test_fresh_authority_and_sstores_full_state(
         intrinsic_execution,
         top_frame_execution,
         top_frame_state,
-        evm_execution=evm_execution,
-        evm_state=evm_state,
+        sivm_execution=sivm_execution,
+        sivm_state=sivm_state,
     )
 
     tx = Transaction(
@@ -1726,7 +1729,7 @@ def test_auth_state_gas_persists_on_top_level_revert(
     """
     code = Op.SSTORE(0, 1) + Op.REVERT(0, 0)
     contract = pre.deploy_contract(code=code)
-    evm_execution = code.execution_cost(fork)
+    sivm_execution = code.execution_cost(fork)
 
     signer = pre.fund_eoa()
     authorization_list = [
@@ -1748,7 +1751,7 @@ def test_auth_state_gas_persists_on_top_level_revert(
         intrinsic_execution,
         top_frame_execution,
         top_frame_state,
-        evm_execution=evm_execution,
+        sivm_execution=sivm_execution,
     )
 
     tx = Transaction(
@@ -1808,7 +1811,7 @@ def test_auth_state_gas_in_header_after_failure(
 
     * REVERT -- the unused execution budget returns, so the execution
       component is ``intrinsic_execution + top_frame_execution +
-      evm_execution`` and the state component is the persisting
+      sivm_execution`` and the state component is the persisting
       authorization state gas.
     * HALT / OOG -- the frame consumes its whole gas limit; the
       authorization state gas within it is accounted on the state
@@ -1825,7 +1828,7 @@ def test_auth_state_gas_in_header_after_failure(
         target = pre.deploy_contract(code=Op.INVALID)
     else:
         # Consume all remaining gas at once (a spin loop would execute
-        # millions of ops in the EVM and slow down filling).
+        # millions of ops in the Sivm and slow down filling).
         target = pre.deploy_contract(code=Om.OOG)
 
     if authority_exists:
@@ -1855,7 +1858,7 @@ def test_auth_state_gas_in_header_after_failure(
             intrinsic_execution,
             top_frame_execution,
             top_frame_state,
-            evm_execution=revert_code.execution_cost(fork),
+            sivm_execution=revert_code.execution_cost(fork),
         )
     else:
         # HALT / OOG consume the whole gas limit, of which the
@@ -1939,7 +1942,7 @@ def test_auth_sender_billing_after_failure(
         intrinsic_execution,
         top_frame_execution,
         top_frame_state,
-        evm_execution=revert_code.execution_cost(fork),
+        sivm_execution=revert_code.execution_cost(fork),
     )
 
     tx = Transaction(
@@ -2075,8 +2078,8 @@ def test_auth_and_execution_state_oog_boundary(
     storage = Storage()
     target_code = Op.SSTORE(storage.store_next(1), 1)
     target = pre.deploy_contract(code=target_code)
-    evm_execution = target_code.execution_cost(fork)
-    evm_state = target_code.state_cost(fork)
+    sivm_execution = target_code.execution_cost(fork)
+    sivm_state = target_code.state_cost(fork)
 
     authority = pre.fund_eoa()
     authorization_list = [
@@ -2096,8 +2099,8 @@ def test_auth_and_execution_state_oog_boundary(
         intrinsic_execution
         + top_frame_execution
         + top_frame_state
-        + evm_execution
-        + evm_state
+        + sivm_execution
+        + sivm_state
     )
     gas_limit = full_cost + gas_delta
     gas_limit_cap = fork.transaction_gas_limit_cap()
@@ -2110,8 +2113,8 @@ def test_auth_and_execution_state_oog_boundary(
             intrinsic_execution,
             top_frame_execution,
             top_frame_state,
-            evm_execution=evm_execution,
-            evm_state=evm_state,
+            sivm_execution=sivm_execution,
+            sivm_state=sivm_state,
         )
     else:
         # One gas short: execution OOGs at the top frame, consuming the

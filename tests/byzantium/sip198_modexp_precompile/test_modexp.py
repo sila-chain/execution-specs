@@ -1,5 +1,5 @@
 """
-Test [SIP-198: MODEXP Precompile](https://sips.sila.org/SIPS/sip-198).
+Test [SIP-198: MODEXP Precompile](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-198.md).
 
 Tests the MODEXP precompile, located at address 0x0000..0005. Test cases
 from the SIP are labelled with `SIP-198-caseX` in the test id.
@@ -23,10 +23,10 @@ from execution_testing.base_types.base_types import (
 from .helpers import ModExpInput, ModExpOutput
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-198.md"
-REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
+REFERENCE_SPEC_VERSION = "c3728ca1a431e00b6a8a32b11812e5a700611c3e"
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize(
     ["mod_exp_input", "output"],
     [
@@ -293,9 +293,8 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             # FIXME
             marks=pytest.mark.skip(
                 reason=(
-                    "EELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before Osaka - see "
-                    "github.com/sila/execution-specs/issues/1465"
+                    "SELS bug: U256 overflow in modexp pointer arithmetic "
+                    "before SilaOsaka"
                 )
             ),
             id="max-base-length-overflow-out-of-gas",
@@ -311,9 +310,8 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
             # FIXME
             marks=pytest.mark.skip(
                 reason=(
-                    "EELS bug: U256 overflow in modexp pointer arithmetic "
-                    "before Osaka - see "
-                    "github.com/sila/execution-specs/issues/1465"
+                    "SELS bug: U256 overflow in modexp pointer arithmetic "
+                    "before SilaOsaka"
                 )
             ),
             id="immunefi-38958-by-omik-overflow",
@@ -476,11 +474,11 @@ REFERENCE_SPEC_VERSION = "5c8f066acb210c704ef80c1033a941aa5374aac5"
     ids=lambda param: param.__repr__(),  # only required to remove parameter
     # names (input/output)
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/Constantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_37120_37111_37111_1000000Filler.json",
-        "https://github.com/sila/legacytests/blob/master/src/LegacyTests/Constantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_9_37111_37111_1000000Filler.json",
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_37120_37111_37111_1000000Filler.json",
+        "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaConstantinople/GeneralStateTestsFiller/stPreCompiledContracts/modexp_9_37111_37111_1000000Filler.json",
     ],
 )
 def test_modexp(

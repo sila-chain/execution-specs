@@ -8,14 +8,14 @@ import pytest
 from filelock import FileLock
 
 from execution_testing.forks import (
-    Cancun,
-    Osaka,
-    Prague,
+    SilaCancun,
+    SilaOsaka,
+    SilaPrague,
 )
 from execution_testing.forks.forks.transition import (
-    CancunToPragueAtTime15k,
-    PragueToOsakaAtTime15k,
-    ShanghaiToCancunAtTime15k,
+    SilaCancunToSilaPragueAtTime15k,
+    SilaPragueToSilaOsakaAtTime15k,
+    SilaShanghaiToSilaCancunAtTime15k,
 )
 
 from ..blob_types import CACHED_BLOBS_DIRECTORY, Blob, clear_blob_cache
@@ -80,7 +80,7 @@ def wait_until_counter_reached(target: int, poll_interval: float = 0.1) -> int:
 
 
 @pytest.mark.parametrize("seed", [0, 10, 100])
-@pytest.mark.parametrize("fork", [Cancun, Prague, Osaka])
+@pytest.mark.parametrize("fork", [SilaCancun, SilaPrague, SilaOsaka])
 def test_blob_creation_and_writing_and_reading(
     seed: int,
     fork: Any,
@@ -111,7 +111,7 @@ def test_blob_creation_and_writing_and_reading(
         Blob.ProofCorruptionMode.CORRUPT_TO_ALL_ZEROES,
     ],
 )
-@pytest.mark.parametrize("fork", [Cancun, Prague, Osaka])
+@pytest.mark.parametrize("fork", [SilaCancun, SilaPrague, SilaOsaka])
 def test_blob_proof_corruption(
     corruption_mode: Any,
     fork: Any,
@@ -137,9 +137,9 @@ def test_blob_proof_corruption(
 @pytest.mark.parametrize(
     "fork",
     [
-        ShanghaiToCancunAtTime15k,
-        CancunToPragueAtTime15k,
-        PragueToOsakaAtTime15k,
+        SilaShanghaiToSilaCancunAtTime15k,
+        SilaCancunToSilaPragueAtTime15k,
+        SilaPragueToSilaOsakaAtTime15k,
     ],
 )
 def test_transition_fork_blobs(
@@ -189,5 +189,5 @@ def test_transition_fork_blobs(
 
     # delete counter at last iteration (otherwise re-running all unit tests
     # will fail)
-    if timestamp == 15_000 and pre_transition_fork == Prague:
+    if timestamp == 15_000 and pre_transition_fork == SilaPrague:
         (CACHED_BLOBS_DIRECTORY / "blob_unit_test_counter.txt").unlink()

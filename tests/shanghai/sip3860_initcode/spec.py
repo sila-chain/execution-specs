@@ -12,7 +12,7 @@ class ReferenceSpec:
 
 
 ref_spec_3860 = ReferenceSpec(
-    "SIPS/sip-3860.md", "9ee005834d488e381455cf86a56c741a2e854a17"
+    "SIPS/sip-3860.md", "28ad71002098c35fd4dce811c142b668ab8759bc"
 )
 
 
@@ -21,7 +21,7 @@ class Spec:
     Define parameters from the SIP-3860 specifications.
 
     These are the parameters defined at
-    https://sips.sila.org/SIPS/sip-3860#parameters.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3860.md#parameters.
     """
 
     MAX_INITCODE_SIZE = 49152

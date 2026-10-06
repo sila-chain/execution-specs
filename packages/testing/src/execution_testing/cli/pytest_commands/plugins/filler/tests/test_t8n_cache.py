@@ -63,43 +63,43 @@ class TestStripFixtureFormatFromNodeid:
     def test_strip_blockchain_test(self) -> None:
         """Test stripping blockchain_test format."""
         item = MockItem(
-            "tests/test.py::test_foo[fork_Osaka-blockchain_test]",
+            "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test]",
             BlockchainFixture,
         )
-        expected = "tests/test.py::test_foo[fork_Osaka-]"
+        expected = "tests/test.py::test_foo[fork_SilaOsaka-]"
         assert strip_fixture_format_from_node(item) == expected
 
     def test_strip_blockchain_test_engine(self) -> None:
         """Test stripping blockchain_test_engine format."""
         item = MockItem(
-            "tests/test.py::test_foo[fork_Osaka-blockchain_test_engine]",
+            "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test_engine]",
             BlockchainEngineFixture,
         )
-        expected = "tests/test.py::test_foo[fork_Osaka-]"
+        expected = "tests/test.py::test_foo[fork_SilaOsaka-]"
         assert strip_fixture_format_from_node(item) == expected
 
     def test_strip_state_test(self) -> None:
         """Test stripping state_test format."""
         item = MockItem(
-            "tests/test.py::test_foo[fork_Osaka-state_test]",
+            "tests/test.py::test_foo[fork_SilaOsaka-state_test]",
             StateFixture,
         )
-        expected = "tests/test.py::test_foo[fork_Osaka-]"
+        expected = "tests/test.py::test_foo[fork_SilaOsaka-]"
         assert strip_fixture_format_from_node(item) == expected
 
     def test_strip_format_in_middle(self) -> None:
         """Test stripping format when it's in the middle of params."""
         item = MockItem(
-            "tests/test.py::test_foo[fork_Osaka-blockchain_test-param1]",
+            "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test-param1]",
             BlockchainFixture,
         )
-        expected = "tests/test.py::test_foo[fork_Osaka--param1]"
+        expected = "tests/test.py::test_foo[fork_SilaOsaka--param1]"
         assert strip_fixture_format_from_node(item) == expected
 
     def test_no_format_unchanged(self) -> None:
         """Test that nodeids without fixture format are unchanged."""
         item = MockItem(
-            "tests/test.py::test_foo[fork_Osaka-some_param]",
+            "tests/test.py::test_foo[fork_SilaOsaka-some_param]",
             None,
         )
         assert strip_fixture_format_from_node(item) == item.nodeid
@@ -123,10 +123,10 @@ class TestStripFixtureFormatFromNodeid:
     def test_format_at_start(self) -> None:
         """Test stripping format at start of params."""
         item = MockItem(
-            "tests/test.py::test_foo[blockchain_test-fork_Osaka]",
+            "tests/test.py::test_foo[blockchain_test-fork_SilaOsaka]",
             BlockchainFixture,
         )
-        expected = "tests/test.py::test_foo[-fork_Osaka]"
+        expected = "tests/test.py::test_foo[-fork_SilaOsaka]"
         assert strip_fixture_format_from_node(item) == expected
 
     def test_only_format(self) -> None:
@@ -140,14 +140,14 @@ class TestStripFixtureFormatFromNodeid:
 
     def test_related_formats_same_base(self) -> None:
         """Test that related formats produce the same base nodeid."""
-        base_nodeid = "tests/test.py::test_foo[fork_Osaka--param1]"
+        base_nodeid = "tests/test.py::test_foo[fork_SilaOsaka--param1]"
 
         node_bt = MockItem(
-            "tests/test.py::test_foo[fork_Osaka-blockchain_test-param1]",
+            "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test-param1]",
             BlockchainFixture,
         )
         node_bte = MockItem(
-            "tests/test.py::test_foo[fork_Osaka-blockchain_test_engine-param1]",
+            "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test_engine-param1]",
             BlockchainEngineFixture,
         )
 
@@ -159,10 +159,10 @@ class TestStripFixtureFormatFromNodeid:
         """Test that longer format names are matched before shorter ones."""
         # blockchain_test_engine should match before blockchain_test.
         node = MockItem(
-            "tests/test.py::test[fork_Osaka-blockchain_test_engine]",
+            "tests/test.py::test[fork_SilaOsaka-blockchain_test_engine]",
             BlockchainEngineFixture,
         )
-        expected = "tests/test.py::test[fork_Osaka-]"
+        expected = "tests/test.py::test[fork_SilaOsaka-]"
         result = strip_fixture_format_from_node(node)
         assert result == expected
         # Verify it didn't partially match blockchain_test.
@@ -198,8 +198,10 @@ class TestCacheKeyConsistency:
         self, labeled_fixture_format: LabeledFixtureFormat, format_name: str
     ) -> None:
         """Test that all format variants produce the same base key."""
-        base = "tests/test.py::test_case[fork_Osaka--param1]"
-        nodeid = f"tests/test.py::test_case[fork_Osaka-{format_name}-param1]"
+        base = "tests/test.py::test_case[fork_SilaOsaka--param1]"
+        nodeid = (
+            f"tests/test.py::test_case[fork_SilaOsaka-{format_name}-param1]"
+        )
         node = MockItem(nodeid, labeled_fixture_format)
 
         result = strip_fixture_format_from_node(node)
@@ -250,19 +252,19 @@ class TestCacheExecutionOrder:
         """Test that sorting by base nodeid groups related formats togsiler."""
         nodes = [
             MockItem(
-                "tests/test.py::test_foo[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_bar[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_bar[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_foo[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
             MockItem(
-                "tests/test.py::test_bar[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_bar[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
         ]
@@ -286,15 +288,15 @@ class TestCacheExecutionOrder:
         """Test sorting groups related formats togsiler (same base nodeid)."""
         nodes = [
             MockItem(
-                "tests/test.py::test_foo[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_bar[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_bar[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_foo[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
         ]
@@ -320,19 +322,19 @@ class TestCacheExecutionOrder:
         nodes = [
             # Deliberately interleaved: test_a and test_b formats mixed.
             MockItem(
-                "tests/test.py::test_b[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_b[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
             MockItem(
-                "tests/test.py::test_a[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_a[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_b[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_b[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_a[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_a[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
         ]
@@ -385,11 +387,11 @@ class TestCollectionSortingBehavior:
         """Test that items are sorted when xdist is NOT enabled."""
         items = [
             MockItem(
-                "tests/test.py::test_b[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_b[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_a[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_a[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
         ]
@@ -404,11 +406,11 @@ class TestCollectionSortingBehavior:
         """Test items are sorted with xdist for cache locality."""
         items = [
             MockItem(
-                "tests/test.py::test_b[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_b[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_a[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_a[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
         ]
@@ -423,11 +425,11 @@ class TestCollectionSortingBehavior:
         """Test xdist_group markers use consistent hashes."""
         items = [
             MockItem(
-                "tests/test.py::test_foo[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_foo[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_foo[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
         ]
@@ -453,19 +455,19 @@ class TestCollectionSortingBehavior:
         """Test xdist collection groups related formats togsiler."""
         items = [
             MockItem(
-                "tests/test.py::test_b[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_b[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_a[fork_Osaka-blockchain_test]",
+                "tests/test.py::test_a[fork_SilaOsaka-blockchain_test]",
                 BlockchainFixture,
             ),
             MockItem(
-                "tests/test.py::test_b[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_b[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
             MockItem(
-                "tests/test.py::test_a[fork_Osaka-blockchain_test_engine]",
+                "tests/test.py::test_a[fork_SilaOsaka-blockchain_test_engine]",
                 BlockchainEngineFixture,
             ),
         ]

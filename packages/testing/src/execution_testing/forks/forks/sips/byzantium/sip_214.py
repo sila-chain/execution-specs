@@ -1,7 +1,7 @@
 """
 SIP-214: New opcode STATICCALL.
 
-https://sips.sila.org/SIPS/sip-214
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-214.md
 """
 
 from typing import Callable, Dict, List

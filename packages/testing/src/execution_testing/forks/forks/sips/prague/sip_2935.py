@@ -4,7 +4,7 @@ SIP-2935: Serve historical block hashes from state.
 Store and serve last 8191 block hashes as storage slots of a system contract
 to allow for stateless execution.
 
-https://sips.sila.org/SIPS/sip-2935
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2935.md
 """
 
 from typing import List, Mapping

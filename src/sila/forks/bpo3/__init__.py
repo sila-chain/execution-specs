@@ -15,7 +15,7 @@ blob fee schedule.
 | Hoodi   | `          ` |                         | `          ` |  `     `           |
 | SilaMainnet | `          ` |                         | `          ` | `      `           |
 
-[SIP-7892]: https://sips.sila.org/SIPS/sip-7892
+[SIP-7892]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7892.md
 """  # noqa: E501
 
 from sila.fork_criteria import ForkCriteria, Unscheduled

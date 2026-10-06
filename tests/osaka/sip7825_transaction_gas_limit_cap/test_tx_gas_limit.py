@@ -2,10 +2,10 @@
 Transaction gas limit cap tests.
 
 Tests for transaction gas limit cap in [SIP-7825: Transaction Gas Limit
-Cap](https://sips.sila.org/SIPS/sip-7825).
+Cap](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md).
 
-Note: Most tests are limited to Osaka (valid_at/valid_until) because SIP-8037
-allows tx.gas_limit > TX_MAX_GAS_LIMIT with excess going to
+Note: Most tests are limited to SilaOsaka (valid_at/valid_until) because
+SIP-8037 allows tx.gas_limit > TX_MAX_GAS_LIMIT with excess going to
 state_gas_reservoir, changing the expected validation behavior.
 """
 
@@ -77,7 +77,7 @@ def tx_gas_limit_cap_tests(fork: Fork) -> List[ParameterSet]:
 @pytest.mark.inclusion_test
 @pytest.mark.parametrize_by_fork("tx_gas_limit,error", tx_gas_limit_cap_tests)
 @pytest.mark.with_all_tx_types
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.valid_before("SIP8037")
 def test_transaction_gas_limit_cap(
     state_test: StateTestFiller,
@@ -149,7 +149,7 @@ def test_transaction_gas_limit_cap(
         pytest.param(Op.STATICCALL),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_subcall_context(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -202,7 +202,7 @@ def test_tx_gas_limit_cap_subcall_context(
         pytest.param(False),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_larger_than_block_gas_limit(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -248,7 +248,7 @@ def test_tx_gas_larger_than_block_gas_limit(
         pytest.param(False),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_maximum_gas_refund(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -339,9 +339,9 @@ def test_maximum_gas_refund(
     ],
 )
 @pytest.mark.parametrize("zero_byte", [True, False])
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.valid_before("SIP8037")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_tx_gas_limit_cap_full_calldata(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -404,7 +404,7 @@ def test_tx_gas_limit_cap_full_calldata(
 
 @pytest.mark.inclusion_test
 @pytest.mark.parametrize_by_fork("tx_gas_limit,error", tx_gas_limit_cap_tests)
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_contract_creation(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -465,7 +465,7 @@ def test_tx_gas_limit_cap_contract_creation(
         pytest.param(False, True),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.valid_before("SIP8037")
 def test_tx_gas_limit_cap_access_list_with_diff_keys(
     state_test: StateTestFiller,
@@ -553,7 +553,7 @@ def test_tx_gas_limit_cap_access_list_with_diff_keys(
         pytest.param(False, True),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 @pytest.mark.valid_before("SIP8037")
 def test_tx_gas_limit_cap_access_list_with_diff_addr(
     state_test: StateTestFiller,
@@ -635,7 +635,7 @@ def test_tx_gas_limit_cap_access_list_with_diff_addr(
         pytest.param(False, True),
     ],
 )
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_gas_limit_cap_authorized_tx(
     state_test: StateTestFiller,
     pre: Alloc,

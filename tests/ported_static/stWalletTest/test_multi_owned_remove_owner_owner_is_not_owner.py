@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stWalletTest/multiOwnedRemoveOwner_ownerIsNotOwnerFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_multi_owned_remove_owner_owner_is_not_owner(
     state_test: StateTestFiller,

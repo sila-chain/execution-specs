@@ -61,7 +61,7 @@ class Header:
     """
     Root hash ([`keccak256`]) of the state trie after executing all
     transactions in this block. It represents the state of the Sila Virtual
-    Machine (EVM) after all transactions in this block have been processed. It
+    Machine (Sivm) after all transactions in this block have been processed. It
     is computed using [`compute_state_root()`][changes],
     which computes the root of the Merkle-Patricia [Trie] representing the
     Sila world state after applying the block's state changes.
@@ -123,7 +123,7 @@ class Header:
     Maximum gas allowed in this block. Pre [SIP-1559], this is the maximum
     gas that could be consumed by all transactions in the block.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     gas_used: Uint
@@ -211,7 +211,7 @@ class Block:
 class Log:
     """
     Data record produced during the execution of a transaction. Logs are used
-    by smart contracts to emit events (using the EVM log opcodes ([`LOG0`],
+    by smart contracts to emit events (using the Sivm log opcodes ([`LOG0`],
     [`LOG1`], [`LOG2`], [`LOG3`] and [`LOG4`]), which can be efficiently
     searched using the bloom filter in the block header.
 

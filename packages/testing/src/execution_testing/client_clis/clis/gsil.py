@@ -29,7 +29,7 @@ from ..transition_tool import TransitionTool, dump_files_to_directory
 
 
 class GsilExceptionMapper(ExceptionMapper):
-    """Translate between EEST exceptions and error strings returned by Gsil."""
+    """Translate between SEST exceptions and error strings returned by Gsil."""
 
     mapping_substring: ClassVar[Dict[ExceptionBase, str]] = {
         TransactionException.SENDER_NOT_EOA: "sender not an eoa",
@@ -158,10 +158,10 @@ class GsilExceptionMapper(ExceptionMapper):
         #
         # The offsets are checked second and the sizes are checked
         # third within the `is_valid_deposit_event_data` function:
-        # https://sips.sila.org/SIPS/sip-6110#block-validity
+        # https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md#block-validity
         #
-        # EELS definition for `is_valid_deposit_event_data`:
-        # https://github.com/sila/execution-specs/blob/5ddb904fa7ba27daeff423e78466744c51e8cb6a/src/sila/forks/prague/requests.py#L51
+        # SELS definition for `is_valid_deposit_event_data`:
+        # https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/src/sila/forks/prague/requests.py
         # BAL Exceptions
         BlockException.INVALID_BAL_HASH: (
             r"invalid block access list:|"
@@ -191,11 +191,11 @@ class GsilExceptionMapper(ExceptionMapper):
     }
 
 
-class GsilEvm(SilaCLI):
-    """go-sila `evm` base class."""
+class GsilSivm(SilaCLI):
+    """go-sila `sivm` base class."""
 
-    default_binary = Path("evm")
-    detect_binary_pattern = re.compile(r"^evm(.exe)? version\b")
+    default_binary = Path("sivm")
+    detect_binary_pattern = re.compile(r"^sivm(.exe)? version\b")
     cached_version: Optional[str] = None
     trace: bool
 
@@ -204,7 +204,7 @@ class GsilEvm(SilaCLI):
         binary: Optional[Path] = None,
         trace: bool = False,
     ):
-        """Initialize the GsilEvm class."""
+        """Initialize the GsilSivm class."""
         self.binary = binary if binary else self.default_binary
         self.trace = trace
         self._info_metadata: Optional[Dict[str, Any]] = {}
@@ -220,7 +220,7 @@ class GsilEvm(SilaCLI):
         except subprocess.CalledProcessError as e:
             raise Exception("Command failed with non-zero status.") from e
         except Exception as e:
-            raise Exception("Unexpected exception calling evm tool.") from e
+            raise Exception("Unexpected exception calling sivm tool.") from e
 
     def _consume_debug_dump(
         self,
@@ -270,8 +270,8 @@ class GsilEvm(SilaCLI):
         return self._run_command(help_command).stdout
 
 
-class GsilTransitionTool(GsilEvm, TransitionTool):
-    """go-sila `evm` Transition tool interface wrapper class."""
+class GsilTransitionTool(GsilSivm, TransitionTool):
+    """go-sila `sivm` Transition tool interface wrapper class."""
 
     subcommand: Optional[str] = "t8n"
     trace: bool
@@ -288,7 +288,7 @@ class GsilTransitionTool(GsilEvm, TransitionTool):
         """Initialize the GsilTransitionTool class."""
         if not exception_mapper:
             exception_mapper = GsilExceptionMapper()
-        GsilEvm.__init__(self, binary=binary, trace=trace)
+        GsilSivm.__init__(self, binary=binary, trace=trace)
         TransitionTool.__init__(
             self, binary=binary, exception_mapper=exception_mapper, trace=trace
         )
@@ -307,7 +307,7 @@ class GsilTransitionTool(GsilEvm, TransitionTool):
 
 
 class GsilFixtureConsumer(
-    GsilEvm,
+    GsilSivm,
     FixtureConsumerTool,
     fixture_formats=[StateFixture, BlockchainFixture],
 ):
@@ -322,7 +322,7 @@ class GsilFixtureConsumer(
         """
         Consume a single blockchain test.
 
-        The `evm blocktest` command takes the `--run` argument which can be
+        The `sivm blocktest` command takes the `--run` argument which can be
         used to select a specific fixture from the fixture file when executing.
         """
         subcommand = "blocktest"
@@ -359,7 +359,7 @@ class GsilFixtureConsumer(
         result_json = json.loads(result.stdout)
         if not isinstance(result_json, list):
             raise Exception(
-                f"Unexpected result from evm blocktest: {result_json}"
+                f"Unexpected result from sivm blocktest: {result_json}"
             )
 
         if any(not test_result["pass"] for test_result in result_json):
@@ -379,7 +379,7 @@ class GsilFixtureConsumer(
         """
         Consume an entire state test file.
 
-        The `evm statetest` will always execute all the tests contained in a
+        The `sivm statetest` will always execute all the tests contained in a
         file without the possibility of selecting a single test, so this
         function is cached in order to only call the command once and
         `consume_state_test` can simply select the result that was requested.
@@ -414,7 +414,7 @@ class GsilFixtureConsumer(
         result_json = json.loads(result.stdout)
         if not isinstance(result_json, list):
             raise Exception(
-                f"Unexpected result from evm statetest: {result_json}"
+                f"Unexpected result from sivm statetest: {result_json}"
             )
         return result_json
 

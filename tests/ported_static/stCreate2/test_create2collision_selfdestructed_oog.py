@@ -40,7 +40,7 @@ SLACK_MARGIN = 5_000
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2collisionSelfdestructedOOGFiller.json"],
 )
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.parametrize(
     "inner_initcode",
     [

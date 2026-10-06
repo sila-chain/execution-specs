@@ -31,9 +31,8 @@ class Operation(IntEnum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_AcreateB_BSuicide_BStoreFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stCreateTest/CREATE_AcreateB_BSuicide_BStoreFiller.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1867"],
     coverage_missed_reason="Converting solidity code result in following "
     "opcode not being used: PUSH29, DUP4, DUP8, SWAP2, ISZERO, AND, MUL, DIV, "
     "CALLVALUE, EXTCODESIZE. Changed 0x11 address to new address (no check "
@@ -41,7 +40,7 @@ class Operation(IntEnum):
 )
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.with_all_create_opcodes
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_create_suicide_store(
     state_test: StateTestFiller,
     fork: Fork,

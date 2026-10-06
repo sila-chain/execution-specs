@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSStoreTest/sstore_gasLeftFiller.json"],
 )
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize(
     "opcode",
     [

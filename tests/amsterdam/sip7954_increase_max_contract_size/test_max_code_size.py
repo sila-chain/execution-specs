@@ -1,5 +1,5 @@
 """
-Test [SIP-7954: Increase Maximum Contract Size](https://sips.sila.org/SIPS/sip-7954).
+Test [SIP-7954: Increase Maximum Contract Size](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7954.md).
 """
 
 from typing import Any, Callable
@@ -21,7 +21,7 @@ from execution_testing import (
     keccak256,
 )
 from execution_testing import Macros as Om
-from execution_testing.forks import Osaka
+from execution_testing.forks import SilaOsaka
 
 from ...prague.sip7702_set_code_tx.spec import Spec as Spec7702
 from .spec import ref_spec_7954
@@ -35,7 +35,9 @@ SENTINEL = 0xFF
 """Pre-set storage value that only a store which actually ran can replace."""
 
 DEPLOY_CODE_SIZE_PARAMS = [
-    pytest.param(lambda _: Osaka.max_code_size() + 1, id="over_previous_max"),
+    pytest.param(
+        lambda _: SilaOsaka.max_code_size() + 1, id="over_previous_max"
+    ),
     pytest.param(lambda f: f.max_code_size() - 1, id="under_max"),
     pytest.param(lambda f: f.max_code_size(), id="at_max"),
     pytest.param(lambda f: f.max_code_size() + 1, id="over_max"),
@@ -189,7 +191,7 @@ def test_max_code_size_deposit_gas(
     exact_gas = (
         intrinsic_gas
         + top_frame_state_gas
-        + initcode.evm_gas(fork)
+        + initcode.sivm_gas(fork)
         + initcode.deployment_gas(fork)
     )
     tx = Transaction(

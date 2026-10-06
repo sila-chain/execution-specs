@@ -1,4 +1,4 @@
-"""Include EEST's CONTRIBUTING.md and SECURITY.md in the HTML documentation."""
+"""Include SEST's CONTRIBUTING.md and SECURITY.md in the HTML documentation."""
 
 import logging
 import os
@@ -25,13 +25,6 @@ def copy_markdown_file(source_path, destination_path, fix_links=True):
             with open(source_file, "r") as f:
                 for line in f.readlines():
                     if fix_links:
-                        # Fix absolute website links to relative docs links
-                        line = re.sub(
-                            r"https://eest\.sila\.org/main/([^)\s]+)",
-                            r"../\1.md",
-                            line,
-                        )
-
                         # Fix SECURITY.md link
                         line = re.sub(
                             r"\[Security Policy\]\(SECURITY\.md\)",

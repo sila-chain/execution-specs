@@ -7,14 +7,14 @@ state_tests/stTransactionTest/StoreClearsAndInternalCallStoreClearsSuccessFiller
 @manually-enhanced: Do not overwrite. The outer contract `target` clears 4
 cold storage slots then `CALL`s the inner contract `addr`, which clears 10
 cold storage slots; the value transfer and clears must all succeed.
-SIP-8037/8038 raise the cold SSTORE-clear charge at Amsterdam, so both gas
+SIP-8037/8038 raise the cold SSTORE-clear charge at SilaAmsterdam, so both gas
 budgets must rise by that charge delta or the inner frame runs out of gas
 (clearing only 4 of its 10 slots) and the value transfer rolls back. The
 inner `CALL` only forwards a fixed gas amount, so its budget is bumped by
 the 10 inner clears; the transaction gas limit is bumped by all 14 clears
 (10 inner plus 4 outer) so the outer frame can both pay its own clears and
 forward the larger amount. Both bumps are derived from the fork gas model
-and are exactly 0 pre-SIP-8037; do not hardcode the Amsterdam values.
+and are exactly 0 pre-SIP-8037; do not hardcode the SilaAmsterdam values.
 """
 
 import pytest
@@ -27,7 +27,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -39,7 +39,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stTransactionTest/StoreClearsAndInternalCallStoreClearsSuccessFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_store_clears_and_internal_call_store_clears_success(
     state_test: StateTestFiller,
@@ -55,7 +55,9 @@ def test_store_clears_and_internal_call_store_clears_success(
     cold_clear = Op.SSTORE.with_metadata(
         key_warm=False, original_value=1, current_value=1, new_value=0
     )
-    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(Cancun)
+    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(
+        SilaCancun
+    )
 
     env = Environment(
         fee_recipient=coinbase,
@@ -103,7 +105,7 @@ def test_store_clears_and_internal_call_store_clears_success(
         + Op.SSTORE(key=0x3, value=0x0)
         + Op.CALL(
             # The inner frame clears 10 cold slots; forward its extra
-            # charge so all 10 clears land at Amsterdam (delta is 0
+            # charge so all 10 clears land at SilaAmsterdam (delta is 0
             # pre-SIP-8037).
             gas=0xC350 + 10 * cold_clear_delta,
             address=addr,

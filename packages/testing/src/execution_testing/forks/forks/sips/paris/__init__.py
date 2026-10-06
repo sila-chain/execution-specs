@@ -1,1 +1,1 @@
-"""Listings of all SIPs for Paris fork."""
+"""Listings of all SIPs for SilaParis fork."""

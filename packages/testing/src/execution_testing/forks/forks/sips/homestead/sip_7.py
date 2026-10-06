@@ -4,7 +4,7 @@ SIP-7: DELEGATECALL.
 A new opcode that is similar to CALLCODE but propagates the sender and
 value from the parent scope.
 
-https://sips.sila.org/SIPS/sip-7
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7.md
 """
 
 from typing import Callable, Dict, List

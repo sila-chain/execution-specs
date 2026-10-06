@@ -1,5 +1,5 @@
 """
-Tests `BLOBHASH` opcode in [SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+Tests `BLOBHASH` opcode in [SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 """
 
 from enum import Enum
@@ -26,12 +26,12 @@ from .spec import Spec, ref_spec_4844
 REFERENCE_SPEC_GIT_PATH = ref_spec_4844.git_path
 REFERENCE_SPEC_VERSION = ref_spec_4844.version
 
-pytestmark = pytest.mark.valid_from("Cancun")
+pytestmark = pytest.mark.valid_from("SilaCancun")
 
 
 class BlobhashContext(Enum):
     """
-    A utility class for mapping common EVM opcodes in different contexts to
+    A utility class for mapping common Sivm opcodes in different contexts to
     specific bytecode (with BLOBHASH), addresses and contracts.
     """
 

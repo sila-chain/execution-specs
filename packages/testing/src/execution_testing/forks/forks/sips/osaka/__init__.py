@@ -1,1 +1,1 @@
-"""Listings of all SIPs for Osaka fork."""
+"""Listings of all SIPs for SilaOsaka fork."""

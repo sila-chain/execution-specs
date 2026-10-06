@@ -27,16 +27,16 @@ from execution_testing.base_types.ssz import (
 )
 from execution_testing.forks import (
     BPO1,
-    Amsterdam,
-    BPO2ToAmsterdamAtTime15k,
-    Cancun,
+    BPO2ToSilaAmsterdamAtTime15k,
     Fork,
-    London,
-    Osaka,
-    Paris,
-    Prague,
-    Shanghai,
-    ShanghaiToCancunAtTime15k,
+    SilaAmsterdam,
+    SilaCancun,
+    SilaLondon,
+    SilaOsaka,
+    SilaParis,
+    SilaPrague,
+    SilaShanghai,
+    SilaShanghaiToSilaCancunAtTime15k,
     ssz_schema_fork_key,
 )
 from execution_testing.test_types import Withdrawal
@@ -82,7 +82,7 @@ class RefWithdrawal(Container):
 
 
 class RefPayloadParis(Container):
-    """Hand-written twin of FixtureExecutionPayload at Paris."""
+    """Hand-written twin of FixtureExecutionPayload at SilaParis."""
 
     parent_hash: ByteVector[32]
     fee_recipient: ByteVector[20]
@@ -104,7 +104,7 @@ class RefPayloadParis(Container):
 
 
 class RefPayloadShanghai(Container):
-    """Hand-written twin of FixtureExecutionPayload at Shanghai."""
+    """Hand-written twin of FixtureExecutionPayload at SilaShanghai."""
 
     parent_hash: ByteVector[32]
     fee_recipient: ByteVector[20]
@@ -127,7 +127,7 @@ class RefPayloadShanghai(Container):
 
 
 class RefPayloadCancun(Container):
-    """Hand-written twin of FixtureExecutionPayload at Cancun."""
+    """Hand-written twin of FixtureExecutionPayload at SilaCancun."""
 
     parent_hash: ByteVector[32]
     fee_recipient: ByteVector[20]
@@ -152,7 +152,7 @@ class RefPayloadCancun(Container):
 
 
 class RefPayloadAmsterdam(Container):
-    """Hand-written twin of FixtureExecutionPayload at Amsterdam."""
+    """Hand-written twin of FixtureExecutionPayload at SilaAmsterdam."""
 
     parent_hash: ByteVector[32]
     fee_recipient: ByteVector[20]
@@ -179,17 +179,17 @@ class RefPayloadAmsterdam(Container):
 
 
 REF_PAYLOAD_CLASSES: Dict[str, Type[Container]] = {
-    "Paris": RefPayloadParis,
-    "Shanghai": RefPayloadShanghai,
-    "Cancun": RefPayloadCancun,
-    "Amsterdam": RefPayloadAmsterdam,
+    "SilaParis": RefPayloadParis,
+    "SilaShanghai": RefPayloadShanghai,
+    "SilaCancun": RefPayloadCancun,
+    "SilaAmsterdam": RefPayloadAmsterdam,
 }
 
 FORK_BY_KEY: Dict[str, Fork] = {
-    "Paris": Paris,
-    "Shanghai": Shanghai,
-    "Cancun": Cancun,
-    "Amsterdam": Amsterdam,
+    "SilaParis": SilaParis,
+    "SilaShanghai": SilaShanghai,
+    "SilaCancun": SilaCancun,
+    "SilaAmsterdam": SilaAmsterdam,
 }
 
 
@@ -231,12 +231,12 @@ def _payload_kwargs(fork_key: str) -> Dict[str, Any]:
         block_hash=Hash(b"\xff" * 32),
         transactions=[Bytes(b"\x02\xf8"), Bytes(b"\x03" * 5)],
     )
-    if fork_key in ("Shanghai", "Cancun", "Amsterdam"):
+    if fork_key in ("SilaShanghai", "SilaCancun", "SilaAmsterdam"):
         kwargs["withdrawals"] = [_withdrawal(0), _withdrawal(1)]
-    if fork_key in ("Cancun", "Amsterdam"):
+    if fork_key in ("SilaCancun", "SilaAmsterdam"):
         kwargs["blob_gas_used"] = 131_072
         kwargs["excess_blob_gas"] = 262_144
-    if fork_key == "Amsterdam":
+    if fork_key == "SilaAmsterdam":
         kwargs["block_access_list"] = Bytes(b"\xc0")
         kwargs["slot_number"] = 12
     return kwargs
@@ -265,15 +265,15 @@ def _ref_payload(payload: FixtureExecutionPayload, fork_key: str) -> Container:
         block_hash=bytes(payload.block_hash),
         transactions=[bytes(tx) for tx in payload.transactions],
     )
-    if fork_key in ("Shanghai", "Cancun", "Amsterdam"):
+    if fork_key in ("SilaShanghai", "SilaCancun", "SilaAmsterdam"):
         assert payload.withdrawals is not None
         kwargs["withdrawals"] = [
             _ref_withdrawal(w) for w in payload.withdrawals
         ]
-    if fork_key in ("Cancun", "Amsterdam"):
+    if fork_key in ("SilaCancun", "SilaAmsterdam"):
         kwargs["blob_gas_used"] = int(payload.blob_gas_used or 0)
         kwargs["excess_blob_gas"] = int(payload.excess_blob_gas or 0)
-    if fork_key == "Amsterdam":
+    if fork_key == "SilaAmsterdam":
         kwargs["block_access_list"] = bytes(payload.block_access_list or b"")
         kwargs["slot_number"] = int(payload.slot_number or 0)
     return REF_PAYLOAD_CLASSES[fork_key](**kwargs)
@@ -337,7 +337,7 @@ def test_withdrawal_width_enforced() -> None:
 
 
 @pytest.mark.parametrize(
-    "fork_key", ["Paris", "Shanghai", "Cancun", "Amsterdam"]
+    "fork_key", ["SilaParis", "SilaShanghai", "SilaCancun", "SilaAmsterdam"]
 )
 def test_payload_matches_reference(fork_key: str) -> None:
     """Every fork's payload is byte-identical to its twin."""
@@ -350,20 +350,22 @@ def test_payload_matches_reference(fork_key: str) -> None:
 @pytest.mark.parametrize(
     "fork_key,expected",
     [
-        pytest.param("Paris", BASE_FIELDS, id="Paris"),
-        pytest.param("Shanghai", (*BASE_FIELDS, "withdrawals"), id="Shanghai"),
+        pytest.param("SilaParis", BASE_FIELDS, id="SilaParis"),
         pytest.param(
-            "Cancun",
+            "SilaShanghai", (*BASE_FIELDS, "withdrawals"), id="SilaShanghai"
+        ),
+        pytest.param(
+            "SilaCancun",
             (
                 *BASE_FIELDS,
                 "withdrawals",
                 "blob_gas_used",
                 "excess_blob_gas",
             ),
-            id="Cancun",
+            id="SilaCancun",
         ),
         pytest.param(
-            "Amsterdam",
+            "SilaAmsterdam",
             (
                 *BASE_FIELDS,
                 "withdrawals",
@@ -372,7 +374,7 @@ def test_payload_matches_reference(fork_key: str) -> None:
                 "block_access_list",
                 "slot_number",
             ),
-            id="Amsterdam",
+            id="SilaAmsterdam",
         ),
     ],
 )
@@ -389,22 +391,22 @@ def test_payload_ssz_field_order(
 @pytest.mark.parametrize(
     "fork,expected_key",
     [
-        pytest.param(Paris, Paris, id="Paris"),
-        pytest.param(Shanghai, Shanghai, id="Shanghai"),
-        pytest.param(Cancun, Cancun, id="Cancun"),
-        pytest.param(Prague, Cancun, id="Prague"),
-        pytest.param(Osaka, Cancun, id="Osaka"),
-        pytest.param(BPO1, Cancun, id="BPO1"),
-        pytest.param(Amsterdam, Amsterdam, id="Amsterdam"),
+        pytest.param(SilaParis, SilaParis, id="SilaParis"),
+        pytest.param(SilaShanghai, SilaShanghai, id="SilaShanghai"),
+        pytest.param(SilaCancun, SilaCancun, id="SilaCancun"),
+        pytest.param(SilaPrague, SilaCancun, id="SilaPrague"),
+        pytest.param(SilaOsaka, SilaCancun, id="SilaOsaka"),
+        pytest.param(BPO1, SilaCancun, id="BPO1"),
+        pytest.param(SilaAmsterdam, SilaAmsterdam, id="SilaAmsterdam"),
         pytest.param(
-            ShanghaiToCancunAtTime15k,
-            Cancun,
-            id="ShanghaiToCancunAtTime15k",
+            SilaShanghaiToSilaCancunAtTime15k,
+            SilaCancun,
+            id="SilaShanghaiToSilaCancunAtTime15k",
         ),
         pytest.param(
-            BPO2ToAmsterdamAtTime15k,
-            Amsterdam,
-            id="BPO2ToAmsterdamAtTime15k",
+            BPO2ToSilaAmsterdamAtTime15k,
+            SilaAmsterdam,
+            id="BPO2ToSilaAmsterdamAtTime15k",
         ),
     ],
 )
@@ -416,25 +418,27 @@ def test_fork_key_resolution(fork: Fork, expected_key: Fork) -> None:
 def test_fork_key_resolution_pre_base_raises() -> None:
     """A fork older than the schema's base fork is rejected."""
     with pytest.raises(ValueError, match="predates"):
-        FixtureExecutionPayload.ssz_fork_key(London)
+        FixtureExecutionPayload.ssz_fork_key(SilaLondon)
 
 
 def test_payload_ssz_methods_accept_fork_classes() -> None:
     """The mixin's SSZ methods take Fork classes, not key strings."""
-    payload = _payload("Cancun")
-    wire = payload.ssz_encode(Prague)
-    assert bytes(wire) == ssz.encode(payload, Cancun)
-    assert FixtureExecutionPayload.ssz_decode(bytes(wire), Prague) == payload
-    amsterdam_payload = _payload("Amsterdam")
-    root = amsterdam_payload.ssz_hash_tree_root(Amsterdam)
+    payload = _payload("SilaCancun")
+    wire = payload.ssz_encode(SilaPrague)
+    assert bytes(wire) == ssz.encode(payload, SilaCancun)
+    assert (
+        FixtureExecutionPayload.ssz_decode(bytes(wire), SilaPrague) == payload
+    )
+    amsterdam_payload = _payload("SilaAmsterdam")
+    root = amsterdam_payload.ssz_hash_tree_root(SilaAmsterdam)
     assert isinstance(root, Hash)
     assert len(root) == 32
-    assert bytes(root) == ssz.hash_tree_root(amsterdam_payload, Amsterdam)
+    assert bytes(root) == ssz.hash_tree_root(amsterdam_payload, SilaAmsterdam)
 
 
 def test_payload_json_unchanged() -> None:
     """The payload keeps its camelCase un-padded hex JSON shape."""
-    payload = _payload("Amsterdam")
+    payload = _payload("SilaAmsterdam")
     json_repr = {
         "parentHash": "0x" + "aa" * 32,
         "feeRecipient": "0x" + "bb" * 20,
@@ -471,21 +475,21 @@ def test_payload_json_unchanged() -> None:
     }
     assert to_json(payload) == json_repr
     assert FixtureExecutionPayload(**json_repr) == payload
-    cancun_json = to_json(_payload("Cancun"))
+    cancun_json = to_json(_payload("SilaCancun"))
     assert "blockAccessList" not in cancun_json
     assert "slotNumber" not in cancun_json
 
 
 def test_payload_uint_width_enforced() -> None:
     """A payload gas limit beyond 64 bits fails validation."""
-    kwargs = _payload_kwargs("Paris")
+    kwargs = _payload_kwargs("SilaParis")
     kwargs["gas_limit"] = 2**64
     with pytest.raises(ValidationError):
         FixtureExecutionPayload(**kwargs)
 
 
 def _amsterdam_header() -> FixtureHeader:
-    """Build a fully-populated Amsterdam header."""
+    """Build a fully-populated SilaAmsterdam header."""
     return FixtureHeader(
         parent_hash=Hash(0),
         ommers_hash=Hash(1),
@@ -516,7 +520,7 @@ def _amsterdam_header() -> FixtureHeader:
 def test_from_fixture_header_round_trip() -> None:
     """A payload built through the fill pipeline SSZ round-trips."""
     new_payload = FixtureEngineNewPayload.from_fixture_header(
-        fork=Amsterdam,
+        fork=SilaAmsterdam,
         header=_amsterdam_header(),
         transactions=[],
         withdrawals=[],
@@ -526,11 +530,11 @@ def test_from_fixture_header_round_trip() -> None:
     payload = new_payload.params[0]
     assert isinstance(payload.number, Uint64)
     assert isinstance(payload.base_fee_per_gas, Uint256)
-    wire = payload.ssz_encode(Amsterdam)
-    restored = FixtureExecutionPayload.ssz_decode(bytes(wire), Amsterdam)
+    wire = payload.ssz_encode(SilaAmsterdam)
+    restored = FixtureExecutionPayload.ssz_decode(bytes(wire), SilaAmsterdam)
     assert restored == payload
-    ref = _ref_payload(payload, "Amsterdam")
-    assert bytes(payload.ssz_hash_tree_root(Amsterdam)) == bytes(
+    ref = _ref_payload(payload, "SilaAmsterdam")
+    assert bytes(payload.ssz_hash_tree_root(SilaAmsterdam)) == bytes(
         ref.hash_tree_root()
     )
 
@@ -538,15 +542,15 @@ def test_from_fixture_header_round_trip() -> None:
 def test_encode_wrong_fork_refuses_to_drop_data() -> None:
     """Encoding at a fork that does not fit the populated fields fails."""
     with pytest.raises(TypeError, match="unexpected"):
-        ssz.encode(_payload("Amsterdam"), Cancun)
+        ssz.encode(_payload("SilaAmsterdam"), SilaCancun)
     with pytest.raises(TypeError, match="missing"):
-        ssz.encode(_payload("Cancun"), Amsterdam)
+        ssz.encode(_payload("SilaCancun"), SilaAmsterdam)
 
 
 def test_decode_older_fork_leaves_future_fields_none() -> None:
-    """Decoding Paris wire bytes leaves post-Paris fields as None."""
-    wire = ssz.encode(_payload("Paris"), Paris)
-    restored = ssz.decode(FixtureExecutionPayload, wire, Paris)
+    """Decoding SilaParis wire bytes leaves post-SilaParis fields as None."""
+    wire = ssz.encode(_payload("SilaParis"), SilaParis)
+    restored = ssz.decode(FixtureExecutionPayload, wire, SilaParis)
     assert restored.withdrawals is None
     assert restored.blob_gas_used is None
     assert restored.excess_blob_gas is None
@@ -555,16 +559,20 @@ def test_decode_older_fork_leaves_future_fields_none() -> None:
 
 
 def test_modifier_removed_fields_encode_at_earlier_fork() -> None:
-    """REMOVE_FIELD strips the Amsterdam tail so Cancun encoding fits."""
+    """
+    REMOVE_FIELD strips the SilaAmsterdam tail so SilaCancun encoding fits.
+    """
     modifier = FixtureExecutionPayloadModifier(
         block_access_list=FixtureExecutionPayloadModifier.REMOVE_FIELD,
         slot_number=FixtureExecutionPayloadModifier.REMOVE_FIELD,
     )
-    result = modifier.apply(_payload("Amsterdam"))
-    cancun_payload = _payload("Cancun")
-    assert ssz.encode(result, Cancun) == ssz.encode(cancun_payload, Cancun)
+    result = modifier.apply(_payload("SilaAmsterdam"))
+    cancun_payload = _payload("SilaCancun")
+    assert ssz.encode(result, SilaCancun) == ssz.encode(
+        cancun_payload, SilaCancun
+    )
     with pytest.raises(TypeError, match="missing"):
-        ssz.encode(result, Amsterdam)
+        ssz.encode(result, SilaAmsterdam)
 
 
 def test_mixin_without_schema_raises() -> None:
@@ -574,20 +582,20 @@ def test_mixin_without_schema_raises() -> None:
         """A fork-scoped mixin subclass missing its schema."""
 
     with pytest.raises(TypeError, match="does not declare"):
-        NoSchema.ssz_fork_key(Paris)
+        NoSchema.ssz_fork_key(SilaParis)
 
 
 def test_unknown_schema_fork_key_raises() -> None:
     """A schema key that is not a fork name is rejected."""
     schema = SSZForkSchema(base_fork="NotAFork", base=(), appended={})
     with pytest.raises(ValueError, match="not a fork class"):
-        ssz_schema_fork_key(schema, Paris)
+        ssz_schema_fork_key(schema, SilaParis)
 
 
 def test_describe_schema_amsterdam() -> None:
-    """The Amsterdam schema description ends with the new fields."""
-    description = ssz.describe_schema(FixtureExecutionPayload, Amsterdam)
-    assert "Amsterdam" in description
+    """The SilaAmsterdam schema description ends with the new fields."""
+    description = ssz.describe_schema(FixtureExecutionPayload, SilaAmsterdam)
+    assert "SilaAmsterdam" in description
     assert "block_access_list" in description
     assert "slot_number" in description
     assert description.index("block_access_list") < description.index(

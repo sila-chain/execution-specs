@@ -1,0 +1,104 @@
+name: 'Build sivmone Sivm'
+description: 'Builds the sivmone Sivm binary'
+inputs:
+  repo:
+    description: 'Source repository to use to build the Sivm binary'
+    required: true
+    default: 'sila-chain/sivmone'
+  ref:
+    description: 'Reference to branch, commit, or tag to use to build the Sivm binary'
+    required: true
+    default: '8f53f09fa95cfeddd5081de2e2756b3326718f23'
+  targets:
+    description: 'Which targets to build from sivmone repo'
+    required: false
+    default: 'all'
+  cache_ttl_days:
+    description: 'Number of days to reuse a cached build before refreshing'
+    required: false
+    default: '3'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Compute cache bucket (time window)
+      id: bucket
+      shell: bash
+      run: |
+        # Round "today" down to the start of the current N-day bucket in UTC.
+        N=${{ inputs.cache_ttl_days }}
+        SECS=$(( $(date -u +%s) ))
+        DAY=$(( SECS / 86400 ))
+        BUCKET_START_DAY=$(( (DAY / N) * N ))
+        echo "CACHE_BUCKET=$(date -u -d @$(( BUCKET_START_DAY * 86400 )) +%Y-%m-%d)" >> $GITHUB_ENV
+      
+    - name: Prepare cache target dir
+      shell: bash
+      run: mkdir -p "$GITHUB_WORKSPACE/sivmone/build"
+
+    # Restore previously built binaries if cache hit
+    - name: Restore build cache
+      id: cache-restore
+      uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      with:
+        path: |
+          ${{ github.workspace }}/sivmone/build
+        key: >
+          sivmone-build-${{ runner.os }}-${{ runner.arch }}-
+          targets=${{ inputs.targets }}-
+          ref=${{ inputs.ref }}-
+          bucket=${{ env.CACHE_BUCKET }}
+    
+    # Checkout and build sivmone if cache miss
+    - name: Checkout sivmone
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        repository: ${{ inputs.repo }}
+        ref: ${{ inputs.ref }}
+        path: sivmone
+        submodules: true
+
+    - name: Setup cmake
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      # TODO: Still on node20 — update when upstream releases a node22+ version
+      uses: jwlawson/actions-setup-cmake@3a6cbe35ba64df7ca70c51365c4aff65db9a9037 # v2.1.1
+      with:
+        cmake-version: '3.x'
+
+    - name: Install build dependencies Linux
+      if: runner.os == 'Linux' && steps.cache-restore.outputs.cache-hit != 'true'
+      shell: bash
+      run: sudo apt-get -q update && sudo apt-get -qy install build-essential libgmp-dev
+
+    - name: Install GMP macOS
+      if: runner.os == 'macOS' && steps.cache-restore.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        brew update && brew install gmp
+
+    - name: Build sivmone binary (skips when cache hit)
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        mkdir -p "$GITHUB_WORKSPACE/bin"
+        cd "$GITHUB_WORKSPACE/sivmone"
+        cmake -S . -B build
+        cmake --build build --parallel --target ${{ inputs.targets }}
+
+    - name: Add sivmone bin to PATH
+      shell: bash
+      run: echo "$GITHUB_WORKSPACE/sivmone/build/bin" >> "$GITHUB_PATH"
+
+    # Save cache only when we actually built
+    - name: Save build cache
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      uses: actions/cache/save@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      with:
+        path: |
+          ${{ github.workspace }}/sivmone/build
+        key: >
+          sivmone-build-${{ runner.os }}-${{ runner.arch }}-
+          targets=${{ inputs.targets }}-
+          ref=${{ inputs.ref }}-
+          bucket=${{ env.CACHE_BUCKET }}

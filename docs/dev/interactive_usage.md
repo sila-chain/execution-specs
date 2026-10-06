@@ -1,12 +1,12 @@
-# Working with EEST Libraries Interactively
+# Working with SEST Libraries Interactively
 
-You can work with EEST Python packages interactively with `ipython` using:
+You can work with SEST Python packages interactively with `ipython` using:
 
 ```console
 uvx  --with-editable . ipython
 ```
 
-This command will create a virtual environment, install EEST's packages in "[editable mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html)" (source changes get reflected in the interactive shell), and start an `ipython` shell. You can then import any of the packages and experiment with them interactively.
+This command will create a virtual environment, install SEST's packages in "[editable mode](https://setuptools.pypa.io/en/latest/userguide/development_mode.html)" (source changes get reflected in the interactive shell), and start an `ipython` shell. You can then import any of the packages and experiment with them interactively.
 
 !!! example "Example: Working with `execution_testing.forks`"
 

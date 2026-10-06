@@ -44,17 +44,17 @@ class NimbusTransitionTool(TransitionTool):
             result = subprocess.run(args, capture_output=True, text=True)
         except subprocess.CalledProcessError as e:
             raise Exception(
-                f"evm process unexpectedly returned "
+                f"sivm process unexpectedly returned "
                 f"a non-zero status code: {e}."
             ) from e
         except Exception as e:
             raise Exception(
-                f"Unexpected exception calling evm tool: {e}."
+                f"Unexpected exception calling sivm tool: {e}."
             ) from e
         self.help_string = result.stdout
 
     def version(self) -> str:
-        """Get `evm` binary version."""
+        """Get `sivm` binary version."""
         if self.cached_version is None:
             self.cached_version = re.sub(
                 r"\x1b\[0m", "", super().version()
@@ -74,7 +74,7 @@ class NimbusTransitionTool(TransitionTool):
 
 class NimbusExceptionMapper(ExceptionMapper):
     """
-    Translate between EEST exceptions and error strings returned by Nimbus.
+    Translate between SEST exceptions and error strings returned by Nimbus.
     """
 
     mapping_substring: ClassVar[Dict[ExceptionBase, str]] = {

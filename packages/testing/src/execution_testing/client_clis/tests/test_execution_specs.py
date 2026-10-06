@@ -1,4 +1,4 @@
-"""Additional tests for the EELS t8n tool."""
+"""Additional tests for the SELS t8n tool."""
 
 import json
 import os
@@ -16,12 +16,12 @@ from execution_testing.client_clis import (
     ExecutionSpecsTransitionTool,
     TransitionTool,
 )
-from execution_testing.forks import Berlin
+from execution_testing.forks import SilaBerlin
 from execution_testing.test_types import Alloc, Environment, Transaction
 
 CURRENT_FOLDER = Path(realpath(__file__)).parent
 FIXTURES_ROOT = CURRENT_FOLDER / "fixtures"
-DEFAULT_EVM_T8N_BINARY_NAME = "sila-spec-evm-resolver"
+DEFAULT_SIVM_T8N_BINARY_NAME = "sila-spec-sivm-resolver"
 
 
 @pytest.fixture(autouse=True)
@@ -35,7 +35,7 @@ def monkeypatch_path_for_entry_points(
     This would typically be in the venv in which pytest is running these tests
     and fill, which, with uv, is `./.venv/bin`.
 
-    This is required in order for fill to locate the sila-spec-evm-resolver
+    This is required in order for fill to locate the sila-spec-sivm-resolver
     "binary" (entrypoint) when being executed using pytester.
     """
     bin_dir = sysconfig.get_path("scripts")
@@ -98,35 +98,35 @@ def test_calc_state_root(
     assert test_alloc.state_root().startswith(expected_hash)
 
 
-@pytest.mark.parametrize("evm_tool", [ExecutionSpecsTransitionTool])
+@pytest.mark.parametrize("sivm_tool", [ExecutionSpecsTransitionTool])
 @pytest.mark.parametrize(
     "binary_arg", ["no_binary_arg", "path_type", "str_type"]
 )
 @pytest.mark.skip(
     reason="ExecutionSpecsTransitionTool through binary path is not supported"
 )
-def test_evm_tool_binary_arg(
-    evm_tool: Type[ExecutionSpecsTransitionTool], binary_arg: str
+def test_sivm_tool_binary_arg(
+    sivm_tool: Type[ExecutionSpecsTransitionTool], binary_arg: str
 ) -> None:
-    """Test the `evm_tool` binary argument."""
+    """Test the `sivm_tool` binary argument."""
     if binary_arg == "no_binary_arg":
-        evm_tool().version()
+        sivm_tool().version()
         return
     elif binary_arg == "path_type":
-        evm_bin = which(DEFAULT_EVM_T8N_BINARY_NAME)
-        if not evm_bin:
+        sivm_bin = which(DEFAULT_SIVM_T8N_BINARY_NAME)
+        if not sivm_bin:
             # typing: Path can not take None; but if None, we may
             # as well fail explicitly.
             raise Exception(
-                f"Failed to find `{DEFAULT_EVM_T8N_BINARY_NAME}` "
+                f"Failed to find `{DEFAULT_SIVM_T8N_BINARY_NAME}` "
                 "in the PATH via which"
             )
-        evm_tool(binary=Path(evm_bin)).version()
+        sivm_tool(binary=Path(sivm_bin)).version()
         return
     elif binary_arg == "str_type":
-        evm_bin_str = which(DEFAULT_EVM_T8N_BINARY_NAME)
-        if evm_bin_str:
-            evm_tool(binary=Path(evm_bin_str)).version()
+        sivm_bin_str = which(DEFAULT_SIVM_T8N_BINARY_NAME)
+        if sivm_bin_str:
+            sivm_tool(binary=Path(sivm_bin_str)).version()
         return
     raise Exception("unknown test parameter")
 
@@ -159,7 +159,7 @@ def env(test_dir: str) -> Environment:
 
 
 @pytest.mark.parametrize("test_dir", os.listdir(path=FIXTURES_ROOT))
-def test_evm_t8n(
+def test_sivm_t8n(
     default_t8n: TransitionTool,
     alloc: Alloc,
     txs: List[Transaction],
@@ -179,10 +179,10 @@ def test_evm_t8n(
                 alloc=alloc,
                 txs=txs,
                 env=env,
-                fork=Berlin,
+                fork=SilaBerlin,
                 chain_id=1,
                 reward=0,
-                blob_schedule=Berlin.blob_schedule(),
+                blob_schedule=SilaBerlin.blob_schedule(),
             ),
         )
         assert to_json(t8n_output.alloc.materialize()) == expected.get("alloc")
@@ -190,7 +190,7 @@ def test_evm_t8n(
         if isinstance(default_t8n, ExecutionSpecsTransitionTool):
             # The expected output was generated with gsil, instead of deleting
             # any info from this expected output, the fields not returned by
-            # eels are handled here.
+            # sels are handled here.
             missing_receipt_fields = [
                 "root",
                 "contractAddress",

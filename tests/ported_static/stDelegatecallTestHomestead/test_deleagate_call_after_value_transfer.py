@@ -33,7 +33,7 @@ TRANSFERRED_VALUE = 0xA
         "state_tests/stDelegatecallTestHomestead/deleagateCallAfterValueTransferFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_deleagate_call_after_value_transfer(
     state_test: StateTestFiller,
     pre: Alloc,

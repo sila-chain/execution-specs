@@ -1,4 +1,4 @@
-"""Tests full blob type transactions for [SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844)."""
+"""Tests full blob type transactions for [SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md)."""
 
 from typing import List, Optional
 
@@ -281,7 +281,7 @@ def generate_full_blob_tests(
     generate_full_blob_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_reject_valid_full_blob_in_block_rlp(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

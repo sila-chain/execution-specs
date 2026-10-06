@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/NoSrcAccount1559Filler.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -196,44 +196,46 @@ def test_no_src_account1559(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": [
+                ">=SilaCancun": [
                     TransactionException.INSUFFICIENT_ACCOUNT_FUNDS,
                     TransactionException.INTRINSIC_GAS_TOO_LOW,
                 ],
-                ">=Frontier<MuirGlacier,Berlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
+                ">=Frontier<MuirGlacier,SilaBerlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
             },
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INSUFFICIENT_ACCOUNT_FUNDS,
-                ">=Frontier<MuirGlacier,Berlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
+                ">=SilaCancun": (
+                    TransactionException.INSUFFICIENT_ACCOUNT_FUNDS
+                ),
+                ">=Frontier<MuirGlacier,SilaBerlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
             },
         },
         {
             "indexes": {"data": -1, "gas": 2, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": [
+                ">=SilaCancun": [
                     TransactionException.INSUFFICIENT_ACCOUNT_FUNDS,
                     TransactionException.INTRINSIC_GAS_TOO_LOW,
                 ],
-                ">=Frontier<MuirGlacier,Berlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
+                ">=Frontier<MuirGlacier,SilaBerlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
             },
         },
         {
             "indexes": {"data": -1, "gas": 2, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.INTRINSIC_GAS_TOO_LOW,
-                ">=Frontier<MuirGlacier,Berlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
+                ">=SilaCancun": TransactionException.INTRINSIC_GAS_TOO_LOW,
+                ">=Frontier<MuirGlacier,SilaBerlin": TransactionException.TYPE_NOT_SUPPORTED,  # noqa: E501
             },
         },
     ]

@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stExample/rangesExampleFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -218,7 +218,7 @@ def test_ranges_example(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 1, 2], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -229,7 +229,7 @@ def test_ranges_example(
         },
         {
             "indexes": {"data": [0, 1, 2], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -240,7 +240,7 @@ def test_ranges_example(
         },
         {
             "indexes": {"data": 3, "gas": [0, 1, 2], "value": [0, 1]},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={

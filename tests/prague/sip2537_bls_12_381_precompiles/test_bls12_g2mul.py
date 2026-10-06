@@ -2,7 +2,7 @@
 Test the BLS12_G2MUL precompile.
 
 Test the BLS12_G2MUL precompile introduced in
-[SIP-2537: Precompile for BLS12-381 curve operations](https://sips.sila.org/SIPS/sip-2537).
+[SIP-2537: Precompile for BLS12-381 curve operations](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 import pytest
@@ -22,7 +22,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
 pytestmark = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.parametrize("precompile_address", [Spec.G2MSM], ids=[""]),
 ]
 

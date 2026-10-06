@@ -823,7 +823,6 @@ def calculate_block_difficulty(
     # start of Frontier, but was added shortly after launch. However since the
     # bomb has no effect prior to block 200000 we pretend it existed from
     # genesis.
-    # See https://github.com/sila/go-sila/pull/1588
     num_bomb_periods = ((int(block_number) - BOMB_DELAY_BLOCKS) // 100000) - 2
     if num_bomb_periods >= 0:
         difficulty += 2**num_bomb_periods

@@ -5,14 +5,14 @@ Harmonization and increase of state-access gas costs, repricing warm and
 cold account and storage access, account writes, and the related access
 list and authorization costs.
 
-This mixin ships alongside SIP-8037 in Amsterdam. It carries the
+This mixin ships alongside SIP-8037 in SilaAmsterdam. It carries the
 state-access repricing only; the SIP-8037 state-creation gas is folded in
 on top by the (lower-numbered, therefore shallower) `SIP8037` mixin, which
 reads these values via `super().gas_costs()` and adds its state-byte
 portions to the shared `STORAGE_SET`, `TX_CREATE`, and
 `AUTH_PER_EMPTY_ACCOUNT` totals.
 
-https://sips.sila.org/SIPS/sip-8038
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md
 """
 
 from dataclasses import replace

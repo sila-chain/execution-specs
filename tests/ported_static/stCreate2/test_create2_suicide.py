@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/CREATE2_SuicideFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -148,7 +148,7 @@ def test_create2_suicide(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(
                     0x0000000000000000000000000000000000000001
@@ -163,7 +163,7 @@ def test_create2_suicide(
         },
         {
             "indexes": {"data": [2, 3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x0000000000000000000000000000000000000001): Account(
                     balance=1
@@ -178,7 +178,7 @@ def test_create2_suicide(
         },
         {
             "indexes": {"data": [4, 5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=2
@@ -190,7 +190,7 @@ def test_create2_suicide(
         },
         {
             "indexes": {"data": [6, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun<Amsterdam"],
+            "network": [">=SilaCancun<SilaAmsterdam"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     balance=9, nonce=2
@@ -203,7 +203,7 @@ def test_create2_suicide(
         # per SIP-8246
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Amsterdam"],
+            "network": [">=SilaAmsterdam"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     balance=9, nonce=2
@@ -215,7 +215,7 @@ def test_create2_suicide(
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Amsterdam"],
+            "network": [">=SilaAmsterdam"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     balance=9, nonce=2
@@ -227,7 +227,7 @@ def test_create2_suicide(
         },
         {
             "indexes": {"data": [8, 9], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=2
@@ -239,7 +239,7 @@ def test_create2_suicide(
         },
         {
             "indexes": {"data": [10, 11], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=2

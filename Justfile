@@ -15,8 +15,8 @@ xdist_workers := env("PYTEST_XDIST_AUTO_NUM_WORKERS", "6")
 # pytest-xdist, which reads it as a numeric worker-count override in
 # `-n auto` mode, does not warn on non-numeric values such as "auto".
 export PYTEST_XDIST_AUTO_NUM_WORKERS := ""
-evm_bin := env("EVM_BIN", "evm")
-latest_fork := "Amsterdam"
+sivm_bin := env("SIVM_BIN", "sivm")
+latest_fork := "SilaAmsterdam"
 
 # Use the faster sys.monitoring coverage core (default on 3.14, opt-in below).
 export COVERAGE_CORE := "sysmon"
@@ -90,7 +90,7 @@ lint *args:
 deadcode:
     uv run vulture \
         src/ \
-        packages/testing/src/execution_testing/evm_tools/ \
+        packages/testing/src/execution_testing/sivm_tools/ \
         vulture_whitelist.py
 
 # Check formatting with ruff
@@ -103,7 +103,7 @@ format-check *args:
 typecheck *args:
     uv run --group optimized mypy "$@"
 
-# Check EELS import isolation
+# Check SELS import isolation
 [group('static analysis')]
 lint-spec:
     uv run sila-spec-lint
@@ -138,7 +138,7 @@ coverage:
 checklist *args:
     uv run checklist --output tmp/checklist "$@"
 
-# Fill the consensus tests using EELS (with Python)
+# Fill the consensus tests using SELS (with Python)
 [group('consensus tests')]
 fill *args: (_tmp-logs "fill")
     uv run fill \
@@ -160,7 +160,7 @@ fill *args: (_tmp-logs "fill")
         "$@" \
         tests
 
-# Run blockchain_tests fixtures through EELS block validation with coverage
+# Run blockchain_tests fixtures through SELS block validation with coverage
 [group('consensus tests')]
 validate-blocks fixtures_dir *args: (_tmp "validate-blocks")
     COVERAGE_FILE="{{ output_dir }}/validate-blocks/.coverage" uv run python -m pytest \
@@ -190,7 +190,7 @@ fill-release *args:
 
 # --- Integration Tests ---
 
-# Fill the base coverage consensus tests using EELS with PyPy
+# Fill the base coverage consensus tests using SELS with PyPy
 [group('integration tests')]
 fill-pypy *args: (_tmp-logs "fill-pypy")
     uv run --python pypy3.11 --no-dev --group test fill \
@@ -201,7 +201,7 @@ fill-pypy *args: (_tmp-logs "fill-pypy")
         -ra \
         --show-capture=no \
         --disable-warnings \
-        -m "eels_base_coverage and primary_format" \
+        -m "sels_base_coverage and primary_format" \
         -n auto --maxprocesses 7 \
         --dist=loadgroup \
         --basetemp="{{ output_dir }}/fill-pypy/tmp" \
@@ -212,11 +212,11 @@ fill-pypy *args: (_tmp-logs "fill-pypy")
         "$@" \
         tests
 
-# Fill the base coverage consensus tests and run EELS against the fixtures
+# Fill the base coverage consensus tests and run SELS against the fixtures
 [group('integration tests')]
 json-loader *args: (_tmp "json-loader")
     uv run fill \
-        -m "eels_base_coverage and primary_format" \
+        -m "sels_base_coverage and primary_format" \
         --until "{{ latest_fork }}" \
         -n {{ xdist_workers }} --dist=loadgroup \
         --skip-index \
@@ -351,7 +351,7 @@ test-packaging: check-testing-imports build-wheels
     set -euo pipefail
     dist="{{ output_dir }}/dist"
     work="{{ output_dir }}/test-packaging"
-    fixtures="packages/testing/src/execution_testing/evm_tools/tests/fixtures/t8n_build"
+    fixtures="packages/testing/src/execution_testing/sivm_tools/tests/fixtures/t8n_build"
     rm -rf "$work"
 
     # Install into a bare venv, deliberately outside the uv workspace.
@@ -368,9 +368,9 @@ test-packaging: check-testing-imports build-wheels
     # argparse without ever reaching the imports that t8n needs. The
     # output basedir is emptied before the run, so keep it out of the
     # source tree.
-    echo "--> Smoke-testing sila-spec-evm t8n"
+    echo "--> Smoke-testing sila-spec-sivm t8n"
     mkdir -p "$work/t8n-out"
-    "$work/wheel-venv/bin/sila-spec-evm" t8n \
+    "$work/wheel-venv/bin/sila-spec-sivm" t8n \
         --state.fork=Frontier \
         --input.alloc="$fixtures/alloc.json" \
         --input.env="$fixtures/env.json" \
@@ -390,9 +390,9 @@ test-packaging: check-testing-imports build-wheels
 # --- Benchmarks ---
 
 # test_return_revert is excluded: its max-size INVALID-padded callees make
-# EELS re-scan jumpdests on every call (100-270s per test, ~60% of the
+# SELS re-scan jumpdests on every call (100-270s per test, ~60% of the
 # suite's runtime); the gsil-backed benchmarks/** CI still fills it.
-# Fill benchmark tests at 1M gas with the in-repo EELS t8n
+# Fill benchmark tests at 1M gas with the in-repo SELS t8n
 [group('benchmark tests')]
 fill-benchmark *args: (_tmp-logs "fill-benchmark")
     uv run fill \
@@ -410,15 +410,15 @@ fill-benchmark *args: (_tmp-logs "fill-benchmark")
         "$@" \
         tests/benchmark/compute
 
-# Smoke-test benchmark tests: fill blockchain_test fixtures, then verify against EELS.
+# Smoke-test benchmark tests: fill blockchain_test fixtures, then verify against SELS.
 [group('benchmark tests')]
 bench-gas *args: (_tmp-logs "bench-gas")
     @echo "==> Step 1/3: Generating pre-alloc groups (smoke-tests the BlockchainEngineX path)"
     uv run fill \
         --generate-pre-alloc-groups \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --gas-benchmark-values 1 \
-        --fork Amsterdam \
+        --fork SilaAmsterdam \
         -m "not slow" \
         -n auto --maxprocesses 10 --dist=loadgroup \
         --output="{{ output_dir }}/bench-gas/pre-alloc" \
@@ -427,11 +427,11 @@ bench-gas *args: (_tmp-logs "bench-gas")
         --clean \
         "$@" \
         tests/benchmark/compute
-    @echo "==> Step 2/3: Filling blockchain_test fixtures with configured EVM (EVM_BIN={{ evm_bin }})"
+    @echo "==> Step 2/3: Filling blockchain_test fixtures with configured Sivm (SIVM_BIN={{ sivm_bin }})"
     uv run fill \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --gas-benchmark-values 1 \
-        --fork Amsterdam \
+        --fork SilaAmsterdam \
         -m "blockchain_test and primary_format and (not slow)" \
         -n auto --maxprocesses 10 --dist=loadgroup \
         --durations=20 \
@@ -441,11 +441,11 @@ bench-gas *args: (_tmp-logs "bench-gas")
         --clean \
         "$@" \
         tests/benchmark/compute
-    @echo "==> Step 3/3: Running filled fixtures against EELS via json_loader"
+    @echo "==> Step 3/3: Running filled fixtures against SELS via json_loader"
     @rm -rf tests/json_loader/bench_gas_fixtures
     ln -sfn "{{ output_dir }}/bench-gas/fixtures" tests/json_loader/bench_gas_fixtures
     cd tests/json_loader && uv run --python pypy3.11 --no-dev --group test pytest \
-        --fork Amsterdam \
+        --fork SilaAmsterdam \
         --allow-post-state-hash \
         -n auto --maxprocesses 10 --dist=loadfile \
         --durations=20 \
@@ -456,9 +456,9 @@ bench-gas *args: (_tmp-logs "bench-gas")
 [group('benchmark tests')]
 bench-opcode *args: (_tmp-logs "bench-opcode")
     uv run fill \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --fixed-opcode-count 1 \
-        --fork Amsterdam \
+        --fork SilaAmsterdam \
         -m "repricing and not slow" \
         -n auto --maxprocesses 10 --dist=loadgroup \
         -k "not test_alt_bn128 and not test_bls12_381 and not test_modexp and not uncachable" \
@@ -474,9 +474,9 @@ bench-opcode *args: (_tmp-logs "bench-opcode")
 bench-opcode-config *args: (_tmp-logs "bench-opcode-config")
     uv run benchmark_parser
     uv run fill \
-        --evm-bin="{{ evm_bin }}" \
+        --sivm-bin="{{ sivm_bin }}" \
         --fixed-opcode-count \
-        --fork Amsterdam \
+        --fork SilaAmsterdam \
         -m "repricing and not slow" \
         -n auto --maxprocesses 10 --dist=loadgroup \
         -k "not test_alt_bn128 and not test_bls12_381 and not test_modexp and not uncachable" \
@@ -492,13 +492,13 @@ bench-opcode-config *args: (_tmp-logs "bench-opcode-config")
 export GEN_TEST_DOC_VERSION := "local"
 export DYLD_FALLBACK_LIBRARY_PATH := if os() == "macos" { "/opt/homebrew/lib" } else { "" }
 
-# Generate documentation for EELS using docc
+# Generate documentation for SELS using docc
 [group('docs')]
 docs-spec $DOCC_SKIP_DIFFS=env_var_or_default("DOCC_SKIP_DIFFS", ""):
     uv run docc --output "{{ output_dir }}/docs-spec"
     uv run python -c 'import pathlib; print("documentation available under file://{0}".format(pathlib.Path(r"{{ output_dir }}") / "docs-spec" / "index.html"))'
 
-# Generate documentation for EELS using docc, skipping the slow per-fork diff render
+# Generate documentation for SELS using docc, skipping the slow per-fork diff render
 [group('docs')]
 docs-spec-fast: (docs-spec "1")
 
@@ -542,12 +542,12 @@ crops:
 # Remove caches and build artifacts (.pytest_cache, .mypy_cache, __pycache__, ...)
 [group('housekeeping')]
 clean *args:
-    uv run eest clean "$@"
+    uv run sest clean "$@"
 
 # Remove caches, build artifacts, .just, and .venv
 [group('housekeeping')]
 clean-all *args:
-    uv run eest clean --all "$@"
+    uv run sest clean --all "$@"
 
 # Print the command to install shell completions for just recipes
 [group('housekeeping')]

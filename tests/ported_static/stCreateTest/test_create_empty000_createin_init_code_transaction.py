@@ -4,7 +4,7 @@ Test_create_empty000_createin_init_code_transaction.
 Ported from:
 state_tests/stCreateTest/CREATE_empty000CreateinInitCode_TransactionFiller.json
 @manually-enhanced: Do not overwrite. Inner-CALL gas and tx `gas_limit`
-bumped on Amsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037
+bumped on SilaAmsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037
 unchanged.
 
 """
@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stCreateTest/CREATE_empty000CreateinInitCode_TransactionFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_create_empty000_createin_init_code_transaction(
     state_test: StateTestFiller,

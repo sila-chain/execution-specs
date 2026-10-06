@@ -9,7 +9,7 @@ in the same tx refunds state gas directly to `state_gas_reservoir`
 `refund_counter`.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

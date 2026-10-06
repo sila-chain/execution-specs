@@ -1,7 +1,7 @@
 """
 Tests for SIP-7708 fork transition behavior.
 
-Tests that verify transfer logs are emitted correctly at the Amsterdam fork
+Tests that verify transfer logs are emitted correctly at the SilaAmsterdam fork
 transition boundary.
 """
 
@@ -30,8 +30,8 @@ def test_transfer_log_fork_transition(
     """
     Test SIL transfer log behavior at fork transition.
 
-    Before Amsterdam: SIL transfers do NOT emit logs.
-    At/after Amsterdam: SIL transfers emit Transfer logs.
+    Before SilaAmsterdam: SIL transfers do NOT emit logs.
+    At/after SilaAmsterdam: SIL transfers emit Transfer logs.
     """
     sender = pre.fund_eoa()
     recipient = pre.nonexistent_account()

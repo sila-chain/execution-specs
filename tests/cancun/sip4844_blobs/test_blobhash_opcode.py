@@ -1,5 +1,5 @@
 """
-Tests `BLOBHASH` opcode in [SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+Tests `BLOBHASH` opcode in [SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 
 Note: To add a new test, add a function that is named `test_<test_name>` and
 takes at least the following arguments.
@@ -43,7 +43,7 @@ from .spec import Spec, ref_spec_4844
 REFERENCE_SPEC_GIT_PATH = ref_spec_4844.git_path
 REFERENCE_SPEC_VERSION = ref_spec_4844.version
 
-pytestmark = pytest.mark.valid_from("Cancun")
+pytestmark = pytest.mark.valid_from("SilaCancun")
 
 
 # Blobhash index values for test_blobhash_gas_cost
@@ -304,7 +304,7 @@ def test_blobhash_scenarios(
         "invalid_calls",
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_blobhash_invalid_blob_index(
     pre: Alloc,
     fork: Fork,

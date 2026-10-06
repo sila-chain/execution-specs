@@ -114,7 +114,6 @@ def contract_call_code(
     if call_type == Op.CALL or call_type == Op.CALLCODE:
         contract_call_code += Op.SSTORE(
             0x00,  # store the result of the contract call in storage[0]
-            # https://github.com/sila/execution-spec-tests/issues/348
             call_type(
                 call_gas,
                 Spec.BEACON_ROOTS_ADDRESS,
@@ -129,7 +128,6 @@ def contract_call_code(
         # delegatecall and staticcall use one less argument
         contract_call_code += Op.SSTORE(
             0x00,
-            # https://github.com/sila/execution-spec-tests/issues/348
             call_type(
                 call_gas,
                 Spec.BEACON_ROOTS_ADDRESS,

@@ -57,7 +57,7 @@ SUCCESS_SLOT = 0x1
         "state_tests/stNonZeroCallsTest/NonZeroValue_DELEGATECALL_ToNonNonZeroBalanceFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "opcode, target_kind",
     [

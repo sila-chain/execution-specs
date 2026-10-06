@@ -10,11 +10,11 @@ state_tests/stEIP2930/addressOpcodesFiller.yml
 pre-warmed) and a second (warm) access. SIP-8038 reprices these: cold
 `BALANCE`/`EXTCODEHASH` by the `COLD_ACCOUNT_ACCESS` raise, while
 `EXTCODESIZE`/`EXTCODECOPY` carry an extra flat surcharge on both their
-warm and cold forms. The single Cancun-era literals are therefore split
+warm and cold forms. The single SilaCancun-era literals are therefore split
 per opcode and per access, each adjusted by that opcode's own warm or
-cold `(Amsterdam - Cancun)` cost delta taken from the fork gas model, so
-every value is exactly 0 before SIP-8038 and tracks future parameter
-changes; do not hardcode the Amsterdam numbers.
+cold `(SilaAmsterdam - SilaCancun)` cost delta taken from the fork gas model,
+so every value is exactly 0 before SIP-8038 and tracks future parameter
+changes; do not hardcode the SilaAmsterdam numbers.
 """
 
 import pytest
@@ -29,7 +29,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op, Opcode
 
 from tests.ported_static.post_state_resolution import (
@@ -43,7 +43,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP2930/addressOpcodesFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -558,7 +558,7 @@ def test_address_opcodes(
         address=Address(0xCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC),  # noqa: E501
     )
 
-    # Per-opcode warm and cold cost deltas versus Cancun, derived from
+    # Per-opcode warm and cold cost deltas versus SilaCancun, derived from
     # the fork gas model so each is exactly 0 before SIP-8038. The
     # EXTCODECOPY metadata mirrors the measured access (a 0x20-byte copy
     # into already-expanded memory) so only the account-access component
@@ -570,7 +570,7 @@ def test_address_opcodes(
 
     def _account_delta(op: Opcode, warm: bool, **meta: int) -> int:
         priced = op.with_metadata(address_warm=warm, **meta)
-        return priced.gas_cost(fork) - priced.gas_cost(Cancun)
+        return priced.gas_cost(fork) - priced.gas_cost(SilaCancun)
 
     balance_warm_d = _account_delta(Op.BALANCE, True)
     balance_cold_d = _account_delta(Op.BALANCE, False)
@@ -596,7 +596,7 @@ def test_address_opcodes(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -612,7 +612,7 @@ def test_address_opcodes(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -628,7 +628,7 @@ def test_address_opcodes(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -644,7 +644,7 @@ def test_address_opcodes(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -657,7 +657,7 @@ def test_address_opcodes(
         # invalid (cold first access): slot 0 cold, slot 1 warm.
         {
             "indexes": {"data": [2, 3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -670,7 +670,7 @@ def test_address_opcodes(
         },
         {
             "indexes": {"data": [14, 15], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -683,7 +683,7 @@ def test_address_opcodes(
         },
         {
             "indexes": {"data": [26, 27], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -696,7 +696,7 @@ def test_address_opcodes(
         },
         {
             "indexes": {"data": [38, 39], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={

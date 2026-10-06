@@ -4,7 +4,7 @@ SIP-2929: Gas cost increases for state access opcodes.
 Replace the flat account and storage access costs with warm and cold
 pricing driven by the `address_warm` and `key_warm` opcode metadata.
 
-https://sips.sila.org/SIPS/sip-2929
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2929.md
 """
 
 from typing import Callable, Dict

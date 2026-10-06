@@ -1,5 +1,5 @@
 """
-Test [SIP-7976: Increase calldata floor cost](https://sips.sila.org/SIPS/sip-7976).
+Test [SIP-7976: Increase calldata floor cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md).
 """
 
 from enum import Enum
@@ -135,7 +135,7 @@ def intrinsic_gas_data_floor_minimum_delta() -> int:
     would always be the below the execution gas cost even after the refund is
     applied.
 
-    This value has been set as of Amsterdam (with the provisional
+    This value has been set as of SilaAmsterdam (with the provisional
     state-access repricing) and should be adjusted if the gas costs
     change.
     """

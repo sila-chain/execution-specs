@@ -41,7 +41,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 @pytest.mark.parametrize(
@@ -893,7 +893,7 @@ def test_bal_7702_multi_hop_delegation_chain(
 ) -> None:
     """
     Multi-hop SIP-7702 delegation: `chain` resolves A->B->C; `loop`
-    resolves A->B->A. In both cases the EVM follows the delegation once
+    resolves A->B->A. In both cases the Sivm follows the delegation once
     and runs B's `0xef0100<dest>` bytecode as legacy code, which aborts
     on the INVALID `0xef` opcode. For `chain`, C MUST NOT appear in the
     BAL (second-hop target is never loaded as an execution target). For
@@ -1428,7 +1428,7 @@ def test_bal_selfdestruct_to_7702_delegation(
             balance_changes=[
                 BalBalanceChange(block_access_index=2, post_balance=0)
             ],
-            code_changes=[],  # Code unchanged (post-Cancun SELFDESTRUCT)
+            code_changes=[],  # Code unchanged (post-SilaCancun SELFDESTRUCT)
             storage_changes=[],  # No storage changes
             storage_reads=[],  # No storage reads
         ),
@@ -1452,7 +1452,7 @@ def test_bal_selfdestruct_to_7702_delegation(
         ),
         bob: Account(balance=10),
         relayer: Account(nonce=2),
-        # Victim still exists but with 0 balance (post-Cancun SELFDESTRUCT)
+        # Victim still exists but with 0 balance (post-SilaCancun SELFDESTRUCT)
         victim: Account(balance=0),
     }
 

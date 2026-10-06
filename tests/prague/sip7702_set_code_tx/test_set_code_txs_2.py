@@ -1,5 +1,5 @@
 """
-A state test for [SIP-7702 SetCodeTX](https://sips.sila.org/SIPS/sip-7702).
+A state test for [SIP-7702 SetCodeTX](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 from enum import Enum, IntEnum
@@ -35,7 +35,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_7702.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7702.version
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_pointer_contract_pointer_loop(
@@ -122,7 +122,7 @@ def test_pointer_contract_pointer_loop(
     state_test(env=env, pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_pointer_to_pointer(
@@ -192,7 +192,7 @@ def test_pointer_to_pointer(
     state_test(env=env, pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_pointer_normal(
@@ -264,7 +264,7 @@ def test_pointer_normal(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_pointer_measurements(
     blockchain_test: BlockchainTestFiller, pre: Alloc
 ) -> None:
@@ -420,7 +420,7 @@ def test_pointer_measurements(
 
 
 @pytest.mark.with_all_precompiles
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_call_to_precompile_in_pointer_context(
@@ -514,7 +514,7 @@ def test_call_to_precompile_in_pointer_context(
 
 
 @pytest.mark.with_all_call_opcodes
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_precompile_call_from_delegated_frame(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -581,7 +581,7 @@ def test_precompile_call_from_delegated_frame(
 
 
 @pytest.mark.with_all_precompiles
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_pointer_to_precompile(
@@ -733,7 +733,7 @@ class AccessListTo(Enum):
     "access_list_to",
     [AccessListTo.POINTER_ADDRESS, AccessListTo.CONTRACT_ADDRESS],
 )
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_gas_diff_pointer_vs_direct_call(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -930,7 +930,7 @@ def test_gas_diff_pointer_vs_direct_call(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_pointer_call_followed_by_direct_call(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1017,7 +1017,7 @@ def test_pointer_call_followed_by_direct_call(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_pointer_to_static(
@@ -1091,7 +1091,7 @@ def test_pointer_to_static(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_static_to_pointer(
@@ -1165,7 +1165,7 @@ def test_static_to_pointer(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("sender_delegated", [True, False])
 @pytest.mark.parametrize("sender_is_auth_signer", [True, False])
 def test_pointer_to_static_reentry(
@@ -1260,7 +1260,7 @@ def test_pointer_to_static_reentry(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize(
     "call_type",
     [Op.CALL, Op.DELEGATECALL, Op.CALLCODE],
@@ -1370,7 +1370,7 @@ class ReentryAction(IntEnum):
     MEASURE_VALUES_CONTRACT = 2
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_pointer_reentry(state_test: StateTestFiller, pre: Alloc) -> None:
     """
     Check operations when reenter the pointer again.
@@ -1564,7 +1564,7 @@ def test_pointer_reentry(state_test: StateTestFiller, pre: Alloc) -> None:
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_eoa_init_as_pointer(state_test: StateTestFiller, pre: Alloc) -> None:
     """
     It was agreed before that senders don't have code.
@@ -1593,7 +1593,7 @@ def test_eoa_init_as_pointer(state_test: StateTestFiller, pre: Alloc) -> None:
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize("call_return", [Op.RETURN, Op.REVERT, Macros.OOG])
 @pytest.mark.parametrize("sender_delegated", [False, True])
 @pytest.mark.parametrize("sender_is_auth_signer", [False, True])
@@ -1731,7 +1731,7 @@ valid_combinations = [
 ]
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize(
     "first_revert, second_revert, final_revert", valid_combinations
 )
@@ -1856,7 +1856,7 @@ class DelegationTo(Enum):
 
 @pytest.mark.bigmem
 @pytest.mark.xdist_group(name="bigmem")
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.parametrize(
     "first_delegation",
     [DelegationTo.CONTRACT_A, DelegationTo.CONTRACT_B, DelegationTo.RESET],
@@ -1954,8 +1954,8 @@ def test_double_auth(
 
 @pytest.mark.bigmem
 @pytest.mark.xdist_group(name="bigmem")
-@pytest.mark.valid_from("Prague")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaPrague")
+@pytest.mark.sels_base_coverage
 def test_pointer_resets_an_empty_code_account_with_storage(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -2119,14 +2119,14 @@ def test_pointer_resets_an_empty_code_account_with_storage(
     [0, 1],
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_at_transition_to("Prague")
+@pytest.mark.valid_at_transition_to("SilaPrague")
 def test_set_code_type_tx_pre_fork(
     state_test: StateTestFiller,
     pre: Alloc,
     tx_value: int,
 ) -> None:
     """
-    Reject blocks with set code type transactions before the Prague fork.
+    Reject blocks with set code type transactions before the SilaPrague fork.
 
     This test was based on:
     tests/prague/sip7702_set_code_tx/test_set_code_txs.py::test_self_sponsored_set_
@@ -2174,7 +2174,7 @@ def test_set_code_type_tx_pre_fork(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.bigmem
 @pytest.mark.xdist_group(name="bigmem")
 def test_delegation_replacement_call_previous_contract(

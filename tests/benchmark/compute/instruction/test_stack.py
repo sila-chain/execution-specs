@@ -188,7 +188,7 @@ def test_push_truncated_data(
 
 
 @pytest.mark.repricing
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.parametrize(
     "stack_index",
     [17, 107, 235],
@@ -210,7 +210,7 @@ def test_dupn(
 
 
 @pytest.mark.repricing
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.parametrize(
     "stack_index",
     [17, 107, 235],
@@ -231,7 +231,7 @@ def test_swapn(
 
 
 @pytest.mark.repricing
-@pytest.mark.valid_from("Amsterdam")
+@pytest.mark.valid_from("SilaAmsterdam")
 @pytest.mark.parametrize(
     "n,m",
     [

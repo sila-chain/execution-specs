@@ -4,7 +4,7 @@ SIP-7918: Blob base fee bounded by execution cost.
 Imposes that the price of GAS_PER_BLOB blob gas is greater than the price
 of BLOB_BASE_COST execution gas.
 
-https://sips.sila.org/SIPS/sip-7918
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7918.md
 """
 
 from ....base_fork import BaseFork, ExcessBlobGasCalculator

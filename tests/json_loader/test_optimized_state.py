@@ -6,13 +6,12 @@ import pytest
 from sila_types.numeric import U256
 
 import sila.state_mpt as state
-from sila.forks.tangerine_whistle.utils.hexadecimal import hex_to_address
+from sila.forks.sip150.utils.hexadecimal import hex_to_address
 from sila.state import EMPTY_ACCOUNT
 from sila_spec_tools.forks import Hardfork
 
 # The optimized state integration predates the ``State`` refactor and has
-# not yet been rewired onto ``PreState``/``state_tracker`` — see
-# https://github.com/sila/execution-specs/issues/2256. Until then,
+# not yet been rewired onto ``PreState``/``state_tracker``. Until then,
 # both ``get_optimized_state_patches`` and the per-fork ``destroy_storage``
 # API these tests assume no longer load, so the tests are skipped wholesale.
 pytestmark = pytest.mark.skip(

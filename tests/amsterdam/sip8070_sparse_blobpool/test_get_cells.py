@@ -2,7 +2,7 @@
 Get cells engine endpoint tests.
 
 Tests for the `engine_getBlobsV4` endpoint in [SIP-8070: sil/72 - Sparse
-Blobpool](https://sips.sila.org/SIPS/sip-8070).
+Blobpool](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8070.md).
 
 `engine_getBlobsV4` retrieves a custody-aligned subset of a blob's cells,
 selected by a `uint128` `indices_bitarray` cell mask, and returns a partial

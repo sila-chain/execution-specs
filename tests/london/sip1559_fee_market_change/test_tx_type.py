@@ -39,9 +39,8 @@ def tx_validity(fork: Fork) -> Generator[ParameterSet, None, None]:
 @pytest.mark.inclusion_test
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/legacytests/blob/master/Cancun/GeneralStateTests/stEIP1559/typeTwoBerlin.json"
+        "https://github.com/sila/legacytests/blob/master/SilaCancun/GeneralStateTests/stEIP1559/typeTwoBerlin.json"
     ],
-    pr=["https://github.com/sila/execution-specs/pull/1754"],
 )
 @pytest.mark.parametrize_by_fork("valid", tx_validity)
 def test_sip1559_tx_validity(
@@ -51,7 +50,7 @@ def test_sip1559_tx_validity(
     valid: bool,
 ) -> None:
     """
-    Tests that an SIP-1559 tx has no effect before London.
+    Tests that an SIP-1559 tx has no effect before SilaLondon.
     """
     account = pre.deploy_contract(
         code=Op.SSTORE(0, 1),
@@ -76,7 +75,7 @@ def test_sip1559_tx_validity(
 
 
 @pytest.mark.inclusion_test
-@pytest.mark.valid_from("SpuriousDragon")
+@pytest.mark.valid_from("SIP158")
 @pytest.mark.exception_test
 @pytest.mark.with_all_tx_types
 def test_invalid_chain_id(

@@ -7,7 +7,7 @@ state_tests/stHomesteadSpecific/createContractViaTransactionCost53000Filler.json
 @manually-enhanced: Do not overwrite. `tx.gas_limit` was raised from
 100 000 to 500 000 (and sender funding bumped accordingly) so the
 contract-creation tx clears the SIP-8037 intrinsic-gas floor on
-Amsterdam. The test only asserts that the tx ran (sender.nonce == 1);
+SilaAmsterdam. The test only asserts that the tx ran (sender.nonce == 1);
 the higher gas budget doesn't change that post-state on any fork.
 """
 
@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stHomesteadSpecific/createContractViaTransactionCost53000Filler.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_create_contract_via_transaction_cost53000(
     state_test: StateTestFiller,
     pre: Alloc,

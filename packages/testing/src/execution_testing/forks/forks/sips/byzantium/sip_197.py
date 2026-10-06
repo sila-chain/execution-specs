@@ -2,7 +2,7 @@
 SIP-197: Precompiled contracts for optimal ate pairing check on the
 elliptic curve alt_bn128.
 
-https://sips.sila.org/SIPS/sip-197
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-197.md
 """
 
 from dataclasses import replace

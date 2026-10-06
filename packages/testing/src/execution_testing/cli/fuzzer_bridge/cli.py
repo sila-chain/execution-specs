@@ -104,7 +104,7 @@ def process_single_file_worker(
     fork: Optional[str],
     pretty: bool,
     merge: bool,
-    evm_bin: Optional[Path],
+    sivm_bin: Optional[Path],
     num_blocks: int = 1,
     block_strategy: str = "distribute",
     block_time: int = 12,
@@ -117,7 +117,9 @@ def process_single_file_worker(
 
     # Create transition tool and builder for this worker
     t8n = (
-        GsilTransitionTool(binary=evm_bin) if evm_bin else GsilTransitionTool()
+        GsilTransitionTool(binary=sivm_bin)
+        if sivm_bin
+        else GsilTransitionTool()
     )
     builder = BlocktestBuilder(t8n)
 
@@ -168,7 +170,7 @@ def process_file_batch(
     fork: Optional[str],
     pretty: bool,
     merge: bool,
-    evm_bin: Optional[Path],
+    sivm_bin: Optional[Path],
     num_blocks: int = 1,
     block_strategy: str = "distribute",
     block_time: int = 12,
@@ -177,7 +179,9 @@ def process_file_batch(
     """Process a batch of files in a worker process."""
     # Create transition tool per worker
     t8n = (
-        GsilTransitionTool(binary=evm_bin) if evm_bin else GsilTransitionTool()
+        GsilTransitionTool(binary=sivm_bin)
+        if sivm_bin
+        else GsilTransitionTool()
     )
     builder = BlocktestBuilder(t8n)
 
@@ -237,7 +241,7 @@ def process_directory_parallel(
     pretty: bool,
     merge: bool,
     quiet: bool,
-    evm_bin: Optional[Path],
+    sivm_bin: Optional[Path],
     num_workers: Optional[int] = None,
     num_blocks: int = 1,
     block_strategy: str = "distribute",
@@ -293,7 +297,7 @@ def process_directory_parallel(
             fork=fork,
             pretty=pretty,
             merge=merge,
-            evm_bin=evm_bin,
+            sivm_bin=sivm_bin,
             num_blocks=num_blocks,
             block_strategy=block_strategy,
             block_time=block_time,
@@ -495,7 +499,7 @@ def process_directory(
 
 def batch_mode(
     fork: Optional[str],
-    evm_bin: Optional[Path],
+    sivm_bin: Optional[Path],
     pretty: bool,
     num_blocks: int,
     block_strategy: str,
@@ -515,8 +519,8 @@ def batch_mode(
 
     # Pre-initialize transition tool and builder once for performance
     t8n: TransitionTool
-    if evm_bin:
-        t8n = GsilTransitionTool(binary=evm_bin)
+    if sivm_bin:
+        t8n = GsilTransitionTool(binary=sivm_bin)
     else:
         t8n = GsilTransitionTool()
 
@@ -641,9 +645,9 @@ def batch_mode(
     help="Override fork specified in fuzzer output",
 )
 @click.option(
-    "--evm-bin",
+    "--sivm-bin",
     type=click.Path(exists=True, path_type=Path),
-    help="Path to evm binary for transition tool",
+    help="Path to sivm binary for transition tool",
 )
 @click.option(
     "--pretty",
@@ -710,7 +714,7 @@ def main(
     input_path: Optional[Path],
     output_path: Optional[Path],
     fork: Optional[str],
-    evm_bin: Optional[Path],
+    sivm_bin: Optional[Path],
     pretty: bool,
     merge: bool,
     quiet: bool,
@@ -734,7 +738,7 @@ def main(
     if batch:
         batch_mode(
             fork=fork,
-            evm_bin=evm_bin,
+            sivm_bin=sivm_bin,
             pretty=pretty,
             num_blocks=num_blocks,
             block_strategy=block_strategy,
@@ -751,8 +755,8 @@ def main(
         )
     # Create transition tool
     t8n: TransitionTool
-    if evm_bin:
-        t8n = GsilTransitionTool(binary=evm_bin)
+    if sivm_bin:
+        t8n = GsilTransitionTool(binary=sivm_bin)
     else:
         t8n = GsilTransitionTool()
 
@@ -787,7 +791,7 @@ def main(
                 pretty,
                 merge,
                 quiet,
-                evm_bin,
+                sivm_bin,
                 workers,
                 num_blocks,
                 block_strategy,

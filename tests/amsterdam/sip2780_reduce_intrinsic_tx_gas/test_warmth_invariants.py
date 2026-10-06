@@ -14,7 +14,7 @@ differently:
   charge that reads state, so it follows normal warm/cold accounting:
   ``WARM_ACCESS`` when the target is already warm -- the sender, the
   coinbase, a precompile, the recipient itself, or an access-list
-  entry -- and ``COLD_ACCOUNT_ACCESS`` otherwise. The dispatched EVM
+  entry -- and ``COLD_ACCOUNT_ACCESS`` otherwise. The dispatched Sivm
   frame then runs whatever code lives at the target, including the
   degenerate cases of empty code (EOA, precompile address) or a
   delegation prefix that itself decodes as the ``INVALID`` opcode.
@@ -53,7 +53,7 @@ from .spec import ref_spec_2780
 REFERENCE_SPEC_GIT_PATH = ref_spec_2780.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2780.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
@@ -515,7 +515,7 @@ def test_top_frame_charges_delegation_is_sender(
     """
     Recipient holds a pre-existing SIP-7702 delegation whose target is
     the sender (``tx.origin``), which is warm, so the top-frame charges
-    ``WARM_ACCESS`` for the delegation target; the dispatched EVM frame
+    ``WARM_ACCESS`` for the delegation target; the dispatched Sivm frame
     finds the sender's empty EOA code and exits immediately.
     """
     sender_initial_balance = 10**18
@@ -578,9 +578,9 @@ def test_top_frame_charges_delegation_is_recipient(
     Recipient holds a pre-existing SIP-7702 delegation pointing back
     at itself. The delegation target is the recipient, which is warm,
     so the top-frame charges ``WARM_ACCESS``, and then the dispatched
-    EVM frame runs the recipient's code -- which *is* the delegation
+    Sivm frame runs the recipient's code -- which *is* the delegation
     prefix ``0xef 01 00 <addr>``. The leading ``0xef`` decodes as the
-    ``INVALID`` opcode, consuming the remaining EVM budget. The
+    ``INVALID`` opcode, consuming the remaining Sivm budget. The
     intrinsic and top-frame gas remain paid; the value transfer is
     rolled back.
     """
@@ -604,7 +604,7 @@ def test_top_frame_charges_delegation_is_recipient(
         delegation_warm=True,
     )
 
-    # The dispatched frame burns the entire EVM budget on the
+    # The dispatched frame burns the entire Sivm budget on the
     # ``INVALID`` opcode and the value transfer is rolled back, so the
     # sender pays the full ``gas_limit``.
     gas_price = 1_000_000_000
@@ -730,7 +730,7 @@ def test_top_frame_charges_delegation_is_precompile(
     """
     Recipient holds a pre-existing SIP-7702 delegation pointing at a
     precompile address (``IDENTITY``, ``0x04``), which is warm, so the
-    top-frame charges ``WARM_ACCESS``; the dispatched EVM frame sets
+    top-frame charges ``WARM_ACCESS``; the dispatched Sivm frame sets
     ``disable_precompiles = True`` for delegated calls, so the
     precompile body does not run. The code lookup at the precompile
     address returns the empty byte string and the frame exits

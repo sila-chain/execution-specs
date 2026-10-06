@@ -36,8 +36,8 @@ For each [`HiveFixture`](#hivefixture) test object in the JSON fixture file, per
     2. If [`errorCode`](#-errorcode-optionalnumber) is present:
         - Verify the directive returns an error, and the error code matches the one in [`errorCode`](#-errorcode-optionalnumber), otherwise fail the test.
         - Proceed to the next payload.
-    3. If `valid` is `false`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `INVALID`, otherwise fail the test.
-    4. If `valid` is `true`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `VALID`, otherwise fail the test.
+    3. If `valid` is `false`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/sila-chain/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `INVALID`, otherwise fail the test.
+    4. If `valid` is `true`, verify that the directive returns `status` field of [PayloadStatusV1](https://github.com/sila-chain/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1) as `VALID`, otherwise fail the test.
 
 ## Structures
 
@@ -87,7 +87,7 @@ Fork configuration for the test. It is guaranteed that this field contains the s
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
+Optional; present from SilaCancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7840.md).
 
 ### `FixtureEngineNewPayload`
 
@@ -95,12 +95,12 @@ Optional; present from Cancun on. Maps forks to their blob schedule configuratio
 
 Execution payload.
 
-#### - `blob_versioned_hashes`: [`Optional`](./common_types.md#optional)`[`[`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]]` `(fork: Cancun)`
+#### - `blob_versioned_hashes`: [`Optional`](./common_types.md#optional)`[`[`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]]` `(fork: SilaCancun)`
 
 List of hashes of the versioned blobs that are part of the execution payload.
 They can mismatch the hashes of the versioned blobs in the execution payload, for negative-testing reasons.
 
-#### - `parentBeaconBlockRoot`: [`Optional`](./common_types.md#optional)`[`[`Hash`](./common_types.md#hash)`]` `(fork: Cancun)`
+#### - `parentBeaconBlockRoot`: [`Optional`](./common_types.md#optional)`[`[`Hash`](./common_types.md#hash)`]` `(fork: SilaCancun)`
 
 Hash of the parent beacon block root.
 
@@ -110,10 +110,10 @@ Validation error expected when executing the payload.
 
 When the payload is valid, this field is not present, and a `VALID` status is
 expected in the `status` field of
-[PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1).
+[PayloadStatusV1](https://github.com/sila-chain/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1).
 
 If this field is present, the `status` field of
-[PayloadStatusV1](https://github.com/sila/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1)
+[PayloadStatusV1](https://github.com/sila-chain/execution-apis/blob/main/src/engine/paris.md#payloadstatusv1)
 is expected to be `INVALID`.
 
 #### - `version`: [`Number`](./common_types.md#number)
@@ -182,15 +182,15 @@ List of transactions in the block, in serialized format.
 
 List of withdrawals in the block.
 
-#### - `baseFeePerGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: London)`
+#### - `baseFeePerGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: SilaLondon)`
 
 Base fee per gas of the block.
 
-#### - `blobGasUsed`: [`HexNumber`](./common_types.md#hexnumber) `(fork: Cancun)`
+#### - `blobGasUsed`: [`HexNumber`](./common_types.md#hexnumber) `(fork: SilaCancun)`
 
 Total blob gas used by all the transactions in the block.
 
-#### - `excessBlobGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: Cancun)`
+#### - `excessBlobGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: SilaCancun)`
 
 Excess blob gas of the block used to calculate the blob fee per gas for this block.
 

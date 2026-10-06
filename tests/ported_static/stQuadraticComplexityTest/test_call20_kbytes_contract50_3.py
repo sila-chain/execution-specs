@@ -31,8 +31,8 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stQuadraticComplexityTest/Call20KbytesContract50_3Filler.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -115,7 +115,7 @@ def test_call20_kbytes_contract50_3(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 sender: Account(storage={}, code=b"", nonce=1),
                 addr: Account(storage={0: 2}, nonce=0),
@@ -124,7 +124,7 @@ def test_call20_kbytes_contract50_3(
         },
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 sender: Account(storage={}, code=b"", nonce=1),
                 addr: Account(storage={}, nonce=0),

@@ -1,17 +1,17 @@
 # Spec Releases
 
-EELS is published as a versioned Python package. This page explains how the version number is structured and how it relates to Sila hardforks and devnets. For the maintainer runbook (tagging, publishing to PyPI), see [Releasing](../dev/releasing.md).
+SELS is published as a versioned Python package. This page explains how the version number is structured and how it relates to Sila hardforks and devnets. For the maintainer runbook (tagging, publishing to PyPI), see [Releasing](../dev/releasing.md).
 
 ## About versions
 
-EELS' versioning scheme is intended to be compatible with Python's [Version Specifiers], and is *not* compatible with [SemVer] (although it borrows some of SemVer's concepts).
+SELS' versioning scheme is intended to be compatible with Python's [Version Specifiers], and is *not* compatible with [SemVer] (although it borrows some of SemVer's concepts).
 
 [Version Specifiers]: https://packaging.python.org/en/latest/specifications/version-specifiers/
 [SemVer]: https://semver.org/
 
 ### Format
 
-The general format of EELS version numbers is:
+The general format of SELS version numbers is:
 
 ```text
 COMPAT "." HARDFORK ( "." PATCH | ".0rc" DEVNET [ ".post" PATCH ] ) [ ".dev" DEV ]
@@ -19,7 +19,7 @@ COMPAT "." HARDFORK ( "." PATCH | ".0rc" DEVNET [ ".post" PATCH ] ) [ ".dev" DEV
 
 Where:
 
-- `COMPAT` is incremented when a release contains a backwards-incompatible change to an EELS interface (Python API, command-line tools, etc.).
+- `COMPAT` is incremented when a release contains a backwards-incompatible change to an SELS interface (Python API, command-line tools, etc.).
 - `HARDFORK` is the number of hardforks included in the release after Frontier.
 - `DEVNET`, if present, is incremented when a release targets a new devnet.
 - `DEV`, if present, indicates a pre-release preview and is incremented for each pre-release before the final release.

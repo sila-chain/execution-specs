@@ -12,7 +12,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Frontier, TangerineWhistle
+from execution_testing.forks import SIP150, Frontier
 
 SLOT_CREATE_RESULT = 1
 SLOT_CREATE_RESULT_PRE = 0xDEADBEEF
@@ -21,7 +21,7 @@ SLOT_CREATE_RESULT_PRE = 0xDEADBEEF
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.parametrize("enough_gas", [True, False])
 @pytest.mark.with_all_create_opcodes
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_create_deposit_oog(
     state_test: StateTestFiller,
     fork: Fork,
@@ -64,7 +64,7 @@ def test_create_deposit_oog(
     create_gas = return_code.gas_cost(fork) + expand_memory_code.gas_cost(fork)
     if not enough_gas:
         create_gas -= 1
-    if fork >= TangerineWhistle:
+    if fork >= SIP150:
         # Increment the gas for the 63/64 rule
         create_gas = (create_gas * 64) // 63
     call_gas = create_gas + factory_code.gas_cost(fork)

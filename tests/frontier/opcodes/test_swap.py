@@ -1,6 +1,6 @@
 """
 A State test for the set of `SWAP*` opcodes.
-Ported from: https://github.com/sila/tests/
+Ported from: https://github.com/sila-chain/sila-tests
 blob/develop/src/GeneralStateTestsFiller/VMTests/vmTests/swapFiller.yml.
 """
 
@@ -23,11 +23,10 @@ from execution_testing import (
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/swapFiller.yml"
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/VMTests/vmTests/swapFiller.yml"
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1163"],
     coverage_missed_reason=(
-        "Test isolation (1 contract per execution) reduces evmone state "
+        "Test isolation (1 contract per execution) reduces sivmone state "
         "comparisons vs old dispatcher pattern (16 contracts per execution)"
     ),
 )
@@ -107,7 +106,7 @@ def test_swap(
     ids=lambda op: str(op),
 )
 @pytest.mark.valid_from("Frontier")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_stack_underflow(
     state_test: StateTestFiller,
     fork: Fork,

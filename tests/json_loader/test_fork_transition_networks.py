@@ -12,25 +12,25 @@ from .helpers.load_blockchain_tests import TRANSITION_FORKS, ForkTransition
 
 def test_parse_timestamp_transition() -> None:
     """Parse a timestamp transition, expanding the `k` suffix."""
-    transition = ForkTransition.parse("BPO2ToAmsterdamAtTime15k")
+    transition = ForkTransition.parse("BPO2ToSilaAmsterdamAtTime15k")
 
     assert transition is not None
     assert transition.from_fork == "BPO2"
-    assert transition.to_fork == "Amsterdam"
+    assert transition.to_fork == "SilaAmsterdam"
     assert transition.criteria == ByTimestamp(15_000)
 
 
 def test_parse_block_number_transition() -> None:
     """Parse a block number transition."""
-    transition = ForkTransition.parse("BerlinToLondonAt5")
+    transition = ForkTransition.parse("SilaBerlinToSilaLondonAt5")
 
     assert transition is not None
-    assert transition.from_fork == "Berlin"
-    assert transition.to_fork == "London"
+    assert transition.from_fork == "SilaBerlin"
+    assert transition.to_fork == "SilaLondon"
     assert transition.criteria == ByBlockNumber(5)
 
 
-@pytest.mark.parametrize("network", ["Amsterdam", "Dao Fork", "SIP150"])
+@pytest.mark.parametrize("network", ["SilaAmsterdam", "Dao Fork", "SIP150"])
 def test_parse_plain_fork_name(network: str) -> None:
     """Return `None` for a network that names a single fork."""
     assert ForkTransition.parse(network) is None
@@ -67,7 +67,7 @@ def invalid_block(number: int, timestamp: int) -> Dict[str, Any]:
 
 def test_activates_at_the_transition_timestamp() -> None:
     """Activate the second fork from the given timestamp on."""
-    transition = ForkTransition.parse("BPO2ToAmsterdamAtTime15k")
+    transition = ForkTransition.parse("BPO2ToSilaAmsterdamAtTime15k")
     assert transition is not None
 
     assert not transition.activates(decoded_block(1, 14_999))
@@ -77,7 +77,7 @@ def test_activates_at_the_transition_timestamp() -> None:
 
 def test_activates_from_decoded_invalid_block() -> None:
     """Read the activation point from an invalid block's decoded header."""
-    transition = ForkTransition.parse("BPO2ToAmsterdamAtTime15k")
+    transition = ForkTransition.parse("BPO2ToSilaAmsterdamAtTime15k")
     assert transition is not None
 
     assert not transition.activates(invalid_block(1, 14_999))
@@ -86,7 +86,7 @@ def test_activates_from_decoded_invalid_block() -> None:
 
 def test_activates_by_block_number() -> None:
     """Activate the second fork from the given block number on."""
-    transition = ForkTransition.parse("BerlinToLondonAt5")
+    transition = ForkTransition.parse("SilaBerlinToSilaLondonAt5")
     assert transition is not None
 
     assert not transition.activates(decoded_block(4, 0))
@@ -96,7 +96,7 @@ def test_activates_by_block_number() -> None:
 
 def test_undecodable_block_does_not_activate() -> None:
     """Leave a block without a decoded header to the fork before it."""
-    transition = ForkTransition.parse("BPO2ToAmsterdamAtTime15k")
+    transition = ForkTransition.parse("BPO2ToSilaAmsterdamAtTime15k")
     assert transition is not None
 
     assert not transition.activates({"rlp": "0xc0"})
@@ -105,7 +105,7 @@ def test_undecodable_block_does_not_activate() -> None:
 @pytest.mark.parametrize("timestamp", [2**256, 2**300])
 def test_oversized_timestamp_does_not_activate(timestamp: int) -> None:
     """Leave a header with a timestamp above `U256` to the fork before it."""
-    transition = ForkTransition.parse("BPO2ToAmsterdamAtTime15k")
+    transition = ForkTransition.parse("BPO2ToSilaAmsterdamAtTime15k")
     assert transition is not None
 
     assert not transition.activates(decoded_block(2, timestamp))
@@ -117,7 +117,7 @@ def test_negative_header_value_does_not_activate(
     number: int, timestamp: int
 ) -> None:
     """Leave negative activation values to the fork before the transition."""
-    transition = ForkTransition.parse("BPO2ToAmsterdamAtTime15k")
+    transition = ForkTransition.parse("BPO2ToSilaAmsterdamAtTime15k")
     assert transition is not None
 
     assert not transition.activates(decoded_block(number, timestamp))

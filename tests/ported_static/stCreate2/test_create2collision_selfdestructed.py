@@ -7,7 +7,7 @@ state_tests/stCreate2/create2collisionSelfdestructedFiller.json
 @manually-enhanced: Do not overwrite. The inner CALL's gas budget was
 raised from 0xC350 to 0x40000 and the outer tx gas from 400 000 to
 1 000 000 so the SELFDESTRUCT-to-empty path can afford its SIP-8037
-NEW_ACCOUNT state gas on Amsterdam (the test's intent — exercising
+NEW_ACCOUNT state gas on SilaAmsterdam (the test's intent — exercising
 CREATE2 collision against a freshly self-destructed address — is
 preserved on all forks).
 """
@@ -37,7 +37,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2collisionSelfdestructedFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -117,7 +117,7 @@ def test_create2collision_selfdestructed(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(balance=0, nonce=0),
                 Address(0x0000000000000000000000000000000000000010): Account(
@@ -131,7 +131,7 @@ def test_create2collision_selfdestructed(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(balance=0, nonce=0),
                 Address(0x0000000000000000000000000000000000000010): Account(
@@ -145,7 +145,7 @@ def test_create2collision_selfdestructed(
         },
         {
             "indexes": {"data": 2, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(balance=0, nonce=0),
                 Address(0x0000000000000000000000000000000000000010): Account(
@@ -162,7 +162,7 @@ def test_create2collision_selfdestructed(
     post, _exc = resolve_expect_post(expect_entries_, d, g, v, fork)
 
     # SIP-8037 NEW_ACCOUNT state-gas pushes both the outer tx and the
-    # inner CALL over their original budgets on Amsterdam. Pre-SIP-8037
+    # inner CALL over their original budgets on SilaAmsterdam. Pre-SIP-8037
     # forks keep the original tuned values.
     inner_call_gas = 0xC350
     outer_tx_gas = 400_000

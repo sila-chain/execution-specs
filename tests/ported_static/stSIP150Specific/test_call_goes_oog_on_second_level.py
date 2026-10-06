@@ -58,7 +58,7 @@ MEM_BOMB = 0x2FFFFF
         "state_tests/stStaticCall/static_CallGoesOOGOnSecondLevelFiller.json",
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "memory_expansion", [False, True], ids=["flat", "mem_expansion"]
 )

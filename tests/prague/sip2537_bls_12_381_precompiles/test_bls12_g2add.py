@@ -3,7 +3,7 @@ Tests BLS12_G2ADD precompile.
 
 Tests the BLS12_G2ADD precompile implementation from [SIP-2537:
 Precompile for BLS12-381 curve operations]
-(https://sips.sila.org/SIPS/sip-2537).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 import pytest
@@ -23,7 +23,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
 pytestmark = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.parametrize("precompile_address", [Spec.G2ADD], ids=[""]),
 ]
 
@@ -218,7 +218,7 @@ pytestmark = [
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_valid(
     state_test: StateTestFiller,
     pre: Alloc,

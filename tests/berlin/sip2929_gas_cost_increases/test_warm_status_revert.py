@@ -23,10 +23,10 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2929.md"
-REFERENCE_SPEC_VERSION = "0e11417265a623adb680c527b15d0cb6701b870b"
+REFERENCE_SPEC_VERSION = "04f3aa8ac8d5b31f1a9a0a3393fb65767f430a68"
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_storage_warm_status_reverted_by_subcall(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -95,7 +95,7 @@ def test_storage_warm_status_reverted_by_subcall(
     )
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_account_warm_status_reverted_by_subcall(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -145,7 +145,7 @@ def test_account_warm_status_reverted_by_subcall(
     )
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_access_list_slot_warmth_survives_failed_create2(
     state_test: StateTestFiller,
     pre: Alloc,

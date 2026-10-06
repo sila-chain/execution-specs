@@ -92,11 +92,11 @@ class SilrexExceptionMapper(ExceptionMapper):
             r"blob version not supported|Invalid blob versioned hash"
         ),
         TransactionException.TYPE_2_TX_PRE_FORK: (
-            r"Type 2 transactions are not supported before the London fork"
+            r"Type 2 transactions are not supported before the SilaLondon fork"
         ),
         TransactionException.TYPE_3_TX_PRE_FORK: (
             r"blob versioned hashes not supported|"
-            r"Type 3 transactions are not supported before the Cancun fork"
+            r"Type 3 transactions are not supported before the SilaCancun fork"
         ),
         TransactionException.TYPE_4_TX_CONTRACT_CREATION: (
             r"unexpected length|Contract creation in type 4 transaction|"
@@ -110,7 +110,7 @@ class SilrexExceptionMapper(ExceptionMapper):
         ),
         TransactionException.TYPE_4_TX_PRE_FORK: (
             r"sip 7702 transactions present in pre-prague payload|"
-            r"Type 4 transactions are not supported before the Prague fork"
+            r"Type 4 transactions are not supported before the SilaPrague fork"
         ),
         TransactionException.INSUFFICIENT_ACCOUNT_FUNDS: (
             r"lack of funds \(\d+\) for max fee \(\d+\)|"

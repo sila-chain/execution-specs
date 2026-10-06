@@ -10,7 +10,7 @@ state_tests/stRevertTest/LoopCallsDepthThenRevertFiller.json
 @manually-enhanced: Do not overwrite. The reached depth is bounded by the
 fixed gas budget (not the 1024 depth limit), so the frame counts are
 pinned per gas-schedule era: SIP-8037/SIP-2780 shift the attenuation on
-Amsterdam. One address literal remains to break the reference cycle.
+SilaAmsterdam. One address literal remains to break the reference cycle.
 """
 
 import pytest
@@ -47,7 +47,7 @@ def loop_code(partner: Address) -> Bytecode:
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/LoopCallsDepthThenRevertFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_loop_calls_depth_then_revert(
     state_test: StateTestFiller,

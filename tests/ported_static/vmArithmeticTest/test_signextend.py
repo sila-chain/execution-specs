@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmArithmeticTest/signextendFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -190,7 +190,7 @@ def test_signextend(
     )
     # Source: lll
     # {
-    #    ; -1 = 2^256-1 in EVM arithmetic
+    #    ; -1 = 2^256-1 in Sivm arithmetic
     #    [[0]] (signextend 0 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)  # noqa: E501
     # }
     contract_2 = pre.deploy_contract(  # noqa: F841
@@ -208,7 +208,7 @@ def test_signextend(
     )
     # Source: lll
     # {
-    #    ; -2 = 2^256-2 in EVM arithmetic
+    #    ; -2 = 2^256-2 in Sivm arithmetic
     #    [[0]] (signextend
     #             0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe  # noqa: E501
     #             0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe  # noqa: E501
@@ -229,7 +229,7 @@ def test_signextend(
     )
     # Source: lll
     # {
-    #    ; -1 = 2^256-1 in EVM arithmetic
+    #    ; -1 = 2^256-1 in Sivm arithmetic
     #    [[0]] (signextend
     #             0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
     #             0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
@@ -392,7 +392,7 @@ def test_signextend(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [1, 6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(storage={0: 0}),
                 contract_6: Account(storage={0: 0}),
@@ -400,12 +400,12 @@ def test_signextend(
         },
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_0: Account(storage={0: 0x126AF4})},
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(
                     storage={
@@ -416,7 +416,7 @@ def test_signextend(
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(
                     storage={
@@ -427,7 +427,7 @@ def test_signextend(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_4: Account(
                     storage={
@@ -438,22 +438,22 @@ def test_signextend(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_5: Account(storage={0: 255})},
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_7: Account(storage={0: 106})},
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_8: Account(storage={0: 27380})},
         },
         {
             "indexes": {"data": [9], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_9: Account(
                     storage={
@@ -464,17 +464,17 @@ def test_signextend(
         },
         {
             "indexes": {"data": [10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_10: Account(storage={0: 32768})},
         },
         {
             "indexes": {"data": [11], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_11: Account(storage={0: 65535})},
         },
         {
             "indexes": {"data": [12], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_12: Account(
                     storage={
@@ -485,12 +485,12 @@ def test_signextend(
         },
         {
             "indexes": {"data": [13], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_13: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [14], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_14: Account(
                     storage={

@@ -111,7 +111,7 @@ Chain ID configuration for the test network.
 
 #### - `blobSchedule`: [`BlobSchedule`](./common_types.md#blobschedule-mappingforkforkblobschedule)
 
-Optional; present from Cancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://sips.sila.org/SIPS/sip-7840).
+Optional; present from SilaCancun on. Maps forks to their blob schedule configurations as defined by [SIP-7840](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7840.md).
 
 ### `FixtureEngineNewPayload`
 
@@ -119,11 +119,11 @@ Optional; present from Cancun on. Maps forks to their blob schedule configuratio
 
 Execution payload.
 
-#### - `blob_versioned_hashes`: [`Optional`](./common_types.md#optional)`[`[`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]]` `(fork: Cancun)`
+#### - `blob_versioned_hashes`: [`Optional`](./common_types.md#optional)`[`[`List`](./common_types.md#list)`[`[`Hash`](./common_types.md#hash)`]]` `(fork: SilaCancun)`
 
 List of hashes of the versioned blobs that are part of the execution payload.
 
-#### - `parentBeaconBlockRoot`: [`Optional`](./common_types.md#optional)`[`[`Hash`](./common_types.md#hash)`]` `(fork: Cancun)`
+#### - `parentBeaconBlockRoot`: [`Optional`](./common_types.md#optional)`[`[`Hash`](./common_types.md#hash)`]` `(fork: SilaCancun)`
 
 Hash of the parent beacon block root.
 
@@ -193,15 +193,15 @@ List of transactions in the block, in serialized format.
 
 List of withdrawals in the block.
 
-#### - `baseFeePerGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: London)`
+#### - `baseFeePerGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: SilaLondon)`
 
 Base fee per gas of the block.
 
-#### - `blobGasUsed`: [`HexNumber`](./common_types.md#hexnumber) `(fork: Cancun)`
+#### - `blobGasUsed`: [`HexNumber`](./common_types.md#hexnumber) `(fork: SilaCancun)`
 
 Total blob gas used by all the transactions in the block.
 
-#### - `excessBlobGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: Cancun)`
+#### - `excessBlobGas`: [`HexNumber`](./common_types.md#hexnumber) `(fork: SilaCancun)`
 
 Excess blob gas of the block used to calculate the blob fee per gas for this block.
 
@@ -235,4 +235,4 @@ While the Blockchain Sync Test format is similar to the Blockchain Engine Test f
 
 ## Fork Support
 
-Blockchain Sync Tests are only supported for post-merge forks (Paris and later) as they rely on the Engine API for synchronization triggering.
+Blockchain Sync Tests are only supported for post-merge forks (SilaParis and later) as they rely on the Engine API for synchronization triggering.

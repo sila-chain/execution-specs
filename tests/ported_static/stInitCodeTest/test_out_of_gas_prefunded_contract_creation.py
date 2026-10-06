@@ -39,7 +39,7 @@ def minimum_frame_gas(needed: int) -> int:
     """
     Return the smallest frame budget whose 63/64 grant covers `needed`.
 
-    The EVM withholds `available // 64`, which is not the same as granting
+    The Sivm withholds `available // 64`, which is not the same as granting
     `available * 63 // 64`: the two differ by one whenever `available` is
     not a multiple of 64, so the inverse is found by adjusting an estimate
     rather than computed directly.
@@ -57,7 +57,7 @@ def minimum_frame_gas(needed: int) -> int:
         "state_tests/stInitCodeTest/OutOfGasPrefundedContractCreationFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "outcome", ["child_succeeds", "outer_oog", "child_oog"]
 )

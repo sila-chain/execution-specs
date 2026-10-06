@@ -14,14 +14,14 @@ class ReferenceSpec:
 
 
 ref_spec_7708 = ReferenceSpec(
-    "SIPS/sip-7708.md", "f7230c46a743313957d8f38a159bda934cc735b2"
+    "SIPS/sip-7708.md", "73f81186409d3f202d7946a6b24c9d7fad0e9232"
 )
 
 
 class Spec:
     """
     Parameters from the SIP-7708 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7708.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7708.md.
     """
 
     SYSTEM_ADDRESS: Address = Address(

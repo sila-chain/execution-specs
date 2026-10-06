@@ -13,7 +13,7 @@ from execution_testing.cli.gen_index import merge_partial_indexes
 from execution_testing.cli.hasher import HashableItem, hasher
 from execution_testing.fixtures.consume import IndexFile, TestCaseIndexFile
 from execution_testing.fixtures.pre_alloc_groups import PreAllocGroupBuilder
-from execution_testing.forks import Fork, Prague
+from execution_testing.forks import Fork, SilaPrague
 from execution_testing.test_types import Alloc, Environment
 
 HASH_1 = 0x1111111111111111111111111111111111111111111111111111111111111111
@@ -61,7 +61,7 @@ def create_fixture(path: Path, test_name: str, hash_value: int) -> None:
 
 
 def create_pre_alloc_group(
-    folder: Path, balance: int, fork: Fork = Prague
+    folder: Path, balance: int, fork: Fork = SilaPrague
 ) -> Path:
     """Write a pre-allocation group file, as filling phase 1 produces it."""
     folder.mkdir(parents=True, exist_ok=True)
@@ -646,14 +646,14 @@ class TestMergePartialIndexes:
                     "test_a",
                     "state_tests/cancun/test.json",
                     HASH_1,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="state_test",
                 ),
                 self._make_entry_dict(
                     "test_b",
                     "blockchain_tests/cancun/test.json",
                     HASH_2,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="blockchain_test",
                 ),
             ]
@@ -691,14 +691,14 @@ class TestMergePartialIndexes:
                     "t1",
                     "state_tests/test.json",
                     HASH_1,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="state_test",
                 ),
                 self._make_entry_dict(
                     "t2",
                     "blockchain_tests/test.json",
                     HASH_2,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="blockchain_test",
                 ),
             ]
@@ -726,14 +726,14 @@ class TestMergePartialIndexes:
                     "t1",
                     "state_tests/test.json",
                     HASH_1,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="state_test",
                 ),
                 self._make_entry_dict(
                     "t2",
                     "state_tests/test2.json",
                     HASH_2,
-                    fork="Shanghai",
+                    fork="SilaShanghai",
                     fmt="state_test",
                 ),
             ]
@@ -746,8 +746,8 @@ class TestMergePartialIndexes:
             )
             assert index.forks is not None
             assert sorted(str(f) for f in index.forks) == [
-                "Cancun",
-                "Shanghai",
+                "SilaCancun",
+                "SilaShanghai",
             ]
 
     def test_merge_cleans_up_partial_files(self) -> None:
@@ -839,14 +839,14 @@ class TestIndexFileMerge:
             root_hash=None,
             created_at=datetime.datetime(2026, 1, 1),
             test_count=1,
-            forks=["Cancun"],
+            forks=["SilaCancun"],
             fixture_formats=["state_test"],
             test_cases=[
                 _make_entry(
                     "test_a",
-                    "state_tests/for_cancun/t.json",
+                    "state_tests/for_silacancun/t.json",
                     HASH_1,
-                    fork="Cancun",
+                    fork="SilaCancun",
                     fmt="state_test",
                 ),
             ],
@@ -855,14 +855,14 @@ class TestIndexFileMerge:
             root_hash=None,
             created_at=datetime.datetime(2026, 1, 2),
             test_count=1,
-            forks=["Prague"],
+            forks=["SilaPrague"],
             fixture_formats=["blockchain_test"],
             test_cases=[
                 _make_entry(
                     "test_b",
-                    "blockchain_tests/for_prague/t.json",
+                    "blockchain_tests/for_silaprague/t.json",
                     HASH_2,
-                    fork="Prague",
+                    fork="SilaPrague",
                     fmt="blockchain_test",
                 ),
             ],
@@ -873,7 +873,10 @@ class TestIndexFileMerge:
         assert merged.test_count == 2
         assert len(merged.test_cases) == 2
         assert merged.forks is not None
-        assert set(f.name() for f in merged.forks) == {"Cancun", "Prague"}
+        assert set(f.name() for f in merged.forks) == {
+            "SilaCancun",
+            "SilaPrague",
+        }
         assert merged.fixture_formats is not None
         assert set(merged.fixture_formats) == {
             "state_test",
@@ -888,16 +891,16 @@ class TestIndexFileMerge:
         cases = [
             _make_entry(
                 "test_a",
-                "state_tests/for_cancun/t.json",
+                "state_tests/for_silacancun/t.json",
                 HASH_1,
-                fork="Cancun",
+                fork="SilaCancun",
                 fmt="state_test",
             ),
             _make_entry(
                 "test_b",
-                "blockchain_tests/for_prague/t.json",
+                "blockchain_tests/for_silaprague/t.json",
                 HASH_2,
-                fork="Prague",
+                fork="SilaPrague",
                 fmt="blockchain_test",
             ),
         ]
@@ -906,7 +909,7 @@ class TestIndexFileMerge:
             root_hash=None,
             created_at=datetime.datetime(2026, 1, 1),
             test_count=1,
-            forks=["Cancun"],
+            forks=["SilaCancun"],
             fixture_formats=["state_test"],
             test_cases=cases[:1],
         )
@@ -914,7 +917,7 @@ class TestIndexFileMerge:
             root_hash=None,
             created_at=datetime.datetime(2026, 1, 1),
             test_count=1,
-            forks=["Prague"],
+            forks=["SilaPrague"],
             fixture_formats=["blockchain_test"],
             test_cases=cases[1:],
         )

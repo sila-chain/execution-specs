@@ -2,9 +2,9 @@
 Test_push0.
 
 Ported from:
-state_tests/Shanghai/stEIP3855_push0/push0Filler.yml
+state_tests/SilaShanghai/stEIP3855_push0/push0Filler.yml
 @manually-enhanced: Do not overwrite. Inner-CALL gas bumped on
-Amsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
+SilaAmsterdam to cover SIP-8037 state-gas spill; pre-SIP-8037 unchanged.
 
 """
 
@@ -30,9 +30,9 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 
 @pytest.mark.ported_from(
-    ["state_tests/Shanghai/stEIP3855_push0/push0Filler.yml"],
+    ["state_tests/SilaShanghai/stEIP3855_push0/push0Filler.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -85,7 +85,7 @@ def test_push0(
 ) -> None:
     """Test_push0."""
     # SIP-8037 inner-CALL gas: 100k OoGs the SSTORE-containing callees
-    # on Amsterdam (per-storage state-gas spill). Pre-SIP-8037 keeps
+    # on SilaAmsterdam (per-storage state-gas spill). Pre-SIP-8037 keeps
     # the original 100k.
     inner_call_gas = 100000
     if fork.is_sip_enabled(8037):
@@ -220,7 +220,7 @@ def test_push0(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(storage={0: 1}),
                 contract_0: Account(storage={0: 1, 1: 1}),
@@ -228,7 +228,7 @@ def test_push0(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={0: 1}),
                 contract_0: Account(storage={0: 1, 1: 1}),
@@ -236,12 +236,12 @@ def test_push0(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_0: Account(storage={1: 1})},
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_4: Account(storage={0: 2, 1: 0}),
                 contract_0: Account(storage={0: 1, 1: 1}),
@@ -249,7 +249,7 @@ def test_push0(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_5: Account(storage={0: 1, 1: 1, 2: 255}),
                 contract_6: Account(storage={}),
@@ -258,7 +258,7 @@ def test_push0(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_7: Account(storage={0: 1}),
                 contract_0: Account(storage={0: 1, 1: 1}),

@@ -25,7 +25,7 @@ from .spec import ref_spec_1153
 REFERENCE_SPEC_GIT_PATH = ref_spec_1153.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1153.version
 
-pytestmark = [pytest.mark.valid_from("Cancun")]
+pytestmark = [pytest.mark.valid_from("SilaCancun")]
 
 
 class DynamicCallContextTestCases(EnumMeta):
@@ -296,7 +296,7 @@ class CallContextTestCases(
     }
     STATICCALL_CAN_CALL_TLOAD = {
         # TODO: Not a very useful test; consider removing after implementing
-        # sila/tests staticcall tests
+        # sila-chain/sila-tests staticcall tests
         "pytest_id": "staticcalled_context_can_call_tload",
         "description": ("A STATICCALL callee can not use transient storage."),
         "caller_bytecode": (
@@ -367,7 +367,7 @@ def post(  # noqa: D103
 
 
 @CallContextTestCases.parametrize()
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_subcall(
     state_test: StateTestFiller,
     env: Environment,
@@ -398,8 +398,7 @@ def test_tstore_rollback_on_callcode_revert(
     """
     Test TSTORE is rolled back after CALLCODE sub-call reverts.
 
-    Regression test for
-    https://github.com/sila/execution-specs/issues/911
+    Regression test.
 
     Contract `callee` does TSTORE(4, 1), calls a precompile, then
     REVERTs. Contract `caller` uses CALLCODE to invoke `callee`, then

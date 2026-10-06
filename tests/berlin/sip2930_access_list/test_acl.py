@@ -19,9 +19,9 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2930.md"
-REFERENCE_SPEC_VERSION = "c9db53a936c5c9cbe2db32ba0d1b86c4c6e73534"
+REFERENCE_SPEC_VERSION = "107c3a422bb2c25adbfce5cd2688f1d1303a7547"
 
-pytestmark = pytest.mark.valid_from("Berlin")
+pytestmark = pytest.mark.valid_from("SilaBerlin")
 
 
 @pytest.mark.parametrize(
@@ -35,9 +35,8 @@ pytestmark = pytest.mark.valid_from("Berlin")
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSLoadTest/sloadGasCostFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSLoadTest/sloadGasCostFiller.json",
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2489"],
 )
 def test_account_storage_warm_cold_state(
     state_test: StateTestFiller,
@@ -207,7 +206,7 @@ def test_account_storage_warm_cold_state(
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_transaction_intrinsic_gas_cost(
     state_test: StateTestFiller,
     pre: Alloc,

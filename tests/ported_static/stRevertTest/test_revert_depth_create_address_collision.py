@@ -44,7 +44,7 @@ RETENTION_MARGIN = 100
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertDepthCreateAddressCollisionFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "scenario",
     ["creator_oog", "creator_ok", "caller_oog", "tx_oog"],

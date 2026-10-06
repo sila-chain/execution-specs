@@ -10,7 +10,7 @@ All `consume` subcommands have an `--input` argument, which implements the same 
 
 ## Example: Two-liner to Download the Latest Fixture Release
 
-Releases can be downloaded without (manually) cloning and installing the @sila/execution-specs tools as following:
+Releases can be downloaded without (manually) cloning and installing the @sila-chain/execution-specs tools as following:
 
 1. Install `uv` (a fast, rust-based Python package manager):
 
@@ -21,8 +21,8 @@ Releases can be downloaded without (manually) cloning and installing the @sila/e
 2. Run the `consume cache` command via `uv` and request the latest [sila-mainnet `tests` release](../releases.md):
 
     ```console
-    uvx --from "git+https://github.com/sila/execution-specs.git#subdirectory=packages/testing" \
-        consume cache --input=latest
+    uvx --from "git+https://github.com/sila-chain/execution-specs.git#subdirectory=packages/testing" \
+        consume cache --input=tests@latest
     ```
 
     <!-- TODO: Re-capture this example output; the transcript below is constructed. -->
@@ -30,8 +30,8 @@ Releases can be downloaded without (manually) cloning and installing the @sila/e
 
     ```console
     Path: /home/dtopz/.cache/sila-execution-spec-tests/cached_downloads/sila/execution-specs/tests%40v20.0.0/fixtures/fixtures
-    Input: https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
-    Release page: https://github.com/sila/execution-specs/releases/tag/tests%40v20.0.0
+    Input: https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+    Release page: https://github.com/sila-chain/execution-specs/releases/tag/tests%40v20.0.0
     ```
 
     **Note:** Use direct URLs to avoid GitHub API calls (better for CI environments). Version specifiers like `tests@latest` will always use the GitHub API to resolve versions. More details on the arguments to `--input` are provided below.
@@ -52,7 +52,7 @@ A release specification has the format `<release_name>@<version>`.
 
 **Supported release names:**
 
-- `tests`: The stable release for client CI, all tests for all forks up to and including the fork clients' master branches implement (see [Test Release Types](../releases.md#test-release-types)). A bare `latest` or `vX.Y.Z` input is shorthand for `tests@latest`, respectively `tests@vX.Y.Z`.
+- `tests`: The stable release for client CI, all tests for all forks up to and including the fork clients' master branches implement (see [Test Release Types](../releases.md#test-release-types)).
 - `<feat>-devnet`: Devnet releases, e.g. `bal-devnet`, `glamsterdam-devnet`.
 - Other features: e.g. `benchmark`, `zkevm`.
 
@@ -69,24 +69,22 @@ Examples using a release specification:
 
 ```bash
 # Latest sila-mainnet (tests) release
-uv run consume engine --input latest
-uv run consume rlp --input tests@latest
+uv run consume engine --input tests@latest
 
 # SilaMainnet release by version
-uv run consume engine --input v20.0.0
-uv run consume rlp --input tests@v20.0.0
+uv run consume engine --input tests@v20.0.0
 
 # Feature releases, with or without the tests- tag prefix
 uv run consume cache --input bal-devnet@v7.0.0
 uv run consume cache --input glamsterdam-devnet@latest
-uv run consume direct --input tests-bal@v7.3.2 --bin ../go-sila/build/bin/evm
+uv run consume direct --input tests-bal@v7.3.2 --bin ../go-sila/build/bin/sivm
 ```
 
 Examples using a URL, the target must be a `.tar.gz`:
 
 ```bash
 # GitHub release URL
-uv run consume engine --input https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+uv run consume engine --input https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
 
 # Direct archive URL
 uv run consume rlp --input https://example.com/custom-fixtures.tar.gz
@@ -107,7 +105,7 @@ All remote fixture sources are automatically cached to avoid repeated downloads:
 You can override this location with the `--cache-folder` flag:
 
 ```bash
-uv run consume cache --input latest --cache-folder /path/to/custom/cache
+uv run consume cache --input tests@latest --cache-folder /path/to/custom/cache
 ```
 
 Or extract directly to a specific directory (bypasses cache structure):
@@ -143,7 +141,7 @@ The [`fill` command](../../filling_tests/index.md) generates a JSON file `<fixtu
 When using direct GitHub release URLs (instead of version specifiers), the consume command automatically avoids unnecessary GitHub API calls to prevent rate limiting in CI environments:
 
 ```console
-consume cache --input=https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+consume cache --input=https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
 ```
 
 **API Call Behavior:**
@@ -155,8 +153,8 @@ Examples:
 
 ```console
 # No API calls - direct download
-consume cache --input=https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
+consume cache --input=https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz
 
 # API calls required - version resolution
-consume cache --input=latest
+consume cache --input=tests@latest
 ```

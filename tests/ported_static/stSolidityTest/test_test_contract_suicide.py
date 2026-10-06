@@ -9,7 +9,7 @@ state_tests/stSolidityTest/TestContractSuicideFiller.json
 CODECOPY offset is a `data_placeholder` resolved from the section
 lengths, so the two contracts can be edited without hand-maintaining
 offsets. The original Solidity was recovered from the filler. The
-ported `valid_from` was lowered from Cancun to Frontier; the tx needs
+ported `valid_from` was lowered from SilaCancun to Frontier; the tx needs
 `protected=fork.supports_protected_txs()` to reach the pre-SIP-155
 forks, so do not drop it.
 """

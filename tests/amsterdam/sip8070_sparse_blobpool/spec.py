@@ -20,7 +20,7 @@ ref_spec_8070 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-8070 specification as defined at
-    https://sips.sila.org/SIPS/sip-8070.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8070.md.
     """
 
     BLOB_COMMITMENT_VERSION_KZG = 1

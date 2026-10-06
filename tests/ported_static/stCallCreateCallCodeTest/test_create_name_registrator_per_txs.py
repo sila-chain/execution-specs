@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stCallCreateCallCodeTest/createNameRegistratorPerTxsFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_create_name_registrator_per_txs(
     state_test: StateTestFiller,
     pre: Alloc,

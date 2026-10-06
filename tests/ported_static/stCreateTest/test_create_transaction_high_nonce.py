@@ -8,8 +8,8 @@ state_tests/stCreateTest/CreateTransactionHighNonceFiller.yml
 
 @manually-enhanced: Do not overwrite. `tx_gas` was raised from 90 000
 to 500 000 so the transaction clears the SIP-8037 intrinsic-gas floor
-on Amsterdam and the validator can actually reach the NONCE_IS_MAX
-check the test asserts. Pre-Amsterdam the floor is lower, so the same
+on SilaAmsterdam and the validator can actually reach the NONCE_IS_MAX
+check the test asserts. Pre-SilaAmsterdam the floor is lower, so the same
 budget still triggers the same exception path.
 """
 
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateTransactionHighNonceFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -79,10 +79,10 @@ def test_create_transaction_high_nonce(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {},
             "expect_exception": {
-                ">=Cancun": TransactionException.NONCE_IS_MAX
+                ">=SilaCancun": TransactionException.NONCE_IS_MAX
             },
         },
     ]
@@ -93,9 +93,9 @@ def test_create_transaction_high_nonce(
         Op.RETURN(offset=0x0, size=0x1),
     ]
     # Original budget (90 000) is below the SIP-8037 intrinsic-gas
-    # floor for a create tx on Amsterdam, so the tx is rejected for
+    # floor for a create tx on SilaAmsterdam, so the tx is rejected for
     # `INTRINSIC_GAS_TOO_LOW` before the NONCE_IS_MAX check this test
-    # asserts ever runs. Bump on Amsterdam to clear the floor; pre-
+    # asserts ever runs. Bump on SilaAmsterdam to clear the floor; pre-
     # SIP-8037 forks keep the original.
     nonce_check_tx_gas = 90000
     if fork.is_sip_enabled(8037):

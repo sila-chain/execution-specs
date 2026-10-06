@@ -9,7 +9,7 @@ Ported from:
 state_tests/stCreate2/RevertDepthCreateAddressCollisionFiller.json
 state_tests/stCreate2/RevertDepthCreateAddressCollisionBerlinFiller.json
 
-@manually-enhanced: Do not overwrite. The byte-identical Berlin twin is
+@manually-enhanced: Do not overwrite. The byte-identical SilaBerlin twin is
 folded in, and the legacy fillers' vacancy is repaired: they kept the
 collider at contract_1's CREATE address while the code runs CREATE2, so
 nothing ever collided. The caller now occupies the CREATE2 target, the
@@ -58,7 +58,7 @@ RETENTION_MARGIN = 100
         "state_tests/stCreate2/RevertDepthCreateAddressCollisionBerlinFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.parametrize(
     "creator_covered",
     [

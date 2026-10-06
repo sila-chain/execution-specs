@@ -4,7 +4,7 @@ SIP-7954: Increase Maximum Contract Size.
 Raise the maximum contract code size from 24KiB to 64KiB and initcode size from
 48KiB to 128KiB.
 
-https://sips.sila.org/SIPS/sip-7954
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7954.md
 """
 
 from ....base_fork import BaseFork

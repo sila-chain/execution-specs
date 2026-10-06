@@ -22,7 +22,7 @@ ref_spec_7251 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7251 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7251#execution-layer.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md#execution-layer.
 
     The request queue parameters live on the framework's
     `ConsolidationRequest`.

@@ -1,4 +1,4 @@
-"""Base classes for the EVM."""
+"""Base classes for the Sivm."""
 
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Protocol

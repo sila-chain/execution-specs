@@ -2,7 +2,7 @@
 Transient storage can't be manipulated from nested staticcall.
 
 Ported from:
-state_tests/Cancun/stEIP1153_transientStorage/14_revertAfterNestedStaticcallFiller.yml
+state_tests/SilaCancun/stEIP1153_transientStorage/14_revertAfterNestedStaticcallFiller.yml
 
 @manually-enhanced: Do not overwrite. The caller writes four fresh
 storage slots and asserts the resulting values (slot 1's pre-marker
@@ -25,7 +25,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -34,10 +34,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Cancun/stEIP1153_transientStorage/14_revertAfterNestedStaticcallFiller.yml"  # noqa: E501
+        "state_tests/SilaCancun/stEIP1153_transientStorage/14_revertAfterNestedStaticcallFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_14_revert_after_nested_staticcall(
     state_test: StateTestFiller,
@@ -53,7 +53,7 @@ def test_14_revert_after_nested_staticcall(
     # term is exactly 0 before SIP-8037.
     def _sstore_delta(**metadata: int) -> int:
         op = Op.SSTORE.with_metadata(**metadata)
-        return op.gas_cost(fork) - op.gas_cost(Cancun)
+        return op.gas_cost(fork) - op.gas_cost(SilaCancun)
 
     cold_set_delta = _sstore_delta(
         key_warm=False, original_value=0, current_value=0, new_value=10

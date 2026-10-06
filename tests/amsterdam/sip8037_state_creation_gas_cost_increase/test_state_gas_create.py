@@ -5,7 +5,7 @@ Contract creation charges state gas for the new account and for
 code deposit. Execution gas for CREATE is charged separately.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest
@@ -180,10 +180,10 @@ def test_create_child_spill_not_double_charged(
     """
     Test CREATE/CREATE2 child state gas paid from `gas_left` is not recharged.
 
-    The factory executes below the Amsterdam tx gas cap, so the CREATE child
-    pays new-account and storage state gas by spilling from `gas_left`. The
-    gas limit covers that bill once, so charging the same state growth again
-    at frame end would run the transaction out of gas.
+    The factory executes below the SilaAmsterdam tx gas cap, so the CREATE
+    child pays new-account and storage state gas by spilling from `gas_left`.
+    The gas limit covers that bill once, so charging the same state growth
+    again at frame end would run the transaction out of gas.
     """
     init_code = sum(Op.SSTORE(i, i + 1) for i in range(6)) + Op.STOP
     mstore_value, initcode_size = init_code_at_high_bytes(init_code)
@@ -1391,7 +1391,7 @@ def test_sstore_oog_no_reservoir_inflation(
     # reservoir is zero — all state gas comes from gas_left.
     factory_gas = (
         factory_code.gas_cost(fork)
-        + initcode.evm_gas(fork)
+        + initcode.sivm_gas(fork)
         + initcode.deployment_gas(fork)
     )
 
@@ -1534,7 +1534,7 @@ def test_max_initcode_size_gas_metering_via_create(
     # CALL gas only feeds gas_left; state gas must come from the reservoir.
     factory_gas = (
         factory_code.gas_cost(fork)
-        + initcode.evm_gas(fork)
+        + initcode.sivm_gas(fork)
         + initcode.deployment_gas(fork)
     )
     factory_state_gas = fork.create_state_gas(
@@ -1890,7 +1890,7 @@ def test_state_gas_spill_header_gas_used(
     intrinsic_gas = intrinsic_cost()
 
     sstore_state_gas = sstore_code.state_cost(fork)
-    evm_execution = sstore_code.execution_cost(fork)
+    sivm_execution = sstore_code.execution_cost(fork)
 
     # Reservoir = half the SSTORE state gas, rest spills to gas_left
     reservoir = sstore_state_gas // 2
@@ -1901,7 +1901,7 @@ def test_state_gas_spill_header_gas_used(
         sender=pre.fund_eoa(),
     )
 
-    tx_execution = intrinsic_gas + evm_execution
+    tx_execution = intrinsic_gas + sivm_execution
     tx_state = sstore_state_gas
     expected_gas_used = max(tx_execution, tx_state)
 

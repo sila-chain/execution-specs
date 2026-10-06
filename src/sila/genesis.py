@@ -175,8 +175,7 @@ def add_genesis_block(
     the block added by this function.
 
     The sila-mainnet genesis configuration was originally created using the
-    `mk_genesis_block.py` script. It is long since defunct, but is still
-    available at <https://github.com/sila/genesis_block_generator>.
+    `mk_genesis_block.py` script, which is long since defunct.
 
     The initial state is populated with balances based on the Sila presale
     that happened on the Bitcoin blockchain. Additional sila worth 1.98% of
@@ -201,7 +200,7 @@ def add_genesis_block(
     `0x00` to `0xFF` to avoid edge cases around precompiles being created or
     cleared (by [SIP-161]).
 
-    [SIP-161]: https://sips.sila.org/SIPS/sip-161
+    [SIP-161]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-161.md
     """
     Address: Type[FixedBytes] = hardfork.Address  # noqa N806
     assert issubclass(Address, FixedBytes)

@@ -1,5 +1,5 @@
 """
-Tests [SIP-1344: CHAINID opcode](https://sips.sila.org/SIPS/sip-1344).
+Tests [SIP-1344: CHAINID opcode](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1344.md).
 """
 
 import pytest
@@ -13,7 +13,7 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-1344.md"
-REFERENCE_SPEC_VERSION = "02e46aebc80e6e5006ab4d2daa41876139f9a9e2"
+REFERENCE_SPEC_VERSION = "09be8f037757056e80badd37dfaf62cc82dcc631"
 
 
 @pytest.mark.with_all_typed_transactions(
@@ -29,10 +29,10 @@ REFERENCE_SPEC_VERSION = "02e46aebc80e6e5006ab4d2daa41876139f9a9e2"
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stChainId/chainIdFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stChainId/chainIdFiller.json",
     ],
 )
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 def test_chainid(
     state_test: StateTestFiller,
     pre: Alloc,

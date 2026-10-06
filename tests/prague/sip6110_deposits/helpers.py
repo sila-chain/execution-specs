@@ -6,9 +6,9 @@ from execution_testing import Bytecode, Fork, Op, Opcode
 
 # The deposit contract is a compiled predeploy, so the gas it charges cannot
 # be read off its source. The tables below are the opcodes it executes for one
-# deposit, counted from an EVM trace, so that the fork's own gas schedule
+# deposit, counted from a Sivm trace, so that the fork's own gas schedule
 # prices them and the estimate follows repricings. Regenerate them by filling
-# any single deposit test with `--traces --evm-dump-dir <dir>` and counting
+# any single deposit test with `--traces --sivm-dump-dir <dir>` and counting
 # the `opName` of the depth-2 steps of one call frame.
 
 _DEPOSIT_CALL_OPCODES: Dict[Opcode, int] = {

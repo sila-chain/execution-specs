@@ -69,7 +69,7 @@ def stack_underflow_initcode() -> Bytecode:
 @pytest.mark.ported_from(
     ["state_tests/stInitCodeTest/OutOfGasContractCreationFiller.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "invalid_initcode",
     [

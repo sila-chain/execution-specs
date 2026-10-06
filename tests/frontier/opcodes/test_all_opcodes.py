@@ -60,13 +60,12 @@ def prepare_suffix(opcode: Opcode) -> Bytecode:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stBadOpcode/badOpcodesFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stBugs/evmBytecodeFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stBadOpcode/badOpcodesFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stBugs/evmBytecodeFiller.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/748"],
 )
 @pytest.mark.valid_from("Frontier")
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_all_opcodes(
     state_test: StateTestFiller, pre: Alloc, fork: Fork
 ) -> None:
@@ -95,7 +94,7 @@ def test_all_opcodes(
             storage={},
         )
 
-    # EVM code to make the call and store the result
+    # Sivm code to make the call and store the result
     contract_address = pre.deploy_contract(
         code=sum(
             Op.SSTORE(
@@ -131,7 +130,7 @@ def test_all_opcodes(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_cover_revert(state_test: StateTestFiller, pre: Alloc) -> None:
     """Cover state revert from original tests for the coverage script."""
     tx = Transaction(
@@ -158,7 +157,7 @@ def fork_opcodes_increasing_stack(
 
 @pytest.mark.parametrize_by_fork("opcode", fork_opcodes_increasing_stack)
 @pytest.mark.parametrize("fails", [True, False])
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_stack_overflow(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -304,9 +303,9 @@ def constant_gas_opcodes(fork: Fork) -> Generator[ParameterSet, None, None]:
         "state_tests/stEIP150singleCodeGasPrices/gasCostBerlinFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize_by_fork("opcode", constant_gas_opcodes)
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_constant_gas(
     state_test: StateTestFiller,
     pre: Alloc,

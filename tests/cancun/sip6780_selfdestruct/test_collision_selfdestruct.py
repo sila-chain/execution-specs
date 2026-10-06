@@ -20,10 +20,10 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-6780.md"
-REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
+REFERENCE_SPEC_VERSION = "281f35b0b244ebb566ac76c806473f4450c355b9"
 
 
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_selfdestruct_after_create2_collision(
     state_test: StateTestFiller,

@@ -11,7 +11,7 @@ State gas charges draw from the reservoir first, then spill into gas_left.
 Execution gas charges draw only from gas_left.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest
@@ -753,7 +753,7 @@ def test_top_level_failure_refunds_execution_state_gas(
         code = Op.SSTORE(0, 1) + Op.INVALID
     else:
         # OOG: perform the SSTORE, then consume all remaining gas at
-        # once (a spin loop would execute millions of ops in the EVM
+        # once (a spin loop would execute millions of ops in the Sivm
         # and slow down filling).
         code = Op.SSTORE(0, 1) + Om.OOG
     contract = pre.deploy_contract(code=code)
@@ -1646,9 +1646,9 @@ def test_access_list_warm_savings_stay_execution(
         current_value=1,
         new_value=1,
     )(0, Op.SLOAD.with_metadata(key_warm=True)(0))
-    evm_gas = contract_code.gas_cost(fork)
+    sivm_gas = contract_code.gas_cost(fork)
 
-    expected_gas_used = intrinsic_gas + evm_gas
+    expected_gas_used = intrinsic_gas + sivm_gas
 
     tx = Transaction(
         to=contract,

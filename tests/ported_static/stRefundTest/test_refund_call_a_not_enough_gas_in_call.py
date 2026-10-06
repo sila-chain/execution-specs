@@ -11,8 +11,8 @@ survives); the only surviving repricing is in the outer frame, where
 SIP-8038 raises the `COLD_ACCOUNT_ACCESS` charged by the CALL and
 the cold no-op SSTORE of slot 0. Derive both deltas from the fork gas
 model (0 pre-SIP-8037) and subtract
-`gas_price * (call_access_delta + outer_sstore_delta)` from the Cancun
-balance; do not hardcode the Amsterdam value.
+`gas_price * (call_access_delta + outer_sstore_delta)` from the SilaCancun
+balance; do not hardcode the SilaAmsterdam value.
 """
 
 import pytest
@@ -25,7 +25,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refund_CallA_notEnoughGasInCallFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_refund_call_a_not_enough_gas_in_call(
     state_test: StateTestFiller,
@@ -99,12 +99,13 @@ def test_refund_call_a_not_enough_gas_in_call(
     # of slot 0 (original == current == new == 0).
     gas_costs = fork.gas_costs()
     call_access_delta = (
-        gas_costs.COLD_ACCOUNT_ACCESS - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        gas_costs.COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
     outer_sstore = Op.SSTORE.with_metadata(
         key_warm=False, original_value=0, current_value=0, new_value=0
     )
-    cancun_outer_sstore = outer_sstore.gas_cost(Cancun)
+    cancun_outer_sstore = outer_sstore.gas_cost(SilaCancun)
     outer_sstore_delta = outer_sstore.gas_cost(fork) - cancun_outer_sstore
     gas_used_delta = call_access_delta + outer_sstore_delta
 

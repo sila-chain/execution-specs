@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stSystemOperationsTest/doubleSelfdestructTouch_ParisFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize("tx_value", [0, 1, 2])
 @pytest.mark.parametrize(
     "created_in_tx",

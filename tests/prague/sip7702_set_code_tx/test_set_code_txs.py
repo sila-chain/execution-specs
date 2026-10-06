@@ -2,7 +2,7 @@
 Tests use of set-code transactions from SIP-7702.
 
 Tests use of set-code transactions from
-[SIP-7702: Set EOA account code for one transaction](https://sips.sila.org/SIPS/sip-7702).
+[SIP-7702: Set EOA account code for one transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 from enum import StrEnum
@@ -63,7 +63,7 @@ from .spec import Spec, ref_spec_7702
 REFERENCE_SPEC_GIT_PATH = ref_spec_7702.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7702.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 auth_account_start_balance = 0
 
@@ -837,7 +837,7 @@ def test_set_code_to_self_caller(
 
 
 @pytest.mark.execute(pytest.mark.skip(reason="excessive gas"))
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_set_code_max_depth_call_stack(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -912,7 +912,7 @@ def test_set_code_max_depth_call_stack(
     ),
     reason="opcode does not support value argument",
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_set_code_call_set_code(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -2567,7 +2567,7 @@ def test_set_code_using_valid_synthetic_signatures(
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_valid_tx_invalid_auth_signature(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -2961,7 +2961,7 @@ def test_nonce_validity(
 
 
 @pytest.mark.pre_alloc_mutable()
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_nonce_overflow_after_first_authorization(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -3634,7 +3634,7 @@ def test_reset_code(
 
 @pytest.mark.inclusion_test
 @pytest.mark.exception_test
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_contract_create(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -3663,7 +3663,7 @@ def test_contract_create(
 
 @pytest.mark.inclusion_test
 @pytest.mark.exception_test
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_empty_authorization_list(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -4483,7 +4483,7 @@ def test_authorization_reusing_nonce(
 )
 @pytest.mark.exception_test
 @pytest.mark.pre_alloc_mutable
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_set_code_from_account_with_non_delegating_code(
     state_test: StateTestFiller,
     pre: Alloc,

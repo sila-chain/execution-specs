@@ -3,7 +3,7 @@ Program Counter (PC) advancement tests for SIP-8024 opcodes.
 
 Tests that verify DUPN, SWAPN, and EXCHANGE correctly advance the PC by 2 bytes
 (opcode + immediate byte) as specified in
-[SIP-8024: Stack Access Instructions](https://sips.sila.org/SIPS/sip-8024).
+[SIP-8024: Stack Access Instructions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8024.md).
 """
 
 import pytest

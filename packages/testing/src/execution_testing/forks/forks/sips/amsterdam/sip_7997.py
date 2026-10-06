@@ -6,7 +6,7 @@ Allocate the Arachnid `CREATE2` factory in genesis at
 deployments are available across chains without bootstrapping
 transactions.
 
-https://sips.sila.org/SIPS/sip-7997
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md
 """
 
 from typing import Mapping

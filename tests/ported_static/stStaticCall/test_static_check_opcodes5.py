@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStaticCall/static_CheckOpcodes5Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -504,7 +504,7 @@ def test_static_check_opcodes5(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_6: Account(storage={0: 0}),
@@ -512,7 +512,7 @@ def test_static_check_opcodes5(
         },
         {
             "indexes": {"data": [0, 1], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_6: Account(storage={0: 1}),
@@ -520,7 +520,7 @@ def test_static_check_opcodes5(
         },
         {
             "indexes": {"data": [2], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_3: Account(storage={0: 1}),
@@ -528,7 +528,7 @@ def test_static_check_opcodes5(
         },
         {
             "indexes": {"data": [3], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_4: Account(storage={0: 1}),
@@ -536,7 +536,7 @@ def test_static_check_opcodes5(
         },
         {
             "indexes": {"data": [4], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 addr_5: Account(storage={0: 1}),

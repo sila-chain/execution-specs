@@ -4,7 +4,7 @@ Create2 generates an account that already exists and has nonce != 0.
 Ported from:
 state_tests/stCreate2/create2collisionNonceFiller.json
 
-@manually-enhanced: Do not overwrite. `tx_gas` raised on Amsterdam to
+@manually-enhanced: Do not overwrite. `tx_gas` raised on SilaAmsterdam to
 cover SIP-8037 NEW_ACCOUNT state-gas spill into regular gas. Pre-
 SIP-8037 keeps the original 400 000 budget; post-state expectations
 unchanged on all forks.
@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2collisionNonceFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -115,7 +115,7 @@ def test_create2collision_nonce(
         + Op.CREATE2(value=0x0, offset=0x12, size=0xE, salt=0x0)
         + Op.STOP,
     ]
-    # SIP-8037 NEW_ACCOUNT state-gas spill on Amsterdam exceeds
+    # SIP-8037 NEW_ACCOUNT state-gas spill on SilaAmsterdam exceeds
     # the original 400 000 budget. Pre-SIP-8037 keeps the original.
     outer_tx_gas = 400000
     if fork.is_sip_enabled(8037):

@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stZeroCallsTest/ZeroValue_CALLCODEFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_zero_value_callcode(
     state_test: StateTestFiller,
@@ -81,7 +81,7 @@ def test_zero_value_callcode(
         address=Address(0xB94F5374FCE5EDBC8E2A8697C15331677E6EBF0B),  # noqa: E501
     )
 
-    # Preserve Cancun's post-intrinsic execution budget across
+    # Preserve SilaCancun's post-intrinsic execution budget across
     # forks; SIP-2780 lowers the intrinsic for non-self non-value
     # txs, and the Op.GAS storage assertion depends on the
     # remaining gas at a fixed execution point.

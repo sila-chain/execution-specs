@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticCall/static_contractCreationMakeCallThatAskMoreGasThenTransactionProvidedFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -184,7 +184,7 @@ def test_static_contract_creation_make_call_that_ask_more_gas_then_transaction_p
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=1
@@ -193,7 +193,7 @@ def test_static_contract_creation_make_call_that_ask_more_gas_then_transaction_p
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=1
@@ -202,7 +202,7 @@ def test_static_contract_creation_make_call_that_ask_more_gas_then_transaction_p
         },
         {
             "indexes": {"data": 2, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=1
@@ -211,7 +211,7 @@ def test_static_contract_creation_make_call_that_ask_more_gas_then_transaction_p
         },
         {
             "indexes": {"data": 3, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=0): Account(
                     nonce=1

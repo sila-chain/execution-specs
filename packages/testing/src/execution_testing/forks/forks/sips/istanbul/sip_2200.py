@@ -3,10 +3,10 @@ SIP-2200: Structured definitions for net gas metering.
 
 Charge and refund SSTORE by the original, current and new value of the
 slot. The dirty and no-op write cost is the SLOAD cost. SIP-1283
-introduced the same scheme at Constantinople and was reverted before
+introduced the same scheme at SilaConstantinople and was reverted before
 activation, so it is not modeled.
 
-https://sips.sila.org/SIPS/sip-2200
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2200.md
 """
 
 from execution_testing.vm import OpcodeBase

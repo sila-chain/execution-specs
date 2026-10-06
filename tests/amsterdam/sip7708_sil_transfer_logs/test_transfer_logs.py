@@ -1476,7 +1476,7 @@ def test_call_with_value_to_coinbase_no_priority_fee_log(
     A contract executes CALL with nonzero value to the coinbase address,
     and the transaction pays a nonzero priority fee to that same
     coinbase. Only the CALL-with-value must produce a Transfer log; the
-    priority fee crediting happens outside the EVM as a protocol-level
+    priority fee crediting happens outside the Sivm as a protocol-level
     balance change and must not emit a log.
 
     An implementation that hooks all balance additions (instead of only

@@ -2,7 +2,7 @@
 Tests invalid set-code transactions from SIP-7702.
 
 Tests invalid set-code transactions from
-[SIP-7702: Set EOA account code for one transaction](https://sips.sila.org/SIPS/sip-7702).
+[SIP-7702: Set EOA account code for one transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 from enum import Enum, auto
@@ -30,7 +30,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_7702.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7702.version
 
 pytestmark = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.exception_test,
     pytest.mark.inclusion_test,
 ]

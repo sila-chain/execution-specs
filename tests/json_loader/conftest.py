@@ -5,7 +5,7 @@ from typing import Callable
 
 from _pytest.config.argparsing import Parser
 from _pytest.nodes import Item
-from execution_testing.evm_tools.t8n import ForkCache
+from execution_testing.sivm_tools.t8n import ForkCache
 from pytest import Collector, Config, Session, fixture
 
 from . import FORKS
@@ -41,12 +41,12 @@ def pytest_addoption(parser: Parser) -> None:
     )
 
     parser.addoption(
-        "--evm_trace",
-        dest="evm_trace",
+        "--sivm_trace",
+        dest="sivm_trace",
         default=False,
         action="store_const",
         const=True,
-        help="Create an evm trace",
+        help="Create a sivm trace",
     )
 
     parser.addoption(
@@ -101,7 +101,7 @@ def pytest_addoption(parser: Parser) -> None:
         const=True,
         help=(
             "Verify blockchain fixtures that only include `postStateHash` "
-            "(not the full `postState` dict). The EELS state transition's "
+            "(not the full `postState` dict). The SELS state transition's "
             "internal state-root check plus the `lastblockhash` assertion "
             "are cryptographically sufficient."
         ),
@@ -110,22 +110,22 @@ def pytest_addoption(parser: Parser) -> None:
 
 def pytest_configure(config: Config) -> None:
     """
-    Configure the sila module and log levels to output evm trace.
+    Configure the sila module and log levels to output sivm trace.
     """
     if config.getoption("optimized"):
         import sila_optimized
 
         sila_optimized.monkey_patch(None)
 
-    if config.getoption("evm_trace"):
-        from execution_testing.evm_tools.t8n.evm_trace.sip3155 import (
+    if config.getoption("sivm_trace"):
+        from execution_testing.sivm_tools.t8n.sivm_trace.sip3155 import (
             Sip3155Tracer,
         )
 
         import sila.trace
 
         # Replace the function in the module
-        sila.trace.set_evm_trace(Sip3155Tracer())
+        sila.trace.set_sivm_trace(Sip3155Tracer())
 
     # Process fork range options
     optimized = config.getoption("optimized")

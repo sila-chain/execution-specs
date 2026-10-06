@@ -2,7 +2,7 @@
 Test the BLS12_G2MSM precompile.
 
 Test the BLS12_G2MSM precompile introduced in
-[SIP-2537: Precompile for BLS12-381 curve operations](https://sips.sila.org/SIPS/sip-2537).
+[SIP-2537: Precompile for BLS12-381 curve operations](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 import pytest
@@ -22,7 +22,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
 pytestmark = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.parametrize("precompile_address", [Spec.G2MSM], ids=[""]),
 ]
 
@@ -254,7 +254,7 @@ def test_valid(
     "precompile_gas_modifier", [100_000], ids=[""]
 )  # Add gas so that won't be the cause of failure
 @pytest.mark.parametrize("expected_output", [Spec.INVALID], ids=[""])
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -293,7 +293,7 @@ def test_invalid(
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_call_types(
     state_test: StateTestFiller,
     pre: Alloc,

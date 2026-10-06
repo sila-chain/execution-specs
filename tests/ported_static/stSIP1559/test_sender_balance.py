@@ -27,7 +27,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP1559/senderBalanceFiller.yml"],
 )
-@pytest.mark.valid_from("London")
+@pytest.mark.valid_from("SilaLondon")
 def test_sender_balance(
     state_test: StateTestFiller,
     pre: Alloc,

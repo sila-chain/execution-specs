@@ -35,8 +35,8 @@ class LegacyTransaction:
     Atomic operation performed on the block chain. This represents the original
     transaction format used before [SIP-1559], and [SIP-2930].
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
 
     nonce: U256
@@ -118,7 +118,7 @@ class AccessListTransaction:
     and chain ID. The access list specifies which addresses and storage slots
     the transaction will access.
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
 
     chain_id: U64
@@ -190,7 +190,7 @@ class FeeMarketTransaction:
     This transaction type introduces a new fee market mechanism with two gas
     price parameters: max_priority_fee_per_gas and max_fee_per_gas.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
 
     chain_id: U64
@@ -324,7 +324,7 @@ def validate_transaction(tx: Transaction) -> Uint:
     `PriorityFeeGreaterThanMaxFeeError` if the maximum priority fee per gas
     of a fee market transaction exceeds its maximum fee per gas.
 
-    [SIP-2681]: https://sips.sila.org/SIPS/sip-2681
+    [SIP-2681]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2681.md
     """
     intrinsic_gas = calculate_intrinsic_cost(tx)
     if intrinsic_gas > tx.gas:
@@ -344,7 +344,7 @@ def calculate_intrinsic_cost(tx: Transaction) -> Uint:
     Calculates the gas that is charged before execution is started.
 
     The intrinsic cost of the transaction is charged before execution has
-    begun. Functions/operations in the EVM cost money to execute so this
+    begun. Functions/operations in the Sivm cost money to execute so this
     intrinsic cost is for the operations that need to be paid for as part of
     the transaction. Data transfer, for example, is part of this intrinsic
     cost. It costs sila to send data over the wire and that sila is
@@ -390,7 +390,7 @@ def chain_id(tx: Transaction) -> None | U64:
     """
     Extract the chain identifier from a transaction. See [SIP-155].
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     if isinstance(tx, LegacyTransaction):
         if tx.v == 27 or tx.v == 28:
@@ -464,7 +464,7 @@ def signing_hash_pre155(tx: LegacyTransaction) -> Hash32:
     This function takes a legacy transaction as a parameter and returns the
     signing hash of the transaction.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(
@@ -487,7 +487,7 @@ def signing_hash_155(tx: LegacyTransaction, chain_id: U64) -> Hash32:
     This function takes a legacy transaction and a chain ID as parameters
     and returns the hash of the transaction used in an [SIP-155] signature.
 
-    [SIP-155]: https://sips.sila.org/SIPS/sip-155
+    [SIP-155]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
     """
     return keccak256(
         rlp.encode(
@@ -513,7 +513,7 @@ def signing_hash_2930(tx: AccessListTransaction) -> Hash32:
     This function takes an access list transaction as a parameter
     and returns the hash of the transaction used in an [SIP-2930] signature.
 
-    [SIP-2930]: https://sips.sila.org/SIPS/sip-2930
+    [SIP-2930]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
     """
     return keccak256(
         b"\x01"
@@ -539,7 +539,7 @@ def signing_hash_1559(tx: FeeMarketTransaction) -> Hash32:
     This function takes a fee market transaction as a parameter
     and returns the hash of the transaction used in an [SIP-1559] signature.
 
-    [SIP-1559]: https://sips.sila.org/SIPS/sip-1559
+    [SIP-1559]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
     """
     return keccak256(
         b"\x02"

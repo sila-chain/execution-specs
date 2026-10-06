@@ -1,6 +1,6 @@
 # The `consume` Command
 
-The EEST `consume` command implements different methods to run EEST-generated test fixtures against clients:
+The SEST `consume` command implements different methods to run SEST-generated test fixtures against clients:
 
 ```bash
 uv run consume [OPTIONS] SUBCOMMAND [ARGS]...
@@ -8,7 +8,7 @@ uv run consume [OPTIONS] SUBCOMMAND [ARGS]...
 
 For help with installation, see [Installation](../../getting_started/installation.md).
 
-This section provides help for running the EEST commands directly (as opposed to running as a `./hive` [standalone command](../hive/index.md), where applicable) see:
+This section provides help for running the SEST commands directly (as opposed to running as a `./hive` [standalone command](../hive/index.md), where applicable) see:
 
 1. [Consume Cache & Fixture Inputs](./cache.md) for how to specify `consume` fixture input.
 

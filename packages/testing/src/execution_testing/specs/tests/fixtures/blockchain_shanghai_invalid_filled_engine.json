@@ -1,11 +1,11 @@
 {
-    "000/my_blockchain_test/Shanghai": {
+    "000/my_blockchain_test/SilaShanghai": {
         "_info": {
-            "hash": "0xf3c8b8fddf2e80c7a3d4764f9ee022d2e3ef44898e279d1242750cd7083aead4",
+            "hash": "0x240c4f27283a030f712c6471ec5346e2ac6a497f1d21fcc196e2c32a490226b9",
             "fixture_format": "blockchain_test_engine"
         },
         "lastblockhash": "0xfc75f11c05ec814a890141bef919bb7c20dd29245e37e9bcea66008dfde98526",
-        "network": "Shanghai",
+        "network": "SilaShanghai",
         "genesisBlockHeader": {
             "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "uncleHash": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
@@ -314,7 +314,7 @@
             }
         },
         "config": {
-            "network": "Shanghai",
+            "network": "SilaShanghai",
             "chainid": "0x01"
         }
     }

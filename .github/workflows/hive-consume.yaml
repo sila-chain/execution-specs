@@ -101,16 +101,16 @@ jobs:
         include:
           - name: Engine
             mode: simulator
-            simulator: sila/eels/consume-engine
-            sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
+            simulator: sila/sels/consume-engine
+            sim_limit: ".*test_block_at_rlp_limit_with_logs.*SilaOsaka.*"
           - name: RLP
             mode: simulator
-            simulator: sila/eels/consume-rlp
-            sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
+            simulator: sila/sels/consume-rlp
+            sim_limit: ".*test_block_at_rlp_limit_with_logs.*SilaOsaka.*"
           - name: Sync
             mode: simulator
-            simulator: sila/eels/consume-sync
-            sim_limit: ".*test_block_at_rlp_limit_with_logs.*Osaka.*"
+            simulator: sila/sels/consume-sync
+            sim_limit: ".*test_block_at_rlp_limit_with_logs.*SilaOsaka.*"
           - name: Dev Mode Consume Engine
             mode: dev
             cli_command: consume engine
@@ -141,7 +141,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: sila-chain/sila-hive
-          ref: eeae7090f623ce962877b83de83028fa96f9204a
+          ref: e0d87294d934edbb64a18564412a0ea14a0a1947
           path: hive
       - name: Checkout exact go-sila authority
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -201,7 +201,7 @@ jobs:
           path = Path(sys.argv[1])
           ref = sys.argv[2]
           text = path.read_text()
-          fixture_old = "ARG fixtures=stable@latest\nENV FIXTURES=" + "$" + "{fixtures}"
+          fixture_old = "ARG fixtures=tests@latest\nENV FIXTURES=" + "$" + "{fixtures}"
           fixture_new = (
               "COPY fixtures_hive_smoke.tar.gz /sila-fixtures/fixtures_hive_smoke.tar.gz\n"
               "RUN mkdir -p /sila-fixtures/extracted && python -m tarfile -e "

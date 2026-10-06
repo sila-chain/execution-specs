@@ -27,7 +27,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 """
 Note:
@@ -520,7 +520,7 @@ def test_bal_7002_request_from_contract(
     """
     fee = WithdrawalRequest.get_fee(0)
 
-    # Create withdrawal request interaction using Prague helper
+    # Create withdrawal request interaction using SilaPrague helper
     withdrawal_requests = [
         WithdrawalRequest(
             validator_pubkey=0x01,

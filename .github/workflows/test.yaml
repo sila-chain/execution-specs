@@ -89,19 +89,19 @@ jobs:
         include:
           - label: pre-shanghai
             from_fork: Frontier
-            until_fork: Paris
+            until_fork: SilaParis
           - label: shanghai-cancun
-            from_fork: Shanghai
-            until_fork: Cancun
+            from_fork: SilaShanghai
+            until_fork: SilaCancun
           - label: prague
-            from_fork: Prague
-            until_fork: Prague
+            from_fork: SilaPrague
+            until_fork: SilaPrague
           - label: osaka
-            from_fork: Osaka
-            until_fork: Osaka
+            from_fork: SilaOsaka
+            until_fork: SilaOsaka
           - label: amsterdam
-            from_fork: Amsterdam
-            until_fork: Amsterdam
+            from_fork: SilaAmsterdam
+            until_fork: SilaAmsterdam
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./.github/actions/setup-uv
@@ -113,7 +113,7 @@ jobs:
           -m "not slow and primary_format"
         env:
           PYTEST_XDIST_AUTO_NUM_WORKERS: auto
-      - name: Validate blockchain fixtures with EELS (${{ matrix.label }})
+      - name: Validate blockchain fixtures with SELS (${{ matrix.label }})
         run: just validate-blocks .just/fill/fixtures/blockchain_tests
         env:
           PYTEST_XDIST_AUTO_NUM_WORKERS: auto
@@ -225,13 +225,13 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./.github/actions/setup-uv
-      - uses: ./.github/actions/build-evmone
+      - uses: ./.github/actions/build-sivmone
       # On benchmarks/** branches, build the pinned gsil so the benchmark
-      # plugin tests fill against a real client (via EVM_BIN). On every other
-      # branch this step is skipped, EVM_BIN stays empty, and those fills fall
-      # through to fill's in-repo EELS t8n.
-      - uses: ./.github/actions/build-evm-base
-        id: evm-builder
+      # plugin tests fill against a real client (via SIVM_BIN). On every other
+      # branch this step is skipped, SIVM_BIN stays empty, and those fills fall
+      # through to fill's in-repo SELS t8n.
+      - uses: ./.github/actions/build-sivm-base
+        id: sivm-builder
         if: ${{ startsWith(github.ref, 'refs/heads/benchmarks/') || startsWith(github.base_ref, 'benchmarks/') }}
         with:
           type: benchmark
@@ -239,7 +239,7 @@ jobs:
         run: just test-tests
         env:
           PYTEST_XDIST_AUTO_NUM_WORKERS: auto
-          EVM_BIN: ${{ steps.evm-builder.outputs.evm-bin }}
+          SIVM_BIN: ${{ steps.sivm-builder.outputs.sivm-bin }}
 
   test-tests-pypy:
     runs-on: ubuntu-latest
@@ -250,7 +250,7 @@ jobs:
         with:
           python-version: "pypy3.11"
       - uses: ./.github/actions/setup-env-pypy
-      - uses: ./.github/actions/build-evmone
+      - uses: ./.github/actions/build-sivmone
       - name: Run test-tests-pypy
         run: just test-tests-pypy
         env:

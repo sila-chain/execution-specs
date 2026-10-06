@@ -123,8 +123,8 @@ class SIPChecklist:
         class CodeCoverage(ChecklistItem):
             """Code coverage checklist items."""
 
-            class Eels(ChecklistItem):
-                """EELS code coverage."""
+            class Sels(ChecklistItem):
+                """SELS code coverage."""
 
                 pass
 
@@ -1330,7 +1330,7 @@ class SIPChecklist:
                 """Transaction-scoped attributes."""
 
                 class Read(ChecklistItem):
-                    """Read attributes from EVM."""
+                    """Read attributes from Sivm."""
 
                     pass
 

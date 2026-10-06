@@ -1,8 +1,8 @@
 """
-[SIP-7918: Blob base fee bounded by execution cost](https://sips.sila.org/SIPS/sip-7918).
+[SIP-7918: Blob base fee bounded by execution cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7918.md).
 
 Test the blob base fee reserve price mechanism for
-[SIP-7918: Blob base fee bounded by execution cost](https://sips.sila.org/SIPS/sip-7918).
+[SIP-7918: Blob base fee bounded by execution cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7918.md).
 """
 
 from typing import Any, Dict, Iterator, List
@@ -28,7 +28,7 @@ from .spec import Spec, ref_spec_7918
 REFERENCE_SPEC_GIT_PATH = ref_spec_7918.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7918.version
 
-pytestmark = pytest.mark.valid_from("Osaka")
+pytestmark = pytest.mark.valid_from("SilaOsaka")
 
 
 @pytest.fixture
@@ -224,7 +224,7 @@ def get_boundary_scenarios(fork: Fork) -> Iterator[Any]:
     "parent_excess_blobs,block_base_fee_per_gas_delta",
     get_boundary_scenarios,
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_reserve_price_boundary(
     blockchain_test: BlockchainTestFiller,
     env: Environment,

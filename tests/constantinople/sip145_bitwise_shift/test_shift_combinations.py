@@ -51,15 +51,14 @@ combinations = list(itertools.product(list_of_args, repeat=2))
         pytest.param(Op.SHR, Spec.shr, id="shr"),
     ],
 )
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stShift/shiftCombinationsFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stShift/shiftSignedCombinationsFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stShift/shiftCombinationsFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stShift/shiftSignedCombinationsFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1683"],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_combinations(
     state_test: StateTestFiller, pre: Alloc, opcode: Op, operation: Callable
 ) -> None:

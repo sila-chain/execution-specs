@@ -1009,7 +1009,8 @@ class Sync(ForkTracking):
             if self.block_number > Uint(2220000) and self.block_number < Uint(
                 2463000
             ):
-                # Excessive DB load due to the Shanghai DOS attacks, requires
+                # Excessive DB load due to the SilaShanghai DOS attacks,
+                # requires
                 # more regular DB commits
                 if gas_since_last_commit > self.options.gas_per_commit / 10:
                     persist()

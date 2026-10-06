@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-7976: Increase calldata floor cost](https://sips.sila.org/SIPS/sip-7976).
+Crafted tests for sila-mainnet of [SIP-7976: Increase calldata floor cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md).
 """
 
 import pytest

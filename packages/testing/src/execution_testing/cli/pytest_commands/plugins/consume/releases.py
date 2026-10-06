@@ -23,10 +23,9 @@ CACHED_RELEASE_INFORMATION_FILE = (
 )
 
 SUPPORTED_REPOS = [
-    "sila/execution-spec-tests",
-    "sila/execution-specs",
-    "sila/tests",
-    "sila/legacytests",
+    "sila-chain/execution-specs",
+    "sila-chain/sila-tests",
+    "sila-chain/sila-legacytests",
 ]
 
 
@@ -48,13 +47,6 @@ class AssetNotFoundError(Exception):
 
 TESTS_FEATURE_NAME = "tests"
 
-BARE_VERSION_RE = re.compile(r"^v\d+\.\d+\.\d+$")
-
-# TODO: Legacy EEST `stable`/`develop` releases (bare `vX.Y.Z` git tags on
-# the archived sila/execution-spec-tests repo) remain resolvable so
-# existing consumers don't break; remove after 2026-08 (see #3085).
-LEGACY_FEATURE_NAMES = {"stable", "develop"}
-
 
 @dataclass(kw_only=True)
 class ReleaseTag:
@@ -69,20 +61,13 @@ class ReleaseTag:
         Create a release descriptor from a string.
 
         The release source can be in the format `tag_name@version` or just
-        `tag_name`. A bare `latest` or `vX.Y.Z` resolves to the sila-mainnet
-        `tests` release.
+        `tag_name`.
         """
         version: str | None
         if "@" in release_string:
             tag_name, version = release_string.split("@")
             if version == "" or version.lower() == "latest":
                 version = None
-        elif release_string.lower() == "latest":
-            tag_name = TESTS_FEATURE_NAME
-            version = None
-        elif BARE_VERSION_RE.match(release_string):
-            tag_name = TESTS_FEATURE_NAME
-            version = release_string
         else:
             tag_name = release_string
             version = None
@@ -91,11 +76,7 @@ class ReleaseTag:
     @staticmethod
     def is_release_string(release_string: str) -> bool:
         """Check if the release string is in the correct format."""
-        return (
-            "@" in release_string
-            or release_string.lower() == "latest"
-            or BARE_VERSION_RE.match(release_string) is not None
-        )
+        return "@" in release_string
 
     @property
     def feature_name(self) -> str:
@@ -111,12 +92,6 @@ class ReleaseTag:
         friendly feature name (`bal-devnet@v7.0.0`) and the full tag
         (`tests-bal-devnet@v7.0.0`) are accepted as input.
         """
-        if self.feature_name in LEGACY_FEATURE_NAMES:
-            # Legacy releases tag as bare `vX.Y.Z`; the asset name check
-            # in `ReleaseInformation.__contains__` selects the feature.
-            if self.version is not None:
-                return tag == self.version
-            return BARE_VERSION_RE.match(tag) is not None
         if self.version is not None:
             return tag in (
                 f"{self.tag_name}@{self.version}",

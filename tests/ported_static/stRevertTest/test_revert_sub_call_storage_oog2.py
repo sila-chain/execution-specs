@@ -4,7 +4,7 @@ Test_revert_sub_call_storage_oog2.
 Ported from:
 state_tests/stRevertTest/RevertSubCallStorageOOG2Filler.json
 @manually-enhanced: Do not overwrite. tx_gas[1] is tuned to barely
-fit 2 fresh SSTOREs on Cancun; on Amsterdam each fresh slot spills
+fit 2 fresh SSTOREs on SilaCancun; on SilaAmsterdam each fresh slot spills
 state-gas, so lift the budget by Fork.oog_budget_lift.
 """
 
@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertSubCallStorageOOG2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -95,19 +95,19 @@ def test_revert_sub_call_storage_oog2(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={}, balance=1, nonce=0)},
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": 0},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 13, 1: 14}, balance=1, nonce=0)
             },
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": 1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={}, balance=1, nonce=0)},
         },
     ]

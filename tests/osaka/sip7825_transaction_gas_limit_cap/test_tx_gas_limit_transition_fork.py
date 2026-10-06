@@ -2,7 +2,7 @@
 Transaction gas limit cap fork transition tests.
 
 Tests for fork transition behavior in [SIP-7825: Transaction Gas Limit
-Cap](https://sips.sila.org/SIPS/sip-7825).
+Cap](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md).
 """
 
 import pytest
@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = ref_spec_7825.version
 @SIPChecklist.ModifiedTransactionValidityConstraint.Test.ForkTransition.RejectedBeforeFork()
 @SIPChecklist.ModifiedTransactionValidityConstraint.Test.ForkTransition.AcceptedAfterFork()
 @SIPChecklist.ModifiedTransactionValidityConstraint.Test.ForkTransition.RejectedAfterFork()
-@pytest.mark.valid_at_transition_to("Osaka")
+@pytest.mark.valid_at_transition_to("SilaOsaka")
 @pytest.mark.parametrize(
     "transaction_at_cap",
     [
@@ -44,7 +44,7 @@ def test_transaction_gas_limit_cap_at_transition(
     transaction_at_cap: bool,
 ) -> None:
     """
-    Test transaction gas limit cap behavior at the Osaka transition.
+    Test transaction gas limit cap behavior at the SilaOsaka transition.
 
     Before timestamp 15000: No gas limit cap (transactions with gas > 2^24 are
     valid) At/after timestamp 15000: Gas limit cap of 2^24 is enforced

@@ -160,7 +160,7 @@ class ErigonEvm(SilaCLI):
     indistinguishable ``evm version <semver>...`` banner, so the version string
     alone cannot tell the two apart. ``detect_binary`` instead probes the
     binary itself: Erigon's `evm` exposes an ``enginextest`` subcommand (its
-    engine-x test runner) that go-sila's `evm` does not, which is a stable,
+    engine-x test runner) that go-sila's `sivm` does not, which is a stable,
     version-independent fingerprint.
     """
 
@@ -188,7 +188,7 @@ class ErigonEvm(SilaCLI):
         cls, binary_output: str, binary: Optional[Path] = None
     ) -> bool:
         """
-        Confirm the binary is Erigon's `evm`, not go-sila's.
+        Confirm the binary is Erigon's `evm`, not go-sila's `sivm`.
 
         Both print ``evm version ...``; after that cheap check passes we probe
         the binary's ``--help`` for Erigon's ``enginextest`` subcommand.

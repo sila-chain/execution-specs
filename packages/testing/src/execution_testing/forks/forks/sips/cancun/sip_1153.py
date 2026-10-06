@@ -4,7 +4,7 @@ SIP-1153: Transient storage opcodes.
 Add opcodes for manipulating state that behaves identically to storage
 but is discarded after every transaction.
 
-https://sips.sila.org/SIPS/sip-1153
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md
 """
 
 from dataclasses import replace

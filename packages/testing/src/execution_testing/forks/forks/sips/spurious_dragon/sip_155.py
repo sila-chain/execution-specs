@@ -1,7 +1,7 @@
 """
 SIP-155: Simple replay attack protection.
 
-https://sips.sila.org/SIPS/sip-155
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
 """
 
 from ....base_fork import BaseFork

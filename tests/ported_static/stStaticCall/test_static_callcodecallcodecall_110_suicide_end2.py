@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticCall/static_callcodecallcodecall_110_SuicideEnd2Filler.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -145,7 +145,7 @@ def test_static_callcodecallcodecall_110_suicide_end2(
         expect_entries_: list[dict] = [
             {
                 "indexes": {"data": -1, "gas": -1, "value": -1},
-                "network": [">=Cancun"],
+                "network": [">=SilaCancun"],
                 "result": {
                     target: Account(storage=target_storage, balance=0, nonce=0)
                 },
@@ -155,7 +155,7 @@ def test_static_callcodecallcodecall_110_suicide_end2(
         expect_entries_ = [
             {
                 "indexes": {"data": -1, "gas": -1, "value": 0},
-                "network": [">=Cancun"],
+                "network": [">=SilaCancun"],
                 "result": {
                     target: Account(
                         storage={0: 1, 1: 0x2CEBFF},
@@ -166,7 +166,7 @@ def test_static_callcodecallcodecall_110_suicide_end2(
             },
             {
                 "indexes": {"data": -1, "gas": -1, "value": 1},
-                "network": [">=Cancun"],
+                "network": [">=SilaCancun"],
                 "result": {
                     target: Account(
                         storage={0: 1, 1: 0x2CB7A7},

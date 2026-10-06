@@ -148,10 +148,10 @@ class RsilExceptionMapper(ExceptionMapper):
         #
         # The offsets are checked second and the sizes are checked
         # third within the `is_valid_deposit_event_data` function:
-        # https://sips.sila.org/SIPS/sip-6110#block-validity
+        # https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md#block-validity
         #
-        # EELS definition for `is_valid_deposit_event_data`:
-        # https://github.com/sila/execution-specs/blob/5ddb904fa7ba27daeff423e78466744c51e8cb6a/src/sila/forks/prague/requests.py#L51
+        # SELS definition for `is_valid_deposit_event_data`:
+        # https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/src/sila/forks/prague/requests.py
         BlockException.INVALID_DEPOSIT_EVENT_LAYOUT: (
             r"failed to decode deposit requests from receipts|"
             r"mismatched block requests hash"

@@ -1,5 +1,5 @@
 """
-Tests for [SIP-4895: Beacon chain withdrawals](https://sips.sila.org/SIPS/sip-4895).
+Tests for [SIP-4895: Beacon chain withdrawals](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4895.md).
 """
 
 from enum import Enum, unique
@@ -22,7 +22,7 @@ from execution_testing import (
     Withdrawal,
 )
 from execution_testing.exceptions.exceptions import BlockException
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 from execution_testing.specs.blockchain import Header
 
 from .spec import ref_spec_4895
@@ -30,7 +30,7 @@ from .spec import ref_spec_4895
 REFERENCE_SPEC_GIT_PATH = ref_spec_4895.git_path
 REFERENCE_SPEC_VERSION = ref_spec_4895.version
 
-pytestmark = pytest.mark.valid_from("Shanghai")
+pytestmark = pytest.mark.valid_from("SilaShanghai")
 
 ONE_GWEI = 10**9
 
@@ -455,7 +455,7 @@ def test_self_destructing_account(
 
     post = {
         self_destruct_contract_address: Account(
-            code=self_destruct_code if fork >= Cancun else b"",
+            code=self_destruct_code if fork >= SilaCancun else b"",
             balance=(99 * ONE_GWEI),
         ),
         recipient: Account(
@@ -517,11 +517,11 @@ def test_newly_created_contract(
     blockchain_test(pre=pre, post=post, blocks=[block])
 
 
-def test_no_evm_execution(
+def test_no_sivm_execution(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
 ) -> None:
-    """Test withdrawals don't trigger EVM execution."""
+    """Test withdrawals don't trigger Sivm execution."""
     sender = pre.fund_eoa()
     contracts = [
         pre.deploy_contract(Op.SSTORE(Op.NUMBER, 1)) for _ in range(4)
@@ -606,7 +606,7 @@ class ZeroAmountTestCases(Enum):  # noqa: D101
     list(ZeroAmountTestCases),
     ids=[case.value for case in ZeroAmountTestCases],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_zero_amount(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

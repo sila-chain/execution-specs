@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmArithmeticTest/mulFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -139,7 +139,7 @@ def test_mul(
     # Source: lll
     # {
     #     ; -1 * -1
-    #     ; -1 = 2^256-1 in evm arithmetic
+    #     ; -1 = 2^256-1 in sivm arithmetic
     #     [[0]] (*
     #              0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
     #              0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff  # noqa: E501
@@ -181,7 +181,7 @@ def test_mul(
     # Source: lll
     # {
     #    ; 2^255 * -1 (the expected answer is 2^255,
-    #    ;             because -2^255 = 2^256-2^255 in evm arithmetic)
+    #    ;             because -2^255 = 2^256-2^255 in sivm arithmetic)
     #    [[0]] (*
     #        0x8000000000000000000000000000000000000000000000000000000000000000
     #        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -302,7 +302,7 @@ def test_mul(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [8, 2, 5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={0: 0}),
                 contract_5: Account(storage={0: 0}),
@@ -311,22 +311,22 @@ def test_mul(
         },
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_0: Account(storage={0: 6})},
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={0: 23})},
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_4: Account(
                     storage={
@@ -337,12 +337,12 @@ def test_mul(
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_6: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_7: Account(
                     storage={

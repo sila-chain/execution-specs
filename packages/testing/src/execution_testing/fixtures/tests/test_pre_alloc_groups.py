@@ -16,7 +16,7 @@ from execution_testing.fixtures.pre_alloc_groups import (
     packed_group_hash_for_test,
     read_test_group_index,
 )
-from execution_testing.forks import Fork, Osaka, Prague, get_forks
+from execution_testing.forks import Fork, SilaOsaka, SilaPrague, get_forks
 from execution_testing.test_types import Alloc, AllocGroupHash, Environment
 
 
@@ -28,7 +28,7 @@ def _write_group(
     *,
     environment: Environment,
     group_salt: str | None = None,
-    fork: Fork = Prague,
+    fork: Fork = SilaPrague,
 ) -> None:
     """Write a single fine-grained group file, as Phase 1 would."""
     builder = PreAllocGroupBuilder(
@@ -438,7 +438,7 @@ def test_pack_isolates_fork_precompile_above_blanket_range(
     same address is plain scratch space and the groups merge.
     """
     env = Environment()
-    for fork, expected_group_count in ((Prague, 1), (Osaka, 2)):
+    for fork, expected_group_count in ((SilaPrague, 1), (SilaOsaka, 2)):
         folder = tmp_path / fork.name()
         folder.mkdir()
         _write_group(

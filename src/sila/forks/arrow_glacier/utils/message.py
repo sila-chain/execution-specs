@@ -88,5 +88,5 @@ def prepare_message(
         is_static=False,
         accessed_addresses=accessed_addresses,
         accessed_storage_keys=set(tx_env.access_list_storage_keys),
-        parent_evm=None,
+        parent_sivm=None,
     )

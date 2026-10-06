@@ -46,7 +46,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 SYSTEM_ADDRESS = Address(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE)
 
 
@@ -635,7 +635,7 @@ def test_bal_selfdestruct_to_coinbase(
     """
     Ensure BAL records SELFDESTRUCT when the beneficiary is the coinbase.
 
-    Post-Cancun (SIP-6780) the contract is only actually destroyed when
+    Post-SilaCancun (SIP-6780) the contract is only actually destroyed when
     created in the same tx; the pre-deployed path only transfers balance
     and preserves the contract. Both shapes must appear in BAL.
     """
@@ -693,7 +693,7 @@ def test_bal_selfdestruct_to_coinbase(
     else:
         victim = pre.deploy_contract(code=victim_code, balance=victim_balance)
         tx_target = victim
-        # Pre-deployed and not same-tx: post-Cancun preserves the contract.
+        # Pre-deployed and not same-tx: post-SilaCancun preserves the contract.
         post = {
             victim: Account(balance=0, code=victim_code),
             coinbase: Account(balance=victim_balance),
@@ -2573,7 +2573,7 @@ def test_bal_multiple_storage_writes_same_slot(
         pytest.param([2, 3, 4], id="depth_3"),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_bal_nested_delegatecall_storage_writes_net_zero(
     pre: Alloc,
     blockchain_test: BlockchainTestFiller,
@@ -3610,10 +3610,10 @@ def test_bal_cross_block_ripemd160_state_leak(
     blockchain_test: BlockchainTestFiller,
 ) -> None:
     """
-    Ensure internal EVM state for RIMPEMD-160 precompile handling does not
+    Ensure internal Sivm state for RIMPEMD-160 precompile handling does not
     leak between blocks.
 
-    The EVM may track internal state related to the Parity Touch Bug (SIP-161)
+    The Sivm may track internal state related to the Parity Touch Bug (SIP-161)
     when calling RIPEMD-160 (0x03) with zero value. If this state is not
     properly reset between blocks, it can cause incorrect BAL entries in
     subsequent blocks.

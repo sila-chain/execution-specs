@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stStaticCall/static_CallAndCallcodeConsumeMoreGasThenTransactionHasFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -170,7 +170,7 @@ def test_static_call_and_callcode_consume_more_gas_then_transaction_has(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr: Account(storage={0: 0, 8: 0, 9: 0, 10: 0}),
                 addr_2: Account(
@@ -182,7 +182,7 @@ def test_static_call_and_callcode_consume_more_gas_then_transaction_has(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_3: Account(storage={0: 18, 9: 1, 10: 1}),
                 addr_4: Account(

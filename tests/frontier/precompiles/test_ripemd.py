@@ -16,7 +16,6 @@ from execution_testing.vm import Opcodes as Op
     [
         "https://github.com/sila/execution-specs/blob/master/tests/static/state_tests/stPreCompiledContracts2/CallRipemd160_0Filler.json"
     ],
-    pr=["https://github.com/sila/execution-specs/pull/1732"],
 )
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.parametrize(
@@ -140,7 +139,7 @@ from execution_testing.vm import Opcodes as Op
     ],
 )
 @pytest.mark.parametrize("oog", [True, False])
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_precompiles(
     state_test: StateTestFiller,
     pre: Alloc,

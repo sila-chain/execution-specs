@@ -52,7 +52,7 @@ class OpcodeTarget:
     Map a display name to an underlying opcode for count validation.
 
     Use when the fixture metadata should show a descriptive label (e.g. a
-    precompile name) while opcode-count validation targets the real EVM
+    precompile name) while opcode-count validation targets the real Sivm
     opcode that gets executed (e.g. STATICCALL).
     """
 

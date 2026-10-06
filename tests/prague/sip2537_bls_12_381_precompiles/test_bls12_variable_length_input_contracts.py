@@ -4,7 +4,7 @@ Tests minimum gas and input length for BLS12 precompiles.
 Tests minimum gas and input length requirements for BLS12_G1MSM,
 BLS12_G2MSM, and BLS12_PAIRING precompiles from [SIP-2537: Precompile
 for BLS12-381 curve operations]
-(https://sips.sila.org/SIPS/sip-2537).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 from typing import Callable, List, SupportsBytes
@@ -33,7 +33,7 @@ from .spec import (
 REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 G1_MSM_K_INPUT_LENGTH = len(PointG1() + Scalar())
 G2_MSM_K_INPUT_LENGTH = len(PointG2() + Scalar())
@@ -326,7 +326,7 @@ def test_invalid_zero_gas_g1msm(
 )
 @pytest.mark.parametrize("expected_output", [Spec.INVALID], ids=[""])
 @pytest.mark.parametrize("precompile_address", [Spec.G1MSM])
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_gas_g1msm(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -475,7 +475,7 @@ def test_invalid_zero_gas_g2msm(
 )
 @pytest.mark.parametrize("expected_output", [Spec.INVALID], ids=[""])
 @pytest.mark.parametrize("precompile_address", [Spec.G2MSM])
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid_gas_g2msm(
     state_test: StateTestFiller,
     pre: Alloc,

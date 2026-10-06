@@ -4,7 +4,7 @@ Create2 generates an account that already exists and has balance != 0.
 Ported from:
 state_tests/stCreate2/create2collisionBalanceFiller.json
 
-@manually-enhanced: Do not overwrite. `tx_gas` raised on Amsterdam to
+@manually-enhanced: Do not overwrite. `tx_gas` raised on SilaAmsterdam to
 cover SIP-8037 NEW_ACCOUNT state-gas spill into regular gas. Pre-
 SIP-8037 keeps the original 400 000 budget; post-state expectations
 unchanged on all forks.
@@ -36,7 +36,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2collisionBalanceFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -122,7 +122,7 @@ def test_create2collision_balance(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(balance=1, nonce=1),
                 compute_create_address(address=sender, nonce=0): Account(
@@ -133,7 +133,7 @@ def test_create2collision_balance(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={1: 1}, code=b"", balance=1, nonce=1
@@ -146,7 +146,7 @@ def test_create2collision_balance(
         },
         {
             "indexes": {"data": 2, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(
                     storage={},
@@ -162,7 +162,7 @@ def test_create2collision_balance(
         },
         {
             "indexes": {"data": 3, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(balance=2, nonce=1),
                 compute_create_address(address=sender, nonce=0): Account(
@@ -185,7 +185,7 @@ def test_create2collision_balance(
         + Op.STOP,
         Op.CREATE2(value=0x1, offset=0x0, size=0x0, salt=0x0) + Op.STOP,
     ]
-    # SIP-8037 NEW_ACCOUNT state-gas spill on Amsterdam exceeds
+    # SIP-8037 NEW_ACCOUNT state-gas spill on SilaAmsterdam exceeds
     # the original 400 000 budget. Pre-SIP-8037 keeps the original.
     outer_tx_gas = 400000
     if fork.is_sip_enabled(8037):

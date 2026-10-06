@@ -656,7 +656,7 @@ def test_verify_log(
         verify_log(0, 0, expected_log, actual_log)
 
 
-# Log mismatch integration tests using Amsterdam fork (SIP-7708)
+# Log mismatch integration tests using SilaAmsterdam fork (SIP-7708)
 @pytest.mark.parametrize(
     "mismatch_type",
     [
@@ -672,7 +672,7 @@ def test_log_mismatch_during_generation(
     """
     Test that log mismatches raise LogMismatchError during test generation.
     """
-    from execution_testing.forks import Amsterdam
+    from execution_testing.forks import SilaAmsterdam
 
     # SIP-7708 transfer log constants
     system_address = Address(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE)
@@ -711,7 +711,7 @@ def test_log_mismatch_during_generation(
         pre=pre,
         post={},  # Empty post to skip post-state verification
         tx=tx,
-        fork=Amsterdam,
+        fork=SilaAmsterdam,
     )
 
     with pytest.raises(LogMismatchError):

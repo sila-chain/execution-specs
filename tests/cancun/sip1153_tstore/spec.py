@@ -12,14 +12,14 @@ class ReferenceSpec:
 
 
 ref_spec_1153 = ReferenceSpec(
-    "SIPS/sip-1153.md", "1eb863b534a5a3e19e9c196ab2a7f3db4bb9da17"
+    "SIPS/sip-1153.md", "71af630706495decd26dec6ab63648cce0055da3"
 )
 
 
 class Spec:
     """
     Parameters from the SIP-1153 specifications as defined at
-    https://sips.sila.org/SIPS/sip-1153.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md.
     """
 
     TLOAD_OPCODE_BYTE = 0x5C

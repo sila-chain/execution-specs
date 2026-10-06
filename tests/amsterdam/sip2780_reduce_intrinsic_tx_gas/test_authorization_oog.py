@@ -69,7 +69,7 @@ from .spec import ref_spec_2780
 REFERENCE_SPEC_GIT_PATH = ref_spec_2780.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2780.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 def _auth_top_frame_charges(fork: Fork, authorizations: list) -> int:
@@ -1715,7 +1715,7 @@ def test_dispatched_frame_state_gas_still_refills_on_revert(
         fork, authorization_list, recipient_type=RecipientType.CONTRACT
     )
     auth_charges = _auth_top_frame_charges(fork, authorization_list)
-    evm_execution = sstore_revert_code.execution_cost(fork)
+    sivm_execution = sstore_revert_code.execution_cost(fork)
     exec_state = sstore_revert_code.state_cost(fork)
     assert exec_state > 0, (
         "the dispatched SSTORE must carry a state-gas charge"
@@ -1724,7 +1724,7 @@ def test_dispatched_frame_state_gas_still_refills_on_revert(
     # The SSTORE's state gas is charged and then refilled by the
     # revert (the slot rolls back), so the sender pays only the
     # authorization charges and the execution gas.
-    gas_used = intrinsic_execution + auth_charges + evm_execution
+    gas_used = intrinsic_execution + auth_charges + sivm_execution
 
     tx = Transaction(
         sender=sender,

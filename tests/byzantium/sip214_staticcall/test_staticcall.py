@@ -101,11 +101,11 @@ def bal_expectation_for_contract_with_markers(
     "call_value", [0, 2], ids=["zero_value", "nonzero_value"]
 )
 @pytest.mark.ported_from(
-    "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/"
+    "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/"
     "stStaticFlagEnabled/StaticcallForPrecompilesIssue683Filler.yml"
 )
-@pytest.mark.valid_from("Byzantium")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaByzantium")
+@pytest.mark.sels_base_coverage
 def test_staticcall_reentrant_call_to_precompile(
     pre: Alloc,
     state_test: StateTestFiller,
@@ -116,8 +116,7 @@ def test_staticcall_reentrant_call_to_precompile(
     """
     Test CALL to precompile inside STATICCALL with zero and non-zero value.
 
-    Regression test for sila/tests#683.
-    Source: https://github.com/sila/execution-specs/pull/1960#discussion_r2656834142
+    Regression test.
 
     A single contract STATICCALLs itself. On reentry (detected via CALLVALUE=0,
     since STATICCALL doesn't forward value), it attempts CALL to a precompile.
@@ -211,11 +210,11 @@ def test_staticcall_reentrant_call_to_precompile(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithZeroValueToPrecompileFromTransactionFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromTransactionFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithZeroValueToPrecompileFromTransactionFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromTransactionFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_staticcall_call_to_precompile(
     pre: Alloc,
     state_test: StateTestFiller,
@@ -336,11 +335,11 @@ def test_staticcall_call_to_precompile(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithZeroValueToPrecompileFromCalledContractFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromCalledContractFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithZeroValueToPrecompileFromCalledContractFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromCalledContractFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_staticcall_nested_call_to_precompile(
     pre: Alloc,
     state_test: StateTestFiller,
@@ -478,16 +477,16 @@ def test_staticcall_nested_call_to_precompile(
 )
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithZeroValueToPrecompileFromContractInitializationFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromContractInitializationFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithZeroValueToPrecompileFromContractInitializationFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stStaticFlagEnabled/CallWithNOTZeroValueToPrecompileFromContractInitializationFiller.yml",
     ],
 )
 @pytest.mark.parametrize(
     "create_opcode",
     [
-        pytest.param(Op.CREATE, marks=pytest.mark.valid_from("Byzantium")),
+        pytest.param(Op.CREATE, marks=pytest.mark.valid_from("SilaByzantium")),
         pytest.param(
-            Op.CREATE2, marks=pytest.mark.valid_from("Constantinople")
+            Op.CREATE2, marks=pytest.mark.valid_from("SilaConstantinople")
         ),
     ],
 )

@@ -4,7 +4,7 @@ SIP-8024: Backward compatible SWAPN, DUPN, EXCHANGE.
 Introduce additional instructions for manipulating the stack which allow
 accessing the stack at higher depths.
 
-https://sips.sila.org/SIPS/sip-8024
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8024.md
 """
 
 from typing import Callable, Dict, List

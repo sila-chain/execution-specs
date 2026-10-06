@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7883: ModExp Gas Cost Increase](https://sips.sila.org/SIPS/sip-7883).
+[SIP-7883: ModExp Gas Cost Increase](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7883.md).
 """
 
 from typing import Dict
@@ -21,7 +21,7 @@ from .spec import Spec, ref_spec_7883
 REFERENCE_SPEC_GIT_PATH = ref_spec_7883.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7883.version
 
-pytestmark = [pytest.mark.valid_at("Osaka"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaOsaka"), pytest.mark.sila_mainnet]
 
 
 @pytest.fixture

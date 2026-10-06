@@ -8,7 +8,7 @@ so a transaction contributes at least the floor to the block's
 execution gas while state gas is tracked separately.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

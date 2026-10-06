@@ -52,7 +52,7 @@ class SilaJSTransitionTool(TransitionTool):
 
 class SilaJSExceptionMapper(ExceptionMapper):
     """
-    Translate between EEST exceptions and error strings returned by SilaJS.
+    Translate between SEST exceptions and error strings returned by SilaJS.
     """
 
     mapping_substring: ClassVar[Dict[ExceptionBase, str]] = {

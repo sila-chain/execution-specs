@@ -50,7 +50,7 @@ DETERMINISTIC_FACTORY_BYTECODE = (
 
 def ceiling_division(a: int, b: int) -> int:
     """
-    Calculate ceil without using floating point. Used by many of the EVM's
+    Calculate ceil without using floating point. Used by many of the Sivm's
     formulas.
     """
     return -(a // -b)

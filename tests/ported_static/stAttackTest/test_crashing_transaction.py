@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stAttackTest/CrashingTransactionFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_crashing_transaction(
     state_test: StateTestFiller,
     pre: Alloc,

@@ -1,5 +1,6 @@
 """
-[SIP-1153](https://sips.sila.org/SIPS/sip-1153) Transient Storage tests.
+Transient Storage tests for
+[SIP-1153](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1153.md).
 """
 
 from enum import Enum
@@ -20,7 +21,7 @@ from execution_testing import (
 from execution_testing import Macros as Om
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-1153.md"
-REFERENCE_SPEC_VERSION = "1eb863b534a5a3e19e9c196ab2a7f3db4bb9da17"
+REFERENCE_SPEC_VERSION = "71af630706495decd26dec6ab63648cce0055da3"
 
 
 class CallDestType(Enum):
@@ -32,11 +33,10 @@ class CallDestType(Enum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/05_tloadReentrancyFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/05_tloadReentrancyFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/440"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "call_type", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL, Op.STATICCALL]
 )

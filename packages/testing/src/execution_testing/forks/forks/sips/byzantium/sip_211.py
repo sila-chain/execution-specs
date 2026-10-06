@@ -1,7 +1,7 @@
 """
 SIP-211: New opcodes: RETURNDATASIZE and RETURNDATACOPY.
 
-https://sips.sila.org/SIPS/sip-211
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-211.md
 """
 
 from typing import Callable, Dict, List

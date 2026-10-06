@@ -15,7 +15,7 @@ state_tests/stSystemOperationsTest/ABAcalls3Filler.json
 balances) is predicted by an exact fork-derived replay of the gas flow
 (SIP-150 grants, stipend gifting, warm/cold and SSTORE pricing via
 opcode metadata, SIP-8037 state-gas spill), validated against the
-ported Cancun counters. B reaches A as its CALLER instead of a
+ported SilaCancun counters. B reaches A as its CALLER instead of a
 hardcoded address.
 """
 
@@ -159,7 +159,7 @@ def predict_depths(
 @pytest.mark.ported_from(
     ["state_tests/stSystemOperationsTest/ABAcalls3Filler.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_ab_acalls3(
     state_test: StateTestFiller,
     pre: Alloc,

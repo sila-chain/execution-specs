@@ -2,7 +2,7 @@
 Get blobs engine endpoint tests.
 
 Tests for get blobs engine endpoint in [SIP-7594: PeerDAS - Peer Data
-Availability Sampling](https://sips.sila.org/SIPS/sip-7594).
+Availability Sampling](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7594.md).
 """
 
 from hashlib import sha256
@@ -365,7 +365,7 @@ def generate_valid_blob_tests(
     generate_valid_blob_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_get_blobs(
     blobs_test: BlobsTestFiller,
     pre: Alloc,
@@ -383,8 +383,8 @@ def test_get_blobs(
     generate_valid_blob_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 def test_get_blobs_nonexisting_getblobsv1(
     blobs_test: BlobsTestFiller,
     pre: Alloc,
@@ -408,7 +408,7 @@ def test_get_blobs_nonexisting_getblobsv1(
     generate_valid_blob_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_get_blobs_nonexisting_getblobsv2(
     blobs_test: BlobsTestFiller,
     pre: Alloc,
@@ -441,7 +441,7 @@ def test_get_blobs_nonexisting_getblobsv2(
     generate_valid_blob_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_get_blobs_nonexisting_getblobsv3(
     blobs_test: BlobsTestFiller,
     pre: Alloc,
@@ -472,7 +472,7 @@ def test_get_blobs_nonexisting_getblobsv3(
 # disable real blobs for this test (fixture is autouse so overwrite with empty)
 @pytest.mark.parametrize("txs_blobs", [[]], ids=["no_blobs"])
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_get_blobs_only_nonexisting_getblobsv3(
     blobs_test: BlobsTestFiller,
     pre: Alloc,

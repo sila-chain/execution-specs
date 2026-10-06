@@ -2,7 +2,7 @@
 What is left of a contract that self-destructs in the transaction that
 created it.
 
-Tests for [SIP-6780: SELFDESTRUCT only in same transaction](https://sips.sila.org/SIPS/sip-6780).
+Tests for [SIP-6780: SELFDESTRUCT only in same transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6780.md).
 
 Such a contract may self-destruct more than once, and may receive more
 value afterwards. At the end of the transaction, before SIP-8246 the
@@ -43,9 +43,9 @@ from execution_testing.checklists import SIPChecklist
 from tests.amsterdam.sip7708_sil_transfer_logs.spec import transfer_log
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-6780.md"
-REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
+REFERENCE_SPEC_VERSION = "281f35b0b244ebb566ac76c806473f4450c355b9"
 
-pytestmark = pytest.mark.valid_from("Cancun")
+pytestmark = pytest.mark.valid_from("SilaCancun")
 
 OTHER_BALANCE = 1
 SEND_AMOUNT = 1

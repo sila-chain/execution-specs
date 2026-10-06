@@ -1,6 +1,6 @@
 # Hive Development Mode
 
-This section explains how to run EELS simulators using their Python-based commands, e.g., `uv run consume engine`, against a Hive "development" server as apposed to using the standalone `./hive` command.
+This section explains how to run SELS simulators using their Python-based commands, e.g., `uv run consume engine`, against a Hive "development" server as apposed to using the standalone `./hive` command.
 
 This avoids running the simulator in a dockerized environment and has several advantages:
 
@@ -47,7 +47,7 @@ This avoids running the simulator in a dockerized environment and has several ad
 
     ```bash
     uv run consume engine --input ./fixtures -k "test_chainid"
-    uv run consume rlp --input latest
+    uv run consume rlp --input tests@latest
     ```
 
 ## Hive Dev Setup on macOS
@@ -60,16 +60,16 @@ Due to Docker running within a VM on macOS, the host machine and Docker containe
 
 The following section details the setup and usage of option 3.
 
-### EELS Docker Development Image
+### SELS Docker Development Image
 
-Within the [`eels/`](https://github.com/sila/hive/tree/master/simulators/sila/eels) directory of hive, a new dockerfile must be created: `Dockerfile.dev`, with the following contents:
+Within the [`sels/`](https://github.com/sila/hive/tree/master/simulators/sila/sels) directory of hive, a new dockerfile must be created: `Dockerfile.dev`, with the following contents:
 
 ```docker
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 ARG branch=""
 
 RUN apt-get update && apt-get install -y git
-RUN git clone --depth 1 https://github.com/sila/execution-specs.git && \
+RUN git clone --depth 1 https://github.com/sila-chain/execution-specs.git && \
     cd execution-specs && \
     if [ -n "$branch" ]; then \
         git fetch --depth 1 origin "$branch" && \
@@ -82,10 +82,10 @@ ENTRYPOINT ["/bin/bash"]
 
 This dockerfile will be our entry point for running simulator commands.
 
-### `eels/` Hive Directory Structure
+### `sels/` Hive Directory Structure
 
 ```tree
-├── eels
+├── sels
 │   ├── Dockerfile.dev
 │   ├── consume-block-rlp
 │   │   └── Dockerfile
@@ -107,10 +107,10 @@ This dockerfile will be our entry point for running simulator commands.
     ./hive --dev --dev.addr <LOCAL_IP>:3000 --client go-sila --client-file clients.yaml 
     ```
 
-3. In a separate terminal session, build the EELS development image:
+3. In a separate terminal session, build the SELS development image:
 
     ```bash
-    cd simulators/sila/eels/
+    cd simulators/sila/sels/
     docker build -t macos-consume-dev -f Dockerfile.dev .
     ```
 
@@ -135,7 +135,7 @@ When Hive runs in dev mode:
 3. Keeps the Hive Proxy container running between test executions.
 4. Waits for external simulator connections via the API.
 
-This allows the EELS's consume commands to connect to the running Hive instance and execute tests interactively.
+This allows the SELS's consume commands to connect to the running Hive instance and execute tests interactively.
 
 ## More Options Available
 

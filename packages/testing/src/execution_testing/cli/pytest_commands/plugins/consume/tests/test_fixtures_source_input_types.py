@@ -13,7 +13,7 @@ class TestSimplifiedConsumeBehavior:
         """
         Test that direct release URLs do not make API calls for release page.
         """
-        test_url = "https://github.com/sila/execution-spec-tests/releases/download/v3.0.0/fixtures_develop.tar.gz"
+        test_url = "https://github.com/sila-chain/execution-specs/releases/download/tests%40v21.0.0/fixtures.tar.gz"
 
         with patch(
             "execution_testing.cli.pytest_commands.plugins.consume.consume.FixtureDownloader"
@@ -42,8 +42,8 @@ class TestSimplifiedConsumeBehavior:
             "execution_testing.cli.pytest_commands.plugins.consume.consume.resolve_release"
         ) as mock_resolve:
             mock_release = MagicMock()
-            mock_release.url = "https://github.com/sila/execution-specs/releases/tag/tests%40v20.0.0"
-            mock_release.get_asset.return_value.url = "https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz"
+            mock_release.url = "https://github.com/sila-chain/execution-specs/releases/tag/tests%40v20.0.0"
+            mock_release.get_asset.return_value.url = "https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz"
             mock_resolve.return_value = mock_release
             with patch(
                 "execution_testing.cli.pytest_commands.plugins.consume.consume.FixtureDownloader"
@@ -63,11 +63,11 @@ class TestSimplifiedConsumeBehavior:
                 mock_resolve.assert_called_once_with(test_spec)
                 assert (
                     source.url
-                    == "https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz"
+                    == "https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz"
                 )
                 assert (
                     source.release_page
-                    == "https://github.com/sila/execution-specs/releases/tag/tests%40v20.0.0"
+                    == "https://github.com/sila-chain/execution-specs/releases/tag/tests%40v20.0.0"
                 )
 
     def test_fixtures_source_from_regular_url_no_release_page(self) -> None:
@@ -105,7 +105,7 @@ class TestSimplifiedConsumeBehavior:
         config.fixtures_source.was_cached = False
         config.fixtures_source.is_local = False
         config.fixtures_source.path = Path("/tmp/test")
-        config.fixtures_source.url = "https://github.com/sila/execution-spec-tests/releases/download/v3.0.0/fixtures_develop.tar.gz"
+        config.fixtures_source.url = "https://github.com/sila-chain/execution-specs/releases/download/tests%40v21.0.0/fixtures.tar.gz"
         config.fixtures_source.release_page = ""  # Empty for direct URLs
 
         # Simulate the output generation logic from pytest_configure
@@ -137,8 +137,8 @@ class TestSimplifiedConsumeBehavior:
         config.fixtures_source.was_cached = False
         config.fixtures_source.is_local = False
         config.fixtures_source.path = Path("/tmp/test")
-        config.fixtures_source.url = "https://github.com/sila/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz"
-        config.fixtures_source.release_page = "https://github.com/sila/execution-specs/releases/tag/tests%40v20.0.0"
+        config.fixtures_source.url = "https://github.com/sila-chain/execution-specs/releases/download/tests%40v20.0.0/fixtures.tar.gz"
+        config.fixtures_source.release_page = "https://github.com/sila-chain/execution-specs/releases/tag/tests%40v20.0.0"
 
         # Simulate the output generation logic from pytest_configure
         reason = ""
@@ -153,7 +153,7 @@ class TestSimplifiedConsumeBehavior:
             reason += f"\nRelease page: {config.fixtures_source.release_page}"
 
         assert (
-            "Release page: https://github.com/sila/execution-specs/releases/tag/tests%40v20.0.0"
+            "Release page: https://github.com/sila-chain/execution-specs/releases/tag/tests%40v20.0.0"
             in reason
         )
 
@@ -163,7 +163,7 @@ class TestFixturesSourceFromInput:
 
     def test_from_input_handles_release_url(self) -> None:
         """Test that from_input properly handles release URLs."""
-        test_url = "https://github.com/sila/execution-spec-tests/releases/download/v3.0.0/fixtures_develop.tar.gz"
+        test_url = "https://github.com/sila-chain/execution-specs/releases/download/tests%40v21.0.0/fixtures.tar.gz"
 
         with patch.object(
             FixturesSource, "from_release_url"
@@ -206,7 +206,7 @@ class TestFixturesSourceFromInput:
 
     def test_from_input_handles_extract_to_parameter(self) -> None:
         """Test that from_input properly passes extract_to parameter."""
-        test_url = "https://github.com/sila/execution-spec-tests/releases/download/v3.0.0/fixtures_develop.tar.gz"
+        test_url = "https://github.com/sila-chain/execution-specs/releases/download/tests%40v21.0.0/fixtures.tar.gz"
         extract_to_path = Path("/custom/extract/path")
 
         with patch.object(

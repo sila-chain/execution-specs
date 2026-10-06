@@ -3,8 +3,8 @@ State-test regression for the BLOCKHASH (0x40) opcode recency window.
 
 In a *state test*, nethermind returns a non-zero hash for
 ``BLOCKHASH(0)`` even when block 0 lies far outside the recency window (256
-blocks pre-Prague, 8191 via SIP-2935 from Prague). eels (the reference),
-go-sila, besu, erigon, evmone and rsil all correctly return 0.
+blocks pre-SilaPrague, 8191 via SIP-2935 from SilaPrague). sels (the
+reference), go-sila, besu, erigon, sivmone and rsil all correctly return 0.
 
 Root cause (nethermind, state-test only):
 ``src/Nethermind/Sila.Test.Base/TestBlockhashProvider.cs`` implements::
@@ -12,7 +12,7 @@ Root cause (nethermind, state-test only):
     number != 0 ? Keccak.Zero : Keccak.Compute(number.ToString())
 
 It performs no recency-window check, and the opcode handler
-``InstructionBlockHash`` (in ``EvmInstructions.Environment.cs``) delegates
+``InstructionBlockHash`` (in ``SivmInstructions.Environment.cs``) delegates
 that check to the provider -- it only rejects ``number >= current``. So
 ``BLOCKHASH(0)`` returns ``keccak256("0")`` regardless of how ancient block
 0 is. Nethermind's *production* ``BlockhashProvider`` does enforce the
@@ -104,7 +104,7 @@ def test_blockhash_zero_out_of_window(
 
 
 @pytest.mark.valid_from("Frontier")
-@pytest.mark.valid_until("Cancun")
+@pytest.mark.valid_until("SilaCancun")
 @pytest.mark.state_test_only
 def test_blockhash_zero_in_window_control(
     state_test: StateTestFiller,
@@ -118,9 +118,9 @@ def test_blockhash_zero_in_window_control(
     to the state-test convention value ``keccak256("0")``, all clients --
     including nethermind -- agree on the result, pinning the window boundary.
 
-    Restricted to <= Cancun because SIP-2935 (Prague+) serves BLOCKHASH from
-    the history storage contract, which is not pre-populated in a bare state
-    test.
+    Restricted to <= SilaCancun because SIP-2935 (SilaPrague+) serves BLOCKHASH
+    from the history storage contract, which is not pre-populated in a bare
+    state test.
     Marked ``state_test_only``: the asserted non-zero hash would not match the
     real genesis hash of a derived blockchain-test fixture.
     """

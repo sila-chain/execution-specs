@@ -61,13 +61,13 @@ def block_rejection_tracker() -> BlockRejectionTracker:
 @pytest.fixture(scope="function")
 def check_live_port(test_suite_name: str) -> Literal[8545, 8551]:
     """Port used by hive to check for liveness of the client."""
-    if test_suite_name == "eels/consume-rlp":
+    if test_suite_name == "sels/consume-rlp":
         return 8545
     elif test_suite_name in {
-        "eels/consume-engine",
-        "eels/consume-enginex",
-        "eels/consume-sync",
-        "eels/build-block",
+        "sels/consume-engine",
+        "sels/consume-enginex",
+        "sels/consume-sync",
+        "sels/build-block",
     }:
         return 8551
     raise ValueError(

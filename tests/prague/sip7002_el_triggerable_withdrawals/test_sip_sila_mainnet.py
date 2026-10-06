@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-7002: Execution layer triggerable withdrawals](https://sips.sila.org/SIPS/sip-7002).
+Crafted tests for sila-mainnet of [SIP-7002: Execution layer triggerable withdrawals](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md).
 """
 
 from typing import List
@@ -18,7 +18,7 @@ from .spec import ref_spec_7002
 REFERENCE_SPEC_GIT_PATH = ref_spec_7002.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7002.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaPrague"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

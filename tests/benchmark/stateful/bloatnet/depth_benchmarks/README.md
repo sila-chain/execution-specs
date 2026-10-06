@@ -24,7 +24,7 @@ To update the submodule in this repository to the latest master in `CPerezz/wors
 ## Prerequisites
 
 - Python with `uv` package manager
-- Anvil (Sila node implementation) or another EVM client
+- Anvil (Sila node implementation) or another Sivm client
 - Nick's factory deployed at `0x4e59b44847b379578588920ca78fbf26c0b4956c` (automatically deployed by `execute` otherwise)
 
 ## Workflow
@@ -53,7 +53,7 @@ export RPC_SEED_KEY=<Account with funds>
 export RPC_CHAIN_ID=<RPC chain ID>
 uv run execute remote \
   --gas-benchmark-values 60 \
-  --fork Prague \
+  --fork SilaPrague \
   tests/benchmark/stateful/bloatnet/depth_benchmarks/test_deep_branch.py
 ```
 

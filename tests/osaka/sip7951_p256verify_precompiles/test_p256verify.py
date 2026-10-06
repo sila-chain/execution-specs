@@ -1,5 +1,5 @@
 """
-Tests for [SIP-7951: Precompile for secp256r1 Curve Support](https://sips.sila.org/SIPS/sip-7951).
+Tests for [SIP-7951: Precompile for secp256r1 Curve Support](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md).
 """
 
 import pytest
@@ -23,7 +23,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_7951.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7951.version
 
 pytestmark = [
-    pytest.mark.valid_from("Osaka"),
+    pytest.mark.valid_from("SilaOsaka"),
 ]
 
 
@@ -43,7 +43,7 @@ pytestmark = [
 @SIPChecklist.Precompile.Test.CallContexts.Normal()
 @SIPChecklist.Precompile.Test.Inputs.Valid()
 @SIPChecklist.Precompile.Test.Inputs.MaxValues()
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_wycheproof_valid(
     state_test: StateTestFiller, pre: Alloc, post: dict, tx: Transaction
 ) -> None:
@@ -969,7 +969,7 @@ def test_valid(
 @SIPChecklist.Precompile.Test.InputLengths.Static.TooLong()
 @SIPChecklist.Precompile.Test.OutOfBounds.Max()
 @SIPChecklist.Precompile.Test.OutOfBounds.MaxPlusOne()
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_invalid(
     state_test: StateTestFiller, pre: Alloc, post: dict, tx: Transaction
 ) -> None:

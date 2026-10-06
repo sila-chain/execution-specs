@@ -2,7 +2,7 @@
 BLOB005.
 
 Ported from:
-state_tests/Cancun/stEIP4844_blobtransactions/opcodeBlobhBoundsFiller.yml
+state_tests/SilaCancun/stEIP4844_blobtransactions/opcodeBlobhBoundsFiller.yml
 """
 
 import pytest
@@ -26,10 +26,10 @@ REFERENCE_SPEC_VERSION = "N/A"
 
 @pytest.mark.ported_from(
     [
-        "state_tests/Cancun/stEIP4844_blobtransactions/opcodeBlobhBoundsFiller.yml"  # noqa: E501
+        "state_tests/SilaCancun/stEIP4844_blobtransactions/opcodeBlobhBoundsFiller.yml"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_opcode_blobh_bounds(
     state_test: StateTestFiller,

@@ -6,7 +6,7 @@ max(block_execution_gas_used, block_state_gas_used) across
 single-block, multi-block, and mixed-transaction scenarios.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest
@@ -47,9 +47,9 @@ def sstore_tx_gas(fork: Fork, num_sstores: int = 1) -> tuple[int, int]:
     """Return (execution, state) gas for a tx with N cold SSTOREs."""
     code = Op.SSTORE(0, 1, original_value=0, new_value=1)
     intrinsic_gas = fork.transaction_intrinsic_cost_calculator()()
-    evm_total = num_sstores * code.execution_cost(fork)
+    sivm_total = num_sstores * code.execution_cost(fork)
     state = num_sstores * code.state_cost(fork)
-    return intrinsic_gas + evm_total, state
+    return intrinsic_gas + sivm_total, state
 
 
 def sstore_txs(
@@ -773,9 +773,9 @@ def test_tx_total_gas_limit_cap(
     ],
 )
 # Cumulative block-gas inclusion is a pre-existing rule, not an
-# SIP-8037 novelty. Floor is Osaka only because the gas-cap guard
+# SIP-8037 novelty. Floor is SilaOsaka only because the gas-cap guard
 # below relies on SIP-7825's transaction_gas_limit_cap().
-@pytest.mark.valid_from("Osaka")
+@pytest.mark.valid_from("SilaOsaka")
 def test_tx_inclusion_at_execution_gas_block_limit_small(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

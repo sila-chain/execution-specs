@@ -3,7 +3,7 @@ SIP-1884: Repricing for trie-size-dependent opcodes.
 
 Introduces SELFBALANCE opcode.
 
-https://sips.sila.org/SIPS/sip-1884
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1884.md
 """
 
 from dataclasses import replace

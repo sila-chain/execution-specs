@@ -1,1 +1,1 @@
-"""Test cases for EVM functionality introduced in London."""
+"""Test cases for Sivm functionality introduced in SilaLondon."""

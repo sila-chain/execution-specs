@@ -8,13 +8,13 @@ Each entry must include an explanation of why the test case was missed plus the 
 
 ## List
 
-## 2026-01 - Data Copy Word Cost Gas Calculation - Byzantium+
+## 2026-01 - Data Copy Word Cost Gas Calculation - SilaByzantium+
 
 ### Description
 
 A bug was discovered in Nethermind's implementation of CALLDATACOPY and CODECOPY opcodes where the word copy cost (3 gas per 32-byte word) was not being correctly charged. The issue was identified during internal fuzz testing and fixed in [Nethermind PR #10116](https://github.com/NethermindEth/nethermind/pull/10116).
 
-The EVM specification requires data copy operations to charge:
+The Sivm specification requires data copy operations to charge:
 
 - Static cost: 3 gas
 - Word copy cost: 3 * ceil(size/32) gas
@@ -24,7 +24,7 @@ The bug allowed these operations to complete successfully even when insufficient
 
 ### Root Cause Analysis
 
-- The word copy cost is a well-documented part of the EVM specification, but existing test coverage did not specifically isolate this gas component.
+- The word copy cost is a well-documented part of the Sivm specification, but existing test coverage did not specifically isolate this gas component.
 - Tests typically provided ample gas, which masked potential issues with individual gas cost components.
 - The scenario of having exactly enough gas for memory expansion but not for word copy cost was not explicitly tested.
 
@@ -44,7 +44,7 @@ None required - the existing framework supported writing these tests.
 
 ---
 
-## 2026-06 - Block Access List Storage Change Cardinality - Amsterdam
+## 2026-06 - Block Access List Storage Change Cardinality - SilaAmsterdam
 
 ### Description
 
@@ -72,12 +72,12 @@ None required - the existing framework supported writing these tests.
 
 ---
 
-## 2026-06 - CREATE2 Failed Deposit Storage State-Gas Refund - Amsterdam
+## 2026-06 - CREATE2 Failed Deposit Storage State-Gas Refund - SilaAmsterdam
 
 ### Description
 
 A consensus divergence was found via goevmlab differential fuzzing in
-go-sila's Amsterdam (bal-devnet-7) SIP-8037 implementation: when a `CREATE2`
+go-sila's SilaAmsterdam (bal-devnet-7) SIP-8037 implementation: when a `CREATE2`
 whose init code writes new storage slots fails its code deposit — either because
 the deposited code is rejected by SIP-3541, or because the SIP-8037 code-deposit
 state gas cannot be paid — the create frame reverts, but only the new-account
@@ -152,7 +152,7 @@ IDs of the tests added that now cover the missed scenario and link to the docume
 
 *Example:*
 
-- [`tests/prague/sip2537_bls_12_381_precompiles/test_bls12_g1msm.py::test_invalid\[fork_Prague-state_test---bls_g1_truncated_input-\]`](../tests/prague/sip2537_bls_12_381_precompiles/test_bls12_g1msm/test_invalid.md)
+- [`tests/prague/sip2537_bls_12_381_precompiles/test_bls12_g1msm.py::test_invalid\[fork_SilaPrague-state_test---bls_g1_truncated_input-\]`](../tests/prague/sip2537_bls_12_381_precompiles/test_bls12_g1msm/test_invalid.md)
 
 ### Framework/Documentation Changes
 

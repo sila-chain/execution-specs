@@ -17,15 +17,14 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_197.git_path
 REFERENCE_SPEC_VERSION = ref_spec_197.version
 
 pytestmark = [
-    pytest.mark.valid_from("Byzantium"),
+    pytest.mark.valid_from("SilaByzantium"),
     pytest.mark.parametrize(
         "precompile_address", [Spec.ECPAIRING], ids=["ecpairing"]
     ),
     pytest.mark.ported_from(
         [
-            "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stZeroKnowledge/ecpairing_inputsFiller.yml",
+            "https://github.com/sila-chain/sila-legacytests/blob/master/src/SilaLegacyTests/SilaCancun/GeneralStateTestsFiller/stZeroKnowledge/ecpairing_inputsFiller.yml",
         ],
-        pr=["https://github.com/sila/execution-specs/pull/2443"],
     ),
 ]
 

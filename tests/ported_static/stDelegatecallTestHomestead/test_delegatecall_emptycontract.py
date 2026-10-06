@@ -28,7 +28,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stDelegatecallTestHomestead/delegatecallEmptycontractFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_delegatecall_emptycontract(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -52,7 +52,7 @@ def test_delegatecall_emptycontract(
     )
 
     # DELEGATECALL predates SIP-155, so the tx must go unprotected on
-    # pre-SpuriousDragon forks or it fails signature validation.
+    # pre-SIP158 forks or it fails signature validation.
     tx = Transaction(
         sender=pre.fund_eoa(),
         to=caller,

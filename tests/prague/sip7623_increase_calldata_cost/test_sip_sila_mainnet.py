@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-7623: Increase calldata cost](https://sips.sila.org/SIPS/sip-7623).
+Crafted tests for sila-mainnet of [SIP-7623: Increase calldata cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7623.md).
 """
 
 import pytest
@@ -20,7 +20,7 @@ from .spec import ref_spec_7623
 REFERENCE_SPEC_GIT_PATH = ref_spec_7623.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7623.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaPrague"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

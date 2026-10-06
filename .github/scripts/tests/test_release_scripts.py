@@ -209,18 +209,18 @@ class TestValidateInputs:
         out = parse_matrix_output(result.stdout)
         assert out["feature_name"] == "glamsterdam-devnet"
 
-    def test_unknown_evm_fails(self):
-        """Verify an evm override missing from evm.yaml is rejected."""
+    def test_unknown_sivm_fails(self):
+        """Verify a sivm override missing from sivm.yaml is rejected."""
         result = run_script(
             BUILD_MATRIX_SCRIPT, "tests", "v24.0.0", "", "nonexistent"
         )
         assert result.returncode == 1
         assert "not a key" in result.stderr
 
-    def test_known_evm_passes(self):
-        """Verify an evm override that is a key in evm.yaml passes."""
+    def test_known_sivm_passes(self):
+        """Verify a sivm override that is a key in sivm.yaml passes."""
         result = run_script(
-            BUILD_MATRIX_SCRIPT, "tests", "v24.0.0", "", "evmone"
+            BUILD_MATRIX_SCRIPT, "tests", "v24.0.0", "", "sivmone"
         )
         assert result.returncode == 0
 
@@ -282,7 +282,7 @@ class TestCheckNewCommits:
         env = os.environ.copy()
         env["PATH"] = f"{bin_dir}:{env['PATH']}"
         env["GITHUB_EVENT_NAME"] = event_name
-        env["GITHUB_REPOSITORY"] = "sila/execution-specs"
+        env["GITHUB_REPOSITORY"] = "sila-chain/execution-specs"
         env["GITHUB_SHA"] = "b" * 40
         env["GITHUB_STEP_SUMMARY"] = str(summary)
         env["FAKE_GH_RUNS"] = runs
@@ -494,7 +494,7 @@ class TestResolveCachedRelease:
         summary = tmp_path / "summary.md"
         env = os.environ.copy()
         env["PATH"] = f"{bin_dir}:{env['PATH']}"
-        env["GITHUB_REPOSITORY"] = "sila/execution-specs"
+        env["GITHUB_REPOSITORY"] = "sila-chain/execution-specs"
         env["GITHUB_SHA"] = "b" * 40
         env["GITHUB_STEP_SUMMARY"] = str(summary)
         env["INPUT_VERSION"] = version
@@ -821,14 +821,14 @@ class TestMergeIndexFiles:
                 "root_hash": None,
                 "created_at": "2026-01-01T00:00:00",
                 "test_count": 1,
-                "forks": ["Cancun"],
+                "forks": ["SilaCancun"],
                 "fixture_formats": ["state_test"],
                 "test_cases": [
                     {
                         "id": "test_a",
                         "json_path": "state_tests/for_cancun/t.json",
                         "fixture_hash": "0x" + "11" * 32,
-                        "fork": "Cancun",
+                        "fork": "SilaCancun",
                         "format": "state_test",
                     }
                 ],
@@ -840,14 +840,14 @@ class TestMergeIndexFiles:
                 "root_hash": None,
                 "created_at": "2026-01-01T00:00:00",
                 "test_count": 1,
-                "forks": ["Prague"],
+                "forks": ["SilaPrague"],
                 "fixture_formats": ["blockchain_test"],
                 "test_cases": [
                     {
                         "id": "test_b",
                         "json_path": "blockchain_tests/for_prague/t.json",
                         "fixture_hash": "0x" + "22" * 32,
-                        "fork": "Prague",
+                        "fork": "SilaPrague",
                         "format": "blockchain_test",
                     }
                 ],
@@ -881,14 +881,14 @@ class TestMergeIndexFiles:
                 "root_hash": None,
                 "created_at": "2026-01-01T00:00:00",
                 "test_count": 1,
-                "forks": ["Cancun"],
+                "forks": ["SilaCancun"],
                 "fixture_formats": ["state_test"],
                 "test_cases": [
                     {
                         "id": "test_a",
                         "json_path": "state_tests/t.json",
                         "fixture_hash": "0x" + "11" * 32,
-                        "fork": "Cancun",
+                        "fork": "SilaCancun",
                         "format": "state_test",
                     }
                 ],

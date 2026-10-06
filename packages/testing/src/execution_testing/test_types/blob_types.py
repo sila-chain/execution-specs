@@ -52,8 +52,8 @@ class Blob(CamelModel):
 
     data: Bytes
     commitment: Bytes
-    proof: List[Bytes] | Bytes  # Bytes < Osaka, List[Bytes] >= Osaka
-    # None (in json: null) < Osaka, List[Bytes] >= Osaka
+    proof: List[Bytes] | Bytes  # Bytes < SilaOsaka, List[Bytes] >= SilaOsaka
+    # None (in json: null) < SilaOsaka, List[Bytes] >= SilaOsaka
     cells: List[Bytes] | None
 
     versioned_hash: Hash
@@ -171,7 +171,7 @@ class Blob(CamelModel):
             # cancun, prague
             if amount_cell_proofs == 0:
                 z = 2  # 2 is one of many possible valid field elements z
-                # https://github.com/sila/consensus-specs/blob/ad884507f
+                # https://github.com/sila-chain/consensus-specs/blob/main/
                 #  7a1d5962cd3dfb5f7b3e41aab728c55/tests/core/pyspec/sil2spec/
                 #  test/utils/kzg_tests.py#L58-L66)
                 z_valid_size: bytes = z.to_bytes(
@@ -441,8 +441,8 @@ class Blob(CamelModel):
         """
         Define what the proof corruption modes do.
 
-        For Osaka and later each Bytes object in the list is manipulated this
-        way.
+        For SilaOsaka and later each Bytes object in the list is manipulated
+        this way.
         """
 
         CORRUPT_FIRST_BYTE = 1  # corrupts a single byte (index 0)

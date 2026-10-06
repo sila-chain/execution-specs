@@ -491,7 +491,7 @@ def max_gas_limit_per_test(
     """
     Override of ``live_client_flags.max_gas_limit_per_test`` — fall back
     to ``Fork.transaction_gas_limit_cap()`` (SIP-7825) when the CLI flag
-    is unset. Returns ``None`` on pre-Osaka forks (no cap).
+    is unset. Returns ``None`` on pre-SilaOsaka forks (no cap).
     """
     cli_value = request.config.getoption("max_gas_per_test")
     if cli_value is not None:

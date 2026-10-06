@@ -1,8 +1,8 @@
 # Releasing Test Fixtures
 
-This page covers the mechanics of cutting a test fixture release. For the release types, their versioning, and consumption guidance, see [EELS Fixture Releases](../running_tests/releases.md).
+This page covers the mechanics of cutting a test fixture release. For the release types, their versioning, and consumption guidance, see [SELS Fixture Releases](../running_tests/releases.md).
 
-Fixture releases are produced by manually dispatching the [`release_fixtures.yaml`](https://github.com/sila/execution-specs/blob/master/.github/workflows/release_fixtures.yaml) workflow. There is no tag to push by hand. The workflow builds the fixtures and, only on success, drafts the GitHub release; publishing the draft creates the tag.
+Fixture releases are produced by manually dispatching the [`release_fixtures.yaml`](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/.github/workflows/release_fixtures.yaml) workflow. There is no tag to push by hand. The workflow builds the fixtures and, only on success, drafts the GitHub release; publishing the draft creates the tag.
 
 ```bash
 gh workflow run release_fixtures.yaml -f feature=<feature> -f version=vX.Y.Z [-f branch=<branch>]
@@ -15,18 +15,18 @@ gh workflow run release_fixtures.yaml -f feature=<feature> -f version=vX.Y.Z [-f
 | `feature`  | yes               | Feature name, e.g. `tests`, `benchmark`, or a `<feat>-devnet` name.                                   |
 | `version`  | yes               | Release version `vX.Y.Z` (validated against `^v[0-9]+\.[0-9]+\.[0-9]+$`). Tagged as `tests-<feature>@<version>` (the `tests` feature tags as `tests@<version>`). |
 | `branch`   | for `*-devnet`    | Branch to build and release from (any branch). Defaults to the dispatch ref for other fresh fills; must be empty for [cached releases](#cached-releases). |
-| `evm`      | no                | Override the evm impl (e.g. `gsil`, `evmone`). Defaults to the feature's `evm-type` in `feature.yaml`. |
-| `evm_repo` | no                | Override the t8n tool repo (e.g. `sila/go-sila`).                                              |
-| `evm_ref`  | no                | Override the t8n tool branch / tag / commit.                                                          |
+| `sivm`      | no                | Override the sivm impl (e.g. `gsil`, `sivmone`). Defaults to the feature's `sivm-type` in `feature.yaml`. |
+| `sivm_repo` | no                | Override the t8n tool repo (e.g. `sila-chain/go-sila`).                                              |
+| `sivm_ref`  | no                | Override the t8n tool branch / tag / commit.                                                          |
 | `cached`   | no                | Draft from the newest nightly artifact instead of refilling (`tests` only): `build` and `combine` are skipped and the tag targets the nightly's commit. See [Cached releases](#cached-releases). |
 | `commit`   | no                | Release the nightly built at this commit (7+ hex chars) instead of the newest one; implies `cached`. |
 
-`<feature>` must be a key in [`.github/configs/feature.yaml`](https://github.com/sila/execution-specs/blob/master/.github/configs/feature.yaml) (e.g. `tests`, `benchmark`), or a `<feat>-devnet` name that resolves to the shared `devnet` feature.
+`<feature>` must be a key in [`.github/configs/feature.yaml`](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/.github/configs/feature.yaml) (e.g. `tests`, `benchmark`), or a `<feat>-devnet` name that resolves to the shared `devnet` feature.
 
-Input validation runs in [`generate_build_matrix.py`](https://github.com/sila/execution-specs/blob/master/.github/scripts/generate_build_matrix.py) (unit-tested) before any fixtures are built, and fails fast on:
+Input validation runs in [`generate_build_matrix.py`](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/.github/scripts/generate_build_matrix.py) (unit-tested) before any fixtures are built, and fails fast on:
 
 - an empty `feature` or a `version` that is not `vX.Y.Z`;
-- an `evm` override that is not a key in `.github/configs/evm.yaml`;
+- a `sivm` override that is not a key in `.github/configs/sivm.yaml`;
 - a bare `devnet` feature name (must carry a `<feat>-` prefix, e.g. `bal-devnet`);
 - a `<feat>-devnet-<n>` feature name — the devnet index belongs in the `version` major, not the feature name (so `feature=bal-devnet-7` is rejected in favour of `feature=bal-devnet version=v7.0.0`);
 - a `*-devnet` release missing a `branch`; a `branch` under `devnets/` that does not follow `devnets/<feat>/<n>` (e.g. `devnets/bal/7-benchmark`); or a `devnets/<feat>/<n>` branch whose devnet number `<n>` does not equal the `version` major (so `feature=bal-devnet branch=devnets/bal/7` must use `version=v7.*.*`). A branch outside `devnets/` (e.g. `sips/amsterdam/sip-8141`) carries no number to check and is accepted as-is.
@@ -49,8 +49,8 @@ gh workflow run release_fixtures.yaml -f feature=frames-devnet -f version=v0.1.0
 
 On success the workflow:
 
-1. Builds `fixtures_<feature>.tar.gz` (the `tests` feature builds `fixtures.tar.gz`) for the resolved feature (per its `evm-type` and `fill-params` in `feature.yaml`).
-2. Drafts a **pre-release** to [`sila/execution-specs`](https://github.com/sila/execution-specs/releases) with the fixture tarball(s) attached, titled and tagged `tests-<feature>@vX.Y.Z` (the `tests` feature tags as `tests@vX.Y.Z`, no doubled prefix).
+1. Builds `fixtures_<feature>.tar.gz` (the `tests` feature builds `fixtures.tar.gz`) for the resolved feature (per its `sivm-type` and `fill-params` in `feature.yaml`).
+2. Drafts a **pre-release** to [`sila-chain/execution-specs`](https://github.com/sila-chain/execution-specs/releases) with the fixture tarball(s) attached, titled and tagged `tests-<feature>@vX.Y.Z` (the `tests` feature tags as `tests@vX.Y.Z`, no doubled prefix).
 3. Targets the tag at the released commit (the SHA resolved once from the `branch` HEAD when given, otherwise the dispatch commit). The tag name and target are stored as draft metadata; the git tag itself is only created when the draft is published, so an unpublished draft can be edited or deleted without leaving a tag behind.
 
 | Example dispatch | Git tag | Release title | Artifact |
@@ -64,7 +64,7 @@ The release is created as a draft; review and publish it from the GitHub release
 ## Cutting a release
 
 1. **Pick the next version** per the [Versioning Scheme](../running_tests/releases.md#versioning-scheme) for the feature you're releasing (e.g. the next `tests` release after `tests@v24.1.0` is `tests@v24.1.1` for a non-breaking/new-tests bump, or `tests@v24.2.0` for a consensus-breaking spec change).
-2. **Dispatch the workflow** from the [Actions tab](https://github.com/sila/execution-specs/actions/workflows/release_fixtures.yaml) or via the CLI:
+2. **Dispatch the workflow** from the [Actions tab](https://github.com/sila-chain/execution-specs/actions/workflows/release_fixtures.yaml) or via the CLI:
 
    ```bash
    gh workflow run release_fixtures.yaml -f feature=tests -f version=v24.1.1
@@ -75,7 +75,7 @@ The release is created as a draft; review and publish it from the GitHub release
    ```
 
 3. **Wait for the build to succeed.** On success the workflow drafts the GitHub release with the fixture tarball attached. If any job fails, no release is drafted: fix the cause and re-dispatch.
-4. **Review and publish the draft.** Open the draft on the [releases page](https://github.com/sila/execution-specs/releases), check the auto-generated notes (anchored at the prior release on the same feature via `--notes-start-tag`), and click *Publish release* when ready. Publishing creates the `tests-<feature>@vX.Y.Z` tag on the target commit; until then a mispicked version can be fixed by editing the draft, with no stray tag to delete.
+4. **Review and publish the draft.** Open the draft on the [releases page](https://github.com/sila-chain/execution-specs/releases), check the auto-generated notes (anchored at the prior release on the same feature via `--notes-start-tag`), and click *Publish release* when ready. Publishing creates the `tests-<feature>@vX.Y.Z` tag on the target commit; until then a mispicked version can be fixed by editing the draft, with no stray tag to delete.
 
 !!! tip "Release features opt into all fixture formats via `feature.yaml`"
     Tarball output (`.tar.gz`) does not by itself include the pre-allocation group formats (`BlockchainEngineXFixture`, `BlockchainEngineStatefulFixture`). A release feature requests them by adding `--generate-all-formats` to its `fill-params` in `.github/configs/feature.yaml`:
@@ -101,7 +101,7 @@ gh workflow run release_fixtures.yaml -f feature=tests -f version=vX.Y.Z -f comm
 
 The `build` and `combine` jobs are skipped; the `release` job downloads the `fixtures_<commit>` artifact from the newest nightly run that actually filled — or, with the `commit` input, from the nightly built at that commit — and drafts the same release a fresh fill would produce, targeted at the exact commit the nightly built, so publishing it creates the `tests@vX.Y.Z` tag on that commit. The whole run takes minutes on a hosted runner. Review and publish the draft exactly as in [Cutting a release](#cutting-a-release).
 
-The cached path's validation (unit-tested in [`resolve_cached_release.py`](https://github.com/sila/execution-specs/blob/master/.github/scripts/resolve_cached_release.py)) fails fast when:
+The cached path's validation (unit-tested in [`resolve_cached_release.py`](https://github.com/sila-chain/execution-specs/blob/forks/amsterdam/.github/scripts/resolve_cached_release.py)) fails fast when:
 
 - the `feature` is not `tests`, or a `branch` is given (the nightly fills the default branch);
 - the `version` is not `vX.Y.Z` or does not exceed the newest existing `tests@` tag;

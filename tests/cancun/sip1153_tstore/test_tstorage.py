@@ -2,7 +2,7 @@
 SIP-1153 Transient Storage opcode tests.
 
 Ports and extends some tests from
-[sila/tests/src/SIPTestsFiller/StateTests/stEIP1153-transientStorage/](https://github.com/sila/tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/stEIP1153-transientStorage).
+[sila-chain/sila-tests/src/SIPTestsFiller/StateTests/stEIP1153-transientStorage/](https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage).
 """
 
 from enum import unique
@@ -25,7 +25,7 @@ from .spec import ref_spec_1153
 REFERENCE_SPEC_GIT_PATH = ref_spec_1153.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1153.version
 
-pytestmark = [pytest.mark.valid_from("Cancun")]
+pytestmark = [pytest.mark.valid_from("SilaCancun")]
 
 code_address = 0x100
 
@@ -38,8 +38,8 @@ def test_transient_storage_unset_values(
     is 0 at beginning of transaction: TLOAD(x) is 0.
 
     Based on
-    [sila/tests/.../01_tloadBeginningTxnFiller.yml]
-    (https://github.com/sila/tests/blob/
+    [sila-chain/sila-tests/.../01_tloadBeginningTxnFiller.yml]
+    (https://github.com/sila-chain/sila-tests/blob/main/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/
     stEIP1153-transientStorage/01_tloadBeginningTxnFiller.yml)",
     """
@@ -64,8 +64,8 @@ def test_tload_after_tstore(state_test: StateTestFiller, pre: Alloc) -> None:
     returns y.
 
     Based on
-    [sila/tests/.../02_tloadAfterTstoreFiller.yml]
-    (https://github.com/sila/tests/blob/
+    [sila-chain/sila-tests/.../02_tloadAfterTstoreFiller.yml]
+    (https://github.com/sila-chain/sila-tests/blob/main/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/
     stEIP1153-transientStorage/02_tloadAfterTstoreFiller.yml)",
     """
@@ -96,8 +96,8 @@ def test_tload_after_sstore(state_test: StateTestFiller, pre: Alloc) -> None:
     returns y.
 
     Based on
-    [sila/tests/.../18_tloadAfterStoreFiller.yml]
-    (https://github.com/sila/tests/blob/
+    [sila-chain/sila-tests/.../18_tloadAfterStoreFiller.yml]
+    (https://github.com/sila-chain/sila-tests/blob/main/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/
     SIPTestsFiller/StateTests/stEIP1153-transientStorage/
     18_tloadAfterStoreFiller.yml)",
@@ -131,8 +131,8 @@ def test_tload_after_tstore_is_zero(
     """
     Test that tload returns zero after tstore is called with zero.
 
-    Based on [sila/tests/.../03_tloadAfterStoreIs0Filler.yml]
-    (https://github.com/sila/tests/blob/
+    Based on [sila-chain/sila-tests/.../03_tloadAfterStoreIs0Filler.yml]
+    (https://github.com/sila-chain/sila-tests/blob/main/
     9b00b68593f5869eb51a6659e1cc983e875e616b/src/
     SIPTestsFiller/StateTests/
     stEIP1153-transientStorage/03_tloadAfterStoreIs0Filler.yml)",
@@ -196,9 +196,8 @@ class GasMeasureTestCases(PytestParameterEnum):
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/Cancun/stEIP1153-transientStorage/17_tstoreGasFiller.yml",  # noqa: E501
+        "https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/17_tstoreGasFiller.yml",  # noqa: E501
     ],
-    pr=["https://github.com/sila/execution-specs/pull/2385"],
 )
 @GasMeasureTestCases.parametrize()
 def test_gas_usage(

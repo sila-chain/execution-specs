@@ -3,7 +3,7 @@ SIP-198: Big integer modular exponentiation.
 
 Precompile for modular exponentiation.
 
-https://sips.sila.org/SIPS/sip-198
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-198.md
 """
 
 from typing import List

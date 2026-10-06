@@ -33,7 +33,7 @@ CREATE2_ENDOWMENT = 0x65
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2noCashFiller.json"],
 )
-@pytest.mark.valid_from("Constantinople")
+@pytest.mark.valid_from("SilaConstantinople")
 @pytest.mark.parametrize(
     "opcode, top_up",
     [

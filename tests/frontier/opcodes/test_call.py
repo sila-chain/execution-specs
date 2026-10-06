@@ -13,10 +13,9 @@ from execution_testing import (
 )
 
 
-# TODO: There's an issue with gas definitions on forks previous to Berlin,
-# remove this when fixed. https://github.com/sila/execution-spec-
-# tests/pull/1952#discussion_r2237634275
-@pytest.mark.valid_from("Berlin")
+# TODO: There's an issue with gas definitions on forks previous to SilaBerlin,
+# remove this when fixed.
+@pytest.mark.valid_from("SilaBerlin")
 def test_call_large_offset_mstore(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -26,7 +25,7 @@ def test_call_large_offset_mstore(
     CALL with ret_offset larger than memory size and ret_size zero Then do an
     MSTORE in that offset to see if memory was expanded in CALL.
 
-    This is for bug in a faulty EVM implementation where memory is expanded
+    This is for bug in a faulty Sivm implementation where memory is expanded
     when it shouldn't.
     """
     sender = pre.fund_eoa()
@@ -77,10 +76,9 @@ def test_call_large_offset_mstore(
     )
 
 
-# TODO: There's an issue with gas definitions on forks previous to Berlin,
-# remove this when fixed. https://github.com/sila/execution-spec-
-# tests/pull/1952#discussion_r2237634275
-@pytest.mark.valid_from("Berlin")
+# TODO: There's an issue with gas definitions on forks previous to SilaBerlin,
+# remove this when fixed.
+@pytest.mark.valid_from("SilaBerlin")
 def test_call_memory_expands_on_early_revert(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -90,7 +88,7 @@ def test_call_memory_expands_on_early_revert(
     When CALL reverts early (e.g. because of not enough balance by the sender),
     memory should be expanded anyway. We check this with an MSTORE.
 
-    This is for a bug in an EVM implementation where memory is expanded after
+    This is for a bug in a Sivm implementation where memory is expanded after
     executing a CALL, but not when an early revert happens.
     """
     sender = pre.fund_eoa()
@@ -160,11 +158,10 @@ def test_call_memory_expands_on_early_revert(
     )
 
 
-# TODO: There's an issue with gas definitions on forks previous to Berlin,
-# remove this when fixed. https://github.com/sila/execution-spec-
-# tests/pull/1952#discussion_r2237634275
+# TODO: There's an issue with gas definitions on forks previous to SilaBerlin,
+# remove this when fixed.
 @pytest.mark.with_all_call_opcodes
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_call_large_args_offset_size_zero(
     state_test: StateTestFiller,
     pre: Alloc,

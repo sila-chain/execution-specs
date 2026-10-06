@@ -12,22 +12,22 @@ class ReferenceSpec:
 
 
 ref_spec_145 = ReferenceSpec(
-    "SIPS/sip-145.md", "be0aca3e57f1eeb8ae265e58da6e2dffc5b67f81"
+    "SIPS/sip-145.md", "e04b84916d3d55add0116624ff8f4911e54d8916"
 )
 
 
 class Spec:
     """
     Parameters from the SIP-145 specifications as defined at
-    https://sips.sila.org/SIPS/sip-145.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md.
     """
 
     # Below is a GPT o4-mini-high implementation of shift functions. It can
-    # contain bugs, treat it with caution and refer to EVM implementations.
+    # contain bugs, treat it with caution and refer to Sivm implementations.
     @staticmethod
     def sar(shift: int, value: int) -> int:
         """
-        Simulate the EVM SAR (Signed Arithmetic Right shift) operation.
+        Simulate the Sivm SAR (Signed Arithmetic Right shift) operation.
 
         Parameters
         ----------
@@ -41,7 +41,7 @@ class Spec:
         -------
         int
             The result of the arithmetic right shift, pushed as an unsigned
-            256-bit integer on the EVM stack.
+            256-bit integer on the Sivm stack.
 
         """
         mask256 = (1 << 256) - 1  # Clamp value to 256 bits
@@ -68,7 +68,7 @@ class Spec:
     @staticmethod
     def shl(shift: int, value: int) -> int:
         """
-        Simulate the EVM SHL (Logical Left shift) operation.
+        Simulate the Sivm SHL (Logical Left shift) operation.
 
         Parameters
         ----------
@@ -81,7 +81,7 @@ class Spec:
         -------
         int
             The result of the logical left shift, pushed as an unsigned
-            256-bit integer on the EVM stack.
+            256-bit integer on the Sivm stack.
 
         """
         mask256 = (1 << 256) - 1
@@ -98,7 +98,7 @@ class Spec:
     @staticmethod
     def shr(shift: int, value: int) -> int:
         """
-        Simulate the EVM SHR (Logical Right shift) operation.
+        Simulate the Sivm SHR (Logical Right shift) operation.
 
         Parameters
         ----------
@@ -111,14 +111,14 @@ class Spec:
         -------
         int
             The result of the logical right shift, pushed as an unsigned
-            256-bit integer on the EVM stack.
+            256-bit integer on the Sivm stack.
 
         """
         mask256 = (1 << 256) - 1
         # Clamp input to 256 bits
         v = value & mask256
 
-        # If shift >= 256, the EVM spec returns 0
+        # If shift >= 256, the Sivm spec returns 0
         if shift >= 256:
             return 0
 

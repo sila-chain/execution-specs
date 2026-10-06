@@ -4,7 +4,7 @@ SIP-7976: Increase Calldata Floor Cost.
 Increase the calldata floor cost to 64/64 gas per byte to reduce maximum block
 size.
 
-https://sips.sila.org/SIPS/sip-7976
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md
 """
 
 from dataclasses import replace

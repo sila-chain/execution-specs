@@ -152,9 +152,9 @@ def main(args: Sequence[str] | None = None) -> None:
     parser = _make_parser()
     options = parser.parse_args(args)
 
-    if options.template_fork == "spurious_dragon":
+    if options.template_fork == "sip158":
         raise NotImplementedError(
-            "An instance of 'Spurious Dragon' in a comment will get "
+            "An instance of 'SIP158' in a comment will get "
             "incorrectly replaced; use another fork as the template."
         )
 

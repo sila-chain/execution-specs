@@ -22,7 +22,7 @@ from tests.prague.sip7251_consolidations.spec import Spec, ref_spec_7251
 REFERENCE_SPEC_GIT_PATH = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7251.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 CONSOLIDATION_REQUEST_PREDEPLOY_ADDRESS = (
     ConsolidationRequest.system_contract_address

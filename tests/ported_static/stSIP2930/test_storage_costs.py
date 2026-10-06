@@ -9,14 +9,14 @@ gas consumed by storage accesses via `Op.GAS`. SIP-8037 moves the
 bulk of storage-write cost into a per-storage state-gas charge; with
 an empty state-gas reservoir (these tests pre-allocate none) the full
 state gas spills back into regular gas, so each measurement shifts by
-its `(Amsterdam - Cancun)` cost delta. Six access classes shift: warm
+its `(SilaAmsterdam - SilaCancun)` cost delta. Six access classes shift: warm
 and cold fresh SSTORE-sets (state-gas spill dominates), warm and cold
 SSTORE writes to existing slots (clear/reset: the storage-write
 component), cold value-unchanged SSTOREs, and cold SLOADs (the
 `COLD_STORAGE_ACCESS` repricing). Warm reads and no-op SSTOREs are
 unchanged. Each delta below is derived from the fork's own opcode gas
 model, so it is exactly 0 pre-SIP-8037 and tracks future parameter
-changes; do not hardcode the Amsterdam numbers.
+changes; do not hardcode the SilaAmsterdam numbers.
 """
 
 import pytest
@@ -31,7 +31,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -45,7 +45,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP2930/storageCostsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -667,13 +667,13 @@ def test_storage_costs(
     # so the full state gas spills back into regular gas and `Op.GAS`
     # observes each measured SSTORE/SLOAD at its combined regular + state
     # cost. Every measured access therefore shifts by its
-    # (Amsterdam - Cancun) delta; derive each delta from the fork's own
+    # (SilaAmsterdam - SilaCancun) delta; derive each delta from the fork's own
     # opcode gas model so it is exactly 0 pre-SIP-8037 and tracks future
     # parameter changes. The subtracted baseline is the same access
-    # priced at Cancun.
+    # priced at SilaCancun.
     def _sstore_delta(**metadata: int) -> int:
         op = Op.SSTORE.with_metadata(**metadata)
-        return op.gas_cost(fork) - op.gas_cost(Cancun)
+        return op.gas_cost(fork) - op.gas_cost(SilaCancun)
 
     d_warm_set = _sstore_delta(
         key_warm=True, original_value=0, current_value=0, new_value=2
@@ -692,14 +692,14 @@ def test_storage_costs(
     )
     d_cold_read = (
         fork.gas_costs().COLD_STORAGE_ACCESS
-        - Cancun.gas_costs().COLD_STORAGE_ACCESS
+        - SilaCancun.gas_costs().COLD_STORAGE_ACCESS
     )
 
     expect_entries_: list[dict] = [
         # declaredKeyWrite: warm fresh SSTORE-set.
         {
             "indexes": {"data": [0, 35], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={0: 2, 1: 20003 + d_warm_set})
             },
@@ -707,7 +707,7 @@ def test_storage_costs(
         # undeclaredKeyWrite: cold fresh SSTORE-set.
         {
             "indexes": {"data": [6, 12, 18], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={0: 2, 1: 22103 + d_cold_set})
             },
@@ -715,7 +715,7 @@ def test_storage_costs(
         # declaredKeyUpdate: warm SSTORE-reset (nonzero -> nonzero).
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(storage={0: 48879, 1: 2903 + d_warm_write})
             },
@@ -723,7 +723,7 @@ def test_storage_costs(
         # undeclaredKeyUpdate: cold SSTORE-reset (nonzero -> nonzero).
         {
             "indexes": {"data": [9, 15, 21], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(storage={0: 48879, 1: 5003 + d_cold_write})
             },
@@ -731,13 +731,13 @@ def test_storage_costs(
         # declaredKeyNOP: warm value-unchanged SSTORE (no write).
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_4: Account(storage={0: 24743, 1: 103})},
         },
         # undeclaredKeyNOP: cold value-unchanged SSTORE.
         {
             "indexes": {"data": [10, 16, 22], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_4: Account(storage={0: 24743, 1: 2203 + d_cold_noop})
             },
@@ -745,19 +745,19 @@ def test_storage_costs(
         # declaredKeyNOP0: warm value-unchanged SSTORE (no write).
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_5: Account(storage={1: 103})},
         },
         # undeclaredKeyNOP0: cold value-unchanged SSTORE.
         {
             "indexes": {"data": [11, 17, 23], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_5: Account(storage={1: 2203 + d_cold_noop})},
         },
         # declaredKeyDel: warm SSTORE-clear (nonzero -> 0).
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={0: 0, 1: 2903 + d_warm_write})
             },
@@ -765,7 +765,7 @@ def test_storage_costs(
         # undeclaredKeyDel: cold SSTORE-clear (nonzero -> 0).
         {
             "indexes": {"data": [8, 14, 20], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={0: 0, 1: 5003 + d_cold_write})
             },
@@ -773,31 +773,31 @@ def test_storage_costs(
         # declaredKeyRead: warm SLOAD.
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={1: 100})},
         },
         # undeclaredKeyRead: cold SLOAD.
         {
             "indexes": {"data": [7, 13, 19], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={1: 2100 + d_cold_read})},
         },
         # postSSTORE write: key already warm/dirty, no fresh-set spill.
         {
             "indexes": {"data": [24, 25], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_6: Account(storage={0: 2, 1: 103})},
         },
         # postSSTORE read: key already warm.
         {
             "indexes": {"data": [26, 27], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_7: Account(storage={0: 24743, 1: 100})},
         },
         # postSLOAD write: SLOAD warms the key, then warm fresh SSTORE-set.
         {
             "indexes": {"data": [28, 29], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_8: Account(storage={0: 2, 1: 20000 + d_warm_set})
             },
@@ -805,13 +805,13 @@ def test_storage_costs(
         # postSLOAD read: key already warm.
         {
             "indexes": {"data": [30, 31], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_9: Account(storage={1: 97})},
         },
         # declaredTo: warm SLOAD (slot 1) + warm fresh SSTORE-set (slot 2).
         {
             "indexes": {"data": [32], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_10: Account(
                     storage={
@@ -826,7 +826,7 @@ def test_storage_costs(
         # undeclaredTo: cold SLOAD (slot 1) + cold fresh SSTORE-set (slot 2).
         {
             "indexes": {"data": [33, 34], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_10: Account(
                     storage={

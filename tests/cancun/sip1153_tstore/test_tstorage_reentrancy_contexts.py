@@ -25,7 +25,7 @@ from .spec import ref_spec_1153
 REFERENCE_SPEC_GIT_PATH = ref_spec_1153.git_path
 REFERENCE_SPEC_VERSION = ref_spec_1153.version
 
-pytestmark = [pytest.mark.valid_from("Cancun")]
+pytestmark = [pytest.mark.valid_from("SilaCancun")]
 
 SETUP_CONDITION: Bytecode = Op.EQ(Op.CALLDATALOAD(0), 0x01)
 REENTRANT_CALL: Bytecode = Op.MSTORE(0, 2) + Op.SSTORE(
@@ -62,10 +62,10 @@ class DynamicReentrancyTestCases(EnumMeta):
                     "from the failed call: "
                     "TSTORE(x, y), CALL(self, ...), TSTORE(x, z), "
                     f"{opcode._name_}, TLOAD(x) returns y.",
-                    "Based on [sila/tests/.../08_revertUndoes"
-                    "TransientStoreFiller.yml](https://github.com/sila/"
-                    "tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src"
-                    "/SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
+                    "Based on [sila-chain/sila-tests/.../08_revertUndoes"
+                    "TransientStoreFiller.yml](https://github.com/sila-chain/"
+                    "sila-tests/blob/main/src/SIPTestsFiller/StateTests/"
+                    "stSIP1153-transientStorage/"
                     "08_revertUndoesTransientStoreFiller.yml)",
                 ),
                 "bytecode": Conditional(
@@ -93,7 +93,7 @@ class DynamicReentrancyTestCases(EnumMeta):
                     f"TSTORE(x, z + 1) {opcode._name_}, TLOAD(x) returns y."
                     "",
                     "Based on "
-                    "[sila/tests/.../09_revertUndoesAllFiller.yml](https://github.com/sila/tests/blob/9b00b68593f5869eb51a6659e1cc983e875e616b/src/SIPTestsFiller/StateTests/stEIP1153-transientStorage/09_revertUndoesAllFiller.yml).",
+                    "[sila-chain/sila-tests/.../09_revertUndoesAllFiller.yml](https://github.com/sila-chain/sila-tests/blob/main/src/SIPTestsFiller/StateTests/stSIP1153-transientStorage/09_revertUndoesAllFiller.yml).",
                 ),
                 "bytecode": Conditional(
                     condition=SETUP_CONDITION,
@@ -141,9 +141,9 @@ class DynamicReentrancyTestCases(EnumMeta):
                     "TSTORE(x, y), CALL(self, ...), CALL(self, ...), "
                     f"TSTORE(x, y + 1), RETURN, {opcode._name_}, TLOAD(x) "
                     "returns y.",
-                    "Based on [sila/tests/.../"
+                    "Based on [sila-chain/sila-tests/.../"
                     "10_revertUndoesStoreAfterReturnFiller.yml]"
-                    "(https://github.com/sila/tests/blob/"
+                    "(https://github.com/sila-chain/sila-tests/blob/main/"
                     "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
                     "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
                     "10_revertUndoesStoreAfterReturnFiller.yml).",
@@ -211,8 +211,8 @@ class ReentrancyTestCases(
             "Reentrant calls access the same transient storage: "
             "TSTORE(x, y), CALL(self, ...), TLOAD(x) returns y."
             ""
-            "Based on [sila/tests/.../05_tloadReentrancyFiller.yml]"
-            "(https://github.com/sila/tests/tree/"
+            "Based on [sila-chain/sila-tests/.../05_tloadReentrancyFiller.yml]"
+            "(https://github.com/sila-chain/sila-tests/tree/main/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
             "SIPTestsFiller/StateTests/stEIP1153-transientStorage).",
         ),
@@ -235,9 +235,9 @@ class ReentrancyTestCases(
             "storage writes: "
             "TSTORE(x, y), CALL(self, ...), TSTORE(x, z), RETURN, TLOAD(x) "
             "returns z."
-            "Based on [sila/tests/.../"
+            "Based on [sila-chain/sila-tests/.../"
             "07_tloadAfterReentrancyStoreFiller.yml](https://github.com/"
-            "sila/tests/blob/"
+            "sila-chain/sila-tests/blob/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
             "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
             "07_tloadAfterReentrancyStoreFiller.yml).",
@@ -262,8 +262,9 @@ class ReentrancyTestCases(
             "Reentrant calls can manipulate the same transient storage: "
             "TSTORE(x, y), CALL(self, ...), TSTORE(x, z), TLOAD(x) returns z."
             ""
-            "Based on [sila/tests/.../06_tstoreInReentrancyCallFiller.yml]"
-            "(https://github.com/sila/tests/blob/"
+            "Based on [sila-chain/sila-tests/.../"
+            "06_tstoreInReentrancyCallFiller.yml]"
+            "(https://github.com/sila-chain/sila-tests/blob/main/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
             "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
             "06_tstoreInReentrancyCallFiller.yml).",
@@ -289,9 +290,9 @@ class ReentrancyTestCases(
             "call tload correctly: "
             "TSTORE(x, y), CALL(self, ...), STATICCALL(self, ...), "
             "TLOAD(x), RETURN returns y."
-            "Based on [sila/tests/.../"
+            "Based on [sila-chain/sila-tests/.../"
             "10_revertUndoesStoreAfterReturnFiller.yml]"
-            "(https://github.com/sila/tests/blob/"
+            "(https://github.com/sila-chain/sila-tests/blob/main/"
             "9b00b68593f5869eb51a6659e1cc983e875e616b/src/"
             "SIPTestsFiller/StateTests/stEIP1153-transientStorage/"
             "10_revertUndoesStoreAfterReturnFiller.yml).",

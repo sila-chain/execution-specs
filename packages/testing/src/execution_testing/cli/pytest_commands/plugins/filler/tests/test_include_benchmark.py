@@ -19,7 +19,7 @@ BENCHMARK_TEST_MODULE = textwrap.dedent(
 
     from execution_testing import Environment
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     def test_dummy_benchmark(state_test) -> None:
         state_test(env=Environment(), pre={}, post={}, tx=None)
     """
@@ -31,7 +31,7 @@ CONSENSUS_TEST_MODULE = textwrap.dedent(
 
     from execution_testing import Environment
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     def test_dummy_consensus(state_test) -> None:
         state_test(env=Environment(), pre={}, post={}, tx=None)
     """
@@ -76,7 +76,7 @@ def test_default_excludes_benchmark(pytester: pytest.Pytester) -> None:
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/",
         "--collect-only",
         "-q",
@@ -99,7 +99,7 @@ def test_include_benchmark_flag_collects_both(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/",
         "--include-benchmark",
         "--collect-only",

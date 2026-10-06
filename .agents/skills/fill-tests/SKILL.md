@@ -11,9 +11,9 @@ CLI reference for the `fill` command. Run this skill before filling test fixture
 
 ```bash
 uv run fill tests/                                    # Fill all tests
-uv run fill tests/cancun/ --fork Cancun               # Specific fork
+uv run fill tests/cancun/ --fork SilaCancun               # Specific fork
 uv run fill tests/path/to/test.py -k "test_name"      # Specific test
-uv run fill tests/osaka/ --until Osaka                 # Up to fork (inclusive)
+uv run fill tests/osaka/ --until SilaOsaka                 # Up to fork (inclusive)
 uv run fill --collect-only tests/                      # Dry run: list tests without executing
 ```
 
@@ -24,13 +24,13 @@ uv run fill --collect-only tests/                      # Dry run: list tests wit
 - `-k "pattern"` — filter tests by name pattern
 - `-m "marker"` — filter by pytest marker (e.g. `-m state_test`, `-m blockchain_test`)
 - `-n auto --maxprocesses N` — parallel execution (use `--dist=loadgroup`)
-- `--evm-bin PATH` — t8n tool; defaults to the in-repo EELS Python spec (`src/sila/`)
-- `--verify-fixtures` — run gsil's `evm blocktest` over the generated fixtures. The default EELS t8n has no blocktest, so pass a gsil binary with `--verify-fixtures-bin`. For an EELS-side check use `just validate-blocks <fixtures_dir>`, which is what CI runs.
+- `--sivm-bin PATH` — t8n tool; defaults to the in-repo SELS Python spec (`src/sila/`)
+- `--verify-fixtures` — run gsil's `sivm blocktest` over the generated fixtures. The default SELS t8n has no blocktest, so pass a gsil binary with `--verify-fixtures-bin`. For an SELS-side check use `just validate-blocks <fixtures_dir>`, which is what CI runs.
 - `--generate-all-formats` — generate all fixture formats (2-phase)
 
 ## Debugging
 
-- `--evm-dump-dir DIR` — dump t8n input/output for debugging
+- `--sivm-dump-dir DIR` — dump t8n input/output for debugging
 - `--traces` — collect execution traces
 - `--pdb` — drop into debugger on failure
 - `-vv` — verbose output; `-x` — stop on first failure; `-s` — print stdout
@@ -43,8 +43,8 @@ uv run fill --collect-only tests/                      # Dry run: list tests wit
 ## Benchmark Tests
 
 - Excluded from a broad `tests/` run: include them by targeting a `tests/benchmark/...` path, or add `--include-benchmark` when also collecting `tests/`.
-- Pick a mode (mutually exclusive): `--gas-benchmark-values 1,10,100` (millions of gas) or `--fixed-opcode-count 1,10,100` (thousands). These parametrize the tests, e.g. `...[fork_Prague-blockchain_test-benchmark-gas-value_1M]`.
-- Backend is optional: omitting `--evm-bin` runs the slow in-repo EELS Python spec; `--evm-bin=evmone` or `--evm-bin=evm` (gsil, used by `just bench-gas`) are faster.
+- Pick a mode (mutually exclusive): `--gas-benchmark-values 1,10,100` (millions of gas) or `--fixed-opcode-count 1,10,100` (thousands). These parametrize the tests, e.g. `...[fork_SilaPrague-blockchain_test-benchmark-gas-value_1M]`.
+- Backend is optional: omitting `--sivm-bin` runs the slow in-repo SELS Python spec; `--sivm-bin=sivmone` or `--sivm-bin=sivm` (gsil, used by `just bench-gas`) are faster.
 - Stateful benchmarks (`tests/benchmark/stateful/`) are filled by the separate `fill-stateful` command against a live client snapshot and produce `BlockchainEngineStatefulFixture`; see `docs/filling_tests/fill_stateful.md`.
 
 ## Fixture Formats

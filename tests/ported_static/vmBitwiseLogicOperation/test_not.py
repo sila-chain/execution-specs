@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmBitwiseLogicOperation/notFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -145,7 +145,7 @@ def test_not(
     )
     # Source: lll
     # {
-    #   ; In evm arithmetic -2 = 256^2-2
+    #   ; In sivm arithmetic -2 = 256^2-2
     #   ; 256^2-1 is in binary all ones
     #   ; so 256^2-2 is all ones except for the least significant bit, which is 0  # noqa: E501
     #   ; and  the not all zeros except for the least significant bit, which is 1  # noqa: E501
@@ -214,7 +214,7 @@ def test_not(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -225,7 +225,7 @@ def test_not(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={
@@ -236,17 +236,17 @@ def test_not(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_2: Account(storage={0: 0})},
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_4: Account(
                     storage={
@@ -257,7 +257,7 @@ def test_not(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_5: Account(
                     storage={

@@ -3,7 +3,7 @@ SIP-2028: Transaction data gas cost reduction.
 
 Reduce the gas cost of non-zero transaction data bytes to 16.
 
-https://sips.sila.org/SIPS/sip-2028
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2028.md
 """
 
 from dataclasses import replace

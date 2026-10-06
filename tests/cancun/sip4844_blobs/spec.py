@@ -48,7 +48,7 @@ class ReferenceSpec:
 
 
 ref_spec_4844 = ReferenceSpec(
-    "SIPS/sip-4844.md", "de2e4a46ad93fc04e6fe3174dc6e90a3307bdb5f"
+    "SIPS/sip-4844.md", "0a362f000cf22d3d51b21e0c2cd57a3c61493a80"
 )
 
 
@@ -56,7 +56,7 @@ ref_spec_4844 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-4844 specifications as defined at
-    https://sips.sila.org/SIPS/sip-4844#parameters.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md#parameters.
 
     If the parameter is not currently used within the tests, it is commented
     out.
@@ -118,7 +118,7 @@ class SpecHelpers:
 
     BYTES_PER_FIELD_ELEMENT = 32
     _EXHAUSTIVE_MAX_BLOBS_PER_BLOCK = (
-        9  # Osaka max; exhaustive is tractable up to here
+        9  # SilaOsaka max; exhaustive is tractable up to here
     )
 
     @classmethod

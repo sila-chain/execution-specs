@@ -31,8 +31,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stPreCompiledContracts/modexpFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -1000,12 +1000,12 @@ def test_modexp(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 6, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={1: 1, 2: 1})},
         },
         {
             "indexes": {"data": [29], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={1: 1, 2: 0})},
         },
         {
@@ -1031,17 +1031,17 @@ def test_modexp(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={1: 1, 2: 0})},
         },
         {
             "indexes": {"data": [2, 28], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={1: 0, 2: 0})},
         },
         {
             "indexes": {"data": [31], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={1: 1, 2: 0x100000000000000000000000000000000},
@@ -1050,7 +1050,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [32], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={
@@ -1062,7 +1062,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [33], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={
@@ -1074,7 +1074,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [34], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={
@@ -1086,7 +1086,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [35], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={1: 1, 2: 0x10000000000000000000000000000}
@@ -1095,7 +1095,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [3, 4], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={
@@ -1107,7 +1107,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [25, 26, 11, 14], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={
@@ -1119,7 +1119,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [16, 27], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={
@@ -1131,7 +1131,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [17], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 target: Account(
                     storage={
@@ -1143,7 +1143,7 @@ def test_modexp(
         },
         {
             "indexes": {"data": [36, 37], "gas": -1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={1: 0})},
         },
     ]

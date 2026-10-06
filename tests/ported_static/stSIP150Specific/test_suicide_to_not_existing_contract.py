@@ -10,7 +10,7 @@ SELFDESTRUCTs (with a zero balance) to a cold, non-alive beneficiary.
 SIP-8038 reprices both the CALL's cold account access and the
 SELFDESTRUCT beneficiary's cold access; no value is sent so there is
 no new-account write. The delta is therefore twice the fork's
-`COLD_ACCOUNT_ACCESS` less Cancun's, exactly 0 before SIP-8038.
+`COLD_ACCOUNT_ACCESS` less SilaCancun's, exactly 0 before SIP-8038.
 """
 
 import pytest
@@ -23,7 +23,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -33,7 +33,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP150Specific/SuicideToNotExistingContractFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_suicide_to_not_existing_contract(
     state_test: StateTestFiller,
@@ -46,7 +46,7 @@ def test_suicide_to_not_existing_contract(
     # beneficiary.
     cold_account_delta = (
         fork.gas_costs().COLD_ACCOUNT_ACCESS
-        - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)
     sender = pre.fund_eoa(amount=0xE8D4A51000)

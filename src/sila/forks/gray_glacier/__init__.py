@@ -17,12 +17,11 @@ in this fork.
 - [Besu 22.4.3]
 - [Erigon 2022.06.03][e]
 - [SilaJS 5.9.3][js]
-- [Gsil 1.10.19]
+- Gsil 1.10.19
 - [Nethermind 1.13.3][n]
 
 
-[SIP-5133]: https://sips.sila.org/SIPS/sip-5133
-[Gsil 1.10.19]: https://github.com/sila/go-sila/releases/tag/v1.10.19
+[SIP-5133]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5133.md
 [Besu 22.4.3]: https://github.com/besu-sil/besu/releases/tag/22.4.3
 [e]: https://github.com/ledgerwatch/erigon/releases/tag/v2022.06.03
 [js]: https://github.com/silajs/silajs-monorepo/releases/tag/@silajs/vm@5.9.3

@@ -3,7 +3,7 @@ SIP-7623: Increase calldata cost.
 
 Increase calldata cost to reduce maximum block size.
 
-https://sips.sila.org/SIPS/sip-7623
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7623.md
 """
 
 from dataclasses import replace

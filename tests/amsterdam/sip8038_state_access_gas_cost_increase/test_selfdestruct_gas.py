@@ -1,5 +1,5 @@
 """
-Tests for the SIP-8038 [State-access gas cost update](https://sips.sila.org/SIPS/sip-8038)
+Tests for the SIP-8038 [State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md)
 ``SELFDESTRUCT`` execution-gas dimension.
 
 Under SIP-8038 ``SELFDESTRUCT`` is charged, in its *execution* gas
@@ -62,7 +62,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 def _destructor_code(

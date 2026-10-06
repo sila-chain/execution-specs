@@ -1,5 +1,5 @@
 """
-Tests for [SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+Tests for [SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 Covers the SIP-8038 ``SSTORE`` *execution* (non-state) gas schedule. The
 state-creation charge for a zero-to-nonzero write is owned by SIP-8037
@@ -34,7 +34,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 # Each parameter: (key_warm, original, current, new). The id encodes the

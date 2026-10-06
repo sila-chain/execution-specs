@@ -25,7 +25,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stZeroCallsTest/ZeroValue_SUICIDE_ToEmpty_ParisFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_zero_value_suicide_to_empty_paris(
     state_test: StateTestFiller,

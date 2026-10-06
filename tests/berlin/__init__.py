@@ -1,1 +1,1 @@
-"""Test cases for EVM functionality introduced in Berlin."""
+"""Test cases for Sivm functionality introduced in SilaBerlin."""

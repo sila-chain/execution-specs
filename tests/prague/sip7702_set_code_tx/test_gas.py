@@ -2,7 +2,7 @@
 Tests related to gas of set-code transactions from SIP-7702.
 
 Tests related to gas of set-code transactions from
-[SIP-7702: Set EOA account code for one transaction](https://sips.sila.org/SIPS/sip-7702).
+[SIP-7702: Set EOA account code for one transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 from dataclasses import dataclass
@@ -44,7 +44,7 @@ from .spec import Spec, ref_spec_7702
 REFERENCE_SPEC_GIT_PATH = ref_spec_7702.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7702.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 # Enum classes used to parametrize the tests
 
@@ -1007,7 +1007,7 @@ def test_gas_cost(
             self_sponsored=self_sponsored,
             sender=sender,
         )
-        # Match ``allocate_evm_gas``: only the execution intrinsic is
+        # Match ``allocate_sivm_gas``: only the execution intrinsic is
         # removed before the top frame; calldata floor is settled later.
         intrinsic_execution = fork.transaction_intrinsic_cost_calculator()(
             calldata=data,
@@ -1065,7 +1065,8 @@ def test_gas_cost(
         )
         authorization_list = annotated_auths
     else:
-        # Prague / Osaka: charge full empty-account auth cost in intrinsic,
+        # SilaPrague / SilaOsaka: charge full empty-account auth cost in
+        # intrinsic,
         # refund existing authorities via refund_counter (SIP-3529 cap).
         intrinsic_gas = fork.transaction_intrinsic_cost_calculator()(
             calldata=data,
@@ -1148,7 +1149,7 @@ def test_gas_cost(
 @pytest.mark.parametrize(
     **gas_test_parameter_args(include_many=False, include_data=False)
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_account_warming(
     state_test: StateTestFiller,
     pre: Alloc,

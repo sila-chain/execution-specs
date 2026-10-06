@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2checkFieldsInInitcodeFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -352,7 +352,7 @@ def test_create2check_fields_in_initcode(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xDAF9F53E732F21FE517E624B6DFE92DC8D0E51E0): Account(
                     storage={
@@ -373,7 +373,7 @@ def test_create2check_fields_in_initcode(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xDFAD1C567F12D848FABB8D9D8872C42E7AA81E95): Account(
                     storage={
@@ -394,7 +394,7 @@ def test_create2check_fields_in_initcode(
         },
         {
             "indexes": {"data": 2, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x3FF16480055C6CCC070257C61FA902448F4AE111): Account(
                     storage={
@@ -415,12 +415,12 @@ def test_create2check_fields_in_initcode(
         },
         {
             "indexes": {"data": [3, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {sender: Account(nonce=1)},
         },
         {
             "indexes": {"data": 5, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x7CE21E3C16D63738CBBB697C919555C910504278): Account(
                     storage={
@@ -441,7 +441,7 @@ def test_create2check_fields_in_initcode(
         },
         {
             "indexes": {"data": 6, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xBB1B88EA45D33397F45583CA612ADEA3EB267318): Account(
                     storage={

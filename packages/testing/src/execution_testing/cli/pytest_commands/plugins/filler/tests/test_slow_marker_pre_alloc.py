@@ -14,7 +14,7 @@ def test_slow_marker_gets_pre_alloc_group(pytester: Any) -> None:
         from execution_testing import  Alloc, StateTestFiller, Transaction
 
         @pytest.mark.slow
-        @pytest.mark.valid_from("Cancun")
+        @pytest.mark.valid_from("SilaCancun")
         def test_slow_without_benchmark(state_test: StateTestFiller, pre: Alloc) -> None:
             sender = pre.fund_eoa()
             contract = pre.deploy_contract(code=b"")
@@ -59,7 +59,7 @@ def test_slow_with_benchmark_no_pre_alloc(pytester: Any) -> None:
         from execution_testing import  Alloc, StateTestFiller, Transaction
 
         @pytest.mark.slow
-        @pytest.mark.valid_from("Cancun")
+        @pytest.mark.valid_from("SilaCancun")
         def test_slow_with_benchmark(state_test: StateTestFiller, pre: Alloc) -> None:
             sender = pre.fund_eoa()
             contract = pre.deploy_contract(code=b"")
@@ -104,7 +104,7 @@ def test_slow_with_existing_pre_alloc_unchanged(pytester: Any) -> None:
 
         @pytest.mark.slow
         @pytest.mark.pre_alloc_group("custom_group", reason="Custom reason")
-        @pytest.mark.valid_from("Cancun")
+        @pytest.mark.valid_from("SilaCancun")
         def test_slow_with_existing_pre_alloc(state_test: StateTestFiller, pre: Alloc) -> None:
             sender = pre.fund_eoa()
             contract = pre.deploy_contract(code=b"")
@@ -145,7 +145,7 @@ def test_non_slow_no_pre_alloc(pytester: Any) -> None:
         import pytest
         from execution_testing import  Alloc, StateTestFiller, Transaction
 
-        @pytest.mark.valid_from("Cancun")
+        @pytest.mark.valid_from("SilaCancun")
         def test_normal_speed(state_test: StateTestFiller, pre: Alloc) -> None:
             sender = pre.fund_eoa()
             contract = pre.deploy_contract(code=b"")
@@ -194,7 +194,7 @@ def test_integration_with_fill(pytester: Any) -> None:
         )
 
         @pytest.mark.slow
-        @pytest.mark.valid_from("Cancun")
+        @pytest.mark.valid_from("SilaCancun")
         def test_slow_for_integration(state_test: StateTestFiller, pre: Alloc) -> None:
             '''Test that should get pre_alloc_group marker automatically.'''
             sender = pre.fund_eoa()
@@ -230,8 +230,8 @@ def test_integration_with_fill(pytester: Any) -> None:
     # The test generates 3 formats (state_test, blockchain_test,
     # blockchain_test_engine).
 
-    # But it also runs on multiple forks (Cancun and
-    # Prague), so expect more tests.
+    # But it also runs on multiple forks (SilaCancun and
+    # SilaPrague), so expect more tests.
 
     # This is fine - the important thing is that they all pass.
     result = pytester.runpytest(*args)

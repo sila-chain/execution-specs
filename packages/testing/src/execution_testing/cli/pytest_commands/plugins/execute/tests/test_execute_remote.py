@@ -39,7 +39,7 @@ from execution_testing.cli.pytest_commands.plugins.consume.simulators.helpers.ru
     ruleset,
 )
 from execution_testing.fixtures.blockchain import FixtureHeader
-from execution_testing.forks import Osaka, Requests
+from execution_testing.forks import Requests, SilaOsaka
 from execution_testing.rpc import EngineRPC, SilRPC
 from execution_testing.test_types import (
     DETERMINISTIC_FACTORY_ADDRESS,
@@ -64,7 +64,7 @@ SEED_KEY_COUNT = 100
 SEED_KEY_BALANCE = 10**26
 
 # The fork to test with
-TEST_FORK = Osaka
+TEST_FORK = SilaOsaka
 
 
 pytestmark = pytest.mark.skipif(
@@ -195,7 +195,7 @@ def hive_client_ip(
                 **{k: f"{v:d}" for k, v in ruleset[TEST_FORK].items()},
             }
             suite: HiveTestSuite = simulator.start_suite(
-                name="eels/execute-remote-e2e",
+                name="sels/execute-remote-e2e",
                 description=("E2E tests for execute remote command"),
             )
             test: HiveTest = suite.start_test(

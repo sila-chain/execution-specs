@@ -71,16 +71,16 @@ def extract_affected_forks(
             # framework
             return all_forks
         if file_path.is_relative_to(
-            "packages/testing/src/execution_testing/evm_tools"
+            "packages/testing/src/execution_testing/sivm_tools"
         ):
-            # Run all forks if something changes in the evm
+            # Run all forks if something changes in the sivm
             # tools
             return all_forks
         if file_path.is_relative_to(
             "src/sila_spec_tools/loaders"
         ) or file_path == Path("src/sila_spec_tools/utils.py"):
             # Run all forks if something changes in the fixture/fork
-            # loading or shared helpers the evm tools depend on
+            # loading or shared helpers the sivm tools depend on
             return all_forks
         if optimized and file_path.is_relative_to("src/sila_optimized"):
             # Run all forks if something changes in the optimized tools and

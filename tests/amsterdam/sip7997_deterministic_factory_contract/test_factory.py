@@ -1,7 +1,7 @@
 """
 Verify SIP-7997: Deterministic Factory Contract.
 
-<https://sips.sila.org/SIPS/sip-7997>
+<https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md>
 
 The factory (the Arachnid deterministic deployment proxy) interprets
 calldata as `salt (32) || initcode` and invokes `CREATE2` with the call
@@ -67,7 +67,9 @@ def test_factory_contract_account(
     state_test: StateTestFiller,
     pre: Alloc,
 ) -> None:
-    """Verify the canonical code, initial nonce and balance through the EVM."""
+    """
+    Verify the canonical code, initial nonce and balance through the Sivm.
+    """
     storage = Storage()
     extcodesize_slot = storage.store_next(
         len(Spec.FACTORY_BYTECODE), "extcodesize"

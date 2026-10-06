@@ -91,7 +91,7 @@ uv run fill-stateful \
     --rpc-endpoint=http://127.0.0.1:18545 \
     --engine-endpoint=http://127.0.0.1:18551 \
     --engine-jwt-secret-file=/tmp/fillst-out/jwt/jwtsecret \
-    --fork=Osaka \
+    --fork=SilaOsaka \
     --output=/tmp/fillst-out/fixtures \
     --snapshot-block=0x<32-byte-hash> \
     --gas-benchmark-values=10,30 \
@@ -100,14 +100,14 @@ uv run fill-stateful \
 
 ### 4. Replay
 
-Point `benchmarkoor`'s `datadirs.gsil.source_dir` at the pristine snapshot (`/tmp/multi-snap/gsil/execution-data`) — never at the fillcopy — and `tests.source.eest_fixtures.local_fixtures_dir` at the fill output. See the [benchmarkoor docs](https://github.com/ethpandaops/benchmarkoor) for the full config shape.
+Point `benchmarkoor`'s `datadirs.gsil.source_dir` at the pristine snapshot (`/tmp/multi-snap/gsil/execution-data`) — never at the fillcopy — and `tests.source.sest_fixtures.local_fixtures_dir` at the fill output. See the [benchmarkoor docs](https://github.com/ethpandaops/benchmarkoor) for the full config shape.
 
 ## CLI options
 
 Required:
 
 - `--engine-jwt-secret-file PATH` — JWT secret for engine API auth.
-- `--fork NAME` — fork to fill against, e.g. `Osaka`.
+- `--fork NAME` — fork to fill against, e.g. `SilaOsaka`.
 
 Optional:
 

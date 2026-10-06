@@ -2,7 +2,7 @@
 
 Execution of test cases against clients is a two-step process:
 
-1. JSON test fixtures are generated from the Python test cases found in `./tests` using `fill` and an EVM transition tool (`t8n`) implementation.
+1. JSON test fixtures are generated from the Python test cases found in `./tests` using `fill` and a Sivm transition tool (`t8n`) implementation.
 2. Clients "consume" the JSON fixtures via either a dedicated, client-specific interface or a testing environment such as Hive.
 
 The process of generating fixtures is often referred to as "filling" the tests.
@@ -13,15 +13,15 @@ The process of generating fixtures is often referred to as "filling" the tests.
 
 ## Transition Tools (`t8n`)
 
-The `fill` command requires an EVM `t8n` tool provided by most clients in order to generate the JSON fixtures. The `t8n` tool is mainly responsible for calculating the post-state of the EVM after executing a transaction, most relevantly, it calculates the updated state root.
+The `fill` command requires a Sivm `t8n` tool provided by most clients in order to generate the JSON fixtures. The `t8n` tool is mainly responsible for calculating the post-state of the Sivm after executing a transaction, most relevantly, it calculates the updated state root.
 
-## Sila Execution Layer Specification (EELS)
+## Sila Execution Layer Specification (SELS)
 
-By default, the [Sila Execution Layer Specification](https://github.com/sila/execution-specs) (EELS) reference implementation of the `t8n` tool is used to generate test fixtures for all forks that have been deployed to Sila sila-mainnet. We strong encourage SIP authors to provide a reference implementation of their SIP in EELS, so that it can be used to generate test fixtures for features under active development.
+By default, the [Sila Execution Layer Specification](https://github.com/sila-chain/execution-specs) (SELS) reference implementation of the `t8n` tool is used to generate test fixtures for all forks that have been deployed to Sila sila-mainnet. We strong encourage SIP authors to provide a reference implementation of their SIP in SELS, so that it can be used to generate test fixtures for features under active development.
 
 ## Limitations of Filling
 
-The "fill-consume" method follows a differential testing approach: A reference implementation is used to generate JSON test fixtures, which can then be executed against other EVM clients. However:
+The "fill-consume" method follows a differential testing approach: A reference implementation is used to generate JSON test fixtures, which can then be executed against other Sivm clients. However:
 
 !!! warning "Successfully filling does not guarantee correctness"
 

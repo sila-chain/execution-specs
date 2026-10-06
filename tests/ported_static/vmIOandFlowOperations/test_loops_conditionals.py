@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmIOandFlowOperations/loopsConditionalsFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -383,27 +383,27 @@ def test_loops_conditionals(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 2, 4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_11: Account(storage={0: 24589})},
         },
         {
             "indexes": {"data": [1, 3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_11: Account(storage={0: 2989})},
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_11: Account(storage={0: 24743})},
         },
         {
             "indexes": {"data": [8, 6, 7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_11: Account(storage={0: 0, 1: 0x10000})},
         },
         {
             "indexes": {"data": [9, 10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_11: Account(storage={0: 55})},
         },
     ]

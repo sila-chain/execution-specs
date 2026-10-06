@@ -1,6 +1,6 @@
 # Hive
 
-@sila/hive is a containerized testing framework that helps orchestrate test execution against Sila clients. Hive is incredibly extensible; new test suites can be implemented in a module manner as "simulators" that interact with clients to test certain aspects of their behavior. The execution-specs `testing` package implements several simulators, see [Running Tests](../running.md) for an overview.
+@sila-chain/sila-hive is a containerized testing framework that helps orchestrate test execution against Sila clients. Hive is incredibly extensible; new test suites can be implemented in a module manner as "simulators" that interact with clients to test certain aspects of their behavior. The execution-specs `testing` package implements several simulators, see [Running Tests](../running.md) for an overview.
 
 ## Quick Start
 
@@ -11,10 +11,10 @@
 
 ### Installation
 
-Clone @sila/hive and build the `./hive` command:
+Clone @sila-chain/sila-hive and build the `./hive` command:
 
 ```bash
-git clone https://github.com/sila/hive
+git clone https://github.com/sila-chain/sila-hive
 cd hive
 go build .
 ```

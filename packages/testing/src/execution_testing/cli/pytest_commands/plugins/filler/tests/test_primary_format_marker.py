@@ -18,10 +18,11 @@ import textwrap
 
 import pytest
 
-# A post-Paris fork is required: pre-Paris hive/engine fixtures are removed
+# A post-SilaParis fork is required: pre-SilaParis hive/engine fixtures are
+# removed
 # during collection (see `pytest_collection_modifyitems` in filler.py), which
 # would empty a `blockchain_test_engine_only` test regardless of this marker.
-FORK = "Prague"
+FORK = "SilaPrague"
 
 ENGINE_ONLY_MODULE = textwrap.dedent(
     f"""\

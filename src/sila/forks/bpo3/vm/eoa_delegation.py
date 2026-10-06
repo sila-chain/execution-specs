@@ -23,7 +23,7 @@ from ..state_tracker import (
 )
 from ..utils.hexadecimal import hex_to_address
 from ..vm.gas import GasCosts
-from . import Evm, Message
+from . import Message, Sivm
 
 SET_CODE_TX_MAGIC = b"\x05"
 EOA_DELEGATION_MARKER = b"\xef\x01\x00"
@@ -118,14 +118,14 @@ def recover_authority(authorization: Authorization) -> Address:
 
 
 def access_delegation(
-    evm: Evm, address: Address
+    sivm: Sivm, address: Address
 ) -> Tuple[bool, Address, Bytes, Uint]:
     """
     Get the delegation address, code, and the cost of access from the address.
 
     Parameters
     ----------
-    evm : `Evm`
+    sivm : `Sivm`
         The execution frame.
     address : `Address`
         The address to get the delegation from.
@@ -136,16 +136,16 @@ def access_delegation(
         The delegation address, code, and access gas cost.
 
     """
-    tx_state = evm.message.tx_env.state
+    tx_state = sivm.message.tx_env.state
     code = get_code(tx_state, get_account(tx_state, address).code_hash)
     if not is_valid_delegation(code):
         return False, address, code, Uint(0)
 
     address = Address(code[EOA_DELEGATION_MARKER_LENGTH:])
-    if address in evm.accessed_addresses:
+    if address in sivm.accessed_addresses:
         access_gas_cost = GasCosts.WARM_ACCESS
     else:
-        evm.accessed_addresses.add(address)
+        sivm.accessed_addresses.add(address)
         access_gas_cost = GasCosts.COLD_ACCOUNT_ACCESS
     code = get_code(tx_state, get_account(tx_state, address).code_hash)
 

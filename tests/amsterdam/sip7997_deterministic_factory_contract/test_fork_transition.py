@@ -1,7 +1,7 @@
 """
 Verify fork transitions for the Deterministic Factory Contract.
 
-<https://sips.sila.org/SIPS/sip-7997>
+<https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md>
 """
 
 import pytest
@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = ref_spec_7997.version
 FORK_TIMESTAMP = 15_000
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.pre_alloc_mutable
 @pytest.mark.parametrize("pre_fork_nonce", [1, 2, 32])
 @SIPChecklist.SystemContract.Test.ForkTransition.CallBeforeFork()
@@ -108,7 +108,7 @@ def test_factory_deploys_across_transition(
     )
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.pre_alloc_mutable
 @pytest.mark.parametrize(
     "factory_pre_state",

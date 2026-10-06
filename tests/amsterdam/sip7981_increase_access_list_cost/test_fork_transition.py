@@ -1,8 +1,8 @@
 """
-Fork-transition tests for [SIP-7981: Increase Access List Cost](https://sips.sila.org/SIPS/sip-7981).
+Fork-transition tests for [SIP-7981: Increase Access List Cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7981.md).
 
 SIP-7981 adds a data-footprint surcharge for access list bytes at the
-Amsterdam fork boundary. These tests send identical access-list
+SilaAmsterdam fork boundary. These tests send identical access-list
 transactions in a pre-fork block and a post-fork block (straddling the
 transition timestamp) and pin the per-transaction gas paid on each side,
 plus the validity flip for gas limits inside the uplift gap.
@@ -78,14 +78,14 @@ def test_access_list_intrinsic_across_amsterdam_transition(
     keys_per_address: int,
 ) -> None:
     """
-    Pin the access list intrinsic change across the Amsterdam boundary.
+    Pin the access list intrinsic change across the SilaAmsterdam boundary.
 
     The same access-list transaction shape is sent in a pre-fork block
     (flat base plus the SIP-2930 per-entry charges, no data cost) and a
     post-fork block (decomposed base, repriced entries, plus the
     SIP-7981 byte surcharge). Each block uses a distinct sender so its
     post-tx balance pins the fork-appropriate intrinsic; the recipient
-    is an existing EOA, so no EVM bytecode runs and `gas_used` equals
+    is an existing EOA, so no Sivm bytecode runs and `gas_used` equals
     the intrinsic exactly.
 
     The per-fork intrinsic returned by the calculator is also checked
@@ -175,7 +175,7 @@ def test_access_list_validity_across_amsterdam_transition(
     fork: TransitionFork,
 ) -> None:
     """
-    Pin the intrinsic-validity flip across the Amsterdam boundary.
+    Pin the intrinsic-validity flip across the SilaAmsterdam boundary.
 
     For an access list with one address and two storage keys the
     SIP-7981 byte surcharge (plus the SIP-8038 entry repricing) outgrows

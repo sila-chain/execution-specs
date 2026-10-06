@@ -1,8 +1,8 @@
 # Referencing an SIP Spec Version
 
-Tests that implement features from an Sila Improvement Proposal ([sila/SIPs](https://github.com/sila/SIPs/tree/master/SIPS)) must define the SIP's markdown SHA digest within the test's Python module. This ensures our tests stay up-to-date with any changes to the SIP specifications.
+Tests that implement features from an Sila Improvement Proposal ([sila-chain/SIPs](https://github.com/sila-chain/SIPs/tree/main/SIPS)) must define the SIP's markdown SHA digest within the test's Python module. This ensures our tests stay up-to-date with any changes to the SIP specifications.
 
-The `check_sip_versions` command-line utility automatically verifies that all SIP references in the codebase are current. It works by comparing the SHA specified in the test against the latest version in the sila/SIPs repository. This utility uses pytest to generate test cases for every module that includes "sip" in its path.
+The `check_sip_versions` command-line utility automatically verifies that all SIP references in the codebase are current. It works by comparing the SHA specified in the test against the latest version in the sila-chain/SIPs repository. This utility uses pytest to generate test cases for every module that includes "sip" in its path.
 
 <figure markdown>  <!-- markdownlint-disable MD033 (MD033=no-inline-html) -->
   ![Test framework summary for a failing SIP spec version test](./img/sip_reference_spec_console_output.png){ width=auto align=center}
@@ -19,7 +19,7 @@ The `check_sip_versions` command-line utility automatically verifies that all SI
     The SHA value is the output from git's `hash-object` command, for example:
 
     ```console
-    git clone git@github.com:sila/SIPs
+    git clone git@github.com:sila-chain/SIPs
     git hash-object SIPS/SIPS/sip-3651.md
     # output: d94c694c6f12291bb6626669c3e8587eef3adff1
     ```
@@ -29,7 +29,7 @@ The `check_sip_versions` command-line utility automatically verifies that all SI
     ```console
     sudo apt install jq
     curl -s -H "Accept: application/vnd.github.v3+json" \
-    https://api.github.com/repos/sila/SIPs/contents/SIPS/sip-3651.md |\
+    https://api.github.com/repos/sila-chain/SIPs/contents/SIPS/sip-3651.md |\
     jq -r '.sha'
     # output: d94c694c6f12291bb6626669c3e8587eef3adff1
     ```
@@ -40,8 +40,8 @@ This check accomplished by adding the following two global variables anywhere in
 
 | Variable Name             | Explanation                                                                                                                                                     |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REFERENCE_SPEC_GIT_PATH` | The relative path of the SIP markdown file in the [sila/SIPs](https://github.com/sila/SIPs/) repository, e.g. "`SIPS/sip-1234.md`"                      |
-| `REFERENCE_SPEC_VERSION`  | The SHA hash of the latest version of the file retrieved from the Github API:<br/>`https://api.github.com/repos/sila/SIPs/contents/SIPS/sip-<SIP Number>.md` |
+| `REFERENCE_SPEC_GIT_PATH` | The relative path of the SIP markdown file in the [sila-chain/SIPs](https://github.com/sila-chain/SIPs) repository, e.g. "`SIPS/sip-1234.md`"                      |
+| `REFERENCE_SPEC_VERSION`  | The SHA hash of the latest version of the file retrieved from the Github API:<br/>`https://api.github.com/repos/sila-chain/SIPs/contents/SIPS/sip-<SIP Number>.md` |
 
 ## Running the `check_sip_versions` Command Locally
 
@@ -70,4 +70,4 @@ REFERENCE_SPEC_GIT_PATH = "SIPS/sip-3651.md"
 REFERENCE_SPEC_VERSION = "d94c694c6f12291bb6626669c3e8587eef3adff1"
 ```
 
-The SHA digest was retrieved [from here](https://api.github.com/repos/sila/SIPs/contents/SIPS/sip-3651.md).
+The SHA digest was retrieved [from here](https://api.github.com/repos/sila-chain/SIPs/contents/SIPS/sip-3651.md).

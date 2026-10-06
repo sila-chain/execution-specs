@@ -95,7 +95,9 @@ def test_storage() -> None:
 
 
 def test_transaction_receipt_maps_non_empty_root_to_post_state() -> None:
-    """Non-empty `root` from gsil should be treated as pre-Byzantium state."""
+    """
+    Non-empty `root` from gsil should be treated as pre-SilaByzantium state.
+    """
     receipt = TransactionReceipt.model_validate(
         {
             "root": "0x" + "11" * 32,
@@ -107,7 +109,7 @@ def test_transaction_receipt_maps_non_empty_root_to_post_state() -> None:
 
 
 def test_transaction_receipt_keeps_status_when_root_is_empty() -> None:
-    """Empty `root` should not override Byzantium-style receipt status."""
+    """Empty `root` should not override SilaByzantium-style receipt status."""
     receipt = TransactionReceipt.model_validate(
         {
             "root": "0x",

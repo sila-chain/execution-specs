@@ -36,7 +36,7 @@ OVERSIZED_GAS_ASK = 2**256 - 20
 @pytest.mark.ported_from(
     ["state_tests/stSpecialTest/makeMoneyFiller.json"],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 def test_make_money(
     state_test: StateTestFiller,
     pre: Alloc,

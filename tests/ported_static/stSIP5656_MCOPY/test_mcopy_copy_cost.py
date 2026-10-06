@@ -2,7 +2,7 @@
 Test cases for the cost of memory copy in the MCOPY instruction.
 
 Ported from:
-state_tests/Cancun/stEIP5656_MCOPY/MCOPY_copy_costFiller.yml
+state_tests/SilaCancun/stEIP5656_MCOPY/MCOPY_copy_costFiller.yml
 
 @manually-enhanced: Do not overwrite. The ported filler probed MCOPY cost via a
 tight OOG gas boundary (55697); SIP-8037 reprices the instrumentation SSTORE
@@ -36,9 +36,9 @@ SIZES = [0x0, 0x1, 0x1F, 0x20, 0x21, 0xAEDF, 0xAEE0, 0xAEE1]
 
 
 @pytest.mark.ported_from(
-    ["state_tests/Cancun/stEIP5656_MCOPY/MCOPY_copy_costFiller.yml"],
+    ["state_tests/SilaCancun/stEIP5656_MCOPY/MCOPY_copy_costFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize("size", SIZES, ids=lambda s: f"size{s}")
 @pytest.mark.parametrize("src", SRCS, ids=lambda s: f"src{s}")
 def test_mcopy_copy_cost(

@@ -1,6 +1,6 @@
 # Execute sil-config Command
 
-The `execute sil-config` command is a specialized testing tool that validates an Sila client's configuration against expected network parameters using the `sil_config` RPC endpoint as specified by [SIP-7910](https://sips.sila.org/SIPS/sip-7910).
+The `execute sil-config` command is a specialized testing tool that validates an Sila client's configuration against expected network parameters using the `sil_config` RPC endpoint as specified by [SIP-7910](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7910.md).
 
 The goal is to test baked-in configurations primarily but it can be used to test that genesis and config files were successfully parsed, in devnets for example.
 
@@ -18,10 +18,10 @@ This command verifies that a client is correctly configured for a specific netwo
 
 ### Standalone, Direct Usage
 
-The `sil-config` sub-command can be ran directly, without cloning @sila/execution-specs, by [installing uv](https://docs.astral.sh/uv/getting-started/installation/) and running:
+The `sil-config` sub-command can be ran directly, without cloning @sila-chain/execution-specs, by [installing uv](https://docs.astral.sh/uv/getting-started/installation/) and running:
 
 ```bash
-uv run --with "git+https://github.com/sila/execution-specs.git#subdirectory=packages/testing" execute sil-config --network SilaMainnet --rpc-endpoint http://<SIL_RPC_ENDPOINT>
+uv run --with "git+https://github.com/sila-chain/execution-specs.git#subdirectory=packages/testing" execute sil-config --network SilaMainnet --rpc-endpoint http://<SIL_RPC_ENDPOINT>
 ```
 
 ### From within the `execution-specs` Repository
@@ -84,9 +84,9 @@ MyCustomNet:
   chainId: 0xabcd                 # Chain ID in hex
   genesisHash: 0xd4e5674...       # Genesis block hash
   forkActivationTimes:            # Fork activation block numbers/times
-    0: Cancun                     # Genesis fork, it must be the latest fork activated in the genesis
-    1742999832: Prague
-    1742999833: Osaka
+    0: SilaCancun                     # Genesis fork, it must be the latest fork activated in the genesis
+    1742999832: SilaPrague
+    1742999833: SilaOsaka
   bpoForkActivationTimes:         # Optional: Blob parameter only fork definitions
     1742999834:
         target: 9
@@ -121,4 +121,4 @@ The default configuration file includes:
 
 ## `sil_config` Expected Response Details
 
-See [SIP-7910](https://sips.sila.org/SIPS/sip-7910) for the expected response description.
+See [SIP-7910](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7910.md) for the expected response description.

@@ -3,7 +3,7 @@ SIP-1014: Skinny CREATE2.
 
 Add a new CREATE2 opcode that uses keccak256 for address derivation.
 
-https://sips.sila.org/SIPS/sip-1014
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1014.md
 """
 
 from typing import Callable, Dict, List

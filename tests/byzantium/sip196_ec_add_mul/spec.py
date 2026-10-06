@@ -7,7 +7,7 @@ from execution_testing import Address, BytesConcatenation
 from ...constantinople.sip145_bitwise_shift.spec import ReferenceSpec
 
 ref_spec_196 = ReferenceSpec(
-    "SIPS/sip-196.md", "6538d198b1db10784ddccd6931888d7ae718de75"
+    "SIPS/sip-196.md", "5408ae6e74430ef27e397d544d0fb5d5d9252844"
 )
 
 
@@ -47,7 +47,7 @@ class PointG1(BytesConcatenation):
 
 class Spec:
     """
-    Parameters from the SIP-196 specification (https://sips.sila.org/SIPS/sip-196)
+    Parameters from the SIP-196 specification (https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-196.md)
     with some modifications for readability.
     """
 

@@ -10,7 +10,7 @@ Each file must contain a JSON list of objects, each with the following fields:
 
 ## Generating The Test Vectors (used in v1.0.6 and on)
 
-From execution-spec-tests release v1.0.6 and on, the point evaluation test vectors were generated using commit [63aa303c](https://github.com/sila/consensus-specs/tree/63aa303c5a2cf46ea98edbf3f82286079651bb78) from the [official-kzg](https://github.com/sila/consensus-specs/commits/official-kzg) [consensus-specs](https://github.com/sila/consensus-specs) branch.
+From execution-spec-tests release v1.0.6 and on, the point evaluation test vectors were generated using commit [63aa303c](https://github.com/sila-chain/consensus-specs/tree/63aa303c5a2cf46ea98edbf3f82286079651bb78/) from the official-kzg branch of [consensus-specs](https://github.com/sila-chain/consensus-specs).
 
 The test vectors were generated as following:
 
@@ -35,5 +35,5 @@ The test vectors were generated as following:
 
 ## Previous Versions of the Test Vectors (used up to v1.0.5)
 
-The test vectors up and including execution-spec-tests [release v1.0.5](https://github.com/sila/execution-spec-tests/releases/tag/v1.0.5) were:
+The test vectors up and including execution-spec-tests release v1.0.5 were:
 - `go_kzg_4844_verify_kzg_proof.json`: test vectors from the [go-kzg-4844](https://github.com/crate-crypto/go-kzg-4844) repository.

@@ -805,7 +805,7 @@ class Transaction(
         """
         field_list: List[str]
         if self.ty == 6:
-            # SIP-7873: https://sips.sila.org/SIPS/sip-7873
+            # SIP-7873: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7873.md
             field_list = [
                 "chain_id",
                 "nonce",
@@ -819,7 +819,7 @@ class Transaction(
                 "initcodes",
             ]
         elif self.ty == 4:
-            # SIP-7702: https://sips.sila.org/SIPS/sip-7702
+            # SIP-7702: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md
             field_list = [
                 "chain_id",
                 "nonce",
@@ -833,7 +833,7 @@ class Transaction(
                 "authorization_list",
             ]
         elif self.ty == 3:
-            # SIP-4844: https://sips.sila.org/SIPS/sip-4844
+            # SIP-4844: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md
             field_list = [
                 "chain_id",
                 "nonce",
@@ -848,7 +848,7 @@ class Transaction(
                 "blob_versioned_hashes",
             ]
         elif self.ty == 2:
-            # SIP-1559: https://sips.sila.org/SIPS/sip-1559
+            # SIP-1559: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1559.md
             field_list = [
                 "chain_id",
                 "nonce",
@@ -861,7 +861,7 @@ class Transaction(
                 "access_list",
             ]
         elif self.ty == 1:
-            # SIP-2930: https://sips.sila.org/SIPS/sip-2930
+            # SIP-2930: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md
             field_list = [
                 "chain_id",
                 "nonce",
@@ -882,7 +882,7 @@ class Transaction(
                 "data",
             ]
             if self.protected:
-                # SIP-155: https://sips.sila.org/SIPS/sip-155
+                # SIP-155: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-155.md
                 field_list.extend(["chain_id", "zero", "zero"])
         else:
             raise NotImplementedError(
@@ -1137,11 +1137,11 @@ class Transaction(
 class NetworkWrappedTransaction(CamelModel, RLPSerializable):
     """
     Network wrapped transaction as defined in
-    [SIP-4844](https://sips.sila.org/SIPS/sip-4844#networking).
+    [SIP-4844](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md#networking).
 
-    < Osaka: rlp([tx_payload_body, blobs, commitments, proofs])
+    < SilaOsaka: rlp([tx_payload_body, blobs, commitments, proofs])
 
-    >= Osaka: rlp([tx_payload_body, wrapper_version,  blobs, commitments,
+    >= SilaOsaka: rlp([tx_payload_body, wrapper_version,  blobs, commitments,
                    cell_proofs])
     """
 
@@ -1164,7 +1164,7 @@ class NetworkWrappedTransaction(CamelModel, RLPSerializable):
     @computed_field  # type: ignore[prop-decorator]
     @property
     def proofs(self) -> Sequence[Bytes] | None:
-        """Return a list of kzg proofs (returns None >= Osaka)."""
+        """Return a list of kzg proofs (returns None >= SilaOsaka)."""
         if self.wrapper_version is not None:
             return None
 
@@ -1178,7 +1178,7 @@ class NetworkWrappedTransaction(CamelModel, RLPSerializable):
     @computed_field  # type: ignore[prop-decorator]
     @property
     def cell_proofs(self) -> Sequence[Bytes] | None:
-        """Return a list of cells (returns None < Osaka)."""
+        """Return a list of cells (returns None < SilaOsaka)."""
         if self.wrapper_version is None:
             return None
 
@@ -1216,7 +1216,7 @@ class NetworkWrappedTransaction(CamelModel, RLPSerializable):
             rlp_cell_proofs = ["cell_proofs"]
 
         rlp_fields: List[str] = [  # structure explained in
-            # https://sips.sila.org/SIPS/sip-7594#Networking
+            # https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7594.md#networking
             "tx",  # tx_payload_body
             *wrapper,  # wrapper_version, which is always 1 for osaka (was non-
             # existing before)

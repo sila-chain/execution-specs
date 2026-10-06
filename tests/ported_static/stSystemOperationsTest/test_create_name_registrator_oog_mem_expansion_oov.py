@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stSystemOperationsTest/createNameRegistratorOOG_MemExpansionOOVFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_create_name_registrator_oog_mem_expansion_oov(
     state_test: StateTestFiller,

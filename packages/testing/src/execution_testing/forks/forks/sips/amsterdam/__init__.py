@@ -1,4 +1,4 @@
-"""Listings of all SIPs for Amsterdam fork."""
+"""Listings of all SIPs for SilaAmsterdam fork."""
 
 from __future__ import annotations
 
@@ -11,12 +11,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from execution_testing.forks.base_fork import BaseFork
 
-__all__ = ["AmsterdamEIPs"]
+__all__ = ["AmsterdamSIPs"]
 
 if TYPE_CHECKING:
 
-    class AmsterdamEIPs(BaseFork):
-        """Typing-only stand-in for Amsterdam SIP mixins."""
+    class AmsterdamSIPs(BaseFork):
+        """Typing-only stand-in for SilaAmsterdam SIP mixins."""
 
         pass
 else:
@@ -37,8 +37,8 @@ else:
 
     _amsterdam_sips.sort(key=lambda cls: int(cls.__name__[3:]))
 
-    class _AmsterdamEIPsSentinel:
-        """Expand to the currently available Amsterdam SIP mixins."""
+    class _AmsterdamSIPsSentinel:
+        """Expand to the currently available SilaAmsterdam SIP mixins."""
 
         def __mro_entries__(
             self,
@@ -47,6 +47,6 @@ else:
             del bases
             return tuple(_amsterdam_sips)
 
-    AmsterdamEIPs = _AmsterdamEIPsSentinel()  # type: ignore[misc]
+    AmsterdamSIPs = _AmsterdamSIPsSentinel()  # type: ignore[misc]
 
     del _importer, _ispkg, _modname, _module, _name, _obj, _prefix

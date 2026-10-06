@@ -88,11 +88,11 @@ When building the documentation with `mkdocs`, checklists are automatically gene
 
 ### External Coverage
 
-For checklist items that are covered by external tests, procedures, or tools (e.g., EELS coverage), create a file named `sip_checklist_external_coverage.txt` in the SIP test directory:
+For checklist items that are covered by external tests, procedures, or tools (e.g., SELS coverage), create a file named `sip_checklist_external_coverage.txt` in the SIP test directory:
 
 ```text
 # tests/prague/sip7702_set_code_tx/sip_checklist_external_coverage.txt
-general/code_coverage/eels = Covered by EELS test suite
+general/code_coverage/sels = Covered by SELS test suite
 general/code_coverage/second_client = Covered by Nethermind tests
 ```
 
@@ -172,7 +172,7 @@ Example output snippet:
 
 | ID | Description | Status | Tests |
 | -- | ----------- | ------ | ----- |
-| `general/code_coverage/eels` | Run produced tests against EELS... | ✅ | Covered by EELS test suite |
+| `general/code_coverage/sels` | Run produced tests against SELS... | ✅ | Covered by SELS test suite |
 | `general/code_coverage/test_coverage` | Run coverage on the test code itself... | ✅ | `tests/prague/sip7702_set_code_tx/test_set_code_txs.py::test_set_code_txs` |
 
 ## Transaction Type
@@ -228,13 +228,13 @@ Example output snippet:
 
       ```text
       # sip_checklist_external_coverage.txt
-      general/code_coverage/eels = Covered by sila/execution-specs PR #1234
+      general/code_coverage/sels = Covered by sila-chain/execution-specs PR #1234
       ```
 
       You can verify the correct ID using:
 
       ```python
-      # str(SIPChecklist.General.CodeCoverage.Eels) = "general/code_coverage/eels"
+      # str(SIPChecklist.General.CodeCoverage.Sels) = "general/code_coverage/sels"
       ```
 
 4. **Mark non-applicable items**:

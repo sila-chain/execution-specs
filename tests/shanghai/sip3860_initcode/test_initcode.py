@@ -1,9 +1,9 @@
 """
-Test [SIP-3860: Limit and meter initcode](https://sips.sila.org/SIPS/sip-3860).
+Test [SIP-3860: Limit and meter initcode](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3860.md).
 
 Tests ported from:
-- [sila/tests/pull/990](https://github.com/sila/tests/pull/990)
-- [sila/tests/pull/1012](https://github.com/sila/tests/pull/990)
+- sila-chain/sila-tests/pull/990
+- sila-chain/sila-tests/pull/1012
 """
 
 from typing import List
@@ -35,7 +35,7 @@ from .spec import ref_spec_3860
 REFERENCE_SPEC_GIT_PATH = ref_spec_3860.git_path
 REFERENCE_SPEC_VERSION = ref_spec_3860.version
 
-pytestmark = pytest.mark.valid_from("Shanghai")
+pytestmark = pytest.mark.valid_from("SilaShanghai")
 
 
 @pytest.fixture
@@ -123,7 +123,7 @@ def initcode(fork: Fork, initcode_name: str) -> Initcode:
         pytest.param("over_limit_ones", marks=pytest.mark.exception_test),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_contract_creating_tx(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -351,7 +351,7 @@ class TestContractCreationGasUsage:
 
     # Gated off under SIP-8037: state gas breaks the single-dimension
     # intrinsic-gas equivalence asserted in `exact_intrinsic_gas`. The
-    # 2D-aware creation-gas metering is covered on Amsterdam by
+    # 2D-aware creation-gas metering is covered on SilaAmsterdam by
     # `test_create_tx_intrinsic_gas_boundary` and
     # `test_max_initcode_size_gas_metering_via_create` in
     # `sip8037_state_creation_gas_cost_increase/test_state_gas_create.py`.
@@ -597,8 +597,7 @@ def test_create2_oversized_initcode_with_insufficient_balance(
     """
     Test CREATE2 with oversized initcode and insufficient balance.
 
-    Regression test for
-    https://github.com/sila/execution-specs/issues/914
+    Regression test.
 
     CREATE2 is called with an endowment of 1123123123 (exceeds the
     contract's zero balance). The initcode size check must take

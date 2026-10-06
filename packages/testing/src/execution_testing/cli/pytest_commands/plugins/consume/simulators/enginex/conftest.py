@@ -158,7 +158,7 @@ def _configure_client_manager(
 @pytest.fixture(scope="module")
 def test_suite_name() -> str:
     """The name of the hive test suite used in this simulator."""
-    return "eels/consume-enginex"
+    return "sels/consume-enginex"
 
 
 @pytest.fixture(scope="module")

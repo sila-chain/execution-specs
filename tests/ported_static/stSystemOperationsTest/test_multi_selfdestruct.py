@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSystemOperationsTest/multiSelfdestructFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -279,7 +279,7 @@ def test_multi_selfdestruct(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={0: 1, 1: 3, 2: 0, 16: 1, 17: 3, 18: 2}
@@ -289,7 +289,7 @@ def test_multi_selfdestruct(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={0: 1, 1: 3, 2: 0, 16: 1, 17: 5, 18: 0}
@@ -299,7 +299,7 @@ def test_multi_selfdestruct(
         },
         {
             "indexes": {"data": 2, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={0: 1, 1: 3, 2: 0, 16: 1, 17: 3, 18: 0, 19: 2},
@@ -309,7 +309,7 @@ def test_multi_selfdestruct(
         },
         {
             "indexes": {"data": 3, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={0: 1, 1: 3, 2: 0, 16: 0, 17: 3, 18: 0, 19: 0},
@@ -319,7 +319,7 @@ def test_multi_selfdestruct(
         },
         {
             "indexes": {"data": 4, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={0: 1, 1: 3, 2: 0, 16: 1, 17: 3, 18: 1, 19: 1},

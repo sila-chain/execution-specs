@@ -1,6 +1,6 @@
 """
 Request predeploy tests for
-[SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+[SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 
 The builder deposit and exit contracts reuse the queue design of the
 SIP-7002 withdrawal and SIP-7251 consolidation contracts, so every test
@@ -50,7 +50,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_8282.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8282.version
 
 pytestmark = [
-    pytest.mark.valid_from("Amsterdam"),
+    pytest.mark.valid_from("SilaAmsterdam"),
     pytest.mark.with_all_system_contract_request_types(
         selector=lambda cls: issubclass(cls, FeeSystemContractRequest)
     ),

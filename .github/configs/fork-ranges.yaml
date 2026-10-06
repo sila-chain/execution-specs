@@ -3,16 +3,16 @@
 # Features using --fork (single fork) are never split.
 - label: pre-shanghai
   from: Frontier
-  until: Paris
+  until: SilaParis
 - label: shanghai-cancun
-  from: Shanghai
-  until: Cancun
+  from: SilaShanghai
+  until: SilaCancun
 - label: prague
-  from: Prague
-  until: Prague
+  from: SilaPrague
+  until: SilaPrague
 - label: osaka
-  from: Osaka
+  from: SilaOsaka
   until: BPO5
 - label: amsterdam
-  from: Amsterdam
-  until: Amsterdam
+  from: SilaAmsterdam
+  until: SilaAmsterdam

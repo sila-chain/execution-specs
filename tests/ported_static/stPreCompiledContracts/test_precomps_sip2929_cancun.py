@@ -6,15 +6,15 @@ state_tests/stPreCompiledContracts/precompsEIP2929CancunFiller.yml
 
 @manually-enhanced: Do not overwrite. 87 parametrizations of this
 test measure the regular gas consumed by a CALL with value to an
-inactive precompile address. SIP-8037 replaces the Cancun-era
+inactive precompile address. SIP-8037 replaces the SilaCancun-era
 `NEW_ACCOUNT` cost with a per-new-account state-gas charge that,
 with an empty reservoir (the case here), spills back into regular
 gas; SIP-8038 also raises `COLD_ACCOUNT_ACCESS`. `Op.GAS` therefore
 reads the new-account and `COLD_ACCOUNT_ACCESS` deltas as extra
-regular gas compared to Cancun. Derive that delta from the fork so
+regular gas compared to SilaCancun. Derive that delta from the fork so
 it is 0 pre-SIP-8037 and tracks parameter changes; bake it into the
-two affected `[">=Cancun"]` expect-entries. The third entry is gated
-to `["Cancun"]` only and unchanged.
+two affected `[">=SilaCancun"]` expect-entries. The third entry is gated
+to `["SilaCancun"]` only and unchanged.
 """
 
 import pytest
@@ -28,7 +28,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -42,7 +42,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stPreCompiledContracts/precompsEIP2929CancunFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -3602,13 +3602,13 @@ def test_precomps_sip2929_cancun(
     # entries shift by the account delta, `no` entries by the cold
     # delta, and `all` entries by both.
     new_account_delta = (
-        (fork.create_state_gas() - Cancun.gas_costs().NEW_ACCOUNT)
+        (fork.create_state_gas() - SilaCancun.gas_costs().NEW_ACCOUNT)
         if fork.is_sip_enabled(8037)
         else 0
     )
     cold_account_delta = (
         fork.gas_costs().COLD_ACCOUNT_ACCESS
-        - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
 
     expect_entries_: list[dict] = [
@@ -3838,7 +3838,7 @@ def test_precomps_sip2929_cancun(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {target: Account(storage={0: 1, 1: 0})},
         },
         {
@@ -4002,7 +4002,7 @@ def test_precomps_sip2929_cancun(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Prague"],
+            "network": [">=SilaPrague"],
             "result": {target: Account(storage={0: 1, 1: 0})},
         },
         {
@@ -4072,7 +4072,7 @@ def test_precomps_sip2929_cancun(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 0, 1: 2500 + cold_account_delta})
             },
@@ -4217,7 +4217,7 @@ def test_precomps_sip2929_cancun(
                 "gas": -1,
                 "value": -1,
             },
-            "network": ["Cancun"],
+            "network": ["SilaCancun"],
             "result": {target: Account(storage={0: 0, 1: 2500})},
         },
         {
@@ -4250,7 +4250,7 @@ def test_precomps_sip2929_cancun(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(storage={0: 0, 1: 25000 + new_account_delta})
             },
@@ -4261,7 +4261,7 @@ def test_precomps_sip2929_cancun(
                 "gas": -1,
                 "value": -1,
             },
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={
@@ -4299,7 +4299,7 @@ def test_precomps_sip2929_cancun(
                 "gas": -1,
                 "value": -1,
             },
-            "network": ["Cancun"],
+            "network": ["SilaCancun"],
             "result": {target: Account(storage={0: 0, 1: 27500})},
         },
     ]

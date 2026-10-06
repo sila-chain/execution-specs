@@ -1,8 +1,8 @@
 """
-[SIP-150: Operation Gas Costs](https://sips.sila.org/SIPS/sip-150)
-introduced changes to the gas costs of certain EVM operations to mitigate DOS
+[SIP-150: Operation Gas Costs](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-150.md)
+introduced changes to the gas costs of certain Sivm operations to mitigate DOS
 attacks. This module contains tests that verify the correct implementation
-of these gas cost changes in the Sila Virtual Machine (EVM).
+of these gas cost changes in the Sila Virtual Machine (Sivm).
 """
 
 from dataclasses import dataclass
@@ -17,5 +17,5 @@ class ReferenceSpec:
 
 
 ref_spec_150 = ReferenceSpec(
-    "SIPS/sip-150.md", "34acf72522b989d86e76efcaf42eba4cdb0b31ad"
+    "SIPS/sip-150.md", "fef1a0451a9378605636552d850835fa705832d6"
 )

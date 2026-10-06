@@ -26,13 +26,13 @@ from execution_testing.fixtures import (
     StateFixture,
 )
 from execution_testing.forks import (
-    Berlin,
-    Cancun,
     Fork,
-    Istanbul,
-    London,
-    Paris,
-    Shanghai,
+    SilaBerlin,
+    SilaCancun,
+    SilaIstanbul,
+    SilaLondon,
+    SilaParis,
+    SilaShanghai,
 )
 from execution_testing.test_types import (
     Alloc,
@@ -53,11 +53,11 @@ FIXTURES_FOLDER = CURRENT_FOLDER / "fixtures"
 @pytest.fixture()
 def fixture_hash(fork: Fork) -> bytes:
     """Set the fixture hash based on the fork."""
-    if fork == Berlin:
+    if fork == SilaBerlin:
         return bytes.fromhex("e57ad774ca")
-    elif fork == London:
+    elif fork == SilaLondon:
         return bytes.fromhex("3714102a4c")
-    elif fork == Cancun:
+    elif fork == SilaCancun:
         return bytes.fromhex("2885c707e3")
     raise ValueError(f"Unexpected fork: {fork}")
 
@@ -87,9 +87,9 @@ def test_check_helper_fixtures() -> None:
 @pytest.mark.parametrize(
     "fork",
     [
-        Berlin,
-        London,
-        Cancun,
+        SilaBerlin,
+        SilaLondon,
+        SilaCancun,
     ],
 )
 def test_make_genesis(  # noqa: D103
@@ -129,16 +129,16 @@ def test_make_genesis(  # noqa: D103
 @pytest.mark.parametrize(
     "fork,fixture_format,tx_type",
     [
-        (Istanbul, BlockchainFixture, TransactionType.LEGACY),
-        (London, BlockchainFixture, TransactionType.LEGACY),
-        (Cancun, BlockchainFixture, TransactionType.LEGACY),
-        (Paris, BlockchainEngineFixture, TransactionType.LEGACY),
-        (Shanghai, BlockchainEngineFixture, TransactionType.LEGACY),
-        (Cancun, BlockchainEngineFixture, TransactionType.LEGACY),
-        (Paris, StateFixture, TransactionType.LEGACY),
-        (Shanghai, StateFixture, TransactionType.LEGACY),
-        (Cancun, StateFixture, TransactionType.LEGACY),
-        (Cancun, StateFixture, TransactionType.ACCESS_LIST),
+        (SilaIstanbul, BlockchainFixture, TransactionType.LEGACY),
+        (SilaLondon, BlockchainFixture, TransactionType.LEGACY),
+        (SilaCancun, BlockchainFixture, TransactionType.LEGACY),
+        (SilaParis, BlockchainEngineFixture, TransactionType.LEGACY),
+        (SilaShanghai, BlockchainEngineFixture, TransactionType.LEGACY),
+        (SilaCancun, BlockchainEngineFixture, TransactionType.LEGACY),
+        (SilaParis, StateFixture, TransactionType.LEGACY),
+        (SilaShanghai, StateFixture, TransactionType.LEGACY),
+        (SilaCancun, StateFixture, TransactionType.LEGACY),
+        (SilaCancun, StateFixture, TransactionType.ACCESS_LIST),
     ],
 )
 def test_fill_state_test(
@@ -233,13 +233,13 @@ class TestFillBlockchainValidTxs:
 
     @pytest.fixture
     def check_hive(self, fork: Fork) -> bool:  # noqa: D102
-        return fork == Shanghai
+        return fork == SilaShanghai
 
     @pytest.fixture
     def expected_json_file(self, fork: Fork, check_hive: bool) -> str:  # noqa: D102
-        if fork == London and not check_hive:
+        if fork == SilaLondon and not check_hive:
             return "blockchain_london_valid_filled.json"
-        elif fork == Shanghai and check_hive:
+        elif fork == SilaShanghai and check_hive:
             return "blockchain_shanghai_valid_filled_engine.json"
         raise ValueError(
             f"Unexpected fork/check_hive combination: {fork}/{check_hive}"
@@ -271,9 +271,9 @@ class TestFillBlockchainValidTxs:
                 balance=0x20000000000,
                 nonce=1,
                 code=(
-                    (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
-                    + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
                     + Op.PUSH20("0xcccccccccccccccccccccccccccccccccccccccc")
                     + Op.GAS
@@ -285,9 +285,9 @@ class TestFillBlockchainValidTxs:
                 balance=0,
                 nonce=1,
                 code=(
-                    (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
-                    + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
                     + Op.PUSH20("0xcccccccccccccccccccccccccccccccccccccccc")
                     + Op.GAS
@@ -299,17 +299,17 @@ class TestFillBlockchainValidTxs:
                 balance=0x20000000000,
                 nonce=1,
                 code=(
-                    (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
-                    + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
                     + Op.PUSH2("0x1000")
                     + Op.PUSH2("0xc0de")
                     + Op.GAS
                     + Op.CALL
-                    + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
-                    + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                    + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                     + Op.DUP1
                     + Op.PUSH20("0xcccccccccccccccccccccccccccccccccccccccc")
                     + Op.GAS
@@ -539,7 +539,7 @@ class TestFillBlockchainValidTxs:
             .fixture
         )
 
-    @pytest.mark.parametrize("fork", [London, Shanghai], indirect=True)
+    @pytest.mark.parametrize("fork", [SilaLondon, SilaShanghai], indirect=True)
     def test_fill_blockchain_valid_txs(  # noqa: D102
         self,
         fork: Fork,
@@ -584,7 +584,7 @@ class TestFillBlockchainValidTxs:
 
         assert fixture[fixture_name] == expected[fixture_name]
 
-    @pytest.mark.parametrize("fork", [London], indirect=True)
+    @pytest.mark.parametrize("fork", [SilaLondon], indirect=True)
     def test_fixture_header_join(
         self, blockchain_test_fixture: BlockchainFixture
     ) -> None:
@@ -593,7 +593,6 @@ class TestFillBlockchainValidTxs:
         new_difficulty = block.header.difficulty - 1  # type: ignore
 
         new_state_root = Hash(12345)
-        # See description of https://github.com/sila/execution-spec-tests/pull/398
         new_transactions_root = 0x100
         header_new_fields = Header(
             difficulty=new_difficulty,
@@ -614,8 +613,8 @@ class TestFillBlockchainValidTxs:
 @pytest.mark.parametrize(
     "fork,check_hive,expected_json_file",
     [
-        (London, False, "blockchain_london_invalid_filled.json"),
-        (Shanghai, True, "blockchain_shanghai_invalid_filled_engine.json"),
+        (SilaLondon, False, "blockchain_london_invalid_filled.json"),
+        (SilaShanghai, True, "blockchain_shanghai_invalid_filled_engine.json"),
     ],
 )
 def test_fill_blockchain_invalid_txs(
@@ -649,9 +648,9 @@ def test_fill_blockchain_invalid_txs(
             balance=0x20000000000,
             nonce=1,
             code=(
-                (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
-                + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
                 + Op.PUSH20("0xcccccccccccccccccccccccccccccccccccccccc")
                 + Op.GAS
@@ -663,9 +662,9 @@ def test_fill_blockchain_invalid_txs(
             balance=0,
             nonce=1,
             code=(
-                (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
-                + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
                 + Op.PUSH20("0xcccccccccccccccccccccccccccccccccccccccc")
                 + Op.GAS
@@ -677,17 +676,17 @@ def test_fill_blockchain_invalid_txs(
             balance=0x20000000000,
             nonce=1,
             code=(
-                (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
-                + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
                 + Op.PUSH2("0x1000")
                 + Op.PUSH2("0xc0de")
                 + Op.GAS
                 + Op.CALL
-                + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
-                + (Op.PUSH1(0) if fork < Shanghai else Op.PUSH0)
+                + (Op.PUSH1(0) if fork < SilaShanghai else Op.PUSH0)
                 + Op.DUP1
                 + Op.PUSH20("0xcccccccccccccccccccccccccccccccccccccccc")
                 + Op.GAS

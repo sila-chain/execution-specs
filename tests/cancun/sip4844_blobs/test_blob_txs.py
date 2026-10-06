@@ -1,5 +1,5 @@
 """
-Tests blob type transactions for [SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+Tests blob type transactions for [SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 
 Note: To add a new test, add a function that is named `test_<test_name>`.
 
@@ -472,7 +472,7 @@ def block(
     SpecHelpers.all_valid_blob_combinations,
 )
 @pytest.mark.parametrize("block_base_fee_per_gas", [7, 100])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_valid_blob_tx_combinations(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -578,8 +578,8 @@ def generate_invalid_tx_max_fee_per_blob_gas_tests(fork: Fork) -> List:
     "account_balance_modifier",
     [1_000_000_000],
 )  # Extra balance to cover block blob gas cost
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.sels_base_coverage
 def test_invalid_tx_max_fee_per_blob_gas(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -611,7 +611,7 @@ def test_invalid_tx_max_fee_per_blob_gas(
     generate_invalid_tx_max_fee_per_blob_gas_tests,
 )
 @pytest.mark.state_test_only
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_invalid_tx_max_fee_per_blob_gas_state(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -646,8 +646,8 @@ def test_invalid_tx_max_fee_per_blob_gas_state(
     ids=["insufficient_max_fee_per_gas"],
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.sels_base_coverage
 def test_invalid_normal_gas(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -688,8 +688,8 @@ def test_invalid_normal_gas(
     ids=[""],
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.sels_base_coverage
 def test_invalid_block_blob_count(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -734,7 +734,7 @@ def test_invalid_block_blob_count(
     "tx_error", [TransactionException.INSUFFICIENT_ACCOUNT_FUNDS], ids=[""]
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow()
 def test_insufficient_balance_blob_tx(
     state_test: StateTestFiller,
@@ -784,7 +784,7 @@ def test_insufficient_balance_blob_tx(
 )
 @pytest.mark.parametrize("block_base_fee_per_gas", [7, 100])
 @pytest.mark.parametrize("tx_max_fee_per_blob_gas_multiplier", [1, 100, 10000])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_sufficient_balance_blob_tx(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -833,7 +833,7 @@ def test_sufficient_balance_blob_tx(
 )
 @pytest.mark.parametrize("tx_max_fee_per_blob_gas_multiplier", [1, 100, 10000])
 @pytest.mark.parametrize("sender_initial_balance", [0])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_sufficient_balance_blob_tx_pre_fund_tx(
     blockchain_test: BlockchainTestFiller,
     fork: Fork,
@@ -932,7 +932,7 @@ def test_sufficient_balance_blob_tx_pre_fund_tx(
     ],
     ids=[""],
 )  # Amount sent by the contract to the sender mid execution
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_blob_gas_subtraction_tx(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -986,7 +986,7 @@ def test_blob_gas_subtraction_tx(
     "tx_error", [TransactionException.INSUFFICIENT_ACCOUNT_FUNDS], ids=[""]
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_insufficient_balance_blob_tx_combinations(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -1038,8 +1038,8 @@ def generate_invalid_tx_blob_count_tests(
     generate_invalid_tx_blob_count_tests,
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.sels_base_coverage
 def test_invalid_tx_blob_count(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -1093,7 +1093,7 @@ def test_invalid_tx_blob_count(
     ids=[""],
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_invalid_blob_hash_versioning_single_tx(
     state_test: StateTestFiller,
     state_env: Environment,
@@ -1156,8 +1156,8 @@ def test_invalid_blob_hash_versioning_single_tx(
     ids=[""],
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.sels_base_coverage
 def test_invalid_blob_hash_versioning_multiple_txs(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -1186,7 +1186,7 @@ def test_invalid_blob_hash_versioning_multiple_txs(
     "tx_gas", [500_000], ids=[""]
 )  # Increase gas to account for contract creation
 @pytest.mark.exception_test
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_invalid_blob_tx_contract_creation(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -1298,7 +1298,7 @@ def opcode(
     indirect=["opcode"],
 )
 @pytest.mark.parametrize("tx_gas", [500_000])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_blob_tx_attribute_opcodes(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1352,7 +1352,7 @@ def test_blob_tx_attribute_opcodes(
 @pytest.mark.parametrize("opcode", [Op.CALLVALUE], indirect=["opcode"])
 @pytest.mark.parametrize("tx_value", [0, 1, int(1e18)])
 @pytest.mark.parametrize("tx_gas", [500_000])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_blob_tx_attribute_value_opcode(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1419,7 +1419,7 @@ def test_blob_tx_attribute_value_opcode(
     ids=["empty", "single_byte", "word"],
 )
 @pytest.mark.parametrize("tx_gas", [500_000])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_blob_tx_attribute_calldata_opcodes(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1479,7 +1479,7 @@ def test_blob_tx_attribute_calldata_opcodes(
 @pytest.mark.parametrize("tx_max_fee_per_gas", [100])
 @pytest.mark.parametrize("opcode", [Op.GASPRICE], indirect=True)
 @pytest.mark.parametrize("tx_gas", [500_000])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_blob_tx_attribute_gasprice_opcode(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1568,7 +1568,7 @@ def test_blob_tx_attribute_gasprice_opcode(
     ids=["no_blob_tx", "one_blob_tx"],
 )
 @pytest.mark.exception_test
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 @pytest.mark.slow()
 def test_blob_type_tx_pre_fork(
     state_test: StateTestFiller,
@@ -1577,11 +1577,11 @@ def test_blob_type_tx_pre_fork(
     block_error: Optional[TransactionException | BlockException],
 ) -> None:
     """
-    Reject blocks with blob type transactions before Cancun fork.
+    Reject blocks with blob type transactions before SilaCancun fork.
 
-    Blocks sent by NewPayloadV2 (Shanghai) that contain blob type transactions,
-    furthermore blobs field within NewPayloadV2 method must be computed as
-    INVALID, due to an invalid block hash.
+    Blocks sent by NewPayloadV2 (SilaShanghai) that contain blob type
+    transactions, furthermore blobs field within NewPayloadV2 method must be
+    computed as INVALID, due to an invalid block hash.
     """
     assert len(txs) == 1
     state_test(

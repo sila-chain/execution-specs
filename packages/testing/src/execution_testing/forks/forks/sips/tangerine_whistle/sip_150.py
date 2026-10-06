@@ -4,7 +4,7 @@ SIP-150: Gas cost changes for IO-heavy operations.
 Reprice the flat account and storage access costs. Only the costs
 consumed by the opcode gas model are modeled here.
 
-https://sips.sila.org/SIPS/sip-150
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-150.md
 """
 
 from dataclasses import replace

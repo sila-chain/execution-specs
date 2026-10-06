@@ -1,5 +1,5 @@
 """
-Tests for [SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+Tests for [SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 Covers ``SSTORE`` refund and charge accounting across frames that fail.
 A frame's refund-counter adjustments are discarded when the frame
@@ -36,7 +36,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 # Alias for the deep checklist path so decorator lines stay within
 # the line limit; the marks are applied at runtime, so the checklist

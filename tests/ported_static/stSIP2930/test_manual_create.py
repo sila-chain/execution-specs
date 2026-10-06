@@ -28,7 +28,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -42,7 +42,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP2930/manualCreateFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -97,7 +97,7 @@ def test_manual_create(
     # gas model so each is exactly 0 pre-SIP-8037.
     def _sstore_delta(**metadata: int) -> int:
         op = Op.SSTORE.with_metadata(**metadata)
-        return op.gas_cost(fork) - op.gas_cost(Cancun)
+        return op.gas_cost(fork) - op.gas_cost(SilaCancun)
 
     warm_set_delta = _sstore_delta(key_warm=True, current_value=0, new_value=2)
     cold_set_delta = _sstore_delta(
@@ -107,7 +107,7 @@ def test_manual_create(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=1): Account(
                     storage={0: 20008 + warm_set_delta, 1: 106}
@@ -116,7 +116,7 @@ def test_manual_create(
         },
         {
             "indexes": {"data": [0, 1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=sender, nonce=1): Account(
                     storage={0: 22108 + cold_set_delta, 1: 106}
@@ -163,7 +163,7 @@ def test_manual_create(
         + Op.STOP,
     ]
     # SIP-8037 NEW_ACCOUNT state-gas spill into regular gas on
-    # Amsterdam exceeds the original 400 000 budget. Pre-SIP-8037
+    # SilaAmsterdam exceeds the original 400 000 budget. Pre-SIP-8037
     # keeps the original value.
     outer_tx_gas = 400_000
     if fork.is_sip_enabled(8037):

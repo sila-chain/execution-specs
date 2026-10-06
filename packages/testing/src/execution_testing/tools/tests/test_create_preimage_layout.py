@@ -91,7 +91,7 @@ def test_create_preimage(
     offset: int,
     creator_address: int | None,
 ) -> None:
-    """Test `CreatePreimageLayout` by running its result in the EVM."""
+    """Test `CreatePreimageLayout` by running its result in the Sivm."""
     sender = EOA(key=1)
 
     contract_address = 0x1000
@@ -167,7 +167,7 @@ def test_create2_preimage(
     offset: int,
     factory_address: int | None,
 ) -> None:
-    """Test `Create2PreimageLayout` by running its result in the EVM."""
+    """Test `Create2PreimageLayout` by running its result in the Sivm."""
     sender = EOA(key=1)
 
     contract_address = 0x1000

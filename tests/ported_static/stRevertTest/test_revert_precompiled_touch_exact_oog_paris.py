@@ -15,7 +15,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Fork, Prague
+from execution_testing.forks import Fork, SilaPrague
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stRevertTest/RevertPrecompiledTouchExactOOG_ParisFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -733,127 +733,127 @@ def test_revert_precompiled_touch_exact_oog_paris(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 8, 16, 24], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_5: Account(nonce=0)},
         },
         {
             "indexes": {"data": [1, 25, 9, 17], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_6: Account(nonce=0)},
         },
         {
             "indexes": {"data": [18, 26, 2, 10], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_7: Account(nonce=0)},
         },
         {
             "indexes": {"data": [11, 19, 3, 27], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_8: Account(nonce=0)},
         },
         {
             "indexes": {"data": [20, 28, 4, 12], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_9: Account(nonce=0)},
         },
         {
             "indexes": {"data": [29, 13, 21, 5], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_10: Account(nonce=0)},
         },
         {
             "indexes": {"data": [22, 30, 6, 14], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_11: Account(nonce=0)},
         },
         {
             "indexes": {"data": [31, 15, 23, 7], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_12: Account(nonce=0)},
         },
         {
             "indexes": {"data": [8, 16], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_5: Account(nonce=0)},
         },
         {
             "indexes": {"data": [0, 24], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_5: Account(nonce=0)},
         },
         {
             "indexes": {"data": [9, 17], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_6: Account(nonce=0)},
         },
         {
             "indexes": {"data": [1, 25], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_6: Account(nonce=0)},
         },
         {
             "indexes": {"data": [10, 18], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_7: Account(nonce=0)},
         },
         {
             "indexes": {"data": [2, 26], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_7: Account(nonce=0)},
         },
         {
             "indexes": {"data": [19, 11], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_8: Account(nonce=0)},
         },
         {
             "indexes": {"data": [27, 3], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_8: Account(nonce=0)},
         },
         {
             "indexes": {"data": [12, 20], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_9: Account(nonce=0)},
         },
         {
             "indexes": {"data": [4, 28], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_9: Account(nonce=0)},
         },
         {
             "indexes": {"data": [21, 13], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_10: Account(nonce=0)},
         },
         {
             "indexes": {"data": [29, 5], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_10: Account(nonce=0)},
         },
         {
             "indexes": {"data": [14, 22], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_11: Account(nonce=0)},
         },
         {
             "indexes": {"data": [6, 30], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_11: Account(nonce=0)},
         },
         {
             "indexes": {"data": [23, 15], "gas": [1, 2], "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_12: Account(nonce=0)},
         },
         {
             "indexes": {"data": [31, 7], "gas": 2, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_12: Account(nonce=0)},
         },
         {
             "indexes": {"data": [31, 7], "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {addr_12: Account(nonce=0)},
         },
     ]
@@ -928,14 +928,14 @@ def test_revert_precompiled_touch_exact_oog_paris(
     ]
     # The original ported test uses gas_limit tuned for an exact-OOG
     # boundary on the CALLCODE-to-precompile path. SIP-7976 bumps the
-    # calldata floor cost per token from 10 to 16 (Amsterdam, with
+    # calldata floor cost per token from 10 to 16 (SilaAmsterdam, with
     # 8037), which would push the floor above the tightest budget.
     # Shift gas_limit by the intrinsic delta so the same execution
     # budget is preserved on every fork.
     current_intrinsic = fork.transaction_intrinsic_cost_calculator()(
         calldata=tx_data[d]
     )
-    baseline_intrinsic = Prague.transaction_intrinsic_cost_calculator()(
+    baseline_intrinsic = SilaPrague.transaction_intrinsic_cost_calculator()(
         calldata=tx_data[d]
     )
     intrinsic_delta = current_intrinsic - baseline_intrinsic

@@ -21,18 +21,18 @@ class TestPatterns:
 
 
 def exceptional_blockchain_test_patterns(
-    json_fork: str, eels_fork: str
+    json_fork: str, sels_fork: str
 ) -> TestPatterns:
     """
     Returns patterns for slow, ignored, and big-memory tests
-    for a given json_fork and eels_fork.
+    for a given json_fork and sels_fork.
 
     Parameters
     ----------
     json_fork : str
         The json_fork name (e.g., "Frontier", "SIP150").
-    eels_fork : str
-        The eels_fork name (e.g., "frontier", "tangerine_whistle").
+    sels_fork : str
+        The sels_fork name (e.g., "frontier", "tangerine_whistle").
 
     Returns
     -------
@@ -41,7 +41,7 @@ def exceptional_blockchain_test_patterns(
 
     """
     jf = re.escape(json_fork)
-    ef = re.escape(eels_fork)
+    ef = re.escape(sels_fork)
 
     slow_tests = (
         # GeneralStateTests
@@ -68,7 +68,7 @@ def exceptional_blockchain_test_patterns(
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-blockchain_test-inf_pair-\\]",
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-blockchain_test-multi_inf_pair-\\]",
         f"tests/{ef}/sip2935_historical_block_hashes_from_state/test_block_hashes\\.py::test_block_hashes_history\\[fork_{jf}-blockchain_test-full_history_plus_one_check_blockhash_first\\]",
-        # Static tests from EEST
+        # Static tests from SEST
         "tests/json_loader/fixtures/latest_fork_tests/fixtures/blockchain_tests/static",
     )
 
@@ -107,23 +107,23 @@ def exceptional_blockchain_test_patterns(
 
 
 def exceptional_state_test_patterns(
-    json_fork: str, eels_fork: str
+    json_fork: str, sels_fork: str
 ) -> TestPatterns:
     """
     Returns patterns for slow, ignored, and big-memory state tests for a
-    given json_fork and eels_fork.
+    given json_fork and sels_fork.
     """
     jf = re.escape(json_fork)
-    ef = re.escape(eels_fork)
+    ef = re.escape(sels_fork)
     slow_tests = (
         "CALLBlake2f_MaxRounds",
         "CALLCODEBlake2f",
         "CALLBlake2f",
         "loopExp",
         "loopMul",
-        "GeneralStateTests/stTimeConsuming/CALLBlake2f_MaxRounds\\.json::CALLBlake2f_MaxRounds-fork_\\[Cancun-Prague\\]-d0g0v0",
-        "GeneralStateTests/VMTests/vmPerformance/loopExp\\.json::loopExp-fork_\\[Cancun-Prague\\]-d[0-14]g0v0",
-        "GeneralStateTests/VMTests/vmPerformance/loopMul\\.json::loopMul-fork_\\[Cancun-Prague\\]-d[0-2]g0v0",
+        "GeneralStateTests/stTimeConsuming/CALLBlake2f_MaxRounds\\.json::CALLBlake2f_MaxRounds-fork_\\[SilaCancun-SilaPrague\\]-d0g0v0",
+        "GeneralStateTests/VMTests/vmPerformance/loopExp\\.json::loopExp-fork_\\[SilaCancun-SilaPrague\\]-d[0-14]g0v0",
+        "GeneralStateTests/VMTests/vmPerformance/loopMul\\.json::loopMul-fork_\\[SilaCancun-SilaPrague\\]-d[0-2]g0v0",
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-state_test-bls_pairing_non-degeneracy-\\]",
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-state_test-bls_pairing_bilinearity-\\]",
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-state_test-bls_pairing_e(G1,-G2)=e(-G1,G2)-\\]",
@@ -131,7 +131,7 @@ def exceptional_state_test_patterns(
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-state_test-bls_pairing_e(aG1,bG2)=e(G1,abG2)-\\]",
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-state_test-inf_pair-\\]",
         f"tests/{ef}/sip2537_bls_12_381_precompiles/test_bls12_pairing\\.py::test_valid\\[fork_{jf}-state_test-multi_inf_pair-\\]",
-        # Static tests from EEST
+        # Static tests from SEST
         "tests/json_loader/fixtures/latest_fork_tests/fixtures/state_tests/static",
     )
 
@@ -143,13 +143,13 @@ def exceptional_state_test_patterns(
 
 
 def exceptional_vm_test_patterns(
-    json_fork: str, eels_fork: str
+    json_fork: str, sels_fork: str
 ) -> TestPatterns:
     """
     Returns patterns for slow, ignored, and big-memory VM tests for a
-    given json_fork and eels_fork.
+    given json_fork and sels_fork.
     """
-    del json_fork, eels_fork  # Not used for VM tests currently
+    del json_fork, sels_fork  # Not used for VM tests currently
 
     slow_tests = (
         # vmPerformance tests are slow

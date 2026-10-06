@@ -1,7 +1,7 @@
 """
 A pytest plugin that generates test case documentation for use in mkdocs.
 
-It generates the top-level "Test Case Reference" section in EEST's mkdocs site.
+It generates the top-level "Test Case Reference" section in SEST's mkdocs site.
 
 Note:
 ----
@@ -168,7 +168,7 @@ def get_import_path(path: Path) -> str:
 
 def create_github_issue_url(title: str) -> str:
     """Create a GitHub issue URL for the given title."""
-    url_base = "https://github.com/sila/execution-spec-tests/issues/new?"
+    url_base = "https://github.com/sila-chain/execution-specs/issues/new?"
     title = title.replace(" ", "%20")
     labels = "scope:docs,type:bug"
     return f"{url_base}title={title}&labels={labels}"
@@ -254,8 +254,8 @@ class TestDocsGenerator:
         ]
         # Map each transition fork's name to the base fork it ends at so that
         # cases parametrized as a transition fork (e.g.
-        # `BPO2ToAmsterdamAtTime15k`) count toward the fork they transition
-        # into (`Amsterdam`).
+        # `BPO2ToSilaAmsterdamAtTime15k`) count toward the fork they transition
+        # into (`SilaAmsterdam`).
         self._transition_to_base: Dict[str, str] = {
             fork.name(): fork.transitions_to().name()
             for fork in ALL_TRANSITION_FORKS
@@ -361,12 +361,12 @@ class TestDocsGenerator:
         deploys a version of the site underneath a sub-directory named after
         the version, e.g.:
 
-        - https://eest.sila.org/main/
-        - https://eest.sila.org/v4.1.0/
+        - <site>/main/
+        - <site>/v4.1.0/
 
         We need to be able to include the javascript available at:
 
-        - https://eest.sila.org/main/javascripts/site.js
+        - <site>/main/javascripts/site.js
         """
         ci = os.getenv("CI", None)
         github_ref_name = os.getenv("GITHUB_REF_NAME", None)
@@ -675,8 +675,8 @@ class TestDocsGenerator:
         navigation menu.
         """
 
-        # Fork directories on disk are snake_case (e.g. `tangerine_whistle`)
-        # but `fork.name()` is CamelCase (`TangerineWhistle`).
+        # Fork directories on disk are snake_case (e.g. `sila_berlin`) but
+        # `fork.name()` is CamelCase (`SilaBerlin`).
         def _dir_name(fork_name: str) -> str:
             s1 = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", fork_name)
             return re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
@@ -696,9 +696,9 @@ class TestDocsGenerator:
             Nav entries / output files contain special cases such as:
 
             - ("Test Case Reference",) -> tests/index.md
-            - ("Test Case Reference", "Berlin") -> tests/berlin/index.md
-            - ("Test Case Reference", "Shanghai", "SIP-3855 PUSH0", "Spec") ->
-            tests/shanghai/sip3855_push0/spec.py
+            - ("Test Case Reference", "SilaBerlin") -> tests/berlin/index.md
+            - ("Test Case Reference", "SilaShanghai", "SIP-3855 PUSH0", "Spec")
+            -> tests/shanghai/sip3855_push0/spec.py
 
             This function provides and ordering to sort nav men entries as
             follows:

@@ -28,8 +28,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/OverflowGasRequire2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 def test_overflow_gas_require2(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -52,7 +52,7 @@ def test_overflow_gas_require2(
 
     expect_entries_: list[dict] = [
         {
-            "network": ["Cancun"],
+            "network": ["SilaCancun"],
             "result": {
                 sender: Account(
                     balance=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE6357F,  # noqa: E501
@@ -61,7 +61,7 @@ def test_overflow_gas_require2(
             },
         },
         {
-            "network": ["Prague"],
+            "network": ["SilaPrague"],
             "result": {
                 sender: Account(
                     balance=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE5F97F,  # noqa: E501

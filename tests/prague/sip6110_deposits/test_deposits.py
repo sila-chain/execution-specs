@@ -2,7 +2,7 @@
 Tests validator deposit functionality.
 
 Tests the validator deposit functionality implementation from
-[SIP-6110: Supply validator deposits on chain](https://sips.sila.org/SIPS/sip-6110).
+[SIP-6110: Supply validator deposits on chain](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6110.md).
 """
 
 from typing import List
@@ -34,7 +34,7 @@ from .spec import Spec, ref_spec_6110
 REFERENCE_SPEC_GIT_PATH = ref_spec_6110.git_path
 REFERENCE_SPEC_VERSION = ref_spec_6110.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 
 @pytest.mark.parametrize(
@@ -580,7 +580,8 @@ pytestmark = pytest.mark.valid_from("Prague")
             ],
             id="single_deposit_from_contract_call_depth_3",
         ),
-        # High depth under Amsterdam: SIP-7825 caps execution gas at 2^24, and
+        # High depth under SilaAmsterdam: SIP-7825 caps execution gas at 2^24,
+        # and
         # SIP-8037/8038 raise intrinsic + cold-account costs, so a 271-frame
         # 63/64 chain OOGs before the deposit lands (270 still passes). Use
         # 256 so the case stays deep with margin past SIP-8037.

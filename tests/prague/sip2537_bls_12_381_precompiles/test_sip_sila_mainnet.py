@@ -1,6 +1,6 @@
 """
 Crafted tests for sila-mainnet of
-[SIP-2537: Precompile for BLS12-381 curve operations](https://sips.sila.org/SIPS/sip-2537).
+[SIP-2537: Precompile for BLS12-381 curve operations](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 import pytest
@@ -11,7 +11,7 @@ from .spec import FP, FP2, Scalar, Spec, ref_spec_2537
 REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaPrague"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(
@@ -75,7 +75,7 @@ pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
         ),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_sip_2537(
     state_test: StateTestFiller,
     pre: Alloc,

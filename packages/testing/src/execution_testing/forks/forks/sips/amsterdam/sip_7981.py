@@ -3,7 +3,7 @@ SIP-7981: Increase Access List Cost.
 
 Price access lists for data to reduce maximum block size.
 
-https://sips.sila.org/SIPS/sip-7981
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7981.md
 """
 
 from typing import List, Sized

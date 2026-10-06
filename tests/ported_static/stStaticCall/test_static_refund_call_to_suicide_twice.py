@@ -29,7 +29,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stStaticCall/static_refund_CallToSuicideTwiceFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow
 @pytest.mark.parametrize(
     "d, g, v",
@@ -115,7 +115,7 @@ def test_static_refund_call_to_suicide_twice(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={0: 0, 1: 1}, balance=0x1BC16D674EC8000A
@@ -132,7 +132,7 @@ def test_static_refund_call_to_suicide_twice(
         },
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 target: Account(
                     storage={0: 0, 1: 1}, balance=0xDE0B6B3A764000A

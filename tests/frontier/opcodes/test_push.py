@@ -2,7 +2,7 @@
 A State test for the set of `PUSH*` opcodes.
 
 Ported from:
-https://github.com/sila/tests/blob/
+https://github.com/sila-chain/sila-tests/blob/main/
 4f65a0a7cbecf4442415c226c65e089acaaf6a8b/src/
 GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml.
 """
@@ -33,9 +33,8 @@ def get_input_for_push_opcode(opcode: Op) -> bytes:
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/975"],
 )
 @pytest.mark.parametrize(
     "push_opcode",
@@ -88,9 +87,8 @@ def test_push(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/VMTests/vmTests/pushFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/975"],
 )
 @pytest.mark.parametrize(
     "push_opcode",

@@ -1,4 +1,4 @@
-"""SIP-2: Homestead Identity Precompile Test Cases."""
+"""SIP-2: SilaHomestead Identity Precompile Test Cases."""
 
 import pytest
 from execution_testing import (
@@ -13,7 +13,7 @@ from execution_testing import (
 
 
 @pytest.mark.with_all_call_opcodes()
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_identity_return_overwrite(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -58,7 +58,7 @@ def test_identity_return_overwrite(
 
 
 @pytest.mark.with_all_call_opcodes()
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 def test_identity_return_buffer_modify(
     state_test: StateTestFiller,
     pre: Alloc,

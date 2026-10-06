@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stSStoreTest/sstore_0toXto0Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -245,7 +245,7 @@ def test_sstore_0to_xto0(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={}),
                 contract_2: Account(storage={1: 1}),
@@ -256,7 +256,7 @@ def test_sstore_0to_xto0(
         },
         {
             "indexes": {"data": [1, 2], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={}),
                 contract_2: Account(storage={1: 1}),
@@ -267,12 +267,12 @@ def test_sstore_0to_xto0(
         },
         {
             "indexes": {"data": 3, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_2: Account(storage={1: 1})},
         },
         {
             "indexes": {"data": 4, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x7564C2D690AB324D8FA20707F2BBDCFF4367BB92): Account(
                     storage={1: 1}
@@ -282,12 +282,12 @@ def test_sstore_0to_xto0(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_2: Account(storage={1: 0})},
         },
         {
             "indexes": {"data": [5, 6, 7, 8, 9], "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_2: Account(storage={1: 0})},
         },
     ]

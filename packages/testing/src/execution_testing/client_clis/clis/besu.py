@@ -304,7 +304,7 @@ class BesuTransitionTool(TransitionTool):
 
 
 class BesuExceptionMapper(ExceptionMapper):
-    """Translate between EEST exceptions and error strings returned by Besu."""
+    """Translate between SEST exceptions and error strings returned by Besu."""
 
     mapping_substring: ClassVar[Dict[ExceptionBase, str]] = {
         TransactionException.NONCE_IS_MAX: "invalid Nonce must be less than",

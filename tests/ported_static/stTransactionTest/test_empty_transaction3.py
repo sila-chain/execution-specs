@@ -17,7 +17,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Amsterdam
+from execution_testing.forks import SilaAmsterdam
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
 REFERENCE_SPEC_VERSION = "N/A"
@@ -26,7 +26,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stTransactionTest/EmptyTransaction3Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_empty_transaction3(
     state_test: StateTestFiller,
     fork: Fork,
@@ -42,14 +42,14 @@ def test_empty_transaction3(
         timestamp=1000,
         prev_randao=0x20000,
         base_fee_per_gas=10,
-        gas_limit=3000000 if fork >= Amsterdam else 1000000,
+        gas_limit=3000000 if fork >= SilaAmsterdam else 1000000,
     )
 
     tx = Transaction(
         sender=sender,
         to=None,
         data=Bytes(""),
-        gas_limit=2055000 if fork >= Amsterdam else 55000,
+        gas_limit=2055000 if fork >= SilaAmsterdam else 55000,
     )
 
     post = {

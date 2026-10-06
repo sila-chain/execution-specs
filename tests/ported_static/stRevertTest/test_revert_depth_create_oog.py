@@ -40,7 +40,7 @@ BUDGET_MARGIN = 5_000
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertDepthCreateOOGFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "full_grant",
     [False, True],

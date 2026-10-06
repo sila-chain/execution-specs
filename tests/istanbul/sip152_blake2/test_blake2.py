@@ -1,5 +1,5 @@
 """
-Tests [SIP-152: BLAKE2b compression precompile](https://sips.sila.org/SIPS/sip-152).
+Tests [SIP-152: BLAKE2b compression precompile](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-152.md).
 """
 
 import pytest
@@ -21,25 +21,21 @@ REFERENCE_SPEC_VERSION = ref_spec_152.version
 
 pytestmark = pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts/blake2BFiller.yml",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLBlake2fFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEBlake2fFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stPreCompiledContracts/delegatecall09UndefinedFiller.yml",
-    ],
-    pr=[
-        "https://github.com/sila/execution-spec-tests/pull/1244",
-        "https://github.com/sila/execution-spec-tests/pull/1067",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts/blake2BFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLBlake2fFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts2/CALLCODEBlake2fFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stPreCompiledContracts/delegatecall09UndefinedFiller.yml",
     ],
     coverage_missed_reason=(
         "No longer used opcodes, SUB, GT, ISZERO, AND, CODESIZE, JUMP, some "
-        "PUSH opcodes. Original test calls Blake2b in ConstantinopleFix "
+        "PUSH opcodes. Original test calls Blake2b in SilaConstantinopleFix "
         "(activation test), which results in empty account code being "
         "triggered."
     ),
 )
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL])
 @pytest.mark.parametrize(
     ["data", "output"],
@@ -82,7 +78,6 @@ pytestmark = pytest.mark.ported_from(
             ),
             id="valid-rounds-1",
         ),
-        # Case from https://github.com/sila/tests/pull/948#issuecomment-925964632
         pytest.param(
             Blake2bInput(
                 m="6162636465000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -315,7 +310,7 @@ def test_blake2b(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     ["data"],
@@ -396,7 +391,7 @@ def test_blake2b_invalid_input(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     ["data", "output"],
@@ -463,7 +458,7 @@ def test_blake2b_invalid_input(
         pytest.param(-1, id="insufficient_gas"),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_blake2b_gas(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -496,7 +491,7 @@ def test_blake2b_gas(
     state_test(pre=pre, post=post, tx=tx)
 
 
-@pytest.mark.valid_from("Istanbul")
+@pytest.mark.valid_from("SilaIstanbul")
 @pytest.mark.parametrize("call_opcode", [Op.CALL, Op.CALLCODE])
 @pytest.mark.parametrize(
     ["data", "output"],

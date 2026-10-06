@@ -28,12 +28,12 @@ def _case(test_id: str, path: str) -> TestCaseIndexFile:
 def test_cases_of_one_file_become_contiguous() -> None:
     """Interleaved files come out grouped, in file path order."""
     cases: List[TestCaseBase] = [
-        _case("a1", "for_osaka/x/a.json"),
-        _case("b1", "for_osaka/x/b.json"),
-        _case("a2", "for_osaka/x/a.json"),
-        _case("c1", "for_amsterdam/y/c.json"),
-        _case("b2", "for_osaka/x/b.json"),
-        _case("a3", "for_osaka/x/a.json"),
+        _case("a1", "for_silaosaka/x/a.json"),
+        _case("b1", "for_silaosaka/x/b.json"),
+        _case("a2", "for_silaosaka/x/a.json"),
+        _case("c1", "for_silaamsterdam/y/c.json"),
+        _case("b2", "for_silaosaka/x/b.json"),
+        _case("a3", "for_silaosaka/x/a.json"),
     ]
 
     grouped = group_test_cases_by_fixture_file(cases)
@@ -58,10 +58,10 @@ def test_order_within_a_file_is_preserved() -> None:
 def test_forks_run_one_after_another() -> None:
     """Fork directories are the leading path component, so forks group."""
     cases: List[TestCaseBase] = [
-        _case("o1", "for_osaka/x/a.json"),
-        _case("p1", "for_prague/x/a.json"),
-        _case("o2", "for_osaka/x/b.json"),
-        _case("p2", "for_prague/x/b.json"),
+        _case("o1", "for_silaosaka/x/a.json"),
+        _case("p1", "for_silaprague/x/a.json"),
+        _case("o2", "for_silaosaka/x/b.json"),
+        _case("p2", "for_silaprague/x/b.json"),
     ]
 
     forks = [
@@ -69,7 +69,12 @@ def test_forks_run_one_after_another() -> None:
         for tc in group_test_cases_by_fixture_file(cases)
     ]
 
-    assert forks == ["for_osaka", "for_osaka", "for_prague", "for_prague"]
+    assert forks == [
+        "for_silaosaka",
+        "for_silaosaka",
+        "for_silaprague",
+        "for_silaprague",
+    ]
 
 
 def test_cases_without_a_file_keep_their_order() -> None:

@@ -1,5 +1,5 @@
 """
-Sila Virtual Machine (EVM) ALT_BN128 CONTRACTS.
+Sila Virtual Machine (Sivm) ALT_BN128 CONTRACTS.
 
 .. contents:: Table of Contents
     :backlinks: none
@@ -30,7 +30,7 @@ from sila_ecc.typing import Optimized_Point3D as Point3D
 from sila_types.bytes import Bytes
 from sila_types.numeric import U256, Uint, ulen
 
-from ...vm import Evm
+from ...vm import Sivm
 from ...vm.gas import GasCosts, charge_gas
 from ...vm.memory import buffer_read
 from ..exceptions import InvalidParameter, OutOfGasError
@@ -136,20 +136,20 @@ def bytes_to_g2(data: Bytes) -> Point3D[FQ2]:
     return point
 
 
-def alt_bn128_add(evm: Evm) -> None:
+def alt_bn128_add(sivm: Sivm) -> None:
     """
     The ALT_BN128 addition precompiled contract.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
 
     # GAS
-    charge_gas(evm, GasCosts.PRECOMPILE_ECADD)
+    charge_gas(sivm, GasCosts.PRECOMPILE_ECADD)
 
     # OPERATION
     try:
@@ -161,23 +161,23 @@ def alt_bn128_add(evm: Evm) -> None:
     p = add(p0, p1)
     x, y = normalize(p)
 
-    evm.output = Uint(x).to_be_bytes32() + Uint(y).to_be_bytes32()
+    sivm.output = Uint(x).to_be_bytes32() + Uint(y).to_be_bytes32()
 
 
-def alt_bn128_mul(evm: Evm) -> None:
+def alt_bn128_mul(sivm: Sivm) -> None:
     """
     The ALT_BN128 multiplication precompiled contract.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
 
     # GAS
-    charge_gas(evm, GasCosts.PRECOMPILE_ECMUL)
+    charge_gas(sivm, GasCosts.PRECOMPILE_ECMUL)
 
     # OPERATION
     try:
@@ -189,24 +189,24 @@ def alt_bn128_mul(evm: Evm) -> None:
     p = multiply(p0, n)
     x, y = normalize(p)
 
-    evm.output = Uint(x).to_be_bytes32() + Uint(y).to_be_bytes32()
+    sivm.output = Uint(x).to_be_bytes32() + Uint(y).to_be_bytes32()
 
 
-def alt_bn128_pairing_check(evm: Evm) -> None:
+def alt_bn128_pairing_check(sivm: Sivm) -> None:
     """
     The ALT_BN128 pairing check precompiled contract.
 
     Parameters
     ----------
-    evm :
-        The current EVM frame.
+    sivm :
+        The current Sivm frame.
 
     """
-    data = evm.message.data
+    data = sivm.message.data
 
     # GAS
     charge_gas(
-        evm,
+        sivm,
         GasCosts.PRECOMPILE_ECPAIRING_PER_POINT * (ulen(data) // Uint(192))
         + GasCosts.PRECOMPILE_ECPAIRING_BASE,
     )
@@ -229,6 +229,6 @@ def alt_bn128_pairing_check(evm: Evm) -> None:
         result *= pairing(q, p)
 
     if result == FQ12.one():
-        evm.output = U256(1).to_be_bytes32()
+        sivm.output = U256(1).to_be_bytes32()
     else:
-        evm.output = U256(0).to_be_bytes32()
+        sivm.output = U256(0).to_be_bytes32()

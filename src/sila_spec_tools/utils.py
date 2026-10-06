@@ -1,5 +1,5 @@
 """
-Utilities for the EVM tools.
+Utilities for the Sivm tools.
 """
 
 import json
@@ -25,44 +25,35 @@ W = TypeVar("W", Uint, U64, U256)
 
 EXCEPTION_MAPS = {
     "BPO4": {
-        "fork_blocks": [("osaka", 0)],
+        "fork_blocks": [("sila_osaka", 0)],
     },
-    "FrontierToHomesteadAt5": {
-        "fork_blocks": [("frontier", 0), ("homestead", 5)],
+    "FrontierToSilaHomesteadAt5": {
+        "fork_blocks": [("frontier", 0), ("sila_homestead", 5)],
     },
-    "HomesteadToDaoAt5": {
-        "fork_blocks": [("homestead", 0), ("dao_fork", 5)],
+    "SilaHomesteadToDaoAt5": {
+        "fork_blocks": [("sila_homestead", 0), ("dao_fork", 5)],
     },
-    "HomesteadToEIP150At5": {
-        "fork_blocks": [("homestead", 0), ("tangerine_whistle", 5)],
+    "SilaHomesteadToSIP150At5": {
+        "fork_blocks": [("sila_homestead", 0), ("sip150", 5)],
     },
     "SIP158ToByzantiumAt5": {
-        "fork_blocks": [("spurious_dragon", 0), ("byzantium", 5)],
+        "fork_blocks": [("sip158", 0), ("sila_byzantium", 5)],
     },
-    "ByzantiumToConstantinopleAt5": {
-        "fork_blocks": [("byzantium", 0), ("constantinople", 5)],
+    "SilaByzantiumToSilaConstantinopleAt5": {
+        "fork_blocks": [("sila_byzantium", 0), ("sila_constantinople", 5)],
     },
     "ConstantinopleToIstanbulAt5": {
-        "fork_blocks": [("constantinople", 0), ("istanbul", 5)],
+        "fork_blocks": [("sila_constantinople", 0), ("sila_istanbul", 5)],
     },
-    "BerlinToLondonAt5": {
-        "fork_blocks": [("berlin", 0), ("london", 5)],
+    "SilaBerlinToSilaLondonAt5": {
+        "fork_blocks": [("sila_berlin", 0), ("sila_london", 5)],
     },
-    "SIP150": {
-        "fork_blocks": [("tangerine_whistle", 0)],
-    },
-    "SIP158": {
-        "fork_blocks": [("spurious_dragon", 0)],
-    },
-    "Merge": {
-        "fork_blocks": [("paris", 0)],
-    },
-    "ConstantinopleFix": {
-        "fork_blocks": [("constantinople", 0)],
+    "SilaConstantinopleFix": {
+        "fork_blocks": [("sila_constantinople", 0)],
     },
 }
 
-UNSUPPORTED_FORKS = ("constantinople",)
+UNSUPPORTED_FORKS = ("silaconstantinople",)
 
 
 def parse_hex_or_int(value: str, to_type: Callable[[int], W]) -> W:
@@ -120,6 +111,7 @@ def find_fork(
                 current_fork_block = fork_block
 
     current_fork_module = re.sub("^b_p_o", "bpo", current_fork_module)
+    current_fork_module = re.sub("^s_i_p", "sip", current_fork_module)
 
     for fork in forks:
         if current_fork_module == fork.short_name:
@@ -132,14 +124,12 @@ def find_fork(
 # Map testing ``Fork.transition_tool_name()`` → spec ``Hardfork.short_name``
 # for cases where CamelCase → snake_case does not produce the spec
 # module name:
-# * ``Paris`` reports itself as ``"Merge"`` to the t8n protocol.
 # * ``DAOFork`` would snake-case to ``d_a_o_fork``.
-# * ``ConstantinopleFix`` is a testing-side distinction that the spec
+# * ``SilaConstantinopleFix`` is a testing-side distinction that the spec
 #   folds into the ``constantinople`` module.
 _SPEC_SHORT_NAME_OVERRIDES: Dict[str, str] = {
-    "Merge": "paris",
     "DAOFork": "dao_fork",
-    "ConstantinopleFix": "constantinople",
+    "SilaConstantinopleFix": "sila_constantinople",
 }
 
 
@@ -148,16 +138,17 @@ def resolve_fork(fork_name: str) -> Hardfork:
     Resolve a testing ``Fork.transition_tool_name()`` to its matching
     spec ``Hardfork``.
 
-    CLI exception aliases like ``HomesteadToDaoAt5`` are resolved by
+    CLI exception aliases like ``SilaHomesteadToDaoAt5`` are resolved by
     :func:`find_fork` before the testing ``Fork`` is built, so the name
     reaching this function is always post-alias-resolution.
     """
     short = _SPEC_SHORT_NAME_OVERRIDES.get(fork_name)
     if short is None:
         short = re.sub(r"(?<!^)(?=[A-Z])", "_", fork_name).lower()
-        # ``BPO1`` and friends would otherwise become ``b_p_o1``; mirror
-        # the ``b_p_o → bpo`` collapse that :func:`find_fork` performs.
+        # ``BPO1`` and ``SIP150`` would otherwise become ``b_p_o1`` and
+        # ``s_i_p150``; mirror the collapse that :func:`find_fork` performs.
         short = re.sub(r"^b_p_o", "bpo", short)
+        short = re.sub(r"^s_i_p", "sip", short)
     for fork in Hardfork.discover():
         if fork.short_name == short:
             return fork

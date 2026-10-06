@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmArithmeticTest/addFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -102,8 +102,9 @@ def test_add(
     # {
     #    ; -1+-1 = -2
     #    ;
-    #    ; The big number is 256^2-1, the biggest number that the evm can hold,
-    #    ; and because evm math is done modulo 256^2, it's equivalent to -1
+    #    ; The big number is 256^2-1, the biggest number that the sivm can
+    #    ; hold,
+    #    ; and because sivm math is done modulo 256^2, it's equivalent to -1
     #    [[0]] (+ 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)  # noqa: E501
     # }
     contract_0 = pre.deploy_contract(  # noqa: F841
@@ -207,7 +208,7 @@ def test_add(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -218,12 +219,12 @@ def test_add(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={0: 3})},
         },
         {
             "indexes": {"data": [2, 3, 4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={0: 0}),
                 contract_3: Account(storage={0: 0}),

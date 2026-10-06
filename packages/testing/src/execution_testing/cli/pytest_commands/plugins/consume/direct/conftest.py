@@ -2,7 +2,7 @@
 A pytest plugin that configures the consume command to act as a test runner for
 "direct" client fixture consumer interfaces.
 
-For example, via go-sila's `evm blocktest` or `evm statetest` commands.
+For example, via go-sila's `sivm blocktest` or `sivm statetest` commands.
 """
 
 import json
@@ -64,8 +64,9 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
         type=Path,
         default=[],
         help=(
-            "Path to a gsil evm executable that provides `blocktest` or "
-            "`statetest`. Flag can be used multiple times to specify "
+            "Path to a fixture consumer executable: a gsil `sivm` that "
+            "provides `blocktest` and `statetest`, or a `sivmone` that "
+            "provides `test`. Flag can be used multiple times to specify "
             "multiple fixture consumer binaries."
         ),
     )
@@ -97,8 +98,8 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
     ]
     fixture_consumers = []
     for fixture_consumer_bin_path in config.getoption("fixture_consumer_bin"):
-        fixture_consumers.append(
-            FixtureConsumerTool.from_binary_path(
+        fixture_consumers.extend(
+            FixtureConsumerTool.all_from_binary_path(
                 binary_path=Path(fixture_consumer_bin_path),
                 trace=config.getoption("consumer_collect_traces"),
             )
@@ -128,7 +129,7 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
 def test_dump_dir(
     request: pytest.FixtureRequest, fixture_path: Path, fixture_name: str
 ) -> Path | None:
-    """The directory to write evm debug output to."""
+    """The directory to write sivm debug output to."""
     base_dump_dir = request.config.getoption("base_dump_dir")
     if not base_dump_dir:
         return None

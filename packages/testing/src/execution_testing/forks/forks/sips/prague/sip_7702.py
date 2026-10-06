@@ -3,7 +3,7 @@ SIP-7702: Set EOA account code.
 
 Add a new tx type that permanently sets the code for an EOA.
 
-https://sips.sila.org/SIPS/sip-7702
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md
 """
 
 from dataclasses import replace
@@ -105,7 +105,7 @@ class SIP7702(BaseFork):
     @classmethod
     def refund_types(cls) -> List[RefundTypes]:
         """
-        At Prague, existing authorization refund is introduced.
+        At SilaPrague, existing authorization refund is introduced.
         """
         refunds = super(SIP7702, cls).refund_types()
         refunds.append(RefundTypes.AUTHORIZATION_EXISTING_AUTHORITY)

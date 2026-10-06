@@ -1,7 +1,7 @@
 """
 Test memory copy under different call contexts.
 
-Tests for [SIP-5656: MCOPY - Memory copying instruction](https://sips.sila.org/SIPS/sip-5656).
+Tests for [SIP-5656: MCOPY - Memory copying instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-5656.md).
 """
 
 from itertools import cycle, islice
@@ -163,7 +163,7 @@ def post(  # noqa: D103
 
 
 @pytest.mark.with_all_call_opcodes
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_no_memory_corruption_on_upper_call_stack_levels(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -184,7 +184,7 @@ def test_no_memory_corruption_on_upper_call_stack_levels(
         Op.CREATE2,
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_no_memory_corruption_on_upper_create_stack_levels(
     state_test: StateTestFiller,
     pre: Alloc,

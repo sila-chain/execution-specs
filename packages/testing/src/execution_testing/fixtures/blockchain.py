@@ -63,12 +63,12 @@ from execution_testing.exceptions import (
     ExceptionInstanceOrList,
 )
 from execution_testing.forks import (
-    Amsterdam,
-    Cancun,
     Fork,
-    Paris,
     Requests,
-    Shanghai,
+    SilaAmsterdam,
+    SilaCancun,
+    SilaParis,
+    SilaShanghai,
     TransitionFork,
     ssz_schema_fork_key,
 )
@@ -492,7 +492,7 @@ class FixtureExecutionPayload(ForkScopedSSZModel):
     slot_number: Uint64 | None = Field(None)
 
     __ssz_schema__ = SSZForkSchema(
-        base_fork=Paris,
+        base_fork=SilaParis,
         base=(
             "parent_hash",
             "fee_recipient",
@@ -510,9 +510,9 @@ class FixtureExecutionPayload(ForkScopedSSZModel):
             "transactions",
         ),
         appended={
-            Shanghai: ("withdrawals",),
-            Cancun: ("blob_gas_used", "excess_blob_gas"),
-            Amsterdam: ("block_access_list", "slot_number"),
+            SilaShanghai: ("withdrawals",),
+            SilaCancun: ("blob_gas_used", "excess_blob_gas"),
+            SilaAmsterdam: ("block_access_list", "slot_number"),
         },
     )
 
@@ -973,9 +973,9 @@ class BlockchainEngineFixtureCommon(BaseFixture):
         """
         Return whether the fixture can be generated for the given fork.
 
-        The Engine API is available only on Paris and afterwards.
+        The Engine API is available only on SilaParis and afterwards.
         """
-        return fork.fork_at(block_number=0, timestamp=0) >= Paris
+        return fork.fork_at(block_number=0, timestamp=0) >= SilaParis
 
 
 class BlockchainEngineFixture(BlockchainEngineFixtureCommon):

@@ -3,7 +3,7 @@ SIP-7516: BLOBBASEFEE instruction.
 
 Instruction that returns the current data-blob base-fee.
 
-https://sips.sila.org/SIPS/sip-7516
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7516.md
 """
 
 from typing import Callable, Dict, List
@@ -26,7 +26,7 @@ class SIP7516(BaseFork):
         # Get parent fork's opcode gas map
         base_map = super(SIP7516, cls).opcode_gas_map()
 
-        # Add Cancun-specific opcodes
+        # Add SilaCancun-specific opcodes
         return {
             **base_map,
             Opcodes.BLOBBASEFEE: gas_costs.BASE,

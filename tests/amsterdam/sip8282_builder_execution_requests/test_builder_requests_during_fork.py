@@ -1,6 +1,6 @@
 """
 Fork-transition tests for
-[SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+[SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 """
 
 from os.path import realpath
@@ -52,7 +52,7 @@ def slot_changes(slot: int, *changes: Tuple[int, int]) -> BalStorageSlot:
     )
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.pre_alloc_mutable
 @SIPChecklist.SystemContract.Test.ForkTransition.CallBeforeFork()
 @SIPChecklist.SystemContract.Test.Deployment.Address()

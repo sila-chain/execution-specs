@@ -13,9 +13,9 @@ state_tests/stCreateTest/CreateAddressWarmAfterFailFiller.yml
 @manually-enhanced: Do not overwrite. The post-state records the
 measured cost of accessing the create address after a failed CREATE,
 which is a cold account access. SIP-8038 raises `COLD_ACCOUNT_ACCESS`,
-so each such measurement gains that delta at Amsterdam. Derive that
+so each such measurement gains that delta at SilaAmsterdam. Derive that
 delta from the fork's gas model so it is exactly 0 pre-SIP-8037 and
-tracks parameter changes; do not hardcode the Amsterdam value.
+tracks parameter changes; do not hardcode the SilaAmsterdam value.
 """
 
 from typing import NamedTuple
@@ -118,7 +118,7 @@ CALLEE_COULD_NOT_CREATE = CaseOutcome(
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateAddressWarmAfterFailFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize("value", [0, 1], ids=["v0", "v1"])
 @pytest.mark.with_all_create_opcodes
 @pytest.mark.parametrize(

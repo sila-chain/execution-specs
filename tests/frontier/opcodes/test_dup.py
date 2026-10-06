@@ -44,10 +44,10 @@ def test_dup(
     Test the DUP1-DUP16 opcodes.
 
     Note: Test case ported from
-    [sila/tests](https://github.com/sila/tests).
+    [sila-chain/sila-tests](https://github.com/sila-chain/sila-tests).
 
-    Test ported from [sila/tests/GeneralStateTests/VMTests/
-    vmTests/dup.json](https://github.com/sila/tests/blob/
+    Test ported from [sila-chain/sila-tests/GeneralStateTests/VMTests/
+    vmTests/dup.json](https://github.com/sila-chain/sila-tests/blob/main/
     v14.0/GeneralStateTests/VMTests/vmTests/dup.json) by Ori Pomerantz.
     """
     sender = pre.fund_eoa()

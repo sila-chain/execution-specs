@@ -12,7 +12,7 @@ raises `COLD_ACCOUNT_ACCESS` on that CALL. The SELFDESTRUCT itself is to
 a warm, non-empty beneficiary (the caller), so its charge is unchanged,
 and there is no refund. Derive the account-access delta from the fork
 gas model (0 pre-SIP-8037) and subtract `gas_price * delta` from the
-Cancun balance; do not hardcode the Amsterdam value. The `random` and
+SilaCancun balance; do not hardcode the SilaAmsterdam value. The `random` and
 `myself` cases assert only non-gas-dependent balances and need no
 adjustment.
 """
@@ -29,7 +29,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -43,7 +43,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmTests/suicideFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -154,11 +154,11 @@ def test_suicide(
     # the combined delta at the base fee (no priority fee).
     cold_account_access_delta = (
         fork.gas_costs().COLD_ACCOUNT_ACCESS
-        - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
     intrinsic_delta = (
         fork.transaction_intrinsic_cost_calculator()()
-        - Cancun.transaction_intrinsic_cost_calculator()()
+        - SilaCancun.transaction_intrinsic_cost_calculator()()
     )
     caller_balance = (
         0x5AF31075D9DE - 10 * cold_account_access_delta - 10 * intrinsic_delta
@@ -167,7 +167,7 @@ def test_suicide(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(balance=caller_balance),
                 contract_3: Account(balance=0xFF100000000000),
@@ -175,7 +175,7 @@ def test_suicide(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x000000000000000000000000000000000000DEAD): Account(
                     balance=0x100000000000
@@ -184,7 +184,7 @@ def test_suicide(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_3: Account(balance=0x100000000000)},
         },
     ]

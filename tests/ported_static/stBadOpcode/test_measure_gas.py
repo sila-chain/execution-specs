@@ -8,7 +8,7 @@ state_tests/stBadOpcode/opcodeDiffGasFiller.yml
 Written by Ori Pomerantz (qbzzt1@gmail.com).
 
 @manually-enhanced: Do not overwrite. The filler bisected the gas operand
-of a CALL inside EVM bytecode to find the gas it consumed in runtime.
+of a CALL inside Sivm bytecode to find the gas it consumed in runtime.
 """
 
 import pytest
@@ -140,7 +140,7 @@ def probe_code(opcode: Opcodes, pre: Alloc) -> Bytecode:
         "state_tests/stBadOpcode/opcodeDiffGasFiller.yml",
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "sufficient", [True, False], ids=["sufficient", "insufficient"]
 )

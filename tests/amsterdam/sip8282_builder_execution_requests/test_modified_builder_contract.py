@@ -1,5 +1,5 @@
 """
-Tests [SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+Tests [SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 """
 
 from typing import List, Sequence, Type
@@ -34,7 +34,7 @@ REFERENCE_SPEC_GIT_PATH: str = ref_spec_8282.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_8282.version
 
 pytestmark: List[pytest.MarkDecorator] = [
-    pytest.mark.valid_from("Amsterdam"),
+    pytest.mark.valid_from("SilaAmsterdam"),
     pytest.mark.pre_alloc_mutable(),
 ]
 
@@ -230,7 +230,7 @@ def test_extra_builder_exits(
 @SIPChecklist.SystemContract.Test.ContractSubstitution.GasLimitFailure()
 @SIPChecklist.SystemContract.Test.ExcessiveGas.SystemCall()
 @generate_system_contract_error_test()  # type: ignore[arg-type]
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_system_contract_errors() -> None:
     """
     Test system contract raising different errors when called by the system

@@ -13,7 +13,7 @@ class ReferenceSpec:
 
 # SIP-2681 reference specification
 ref_spec_2681 = ReferenceSpec(
-    "SIPS/sip-2681.md", "9e393a79d9937f579acbdcb234a67869259d5a96"
+    "SIPS/sip-2681.md", "9ec82b6549657aa29a6d313ee66797bbdfdef4e1"
 )
 
 

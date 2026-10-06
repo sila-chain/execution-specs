@@ -27,7 +27,7 @@ def test_opcode_metadata_excludes_probe(pytester: pytest.Pytester) -> None:
             from execution_testing.client_clis import TransitionTool
             from execution_testing.fixtures import BlockchainFixture
 
-            @pytest.mark.valid_at("Amsterdam")
+            @pytest.mark.valid_at("SilaAmsterdam")
             @pytest.mark.parametrize("with_probe", [False, True])
             def test_opcode_count_probe(
                 pre: Alloc,
@@ -61,7 +61,7 @@ def test_opcode_metadata_excludes_probe(pytester: pytest.Pytester) -> None:
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Amsterdam",
+        "SilaAmsterdam",
         "-m",
         "blockchain_test",
         "--no-html",

@@ -1,5 +1,5 @@
 """
-Tests [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://sips.sila.org/SIPS/sip-7251).
+Tests [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md).
 """
 
 from os.path import realpath
@@ -24,7 +24,7 @@ from .spec import Spec, ref_spec_7251
 REFERENCE_SPEC_GIT_PATH = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7251.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Prague")
+pytestmark = pytest.mark.valid_at_transition_to("SilaPrague")
 
 BLOCKS_BEFORE_FORK = 2
 

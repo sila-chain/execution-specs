@@ -33,7 +33,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stCallCodes/callcodeInInitcodeToExisContractWithVTransferNEMoneyFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -160,7 +160,7 @@ def test_callcode_in_initcode_to_exis_contract_with_v_transfer_ne_money(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_1, nonce=0): Account(
                     storage={1: 0, 2: 0}, balance=0, nonce=1
@@ -169,7 +169,7 @@ def test_callcode_in_initcode_to_exis_contract_with_v_transfer_ne_money(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xB0DE090B1E01BD09AC6B1D9224229302ED48FD47): Account(
                     storage={1: 0, 2: 0}, balance=0, nonce=1

@@ -10,7 +10,7 @@ state_tests/stTransactionTest/SuicidesAndInternalCallSuicidesSuccessFiller.json
 derive from the fork's SELFDESTRUCT new-account cost (state-priced
 under SIP-8037), and the two arms sit one gas either side of it, so the
 boundary is exact on every fork rather than approximate. The floor is
-Berlin: the cold-access metadata the budget derives from has no meaning
+SilaBerlin: the cold-access metadata the budget derives from has no meaning
 before SIP-2929.
 """
 
@@ -37,7 +37,7 @@ SD_VALUE = 999
         "state_tests/stTransactionTest/SuicidesAndInternalCallSuicidesSuccessFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "sufficient_selfdestruct_gas",
     [

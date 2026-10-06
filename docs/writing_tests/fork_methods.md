@@ -7,13 +7,13 @@ flexible tests that can automatically adapt to different forks.
 ## Overview
 
 The `BaseFork` class is an abstract base class that defines the interface for all Sila forks. Each implemented
-fork (like Frontier, Homestead, etc.) extends this class and implements its abstract methods to provide fork-specific
+fork (like Frontier, SilaHomestead, etc.) extends this class and implements its abstract methods to provide fork-specific
 behavior.
 
 The fork system allows:
 
 1. Defining fork-specific behaviors and parameters
-2. Comparing forks chronologically (`Paris < Shanghai`)
+2. Comparing forks chronologically (`SilaParis < SilaShanghai`)
 3. Supporting automatic fork transitions
 4. Writing tests that automatically adapt to different forks
 
@@ -97,13 +97,13 @@ def test_fork_transition(transition_fork, blockchain_test):
 These methods determine what fields are required in block headers for a given fork:
 
 ```python
-fork.header_base_fee_required()  # Added in London
-fork.header_prev_randao_required()  # Added in Paris
-fork.header_withdrawals_required()  # Added in Shanghai
-fork.header_excess_blob_gas_required()  # Added in Cancun
-fork.header_blob_gas_used_required()  # Added in Cancun
-fork.header_beacon_root_required()  # Added in Cancun
-fork.header_requests_required()  # Added in Prague
+fork.header_base_fee_required()  # Added in SilaLondon
+fork.header_prev_randao_required()  # Added in SilaParis
+fork.header_withdrawals_required()  # Added in SilaShanghai
+fork.header_excess_blob_gas_required()  # Added in SilaCancun
+fork.header_blob_gas_used_required()  # Added in SilaCancun
+fork.header_beacon_root_required()  # Added in SilaCancun
+fork.header_requests_required()  # Added in SilaPrague
 ```
 
 ### Gas Parameters
@@ -128,13 +128,13 @@ fork.tx_types()  # Returns list of supported transaction types
 fork.contract_creating_tx_types()  # Returns list of tx types that can create contracts 
 fork.precompiles()  # Returns list of precompile addresses
 fork.system_contracts()  # Returns list of system contract addresses
-fork.system_contract_request_types()  # Request classes triggered through a system contract (Prague+)
+fork.system_contract_request_types()  # Request classes triggered through a system contract (SilaPrague+)
 fork.system_contract_call_phases()  # When the block calls each system contract: before/after transactions, or never
 ```
 
-### EVM Features
+### Sivm Features
 
-Methods for determining EVM features and valid opcodes:
+Methods for determining Sivm features and valid opcodes:
 
 ```python
 fork.valid_opcodes()  # Returns list of valid opcodes for this fork
@@ -142,7 +142,7 @@ fork.call_opcodes()  # Returns list of call opcodes
 fork.create_opcodes()  # Returns list of create opcodes
 ```
 
-### Blob-related Methods (Cancun+)
+### Blob-related Methods (SilaCancun+)
 
 Methods for blob transaction support:
 
@@ -171,9 +171,9 @@ fork.is_deployed()  # Returns whether the fork is deployed to sila-mainnet
 The framework supports creating transition forks that change behavior at specific block numbers or timestamps:
 
 ```python
-@transition_fork(to_fork=Shanghai, from_fork=Paris, at_timestamp=15_000)
-class ParisToShanghaiAtTime15k(TransitionBaseClass):
-    """Paris to Shanghai transition at Timestamp 15k."""
+@transition_fork(to_fork=SilaShanghai, from_fork=SilaParis, at_timestamp=15_000)
+class SilaParisToSilaShanghaiAtTime15k(TransitionBaseClass):
+    """SilaParis to SilaShanghai transition at Timestamp 15k."""
     pass
 ```
 
@@ -186,7 +186,7 @@ regular `Fork` type:
 from execution_testing.forks import TransitionFork
 
 
-@pytest.mark.valid_at_transition_to("London")
+@pytest.mark.valid_at_transition_to("SilaLondon")
 def test_transition_behavior(
         blockchain_test: BlockchainTestFiller,
         fork: TransitionFork,
@@ -232,9 +232,9 @@ With transition forks, you can test how behavior changes across fork boundaries:
 
 ```python
 # Behavior changes at block 5
-fork = BerlinToLondonAt5
-assert not fork.fork_at(block_number=4).header_base_fee_required()  # Berlin doesn't require base fee
-assert fork.fork_at(block_number=5).header_base_fee_required()  # London requires base fee
+fork = SilaBerlinToSilaLondonAt5
+assert not fork.fork_at(block_number=4).header_base_fee_required()  # SilaBerlin doesn't require base fee
+assert fork.fork_at(block_number=5).header_base_fee_required()  # SilaLondon requires base fee
 ```
 
 ## Adding New Fork Methods

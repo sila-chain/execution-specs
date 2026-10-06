@@ -1,6 +1,6 @@
 """
 Tests for the SIP-7702 authorization charge on an *existing* authority
-leaf under [SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+leaf under [SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 SIP-8038 originally over-charged every authorization as if it created a
 new account and *refunded* the difference (``ACCOUNT_WRITE`` on the
@@ -51,7 +51,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 @SIPChecklist.GasRefundsChanges.Test.RefundCalculation()

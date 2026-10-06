@@ -36,7 +36,7 @@ CALL_STATUS_SLOT = 0x2
         "state_tests/stCreateTest/CreateOOGafterInitCodeReturndataSizeFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_create_oog_after_init_code_returndata_size(
     state_test: StateTestFiller,
     pre: Alloc,

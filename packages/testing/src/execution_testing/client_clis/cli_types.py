@@ -356,7 +356,7 @@ def validate_opcode(obj: Any) -> Opcodes | Opcode | UndefinedOpcode:
 
 
 class OpcodeCount(SilaTestRootModel):
-    """Opcode count returned from the evm tool."""
+    """Opcode count returned from the sivm tool."""
 
     root: Dict[
         Annotated[
@@ -576,7 +576,7 @@ class MaterializedAlloc(LazyAlloc[None]):
     """
     Allocation already materialized in memory; ``get()`` is a no-op.
 
-    Used by in-process transition tools (EELS) whose ``Alloc`` never
+    Used by in-process transition tools (SELS) whose ``Alloc`` never
     exists in a serialized form — hence ``raw`` is ``None``. The
     ``alloc`` field must be provided at construction, so ``get()``
     always short-circuits and ``validate()`` is unreachable.

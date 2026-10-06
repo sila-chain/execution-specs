@@ -1,5 +1,5 @@
 """
-Tests [SIP-7251: Execution layer triggerable consolidation](https://sips.sila.org/SIPS/sip-7251).
+Tests [SIP-7251: Execution layer triggerable consolidation](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md).
 """
 
 from typing import List
@@ -27,7 +27,7 @@ REFERENCE_SPEC_GIT_PATH: str = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_7251.version
 
 pytestmark: List[pytest.MarkDecorator] = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.pre_alloc_mutable(),
 ]
 

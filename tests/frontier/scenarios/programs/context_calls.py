@@ -4,12 +4,12 @@ from functools import cached_property
 
 from execution_testing import Alloc, Bytecode, Fork, Op
 from execution_testing.forks import (
-    Byzantium,
-    Cancun,
-    Constantinople,
-    Istanbul,
-    London,
-    Shanghai,
+    SilaByzantium,
+    SilaCancun,
+    SilaConstantinople,
+    SilaIstanbul,
+    SilaLondon,
+    SilaShanghai,
 )
 from execution_testing.test_types import ChainConfigDefaults
 
@@ -271,7 +271,7 @@ class ProgramReturnDataSize(ScenarioTestProgram):
 
     def result(self) -> ProgramResult:
         """Test result."""
-        return ProgramResult(result=32, from_fork=Byzantium)
+        return ProgramResult(result=32, from_fork=SilaByzantium)
 
 
 class ProgramReturnDataCopy(ScenarioTestProgram):
@@ -295,7 +295,7 @@ class ProgramReturnDataCopy(ScenarioTestProgram):
         """Test result."""
         return ProgramResult(
             result=0x1D448AFD928065458CF670B60F5A594D735AF0172C8D67F22A81680132681CA,
-            from_fork=Byzantium,
+            from_fork=SilaByzantium,
         )
 
 
@@ -320,7 +320,7 @@ class ProgramExtCodehash(ScenarioTestProgram):
         """Test result."""
         return ProgramResult(
             result=0x8C634A8B28DD46F5DCB9A9F5DA1FAED26D0FB5ED98F3873A29AD27AAAFFDE0E4,
-            from_fork=Constantinople,
+            from_fork=SilaConstantinople,
         )
 
 
@@ -477,7 +477,7 @@ class ProgramChainid(ScenarioTestProgram):
         # TODO: use `chain_config` fixture instead.
         chain_id = ChainConfigDefaults.chain_id
 
-        return ProgramResult(result=chain_id, from_fork=Istanbul)
+        return ProgramResult(result=chain_id, from_fork=SilaIstanbul)
 
 
 class ProgramSelfbalance(ScenarioTestProgram):
@@ -496,7 +496,7 @@ class ProgramSelfbalance(ScenarioTestProgram):
     def result(self) -> ProgramResult:
         """Test result."""
         return ProgramResult(
-            result=ScenarioExpectOpcode.SELFBALANCE, from_fork=Istanbul
+            result=ScenarioExpectOpcode.SELFBALANCE, from_fork=SilaIstanbul
         )
 
 
@@ -522,7 +522,7 @@ class ProgramBasefee(ScenarioTestProgram):
 
     def result(self) -> ProgramResult:
         """Test result."""
-        return ProgramResult(result=1, from_fork=London)
+        return ProgramResult(result=1, from_fork=SilaLondon)
 
 
 class ProgramBlobhash(ScenarioTestProgram):
@@ -540,7 +540,7 @@ class ProgramBlobhash(ScenarioTestProgram):
 
     def result(self) -> ProgramResult:
         """Test result."""
-        return ProgramResult(result=0, from_fork=Cancun)
+        return ProgramResult(result=0, from_fork=SilaCancun)
 
 
 class ProgramBlobBaseFee(ScenarioTestProgram):
@@ -565,7 +565,7 @@ class ProgramBlobBaseFee(ScenarioTestProgram):
 
     def result(self) -> ProgramResult:
         """Test result."""
-        return ProgramResult(result=1, from_fork=Cancun)
+        return ProgramResult(result=1, from_fork=SilaCancun)
 
 
 class ProgramTload(ScenarioTestProgram):
@@ -583,7 +583,7 @@ class ProgramTload(ScenarioTestProgram):
 
     def result(self) -> ProgramResult:
         """Test result."""
-        return ProgramResult(result=0, from_fork=Cancun)
+        return ProgramResult(result=0, from_fork=SilaCancun)
 
 
 class ProgramMcopy(ScenarioTestProgram):
@@ -611,7 +611,7 @@ class ProgramMcopy(ScenarioTestProgram):
         """Test result."""
         return ProgramResult(
             result=0x000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F,
-            from_fork=Cancun,
+            from_fork=SilaCancun,
         )
 
 
@@ -630,4 +630,4 @@ class ProgramPush0(ScenarioTestProgram):
 
     def result(self) -> ProgramResult:
         """Test result."""
-        return ProgramResult(result=10, from_fork=Shanghai)
+        return ProgramResult(result=10, from_fork=SilaShanghai)

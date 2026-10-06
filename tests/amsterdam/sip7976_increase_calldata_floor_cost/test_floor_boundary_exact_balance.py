@@ -1,6 +1,6 @@
 """
 Tests for floor-boundary rejection with exact-balance funding in
-[SIP-7976: Increase Calldata Floor Cost](https://sips.sila.org/SIPS/sip-7976).
+[SIP-7976: Increase Calldata Floor Cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md).
 """
 
 import pytest
@@ -38,13 +38,13 @@ def test_below_amsterdam_floor_with_exact_balance_sender(
     zero_bytes: int,
 ) -> None:
     """
-    Reject when gas_limit sits between Prague and Amsterdam floor.
+    Reject when gas_limit sits between SilaPrague and SilaAmsterdam floor.
 
     SIP-7976 raises the per-byte calldata floor cost. A transaction
-    with `gas_limit` in `[Prague_floor, Amsterdam_floor)` must reject
+    with `gas_limit` in `[SilaPrague_floor, SilaAmsterdam_floor)` must reject
     with `INTRINSIC_GAS_BELOW_FLOOR_GAS_COST`. The sender is funded
     with exactly `gas_limit * gas_price` so an implementation that
-    uses the Prague floor cannot fall back to silent execution.
+    uses the SilaPrague floor cannot fall back to silent execution.
 
     Type-0 only on purpose; broader type-1/2/3/4 coverage lives in
     `test_transaction_validity.py`.
@@ -57,7 +57,7 @@ def test_below_amsterdam_floor_with_exact_balance_sender(
     amsterdam_floor = fork.transaction_data_floor_cost_calculator()(
         data=tx_data,
     )
-    # Prague counts each zero byte as one token at TX_DATA_TOKEN_FLOOR
+    # SilaPrague counts each zero byte as one token at TX_DATA_TOKEN_FLOOR
     # gas/token. Cannot be derived from amsterdam_floor because SIP-7976
     # changes both the per-token rate (10->16) and the floor tokenization
     # (zero/nonzero both weighted by 4).

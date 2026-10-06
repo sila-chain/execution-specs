@@ -10,7 +10,7 @@
 Validate release inputs and generate the build matrix for release
 fixture workflows.
 
-Usage: `generate_build_matrix.py <feature> <version> [branch] [evm]`.
+Usage: `generate_build_matrix.py <feature> <version> [branch] [sivm]`.
 
 First validate the dispatch inputs (see `validate_inputs`), then read
 `.github/configs/feature.yaml` and emit a flat JSON build matrix suitable
@@ -31,7 +31,7 @@ import yaml
 
 FEATURE_CONFIG = Path(".github/configs/feature.yaml")
 FORK_RANGES_CONFIG = Path(".github/configs/fork-ranges.yaml")
-EVM_CONFIG = Path(".github/configs/evm.yaml")
+SIVM_CONFIG = Path(".github/configs/sivm.yaml")
 
 VERSION_RE = re.compile(r"^v[0-9]+\.[0-9]+\.[0-9]+$")
 
@@ -45,29 +45,29 @@ DEVNET_BRANCH_RE = re.compile(r"^devnets/[^/]+/([0-9]+)$")
 # Canonical fork ordering used to filter fork ranges per feature.
 FORK_ORDER = [
     "Frontier",
-    "Homestead",
+    "SilaHomestead",
     "DAOFork",
-    "TangerineWhistle",
-    "SpuriousDragon",
-    "Byzantium",
-    "Constantinople",
-    "Istanbul",
+    "SIP150",
+    "SIP158",
+    "SilaByzantium",
+    "SilaConstantinople",
+    "SilaIstanbul",
     "MuirGlacier",
-    "Berlin",
-    "London",
+    "SilaBerlin",
+    "SilaLondon",
     "ArrowGlacier",
     "GrayGlacier",
-    "Paris",
-    "Shanghai",
-    "Cancun",
-    "Prague",
-    "Osaka",
+    "SilaParis",
+    "SilaShanghai",
+    "SilaCancun",
+    "SilaPrague",
+    "SilaOsaka",
     "BPO1",
     "BPO2",
     "BPO3",
     "BPO4",
     "BPO5",
-    "Amsterdam",
+    "SilaAmsterdam",
 ]
 
 FORK_INDEX = {name: i for i, name in enumerate(FORK_ORDER)}
@@ -85,11 +85,13 @@ def fail(message: str) -> NoReturn:
     sys.exit(1)
 
 
-def validate_inputs(feature: str, version: str, branch: str, evm: str) -> None:
+def validate_inputs(
+    feature: str, version: str, branch: str, sivm: str
+) -> None:
     """
     Validate the release dispatch inputs before building a matrix.
 
-    Centralize the feature/version/evm checks here so they are
+    Centralize the feature/version/sivm checks here so they are
     unit-testable rather than living as inline bash in the release
     workflow.
 
@@ -105,9 +107,9 @@ def validate_inputs(feature: str, version: str, branch: str, evm: str) -> None:
     if not VERSION_RE.match(version):
         fail(f"version '{version}' must match vX.Y.Z (e.g. v20.0.0)")
 
-    # An `evm` override must name a key in evm.yaml.
-    if evm and evm not in load_config(EVM_CONFIG):
-        fail(f"evm '{evm}' is not a key in {EVM_CONFIG}")
+    # A `sivm` override must name a key in sivm.yaml.
+    if sivm and sivm not in load_config(SIVM_CONFIG):
+        fail(f"sivm '{sivm}' is not a key in {SIVM_CONFIG}")
 
     # A bare `devnet` has no friendly `<feat>-` prefix to tag with.
     if feature in ("devnet", "-devnet"):
@@ -228,7 +230,7 @@ def main() -> None:
     if len(args) < 2:
         print(
             "Usage: generate_build_matrix.py "
-            "<feature> <version> [branch] [evm]",
+            "<feature> <version> [branch] [sivm]",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -236,9 +238,9 @@ def main() -> None:
     name = args[0]
     version = args[1]
     branch = args[2] if len(args) > 2 else ""
-    evm = args[3] if len(args) > 3 else ""
+    sivm = args[3] if len(args) > 3 else ""
 
-    validate_inputs(name, version, branch, evm)
+    validate_inputs(name, version, branch, sivm)
 
     config = load_config(FEATURE_CONFIG)
     fork_ranges = load_config(FORK_RANGES_CONFIG) or []

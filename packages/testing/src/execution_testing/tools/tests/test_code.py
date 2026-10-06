@@ -14,7 +14,7 @@ from execution_testing.base_types import (
 from execution_testing.client_clis import TransitionTool
 from execution_testing.fixtures import BlockchainFixture
 from execution_testing.forks import (
-    Cancun,
+    SilaCancun,
 )
 from execution_testing.specs import StateTest
 from execution_testing.test_types import Alloc, Environment, Transaction
@@ -164,15 +164,15 @@ def test_initcode_gas_cost(initcode: Initcode, reference: Initcode) -> None:
     """
     Test that the gas cost of the initcode is calculated correctly.
     """
-    assert initcode.gas_cost(Cancun) == reference.gas_cost(Cancun)
+    assert initcode.gas_cost(SilaCancun) == reference.gas_cost(SilaCancun)
     if initcode.deploy_code != reference.deploy_code:
         initcode_deploy_code = initcode.deploy_code
         assert isinstance(initcode_deploy_code, Bytecode)
         reference_deploy_code = reference.deploy_code
         assert isinstance(reference_deploy_code, Bytecode)
         assert initcode_deploy_code.gas_cost(
-            Cancun
-        ) != reference_deploy_code.gas_cost(Cancun)
+            SilaCancun
+        ) != reference_deploy_code.gas_cost(SilaCancun)
 
 
 @pytest.mark.parametrize(
@@ -682,7 +682,7 @@ def test_switch(
     }
     state_test = StateTest(
         env=Environment(),
-        fork=Cancun,
+        fork=SilaCancun,
         pre=pre,
         tx=tx,
         post=post,

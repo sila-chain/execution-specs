@@ -24,7 +24,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -34,7 +34,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP158Specific/EXTCODESIZE_toNonExistentFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_extcodesize_to_non_existent(
     state_test: StateTestFiller,
@@ -46,14 +46,14 @@ def test_extcodesize_to_non_existent(
     # cold account reprice plus a second WARM_ACCESS for the code read;
     # the cold value-unchanged SSTORE gains its own reprice.
     cold_extcodesize = Op.EXTCODESIZE.with_metadata(address_warm=False)
-    cancun_extcodesize_cost = cold_extcodesize.gas_cost(Cancun)
+    cancun_extcodesize_cost = cold_extcodesize.gas_cost(SilaCancun)
     extcodesize_delta = (
         cold_extcodesize.gas_cost(fork) - cancun_extcodesize_cost
     )
     cold_noop_sstore = Op.SSTORE.with_metadata(
         key_warm=False, original_value=0, current_value=0, new_value=0
     )
-    cancun_noop_sstore_cost = cold_noop_sstore.gas_cost(Cancun)
+    cancun_noop_sstore_cost = cold_noop_sstore.gas_cost(SilaCancun)
     cold_noop_sstore_delta = (
         cold_noop_sstore.gas_cost(fork) - cancun_noop_sstore_cost
     )

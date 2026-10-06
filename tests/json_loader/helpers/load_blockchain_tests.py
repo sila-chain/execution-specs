@@ -39,9 +39,9 @@ was filled for.
 TRANSITION_FORKS = {fork.name(): fork for fork in get_transition_forks()}
 """
 Transition forks of the testing framework by name. The network of a
-fork-transition fixture, such as `BPO2ToAmsterdamAtTime15k` or
-`BerlinToLondonAt5`, is the name of the transition fork it was filled for:
-the chain starts on the first fork and the second fork activates at the
+fork-transition fixture, such as `BPO2ToSilaAmsterdamAtTime15k` or
+`SilaBerlinToSilaLondonAt5`, is the name of the transition fork it was filled
+for: the chain starts on the first fork and the second fork activates at the
 transition fork's timestamp or block number.
 """
 
@@ -157,13 +157,13 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
         self.add_marker("json_blockchain_tests")
         self.transition = ForkTransition.parse(self.fork_name)
         if self.transition is None:
-            self.eels_fork = FORKS[self.fork_name].short_name
+            self.sels_fork = FORKS[self.fork_name].short_name
         else:
-            self.eels_fork = FORKS[self.transition.to_fork].short_name
+            self.sels_fork = FORKS[self.transition.to_fork].short_name
 
         # Mark tests with exceptional markers
         test_patterns = exceptional_blockchain_test_patterns(
-            self.fork_name, self.eels_fork
+            self.fork_name, self.sels_fork
         )
         if any(x.search(self.nodeid) for x in test_patterns.expected_fail):
             self.add_marker(pytest.mark.skip("Expected to fail"))
@@ -203,7 +203,7 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
                 f"{self.test_file}[{self.test_key}] doesn't have post state"
             )
 
-        # Currently, there are 5 tests in the sila/tests fixtures
+        # Currently, there are 5 tests in the sila-chain/sila-tests fixtures
         # where we have non block specific exceptions.
         # For example: All the blocks process correctly but the final
         # block hash provided in the test is not correct. Or all the
@@ -211,13 +211,13 @@ class BlockchainTestFixture(Fixture, FixtureTestItem):
         # right. Since these tests do not directly have anything to do
         # with the state transition itself, we skip these
         # See src/BlockchainTestsFiller/InvalidBlocks/bcExpectSection
-        # in sila/tests
+        # in sila-chain/sila-tests
         if "exceptions" in json_data:
             pytest.xfail(
                 f"{self.test_file}[{self.test_key}] has unrelated exceptions"
             )
 
-        load = Load(self.eels_fork)
+        load = Load(self.sels_fork)
         # A transition fixture starts its chain on the previous fork; the
         # genesis and the blocks before the activation belong to it.
         if self.transition is None:

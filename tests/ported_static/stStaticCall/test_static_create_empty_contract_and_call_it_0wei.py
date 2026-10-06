@@ -46,7 +46,7 @@ FORWARDED_GAS = 0xEA60
         "state_tests/stStaticCall/static_CREATE_EmptyContractWithStorageAndCallIt_0weiFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "with_storage",
     [

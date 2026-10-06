@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7823: ModExp Upper Bound](https://sips.sila.org/SIPS/sip-7823).
+[SIP-7823: ModExp Upper Bound](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7823.md).
 """
 
 from typing import Dict
@@ -22,7 +22,7 @@ from .spec import ref_spec_7823
 REFERENCE_SPEC_GIT_PATH = ref_spec_7823.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7823.version
 
-pytestmark = [pytest.mark.valid_at("Osaka"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaOsaka"), pytest.mark.sila_mainnet]
 
 
 @pytest.fixture

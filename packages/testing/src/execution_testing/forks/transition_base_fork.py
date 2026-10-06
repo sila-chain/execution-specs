@@ -10,7 +10,7 @@ class TransitionBaseMetaClass(type):
 
     def name(cls) -> str:
         """
-        Return the name of the transition fork (e.g., Berlin), must be
+        Return the name of the transition fork (e.g., SilaBerlin), must be
         implemented by subclasses.
         """
         raise Exception("Not implemented")

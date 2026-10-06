@@ -16,7 +16,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_211.git_path
 REFERENCE_SPEC_VERSION = ref_spec_211.version
 
 
-@pytest.mark.valid_from("Byzantium")
+@pytest.mark.valid_from("SilaByzantium")
 @pytest.mark.parametrize(
     "create_opcode",
     [
@@ -24,7 +24,7 @@ REFERENCE_SPEC_VERSION = ref_spec_211.version
         pytest.param(
             Op.CREATE2,
             id="CREATE2",
-            marks=pytest.mark.valid_from("Constantinople"),
+            marks=pytest.mark.valid_from("SilaConstantinople"),
         ),
     ],
 )

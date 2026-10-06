@@ -25,9 +25,9 @@ class GitReferenceSpec(ReferenceSpec):
     """Git Reference Specification Description Class."""
 
     SpecPath: str
-    RepositoryOwner: str = "sila"
+    RepositoryOwner: str = "sila-chain"
     RepositoryName: str = "SIPs"
-    BranchName: str = "master"
+    BranchName: str = "main"
     SpecVersion: str = ""
     _latest_spec: Dict | None = None
     _github_token: Optional[str] = None

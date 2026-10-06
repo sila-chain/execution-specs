@@ -1,6 +1,6 @@
 """
 Tests for the SIP-7702 authorization *execution*-gas repricing under
-[SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+[SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 Under SIP-2780 each SIP-7702 authorization is charged in two parts: a
 state-independent *execution* base cost paid in the intrinsic, and
@@ -12,7 +12,7 @@ cold/warm account-access costs that an authorized delegation incurs
 when later accessed by a ``CALL``.
 
 The execution per-authorization intrinsic magnitude is the fixed
-per-authorization base cost charged by the intrinsic (on Amsterdam,
+per-authorization base cost charged by the intrinsic (on SilaAmsterdam,
 ``101 * 16`` calldata tokens plus the ``3000`` ecrecover, ``3000`` cold
 and ``2 * 100`` warm accesses of the SIP-7702 base), isolated here as
 the intrinsic delta of adding one authorization. The top-frame
@@ -51,7 +51,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 def _execution_per_auth(fork: Fork) -> int:

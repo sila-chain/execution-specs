@@ -4,7 +4,7 @@ SIP-1052: EXTCODEHASH opcode.
 Provide a new opcode that returns the keccak256 hash of a contract's
 code.
 
-https://sips.sila.org/SIPS/sip-1052
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-1052.md
 """
 
 from dataclasses import replace

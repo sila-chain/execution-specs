@@ -1,6 +1,6 @@
 # Dependency Management and Packaging
 
-EELS uses [`uv`](https://docs.astral.sh/uv/) to manage and pin its dependencies, and a minimum `uv>=0.7.0` is required.
+SELS uses [`uv`](https://docs.astral.sh/uv/) to manage and pin its dependencies, and a minimum `uv>=0.7.0` is required.
 
 ## Workspace Layout
 
@@ -8,10 +8,10 @@ The repo is a `uv` workspace with two members, each defined by its own `pyprojec
 
 | Package                      | `pyproject.toml`                                                                                                            | Contents                                                 |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `sila-execution`         | [`pyproject.toml`](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/pyproject.toml)                                  | The Python specs (`src/sila/`) and spec-maintenance tools (`src/sila_spec_tools/`). |
-| `sila-execution-testing` | [`packages/testing/pyproject.toml`](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/pyproject.toml) | The EEST test framework under `packages/testing/`, including the `sila-spec-evm` CLI (`t8n`, `b11r`, state-test runner). |
+| `sila-execution`         | [`pyproject.toml`](https://github.com/sila-chain/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/pyproject.toml)                                  | The Python specs (`src/sila/`) and spec-maintenance tools (`src/sila_spec_tools/`). |
+| `sila-execution-testing` | [`packages/testing/pyproject.toml`](https://github.com/sila-chain/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/pyproject.toml) | The SEST test framework under `packages/testing/`, including the `sila-spec-sivm` CLI (`t8n`, `b11r`, state-test runner). |
 
-A single [`uv.lock`](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/uv.lock) at the repo root pins dependencies for both packages.
+A single [`uv.lock`](https://github.com/sila-chain/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/uv.lock) at the repo root pins dependencies for both packages.
 
 ## Managing Dependencies
 
@@ -83,7 +83,7 @@ Groups defined by the testing package:
 
 ### Adding or modifying optional dependencies
 
-The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and the external `ethash` accelerator used by Silash for EVM performance.
+The specs package defines a single optional extra, `optimized`, which pulls in `rust-pyspec-glue` and the external `ethash` accelerator used by Silash for Sivm performance.
 
 !!! example "Updating an optional dependency"
 

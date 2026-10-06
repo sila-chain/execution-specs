@@ -28,8 +28,8 @@ markers on either the test function, test class or test module level:
     ```python
     import pytest
 
-    @pytest.mark.valid_from("Berlin")
-    @pytest.mark.valid_until("London")
+    @pytest.mark.valid_from("SilaBerlin")
+    @pytest.mark.valid_until("SilaLondon")
     def test_access_list(state_test: StateTestFiller, fork: Fork):
     ```
 
@@ -39,7 +39,7 @@ markers on either the test function, test class or test module level:
     import pytest
 
 
-    @pytest.mark.valid_from("Shanghai")
+    @pytest.mark.valid_from("SilaShanghai")
     class TestMultipleWithdrawalsSameAddress:
     ```
 
@@ -48,7 +48,7 @@ markers on either the test function, test class or test module level:
     ```python
     import pytest
 
-    pytestmark = pytest.mark.valid_from("Shanghai")
+    pytestmark = pytest.mark.valid_from("SilaShanghai")
     ```
 
 The [`execution_testing.forks`](../library/execution_testing_forks.md) package defines the available forks and provides the following helpers that return all forks within the specified range:
@@ -66,7 +66,7 @@ import pytest
 from execution_testing.forks import TransitionFork
 from execution_testing.tools import Alloc, BlockchainTestFiller
 
-@pytest.mark.valid_at_transition_to("London")
+@pytest.mark.valid_at_transition_to("SilaLondon")
 def test_something_at_transition(
     blockchain_test: BlockchainTestFiller,
     fork: TransitionFork,
@@ -77,16 +77,16 @@ def test_something_at_transition(
 
 The `TransitionFork` type represents a fork that transitions from one fork to another at a specific block number or timestamp. It provides methods not available on regular `Fork`:
 
-- `fork.transitions_from()` — returns the fork before the transition (e.g. `Berlin`)
-- `fork.transitions_to()` — returns the fork after the transition (e.g. `London`)
+- `fork.transitions_from()` — returns the fork before the transition (e.g. `SilaBerlin`)
+- `fork.transitions_to()` — returns the fork after the transition (e.g. `SilaLondon`)
 - `fork.fork_at(block_number=N, timestamp=T)` — returns the active fork at the given block/timestamp
 
-Transition forks support comparison operators that compare based on the `transitions_to()` fork. For example, given a transition `Berlin -> London`:
+Transition forks support comparison operators that compare based on the `transitions_to()` fork. For example, given a transition `SilaBerlin -> SilaLondon`:
 
-- `BerlinToLondonAt5 >= Berlin` is `True` (the transition encompasses Berlin)
-- `BerlinToLondonAt5 <= Berlin` is `False` (the transition goes beyond Berlin)
-- `BerlinToLondonAt5 >= London` is `True`
-- `BerlinToLondonAt5 <= London` is `True`
+- `SilaBerlinToSilaLondonAt5 >= SilaBerlin` is `True` (the transition encompasses SilaBerlin)
+- `SilaBerlinToSilaLondonAt5 <= SilaBerlin` is `False` (the transition goes beyond SilaBerlin)
+- `SilaBerlinToSilaLondonAt5 >= SilaLondon` is `True`
+- `SilaBerlinToSilaLondonAt5 <= SilaLondon` is `True`
 
 ### The `state_test` and `blockchain_test` Test Function Arguments
 
@@ -106,7 +106,7 @@ def test_contract_creating_tx(
 ):
 ```
 
-The `state_test` and `blockchain_test` objects are actually wrapper classes to the `StateTest`, respectively `BlockchainTest` objects, that once called actually instantiate a new instance of these objects and fill the test case using the `evm` tool according to the pre and post states and the transactions defined within the test.
+The `state_test` and `blockchain_test` objects are actually wrapper classes to the `StateTest`, respectively `BlockchainTest` objects, that once called actually instantiate a new instance of these objects and fill the test case using the `sivm` tool according to the pre and post states and the transactions defined within the test.
 
 If a blockchain-type test should only generate a test fixture in the Engine format (`EngineFixture`), the `blockchain_test_engine` object can be specified. This object is a wrapper for the `BlockchainTestEngine` class.
 
@@ -178,11 +178,11 @@ which allows checking for an exact `gas_used` value.
 
 ## Writing code for the accounts in the test
 
-Account bytecode can be "deployed" in a test's pre-state using the `pre` pytest fixture. The @sila/execution-specs Python [`Opcodes`][execution_testing.vm.Opcodes] minilang can be used to help write the bytecode in a readable form.
+Account bytecode can be "deployed" in a test's pre-state using the `pre` pytest fixture. The @sila-chain/execution-specs Python [`Opcodes`][execution_testing.vm.Opcodes] minilang can be used to help write the bytecode in a readable form.
 
 ### Using the Python Opcode Minilang
 
-EVM bytecode for tests should be written using the Python-based minilang provided by the [`Opcodes`][execution_testing.vm.Opcodes] class. This allows you to construct bytecode using symbolic opcodes as Python objects.
+Sivm bytecode for tests should be written using the Python-based minilang provided by the [`Opcodes`][execution_testing.vm.Opcodes] class. This allows you to construct bytecode using symbolic opcodes as Python objects.
 
 #### Example: Simple Addition Contract
 
@@ -227,17 +227,17 @@ The `execution_testing.tools.tools_code.generators` module also defines other hi
 
 #### Converting Bytecode to Minilang
 
-If you have EVM bytecode (as hex or binary), you can use the [`evm_bytes` CLI tool](../library/cli/evm_bytes.md) to convert it to the EEST Python opcode minilang automatically, for example:
+If you have Sivm bytecode (as hex or binary), you can use the [`sivm_bytes` CLI tool](../library/cli/sivm_bytes.md) to convert it to the SEST Python opcode minilang automatically, for example:
 
 ```console
-uv run evm_bytes hex-string 0x604260005260206000F3
+uv run sivm_bytes hex-string 0x604260005260206000F3
 # ->
 # Op.PUSH1[0x42] + Op.PUSH1[0x0] + Op.MSTORE + Op.PUSH1[0x20] + Op.PUSH1[0x0] + Op.RETURN
 ```
 
 #### Restrictions: No Yul in Python Test Cases
 
-As of [PR #1779](https://github.com/sila/execution-specs/pull/1779), the use of Yul source in Python test cases is forbidden. All new tests must use the Python opcode minilang as shown above.
+As of PR #1779, the use of Yul source in Python test cases is forbidden. All new tests must use the Python opcode minilang as shown above.
 
 ## Verifying the Accounts' Post States
 
@@ -267,7 +267,7 @@ Within the `post` dictionary object, an account address can be:
 The `Account` object is used to specify the properties of an account to be
 verified in the post state.
 
-The python representation can be found in [packages/testing/src/execution_testing/test_types/account_types.py](https://github.com/sila/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/src/execution_testing/test_types/account_types.py).
+The python representation can be found in [packages/testing/src/execution_testing/test_types/account_types.py](https://github.com/sila-chain/execution-specs/blob/a830dab6f130151ab9023a473b7543120aa21961/packages/testing/src/execution_testing/test_types/account_types.py).
 
 It can verify the following properties of an account:
 

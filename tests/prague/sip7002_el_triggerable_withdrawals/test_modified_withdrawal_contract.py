@@ -1,5 +1,5 @@
 """
-Tests [SIP-7002: Execution layer triggerable withdrawals](https://sips.sila.org/SIPS/sip-7002).
+Tests [SIP-7002: Execution layer triggerable withdrawals](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md).
 """
 
 from typing import List
@@ -27,7 +27,7 @@ REFERENCE_SPEC_GIT_PATH: str = ref_spec_7002.git_path
 REFERENCE_SPEC_VERSION: str = ref_spec_7002.version
 
 pytestmark: List[pytest.MarkDecorator] = [
-    pytest.mark.valid_from("Prague"),
+    pytest.mark.valid_from("SilaPrague"),
     pytest.mark.pre_alloc_mutable(),
 ]
 
@@ -140,7 +140,7 @@ def test_extra_withdrawals(
     [WithdrawalRequest.system_contract_address],
 )
 @generate_system_contract_error_test()  # type: ignore[arg-type]
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_system_contract_errors() -> None:
     """
     Test system contract raising different errors when called by the system

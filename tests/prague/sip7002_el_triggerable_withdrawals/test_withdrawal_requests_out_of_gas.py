@@ -3,7 +3,7 @@ Out-of-gas withdrawal request tests.
 
 Tests that withdrawal requests whose triggering call runs out of gas are not
 included in the block, for
-[SIP-7002: Execution layer triggerable withdrawals](https://sips.sila.org/SIPS/sip-7002).
+[SIP-7002: Execution layer triggerable withdrawals](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md).
 
 The gas limits are supplied per-request via the interaction's `gas_limits`
 list rather than being baked into the withdrawal request descriptor, keeping
@@ -28,7 +28,7 @@ from .spec import Spec, ref_spec_7002
 REFERENCE_SPEC_GIT_PATH = ref_spec_7002.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7002.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 
 @pytest.mark.parametrize(

@@ -16,7 +16,7 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2200.md"
-REFERENCE_SPEC_VERSION = "ad4eaaa1fe5c7aa394b2ab09e885b73b898f5da0"
+REFERENCE_SPEC_VERSION = "81f5462e20a8f90dae06ba588e444508e8c3ae49"
 
 pytestmark = [
     pytest.mark.ported_from(
@@ -33,7 +33,7 @@ pytestmark = [
         "state_tests/stTimeConsuming/sstore_combinations_initial21_ParisFiller.json",
         "state_tests/stTimeConsuming/sstore_combinations_initial21_2_ParisFiller.json",
     ),
-    pytest.mark.valid_from("Byzantium"),
+    pytest.mark.valid_from("SilaByzantium"),
 ]
 
 
@@ -108,7 +108,7 @@ def test_sstore_combinations_initial(
 
     Exercises every combination of call types across four call slots,
     varying the update-contract's initial storage state (0, 1, or 2).
-    Valid from Byzantium (REVERT and STATICCALL availability) so the
+    Valid from SilaByzantium (REVERT and STATICCALL availability) so the
     pre-SIP-2200 storage gas rules are covered as a baseline.
     Consolidated replacement for the twelve legacy
     ``sstore_combinations_initial*_ParisFiller.json`` fillers from

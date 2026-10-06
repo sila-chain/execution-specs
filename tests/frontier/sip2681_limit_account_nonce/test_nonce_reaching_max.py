@@ -2,9 +2,9 @@
 Tests that reaching the maximum account nonce (`2**64 - 1`) during execution
 is valid.
 
-Per [SIP-2681](https://sips.sila.org/SIPS/sip-2681) only a transaction
-whose nonce is `2**64 - 1` is invalid; merely incrementing an account to that
-value while executing a transaction is permitted.
+Per [SIP-2681](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2681.md)
+only a transaction whose nonce is `2**64 - 1` is invalid; merely incrementing
+an account to that value while executing a transaction is permitted.
 """
 
 import pytest
@@ -19,7 +19,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import SpuriousDragon
+from execution_testing.forks import SIP158
 
 from ...prague.sip7702_set_code_tx.spec import Spec as Spec7702
 from .spec import Spec, ref_spec_2681
@@ -74,7 +74,7 @@ def test_tx_at_nonce_max_minus_one_create(
     )
 
     # SIP-161 (Spurious Dragon) initializes a new contract's nonce to 1.
-    created_nonce = 1 if fork >= SpuriousDragon else 0
+    created_nonce = 1 if fork >= SIP158 else 0
     created = compute_create_address(address=sender, nonce=Spec.max_nonce - 1)
 
     state_test(
@@ -87,7 +87,7 @@ def test_tx_at_nonce_max_minus_one_create(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.pre_alloc_mutable
 def test_set_code_self_authorization_reaching_nonce_max(
     state_test: StateTestFiller,

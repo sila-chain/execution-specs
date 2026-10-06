@@ -18,17 +18,17 @@ from execution_testing.cli.pytest_commands.plugins.shared.fixture_output import 
     format_fork_subdir,
 )
 
-# EVM binary for fill tests. Unset (or empty) -> the in-repo EELS t8n
-# (fill's default when --evm-bin is omitted). Set EVM_BIN to fill
-# against a specific binary, e.g. gsil's `evm`.
-BENCHMARK_EVM_T8N = os.environ.get("EVM_BIN") or None
+# Sivm binary for fill tests. Unset (or empty) -> the in-repo SELS t8n
+# (fill's default when --sivm-bin is omitted). Set SIVM_BIN to fill
+# against a specific binary, e.g. gsil's `sivm`.
+BENCHMARK_SIVM_T8N = os.environ.get("SIVM_BIN") or None
 
 
-def _evm_bin_args() -> List[str]:
-    """Return `--evm-bin` args, or none to use fill's EELS default."""
-    if BENCHMARK_EVM_T8N is None:
+def _sivm_bin_args() -> List[str]:
+    """Return `--sivm-bin` args, or none to use fill's SELS default."""
+    if BENCHMARK_SIVM_T8N is None:
         return []
-    return [f"--evm-bin={BENCHMARK_EVM_T8N}"]
+    return [f"--sivm-bin={BENCHMARK_SIVM_T8N}"]
 
 
 test_module_dummy = textwrap.dedent(
@@ -36,7 +36,7 @@ test_module_dummy = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     def test_dummy_benchmark_test(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
             target_opcode=Op.JUMPDEST,
@@ -50,7 +50,7 @@ test_module_without_fixture = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     def test_dummy_no_benchmark_test(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
             target_opcode=Op.JUMPDEST,
@@ -64,7 +64,7 @@ test_module_with_repricing = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.repricing
     def test_benchmark_with_repricing(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
@@ -72,7 +72,7 @@ test_module_with_repricing = textwrap.dedent(
             code_generator=JumpLoopGenerator(attack_block=Op.JUMPDEST),
         )
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     def test_benchmark_without_repricing(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
             target_opcode=Op.JUMPDEST,
@@ -86,13 +86,13 @@ test_module_without_benchmark_test_fixture = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     def test_with_gas_benchmark_value(state_test, gas_benchmark_value: int) -> None:
         # This test intentionally uses state_test instead of benchmark_test
         # to verify that --fixed-opcode-count filters it out
         state_test(pre={}, post={}, tx=None)
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     def test_with_benchmark_test(benchmark_test: BenchmarkTestFiller) -> None:
         benchmark_test(
             target_opcode=Op.JUMPDEST,
@@ -106,7 +106,7 @@ test_module_with_repricing_kwargs = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.repricing(opcode=Op.ADD)
     @pytest.mark.parametrize("opcode", [Op.ADD, Op.SUB, Op.MUL])
     def test_parametrized_with_repricing_kwargs(
@@ -118,7 +118,7 @@ test_module_with_repricing_kwargs = textwrap.dedent(
             code_generator=JumpLoopGenerator(attack_block=Op.JUMPDEST),
         )
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.repricing
     @pytest.mark.parametrize("opcode", [Op.ADD, Op.SUB])
     def test_parametrized_with_repricing_no_kwargs(
@@ -194,7 +194,7 @@ def test_benchmarking_mode_configured_with_option(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--gas-benchmark-values",
         "10,20,30",
         "tests/benchmark/dummy_test_module/",
@@ -223,7 +223,7 @@ def test_benchmark_gas_values_split_into_subdirs(
             Op,
         )
 
-        @pytest.mark.valid_at("Prague")
+        @pytest.mark.valid_at("SilaPrague")
         def test_dummy_benchmark_test(
             benchmark_test: BenchmarkTestFiller,
         ) -> None:
@@ -242,7 +242,7 @@ def test_benchmark_gas_values_split_into_subdirs(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--gas-benchmark-values",
         "1,2",
         "-m",
@@ -256,8 +256,8 @@ def test_benchmark_gas_values_split_into_subdirs(
 
     assert result.ret == 0, f"Fill command failed:\n{result.outlines}"
 
-    gas_1_subdir = format_fork_subdir("Prague", "0001M")
-    gas_2_subdir = format_fork_subdir("Prague", "0002M")
+    gas_1_subdir = format_fork_subdir("SilaPrague", "0001M")
+    gas_2_subdir = format_fork_subdir("SilaPrague", "0002M")
     gas_1_dir = output_dir / "blockchain_tests" / gas_1_subdir
     gas_2_dir = output_dir / "blockchain_tests" / gas_2_subdir
     assert gas_1_dir.exists()
@@ -324,21 +324,21 @@ def test_fixed_opcode_count_split_into_subdirs(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count=1,2",
         "-m",
         "blockchain_test and primary_format",
         "--no-html",
         "--skip-index",
         f"--output={output_dir}",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "tests/benchmark/dummy_test_module/",
         "-q",
     )
 
     assert result.ret == 0, f"Fill command failed:\n{result.outlines}"
 
-    prefix = f"{FORK_SUBDIR_PREFIX}prague"
+    prefix = f"{FORK_SUBDIR_PREFIX}silaprague"
     op1_subdir = f"{prefix}{SUBFOLDER_LEVEL_SEPARATOR}opcount_1.0K"
     op2_subdir = f"{prefix}{SUBFOLDER_LEVEL_SEPARATOR}opcount_2.0K"
     op1_dir = output_dir / "blockchain_tests" / op1_subdir
@@ -382,7 +382,7 @@ def test_benchmarking_mode_not_configured_without_option(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/benchmark/dummy_test_module/",
         "--collect-only",
         "-q",
@@ -438,7 +438,7 @@ def test_repricing_marker_filter_with_benchmark_options(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         benchmark_option,
         *benchmark_args,
         "-m",
@@ -479,7 +479,7 @@ def test_fixed_opcode_count_filters_tests_without_benchmark_test_fixture(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "tests/benchmark/dummy_test_module/",
@@ -516,7 +516,7 @@ def test_repricing_marker_with_kwargs_filters_parametrized_tests(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "-m",
@@ -572,7 +572,7 @@ def test_not_repricing_marker_negation(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "-m",
@@ -608,7 +608,7 @@ def test_mutual_exclusivity_of_benchmark_options(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--gas-benchmark-values",
         "10",
         "--fixed-opcode-count",
@@ -641,7 +641,7 @@ def test_without_repricing_flag_collects_all_tests(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count",
         "1",
         "tests/benchmark/dummy_test_module/",
@@ -696,13 +696,13 @@ def test_fixed_opcode_count_longest_pattern_wins() -> None:
 
     # Longer pattern should win for DUP1
     params = config.get_test_parameters(
-        "test_dup[fork_Prague-opcount_1K-opcode_DUP1]"
+        "test_dup[fork_SilaPrague-opcount_1K-opcode_DUP1]"
     )
     assert params[0].values[0] == 5
 
     # Shorter pattern should match for DUP2
     params = config.get_test_parameters(
-        "test_dup[fork_Prague-opcount_1K-opcode_DUP2]"
+        "test_dup[fork_SilaPrague-opcount_1K-opcode_DUP2]"
     )
     assert params[0].values[0] == 1
 
@@ -742,15 +742,19 @@ def test_fixed_opcode_count_multiple_patterns() -> None:
     )
 
     # Most specific pattern should win
-    params = config.get_test_parameters("test_bitwise[fork_Prague-opcode_AND]")
+    params = config.get_test_parameters(
+        "test_bitwise[fork_SilaPrague-opcode_AND]"
+    )
     assert params[0].values[0] == 3
 
     # Middle specificity
-    params = config.get_test_parameters("test_bitwise[fork_Prague-opcode_OR]")
+    params = config.get_test_parameters(
+        "test_bitwise[fork_SilaPrague-opcode_OR]"
+    )
     assert params[0].values[0] == 2
 
     # Least specific
-    params = config.get_test_parameters("test_other[fork_Prague]")
+    params = config.get_test_parameters("test_other[fork_SilaPrague]")
     assert params[0].values[0] == 1
 
 
@@ -945,9 +949,9 @@ def test_fixed_opcode_count_config_file_parametrized(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/benchmark/dummy_test_module/",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "--fixed-opcode-count",
         "-v",
     )
@@ -966,7 +970,7 @@ test_module_parametrized = textwrap.dedent(
     import pytest
     from execution_testing import BenchmarkTestFiller, JumpLoopGenerator, Op
 
-    @pytest.mark.valid_at("Prague")
+    @pytest.mark.valid_at("SilaPrague")
     @pytest.mark.parametrize("size", [0, 32, 256, 1024])
     def test_parametrized_benchmark(
         benchmark_test: BenchmarkTestFiller, size: int
@@ -1077,9 +1081,9 @@ def test_fixed_opcode_count_per_parameter_patterns(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "tests/benchmark/dummy_test_module/",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "--fixed-opcode-count",
         "-v",
     )
@@ -1116,10 +1120,10 @@ def test_cli_mode_ignores_per_parameter_patterns(
         "-c",
         "pytest-fill.ini",
         "--fork",
-        "Prague",
+        "SilaPrague",
         "--fixed-opcode-count=1,5",
         "tests/benchmark/dummy_test_module/",
-        *_evm_bin_args(),
+        *_sivm_bin_args(),
         "-v",
     )
 
@@ -1145,7 +1149,7 @@ def test_consensus_fixtures_split_by_fork(
         import pytest
         from execution_testing import Transaction
 
-        @pytest.mark.valid_from("Prague")
+        @pytest.mark.valid_from("SilaPrague")
         def test_fork_split_example(state_test, pre) -> None:
             tx = Transaction(
                 to=0, gas_limit=21_000, sender=pre.fund_eoa()
@@ -1167,8 +1171,8 @@ def test_consensus_fixtures_split_by_fork(
     result = pytester.runpytest(
         "-c",
         "pytest-fill.ini",
-        "--from=Prague",
-        "--until=Osaka",
+        "--from=SilaPrague",
+        "--until=SilaOsaka",
         "-m",
         "not blockchain_test_engine",
         "--no-html",
@@ -1180,8 +1184,8 @@ def test_consensus_fixtures_split_by_fork(
 
     assert result.ret == 0, f"Fill command failed:\n{result.outlines}"
 
-    prague_subdir = format_fork_subdir("Prague")
-    osaka_subdir = format_fork_subdir("Osaka")
+    prague_subdir = format_fork_subdir("SilaPrague")
+    osaka_subdir = format_fork_subdir("SilaOsaka")
 
     # Verify fork subdirs exist under state_tests
     state_tests_dir = output_dir / "state_tests"
@@ -1203,19 +1207,19 @@ def test_consensus_fixtures_split_by_fork(
     for file_path in prague_files:
         data = json.loads(file_path.read_text())
         for key in data:
-            assert "fork_Prague" in key, (
-                f"Expected fork_Prague in key {key} ({file_path})"
+            assert "fork_SilaPrague" in key, (
+                f"Expected fork_SilaPrague in key {key} ({file_path})"
             )
-            assert "fork_Osaka" not in key, (
-                f"Unexpected fork_Osaka in key {key} ({file_path})"
+            assert "fork_SilaOsaka" not in key, (
+                f"Unexpected fork_SilaOsaka in key {key} ({file_path})"
             )
 
     for file_path in osaka_files:
         data = json.loads(file_path.read_text())
         for key in data:
-            assert "fork_Osaka" in key, (
-                f"Expected fork_Osaka in key {key} ({file_path})"
+            assert "fork_SilaOsaka" in key, (
+                f"Expected fork_SilaOsaka in key {key} ({file_path})"
             )
-            assert "fork_Prague" not in key, (
-                f"Unexpected fork_Prague in key {key} ({file_path})"
+            assert "fork_SilaPrague" not in key, (
+                f"Unexpected fork_SilaPrague in key {key} ({file_path})"
             )

@@ -1,7 +1,7 @@
 """
 SELFDESTRUCT only in same transaction tests.
 
-Tests for [SIP-6780: SELFDESTRUCT only in same transaction](https://sips.sila.org/SIPS/sip-6780).
+Tests for [SIP-6780: SELFDESTRUCT only in same transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-6780.md).
 """
 
 from itertools import cycle
@@ -27,14 +27,14 @@ from execution_testing import (
     TransactionReceipt,
     compute_create_address,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 from tests.amsterdam.sip7708_sil_transfer_logs.spec import transfer_log
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-6780.md"
-REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
+REFERENCE_SPEC_VERSION = "281f35b0b244ebb566ac76c806473f4450c355b9"
 
-SELFDESTRUCT_DISABLE_FORK = Cancun
+SELFDESTRUCT_DISABLE_FORK = SilaCancun
 
 """
 Address of a pre-existing contract that self-destructs.
@@ -195,7 +195,7 @@ def selfdestruct_code(
     "selfdestruct_contract_initial_balance",
     [0, 100_000],
 )
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_create_selfdestruct_same_tx(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -413,7 +413,7 @@ def test_create_selfdestruct_same_tx(
     "selfdestruct_contract_initial_balance",
     [0, 100_000],
 )
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_self_destructing_initcode(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -579,7 +579,7 @@ def test_self_destructing_initcode(
     "selfdestruct_contract_initial_balance",
     [0, 100_000],
 )
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_self_destructing_initcode_create_tx(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -664,7 +664,7 @@ def test_self_destructing_initcode_create_tx(
 )
 @pytest.mark.parametrize("recreate_times", [1])
 @pytest.mark.parametrize("call_times", [1])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_recreate_self_destructed_contract_different_txs(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -866,7 +866,7 @@ def test_recreate_self_destructed_contract_different_txs(
     indirect=["sendall_recipient_addresses"],
 )
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 100_000])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_selfdestruct_pre_existing(
     state_test: StateTestFiller,
     sip_enabled: bool,
@@ -952,8 +952,8 @@ def test_selfdestruct_pre_existing(
 
         # SELFDESTRUCT emits Transfer to a different recipient; for a
         # pre-existing contract sending to itself, no log is emitted (balance
-        # stays). Pre-Cancun, SD also burns on self, but SIP-7708 is
-        # Amsterdam+, long after SIP-6780 is enabled, so the self-keep path
+        # stays). Pre-SilaCancun, SD also burns on self, but SIP-7708 is
+        # SilaAmsterdam+, long after SIP-6780 is enabled, so the self-keep path
         # applies here.
         if (
             sendall_recipient != selfdestruct_contract_address
@@ -1047,7 +1047,7 @@ def test_selfdestruct_pre_existing(
 
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 1])
 @pytest.mark.parametrize("call_times", [1, 10])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_selfdestruct_created_same_block_different_tx(
     blockchain_test: BlockchainTestFiller,
     sip_enabled: bool,
@@ -1196,7 +1196,7 @@ def test_selfdestruct_created_same_block_different_tx(
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 1])
 @pytest.mark.parametrize("call_opcode", [Op.DELEGATECALL, Op.CALLCODE])
 @pytest.mark.parametrize("create_opcode", [Op.CREATE])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_calling_from_new_contract_to_pre_existing_contract(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1371,7 +1371,7 @@ def test_calling_from_new_contract_to_pre_existing_contract(
 @pytest.mark.parametrize("call_times", [1])
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 1])
 @pytest.mark.parametrize("pre_existing_contract_initial_balance", [0, 1])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_calling_from_pre_existing_contract_to_new_contract(
     state_test: StateTestFiller,
     sip_enabled: bool,
@@ -1570,7 +1570,7 @@ def test_calling_from_pre_existing_contract_to_new_contract(
     ],
     indirect=["sendall_recipient_addresses"],
 )
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_create_selfdestruct_same_tx_increased_nonce(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1785,7 +1785,7 @@ def test_create_selfdestruct_same_tx_increased_nonce(
 
 @pytest.mark.parametrize("num_contracts", [2, 3])
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 100_000])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_create_and_destroy_multiple_contracts_same_tx(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -1915,7 +1915,7 @@ def test_create_and_destroy_multiple_contracts_same_tx(
 
 
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 100_000])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_create_multiple_contracts_destroy_one_then_destroy_other_next_tx(
     blockchain_test: BlockchainTestFiller,
     sip_enabled: bool,
@@ -2096,7 +2096,7 @@ def test_create_multiple_contracts_destroy_one_then_destroy_other_next_tx(
 
 @pytest.mark.parametrize("destroy_parent", [True, False])
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 100_000])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_parent_creates_child_selfdestruct_one(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -2237,7 +2237,7 @@ def test_parent_creates_child_selfdestruct_one(
 @pytest.mark.parametrize("recursion_depth", [2, 3])
 @pytest.mark.parametrize("selfdestruct_on_unwind", [True, False])
 @pytest.mark.parametrize("selfdestruct_contract_initial_balance", [0, 100_000])
-@pytest.mark.valid_from("Shanghai")
+@pytest.mark.valid_from("SilaShanghai")
 def test_recursive_contract_creation_and_selfdestruct(
     state_test: StateTestFiller,
     pre: Alloc,

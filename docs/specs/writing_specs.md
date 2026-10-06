@@ -2,7 +2,7 @@
 
 This page collects the style rules, cross-fork discipline, and CLI utilities you need when writing or modifying code under `src/sila/`.
 
-The overarching goal is readability: anyone reading a fork from top to bottom should be able to follow what Sila does for a given block, without jumping between files or untangling abstractions. EELS deliberately prefers repeated code (WET: "write everything twice") over clever reuse (DRY), because duplication is easier to read than a network of abstractions.
+The overarching goal is readability: anyone reading a fork from top to bottom should be able to follow what Sila does for a given block, without jumping between files or untangling abstractions. SELS deliberately prefers repeated code (WET: "write everything twice") over clever reuse (DRY), because duplication is easier to read than a network of abstractions.
 
 ## Style
 
@@ -99,7 +99,7 @@ The marked lines (`<-`) are now incorrectly attributed to SIP-4567 in Fork+1. In
   """
   Minimum gas cost per byte of calldata as per [SIP-7976].
 
-  [SIP-7976]: https://sips.sila.org/SIPS/sip-7976
+  [SIP-7976]: https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7976.md
   """
   ```
 
@@ -119,7 +119,7 @@ The marked lines (`<-`) are now incorrectly attributed to SIP-4567 in Fork+1. In
 
 ## Changes across multiple forks
 
-Many contributions require changes across multiple forks, organized under `src/sila/forks/`. When making such changes, ensure that differences between the forks are minimal and consist only of necessary differences. This produces cleaner [diff outputs](https://steel.sila.foundation/docs/execution-specs/specs/reference/diffs/index.html).
+Many contributions require changes across multiple forks, organized under `src/sila/forks/`. When making such changes, ensure that differences between the forks are minimal and consist only of necessary differences. This produces cleaner diff outputs.
 
 When creating pull requests affecting multiple forks, we recommend submitting your PR in two steps:
 
@@ -159,7 +159,7 @@ The following must be updated manually afterwards:
 
 ### Sync Tool
 
-The sync tool uses an RPC provider to fetch and validate blocks against EELS. The validated state can be stored in a local DB. Because syncing directly with the specs is very slow, the sync tool can also leverage the `sila_optimized` module, which contains alternative implementations of routines in EELS optimized for speed rather than clarity/readability.
+The sync tool uses an RPC provider to fetch and validate blocks against SELS. The validated state can be stored in a local DB. Because syncing directly with the specs is very slow, the sync tool can also leverage the `sila_optimized` module, which contains alternative implementations of routines in SELS optimized for speed rather than clarity/readability.
 
 Invoke the tool with `uv run --group optimized sila-spec-sync` (the `optimized` dependency group provides the `sila_optimized` module). Arguments:
 
@@ -188,7 +188,7 @@ Positional and flag arguments:
 - `optimized`: Patch the optimized code instead.
 - `tests`: Patch the tests instead.
 
-Example: apply changes made in `Frontier` to `Homestead` and `Tangerine Whistle`:
+Example: apply changes made in `Frontier` to `SilaHomestead` and `Tangerine Whistle`:
 
 ```bash
 uv run python src/sila_spec_tools/patch_tool.py frontier homestead tangerine_whistle
@@ -196,19 +196,19 @@ uv run python src/sila_spec_tools/patch_tool.py frontier homestead tangerine_whi
 
 ### Lint Tool
 
-The spec lint tool checks for style and formatting issues specific to EELS and emits diagnostics when issues are found. Currently it verifies:
+The spec lint tool checks for style and formatting issues specific to SELS and emits diagnostics when issues are found. Currently it verifies:
 
 - The order of identifiers between each hardfork is consistent.
 - Import statements follow the relevant import rules in modules.
 
 Run it with `just lint-spec` (or `uv run sila-spec-lint`).
 
-## Debugging with `--evm-trace`
+## Debugging with `--sivm-trace`
 
-A trace of the EVM execution for any test case can be obtained by passing the `--evm-trace` argument to pytest. Run it on a small number of tests at a time; the log can otherwise grow very large.
+A trace of the Sivm execution for any test case can be obtained by passing the `--sivm-trace` argument to pytest. Run it on a small number of tests at a time; the log can otherwise grow very large.
 
 ```bash
 uv run pytest \
     'tests/json_loader/test_state_tests.py::test_state_tests_frontier[stAttackTest - ContractCreationSpam - 0]' \
-    --evm_trace
+    --sivm_trace
 ```

@@ -1,1 +1,1 @@
-"""Listings of all SIPs for Prague fork."""
+"""Listings of all SIPs for SilaPrague fork."""

@@ -1,8 +1,8 @@
 """
-Tests [SIP-2930: Access list transaction](https://sips.sila.org/SIPS/sip-2930).
+Tests [SIP-2930: Access list transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2930.md).
 
 Original test by Ori:
-https://github.com/sila/tests/blob/v15.0/src/GeneralStateTestsFiller/stEIP1559/intrinsicGen.js.
+https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSIP1559/intrinsicGen.js.
 """
 
 from typing import List
@@ -26,7 +26,7 @@ from .spec import ref_spec_2930
 REFERENCE_SPEC_GIT_PATH = ref_spec_2930.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2930.version
 
-pytestmark = pytest.mark.valid_from("Berlin")
+pytestmark = pytest.mark.valid_from("SilaBerlin")
 
 tx_intrinsic_gas_data_vectors = [
     pytest.param(Bytes(b""), id="data_empty"),
@@ -146,10 +146,9 @@ tx_intrinsic_gas_access_list_vectors = [
 @pytest.mark.inclusion_test
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stEIP1559/intrinsicGen.js",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stEIP1559/intrinsicFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSIP1559/intrinsicGen.js",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSIP1559/intrinsicFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1535"],
 )
 @pytest.mark.parametrize("data", tx_intrinsic_gas_data_vectors)
 @pytest.mark.parametrize("access_list", tx_intrinsic_gas_access_list_vectors)

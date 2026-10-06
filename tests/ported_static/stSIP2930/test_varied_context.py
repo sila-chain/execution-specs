@@ -9,7 +9,7 @@ consumption around SSTORE/CALL/SELFDESTRUCT in various access-list
 contexts via `Op.GAS`. SIP-8037/8038 reprice several components;
 with an empty reservoir (the case here) the state-gas portion
 spills back into regular gas, so each measurement shifts by its
-`(Amsterdam - Cancun)` delta. Every delta below is derived from the
+`(SilaAmsterdam - SilaCancun)` delta. Every delta below is derived from the
 fork's own opcode gas model, so it is exactly 0 pre-SIP-8037 and
 tracks parameter changes: warm/cold fresh SSTORE-sets, the
 NEW_ACCOUNT spill for CALL-with-value and SELFDESTRUCT-to-non-alive
@@ -35,7 +35,7 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -49,7 +49,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP2930/variedContextFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -1155,7 +1155,7 @@ def test_varied_context(
     # }
     # SIP-8038 raises the inner SSTORE-write cost. Bump the "valid" gas
     # these callers forward by exactly that increase so their success
-    # path stays funded at Amsterdam (preserving the original Cancun
+    # path stays funded at SilaAmsterdam (preserving the original SilaCancun
     # margin) while the under-funded cold "invalid" path still OOGs.
     # The contract_13 inner SSTORE is a warm reset; contract_15's is a
     # cold reset. Both bumps are 0 pre-SIP-8037.
@@ -1166,10 +1166,10 @@ def test_varied_context(
         key_warm=False, original_value=1, current_value=1, new_value=2
     )
     valid_write_gas = 0xB65 + (
-        _warm_reset.gas_cost(fork) - _warm_reset.gas_cost(Cancun)
+        _warm_reset.gas_cost(fork) - _warm_reset.gas_cost(SilaCancun)
     )
     valid_read_gas = 0x1800 + (
-        _cold_reset.gas_cost(fork) - _cold_reset.gas_cost(Cancun)
+        _cold_reset.gas_cost(fork) - _cold_reset.gas_cost(SilaCancun)
     )
 
     contract_13 = pre.deploy_contract(  # noqa: F841
@@ -1366,30 +1366,32 @@ def test_varied_context(
 
     def _sstore_delta(**metadata: int) -> int:
         op = Op.SSTORE.with_metadata(**metadata)
-        return op.gas_cost(fork) - op.gas_cost(Cancun)
+        return op.gas_cost(fork) - op.gas_cost(SilaCancun)
 
     # Fresh SSTORE-set (state-gas spill dominates), warm vs cold key.
     warm_set_delta = _sstore_delta(key_warm=True, current_value=0, new_value=2)
     cold_set_delta = _sstore_delta(
         key_warm=False, current_value=0, new_value=2
     )
-    # CALL value transfer to a non-alive account: the Cancun NEW_ACCOUNT
+    # CALL value transfer to a non-alive account: the SilaCancun NEW_ACCOUNT
     # base becomes a spilling state-gas charge.
     new_account_delta = (
-        (fork.create_state_gas() - Cancun.gas_costs().NEW_ACCOUNT)
+        (fork.create_state_gas() - SilaCancun.gas_costs().NEW_ACCOUNT)
         if fork.is_sip_enabled(8037)
         else 0
     )
-    # Cold account access reprice (0 pre-Amsterdam).
+    # Cold account access reprice (0 pre-SilaAmsterdam).
     cold_account_delta = (
-        gas_costs.COLD_ACCOUNT_ACCESS - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        gas_costs.COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
-    # Cold storage access (SLOAD) reprice (0 pre-Amsterdam).
+    # Cold storage access (SLOAD) reprice (0 pre-SilaAmsterdam).
     cold_storage_delta = (
-        gas_costs.COLD_STORAGE_ACCESS - Cancun.gas_costs().COLD_STORAGE_ACCESS
+        gas_costs.COLD_STORAGE_ACCESS
+        - SilaCancun.gas_costs().COLD_STORAGE_ACCESS
     )
     # SELFDESTRUCT to a non-alive cold beneficiary: new-account spill,
-    # the new ACCOUNT_WRITE charge (0 pre-Amsterdam), and the cold
+    # the new ACCOUNT_WRITE charge (0 pre-SilaAmsterdam), and the cold
     # reprice.
     suicide_new_delta = (
         new_account_delta + gas_costs.ACCOUNT_WRITE + cold_account_delta
@@ -1400,7 +1402,7 @@ def test_varied_context(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={0: 2, 1: (20003 + warm_set_delta), 2: 107}
@@ -1409,7 +1411,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     storage={
@@ -1422,7 +1424,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(
                     storage={0: 2, 1: (20003 + warm_set_delta), 2: 107}
@@ -1431,7 +1433,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(
                     storage={
@@ -1444,7 +1446,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(
                     storage={
@@ -1458,7 +1460,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_3: Account(
                     storage={
@@ -1472,19 +1474,19 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [6], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_4: Account(storage={0: 2107 + cold_storage_delta})
             },
         },
         {
             "indexes": {"data": [7], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_4: Account(storage={0: 107})},
         },
         {
             "indexes": {"data": [8], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_26: Account(
                     storage={0: (20003 + warm_set_delta), 1: 100}
@@ -1493,7 +1495,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [9], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_26: Account(
                     storage={
@@ -1505,14 +1507,14 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [10], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_7: Account(storage={0: (20001 + suicide_write_delta)})
             },
         },
         {
             "indexes": {"data": [11], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_7: Account(
                     storage={
@@ -1528,14 +1530,14 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [12], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_9: Account(storage={0: 100 + suicide_new_delta})
             },
         },
         {
             "indexes": {"data": [13], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_9: Account(
                     storage={
@@ -1549,32 +1551,32 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [14, 15], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_11: Account(storage={0: 2989})},
         },
         {
             "indexes": {"data": [16], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_14: Account(storage={0: 24589})},
         },
         {
             "indexes": {"data": [17], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_14: Account(storage={0: 2989})},
         },
         {
             "indexes": {"data": [18], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_16: Account(storage={0: 24589, 24743: 57005})},
         },
         {
             "indexes": {"data": [19], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_16: Account(storage={0: 2989, 24743: 57005})},
         },
         {
             "indexes": {"data": [20], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_17: Account(
                     storage={
@@ -1667,7 +1669,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [21], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_17: Account(
                     storage={
@@ -1760,7 +1762,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [22], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_18, nonce=0): Account(
                     storage={0: 65535, 1: (20017 + warm_set_delta)}
@@ -1769,7 +1771,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [23], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_18, nonce=0): Account(
                     storage={0: 65535, 1: (22117 + cold_set_delta)}
@@ -1778,7 +1780,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [24], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xD82F21135ED7D7D833A9F2A0F1CF6C3DA214B8E3): Account(
                     storage={0: 65535, 1: (20017 + warm_set_delta)}
@@ -1787,7 +1789,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [25], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0xD82F21135ED7D7D833A9F2A0F1CF6C3DA214B8E3): Account(
                     storage={0: 65535, 1: (22117 + cold_set_delta)}
@@ -1796,7 +1798,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [26], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_20, nonce=0): Account(
                     storage={0: 65535, 1: (20017 + warm_set_delta)}
@@ -1805,7 +1807,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [27], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_20, nonce=0): Account(
                     storage={0: 65535, 1: (22117 + cold_set_delta)}
@@ -1814,7 +1816,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [28], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x530508498D2AA75D8E591612809FEC3D37A45615): Account(
                     storage={0: 65535, 1: (20017 + warm_set_delta)}
@@ -1823,7 +1825,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [29], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x530508498D2AA75D8E591612809FEC3D37A45615): Account(
                     storage={0: 65535, 1: (22117 + cold_set_delta)}
@@ -1832,7 +1834,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [30], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_22, nonce=0): Account(
                     storage={0: 65535, 1: (20017 + warm_set_delta), 2: 117}
@@ -1841,7 +1843,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [31], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 compute_create_address(address=contract_22, nonce=0): Account(
                     storage={0: 65535, 1: (22117 + cold_set_delta), 2: 117}
@@ -1850,7 +1852,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [32], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x83FBDAE70258AC0FA837B701CC63CEDF48D4B6BF): Account(
                     storage={0: 65535, 1: (20017 + warm_set_delta), 2: 117}
@@ -1859,7 +1861,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [33], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 Address(0x83FBDAE70258AC0FA837B701CC63CEDF48D4B6BF): Account(
                     storage={0: 65535, 1: (22117 + cold_set_delta), 2: 117}
@@ -1868,7 +1870,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [34], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_25: Account(
                     storage={0: 24743, 1: (20017 + warm_set_delta), 2: 117}
@@ -1877,7 +1879,7 @@ def test_varied_context(
         },
         {
             "indexes": {"data": [35], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_25: Account(
                     storage={0: 24743, 1: (22117 + cold_set_delta), 2: 117}

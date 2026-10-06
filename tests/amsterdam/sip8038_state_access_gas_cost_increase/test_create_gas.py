@@ -1,5 +1,5 @@
 """
-Tests for the SIP-8038 [State-access gas cost update](https://sips.sila.org/SIPS/sip-8038)
+Tests for the SIP-8038 [State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md)
 ``CREATE``/``CREATE2`` execution-gas dimension.
 
 Under SIP-8038 the contract-creation opcodes are repriced in their
@@ -44,7 +44,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 @SIPChecklist.GasCostChanges.Test.GasUpdatesMeasurement()
@@ -275,7 +275,7 @@ class TestCreateTxGasBoundary:
         execution = exact_intrinsic_gas + fork.transaction_top_frame_state_gas(
             contract_creation=True
         )
-        execution += initcode.evm_gas(fork)
+        execution += initcode.sivm_gas(fork)
         execution += initcode.deployment_gas(fork)
         return execution
 
@@ -495,7 +495,7 @@ def test_create2_to_occupied_address(
 
     # The address CREATE2 would compute from this factory, salt, and
     # initcode. ``compute_create_address`` with ``opcode=Op.CREATE2`` is
-    # the unified EEST helper for the CREATE2 derivation.
+    # the unified SEST helper for the CREATE2 derivation.
     collision_address = compute_create_address(
         address=factory,
         salt=salt,

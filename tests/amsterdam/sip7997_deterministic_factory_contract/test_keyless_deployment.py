@@ -1,7 +1,7 @@
 """
 Verify keyless deployment of the Deterministic Factory Contract.
 
-<https://sips.sila.org/SIPS/sip-7997>
+<https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7997.md>
 
 Verify the fixed keyless creation transaction before and after the
 creation state-gas increase. Chains may also allocate the factory at
@@ -68,7 +68,7 @@ def remove_factory_contract(pre: Alloc) -> None:
     pre[FACTORY] = Account(nonce=0, balance=0, code=b"")
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.pre_alloc_mutable
 @SIPChecklist.SystemContract.Test.Deployment.Address()
 @SIPChecklist.SystemContract.Test.ForkTransition.CallBeforeFork()
@@ -148,7 +148,7 @@ def test_keyless_deployment_before_fork(
     )
 
 
-@pytest.mark.valid_at_transition_to("Amsterdam")
+@pytest.mark.valid_at_transition_to("SilaAmsterdam")
 @pytest.mark.pre_alloc_mutable
 def test_keyless_deployment_after_fork(
     blockchain_test: BlockchainTestFiller,

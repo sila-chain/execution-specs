@@ -322,8 +322,8 @@ def format_fork_subdir(
     """
     Return the fork-based output subdirectory name.
 
-    Without *gas_limit_subdir*: ``for_prague``
-    With *gas_limit_subdir*:    ``for_prague_at_0002M``
+    Without *gas_limit_subdir*: ``for_silaprague``
+    With *gas_limit_subdir*:    ``for_silaprague_at_0002M``
     """
     base = f"{FORK_SUBDIR_PREFIX}{fork_name.lower()}"
     if gas_limit_subdir is not None:

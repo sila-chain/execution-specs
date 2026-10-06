@@ -3,7 +3,7 @@ SIP-7685: General purpose execution layer requests.
 
 A general purpose bus for sharing EL triggered requests with the CL.
 
-https://sips.sila.org/SIPS/sip-7685
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7685.md
 """
 
 from ....base_fork import BaseFork

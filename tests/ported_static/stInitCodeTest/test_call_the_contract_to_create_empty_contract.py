@@ -5,7 +5,7 @@ Ported from:
 state_tests/stInitCodeTest/CallTheContractToCreateEmptyContractFiller.json
 
 @manually-enhanced: Do not overwrite. tx gas budget bumped
-for SIP-8037 NEW_ACCOUNT state-gas headroom on Amsterdam (post-state
+for SIP-8037 NEW_ACCOUNT state-gas headroom on SilaAmsterdam (post-state
 expectations are unchanged on all forks).
 """
 
@@ -32,7 +32,7 @@ REFERENCE_SPEC_VERSION = "N/A"
         "state_tests/stInitCodeTest/CallTheContractToCreateEmptyContractFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_the_contract_to_create_empty_contract(
     state_test: StateTestFiller,
@@ -60,7 +60,7 @@ def test_call_the_contract_to_create_empty_contract(
         nonce=0,
     )
 
-    # SIP-8037 NEW_ACCOUNT state-gas spill on Amsterdam; pre-SIP-8037
+    # SIP-8037 NEW_ACCOUNT state-gas spill on SilaAmsterdam; pre-SIP-8037
     # keeps the original 100 000 budget.
     tx_gas_limit = 100_000
     if fork.is_sip_enabled(8037):

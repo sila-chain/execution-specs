@@ -1,5 +1,5 @@
 """
-Tests for [SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+Tests for [SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
 The headline mechanism of the spec is the
 ``SSTORE`` clear-refund *reversal*: ``refund_counter`` is decremented by
@@ -56,7 +56,7 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 def _cumulative_gas_used(code: Bytecode, fork: Fork) -> int:

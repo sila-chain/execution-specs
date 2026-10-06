@@ -1,7 +1,7 @@
 """
-SIP-2: Homestead Hard-fork Changes.
+SIP-2: SilaHomestead Hard-fork Changes.
 
-https://sips.sila.org/SIPS/sip-2
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2.md
 """
 
 from typing import List, Sized

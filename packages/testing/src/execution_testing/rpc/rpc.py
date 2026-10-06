@@ -1,5 +1,5 @@
 """
-JSON-RPC methods and helper functions for EEST consume based hive simulators.
+JSON-RPC methods and helper functions for SEST consume based hive simulators.
 """
 
 import logging
@@ -209,7 +209,7 @@ class PeerConnectionTimeoutError(Exception):
 
 class BaseRPC:
     """
-    Represents a base RPC class for every RPC call used within EEST based hive
+    Represents a base RPC class for every RPC call used within SEST based hive
     simulators.
     """
 
@@ -493,7 +493,7 @@ class BaseJwtRPC(BaseRPC):
 class SilRPC(BaseRPC):
     """
     Represents an `sil_X` RPC class for every default sila RPC method used
-    within EEST based hive simulators.
+    within SEST based hive simulators.
     """
 
     transaction_wait_timeout: int = 60
@@ -518,9 +518,9 @@ class SilRPC(BaseRPC):
         super().__init__(*args, **kwargs)
         self.transaction_wait_timeout = transaction_wait_timeout
 
-        # Allow overriding via env "flag" EEST_POLL_INTERVAL or ctor arg
+        # Allow overriding via env "flag" SEST_POLL_INTERVAL or ctor arg
         # Priority: ctor arg > env var > default (1.0)
-        env_val = os.getenv("EEST_POLL_INTERVAL")
+        env_val = os.getenv("SEST_POLL_INTERVAL")
         if poll_interval is not None:
             self.poll_interval = float(poll_interval)
         elif env_val:
@@ -528,7 +528,7 @@ class SilRPC(BaseRPC):
                 self.poll_interval = float(env_val)
             except ValueError:
                 logger.warning(
-                    "Invalid EEST_POLL_INTERVAL=%r; falling back to 1.0s",
+                    "Invalid SEST_POLL_INTERVAL=%r; falling back to 1.0s",
                     env_val,
                 )
                 self.poll_interval = 1.0
@@ -1329,7 +1329,7 @@ class SilRPC(BaseRPC):
 class DebugRPC(SilRPC):
     """
     Represents an `debug_X` RPC class for every default sila RPC method
-    used within EEST based hive simulators.
+    used within SEST based hive simulators.
     """
 
     # JSON-RPC "method not found" error code.
@@ -1422,7 +1422,7 @@ class DebugRPC(SilRPC):
 class EngineRPC(BaseJwtRPC):
     """
     Represents an Engine API RPC class for every Engine API method used within
-    EEST based hive simulators.
+    SEST based hive simulators.
     """
 
     def new_payload(self, *params: Any, version: int) -> PayloadStatus:

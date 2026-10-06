@@ -28,7 +28,7 @@ from execution_testing.test_types.transaction_types import TransactionDefaults
 
 @pytest.mark.inclusion_test
 @pytest.mark.exception_test
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_tx_gas_limit(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -40,7 +40,7 @@ def test_tx_gas_limit(
 
     The block gas limit is kept well above what an empty block's access
     list needs under the SIP-7928 item cap (`gas_limit // 2000` items,
-    against the system-contract reads every Amsterdam block carries), so
+    against the system-contract reads every SilaAmsterdam block carries), so
     the transaction's gas allowance is the only thing wrong with the
     block and clients do not disagree on which check to report.
     """
@@ -87,7 +87,7 @@ def test_tx_gas_limit(
     ],
 )
 @pytest.mark.pre_alloc_mutable
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_tx_nonce(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -114,7 +114,7 @@ def test_tx_nonce(
 @pytest.mark.inclusion_test
 @pytest.mark.pre_alloc_mutable
 @pytest.mark.exception_test
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_tx_max_nonce(state_test: StateTestFiller, pre: Alloc) -> None:
     """
     Test that a transaction with the maximum nonce value (`2**64 - 1`) is
@@ -175,7 +175,7 @@ def test_tx_nonce_overflow(
         (1, None),
     ],
 )
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_sender_balance(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -221,7 +221,7 @@ def test_sender_balance(
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.state_test_only
 @pytest.mark.exception_test
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_sender_balance_insufficient_state_test(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -265,7 +265,7 @@ SECP256K1N = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
 @pytest.mark.inclusion_test
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.exception_test
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 @pytest.mark.with_all_tx_types
 @pytest.mark.parametrize(
     ("v", "r", "s"),
@@ -280,7 +280,7 @@ SECP256K1N = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
             1,
             (SECP256K1N // 2) + 1,
             id="s=SECP256K1N//2+1",
-            marks=pytest.mark.valid_from("Homestead"),
+            marks=pytest.mark.valid_from("SilaHomestead"),
         ),
     ],
 )
@@ -339,13 +339,17 @@ UNRECOVERABLE_R = 5
 @pytest.mark.inclusion_test
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.exception_test
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 @pytest.mark.parametrize(
     "tx_type",
     [
         pytest.param(0, id="legacy"),
-        pytest.param(1, id="sip2930", marks=pytest.mark.valid_from("Berlin")),
-        pytest.param(2, id="sip1559", marks=pytest.mark.valid_from("London")),
+        pytest.param(
+            1, id="sip2930", marks=pytest.mark.valid_from("SilaBerlin")
+        ),
+        pytest.param(
+            2, id="sip1559", marks=pytest.mark.valid_from("SilaLondon")
+        ),
     ],
 )
 def test_unrecoverable_signature(

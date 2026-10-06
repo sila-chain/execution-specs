@@ -7,13 +7,13 @@ The command requires the `--fork` flag which must match the fork that is current
 The `execute remote` command requires to be pointed to an RPC endpoint of a client that is connected to the network, which can be specified by using the `--rpc-endpoint` flag:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io
 ```
 
 Another requirement is that the command is provided with a seed account that has funds available in the network to deploy contracts and fund accounts. This can be done by setting the `--rpc-seed-key` flag:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f
 ```
 
 The value needs to be a private key that is used to sign the transactions that deploy the contracts and fund the accounts.
@@ -21,7 +21,7 @@ The value needs to be a private key that is used to sign the transactions that d
 One last requirement is that the `--chain-id` flag is set to the chain id of the network that is being tested:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345
 ```
 
 ## Test Accounts and Contracts
@@ -48,7 +48,7 @@ One optimization is the deferred calculation of the funding amount for the EOA, 
 Dry run mode calculates the minimum balance required without executing any transactions on chain:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --dry-run ./tests/prague/sip7702_set_code_tx/
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --dry-run ./tests/prague/sip7702_set_code_tx/
 ```
 
 This outputs the minimum balance needed and total gas consumption per test, useful for:
@@ -62,7 +62,7 @@ This outputs the minimum balance needed and total gas consumption per test, usef
 A limit of the total gas consumption per test can be specified with the `--max-gas-per-test` flag:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --max-gas-per-test 30000000 --rpc-seed-key 0x... --chain-id 12345
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --max-gas-per-test 30000000 --rpc-seed-key 0x... --chain-id 12345
 ```
 
 Tests exceeding this limit will fail with an assertion error and will not send any transactions to the chain.
@@ -74,13 +74,13 @@ By default, the `execute remote` command assumes that the execution client is co
 To use this feature, you need to provide both the `--engine-endpoint` and JWT authentication:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --engine-endpoint=https://engine.endpoint.io --engine-jwt-secret "your-jwt-secret-here"
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --engine-endpoint=https://engine.endpoint.io --engine-jwt-secret "your-jwt-secret-here"
 ```
 
 Alternatively, you can provide the JWT secret from a file:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --engine-endpoint=https://engine.endpoint.io --engine-jwt-secret-file /path/to/jwt-secret.txt
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --engine-endpoint=https://engine.endpoint.io --engine-jwt-secret-file /path/to/jwt-secret.txt
 ```
 
 The JWT secret file must contain only the JWT secret as a hex string.
@@ -92,7 +92,7 @@ When an engine endpoint is provided, the test execution will use the Engine API 
 If the execution client supports the `testing_buildBlockV1` endpoint, you can enable it alongside the engine endpoint:
 
 ```bash
-uv run execute remote --fork=Prague \
+uv run execute remote --fork=SilaPrague \
     --rpc-endpoint=https://rpc.endpoint.io \
     --rpc-seed-key 0x... --chain-id 12345 \
     --engine-endpoint=https://engine.endpoint.io \
@@ -109,7 +109,7 @@ The `execute remote` command will connect to the client via the RPC endpoint and
 It is recommended to only run a subset of the tests when executing on a live network. To do so, a path to a specific test can be provided to the command:
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 ./tests/prague/sip7702_set_code_tx/test_set_code_txs.py::test_set_code_to_sstore
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 ./tests/prague/sip7702_set_code_tx/test_set_code_txs.py::test_set_code_to_sstore
 ```
 
 ## Address Stubs for Pre-deployed Contracts
@@ -130,19 +130,19 @@ You can provide address stubs in several formats:
 **JSON string:**
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --address-stubs '{"DEPOSIT_CONTRACT": "0x00000000219ab540356cbb839cbe05303d7705fa", "UNISWAP_V3_FACTORY": "0x1F98431c8aD98523631AE4a59f267346ea31F984"}'
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --address-stubs '{"DEPOSIT_CONTRACT": "0x00000000219ab540356cbb839cbe05303d7705fa", "UNISWAP_V3_FACTORY": "0x1F98431c8aD98523631AE4a59f267346ea31F984"}'
 ```
 
 **JSON file:**
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --address-stubs ./contracts.json
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --address-stubs ./contracts.json
 ```
 
 **YAML file:**
 
 ```bash
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --address-stubs ./contracts.yaml
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --rpc-seed-key 0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f --chain-id 12345 --address-stubs ./contracts.yaml
 ```
 
 ### Address Stubs File Format
@@ -237,10 +237,10 @@ You can configure the batch size using the `--max-tx-per-batch` flag:
 
 ```bash
 # Reduce batch size for slower RPC endpoints
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --max-tx-per-batch 100 --rpc-seed-key 0x... --chain-id 12345
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --max-tx-per-batch 100 --rpc-seed-key 0x... --chain-id 12345
 
 # Increase batch size for high-performance endpoints
-uv run execute remote --fork=Prague --rpc-endpoint=https://rpc.endpoint.io --max-tx-per-batch 1000 --rpc-seed-key 0x... --chain-id 12345
+uv run execute remote --fork=SilaPrague --rpc-endpoint=https://rpc.endpoint.io --max-tx-per-batch 1000 --rpc-seed-key 0x... --chain-id 12345
 ```
 
 A warning is logged when the batch size exceeds 1000, as this may cause RPC service instability.

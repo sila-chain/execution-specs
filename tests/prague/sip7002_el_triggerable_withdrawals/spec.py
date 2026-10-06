@@ -1,7 +1,7 @@
 """
 Common procedures to test
 [SIP-7002: Execution layer triggerable
-withdrawals](https://sips.sila.org/SIPS/sip-7002).
+withdrawals](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md).
 """
 
 from dataclasses import dataclass
@@ -26,7 +26,7 @@ ref_spec_7002 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7002 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7002#configuration.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7002.md#configuration.
 
     The request queue parameters live on the framework's `WithdrawalRequest`.
     """

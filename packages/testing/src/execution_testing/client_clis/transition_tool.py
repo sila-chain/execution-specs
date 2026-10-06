@@ -60,8 +60,8 @@ from .sila_cli import SilaCLI
 
 model_dump_config: Mapping = {"by_alias": True, "exclude_none": True}
 
-# TODO: reduce NORMAL_SERVER_TIMEOUT back down to 20 once BLS timeout issue is
-# resolved: https://github.com/sila/execution-spec-tests/issues/1894
+# TODO: reduce NORMAL_SERVER_TIMEOUT back down to 20 once the BLS timeout
+# issue is resolved.
 NORMAL_SERVER_TIMEOUT = 600
 SLOW_REQUEST_TIMEOUT = 600
 
@@ -418,7 +418,7 @@ class TransitionTool(SilaCLI):
         fork_name = self.fork_name_map.get(fork_name, fork_name)
 
         # Prepend the binary and its t8n subcommand if it uses one (e.g.
-        # evmone's `t8n`), as construct_args_stream does, then the t8n flags.
+        # sivmone's `t8n`), as construct_args_stream does, then the t8n flags.
         args = [str(self.binary)]
         if self.subcommand:
             args.append(self.subcommand)

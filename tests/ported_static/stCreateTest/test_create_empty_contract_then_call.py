@@ -44,7 +44,7 @@ FLAG_SLOT = 0x3
         "state_tests/stCreateTest/CREATE_EContract_ThenCALLToNonExistentAccFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "call_target, call_value",
     [

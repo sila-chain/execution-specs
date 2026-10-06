@@ -1,8 +1,8 @@
 """
-Tests [SIP-3855: PUSH0 Instruction](https://sips.sila.org/SIPS/sip-3855).
+Tests [SIP-3855: PUSH0 Instruction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3855.md).
 
 Tests ported from:
-[sila/tests/pull/1033](https://github.com/sila/tests/pull/1033).
+sila-chain/sila-tests/pull/1033.
 """
 
 import pytest
@@ -24,7 +24,7 @@ from .spec import ref_spec_3855
 REFERENCE_SPEC_GIT_PATH = ref_spec_3855.git_path
 REFERENCE_SPEC_VERSION = ref_spec_3855.version
 
-pytestmark = pytest.mark.valid_from("Shanghai")
+pytestmark = pytest.mark.valid_from("SilaShanghai")
 
 
 @pytest.mark.bigmem

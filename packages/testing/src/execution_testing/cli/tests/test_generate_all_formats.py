@@ -44,7 +44,7 @@ def test_generate_all_formats_preserves_other_args() -> None:
         pytest_args = [
             "--generate-all-formats",
             "--output=custom-output",
-            "--fork=Paris",
+            "--fork=SilaParis",
             "-v",
             "tests/somedir/",
         ]
@@ -55,7 +55,7 @@ def test_generate_all_formats_preserves_other_args() -> None:
     # Both phases should preserve most args
     for execution in executions:
         assert "--output=custom-output" in execution.args
-        assert "--fork=Paris" in execution.args
+        assert "--fork=SilaParis" in execution.args
         assert "-v" in execution.args
         assert "tests/somedir/" in execution.args
 

@@ -21,7 +21,7 @@ ref_spec_7702 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-7702 specifications as defined at
-    https://sips.sila.org/SIPS/sip-7702.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md.
     """
 
     SET_CODE_TX_TYPE = 0x04

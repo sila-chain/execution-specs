@@ -112,7 +112,8 @@ class TestInfo:
 
     __test__ = False  # stop pytest from collecting this class as a test
 
-    name: str  # pytest: Item.name, e.g. test_paris_one[fork_Paris-state_test]
+    # pytest: Item.name, e.g. test_paris_one[fork_SilaParis-state_test]
+    name: str
     id: str  # pytest: Item.nodeid, e.g.
     # tests/paris/test_module_paris.py::test_paris_one[...]
     original_name: str  # pytest: Item.originalname, e.g. test_paris_one
@@ -136,8 +137,8 @@ class TestInfo:
         Convert test name to a tuple containing the test name and test
         parameters.
 
-        Example: test_push0_key_sstore[fork_Shanghai] -> test_push0_key_sstore,
-        fork_Shanghai
+        Example: test_push0_key_sstore[fork_SilaShanghai] ->
+        test_push0_key_sstore, fork_SilaShanghai
         """
         test_name, parameters = self.name.split("[")
         return test_name, re.sub(r"[\[\-]", "_", parameters).replace("]", "")
@@ -399,10 +400,10 @@ class FixtureCollector:
             )
 
     def verify_fixture_files(
-        self, evm_fixture_verification: FixtureConsumer
+        self, sivm_fixture_verification: FixtureConsumer
     ) -> None:
         """
-        Run `evm [state|block]test` on each fixture.
+        Run `sivm [state|block]test` on each fixture.
 
         For streaming mode, uses lightweight tracking of fixture paths/formats
         rather than keeping full fixtures in memory.
@@ -411,8 +412,10 @@ class FixtureCollector:
             # stdout mode: fixtures are in memory
             for fixture_path, name_fixture_dict in self.all_fixtures.items():
                 for _fixture_name, fixture in name_fixture_dict.items():
-                    if evm_fixture_verification.can_consume(fixture.__class__):
-                        evm_fixture_verification.consume_fixture(
+                    if sivm_fixture_verification.can_consume(
+                        fixture.__class__
+                    ):
+                        sivm_fixture_verification.consume_fixture(
                             fixture.__class__,
                             fixture_path,
                             fixture_name=None,
@@ -422,8 +425,8 @@ class FixtureCollector:
             # Streaming mode: use tracked fixture metadata
             for entry in self._fixtures_to_verify:
                 fixture_path, fixture_format, debug_path = entry
-                if evm_fixture_verification.can_consume(fixture_format):
-                    evm_fixture_verification.consume_fixture(
+                if sivm_fixture_verification.can_consume(fixture_format):
+                    sivm_fixture_verification.consume_fixture(
                         fixture_format,
                         fixture_path,
                         fixture_name=None,

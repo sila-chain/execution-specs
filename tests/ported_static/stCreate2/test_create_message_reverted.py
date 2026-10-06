@@ -3,7 +3,7 @@ CreateMessageReverted for CREATE2.
 
 Ported from:
 state_tests/stCreate2/CreateMessageRevertedFiller.json
-@manually-enhanced: Do not overwrite. tx_gas[1] bumped on Amsterdam to
+@manually-enhanced: Do not overwrite. tx_gas[1] bumped on SilaAmsterdam to
 cover SIP-8037 state-gas spill (CREATE2 new account + 2 fresh
 SSTOREs in init code); pre-SIP-8037 unchanged. g0 (OoG case) is
 intentionally left alone.
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/CreateMessageRevertedFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -95,7 +95,7 @@ def test_create_message_reverted(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(
@@ -105,7 +105,7 @@ def test_create_message_reverted(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 sender: Account(nonce=1),
                 Address(0x244FE9A7867EDCC140245E775071FBFE6EBEDBAE): Account(

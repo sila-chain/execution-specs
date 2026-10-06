@@ -14,8 +14,8 @@ state_tests/stCallCodes/callcodeInInitcodeToExistingContractFiller.json
 contract is collapsed into a direct transaction to the create-runner,
 sub-calls forward all gas (SIP-8037-proof), the post pins both the
 created and the existing account, and the value cases are parametrized.
-Widened down to TangerineWhistle, the SIP-150 floor for forwarding all
-gas; CREATE2 rejoins at Constantinople.
+Widened down to SIP150, the SIP-150 floor for forwarding all
+gas; CREATE2 rejoins at SilaConstantinople.
 """
 
 import pytest
@@ -43,7 +43,7 @@ DELEGATE_SLOT = 2
         "state_tests/stCallCodes/callcodeInInitcodeToExistingContractFiller.json"  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("TangerineWhistle")
+@pytest.mark.valid_from("SIP150")
 @pytest.mark.parametrize(
     "create_endowment,callcode_value",
     [

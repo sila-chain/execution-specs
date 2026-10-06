@@ -11,7 +11,7 @@ returns the SIP-8038 schedule and this mixin folds its state-creation gas
 into the shared `STORAGE_SET`, `TX_CREATE`, and `AUTH_PER_EMPTY_ACCOUNT`
 totals on top of it.
 
-https://sips.sila.org/SIPS/sip-8037
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md
 """
 
 from dataclasses import replace
@@ -375,7 +375,7 @@ class SIP8037(BaseFork):
         `NEW_ACCOUNT` (if the account did not exist before).
         Before SIP-8037 this was folded into `OPCODE_CREATE_BASE`. Under
         SIP-8037 it is exposed here so that `OPCODE_CREATE_BASE` stays
-        execution-only and matches the spec EVM constant.
+        execution-only and matches the spec Sivm constant.
         """
         if opcode.metadata["account_new"]:
             return gas_costs.NEW_ACCOUNT
@@ -390,7 +390,7 @@ class SIP8037(BaseFork):
         positive balance funds a new account. Before SIP-8037 this was
         folded into the execution SELFDESTRUCT cost; under SIP-8037 it is
         exposed here as state gas (mirroring `_calculate_create_state_gas`)
-        so the execution cost matches the spec EVM
+        so the execution cost matches the spec Sivm
         (`OPCODE_SELFDESTRUCT_BASE` + account access + the SIP-8038
         `ACCOUNT_WRITE` surcharge).
         """

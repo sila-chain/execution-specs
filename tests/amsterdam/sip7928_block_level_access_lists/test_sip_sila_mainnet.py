@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7928: Block-level Access Lists](https://sips.sila.org/SIPS/sip-7928).
+[SIP-7928: Block-level Access Lists](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7928.md).
 """
 
 import pytest
@@ -26,7 +26,7 @@ from .spec import ref_spec_7928
 REFERENCE_SPEC_GIT_PATH = ref_spec_7928.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7928.version
 
-pytestmark = [pytest.mark.valid_at("Amsterdam"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaAmsterdam"), pytest.mark.sila_mainnet]
 
 
 def test_bal_storage_and_value_sila_mainnet(

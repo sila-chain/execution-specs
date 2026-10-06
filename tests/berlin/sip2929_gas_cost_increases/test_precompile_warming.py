@@ -3,7 +3,7 @@ Tests SIP-2929 precompile warming behavior.
 
 Tests precompile warming behavior across fork transitions from
 [SIP-2929: Gas cost increases for state access opcodes]
-    (https://sips.sila.org/SIPS/sip-2929).
+    (https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2929.md).
 """
 
 from typing import Iterator, Tuple
@@ -26,7 +26,7 @@ from execution_testing.forks import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2929.md"
-REFERENCE_SPEC_VERSION = "0e11417265a623adb680c527b15d0cb6701b870b"
+REFERENCE_SPEC_VERSION = "04f3aa8ac8d5b31f1a9a0a3393fb65767f430a68"
 
 
 def precompile_addresses_in_predecessor_successor(
@@ -86,7 +86,7 @@ def precompile_addresses_in_predecessor_successor(
         )
 
 
-@pytest.mark.valid_at_transition_to("Paris", subsequent_forks=True)
+@pytest.mark.valid_at_transition_to("SilaParis", subsequent_forks=True)
 @pytest.mark.parametrize_by_fork(
     "address,precompile_in_successor,precompile_in_predecessor",
     precompile_addresses_in_predecessor_successor,

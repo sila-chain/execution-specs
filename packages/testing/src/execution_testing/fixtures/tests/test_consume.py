@@ -19,14 +19,14 @@ def _index_json(root_hash: str, fixture_hash: str) -> str:
             "root_hash": root_hash,
             "created_at": "2025-10-09T22:01:49.594302",
             "test_count": 1,
-            "forks": ["Prague"],
+            "forks": ["SilaPrague"],
             "fixture_formats": ["state_test"],
             "test_cases": [
                 {
                     "id": "tests/a.py::test_a",
                     "json_path": "state_tests/a.json",
                     "fixture_hash": fixture_hash,
-                    "fork": "Prague",
+                    "fork": "SilaPrague",
                     "format": "state_test",
                     "pre_hash": None,
                 }

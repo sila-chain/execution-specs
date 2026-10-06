@@ -1,5 +1,5 @@
 """
-Tests point evaluation precompile for [SIP-4844: Shard Blob Transactions](https://sips.sila.org/SIPS/sip-4844).
+Tests point evaluation precompile for [SIP-4844: Shard Blob Transactions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4844.md).
 
 Note: To add a new test, add a function that is named `test_<test_name>` and
 takes at least the following arguments.
@@ -149,7 +149,6 @@ def precompile_caller_code(call_opcode: Op, call_gas: int) -> Bytecode:
     precompile_caller_code = Op.CALLDATACOPY(0, 0, Op.CALLDATASIZE)
     precompile_caller_code += Op.SSTORE(
         key_call_return_code,
-        # https://github.com/sila/execution-spec-tests/issues/348
         call_opcode(
             gas=call_gas,
             address=Spec.POINT_EVALUATION_PRECOMPILE_ADDRESS,
@@ -286,7 +285,7 @@ def post(
     ],
 )
 @pytest.mark.parametrize("result", [Result.SUCCESS])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_valid_inputs(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -430,8 +429,8 @@ def test_valid_inputs(
     ],
 )
 @pytest.mark.parametrize("result", [Result.FAILURE])
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.sels_base_coverage
 def test_invalid_inputs(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -540,7 +539,7 @@ def all_external_vectors() -> List:
     all_external_vectors(),
 )
 @pytest.mark.parametrize("versioned_hash", [None])
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.slow()
 def test_external_vectors(
     state_test: StateTestFiller,
@@ -578,7 +577,7 @@ def test_external_vectors(
     [[Z, INF_POINT, INF_POINT, None]],
     ids=[""],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_call_opcode_types(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -618,7 +617,7 @@ def test_call_opcode_types(
     ],
     ids=["correct_proof", "incorrect_proof"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 def test_tx_entry_point(
     fork: Fork,
     state_test: StateTestFiller,
@@ -710,7 +709,7 @@ def test_tx_entry_point(
     ],
     ids=[""],
 )
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_precompile_before_fork(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -766,7 +765,7 @@ PRE_FORK_BLOCK_RANGE = range(999, FORK_TIMESTAMP, 1_000)
     ],
     ids=[""],
 )
-@pytest.mark.valid_at_transition_to("Cancun")
+@pytest.mark.valid_at_transition_to("SilaCancun")
 def test_precompile_during_fork(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

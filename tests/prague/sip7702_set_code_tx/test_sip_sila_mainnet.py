@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-7702: Set EOA account code for one transaction](https://sips.sila.org/SIPS/sip-7702).
+Crafted tests for sila-mainnet of [SIP-7702: Set EOA account code for one transaction](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7702.md).
 """
 
 import pytest
@@ -19,7 +19,7 @@ from .spec import Spec, ref_spec_7702
 REFERENCE_SPEC_GIT_PATH = ref_spec_7702.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7702.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaPrague"), pytest.mark.sila_mainnet]
 
 
 def test_sip_7702(

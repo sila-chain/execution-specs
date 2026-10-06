@@ -30,8 +30,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stDelegatecallTestHomestead/Call1024PreCallsFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -130,17 +130,17 @@ def test_call1024_pre_calls(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 1025, 1: 1, 2: 0, 3: 0})},
         },
         {
             "indexes": {"data": -1, "gas": 2, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 989, 1: 1, 2: 1, 3: 1})},
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {target: Account(storage={0: 1025, 1: 1, 2: 0})},
         },
     ]

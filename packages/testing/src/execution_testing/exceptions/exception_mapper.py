@@ -1,4 +1,4 @@
-"""EEST Exception mapper."""
+"""SEST Exception mapper."""
 
 import re
 from abc import ABC
@@ -15,7 +15,7 @@ from .exceptions import (
 
 class ExceptionMapper(ABC):
     """
-    Translate between EEST exceptions and error strings returned by client's
+    Translate between SEST exceptions and error strings returned by client's
     t8n or other tools.
     """
 

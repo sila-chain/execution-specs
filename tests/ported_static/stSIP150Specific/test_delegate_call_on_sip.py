@@ -39,7 +39,7 @@ CALLER_GAS = 400_000
 @pytest.mark.ported_from(
     ["state_tests/stEIP150Specific/DelegateCallOnEIPFiller.json"],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 def test_delegate_call_on_sip(
     state_test: StateTestFiller,
     pre: Alloc,

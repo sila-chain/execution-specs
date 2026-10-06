@@ -113,10 +113,9 @@ def collision_params(fork: Fork) -> List[ParameterSet]:
 
 PORTED_FROM = pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionFiller.json",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionNonZeroNonceFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionFiller.json",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSStoreTest/InitCollisionNonZeroNonceFiller.json",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/636"],
 )
 
 
@@ -126,7 +125,7 @@ PORTED_FROM = pytest.mark.ported_from(
     collision_params,
 )
 @pytest.mark.with_all_contract_creating_tx_types
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_create_tx_collision(
     state_test: StateTestFiller,
     pre: Alloc,
@@ -207,7 +206,8 @@ def test_create_opcode_collision(
     """
     assert len(initcode) <= 32
     contract_creator_code = (
-        # Reverts if and only if contract creation fails. In Frontier/Homestead
+        # Reverts if and only if contract creation fails. In
+        # Frontier/SilaHomestead
         # this runs out of gas, and every other fork jumps to a non-JUMPDEST.
         Op.MSTORE(0, Op.PUSH32(bytes(initcode).ljust(32, b"\0")))
         + Op.JUMPI(

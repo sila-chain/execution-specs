@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://sips.sila.org/SIPS/sip-7251).
+Crafted tests for sila-mainnet of [SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md).
 """
 
 from typing import List
@@ -18,7 +18,7 @@ from .spec import ref_spec_7251
 REFERENCE_SPEC_GIT_PATH = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7251.version
 
-pytestmark = [pytest.mark.valid_at("Prague"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaPrague"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

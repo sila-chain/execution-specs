@@ -1,1 +1,1 @@
-"""Test cases for EVM functionality introduced in Frontier."""
+"""Test cases for Sivm functionality introduced in Frontier."""

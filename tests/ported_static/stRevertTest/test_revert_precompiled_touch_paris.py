@@ -30,7 +30,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRevertTest/RevertPrecompiledTouch_ParisFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -497,7 +497,7 @@ def test_revert_precompiled_touch_paris(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0, 3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_5: Account(nonce=0),
                 addr_6: Account(nonce=0),
@@ -511,7 +511,7 @@ def test_revert_precompiled_touch_paris(
         },
         {
             "indexes": {"data": [1, 2], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 addr_5: Account(nonce=0),
                 addr_6: Account(nonce=0),

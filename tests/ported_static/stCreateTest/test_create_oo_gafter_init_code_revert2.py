@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreateTest/CreateOOGafterInitCodeRevert2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -82,7 +82,7 @@ def test_create_oo_gafter_init_code_revert2(
     # completes; contract_2 sits ~1_000 gas below so it OOGs at
     # CREATE and contract_2 reads zero from the un-written return
     # buffer. Derived from `fork.gas_costs().OPCODE_CREATE_BASE`
-    # (32_000 pre-SIP-8037, 9_000 on Amsterdam+) so the cliff stays
+    # (32_000 pre-SIP-8037, 9_000 on SilaAmsterdam+) so the cliff stays
     # correct as the constant evolves.
     create_base = fork.gas_costs().OPCODE_CREATE_BASE
     contract_1_call_gas = create_base + 1000
@@ -159,7 +159,7 @@ def test_create_oo_gafter_init_code_revert2(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_1: Account(
                     storage={1: 0x6460016001556000526005601BF3}
@@ -171,7 +171,7 @@ def test_create_oo_gafter_init_code_revert2(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={1: 0}),
                 compute_create_address(

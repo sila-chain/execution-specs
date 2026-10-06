@@ -1,5 +1,5 @@
 """
-Tests [SIP-2935: Serve historical block hashes from state](https://sips.sila.org/SIPS/sip-2935).
+Tests [SIP-2935: Serve historical block hashes from state](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2935.md).
 """
 
 from typing import Dict, List
@@ -31,7 +31,7 @@ def generate_block_check_code(
     check_contract_first: bool = False,
 ) -> Bytecode:
     """
-    Generate EVM code to check that the block hashes are correctly stored in
+    Generate Sivm code to check that the block hashes are correctly stored in
     the state.
 
     Args:
@@ -113,7 +113,7 @@ def generate_block_check_code(
     ],
 )
 @pytest.mark.slow()
-@pytest.mark.valid_at_transition_to("Prague")
+@pytest.mark.valid_at_transition_to("SilaPrague")
 def test_block_hashes_history_at_transition(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -236,8 +236,8 @@ def test_block_hashes_history_at_transition(
         ),
     ],
 )
-@pytest.mark.valid_from("Prague")
-@pytest.mark.eels_base_coverage
+@pytest.mark.valid_from("SilaPrague")
+@pytest.mark.sels_base_coverage
 def test_block_hashes_history(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -337,7 +337,7 @@ def test_block_hashes_history(
     )
 
 
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 @pytest.mark.with_all_call_opcodes
 def test_block_hashes_call_opcodes(
     blockchain_test: BlockchainTestFiller, pre: Alloc, call_opcode: Op
@@ -397,7 +397,7 @@ def test_block_hashes_call_opcodes(
         pytest.param(2**64, True, id="2**64"),
     ],
 )
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_invalid_history_contract_calls(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,
@@ -465,7 +465,7 @@ def test_invalid_history_contract_calls(
         pytest.param(31, True, id="too_small"),
     ],
 )
-@pytest.mark.valid_from("Prague")
+@pytest.mark.valid_from("SilaPrague")
 def test_invalid_history_contract_calls_input_size(
     blockchain_test: BlockchainTestFiller,
     pre: Alloc,

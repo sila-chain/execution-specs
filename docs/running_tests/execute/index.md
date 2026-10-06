@@ -1,6 +1,6 @@
 # Executing Tests on Local Networks or Hive
 
-@sila/execution-specs is capable of running tests on local networks or on Hive with a few considerations. The `execute` command runs test cases directly from the Python source (without the use of JSON fixtures).
+@sila-chain/execution-specs is capable of running tests on local networks or on Hive with a few considerations. The `execute` command runs test cases directly from the Python source (without the use of JSON fixtures).
 
 See:
 
@@ -86,7 +86,7 @@ A warning is logged when `max_batch_size` exceeds 1000, as this may cause RPC se
 
 By default, the `execute` plugin drives block production through the Engine API: transactions are sent to the client's mempool via `sil_sendRawTransaction`, and blocks are built using the `engine_forkchoiceUpdatedVX` / `engine_getPayloadVX` / `engine_newPayloadVX` sequence.
 
-Clients that implement the [`testing_buildBlockV1`](https://github.com/sila/execution-apis/blob/main/src/testing/testing_buildBlockV1.yaml) endpoint offer an alternative route that collapses transaction submission and block building into a single RPC call. When enabled, the plugin:
+Clients that implement the [`testing_buildBlockV1`](https://github.com/sila-chain/execution-apis/blob/main/src/testing/testing_buildBlockV1.yaml) endpoint offer an alternative route that collapses transaction submission and block building into a single RPC call. When enabled, the plugin:
 
 1. Collects the raw RLP-encoded transactions for each batch.
 2. Calls `testing_buildBlockV1` with the parent block hash, payload attributes, and the transaction list.
@@ -98,7 +98,7 @@ Because transactions are included directly in the built block (rather than pulle
 
 ```bash
 # Enable the testing_buildBlockV1 route
-execute hive --fork=Prague --use-testing-build-block
+execute hive --fork=SilaPrague --use-testing-build-block
 ```
 
 This flag is available for both `execute hive` and `execute remote` (when an engine endpoint is configured). See [Execute Hive](./hive.md) and [Execute Remote](./remote.md) for mode-specific details.

@@ -11,8 +11,8 @@ SSTORE-clear charge. The SIP-3529 refund cap (`gas_used // 5`) binds at
 both forks (the clear refunds far exceed a fifth of gas used), so the
 extra charge raises `gas_used` by exactly four fifths of itself. Derive
 the per-clear charge delta from the fork gas model (0 pre-SIP-8037) and
-subtract `gas_price * 5 * delta * 4 // 5` from the Cancun balance; do
-not hardcode the Amsterdam value.
+subtract `gas_price * 5 * delta * 4 // 5` from the SilaCancun balance; do
+not hardcode the SilaAmsterdam value.
 """
 
 import pytest
@@ -25,7 +25,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRefundTest/refund50_1Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_refund50_1(
     state_test: StateTestFiller,
@@ -83,10 +83,12 @@ def test_refund50_1(
     cold_clear = Op.SSTORE.with_metadata(
         key_warm=False, original_value=1, current_value=1, new_value=0
     )
-    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(Cancun)
+    cold_clear_delta = cold_clear.gas_cost(fork) - cold_clear.gas_cost(
+        SilaCancun
+    )
     intrinsic_delta = (
         fork.transaction_intrinsic_cost_calculator()()
-        - Cancun.transaction_intrinsic_cost_calculator()()
+        - SilaCancun.transaction_intrinsic_cost_calculator()()
     )
     gross_delta = 5 * cold_clear_delta + intrinsic_delta
     extra_gas_used = gross_delta * 4 // 5

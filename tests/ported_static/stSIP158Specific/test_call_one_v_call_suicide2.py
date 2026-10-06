@@ -11,7 +11,7 @@ SIP-8038 reprices the CALL's cold account access and value transfer,
 plus the SELFDESTRUCT beneficiary's cold access; the beneficiary is
 alive so there is no new-account write. The delta is therefore twice
 the `COLD_ACCOUNT_ACCESS` rise plus the `CALL_VALUE` rise, each the
-fork's constant less Cancun's, exactly 0 before SIP-8038.
+fork's constant less SilaCancun's, exactly 0 before SIP-8038.
 """
 
 import pytest
@@ -25,7 +25,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 REFERENCE_SPEC_GIT_PATH = "N/A"
@@ -35,7 +35,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stEIP158Specific/CALL_OneVCallSuicide2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_call_one_v_call_suicide2(
     state_test: StateTestFiller,
@@ -48,9 +48,10 @@ def test_call_one_v_call_suicide2(
     # SELFDESTRUCT beneficiary pays a second cold account reprice.
     gas_costs = fork.gas_costs()
     cold_account_delta = (
-        gas_costs.COLD_ACCOUNT_ACCESS - Cancun.gas_costs().COLD_ACCOUNT_ACCESS
+        gas_costs.COLD_ACCOUNT_ACCESS
+        - SilaCancun.gas_costs().COLD_ACCOUNT_ACCESS
     )
-    call_value_delta = gas_costs.CALL_VALUE - Cancun.gas_costs().CALL_VALUE
+    call_value_delta = gas_costs.CALL_VALUE - SilaCancun.gas_costs().CALL_VALUE
     coinbase = Address(0x2ADC25665018AA1FE0E6BC666DAC8FC2697FF9BA)
     addr_2 = Address(0xEB201D2887816E041F6E807E804F64F3A7A226FE)
     sender = EOA(

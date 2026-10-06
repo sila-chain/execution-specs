@@ -12,11 +12,8 @@ to reach the 1024 call depth limit — gas is exhausted around depth ~300.
 The depth check shares the same `if` block as the balance and nonce checks,
 so it is implicitly covered.
 
-See https://github.com/sila/execution-specs/issues/1019 and
-https://github.com/sila/execution-specs/issues/1541.
-
 Tests for [SIP-2929: Gas cost increases for state access opcodes]
-    (https://sips.sila.org/SIPS/sip-2929).
+    (https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2929.md).
 """
 
 import pytest
@@ -38,10 +35,10 @@ from execution_testing import (
 )
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-2929.md"
-REFERENCE_SPEC_VERSION = "0e11417265a623adb680c527b15d0cb6701b870b"
+REFERENCE_SPEC_VERSION = "04f3aa8ac8d5b31f1a9a0a3393fb65767f430a68"
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "create_opcode",
     [
@@ -176,7 +173,7 @@ def test_create_insufficient_balance(
     )
 
 
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "create_opcode",
     [

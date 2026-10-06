@@ -35,7 +35,7 @@ from .spec import ref_spec_2780
 REFERENCE_SPEC_GIT_PATH = ref_spec_2780.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2780.version
 
-pytestmark = pytest.mark.valid_from("Amsterdam")
+pytestmark = pytest.mark.valid_from("SilaAmsterdam")
 
 
 @SIPChecklist.GasCostChanges.Test.OutOfGas()
@@ -59,7 +59,7 @@ def test_intrinsic_gas_floor_boundary(
     """
     Reject when ``gas_limit = intrinsic_gas - 1``.
 
-    The transaction never enters the EVM; it is rejected by the
+    The transaction never enters the Sivm; it is rejected by the
     pre-execution intrinsic gas check.
     """
     sender = pre.fund_eoa(10**18)

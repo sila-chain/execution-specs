@@ -1430,7 +1430,7 @@ class TestGasExhaustionTraceComparator:
         comparator: GasExhaustionTraceComparator,
         error: str,
     ) -> None:
-        """OOG detection covers both gsil-style and EELS-style errors."""
+        """OOG detection covers both gsil-style and SELS-style errors."""
         baseline = _make_transaction_traces(
             [_make_trace_line(), _make_trace_line(error=error)]
         )
@@ -1442,11 +1442,11 @@ class TestGasExhaustionTraceComparator:
         assert len(result.differences) == 1
         assert result.differences[0].trace_line_index == 1
 
-    def test_mixed_gsil_and_eels_oog_is_equivalent(
+    def test_mixed_gsil_and_sels_oog_is_equivalent(
         self, comparator: GasExhaustionTraceComparator
     ) -> None:
         """
-        Baseline (gsil-style "out of gas") and current (EELS-style
+        Baseline (gsil-style "out of gas") and current (SELS-style
         "OutOfGasError") describe the same OOG event and are equivalent.
         """
         baseline = _make_transaction_traces(
@@ -1458,20 +1458,20 @@ class TestGasExhaustionTraceComparator:
         result = comparator.compare_transaction_traces(baseline, current, 0)
         assert result.equivalent is True
 
-    def test_all_eels_oog_at_same_line_is_equivalent(
+    def test_all_sels_oog_at_same_line_is_equivalent(
         self, comparator: GasExhaustionTraceComparator
     ) -> None:
-        """Two EELS-style traces with OOG at the same line are equivalent."""
+        """Two SELS-style traces with OOG at the same line are equivalent."""
         oog_line = _make_trace_line(error="OutOfGasError")
         baseline = _make_transaction_traces([_make_trace_line(), oog_line])
         current = _make_transaction_traces([_make_trace_line(), oog_line])
         result = comparator.compare_transaction_traces(baseline, current, 0)
         assert result.equivalent is True
 
-    def test_all_eels_oog_at_different_lines(
+    def test_all_sels_oog_at_different_lines(
         self, comparator: GasExhaustionTraceComparator
     ) -> None:
-        """Two EELS-style traces with OOG at different lines differ."""
+        """Two SELS-style traces with OOG at different lines differ."""
         baseline = _make_transaction_traces(
             [
                 _make_trace_line(),

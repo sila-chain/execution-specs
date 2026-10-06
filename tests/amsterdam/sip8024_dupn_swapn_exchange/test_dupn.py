@@ -2,7 +2,7 @@
 DUPN instruction tests.
 
 Tests for DUPN instruction in
-[SIP-8024: Stack Access Instructions](https://sips.sila.org/SIPS/sip-8024).
+[SIP-8024: Stack Access Instructions](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8024.md).
 """
 
 import pytest

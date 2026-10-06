@@ -451,9 +451,9 @@ ed
 EE
 ee
 eeast
-EELST8N
-eest
-EESTLogger
+SELST8N
+sest
+SESTLogger
 eestloglevel
 EF
 ef
@@ -499,9 +499,9 @@ sila
 sila's
 SilaCLI
 SilaJS
-evm
-Evmone
-evmone
+sivm
+Sivmone
+sivmone
 exc
 executables
 exitstatus

@@ -1,5 +1,5 @@
 """
-Taken from https://github.com/sila/SIPs/blob/master/SIPS/sip-145.md.
+Taken from https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-145.md.
 
 Ported from:
 state_tests/stShift/shr_2^255_255Filler.json
@@ -24,7 +24,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stShift/shr_2^255_255Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_shr_2_255_255(
     state_test: StateTestFiller,

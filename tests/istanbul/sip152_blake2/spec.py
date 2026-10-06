@@ -12,7 +12,7 @@ class ReferenceSpec:
 
 
 ref_spec_152 = ReferenceSpec(
-    "SIPS/sip-152.md", "2762bfcff3e549ef263342e5239ef03ac2b07400"
+    "SIPS/sip-152.md", "2d29eb21229e23ee0a05bf2d0ec5e55dfb4691c1"
 )
 
 
@@ -20,7 +20,7 @@ ref_spec_152 = ReferenceSpec(
 class Spec:
     """
     Parameters from the SIP-152 specifications as defined at
-    https://sips.sila.org/SIPS/sip-152#specification.
+    https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-152.md#specification.
 
     If the parameter is not currently used within the tests, it is commented
     out.

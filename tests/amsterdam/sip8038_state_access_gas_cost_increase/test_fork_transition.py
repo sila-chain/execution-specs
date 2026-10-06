@@ -1,8 +1,8 @@
 """
 Fork-transition tests for
-[SIP-8038: State-access gas cost update](https://sips.sila.org/SIPS/sip-8038).
+[SIP-8038: State-access gas cost update](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8038.md).
 
-"Same operation, different gas" across the Amsterdam boundary. A block
+"Same operation, different gas" across the SilaAmsterdam boundary. A block
 at ``timestamp=14_999`` runs under the pre-fork (parent) schedule; a
 block at ``timestamp=15_000`` runs under the SIP-8038 schedule. Every
 before/after magnitude is derived from the opcode's own cost at each
@@ -60,9 +60,9 @@ from .spec import ref_spec_8038
 REFERENCE_SPEC_GIT_PATH = ref_spec_8038.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8038.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Amsterdam")
+pytestmark = pytest.mark.valid_at_transition_to("SilaAmsterdam")
 
-# Block timestamps straddling the Amsterdam activation.
+# Block timestamps straddling the SilaAmsterdam activation.
 BEFORE_TS = 14_999
 AFTER_TS = 15_000
 
@@ -99,7 +99,7 @@ def transition_blocks(
     after_gas_used: int | None = None,
 ) -> List[Block]:
     """
-    Return the two blocks that straddle the Amsterdam activation.
+    Return the two blocks that straddle the SilaAmsterdam activation.
 
     The first block runs at ``BEFORE_TS`` (pre-fork schedule) and the
     second at ``AFTER_TS`` (SIP-8038 schedule). Each carries a single
@@ -180,7 +180,7 @@ def test_cold_account_access_at_transition(
 ) -> None:
     """
     ``BALANCE`` of a cold account costs ``COLD_ACCOUNT_ACCESS``, which
-    rises across the Amsterdam boundary. The
+    rises across the SilaAmsterdam boundary. The
     same opcode is measured before and after; each block asserts its
     regime's derived cost.
     """
@@ -552,7 +552,7 @@ def test_sstore_write_cost_at_transition(
     fork: Fork,
 ) -> None:
     """
-    The ``SSTORE`` first-change cost is repriced across the Amsterdam
+    The ``SSTORE`` first-change cost is repriced across the SilaAmsterdam
     boundary, and SIP-8038 changes the *model*, not a single number.
 
     Before the fork (parent schedule) a zero-to-nonzero ``SSTORE`` is a

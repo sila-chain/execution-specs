@@ -30,8 +30,8 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/Create2RecursiveFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
-@pytest.mark.valid_until("Prague")
+@pytest.mark.valid_from("SilaCancun")
+@pytest.mark.valid_until("SilaPrague")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -99,7 +99,7 @@ def test_create2_recursive(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 Address(0x4B17A07E119E86A0FF1FD21CDC9B4ABA196ED3F8): Account(
                     nonce=1
@@ -108,7 +108,7 @@ def test_create2_recursive(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 Address(
                     0x4B17A07E119E86A0FF1FD21CDC9B4ABA196ED3F8
@@ -117,7 +117,7 @@ def test_create2_recursive(
         },
         {
             "indexes": {"data": -1, "gas": 2, "value": -1},
-            "network": [">=Cancun<Osaka"],
+            "network": [">=SilaCancun<SilaOsaka"],
             "result": {
                 Address(0x471A0E624A2AC11C82CF1FF843127F1C6AA98351): Account(
                     nonce=1

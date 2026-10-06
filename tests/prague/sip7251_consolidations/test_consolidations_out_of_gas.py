@@ -3,7 +3,7 @@ Out-of-gas consolidation request tests.
 
 Tests that consolidation requests whose triggering call runs out of gas are
 not included in the block, for
-[SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://sips.sila.org/SIPS/sip-7251).
+[SIP-7251: Increase the MAX_EFFECTIVE_BALANCE](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7251.md).
 
 The gas limits are supplied per-request via the interaction's `gas_limits`
 list rather than being baked into the consolidation request descriptor,
@@ -28,7 +28,7 @@ from .spec import ref_spec_7251
 REFERENCE_SPEC_GIT_PATH = ref_spec_7251.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7251.version
 
-pytestmark = pytest.mark.valid_from("Prague")
+pytestmark = pytest.mark.valid_from("SilaPrague")
 
 
 @pytest.mark.parametrize(

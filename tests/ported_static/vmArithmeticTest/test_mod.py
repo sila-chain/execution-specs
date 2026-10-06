@@ -31,7 +31,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/VMTests/vmArithmeticTest/modFiller.yml"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -117,7 +117,7 @@ def test_mod(
     )
     # Source: lll
     # {
-    #    ; -1 % 2  (2^256-1 = -1 in evm arithmetic)
+    #    ; -1 % 2  (2^256-1 = -1 in sivm arithmetic)
     #    [[0]] (% 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 2)  # noqa: E501
     # }
     contract_1 = pre.deploy_contract(  # noqa: F841
@@ -213,17 +213,17 @@ def test_mod(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": [0], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_0: Account(storage={0: 2})},
         },
         {
             "indexes": {"data": [1], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_1: Account(storage={0: 1})},
         },
         {
             "indexes": {"data": [2, 3], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_2: Account(storage={0: 0}),
                 contract_3: Account(storage={0: 0}),
@@ -231,12 +231,12 @@ def test_mod(
         },
         {
             "indexes": {"data": [4], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {contract_4: Account(storage={0: 2})},
         },
         {
             "indexes": {"data": [5], "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_5: Account(
                     storage={

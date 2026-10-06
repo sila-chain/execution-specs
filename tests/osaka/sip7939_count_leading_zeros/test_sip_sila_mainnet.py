@@ -1,6 +1,6 @@
 """
 SilaMainnet marked execute checklist tests for
-[SIP-7939: Count leading zeros (CLZ)](https://sips.sila.org/SIPS/sip-7939).
+[SIP-7939: Count leading zeros (CLZ)](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7939.md).
 """
 
 import pytest
@@ -17,7 +17,7 @@ from .spec import ref_spec_7939
 REFERENCE_SPEC_GIT_PATH = ref_spec_7939.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7939.version
 
-pytestmark = [pytest.mark.valid_at("Osaka"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaOsaka"), pytest.mark.sila_mainnet]
 
 
 @pytest.mark.parametrize(

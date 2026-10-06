@@ -10,7 +10,7 @@ from execution_testing.cli.pytest_commands.plugins.shared.address_stubs import (
     AddressStubs,
 )
 
-DEFAULT_BENCHMARK_FORK = "Prague"
+DEFAULT_BENCHMARK_FORK = "SilaPrague"
 
 
 def pytest_generate_tests(metafunc: Any) -> None:

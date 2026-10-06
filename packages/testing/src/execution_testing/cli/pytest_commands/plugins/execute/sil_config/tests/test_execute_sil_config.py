@@ -333,7 +333,7 @@ EXPECTED_OSAKA = json.loads("""
 }
 """)
 EXPECTED_OSAKA_FORK_ID = ForkHash("0x5e2e4e84")
-# Amsterdam (SIP-8282) adds the builder deposit and exit request predeploys
+# SilaAmsterdam (SIP-8282) adds the builder deposit and exit request predeploys
 # to the `systemContracts` reported by `sil_config`.
 EXPECTED_AMSTERDAM = json.loads("""
 {
@@ -393,27 +393,27 @@ SilaMainnet:
   genesisHash:          0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3
   forkActivationTimes:
     Frontier:           0
-    Homestead:          1150000
+    SilaHomestead:          1150000
     DAOFork:            1920000
-    TangerineWhistle:   2463000
-    SpuriousDragon:     2675000
-    Byzantium:          4370000
-    Constantinople:     7280000
-    Istanbul:           9069000
+    SIP150:             2463000
+    SIP158:             2675000
+    SilaByzantium:          4370000
+    SilaConstantinople:     7280000
+    SilaIstanbul:           9069000
     MuirGlacier:        9200000
-    Berlin:             12244000
-    London:             12965000
+    SilaBerlin:             12244000
+    SilaLondon:             12965000
     ArrowGlacier:       13773000
     GrayGlacier:        15050000
-    Shanghai:           1681338455
-    Cancun:             1710338135
-    Prague:             1746612311
+    SilaShanghai:           1681338455
+    SilaCancun:             1710338135
+    SilaPrague:             1746612311
   blobSchedule:
-    Cancun:
+    SilaCancun:
       target: 3
       max: 6
       baseFeeUpdateFraction: 3338477
-    Prague:
+    SilaPrague:
       target: 6
       max: 9
       baseFeeUpdateFraction: 5007716
@@ -422,17 +422,17 @@ SilaSepolia:
   chainId:              0xaa36a7
   genesisHash:          0x25a5cc106eea7138acab33231d7160d69cb777ee0c2c553fcddf5138993e6dd9
   forkActivationTimes:
-    Berlin:             0
-    London:             1735371
-    Shanghai:           1677557088
-    Cancun:             1706655072
-    Prague:             1741159776
+    SilaBerlin:             0
+    SilaLondon:             1735371
+    SilaShanghai:           1677557088
+    SilaCancun:             1706655072
+    SilaPrague:             1741159776
   blobSchedule:
-    Cancun:
+    SilaCancun:
       target: 3
       max: 6
       baseFeeUpdateFraction: 3338477
-    Prague:
+    SilaPrague:
       target: 6
       max: 9
       baseFeeUpdateFraction: 5007716
@@ -443,14 +443,14 @@ Hoodi:
   chainId:              0x88BB0
   genesisHash:          0xbbe312868b376a3001692a646dd2d7d1e4406380dfd86b98aa8a34d1557c971b
   forkActivationTimes:
-    Cancun:             0
-    Prague:             1742999832
+    SilaCancun:             0
+    SilaPrague:             1742999832
   blobSchedule:
-    Cancun:
+    SilaCancun:
       target: 3
       max: 6
       baseFeeUpdateFraction: 3338477
-    Prague:
+    SilaPrague:
       target: 6
       max: 9
       baseFeeUpdateFraction: 5007716
@@ -459,18 +459,18 @@ SilaHolesky:
   chainId:              0x4268
   genesisHash:          0xb5f7f912443c940f21fd611f12828d75b534364ed9e95ca4e307729a4661bde4
   forkActivationTimes:
-    Paris:              0
-    Shanghai:           1696000704
-    Cancun:             1707305664
-    Prague:             1740434112
+    SilaParis:              0
+    SilaShanghai:           1696000704
+    SilaCancun:             1707305664
+    SilaPrague:             1740434112
   addressOverrides:
     0x00000000219ab540356cbb839cbe05303d7705fa: 0x4242424242424242424242424242424242424242
   blobSchedule:
-    Cancun:
+    SilaCancun:
       target: 3
       max: 6
       baseFeeUpdateFraction: 3338477
-    Prague:
+    SilaPrague:
       target: 6
       max: 9
       baseFeeUpdateFraction: 5007716
@@ -480,23 +480,23 @@ HoodiWithBPOs:
   chainId:              0x88BB0
   genesisHash:          0xbbe312868b376a3001692a646dd2d7d1e4406380dfd86b98aa8a34d1557c971b
   forkActivationTimes:
-    Cancun:             0
-    Prague:             1742999832
-    Osaka:              1753477608
+    SilaCancun:             0
+    SilaPrague:             1742999832
+    SilaOsaka:              1753477608
     BPO1:               1753575912
     BPO2:               1753674216
     BPO3:               1753772520
     BPO4:               1753889256
   blobSchedule:
-    Cancun:
+    SilaCancun:
       target: 3
       max: 6
       baseFeeUpdateFraction: 3338477
-    Prague:
+    SilaPrague:
       target: 6
       max: 9
       baseFeeUpdateFraction: 5007716
-    Osaka:
+    SilaOsaka:
       target: 9
       max: 12
       baseFeeUpdateFraction: 5007716
@@ -521,24 +521,24 @@ HoodiWithAmsterdam:
   chainId:              0x88BB0
   genesisHash:          0xbbe312868b376a3001692a646dd2d7d1e4406380dfd86b98aa8a34d1557c971b
   forkActivationTimes:
-    Cancun:             0
-    Prague:             1742999832
-    Osaka:              1753477608
-    Amsterdam:          1753575912
+    SilaCancun:             0
+    SilaPrague:             1742999832
+    SilaOsaka:              1753477608
+    SilaAmsterdam:          1753575912
   blobSchedule:
-    Cancun:
+    SilaCancun:
       target: 3
       max: 6
       baseFeeUpdateFraction: 3338477
-    Prague:
+    SilaPrague:
       target: 6
       max: 9
       baseFeeUpdateFraction: 5007716
-    Osaka:
+    SilaOsaka:
       target: 9
       max: 12
       baseFeeUpdateFraction: 5007716
-    Amsterdam:
+    SilaAmsterdam:
       target: 9
       max: 12
       baseFeeUpdateFraction: 5007716
@@ -722,7 +722,7 @@ def test_fork_config_from_fork(
     [
         pytest.param(
             "SilaMainnet",
-            1746612310,  # Right before Prague activation
+            1746612310,  # Right before SilaPrague activation
             ForkHash(0x9F3D2254),
             ForkHash(0xC376CF8B),
             ForkHash(0xC376CF8B),
@@ -730,7 +730,7 @@ def test_fork_config_from_fork(
         ),
         pytest.param(
             "SilaSepolia",
-            1741159775,  # Right before Prague activation
+            1741159775,  # Right before SilaPrague activation
             ForkHash(0x88CF81D9),
             ForkHash(0xED88B5FD),
             ForkHash(0xED88B5FD),
@@ -738,7 +738,7 @@ def test_fork_config_from_fork(
         ),
         pytest.param(
             "SilaHolesky",
-            1740434111,  # Right before Prague activation
+            1740434111,  # Right before SilaPrague activation
             ForkHash(0x9B192AD0),
             ForkHash(0xDFBD9BED),
             ForkHash(0xDFBD9BED),
@@ -746,7 +746,7 @@ def test_fork_config_from_fork(
         ),
         pytest.param(
             "Hoodi",
-            1742999831,  # Right before Prague activation
+            1742999831,  # Right before SilaPrague activation
             ForkHash(0xBEF71D30),
             ForkHash(0x0929E24E),
             ForkHash(0x0929E24E),

@@ -114,13 +114,12 @@ def scenarios(
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/templateGen.js",
-        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/createDiffPlacesTests.sh",
-        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/createBadOpcodeTest.sh",
-        "https://github.com/sila/tests/blob/v13.3/src/Templates/DiffPlaces/createAllBadOpcodeTests.sh",
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stSelfBalance/diffPlacesFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/Templates/DiffPlaces/templateGen.js",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/Templates/DiffPlaces/createDiffPlacesTests.sh",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/Templates/DiffPlaces/createBadOpcodeTest.sh",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/Templates/DiffPlaces/createAllBadOpcodeTests.sh",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stSelfBalance/diffPlacesFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/808"],
     coverage_missed_reason=(
         "Original test pre-sets storage of some of the deployed accounts."
     ),

@@ -1,6 +1,6 @@
 # Releasing
 
-This is the maintainer runbook for cutting an EELS release. For the
+This is the maintainer runbook for cutting an SELS release. For the
 contributor-facing explanation of the versioning scheme, see
 [Spec Releases](../specs/spec_releases.md).
 
@@ -73,7 +73,7 @@ git push origin v1.15.0 # Replace the tag name here too.
 Go to the [release page][release], choose the newly created tag, and
 generate release notes.
 
-[release]: https://github.com/sila/execution-specs/releases/new
+[release]: https://github.com/sila-chain/execution-specs/releases/new
 
 ## Publishing to PyPI
 

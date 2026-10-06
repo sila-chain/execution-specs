@@ -62,11 +62,6 @@ class ModelCustomizationsMixin:
         https://pydantic-docs.helpmanual.io/usage/models/
         #custom-repr
 
-        and
-
-        https://github.com/sila/execution-spec-tests/pull/
-        901#issuecomment-24432968 35
-
         Returns:
           List[Tuple[str, Any]]: A list of tuples where each tuple
                                  contains an attribute name and its
@@ -85,8 +80,6 @@ class ModelCustomizationsMixin:
         for a, v in attrs:
             match v:
                 # Note: The `None` case handles an edge case with transactions
-                # see: https://github.com/sila/execution-spec-tests/pull/
-                # 901#discussion_r1828491918
                 case list() | dict() | BaseModel() | None:
                     repr_attrs.append((a, v))
                 case _:

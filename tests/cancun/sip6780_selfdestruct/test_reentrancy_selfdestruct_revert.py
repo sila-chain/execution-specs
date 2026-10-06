@@ -1,6 +1,5 @@
 """
-Self-destruct scenario requested test
-https://github.com/sila/tests/issues/1325.
+Self-destruct scenario requested test.
 """
 
 from typing import SupportsBytes
@@ -18,12 +17,12 @@ from execution_testing import (
     Transaction,
     TransactionReceipt,
 )
-from execution_testing.forks import Cancun
+from execution_testing.forks import SilaCancun
 
 from tests.amsterdam.sip7708_sil_transfer_logs.spec import transfer_log
 
 REFERENCE_SPEC_GIT_PATH = "SIPS/sip-6780.md"
-REFERENCE_SPEC_VERSION = "1b6a0e94cc47e859b9866e570391cf37dc55059a"
+REFERENCE_SPEC_VERSION = "281f35b0b244ebb566ac76c806473f4450c355b9"
 
 
 @pytest.fixture
@@ -136,7 +135,7 @@ def revert_contract_address(
     )
 
 
-@pytest.mark.valid_from("Paris")
+@pytest.mark.valid_from("SilaParis")
 @pytest.mark.parametrize(
     "first_selfdestruct", [Op.CALL, Op.CALLCODE, Op.DELEGATECALL]
 )
@@ -178,8 +177,9 @@ def test_reentrancy_selfdestruct_revert(
     }
 
     if first_selfdestruct in [Op.CALLCODE, Op.DELEGATECALL]:
-        if fork >= Cancun:
-            # On Cancun even callcode/delegatecall does not remove the account,
+        if fork >= SilaCancun:
+            # On SilaCancun even callcode/delegatecall does not remove the
+            # account,
             # so the value remain
             post[executor_contract_address] = Account(
                 storage={
@@ -203,7 +203,8 @@ def test_reentrancy_selfdestruct_revert(
             balance=executor_contract_init_balance,
         )
 
-    # On Cancun selfdestruct no longer destroys the account from state, just
+    # On SilaCancun selfdestruct no longer destroys the account from state,
+    # just
     # cleans the balance
     if first_selfdestruct in [Op.CALL]:
         post[executor_contract_address] = Account(
@@ -213,8 +214,9 @@ def test_reentrancy_selfdestruct_revert(
                 0x03: 16,  # Reverted value to check that revert really worked
             },
         )
-        if fork >= Cancun:
-            # On Cancun selfdestruct does not remove the account, just sends
+        if fork >= SilaCancun:
+            # On SilaCancun selfdestruct does not remove the account, just
+            # sends
             # the balance
             post[selfdestruct_contract_address] = Account(
                 balance=0, code=selfdestruct_contract_bytecode, storage={}

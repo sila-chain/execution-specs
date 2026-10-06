@@ -1,6 +1,6 @@
 """
 [SIP-7918: Blob base fee bounded by execution
-cost](https://sips.sila.org/SIPS/sip-7918).
+cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7918.md).
 """
 
 import pytest

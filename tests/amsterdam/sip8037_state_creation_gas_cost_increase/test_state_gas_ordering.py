@@ -10,7 +10,7 @@ a probe contract to detect whether the parent's reservoir was inflated
 by incorrectly consumed state gas.
 
 Tests for [SIP-8037: State Creation Gas Cost Increase]
-(https://sips.sila.org/SIPS/sip-8037).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8037.md).
 """
 
 import pytest

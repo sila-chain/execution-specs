@@ -119,7 +119,7 @@ def pytest_configure(config: pytest.Config) -> None:
         return
 
     config.collect_traces = True  # type: ignore[attr-defined]
-    config.option.evm_collect_traces = True
+    config.option.sivm_collect_traces = True
 
     comparator_names = config.getoption("verify_traces_comparator").split(",")
     comparators = [

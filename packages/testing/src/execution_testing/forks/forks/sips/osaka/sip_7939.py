@@ -1,9 +1,9 @@
 """
-SIP-7939: CLZ (Count Leading Zeros) EVM opcode.
+SIP-7939: CLZ (Count Leading Zeros) Sivm opcode.
 
 Opcode to count the number of leading zero bits in a 256-bit word.
 
-https://sips.sila.org/SIPS/sip-7939
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7939.md
 """
 
 from typing import Callable, Dict, List

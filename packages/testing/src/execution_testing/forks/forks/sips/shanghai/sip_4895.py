@@ -1,10 +1,10 @@
 """
 SIP-4895: Beacon chain push withdrawals as operations.
 
-Support validator withdrawals from the beacon chain to the EVM via a new
+Support validator withdrawals from the beacon chain to the Sivm via a new
 "system-level" operation type.
 
-https://sips.sila.org/SIPS/sip-4895
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-4895.md
 """
 
 from ....base_fork import BaseFork

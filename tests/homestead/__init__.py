@@ -1,1 +1,1 @@
-"""Test cases for EVM functionality introduced in Homestead."""
+"""Test cases for Sivm functionality introduced in SilaHomestead."""

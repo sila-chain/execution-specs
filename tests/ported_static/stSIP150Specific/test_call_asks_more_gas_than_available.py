@@ -94,7 +94,7 @@ def forwarded_from(frame_gas: int, call: Bytecode, fork: Fork) -> int:
     """
     available = frame_gas - call.gas_cost(fork)
     assert available > 0, "the frame must afford the call itself"
-    # The EVM withholds `available // 64`, which is not the same as handing
+    # The Sivm withholds `available // 64`, which is not the same as handing
     # down `available * 63 // 64`.
     return available - available // 64
 
@@ -106,7 +106,7 @@ def forwarded_from(frame_gas: int, call: Bytecode, fork: Fork) -> int:
         "state_tests/stStaticCall/static_ExecuteCallThatAskForeGasThenTrabsactionHasFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "memory_expansion", [False, True], ids=["flat", "mem_expansion"]
 )
@@ -173,7 +173,7 @@ def test_top_frame_asks_more_gas_than_available(
         "state_tests/stStaticCall/static_CallAskMoreGasOnDepth2ThenTransactionHasFiller.json",  # noqa: E501
     ],
 )
-@pytest.mark.valid_from("Berlin")
+@pytest.mark.valid_from("SilaBerlin")
 @pytest.mark.parametrize(
     "memory_expansion", [False, True], ids=["flat", "mem_expansion"]
 )

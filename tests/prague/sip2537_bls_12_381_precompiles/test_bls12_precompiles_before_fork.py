@@ -3,7 +3,7 @@ Tests BLS12 precompiles before fork activation.
 
 Tests the BLS12 precompiles behavior before fork activation from
 [SIP-2537: Precompile for BLS12-381 curve operations]
-(https://sips.sila.org/SIPS/sip-2537).
+(https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-2537.md).
 """
 
 import pytest
@@ -27,7 +27,7 @@ from .spec import (
 REFERENCE_SPEC_GIT_PATH = ref_spec_2537.git_path
 REFERENCE_SPEC_VERSION = ref_spec_2537.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Prague")
+pytestmark = pytest.mark.valid_at_transition_to("SilaPrague")
 
 
 @pytest.fixture
@@ -99,7 +99,7 @@ def test_precompile_before_fork(
     tx: Transaction,
 ) -> None:
     """
-    Test all BLS12 precompiles before the Prague hard fork is active.
+    Test all BLS12 precompiles before the SilaPrague hard fork is active.
 
     The call must succeed but the output must be empty.
     """

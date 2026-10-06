@@ -17,7 +17,7 @@ Depending on the changes introduced by an SIP, the following template is the min
 
 | ID                                    | Description                                                                                                                                                                                                  | Status | Tests |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ | ----- |
-| `general/code_coverage/eels`          | Run produced tests against [EELS](https://github.com/sila/execution-specs) and verify that line code coverage of new added lines for the SIP is 100%, with only exceptions being unreachable code lines. |        |       |
+| `general/code_coverage/sels`          | Run produced tests against [SELS](https://github.com/sila-chain/execution-specs) and verify that line code coverage of new added lines for the SIP is 100%, with only exceptions being unreachable code lines. |        |       |
 | `general/code_coverage/test_coverage` | Run coverage on the test code itself (as a basic logic sanity check), i.e., `uv run fill --cov tests`. |        |       |
 | `general/code_coverage/missed_lines`  | Document any lines missed in coverage reports and explain why they are acceptable (e.g., unreachable code, general infrastructure not related to the SIP).                                                                                                        |        |       |
 | `general/code_coverage/second_client` | Optional - Run against a second client and verify sufficient code coverage over new code added for the SIP.                                                                                                  |        |       |
@@ -26,11 +26,11 @@ Depending on the changes introduced by an SIP, the following template is the min
 
 Fuzzing is recommended to be performed on SIPs that introduce new cryptography primitives.
 
-See [holiman/goevmlab](https://github.com/holiman/goevmlab) for an example of a fuzzing framework for the EVM.
+See [holiman/goevmlab](https://github.com/holiman/goevmlab) for an example of a fuzzing framework for the Sivm.
 
 ## New Opcode
 
-The SIP introduces one or more new opcodes to the EVM.
+The SIP introduces one or more new opcodes to the Sivm.
 
 ### Test Vectors
 
@@ -866,12 +866,12 @@ Verify the transaction is correctly rejected if it contains an invalid signature
 | `transaction_type/test/signature/invalid/s/max`                       | `2**256`.                              |        |       |
 | `transaction_type/test/signature/invalid/s/complement`                | `SECP256K1N - S` of a valid signature. |        |       |
 
-#### Transaction Attributes Readable From EVM
+#### Transaction Attributes Readable From Sivm
 
 | ID                                                              | Description                                                                                                                     | Status | Tests |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------ | ----- |
-| `transaction_type/test/tx_scoped_attributes/read`           | Verify attributes that can be read in the EVM from transaction fields.                                                          |        |       |
-| `transaction_type/test/tx_scoped_attributes/older_tx_types` | Verify attributes specific to the new transaction type that can be read in the EVM behave correctly on older transaction types. |        |       |
+| `transaction_type/test/tx_scoped_attributes/read`           | Verify attributes that can be read in the Sivm from transaction fields.                                                          |        |       |
+| `transaction_type/test/tx_scoped_attributes/older_tx_types` | Verify attributes specific to the new transaction type that can be read in the Sivm behave correctly on older transaction types. |        |       |
 
 #### Transaction-Scoped Persistent Values
 
@@ -973,7 +973,7 @@ Verify a block where the new transaction type is the last transaction contained 
 
 ##### SIP-7825
 
-Verify a transaction of the new type is rejected if its gas limit exceeds the [SIP-7825](https://sips.sila.org/SIPS/sip-7825) gas limit for the current fork.
+Verify a transaction of the new type is rejected if its gas limit exceeds the [SIP-7825](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7825.md) gas limit for the current fork.
 
 | ID                                                             | Description                                  | Status | Tests |
 | -------------------------------------------------------------- | -------------------------------------------- | ------ | ----- |
@@ -1001,7 +1001,7 @@ Verify that a block prior to fork activation where the new transaction type is i
 - \*Verify `sil_estimateGas` behavior for different valid combinations of the new transaction type.
 - `transaction_type/test/rpc/send_raw` | Verify `sil_sendRawTransaction` using `execute`.
 
-\*Tests must be added to [`execution-apis`](https://github.com/sila/execution-apis) repository.
+\*Tests must be added to [`execution-apis`](https://github.com/sila-chain/execution-apis) repository.
 
 ### Framework Changes
 
@@ -1115,7 +1115,7 @@ Verify gas costs are updated at the fork transition boundary.
 
 #### Refund calculation
 
-Verify that the refund does not exceed `gas_used // MAX_REFUND_QUOTIENT` (`MAX_REFUND_QUOTIENT==5` in [SIP-3529](https://sips.sila.org/SIPS/sip-3529)) in the following scenarios.
+Verify that the refund does not exceed `gas_used // MAX_REFUND_QUOTIENT` (`MAX_REFUND_QUOTIENT==5` in [SIP-3529](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3529.md)) in the following scenarios.
 
 | ID                                                  | Description                                      | Status | Tests |
 | --------------------------------------------------- | ------------------------------------------------ | ------ | ----- |

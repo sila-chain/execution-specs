@@ -12,16 +12,16 @@ from execution_testing.fixtures import (
 from execution_testing.forks import (
     BPO1,
     BPO2,
-    Amsterdam,
     ArrowGlacier,
     Fork,
+    SilaAmsterdam,
     forks_from_until,
     get_deployed_forks,
     get_forks,
 )
 from execution_testing.forks.forks.transition import (
-    BPO2ToAmsterdamAtTime15k,
-    OsakaToBPO1AtTime15k,
+    BPO2ToSilaAmsterdamAtTime15k,
+    SilaOsakaToBPO1AtTime15k,
 )
 from execution_testing.specs import StateTest
 
@@ -95,13 +95,13 @@ def test_no_options_no_validity_marker(pytester: pytest.Pytester) -> None:
     )
 
 
-@pytest.mark.parametrize("fork", ["London", "Paris"])
+@pytest.mark.parametrize("fork", ["SilaLondon", "SilaParis"])
 def test_from_london_option_no_validity_marker(
     pytester: pytest.Pytester, fork_map: dict[str, Fork], fork: str
 ) -> None:
     """
     Test test parametrization with:
-    - --from London command-line option,
+    - --from SilaLondon command-line option,
     - no until command-line option,
     - no fork validity marker.
     """
@@ -155,8 +155,8 @@ def test_from_london_until_shanghai_option_no_validity_marker(
 ) -> None:
     """
     Test test parametrization with:
-    - --from London command-line option,
-    - --until Shanghai command-line option,
+    - --from SilaLondon command-line option,
+    - --until SilaShanghai command-line option,
     - no fork validity marker.
     """
     pytester.makepyfile(
@@ -175,12 +175,12 @@ def test_from_london_until_shanghai_option_no_validity_marker(
         "pytest-fill.ini",
         "-v",
         "--from",
-        "London",
+        "SilaLondon",
         "--until",
-        "shanghai",
+        "SilaShanghai",
     )
     forks_under_test = forks_from_until(
-        fork_map["London"], fork_map["Shanghai"]
+        fork_map["SilaLondon"], fork_map["SilaShanghai"]
     )
     expected_passed = len(forks_under_test) * len(STATE_TEST_FILL_FORMATS)
     stdout = "\n".join(result.stdout.lines)
@@ -221,8 +221,8 @@ def test_from_paris_until_paris_option_no_validity_marker(
 ) -> None:
     """
     Test test parametrization with:
-    - --from Paris command-line option,
-    - --until Paris command-line option,
+    - --from SilaParis command-line option,
+    - --until SilaParis command-line option,
     - no fork validity marker.
     """
     pytester.makepyfile(
@@ -237,9 +237,17 @@ def test_from_paris_until_paris_option_no_validity_marker(
         name="src/execution_testing/cli/pytest_commands/pytest_ini_files/pytest-fill.ini"
     )
     result = pytester.runpytest(
-        "-c", "pytest-fill.ini", "-v", "--from", "paris", "--until", "paris"
+        "-c",
+        "pytest-fill.ini",
+        "-v",
+        "--from",
+        "SilaParis",
+        "--until",
+        "SilaParis",
     )
-    forks_under_test = forks_from_until(fork_map["Paris"], fork_map["Paris"])
+    forks_under_test = forks_from_until(
+        fork_map["SilaParis"], fork_map["SilaParis"]
+    )
     expected_passed = len(forks_under_test) * len(STATE_TEST_FILL_FORMATS)
     stdout: str = "\n".join(result.stdout.lines)
     assert len(stdout) > 0, "stdout is empty string"
@@ -295,9 +303,9 @@ def test_transition_fork_until_excludes_target(
         "pytest-fill.ini",
         "-v",
         "--from",
-        "OsakaToBPO1AtTime15k",
+        "SilaOsakaToBPO1AtTime15k",
         "--until",
-        "BPO2ToAmsterdamAtTime15k",
+        "BPO2ToSilaAmsterdamAtTime15k",
     )
     stdout = "\n".join(result.stdout.lines)
     # The header line lists the selected fork set; parse it.
@@ -313,8 +321,8 @@ def test_transition_fork_until_excludes_target(
     ]
     # Strip ANSI codes from the last element.
     fork_names[-1] = fork_names[-1].split("\x1b")[0]
-    assert Amsterdam.name() not in fork_names
+    assert SilaAmsterdam.name() not in fork_names
     assert BPO1.name() in fork_names
     assert BPO2.name() in fork_names
-    assert BPO2ToAmsterdamAtTime15k.name() in fork_names
-    assert OsakaToBPO1AtTime15k.name() in fork_names
+    assert BPO2ToSilaAmsterdamAtTime15k.name() in fork_names
+    assert SilaOsakaToBPO1AtTime15k.name() in fork_names

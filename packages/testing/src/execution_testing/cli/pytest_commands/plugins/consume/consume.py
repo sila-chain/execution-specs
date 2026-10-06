@@ -381,8 +381,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
             "release name and version in the form of `NAME@v1.2.3` "
             "(e.g. `tests@v20.0.0` or `bal-devnet@v7.0.0`, with or "
             "without the `tests-` tag prefix, and `latest` is a valid "
-            "version), a bare `latest` or `vX.Y.Z` which resolves the "
-            "sila-mainnet `tests` release, or the special keyword 'stdin'. "
+            "version), or the special keyword 'stdin'. "
             f"Defaults to the following local directory: '{default_input()}'."
         ),
     )
@@ -435,7 +434,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:  # noqa: D103
             "Without the `id:` prefix, the argument is interpreted as a "
             "Python regex pattern. To see which test cases are matched, "
             "without executing them, prefix with `collectonly:`, e.g. "
-            '`--sim.limit "collectonly:.*sip4788.*fork_Prague.*"`. '
+            '`--sim.limit "collectonly:.*sip4788.*fork_SilaPrague.*"`. '
             "To list all available test case IDs, set the value to "
             "`collectonly`."
         ),
@@ -525,14 +524,14 @@ def pytest_configure(config: pytest.Config) -> None:  # noqa: D103
             f"Tests in `{fixture_format.format_name}` format ",
         )
 
-    # All forked defined within EEST
+    # All forked defined within SEST
     all_forks = {
         fork
         for fork in set(get_forks()) | get_transition_forks()
         if not fork.ignore()
     }
     # Append all forks within the index file (compatibility with
-    # `sila/tests`)
+    # `sila-chain/sila-tests`)
     all_forks.update(getattr(index, "forks", []))
     for fork in all_forks:
         config.addinivalue_line(

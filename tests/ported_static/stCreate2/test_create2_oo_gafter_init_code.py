@@ -5,7 +5,7 @@ Ported from:
 state_tests/stCreate2/Create2OOGafterInitCodeFiller.json
 @manually-enhanced: Do not overwrite. The init code RETURNs a 5-byte
 deployed contract; g0 must run out before the deposit (account stays
-NONEXISTENT) and g1 must just clear it (account created). On Cancun
+NONEXISTENT) and g1 must just clear it (account created). On SilaCancun
 the deploy gap is the 1000-gas regular code deposit and the test's
 two budgets straddle it. SIP-8037/8038 move account creation into a
 spilling state-gas charge AND drop OPCODE_CREATE_BASE, so the budget
@@ -25,7 +25,7 @@ from execution_testing import (
     StateTestFiller,
     Transaction,
 )
-from execution_testing.forks import Cancun, Fork
+from execution_testing.forks import Fork, SilaCancun
 from execution_testing.vm import Op
 
 from tests.ported_static.post_state_resolution import (
@@ -39,7 +39,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/Create2OOGafterInitCodeFiller.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -95,7 +95,7 @@ def test_create2_oo_gafter_init_code(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": -1, "gas": 0, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={1: 0}),
                 Address(
@@ -105,7 +105,7 @@ def test_create2_oo_gafter_init_code(
         },
         {
             "indexes": {"data": -1, "gas": 1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(storage={1: 0}),
                 Address(0x6878B140F875209C82AB4D5F083B55947299EF6B): Account(
@@ -121,28 +121,28 @@ def test_create2_oo_gafter_init_code(
         Bytes(""),
     ]
     # The init code RETURNs a 5-byte deployed contract, so the CREATE2
-    # frame is charged a code deposit after the init RETURN. On Cancun
+    # frame is charged a code deposit after the init RETURN. On SilaCancun
     # that deposit is 1000 (200 * 5 regular) and the two budgets below
     # straddle it: g0 reaches RETURN just under 1000 gas (deploy fails,
     # account NONEXISTENT) and g1 just over (deploy succeeds). The
-    # 1000-gas gap between the budgets is exactly this Cancun deploy
+    # 1000-gas gap between the budgets is exactly this SilaCancun deploy
     # threshold.
     #
     # SIP-8037/8038 change the CREATE2 dispatch in two ways that the
     # budget must absorb before the init code RETURNs: the new
     # `create_state_gas()` spills into regular gas (empty reservoir),
-    # and `OPCODE_CREATE_BASE` drops from its Cancun value.
+    # and `OPCODE_CREATE_BASE` drops from its SilaCancun value.
     # Their sum is the net extra the dispatch consumes from the budget.
     # The deposit step then changes too: its regular `CODE_DEPOSIT_PER_BYTE
     # * 5` portion is now covered by the state-gas reservoir credited at
     # dispatch, while `code_deposit_state_gas(code_size=5)` spills and
     # must come from the forwarded gas instead. The lift restores the
-    # Cancun straddle by funding the net dispatch consumption plus the
+    # SilaCancun straddle by funding the net dispatch consumption plus the
     # deposit's state spill, minus the regular deposit the budgets
     # already carried in their 1000-gas gap. Every term is 0
-    # pre-SIP-8037, so the original Cancun behavior is preserved.
+    # pre-SIP-8037, so the original SilaCancun behavior is preserved.
     gas_costs = fork.gas_costs()
-    _cancun_create_base = Cancun.gas_costs().OPCODE_CREATE_BASE
+    _cancun_create_base = SilaCancun.gas_costs().OPCODE_CREATE_BASE
     _deploy_size = 5
     _oog_lift = 0
     if fork.is_sip_enabled(8037):
@@ -156,10 +156,12 @@ def test_create2_oo_gafter_init_code(
     # SIP-2780 reshapes the tx intrinsic for non-self non-value txs:
     # ``TX_BASE`` drops and an explicit ``COLD_ACCOUNT_ACCESS``
     # recipient charge is added. The original test was built against
-    # Cancun's flat ``TX_BASE``, so shift the budget by the intrinsic
+    # SilaCancun's flat ``TX_BASE``, so shift the budget by the intrinsic
     # delta to keep the straddle landing at the same RETURN point.
     intrinsic = fork.transaction_intrinsic_cost_calculator()()
-    _oog_lift += intrinsic - Cancun.transaction_intrinsic_cost_calculator()()
+    _oog_lift += (
+        intrinsic - SilaCancun.transaction_intrinsic_cost_calculator()()
+    )
     tx_gas = [54000 + _oog_lift, 55000 + _oog_lift]
 
     tx = Transaction(

@@ -18,7 +18,7 @@ The trie has three kinds of internal node:
 
 Keys are processed as **nibbles** (half-bytes, each `0` to `15` inclusive)
 by [`bytes_to_nibble_list`][bnl], and stored within nodes in a compressed
-[hex-prefix encoding][hp] produced by [`nibble_list_to_compact`][nlc].
+hex-prefix encoding produced by [`nibble_list_to_compact`][nlc].
 
 Some tries are _secured_, meaning their keys are hashed with [`keccak256`]
 before insertion. Hashing distributes keys uniformly so adversarial choices
@@ -36,7 +36,6 @@ function reduces a trie to its 32-byte commitment.
 [bnl]: ref:sila.merkle_patricia_trie.bytes_to_nibble_list
 [nlc]: ref:sila.merkle_patricia_trie.nibble_list_to_compact
 [`keccak256`]: ref:sila.crypto.hash.keccak256
-[hp]: https://sila.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/#optimization
 """  # noqa: E501
 
 from __future__ import annotations

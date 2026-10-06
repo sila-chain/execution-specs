@@ -4,7 +4,7 @@ SIP-7928: Block-Level Access Lists.
 Enforced block access lists with state locations and post-transaction state
 diffs.
 
-https://sips.sila.org/SIPS/sip-7928
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7928.md
 """
 
 from dataclasses import replace

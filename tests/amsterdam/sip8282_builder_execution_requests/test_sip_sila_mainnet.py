@@ -1,5 +1,5 @@
 """
-Crafted tests for sila-mainnet of [SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+Crafted tests for sila-mainnet of [SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 """
 
 from typing import List
@@ -19,7 +19,7 @@ from .spec import ref_spec_8282
 REFERENCE_SPEC_GIT_PATH = ref_spec_8282.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8282.version
 
-pytestmark = [pytest.mark.valid_at("Amsterdam"), pytest.mark.sila_mainnet]
+pytestmark = [pytest.mark.valid_at("SilaAmsterdam"), pytest.mark.sila_mainnet]
 
 MIN_DEPOSIT_GWEI = BuilderDepositRequest.min_deposit_wei // 10**9
 

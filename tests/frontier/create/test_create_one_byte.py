@@ -17,14 +17,13 @@ from execution_testing import (
     Transaction,
     compute_create_address,
 )
-from execution_testing.forks import London
+from execution_testing.forks import SilaLondon
 
 
 @pytest.mark.ported_from(
     [
-        "https://github.com/sila/tests/blob/v13.3/src/GeneralStateTestsFiller/stCreateTest/CREATE_FirstByte_loopFiller.yml",
+        "https://github.com/sila-chain/sila-tests/blob/main/src/GeneralStateTestsFiller/stCreateTest/CREATE_FirstByte_loopFiller.yml",
     ],
-    pr=["https://github.com/sila/execution-spec-tests/pull/1615"],
     coverage_missed_reason=(
         "coinbase is deleted in original test (tx.gas_price==env.base_fee), "
         "opcodes lt, iszero, jump are no longer used"
@@ -32,7 +31,7 @@ from execution_testing.forks import London
 )
 @pytest.mark.valid_from("Frontier")
 @pytest.mark.with_all_create_opcodes
-@pytest.mark.eels_base_coverage
+@pytest.mark.sels_base_coverage
 def test_create_one_byte(
     state_test: StateTestFiller,
     fork: Fork,
@@ -88,7 +87,7 @@ def test_create_one_byte(
 
     created_accounts: dict[int, Address] = {}
     for opcode, opcode_init in initcode.items():
-        ef_exception = opcode == 239 and fork >= London
+        ef_exception = opcode == 239 and fork >= SilaLondon
         created_accounts[opcode] = compute_create_address(
             address=create_contract,
             salt=0,
@@ -110,7 +109,7 @@ def test_create_one_byte(
         code: Account(storage=expect_post),
     }
     for opcode, _ in initcode.items():
-        ef_exception = opcode == 239 and fork >= London
+        ef_exception = opcode == 239 and fork >= SilaLondon
         if not ef_exception:
             post[created_accounts[opcode]] = Account(
                 code=bytes.fromhex(f"{opcode:02x}")

@@ -4,7 +4,7 @@ SIP-3860: Limit and meter initcode.
 Limit the maximum size of initcode to 49152 and apply extra gas cost of 2 for
 every 32-byte chunk of initcode.
 
-https://sips.sila.org/SIPS/sip-3860
+https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-3860.md
 """
 
 from dataclasses import replace

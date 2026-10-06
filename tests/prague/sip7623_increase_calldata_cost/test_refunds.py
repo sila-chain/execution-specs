@@ -1,5 +1,5 @@
 """
-Test [SIP-7623: Increase calldata cost](https://sips.sila.org/SIPS/sip-7623).
+Test [SIP-7623: Increase calldata cost](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7623.md).
 """
 
 from enum import Enum, Flag, auto
@@ -19,7 +19,7 @@ from execution_testing import (
     Transaction,
     TransactionReceipt,
 )
-from execution_testing.forks import Prague
+from execution_testing.forks import SilaPrague
 
 from .helpers import DataTestType
 from .spec import ref_spec_7623
@@ -27,7 +27,7 @@ from .spec import ref_spec_7623
 REFERENCE_SPEC_GIT_PATH = ref_spec_7623.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7623.version
 
-ENABLE_FORK = Prague
+ENABLE_FORK = SilaPrague
 pytestmark = [pytest.mark.valid_from(str(ENABLE_FORK))]
 
 
@@ -380,7 +380,7 @@ def test_gas_refunds_from_data_floor(
     SIP-8037 / SIP-2780: existing-authority auths pay `ACCOUNT_WRITE` and
     `AUTH_BASE` before the first frame with no auth refund; only storage-clear
     refunds remain in `refund_counter`. Receipt `cumulative_gas_used` is the
-    sum of intrinsic execution, top-frame execution/state, and EVM gas, minus
+    sum of intrinsic execution, top-frame execution/state, and Sivm gas, minus
     the capped storage refund, then floored by SIP-7623.
     """
     gas_used = (

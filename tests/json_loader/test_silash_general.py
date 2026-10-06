@@ -297,9 +297,9 @@ Some tests require a copy of the go-sila client binary to generate required
 data.
 
 The tool `scripts/download_gsil_linux.py` can fetch the appropriate version, or
-you can download gsil from:
+you can build gsil from:
 
-    https://gsil.sila.org/downloads/
+    https://github.com/sila-chain/go-sila
 
 Make sure you add the directory containing `gsil` to your PATH, then try
 running the tests again.

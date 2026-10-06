@@ -4,7 +4,7 @@ Collision with the contract that already has the same init code that we...
 Ported from:
 state_tests/stCreate2/create2collisionCode2Filler.json
 
-@manually-enhanced: Do not overwrite. `tx_gas` raised on Amsterdam to
+@manually-enhanced: Do not overwrite. `tx_gas` raised on SilaAmsterdam to
 cover SIP-8037 NEW_ACCOUNT state-gas spill into regular gas. Pre-
 SIP-8037 keeps the original 400 000 budget; post-state expectations
 unchanged on all forks.
@@ -36,7 +36,7 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stCreate2/create2collisionCode2Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.parametrize(
     "d, g, v",
     [
@@ -91,7 +91,7 @@ def test_create2collision_code2(
     expect_entries_: list[dict] = [
         {
             "indexes": {"data": 0, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     code=bytes.fromhex("010203"), balance=0, nonce=1
@@ -104,7 +104,7 @@ def test_create2collision_code2(
         },
         {
             "indexes": {"data": 1, "gas": -1, "value": -1},
-            "network": [">=Cancun"],
+            "network": [">=SilaCancun"],
             "result": {
                 contract_0: Account(
                     code=bytes.fromhex("010203"), balance=0, nonce=1
@@ -127,7 +127,7 @@ def test_create2collision_code2(
         + Op.CREATE2(value=0x1, offset=0x14, size=0xC, salt=0x0)
         + Op.STOP,
     ]
-    # SIP-8037 NEW_ACCOUNT state-gas spill on Amsterdam exceeds
+    # SIP-8037 NEW_ACCOUNT state-gas spill on SilaAmsterdam exceeds
     # the original 400 000 budget. Pre-SIP-8037 keeps the original.
     outer_tx_gas = 400000
     if fork.is_sip_enabled(8037):

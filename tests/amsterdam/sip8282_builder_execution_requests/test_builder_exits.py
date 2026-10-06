@@ -1,6 +1,6 @@
 """
 Builder exit request tests for
-[SIP-8282: Builder Execution Requests](https://sips.sila.org/SIPS/sip-8282).
+[SIP-8282: Builder Execution Requests](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-8282.md).
 """
 
 from typing import List
@@ -30,7 +30,7 @@ REFERENCE_SPEC_GIT_PATH = ref_spec_8282.git_path
 REFERENCE_SPEC_VERSION = ref_spec_8282.version
 
 pytestmark = [
-    pytest.mark.valid_from("Amsterdam"),
+    pytest.mark.valid_from("SilaAmsterdam"),
     # The cases assume the predeploy at its genesis state: no balance and
     # the fee at its minimum.
     pytest.mark.execute(

@@ -1,11 +1,11 @@
 """
 Tests P256VERIFY precompiles of [SIP-7951: Precompile for secp256r1
-Curve Support](https://sips.sila.org/SIPS/sip-7951).
+Curve Support](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md).
 
 Tests P256VERIFY
 precompiles of [SIP-7951: Precompile for secp256r1 Curve
-Support](https://sips.sila.org/SIPS/sip-7951) before the Osaka hard fork is
-active.
+Support](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7951.md)
+before the SilaOsaka hard fork is active.
 """
 
 import pytest
@@ -23,7 +23,7 @@ from .spec import Spec, ref_spec_7951
 REFERENCE_SPEC_GIT_PATH = ref_spec_7951.git_path
 REFERENCE_SPEC_VERSION = ref_spec_7951.version
 
-pytestmark = pytest.mark.valid_at_transition_to("Osaka")
+pytestmark = pytest.mark.valid_at_transition_to("SilaOsaka")
 
 
 @pytest.fixture
@@ -73,7 +73,7 @@ def test_precompile_before_fork(
     tx: Transaction,
 ) -> None:
     """
-    Test P256VERIFY precompiles before the Osaka hard fork is active.
+    Test P256VERIFY precompiles before the SilaOsaka hard fork is active.
 
     The call must succeed but the output must be empty.
     """

@@ -1,5 +1,5 @@
 """
-Gsil Failed this test on Frontier and Homestead.
+Gsil Failed this test on Frontier and SilaHomestead.
 
 Ported from:
 state_tests/stRandom2/randomStatetest644Filler.json
@@ -25,14 +25,14 @@ REFERENCE_SPEC_VERSION = "N/A"
 @pytest.mark.ported_from(
     ["state_tests/stRandom2/randomStatetest644Filler.json"],
 )
-@pytest.mark.valid_from("Cancun")
+@pytest.mark.valid_from("SilaCancun")
 @pytest.mark.pre_alloc_mutable
 def test_random_statetest644(
     state_test: StateTestFiller,
     pre: Alloc,
     fork: Fork,
 ) -> None:
-    """Gsil Failed this test on Frontier and Homestead."""
+    """Gsil Failed this test on Frontier and SilaHomestead."""
     coinbase = Address(0x02EBBA385BD7F6DDE6C57E2D3929A11A1EA0DA7E)
     sender = pre.fund_eoa(amount=0x236D08FE524712CB)
 

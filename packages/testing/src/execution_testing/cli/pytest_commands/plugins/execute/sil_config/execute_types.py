@@ -269,7 +269,20 @@ class GenesisConfig(CamelModel):
         "sip155": None,
         "sip158": None,
         "petersburg": None,
-        "mergeNetsplit": "paris",
+        "mergeNetsplit": "SilaParis",
+        # Genesis config keys of the Sila forks, as emitted by Gsil-type
+        # clients (e.g. "shanghaiTime", "blobSchedule.cancun").
+        "homestead": "SilaHomestead",
+        "byzantium": "SilaByzantium",
+        "constantinople": "SilaConstantinople",
+        "istanbul": "SilaIstanbul",
+        "berlin": "SilaBerlin",
+        "london": "SilaLondon",
+        "shanghai": "SilaShanghai",
+        "cancun": "SilaCancun",
+        "prague": "SilaPrague",
+        "osaka": "SilaOsaka",
+        "amsterdam": "SilaAmsterdam",
     }
 
     @property
@@ -339,6 +352,12 @@ class GenesisConfig(CamelModel):
                     fork_activation_times[stripped_key] = data.pop(key)
             if fork_activation_times:
                 data["forkActivationTimes"] = fork_activation_times
+            blob_schedule = data.get("blobSchedule")
+            if isinstance(blob_schedule, dict):
+                data["blobSchedule"] = {
+                    cls.fork_synonyms.get(key) or key: value
+                    for key, value in blob_schedule.items()
+                }
         return data
 
 
