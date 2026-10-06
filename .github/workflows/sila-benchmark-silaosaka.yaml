@@ -195,14 +195,47 @@ jobs:
           name: pre-alloc-groups
           path: out/blockchain_tests_engine_x/pre_alloc
       - name: Phase 2 (fixtures)
+        env:
+          # Diagnostic only: the runner of this shard was shut down at the
+          # same item (669/714) twice without a test failure. Log memory,
+          # cgroup and pressure state and the running tests every 5 seconds.
+          TELEMETRY: ${{ matrix.gas == 150 && matrix.group == '3' }}
         run: |
           chmod +x bin/sivmone
+          verbose=""
+          if [ "$TELEMETRY" = "true" ]; then
+            verbose="-v"
+            cg="/sys/fs/cgroup$(cut -d: -f3 /proc/self/cgroup)"
+            (
+              while true; do
+                echo "== telemetry $(date -u +%H:%M:%S)"
+                grep -E '^(MemTotal|MemAvailable|MemFree|SwapFree):' /proc/meminfo | tr -s ' ' | paste -sd' '
+                grep -E '^oom_kill ' /proc/vmstat || true
+                for d in /sys/fs/cgroup "$cg"; do
+                  for f in memory.current memory.max memory.events; do
+                    [ -r "$d/$f" ] && echo "$d/$f: $(paste -sd' ' "$d/$f")"
+                  done
+                done
+                [ -r /proc/pressure/memory ] && echo "psi: $(paste -sd' ' /proc/pressure/memory)"
+                ps -eo pid,ppid,rss,args --sort=-rss | head -8 | cut -c1-200
+                ps -eo rss,args | awk '/sys.stdin.readline/ && !/awk/ {w += $1} /bin\/sivmone/ && !/awk/ {s += $1} END {printf "rss_mb pytest_workers=%d sivmone=%d\n", w / 1024, s / 1024}'
+                df -h / | tail -1
+                for l in logs/*-gw*.log; do
+                  [ -f "$l" ] && echo "$(basename "$l"): $(grep -E 'START TEST|END TEST' "$l" | tail -1 | sed -E 's/.*(START|END) TEST: /\1 /' | cut -c1-240)"
+                done
+                sleep 5
+              done
+            ) &
+            telemetry=$!
+          fi
           # Every worker loads the merged pre-allocation groups; two keep
           # the runner within its memory.
+          # shellcheck disable=SC2086
           uv run python .github/scripts/sila_benchmark_phase.py 2 \
             --evm-bin="$PWD/bin/sivmone" --fork="$FORK" \
             --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
-            --generate-all-formats -n 2 --output=out ${{ matrix.modules }}
+            --generate-all-formats -n 2 --output=out $verbose ${{ matrix.modules }}
+          if [ -n "${telemetry:-}" ]; then kill "$telemetry"; fi
           rm -rf out/blockchain_tests_engine_x/pre_alloc
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
