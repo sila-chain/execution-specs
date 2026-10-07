@@ -1,0 +1,273 @@
+# Reference regeneration of benchmark@v0.0.7 from its own source.
+#
+# Checks out 35f83db2 (refs/tags/tests-benchmark@v0.0.7) with no source
+# change, builds evmone-t8n at dd558765 (the t8n the release names) with
+# its own pinned dependencies, and fills `--fork=Osaka
+# --gas-benchmark-values 1,5,10,30,60,100,150 -m benchmark ./tests/benchmark`
+# with all fixture formats, sharded by module group and gas value exactly
+# like the Sila evidence workflow (one worker for the 150M group 3 shard,
+# two elsewhere). The result is compared with the released fixtures; it is
+# a workflow artifact only: no tag, no release.
+name: benchmark v0.0.7 reference (evidence)
+
+on:
+  push:
+    branches:
+      - sila/benchmark-v007-reference
+
+permissions:
+  contents: read
+
+env:
+  EVMONE_REPO: ethereum/evmone
+  EVMONE_REF: dd558765606560985afa7d00ec0cc95fd0023b20
+  FORK: Osaka
+  GAS_VALUES: 1,5,10,30,60,100,150
+  UV_FROZEN: "1"
+
+jobs:
+  evmone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: ${{ env.EVMONE_REPO }}
+          ref: ${{ env.EVMONE_REF }}
+          path: evmone
+          submodules: true
+      - name: Build evmone-t8n
+        run: |
+          cmake -S evmone -B evmone/build -DCMAKE_BUILD_TYPE=Release \
+            -DEVMONE_TESTING=ON -DBUILD_SHARED_LIBS=OFF
+          cmake --build evmone/build --parallel --target evmone-t8n
+          evmone/build/bin/evmone-t8n --version
+          ! ldd evmone/build/bin/evmone-t8n | grep -q libevmone
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: evmone-t8n
+          path: evmone/build/bin/evmone-t8n
+
+  coverage:
+    # Every module collected for the fill must be in exactly one group.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.12"
+      - name: Check the module groups
+        run: |
+          uv run fill --collect-only -q --fork="$FORK" \
+            --gas-benchmark-values "$GAS_VALUES" -m benchmark \
+            ./tests/benchmark > collected.txt
+          grep -c "::" collected.txt
+          grep "::" collected.txt | cut -d: -f1 | sort -u > collected_modules.txt
+          uv run python - <<'EOF'
+          import yaml
+          wf = yaml.safe_load(open(".github/workflows/sila-benchmark-v007-reference.yaml"))
+          groups = wf["jobs"]["phase1"]["strategy"]["matrix"]["include"]
+          modules = [m for g in groups for m in g["modules"].split()]
+          assert len(modules) == len(set(modules)), "module in two groups"
+          collected = set(open("collected_modules.txt").read().split())
+          assert set(modules) == collected, (
+              sorted(collected - set(modules)), sorted(set(modules) - collected)
+          )
+          print(len(modules), "modules covered")
+          EOF
+
+  phase1:
+    needs: [evmone, coverage]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        gas: [1, 5, 10, 30, 60, 100, 150]
+        group: ["0", "1", "2", "3"]
+        include: &groups
+          - group: "0"
+            modules: >-
+              tests/benchmark/compute/instruction/test_call_context.py
+              tests/benchmark/compute/instruction/test_storage.py
+              tests/benchmark/compute/instruction/test_arithmetic.py
+              tests/benchmark/compute/scenario/test_transaction_types.py
+              tests/benchmark/compute/instruction/test_comparison.py
+              tests/benchmark/compute/precompile/test_ripemd160.py
+              tests/benchmark/compute/precompile/test_ecrecover.py
+          - group: "1"
+            modules: >-
+              tests/benchmark/compute/instruction/test_memory.py
+              tests/benchmark/compute/instruction/test_system.py
+              tests/benchmark/compute/instruction/test_keccak.py
+              tests/benchmark/compute/instruction/test_block_context.py
+              tests/benchmark/compute/instruction/test_control_flow.py
+              tests/benchmark/compute/precompile/test_blake2f.py
+              tests/benchmark/compute/instruction/test_tx_context.py
+              tests/benchmark/compute/precompile/test_point_evaluation.py
+          - group: "2"
+            modules: >-
+              tests/benchmark/compute/instruction/test_log.py
+              tests/benchmark/compute/instruction/test_stack.py
+              tests/benchmark/compute/precompile/test_bls12_381.py
+              tests/benchmark/compute/scenario/test_mix_operations.py
+              tests/benchmark/compute/precompile/test_sha256.py
+          - group: "3"
+            modules: >-
+              tests/benchmark/compute/instruction/test_account_query.py
+              tests/benchmark/compute/precompile/test_modexp.py
+              tests/benchmark/compute/precompile/test_alt_bn128.py
+              tests/benchmark/compute/instruction/test_bitwise.py
+              tests/benchmark/compute/scenario/test_unchunkified_bytecode.py
+              tests/benchmark/compute/precompile/test_identity.py
+              tests/benchmark/compute/precompile/test_p256verify.py
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: evmone-t8n
+          path: bin
+      - name: Phase 1 (pre-allocation groups)
+        run: |
+          set -o pipefail
+          chmod +x bin/evmone-t8n
+          uv run python .github/scripts/sila_benchmark_phase.py 1 \
+            --evm-bin="$PWD/bin/evmone-t8n" --fork="$FORK" \
+            --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
+            --generate-all-formats -n auto --output=out ${{ matrix.modules }} \
+            2>&1 | tee phase1.log
+          mkdir -p stats && grep -E "[0-9]+ (passed|failed|skipped|error)|items\]" phase1.log > stats/phase1.txt || true
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: phase1-${{ matrix.group }}-${{ matrix.gas }}
+          path: out/blockchain_tests_engine_x/pre_alloc
+          if-no-files-found: error
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: stats1-${{ matrix.group }}-${{ matrix.gas }}
+          path: stats
+
+  groups:
+    needs: phase1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: phase1-*
+          path: phase1
+      - name: Merge the pre-allocation groups
+        run: |
+          for d in phase1/*; do
+            mkdir -p "shards/$(basename "$d")/blockchain_tests_engine_x"
+            mv "$d" "shards/$(basename "$d")/blockchain_tests_engine_x/pre_alloc"
+          done
+          uv run python .github/scripts/sila_benchmark_merge.py groups merged shards/*
+          ls merged/blockchain_tests_engine_x/pre_alloc
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: merged/blockchain_tests_engine_x/pre_alloc
+          if-no-files-found: error
+
+  phase2:
+    needs: groups
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        gas: [1, 5, 10, 30, 60, 100, 150]
+        group: ["0", "1", "2", "3"]
+        include: *groups
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: evmone-t8n
+          path: bin
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: out/blockchain_tests_engine_x/pre_alloc
+      - name: Phase 2 (fixtures)
+        env:
+          # As in the Sila evidence workflow: the 150M group 3 shard runs
+          # with one worker to stay within the hosted runner's memory.
+          WORKERS: ${{ (matrix.gas == 150 && matrix.group == '3') && 1 || 2 }}
+        run: |
+          set -o pipefail
+          chmod +x bin/evmone-t8n
+          uv run python .github/scripts/sila_benchmark_phase.py 2 \
+            --evm-bin="$PWD/bin/evmone-t8n" --fork="$FORK" \
+            --gas-benchmark-values ${{ matrix.gas }} -m benchmark --no-html \
+            --generate-all-formats -n "$WORKERS" --output=out ${{ matrix.modules }} \
+            2>&1 | tee phase2.log
+          rm -rf out/blockchain_tests_engine_x/pre_alloc
+          mkdir -p stats && grep -E "[0-9]+ (passed|failed|skipped|error)|items\]" phase2.log > stats/phase2.txt || true
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: phase2-${{ matrix.group }}-${{ matrix.gas }}
+          path: out
+          include-hidden-files: true
+          if-no-files-found: error
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: stats2-${{ matrix.group }}-${{ matrix.gas }}
+          path: stats
+
+  combine:
+    needs: phase2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: astral-sh/setup-uv@e06108dd0aef18192324c70427afc47652e63a82 # v7.5.0
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: phase2-*
+          path: phase2
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: pre-alloc-groups
+          path: pre_alloc
+      - name: Merge the fixtures and build the archive
+        run: |
+          uv run python .github/scripts/sila_benchmark_merge.py fixtures fixtures phase2/*
+          mkdir -p fixtures/.meta fixtures/blockchain_tests_engine_x
+          cp "$(ls -d phase2/* | head -1)/.meta/fixtures.ini" fixtures/.meta/
+          cp -r pre_alloc fixtures/blockchain_tests_engine_x/pre_alloc
+          uv run genindex --input fixtures --quiet
+          for f in blockchain_tests blockchain_tests_engine blockchain_tests_engine_x; do
+            printf '%s: ' "$f"
+            find "fixtures/$f" -name '*.json' -not -path '*/pre_alloc/*' \
+              -exec python3 -c 'import json,sys; print(sum(len(json.load(open(p))) for p in sys.argv[1:]))' {} + \
+              | awk '{s+=$1} END {print s}'
+          done | tee counts.txt
+          tar -czf fixtures_benchmark.tar.gz fixtures
+          sha256sum fixtures_benchmark.tar.gz | tee fixtures_benchmark.tar.gz.sha256
+          {
+            echo "source: $GITHUB_SHA"
+            echo "evmone: $EVMONE_REPO@$EVMONE_REF"
+            cat counts.txt fixtures_benchmark.tar.gz.sha256
+          } > provenance.txt
+          cat provenance.txt >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: fixtures_benchmark-v007-reference
+          path: |
+            fixtures_benchmark.tar.gz
+            fixtures_benchmark.tar.gz.sha256
+            provenance.txt
+          if-no-files-found: error
